@@ -1,3 +1,6 @@
 # Talus Web Backend
-  php >= 8.1x (with mbstring extension)
-  laravel >= 9x
+- No ssh support for current host(cpanel host), only ftp server.
+
+# :exclamation: Requirements 
+- php >= 8.1x
+- laravel >= 9x 
