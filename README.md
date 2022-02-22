@@ -11,6 +11,6 @@
   - "php artisan key:generate"
   - "php artisan serve"
 
-👍 Recommended Dev Setup
+# 👍 Recommended Development Environment
 - https://www.apachefriends.org/tr/index.html
 
