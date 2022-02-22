@@ -10,3 +10,7 @@
 - Populate ".env" contents.
   - "php artisan key:generate"
   - "php artisan serve"
+
+👍 Recommended Dev Setup
+- https://www.apachefriends.org/tr/index.html
+
