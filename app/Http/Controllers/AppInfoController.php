@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AppInfo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AppInfoController extends Controller
 {
@@ -17,6 +18,22 @@ class AppInfoController extends Controller
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'app_name' => 'required',
+            'app_bundle' => 'required',
+            'fb_app_id' => 'required',
+            'elephant_id' => 'required',
+            'elephant_secret' => 'required'
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json([
+               'status_code' => 400,
+               'message' => $validator->messages()->first()
+            ]);
+        }
+
         $appInfo = new AppInfo();
         $appInfo->app_name = $request->app_name;
         $appInfo->app_bundle = $request->app_bundle;
@@ -26,13 +43,29 @@ class AppInfoController extends Controller
         $appInfo->save();
 
         return response()->json([
-           'status' => $appInfo->exists ? 200 : 205
+            'status_code' => 200
         ]);
     }
 
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'app_name' => 'required',
+            'app_bundle' => 'required',
+            'fb_app_id' => 'required',
+            'elephant_id' => 'required',
+            'elephant_secret' => 'required'
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'status_code' => 400,
+                'message' => $validator->messages()->first()
+            ]);
+        }
+
         $appInfo = new AppInfo();
         $appInfo->app_name = $request->app_name;
         $appInfo->app_bundle = $request->app_bundle;
@@ -42,7 +75,7 @@ class AppInfoController extends Controller
         $appInfo->save();
 
         return response()->json([
-            'status' => $appInfo->exists ? 200 : 205
+            'status' => 200
         ]);
     }
 
