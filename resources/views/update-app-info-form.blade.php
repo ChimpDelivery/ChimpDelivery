@@ -11,15 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    @if(session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-    @if($errors->any())
-        {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
-    @endif
+<div class="container-fluid">
     <ul class="nav justify-content-end nav-pills">
         <li class="nav-item">
             <a class="nav-link font-weight-bold" href="/dashboard">Home</a>
@@ -34,7 +26,17 @@
             <a class="nav-link font-weight-bold font-italic disabled" href="/dashboard/ci">Build App</a>
         </li>
     </ul>
-    <br/>
+</div>
+</br>
+<div class="container">
+    @if(session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if($errors->any())
+        {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+    @endif
     <div class="card">
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$id.'/update')}}" enctype="multipart/form-data">
