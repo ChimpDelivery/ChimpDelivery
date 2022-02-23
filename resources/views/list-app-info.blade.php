@@ -39,35 +39,35 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">App Icon</th>
-                <th scope="col">App Name</th>
-                <th scope="col">App Bundle</th>
-                <th scope="col">Facebook App ID</th>
-                <th scope="col">Elephant ID</th>
-                <th scope="col">Elephant Secret</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">App Icon</th>
+                <th scope="col" class="text-center">App Name</th>
+                <th scope="col" class="text-center">App Bundle</th>
+                <th scope="col" class="text-center">Facebook App ID</th>
+                <th scope="col" class="text-center">Elephant ID</th>
+                <th scope="col" class="text-center">Elephant Secret</th>
+                <th scope="col" class="text-center font-italic">Edit App</th>
+                <th scope="col" class="text-center font-italic">Delete App</th>
             </tr>
             </thead>
             <tbody>
             @foreach($appInfos as $appInfo)
                 <tr>
-                    <th scope="row">{{ $appInfo->id }}</th>
-                    <td><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail"/></td>
-                    <td>{{ $appInfo->app_name }}</td>
-                    <td>{{ $appInfo->app_bundle}}</td>
-                    <td>{{ $appInfo->fb_app_id }}</td>
-                    <td>{{ $appInfo->elephant_id }}</td>
-                    <td>{{ $appInfo->elephant_secret }}</td>
-                    <td>
+                    <th scope="row" class="text-center align-middle">{{ $appInfo->id }}</th>
+                    <td class="text-center align-middle"><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail"/></td>
+                    <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
+                    <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
+                    <td class="text-center align-middle">{{ $appInfo->fb_app_id }}</td>
+                    <td class="text-center align-middle">{{ $appInfo->elephant_id }}</td>
+                    <td class="text-center align-middle">{{ $appInfo->elephant_secret }}</td>
+                    <td class="text-center align-middle">
                         <a href="dashboard/update-app-info/{{$appInfo->id}}">
-                            <button class="btn text-white bg-primary">
+                            <button class="btn text-white bg-warning">
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center align-middle">
                         <form name="delete-app-info-form" id="delete-app-info-form" method="post" action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
                         @csrf
                             <a href="dashboard/delete-app-info/{{$appInfo->id}}">
