@@ -8,9 +8,10 @@
     <title>Talus Studio - Add App Info</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="container-fluid bg-dark">
+<div class="container">
     @if(session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -30,39 +31,46 @@
             <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Add App</a>
         </li>
     </ul>
-    <div class="card">
-        <div class="card-header text-center font-weight-bold">
-            <h4 class="font-weight-bold">Talus Studio - Apps</h4>
-        </div>
-        <div class="card-body">
-            @csrf
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col"><span class="font-weight-bold">#</span></div>
-                    <div class="col bg-dark"><span class="text-white font-weight-bold">App Icon</span></div>
-                    <div class="col-2 bg-danger"><span class="text-white font-weight-bold">App Name</span></div>
-                    <div class="col-2 bg-success"><span class="text-white font-weight-bold">App Bundle</span></div>
-                    <div class="col-2 bg-primary"><span class="text-white font-weight-bold">Facebook App ID</span></div>
-                    <div class="col-2 bg-warning"><span class="text-white font-weight-bold">Elephant ID</span></div>
-                    <div class="col-2 bg-secondary"><span class="text-white font-weight-bold">Elephant Secret</span></div>
-                </div>
-                @foreach($appInfos as $appInfo)
-                <div class="row">
-                    <div class="col">{{ $appInfo->id }}</div>
-                    <div class="col">{{ $appInfo->app_icon }}</div>
-                    <div class="col-2">{{ $appInfo->app_name }}</div>
-                    <div class="col-2">{{ $appInfo->app_bundle}}</div>
-                    <div class="col-2">{{ $appInfo->fb_app_id }}</div>
-                    <div class="col-2">{{ $appInfo->elephant_id }}</div>
-                    <div class="col-2">{{ $appInfo->elephant_secret }}</div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="card-footer text-muted text-center">
-            app count: {{ count($appInfos) }}, last update: 2 days ago
-        </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">App Icon</th>
+                <th scope="col">App Name</th>
+                <th scope="col">App Bundle</th>
+                <th scope="col">Facebook App ID</th>
+                <th scope="col">Elephant ID</th>
+                <th scope="col">Elephant Secret</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($appInfos as $appInfo)
+                <tr>
+                    <th scope="row">{{ $appInfo->id }}</th>
+                    <td>{{ $appInfo->app_icon }}</td>
+                    <td>{{ $appInfo->app_name }}</td>
+                    <td>{{ $appInfo->app_bundle}}</td>
+                    <td>{{ $appInfo->fb_app_id }}</td>
+                    <td>{{ $appInfo->elephant_id }}</td>
+                    <td>{{ $appInfo->elephant_secret }}</td>
+                    <td>
+                        <button class="btn text-white bg-primary"><i class="fa fa-pencil"></i></button>
+                        <button class="btn text-white bg-danger" disabled><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
+
+<footer class="page-footer font-small blue fixed-bottom">
+    <div class="footer-copyright text-center py-3 text-muted bg-primary">
+        <span class="text-white font-weight-bold font-italic">app count: {{ count($appInfos) }}, last update: 2 days ago</span>
+    </div>
+</footer>
 </div>
 </body>
 </html>
