@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::controller(AppInfoController::class)->group(function () {
+    Route::get('appinfo', 'index');
+    Route::get('appinfo/{id}', 'show');
+    Route::post('appinfo', 'store');
+    Route::get('appinfo/create', action: 'create');
+    Route::get('appinfo/{id}/edit', 'edit');
+    Route::put('appinfo/{id}', 'update');
+    Route::delete('appinfo/{id}', 'destroy');
+});
+
 
