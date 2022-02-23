@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
-use Illuminate\Http\JsonResponse;
+
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class AppInfoController extends Controller
 {
@@ -14,7 +15,6 @@ class AppInfoController extends Controller
     {
         return view('add-app-info-form');
     }
-
 
     public function create(AppInfoRequest $request)
     {
@@ -62,20 +62,26 @@ class AppInfoController extends Controller
     }
 
 
-    public function edit(AppInfo $appInfo)
+    public function edit(AppInfoRequest $request)
     {
-
+        return response()->json([
+            'not_implemented' => true
+        ]);
     }
 
 
-    public function update(Request $request, AppInfo $appInfo)
+    public function update(AppInfoRequest $request)
     {
-
+        return response()->json([
+            'not_implemented' => true
+        ]);
     }
 
 
-    public function destroy(AppInfo $appInfo)
+    public function destroy(AppInfoRequest $request)
     {
-
+        return response()->json([
+            'not_implemented' => true
+        ]);
     }
 }

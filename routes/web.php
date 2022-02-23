@@ -20,6 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/dashboard/add-app-info', [AppInfoController::class, 'index']);
+
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('/dashboard', 'index');
+    Route::get('/dashboard/add-app-info', 'create');
+    Route::get('/dashboard/update-app-info/{id}', 'select');
+    Route::post('/dashboard/update-app-info/{id}/update', 'update');
+});
+
 Route::post('/dashboard/store-app-info', [AppInfoController::class, 'store']);
+Route::put('/dashboard/store-app-info/{id}', [AppInfoController::class, 'update']);

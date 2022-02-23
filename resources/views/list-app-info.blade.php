@@ -60,7 +60,12 @@
                     <td>{{ $appInfo->elephant_id }}</td>
                     <td>{{ $appInfo->elephant_secret }}</td>
                     <td>
-                        <button class="btn text-white bg-primary"><i class="fa fa-pencil"></i></button>
+                        <a href="dashboard/update-app-info/{{$appInfo->id}}">
+                            <button class="btn text-white bg-primary">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </a>
+
                         <button class="btn text-white bg-danger" disabled><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
