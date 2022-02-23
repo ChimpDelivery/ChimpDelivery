@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-4">
+<div class="container-fluid bg-dark">
     @if(session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -17,9 +17,20 @@
     @if($errors->any())
         {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
     @endif
+    <ul class="nav justify-content-end nav-pills">
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/dashboard">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/dashboard">App List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold active" href="/dashboard/add-app-info">Add App</a>
+        </li>
+    </ul>
     <div class="card">
         <div class="card-header text-center font-weight-bold">
-            Talus Studio - Generate App Data
+            <h4 class="font-weight-bold">Talus Studio - Generate App Data</h4>
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}">
