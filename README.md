@@ -14,6 +14,6 @@
 # 👍 Recommended Development Environment (on Local)
 - https://www.apachefriends.org/tr/index.html
 
-# Endpoints
+# 🔑 Endpoints
 - POST |  api/appinfo?app_name={app_name}&app_bundle={bundle}&fb_app_id={fb_app_id}&elephant_id={elephant_id}&elephant_secret={elephant_secret}
 - GET  |  api/appinfo/{db_id}
