@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppInfoController;
-use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Controllers\DashboardController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/add-app-info', [AppInfoController::class, 'index']);
+Route::post('/dashboard/store-app-info', [AppInfoController::class, 'store']);

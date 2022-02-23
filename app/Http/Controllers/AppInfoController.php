@@ -12,7 +12,7 @@ class AppInfoController extends Controller
 
     public function index(Request $request)
     {
-
+        return view('add-app-info-form');
     }
 
 
@@ -21,6 +21,7 @@ class AppInfoController extends Controller
         $validated = $request->all();
 
         $appInfo = new AppInfo();
+        $appInfo->app_icon = $validated['app_icon'];
         $appInfo->app_name = $validated['app_name'];
         $appInfo->app_bundle = $validated['app_bundle'];
         $appInfo->fb_app_id = $validated['fb_app_id'];
@@ -39,6 +40,7 @@ class AppInfoController extends Controller
         $validated = $request->all();
 
         $appInfo = new AppInfo();
+        $appInfo->app_icon = $validated['app_icon'];
         $appInfo->app_name = $validated['app_name'];
         $appInfo->app_bundle = $validated['app_bundle'];
         $appInfo->fb_app_id = $validated['fb_app_id'];

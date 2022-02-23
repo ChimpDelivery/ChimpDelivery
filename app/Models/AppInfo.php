@@ -10,6 +10,7 @@ class AppInfo extends Model
     use HasFactory;
 
     protected $fillable = [
+        'app_icon',
         'app_name',
         'app_bundle',
         'fb_app_id',

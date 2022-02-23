@@ -24,6 +24,7 @@ class AppInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'app_icon' => 'required',
             'app_name' => 'required',
             'app_bundle' => 'required',
             'fb_app_id' => 'required|numeric',
@@ -35,6 +36,7 @@ class AppInfoRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'app_icon.required' => 'app_icon field is required!',
             'app_name.required' => 'app_name field is required!',
             'app_bundle.required' => 'app_bundle is required!',
             'fb_app_id.required' => 'fb_app_id is required!',

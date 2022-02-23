@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('app_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('app_icon');
             $table->string('app_name');
             $table->string('app_bundle');
             $table->string('fb_app_id');
