@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppInfoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/api/appinfo/{id}', function ($id) {
-    return response()->json([
-        'app_name' => $id,
-        'app_bundle' => $id,
-        'fb_app_id' => $id,
-        'elephant_id' => $id,
-        'elephant_secret' => $id
-    ]);
+Route::controller(AppInfoController::class)->group(function () {
+    Route::get('api/appinfo', 'index');
+    Route::get('api/appinfo/{id}', 'show');
 });
