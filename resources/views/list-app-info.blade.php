@@ -53,7 +53,7 @@
             @foreach($appInfos as $appInfo)
                 <tr>
                     <th scope="row">{{ $appInfo->id }}</th>
-                    <td>{{ $appInfo->app_icon }}</td>
+                    <td><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" /></td>
                     <td>{{ $appInfo->app_name }}</td>
                     <td>{{ $appInfo->app_bundle}}</td>
                     <td>{{ $appInfo->fb_app_id }}</td>

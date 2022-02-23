@@ -40,7 +40,9 @@
                 @csrf
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>
-                    <input type="file" id="app_icon" name="app_icon" class="form-control form-control-file">
+                    <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file">
+                    <br/>
+                    <img id="frame" src="" width="100px" height="100px" />
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
@@ -75,3 +77,10 @@
 </footer>
 </body>
 </html>
+<script type="text/javascript">
+
+    function preview() {
+        frame.src=URL.createObjectURL(event.target.files[0]);
+    }
+
+</script>
