@@ -30,4 +30,3 @@ Route::controller(DashboardController::class)->group(function () {
 });
 
 Route::post('/dashboard/store-app-info', [AppInfoController::class, 'store']);
-Route::put('/dashboard/store-app-info/{id}', [AppInfoController::class, 'update']);

@@ -24,7 +24,7 @@ class AppInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'app_icon' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'app_icon' => 'required|image|mimes:png,jpg|max:1024',
             'app_name' => 'required',
             'app_bundle' => 'required',
             'fb_app_id' => 'required|numeric',

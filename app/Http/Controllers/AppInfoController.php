@@ -39,8 +39,13 @@ class AppInfoController extends Controller
     {
         $validated = $request->all();
 
+        // upload icon to public folder.
+        $appIconPath = time().'-'.$validated['app_name'].'.'.$validated['app_icon']->getClientOriginalExtension();
+        $request->app_icon->move(public_path('images'), $appIconPath);
+
+        // create entry.
         $appInfo = new AppInfo();
-        $appInfo->app_icon = $validated['app_icon'];
+        $appInfo->app_icon = $appIconPath;
         $appInfo->app_name = $validated['app_name'];
         $appInfo->app_bundle = $validated['app_bundle'];
         $appInfo->fb_app_id = $validated['fb_app_id'];
