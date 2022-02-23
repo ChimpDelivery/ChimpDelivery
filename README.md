@@ -5,14 +5,20 @@
 - php >= 8.1x on cpanel host (with mbstring extension)
 
 # 💿 Installation (on Local)
+- Install XAMPP from https://www.apachefriends.org/tr/index.html and install it.
+- Open XAMPP control panel and start Apache and MySQL modules.
 - Clone repository and extract it.
-- Create ".env" file from ".env.example" template in top project folder.
+- Create ".env" file from ".env.example" template in project folder.
 - Populate ".env" contents.
-  - "php artisan key:generate"
-  - "php artisan serve"
+- Open bash/powershell etc. in project folder.
 
-# 👍 Recommended Development Environment (on Local)
-- https://www.apachefriends.org/tr/index.html
+```
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
+
+- Recommended REST client for testing API https://www.postman.com 
 
 # 🔑 Endpoints
 ```
