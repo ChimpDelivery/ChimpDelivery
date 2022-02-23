@@ -1,8 +1,9 @@
 # Talus Web Backend
-- No ssh support for current host(cpanel host), only ftp server.
+- No ssh support for current host(cPanel host), only ftp server.
 
-# :exclamation: Requirements 
+# :exclamation: Requirements on cPanel
 - php >= 8.1x on cpanel host (with mbstring extension)
+- laravel >= 9.1
 
 # 💿 Installation (on Local)
 - Install XAMPP from https://www.apachefriends.org/tr/index.html and install it.
