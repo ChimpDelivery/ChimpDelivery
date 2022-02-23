@@ -37,11 +37,13 @@
     <br/>
     <div class="card">
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$id.'/update')}}">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$id.'/update')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="app_name">App Icon</label>
-                    <input type="text" id="title" name="app_icon" class="form-control" required="" value="{{ $appInfo->app_icon }}">
+                    <label for="app_icon">App Icon</label>
+                    <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file">
+                    <br/>
+                    <img id="frame" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
@@ -76,3 +78,10 @@
 </footer>
 </body>
 </html>
+<script type="text/javascript">
+
+    function preview() {
+        frame.src=URL.createObjectURL(event.target.files[0]);
+    }
+
+</script>

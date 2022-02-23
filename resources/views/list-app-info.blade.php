@@ -35,8 +35,8 @@
         </li>
     </ul>
     <br/>
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive-sm">
+        <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -47,13 +47,14 @@
                 <th scope="col">Elephant ID</th>
                 <th scope="col">Elephant Secret</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($appInfos as $appInfo)
                 <tr>
                     <th scope="row">{{ $appInfo->id }}</th>
-                    <td><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" /></td>
+                    <td><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail"/></td>
                     <td>{{ $appInfo->app_name }}</td>
                     <td>{{ $appInfo->app_bundle}}</td>
                     <td>{{ $appInfo->fb_app_id }}</td>
@@ -65,7 +66,8 @@
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </a>
-
+                    </td>
+                    <td>
                         <form name="delete-app-info-form" id="delete-app-info-form" method="post" action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
                         @csrf
                             <a href="dashboard/delete-app-info/{{$appInfo->id}}">

@@ -42,7 +42,7 @@
                     <label for="app_icon">App Icon</label>
                     <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file">
                     <br/>
-                    <img id="frame" src="" width="100px" height="100px" />
+                    <img id="frame" src="" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
