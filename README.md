@@ -19,7 +19,8 @@ php artisan migrate
 php artisan serve
 ```
 
-- Recommended REST client for testing API https://www.postman.com 
+- Recommended FTP client https://winscp.net/eng/download.php (only Windows)
+- Recommended REST client https://www.postman.com 
 
 # 🔑 Endpoints
 ```
