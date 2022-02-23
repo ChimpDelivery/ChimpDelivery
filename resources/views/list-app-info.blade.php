@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     @if(session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -66,7 +66,14 @@
                             </button>
                         </a>
 
-                        <button class="btn text-white bg-danger" disabled><i class="fa fa-trash"></i></button>
+                        <form name="delete-app-info-form" id="delete-app-info-form" method="post" action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
+                        @csrf
+                            <a href="dashboard/delete-app-info/{{$appInfo->id}}">
+                                <button class="btn text-white bg-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>
+                        </form>
                     </td>
                 </tr>
             @endforeach

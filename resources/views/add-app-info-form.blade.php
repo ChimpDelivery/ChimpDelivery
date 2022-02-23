@@ -36,11 +36,11 @@
     <br/>
     <div class="card">
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="app_name">App Icon</label>
-                    <input type="text" id="title" name="app_icon" class="form-control" required="" placeholder="app icon path on S3 server...">
+                    <label for="app_icon">App Icon</label>
+                    <input type="file" id="app_icon" name="app_icon" class="form-control form-control-file">
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>

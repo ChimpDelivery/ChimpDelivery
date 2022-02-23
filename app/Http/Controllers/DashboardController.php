@@ -37,8 +37,14 @@ class DashboardController extends Controller
         $appInfo->elephant_secret = $validated['elephant_secret'];
         $appInfo->save();
 
-        return response()->json([
-            'status_code' => 200
-        ]);
+        return redirect()->route('get_app_list');
+    }
+
+    public function delete(Request $request)
+    {
+        $appInfo = AppInfo::find($request->id);
+        $appInfo?->delete();
+
+        return redirect()->route('get_app_list');
     }
 }
