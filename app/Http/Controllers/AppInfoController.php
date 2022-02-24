@@ -67,6 +67,7 @@ class AppInfoController extends Controller
         ]);
     }
 
+    /// app store connect apis
     public function getToken()
     {
         return AppStoreConnectApi::getToken();
