@@ -24,9 +24,9 @@
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
-                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" value="" hidden>
+                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select bundle
                         </button>
                         <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
@@ -49,7 +49,7 @@
                     <label for="elephant_secret">Elephant Secret</label>
                     <input type="text" id="form-control" name="elephant_secret" class="form-control" required="" placeholder="elephant secret...">
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-success">Create App</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </form>
         </div>
