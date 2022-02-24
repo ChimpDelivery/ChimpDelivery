@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
-
+use App\Http\Controllers\DataProviders\AppStoreConnectDataProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 
@@ -11,27 +10,27 @@ class AppStoreConnectController extends Controller
 {
     public function GetToken() : string
     {
-        return AppStoreConnectApi::getToken();
+        return AppStoreConnectDataProvider::getToken();
     }
 
     public function GetFullAppInfo() : JsonResponse
     {
-        return AppStoreConnectApi::getFullInfo();
+        return AppStoreConnectDataProvider::getFullInfo();
     }
 
     public function GetAppList() : JsonResponse
     {
-        return AppStoreConnectApi::getAppList();
+        return AppStoreConnectDataProvider::getAppList();
     }
 
     public function GetAppDictionary() : JsonResponse
     {
-        return AppStoreConnectApi::getAppDictionary();
+        return AppStoreConnectDataProvider::getAppDictionary();
     }
 
     public function GetAllBundles() : JsonResponse
     {
-        return AppStoreConnectApi::getAllBundles();
+        return AppStoreConnectDataProvider::getAllBundles();
     }
 
     public function ClearCache() : JsonResponse
