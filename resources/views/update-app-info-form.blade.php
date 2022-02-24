@@ -53,8 +53,10 @@
 </div>
 @endsection
 
+@section('scripts')
 <script type="text/javascript">
     function previewAppIcon() {
         document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
+@endsection
