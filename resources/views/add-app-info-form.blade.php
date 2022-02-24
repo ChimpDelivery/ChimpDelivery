@@ -1,4 +1,5 @@
 @php( $appInfos = \App\Models\AppInfo::all() )
+@php( $allBundleIds = json_decode(\App\Http\Controllers\AppStoreConnectApi::getAllBundles()->getContent(), true) )
 
 @extends('layouts.master')
 
@@ -23,7 +24,19 @@
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">App Bundle</label>
-                    <input type="text" id="form-control" name="app_bundle" class="form-control" required="" placeholder="appstore bundle identifier...">
+                    <input type="text" id="form-control" name="app_bundle" class="form-control" required="" placeholder="appstore bundle identifier..." readonly>
+                </div>
+                <div class="form-group">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select bundle
+                        </button>
+                        <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+                            @foreach($allBundleIds['bundle_ids'] as $bundle)
+                                <a class="dropdown-item" href="#">{{ $bundle }}</a>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

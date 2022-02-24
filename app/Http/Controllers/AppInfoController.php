@@ -65,4 +65,9 @@ class AppInfoController extends Controller
             'not_implemented' => true
         ]);
     }
+
+    public function getAllBundles()
+    {
+        return AppStoreConnectApi::getAllBundles();
+    }
 }

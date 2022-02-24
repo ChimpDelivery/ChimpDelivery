@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(AppInfoController::class)->group(function () {
 
+    Route::get('appstoreconnect/get-all-bundles', 'getAllBundles');
+
     // active endpoints
     Route::get('appinfo/{id}', 'show');
 
