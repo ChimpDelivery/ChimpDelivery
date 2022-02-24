@@ -92,7 +92,7 @@ class AppStoreConnectApi
             $bundleId = $content['attributes']['bundleId'];
             $appName = $content['attributes']['name'];
 
-            $apps []= array($bundleId => $appName);
+            $apps []= array($bundleId, $appName);
         }
 
         return response()->json([
@@ -109,20 +109,20 @@ class AppStoreConnectApi
         $dictionary = array();
         foreach ($decodedAppList['apps'] as $val)
         {
-            foreach ($val as $appBundle => $appName)
-            {
-                $dictionary []= array($appBundle, $appName);
-            }
+            $dictionary []= array($val[0], $val[1]);
         }
 
-        return $dictionary;
+        return response()->json([
+            'app_dictionary' => $dictionary
+        ]);
     }
 
     public static function getAllBundles()
     {
         $bundleIds = array();
+        $fullAppDictionary = json_decode(self::getAppDictionary()->getContent());
 
-        foreach (self::getAppDictionary() as $appBundleAndNamePair)
+        foreach ($fullAppDictionary->app_dictionary as $appBundleAndNamePair)
         {
             $bundleIds []= $appBundleAndNamePair[0];
         }
