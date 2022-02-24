@@ -31,7 +31,7 @@
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                            <input type="text" class="form-control" placeholder="search..." id="search_input" onkeyup="filterFunction()">
+                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos as $appInfo)
                                 <input type="text" id="app_info_name" name="app_info_name" hidden>
                                 <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}')">{{ $appInfo[0] }}</a>
