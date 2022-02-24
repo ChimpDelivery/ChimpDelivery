@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -37,6 +38,14 @@ class AppStoreConnectApi
 
     public static function getAllBundles()
     {
+        if (Cache::has('bundle_ids'))
+        {
+            return response()->json([
+                'cached_data' => true,
+                'bundle_ids' => Cache::get('bundle_ids')
+            ]);
+        }
+
         $header = [
             'alg' => 'ES256',
             'kid' => env('APPSTORECONNECT_KID'),
@@ -68,6 +77,8 @@ class AppStoreConnectApi
         {
             $bundleIdList[] = $app['app_info']['bundleId'];
         }
+
+        Cache::put('bundle_ids', $bundleIdList, 5);
 
         return response()->json([
             'bundle_ids' => $bundleIdList
