@@ -27,67 +27,12 @@ class DashboardController extends Controller
 
     public function store(AppInfoRequest $request)
     {
-        $inputs = $request->all();
-
-        //
-        $appInfo = new AppInfo();
-
-        // has new icon data?
-        if (isset($inputs['app_icon']))
-        {
-            $currentIconHash = md5_file($inputs['app_icon']);
-            $matchingHash = File::where('hash', $currentIconHash)->first();
-
-            // icon hash not found so generate hash and upload icon file.
-            if (!$matchingHash)
-            {
-                $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
-                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
-            }
-
-            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
-        }
-
-        // 
-        $appInfo->app_name = $inputs['app_name'];
-        $appInfo->app_bundle = $inputs['app_bundle'];
-        $appInfo->fb_app_id = $inputs['fb_app_id'];
-        $appInfo->elephant_id = $inputs['elephant_id'];
-        $appInfo->elephant_secret = $inputs['elephant_secret'];
-        $appInfo->save();
-
-        return redirect()->route('get_app_list');
+        return $this->PopulateAppData($request, new AppInfo());
     }
 
     public function update(AppInfoRequest $request)
     {
-        $inputs = $request->all();
-        $appInfo = AppInfo::find($request->id);
-
-        // has new icon data?
-        if (isset($inputs['app_icon']))
-        {
-            $currentIconHash = md5_file($inputs['app_icon']);
-            $matchingHash = File::where('hash', $currentIconHash)->first();
-
-            // icon hash not found so generate hash and upload icon file.
-            if (!$matchingHash)
-            {
-                $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
-                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
-            }
-
-            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
-        }
-
-        $appInfo->app_name = $inputs['app_name'];
-        $appInfo->app_bundle = $inputs['app_bundle'];
-        $appInfo->fb_app_id = $inputs['fb_app_id'];
-        $appInfo->elephant_id = $inputs['elephant_id'];
-        $appInfo->elephant_secret = $inputs['elephant_secret'];
-        $appInfo->save();
-
-        return redirect()->route('get_app_list');
+        return $this->PopulateAppData($request, AppInfo::find($request->id));
     }
 
     public function delete(Request $request)
@@ -113,5 +58,41 @@ class DashboardController extends Controller
         $iconFile->save();
 
         $request->app_icon->move(public_path('images'), $iconPath);
+    }
+
+    /**
+     * @param \App\Http\Requests\AppInfoRequest $request
+     * @param \App\Models\AppInfo               $appInfo
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo): \Illuminate\Http\RedirectResponse
+    {
+        $inputs = $request->all();
+
+        if (isset($inputs['app_icon']))
+        {
+            $currentIconHash = md5_file($inputs['app_icon']);
+            $matchingHash = File::where('hash', $currentIconHash)->first();
+
+            // icon hash not found so generate hash and upload icon file.
+            if (!$matchingHash)
+            {
+                $iconPath = time() . '-' . $inputs['app_name'] . '.' . $inputs['app_icon']->getClientOriginalExtension();
+                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
+            }
+
+            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
+        }
+
+        //
+        $appInfo->app_name = $inputs['app_name'];
+        $appInfo->app_bundle = $inputs['app_bundle'];
+        $appInfo->fb_app_id = $inputs['fb_app_id'];
+        $appInfo->elephant_id = $inputs['elephant_id'];
+        $appInfo->elephant_secret = $inputs['elephant_secret'];
+        $appInfo->save();
+
+        return redirect()->route('get_app_list');
     }
 }
