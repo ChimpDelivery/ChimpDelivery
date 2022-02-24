@@ -6,6 +6,7 @@ use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -66,7 +67,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo): \Illuminate\Http\RedirectResponse
+    public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : RedirectResponse
     {
         $inputs = $request->all();
 
