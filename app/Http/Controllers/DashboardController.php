@@ -94,11 +94,10 @@ class DashboardController extends Controller
             $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
         }
 
-        //
-        $appInfo->app_name = $inputs['app_name'];
-
+        // we can't update app_name and app_bundle in created apps.
         if (!$appInfo->exists)
         {
+            $appInfo->app_name = $inputs['app_name'];
             $appInfo->app_bundle = $inputs['app_bundle'];
         }
 

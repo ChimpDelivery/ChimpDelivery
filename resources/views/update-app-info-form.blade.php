@@ -23,12 +23,12 @@
                 <div class="form-group">
                     <label for="app_name">App Name</label>
                     <input type="text" id="title" name="app_name" class="form-control" required=""
-                           value="{{ $appInfo->app_name }}">
+                           value="{{ $appInfo->app_name }}" readonly>
                 </div>
-                <div class="form-group" hidden>
-                    <label for="app_bundle" hidden>App Bundle</label>
+                <div class="form-group">
+                    <label for="app_bundle">App Bundle</label>
                     <input type="text" id="form-control" name="app_bundle" class="form-control" required=""
-                           value="{{ $appInfo->app_bundle }}" hidden>
+                           value="{{ $appInfo->app_bundle }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="appstore app name..." readonly>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
