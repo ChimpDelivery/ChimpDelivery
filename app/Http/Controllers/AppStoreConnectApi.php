@@ -36,16 +36,8 @@ class AppStoreConnectApi
         return implode('.', $segments);
     }
 
-    public static function getAllBundles()
+    public static function getToken()
     {
-        if (Cache::has('bundle_ids'))
-        {
-            return response()->json([
-                'cached_data' => true,
-                'bundle_ids' => Cache::get('bundle_ids')
-            ]);
-        }
-
         $header = [
             'alg' => 'ES256',
             'kid' => env('APPSTORECONNECT_KID'),
@@ -59,30 +51,89 @@ class AppStoreConnectApi
         ];
 
         // generated token from apple to auth app store connect apis.
-        $token =  AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'));
+        return AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'));
+    }
+
+    public static function getAppList()
+    {
+        if (Cache::has('cached_app_list'))
+        {
+            return response()->json([
+                'cached_data' => true,
+                'app_list' => Cache::get('cached_app_list')
+            ]);
+        }
+
+        // generated token from apple to auth app store connect apis.
+        $token = self::getToken();
         $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
         $decodedAppList = json_decode($appList, true);
 
         $appList = collect();
-        $bundleIdList = collect();
 
         // collect app-info from appstore.
         foreach ($decodedAppList['data'] as $key)
         {
-            $appList[] = array('app_info' => $key['attributes']);
+            $appList []= array('app_info' => $key['attributes']);
         }
 
-        // collect bundle id.
+        $response = array();
         foreach ($appList->all() as $app)
         {
-            $bundleIdList[] = $app['app_info']['bundleId'];
+            $response []= array($app['app_info']['bundleId'] => $app['app_info']['name']);
         }
 
-        Cache::put('bundle_ids', $bundleIdList, time() + (env('APPSTORECONNECT_CACHE_DURATION') * 60));
+        Cache::put('cached_app_list', $response, time() + (env('APPSTORECONNECT_CACHE_DURATION') * 60));
 
         return response()->json([
-            'bundle_ids' => $bundleIdList
+           'apps' => $response
         ]);
+    }
+
+    public static function getAppDictionary()
+    {
+        $appList = self::getAppList()->getContent();
+        $decodedAppList = json_decode($appList);
+
+        $dictionary = array();
+        foreach ($decodedAppList->app_list as $val)
+        {
+            foreach ($val as $appBundle => $appName)
+            {
+                $dictionary []= array($appBundle, $appName);
+            }
+        }
+
+        return $dictionary;
+    }
+
+    public static function getAllBundles()
+    {
+        $appList = self::getAppList()->getContent();
+        $decodedAppList = json_decode($appList);
+
+        $bundleIds = array();
+        foreach ($decodedAppList->app_list as $val)
+        {
+            foreach ($val as $appBundle => $appName)
+            {
+                $bundleIds []= $appBundle;
+            }
+        }
+
+        return response()->json([
+            'bundle_ids' => $bundleIds
+        ]);
+    }
+
+    public static function getFullInfo()
+    {
+        // generated token from apple to auth app store connect apis.
+        $token = self::getToken();
+        $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
+        $decodedAppList = json_decode($appList, true);
+
+        return $decodedAppList;
     }
 
     /**

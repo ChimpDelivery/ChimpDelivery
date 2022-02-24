@@ -67,6 +67,26 @@ class AppInfoController extends Controller
         ]);
     }
 
+    public function getToken()
+    {
+        return AppStoreConnectApi::getToken();
+    }
+
+    public function getFullInfo()
+    {
+        return AppStoreConnectApi::getFullInfo();
+    }
+
+    public function getAppList()
+    {
+        return AppStoreConnectApi::getAppList();
+    }
+
+    public function getAppDictionary()
+    {
+        return AppStoreConnectApi::getAppDictionary();
+    }
+
     public function getAllBundles()
     {
         return AppStoreConnectApi::getAllBundles();

@@ -88,12 +88,17 @@ class DashboardController extends Controller
 
         //
         $appInfo->app_name = $inputs['app_name'];
-        $appInfo->app_bundle = $inputs['app_bundle'];
+
+        if (!$appInfo->exists)
+        {
+            $appInfo->app_bundle = $inputs['app_bundle'];
+        }
+
         $appInfo->fb_app_id = $inputs['fb_app_id'];
         $appInfo->elephant_id = $inputs['elephant_id'];
         $appInfo->elephant_secret = $inputs['elephant_secret'];
-        $appInfo->save();
 
+        $appInfo->save();
         return redirect()->route('get_app_list');
     }
 }

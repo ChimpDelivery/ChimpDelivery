@@ -1,5 +1,5 @@
 @php( $appInfos = \App\Models\AppInfo::all() )
-@php( $allBundleIds = json_decode(\App\Http\Controllers\AppStoreConnectApi::getAllBundles()->getContent(), true) )
+@php( $allAppInfos = \App\Http\Controllers\AppStoreConnectApi::getAppDictionary() )
 
 @extends('layouts.master')
 
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="appstore app name...">
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="appstore app name..." readonly>
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
@@ -30,8 +30,9 @@
                             Select bundle
                         </button>
                         <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                            @foreach($allBundleIds['bundle_ids'] as $bundle)
-                                <a class="dropdown-item" href="#">{{ $bundle }}</a>
+                            @foreach($allAppInfos as $appInfo)
+                                <input type="text" id="app_info_name" name="app_info_name" hidden>
+                                <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}')">{{ $appInfo[0] }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -60,12 +61,21 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.dropdown-menu a').click(function () {
-            $('button[data-toggle="dropdown"]').text($(this).text());
+            var bundleName = $(this).text();
 
+            // update dropdown
+            $('button[data-toggle="dropdown"]').text(bundleName);
+
+            // update hidden bundle input
             var appBundle = document.getElementById('app_bundle');
-            appBundle.value = $(this).text();
+            appBundle.value = bundleName;
         });
     });
+
+    function updateAppNameField(appName) {
+        var appNameField = document.getElementById('app_name');
+        appNameField.value = appName;
+    }
 
     function preview() {
         document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);

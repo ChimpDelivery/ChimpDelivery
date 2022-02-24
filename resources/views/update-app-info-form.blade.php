@@ -25,10 +25,10 @@
                     <input type="text" id="title" name="app_name" class="form-control" required=""
                            value="{{ $appInfo->app_name }}">
                 </div>
-                <div class="form-group">
-                    <label for="app_bundle">App Bundle</label>
+                <div class="form-group" hidden>
+                    <label for="app_bundle" hidden>App Bundle</label>
                     <input type="text" id="form-control" name="app_bundle" class="form-control" required=""
-                           value="{{ $appInfo->app_bundle }}">
+                           value="{{ $appInfo->app_bundle }}" hidden>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

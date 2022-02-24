@@ -22,6 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(AppInfoController::class)->group(function () {
 
+    Route::get('appstoreconnect/get-token', 'getToken');
+    Route::get('appstoreconnect/get-full-info', 'getFullInfo');
+    Route::get('appstoreconnect/get-app-list', 'getAppList');
+    Route::get('appstoreconnect/get-app-dictionary', 'getAppDictionary');
     Route::get('appstoreconnect/get-all-bundles', 'getAllBundles');
     Route::get('appstoreconnect/clear-cache', 'clearCache');
 
