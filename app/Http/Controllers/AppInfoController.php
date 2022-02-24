@@ -8,6 +8,7 @@ use App\Models\AppInfo;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class AppInfoController extends Controller
 {
@@ -69,5 +70,12 @@ class AppInfoController extends Controller
     public function getAllBundles()
     {
         return AppStoreConnectApi::getAllBundles();
+    }
+
+    public function clearCache()
+    {
+        return response()->json([
+            'status' => Cache::flush() ? 200 : 400
+        ]);
     }
 }

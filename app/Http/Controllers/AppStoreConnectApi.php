@@ -78,8 +78,7 @@ class AppStoreConnectApi
             $bundleIdList[] = $app['app_info']['bundleId'];
         }
 
-        $cacheMinute = 5;
-        Cache::put('bundle_ids', $bundleIdList, time() + ($cacheMinute * 60));
+        Cache::put('bundle_ids', $bundleIdList, time() + (env('APPSTORECONNECT_CACHE_DURATION') * 60));
 
         return response()->json([
             'bundle_ids' => $bundleIdList
