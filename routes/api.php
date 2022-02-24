@@ -21,8 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::controller(AppInfoController::class)->group(function () {
-    Route::get('appinfo', 'index');
+
+    // active endpoints
     Route::get('appinfo/{id}', 'show');
+
+    // not-implementeds
+    Route::get('appinfo', 'index');
     Route::post('appinfo', 'store');
     Route::get('appinfo/create', action: 'create');
     Route::get('appinfo/{id}/edit', 'edit');
