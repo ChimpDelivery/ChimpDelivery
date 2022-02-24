@@ -39,7 +39,7 @@ class AppInfoController extends Controller
 
     public function store(AppInfoRequest $request)
     {
-        $inputs = $request->all();
+        /*$inputs = $request->all();
 
         // generate file hash.
         $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
@@ -66,10 +66,10 @@ class AppInfoController extends Controller
         $appInfo->fb_app_id = $inputs['fb_app_id'];
         $appInfo->elephant_id = $inputs['elephant_id'];
         $appInfo->elephant_secret = $inputs['elephant_secret'];
-        $appInfo->save();
+        $appInfo->save();*/
 
         return response()->json([
-            'status_code' => 200
+            'not_implemented' => true
         ]);
     }
 

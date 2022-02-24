@@ -27,6 +27,5 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/update-app-info/{id}', 'select')->name('get_app_info');
     Route::post('/dashboard/update-app-info/{id}/update', 'update')->name('update_app_info');
     Route::post('/dashboard/delete-app-info/{id}', 'delete')->name('delete_app_info');
+    Route::post('/dashboard/store-app-info', 'store');
 });
-
-Route::post('/dashboard/store-app-info', [AppInfoController::class, 'store']);
