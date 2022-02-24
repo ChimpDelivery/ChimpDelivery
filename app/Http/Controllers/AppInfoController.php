@@ -60,7 +60,7 @@ class AppInfoController extends Controller
 
         // create entry.
         $appInfo = new AppInfo();
-        $appInfo->app_icon = $iconPath;
+        $appInfo->app_icon = ($iconHashFound) ? $iconHashFound->path : $iconPath;;
         $appInfo->app_name = $inputs['app_name'];
         $appInfo->app_bundle = $inputs['app_bundle'];
         $appInfo->fb_app_id = $inputs['fb_app_id'];

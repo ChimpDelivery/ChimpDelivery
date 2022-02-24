@@ -6,6 +6,7 @@ use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class DashboardController extends Controller
 {
@@ -28,6 +29,8 @@ class DashboardController extends Controller
     {
         $inputs = $request->all();
 
+        $appInfo = AppInfo::find($request->id);
+
         // generate file hash.
         $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
         $iconHash = md5_file($inputs['app_icon']);
@@ -46,8 +49,7 @@ class DashboardController extends Controller
         }
 
         // create entry.
-        $appInfo = new AppInfo();
-        $appInfo->app_icon = $iconPath;
+        $appInfo->app_icon = ($iconHashFound) ? $iconHashFound->path : $iconPath;
         $appInfo->app_name = $inputs['app_name'];
         $appInfo->app_bundle = $inputs['app_bundle'];
         $appInfo->fb_app_id = $inputs['fb_app_id'];
