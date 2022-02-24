@@ -46,6 +46,6 @@
 
 <script type="text/javascript">
     function preview() {
-        frame.src=URL.createObjectURL(event.target.files[0]);
+        document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
     }
 </script>

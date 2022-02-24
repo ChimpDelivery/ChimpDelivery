@@ -43,7 +43,7 @@
                           action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
                         @csrf
                         <a href="dashboard/delete-app-info/{{$appInfo->id}}">
-                            <button class="btn text-white bg-danger">
+                            <button class="btn text-white bg-danger" onclick="return confirm('Are you sure?')">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </a>
