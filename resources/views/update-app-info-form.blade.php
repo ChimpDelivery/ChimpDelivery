@@ -55,6 +55,6 @@
 
 <script type="text/javascript">
     function previewAppIcon() {
-        frame.src = URL.createObjectURL(target.files[0]);
+        document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
