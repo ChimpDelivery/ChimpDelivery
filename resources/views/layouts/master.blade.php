@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="container-fluid">
     @if(session('status'))
         <div class="alert alert-success">
@@ -24,6 +25,7 @@
             <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36"/>
             Dashboard
         </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -65,10 +67,69 @@
     @yield('content')
 </section>
 
+<!-- Flexbox container for aligning the toasts -->
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+
+    <!-- Then put toasts within -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <div class="toast-header">
+            <img src="{{ asset('Talus_icon.ico') }}" class="rounded mr-2" alt="..." width="16" height="16">
+            <strong class="mr-auto">Talus Dashboard</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" onclick="setToastCookie()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Welcome to Talus Dashboard, have fun :) Thanks for all feedbacks and have a nice day.
+        </div>
+    </div>
+</div>
+
 <footer class="page-footer font-small blue fixed-bottom">
     <div class="footer-copyright text-center py-1 text-muted">
-        <span class="font-weight-bold font-italic">app count: {{ count($appInfos) }}, last update: 0 days ago</span>
+        <span class="font-weight-bold font-italic">app count: {{ count($appInfos) }}</span>
     </div>
 </footer>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        console.log("talus-toast-cookie:" + getCookie('talus-toast-cookie'));
+        
+        if (!getCookie('talus-toast-cookie')) {
+            $('.toast').toast('show');
+        }
+    });
+
+    function setToastCookie() {
+        setCookie('talus-toast-cookie', 1, 1);
+    }
+
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function expireCookie(name) {
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+</script>
