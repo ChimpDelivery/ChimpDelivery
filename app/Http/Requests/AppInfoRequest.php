@@ -37,7 +37,7 @@ class AppInfoRequest extends FormRequest
     {
         return [
             'app_bundle.required' => 'app_bundle is required!',
-            'app_bundle.regex' => 'app_bundle is incorrect!',
+            'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.Talus.TalusTemplateURP)',
             'fb_app_id.required' => 'fb_app_id is required!',
             'fb_app_id.numeric' => 'fb_app_id is incorrect!',
             'elephant_id.required' => 'elephant_id is required!',
