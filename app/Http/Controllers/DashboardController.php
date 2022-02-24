@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class DashboardController extends Controller
 {
@@ -30,13 +30,13 @@ class DashboardController extends Controller
         $inputs = $request->all();
         $appInfo = AppInfo::find($request->id);
 
-        // generate file hash.
+        // has new icon data?
         if (isset($inputs['app_icon']))
         {
             $currentIconHash = md5_file($inputs['app_icon']);
             $matchingHash = File::where('hash', $currentIconHash)->first();
 
-            // icon hash not found so upload icon to public folder.
+            // icon hash not found so generate hash and upload icon file.
             if (!$matchingHash)
             {
                 $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
@@ -66,12 +66,12 @@ class DashboardController extends Controller
 
     /**
      * @param string                            $iconPath
-     * @param bool|string                       $iconHash
+     * @param string                            $iconHash
      * @param \App\Http\Requests\AppInfoRequest $request
      *
      * @return void
      */
-    public function GenerateHashAndUpload(string $iconPath, bool|string $iconHash, AppInfoRequest $request): void
+    public function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
     {
         $iconFile = new File();
         $iconFile->path = $iconPath;
