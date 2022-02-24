@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
-                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" hidden>
+                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" value="" hidden>
 
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select bundle
@@ -60,6 +60,7 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
+
         $('.dropdown-menu a').click(function () {
             var bundleName = $(this).text();
 
