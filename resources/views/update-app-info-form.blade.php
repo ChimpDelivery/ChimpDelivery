@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>
                     <input type="file" onchange="previewAppIcon()" id="app_icon" name="app_icon"
-                           class="form-control form-control-file">
+                           class="form-control form-control-file" accept="image/png">
                     <br/>
                     <img id="frame" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px"
                          alt="..." class="img-thumbnail"/>
