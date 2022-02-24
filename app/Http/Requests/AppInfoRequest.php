@@ -11,7 +11,7 @@ class AppInfoRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class AppInfoRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
             'app_icon' => 'required|image|mimes:png|max:1024',
@@ -33,7 +33,7 @@ class AppInfoRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    public function messages() : array
     {
         return [
             'app_bundle.required' => 'app_bundle is required!',

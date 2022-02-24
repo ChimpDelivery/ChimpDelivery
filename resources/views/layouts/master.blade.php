@@ -19,9 +19,6 @@
             {{ session('status') }}
         </div>
     @endif
-    @if($errors->any())
-        {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
-    @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand font-weight-bold" href="/dashboard">
             <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36"/>
@@ -49,6 +46,19 @@
             </form>
         </div>
     </nav>
+</div>
+
+<div class="container-fluid">
+    @if($errors->any())
+        <br />
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </div>
 
 <section class="page-content">
