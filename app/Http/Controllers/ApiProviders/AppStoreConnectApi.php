@@ -1,9 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiProviders;
 
+use App\Http\Controllers\Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+
+use function env;
+use function now;
+use function response;
 
 /**
  * AppStoreConnectApi For App Store Connect API
@@ -23,7 +29,7 @@ class AppStoreConnectApi
      * @return string
      * @throws Exception
      */
-    public static function sign($payload, $header, $key)
+    public static function sign($payload, $header, $key) : string
     {
         $segments = [];
         $segments[] = static::urlsafeB64Encode(static::jsonEncode($header));
@@ -36,8 +42,7 @@ class AppStoreConnectApi
         return implode('.', $segments);
     }
 
-    // generate token from apple to auth app store connect apis.
-    public static function getToken()
+    public static function getToken() : string
     {
         $header = [
             'alg' => 'ES256',
@@ -54,8 +59,7 @@ class AppStoreConnectApi
         return AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'));
     }
 
-    // get full app info and cache it.
-    public static function getFullInfo()
+    public static function getFullInfo() : JsonResponse
     {
         if (Cache::has('cached_app_list'))
         {
@@ -78,8 +82,7 @@ class AppStoreConnectApi
         ]);
     }
 
-    // get stripped app info.
-    public static function getAppList()
+    public static function getAppList() : JsonResponse
     {
         $appList = self::getFullInfo()->getContent();
         $decodedAppList = json_decode($appList, true);
@@ -100,8 +103,7 @@ class AppStoreConnectApi
         ]);
     }
 
-    // stripped
-    public static function getAppDictionary()
+    public static function getAppDictionary() : JsonResponse
     {
         $appList = self::getAppList()->getContent();
         $decodedAppList = json_decode($appList, true);
@@ -117,7 +119,7 @@ class AppStoreConnectApi
         ]);
     }
 
-    public static function getAllBundles()
+    public static function getAllBundles() : JsonResponse
     {
         $bundleIds = array();
         $fullAppDictionary = json_decode(self::getAppDictionary()->getContent());

@@ -8,7 +8,6 @@ use App\Models\AppInfo;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 
 class AppInfoController extends Controller
 {
@@ -64,39 +63,6 @@ class AppInfoController extends Controller
     {
         return response()->json([
             'not_implemented' => true
-        ]);
-    }
-
-    /// app store connect apis
-    public function getToken()
-    {
-        return AppStoreConnectApi::getToken();
-    }
-
-    public function getFullInfo()
-    {
-        return AppStoreConnectApi::getFullInfo();
-    }
-
-    public function getAppList()
-    {
-        return AppStoreConnectApi::getAppList();
-    }
-
-    public function getAppDictionary()
-    {
-        return AppStoreConnectApi::getAppDictionary();
-    }
-
-    public function getAllBundles()
-    {
-        return AppStoreConnectApi::getAllBundles();
-    }
-
-    public function clearCache()
-    {
-        return response()->json([
-            'status' => Cache::flush() ? 200 : 400
         ]);
     }
 }

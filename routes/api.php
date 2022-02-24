@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppInfoController;
+use App\Http\Controllers\AppStoreConnectController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,16 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::controller(AppInfoController::class)->group(function () {
-
-    Route::get('appstoreconnect/get-token', 'getToken');
-    Route::get('appstoreconnect/get-full-info', 'getFullInfo');
-    Route::get('appstoreconnect/get-app-list', 'getAppList');
-    Route::get('appstoreconnect/get-app-dictionary', 'getAppDictionary');
-    Route::get('appstoreconnect/get-all-bundles', 'getAllBundles');
-    Route::get('appstoreconnect/clear-cache', 'clearCache');
-
     // active endpoints
     Route::get('appinfo/{id}', 'show');
 
@@ -39,6 +32,15 @@ Route::controller(AppInfoController::class)->group(function () {
     Route::get('appinfo/{id}/edit', 'edit');
     Route::put('appinfo/{id}', 'update');
     Route::delete('appinfo/{id}', 'destroy');
+});
+
+Route::controller(AppStoreConnectController::class)->group(function () {
+    Route::get('appstoreconnect/get-token', 'GetToken');
+    Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
+    Route::get('appstoreconnect/get-app-list', 'GetAppList');
+    Route::get('appstoreconnect/get-app-dictionary', 'GetAppDictionary');
+    Route::get('appstoreconnect/get-all-bundles', 'GetAllBundles');
+    Route::get('appstoreconnect/clear-cache', 'ClearCache');
 });
 
 
