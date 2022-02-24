@@ -29,7 +29,9 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select bundle
                         </button>
-                        <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+
+                        <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+                            <input type="text" class="form-control" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos as $appInfo)
                                 <input type="text" id="app_info_name" name="app_info_name" hidden>
                                 <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}')">{{ $appInfo[0] }}</a>
@@ -81,6 +83,22 @@
     function preview() {
         document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('frame').hidden = false
+    }
+
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("search_input");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("dropdown-inputs");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
     }
 </script>
 @endsection
