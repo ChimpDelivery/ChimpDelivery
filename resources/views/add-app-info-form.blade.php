@@ -20,14 +20,12 @@
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="title" name="app_name" class="form-control" required="" placeholder="appstore app name...">
-                </div>
-                <div class="form-group">
-                    <label for="app_bundle">App Bundle</label>
-                    <input type="text" id="form-control" name="app_bundle" class="form-control" required="" placeholder="appstore bundle identifier..." readonly>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="appstore app name...">
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
+                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" hidden>
+
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select bundle
                         </button>
@@ -58,9 +56,20 @@
 </div>
 @endsection
 
+@section('scripts')
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('.dropdown-menu a').click(function () {
+            $('button[data-toggle="dropdown"]').text($(this).text());
+
+            var appBundle = document.getElementById('app_bundle');
+            appBundle.value = $(this).text();
+        });
+    });
+
     function preview() {
         document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('frame').hidden = false
     }
 </script>
+@endsection

@@ -37,15 +37,6 @@ class AppStoreConnectApi
 
     public static function getAllBundles()
     {
-        $key = <<<EOF
-        -----BEGIN PRIVATE KEY-----
-        MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgUGoyVytp0AQ62ubL
-        gzSoQxOGrMetxv2gct9LLyMyEymgCgYIKoZIzj0DAQehRANCAARWZZ5p/x/ItKEs
-        18cXiCOlMOl2flzs/GSWZ1QPs0PLNVqN1hE1fiWNSi4otDT2RKdLOhleop7KFTMs
-        U/dJKrQ2
-        -----END PRIVATE KEY-----
-        EOF;
-
         $header = [
             'alg' => 'ES256',
             'kid' => env('APPSTORECONNECT_KID'),
@@ -59,8 +50,7 @@ class AppStoreConnectApi
         ];
 
         // generated token from apple to auth app store connect apis.
-        $token =  AppStoreConnectApi::sign($payload, $header, $key);
-
+        $token =  AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'));
         $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
         $decodedAppList = json_decode($appList, true);
 
@@ -73,15 +63,11 @@ class AppStoreConnectApi
             $appList[] = array('app_info' => $key['attributes']);
         }
 
-        // print_r("total app count:" . $appList->count() . "\n");
-
         // collect bundle id.
         foreach ($appList->all() as $app)
         {
             $bundleIdList[] = $app['app_info']['bundleId'];
         }
-
-        // print_r($bundleIdList->all());
 
         return response()->json([
             'bundle_ids' => $bundleIdList
