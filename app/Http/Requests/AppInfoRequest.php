@@ -28,12 +28,12 @@ class AppInfoRequest extends FormRequest
             'app_icon' => 'image|mimes:png|max:1024',
             'app_icon_hash' => 'optional',
             'app_name' => 'required',
-            'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id')),
+            'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at')),
                                   'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
 
-            'fb_app_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))),
-            'elephant_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))),
-            'elephant_secret' => array('required', Rule::unique('app_infos')->ignore($this->route('id')))
+            'fb_app_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'elephant_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'elephant_secret' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
         ];
     }
 

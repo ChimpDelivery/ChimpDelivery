@@ -35,4 +35,7 @@ Route::controller(DashboardController::class)->group(function () {
 
     // post route to delete app info data.
     Route::post('/dashboard/delete-app-info/{id}', 'delete')->name('delete_app_info');
+
+    //
+    Route::get('/dashboard/clear-cache', 'ClearCache');
 });

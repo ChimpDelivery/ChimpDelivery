@@ -8,6 +8,7 @@ use App\Models\File;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -41,7 +42,14 @@ class DashboardController extends Controller
         $appInfo = AppInfo::find($request->id);
         $appInfo?->delete();
 
-        return redirect()->route('get_app_list');
+        return to_route('get_app_list');
+    }
+
+    public function ClearCache()
+    {
+        Cache::forget('cached_app_list');
+
+        return to_route('get_app_list');
     }
 
     /**
@@ -99,6 +107,6 @@ class DashboardController extends Controller
         $appInfo->elephant_secret = $inputs['elephant_secret'];
 
         $appInfo->save();
-        return redirect()->route('get_app_list');
+        return to_route('get_app_list');
     }
 }

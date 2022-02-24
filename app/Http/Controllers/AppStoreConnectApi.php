@@ -83,7 +83,7 @@ class AppStoreConnectApi
             $response []= array($app['app_info']['bundleId'] => $app['app_info']['name']);
         }
 
-        Cache::put('cached_app_list', $response, time() + (env('APPSTORECONNECT_CACHE_DURATION') * 60));
+        Cache::put('cached_app_list', $response, now()->addMinutes(env('APPSTORECONNECT_CACHE_DURATION')));
 
         return response()->json([
            'apps' => $response
@@ -93,10 +93,10 @@ class AppStoreConnectApi
     public static function getAppDictionary()
     {
         $appList = self::getAppList()->getContent();
-        $decodedAppList = json_decode($appList);
+        $decodedAppList = json_decode($appList, true);
 
         $dictionary = array();
-        foreach ($decodedAppList->app_list as $val)
+        foreach ($decodedAppList['app_list'] as $val)
         {
             foreach ($val as $appBundle => $appName)
             {
@@ -133,7 +133,9 @@ class AppStoreConnectApi
         $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
         $decodedAppList = json_decode($appList, true);
 
-        return $decodedAppList;
+        return response()->json([
+            'appstore_full_info' => $decodedAppList
+        ]);
     }
 
     /**
