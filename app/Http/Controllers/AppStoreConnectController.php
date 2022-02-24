@@ -3,37 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
+
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 
 class AppStoreConnectController extends Controller
 {
-    /// app store connect apis
-    public function GetToken()
+    public function GetToken() : string
     {
         return AppStoreConnectApi::getToken();
     }
 
-    public function GetFullAppInfo()
+    public function GetFullAppInfo() : JsonResponse
     {
         return AppStoreConnectApi::getFullInfo();
     }
 
-    public function GetAppList()
+    public function GetAppList() : JsonResponse
     {
         return AppStoreConnectApi::getAppList();
     }
 
-    public function GetAppDictionary()
+    public function GetAppDictionary() : JsonResponse
     {
         return AppStoreConnectApi::getAppDictionary();
     }
 
-    public function GetAllBundles()
+    public function GetAllBundles() : JsonResponse
     {
         return AppStoreConnectApi::getAllBundles();
     }
 
-    public function ClearCache()
+    public function ClearCache() : JsonResponse
     {
         return response()->json([
             'status' => Cache::flush() ? 200 : 400
