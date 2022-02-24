@@ -14,7 +14,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>
-                    <input type="file" onchange="preview()" id="app_icon" name="app_icon"
+                    <input type="file" onchange="previewAppIcon()" id="app_icon" name="app_icon"
                            class="form-control form-control-file">
                     <br/>
                     <img id="frame" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px"
@@ -54,7 +54,7 @@
 @endsection
 
 <script type="text/javascript">
-    function preview() {
-        frame.src = URL.createObjectURL(event.target.files[0]);
+    function previewAppIcon() {
+        frame.src = URL.createObjectURL(target.files[0]);
     }
 </script>
