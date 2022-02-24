@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AppInfo extends Model
+class File extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'app_icon',
-        'app_icon_hash',
-        'app_name',
-        'app_bundle',
-        'fb_app_id',
-        'elephant_id',
-        'elephant_secret'
+        'path',
+        'hash'
     ];
 
     /**

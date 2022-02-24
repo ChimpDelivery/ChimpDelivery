@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
+use App\Models\File;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -27,13 +28,26 @@ class DashboardController extends Controller
     {
         $inputs = $request->all();
 
-        $appInfo = AppInfo::find($request->id);
+        // generate file hash.
+        $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
+        $iconHash = md5_file($inputs['app_icon']);
 
-        // upload updated icon to public folder.
-        $appIconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
-        $request->app_icon->move(public_path('images'), $appIconPath);
+        $iconHashFound = File::where('hash', $iconHash)->first();
 
-        $appInfo->app_icon = $appIconPath;
+        // icon hash not found so upload icon to public folder.
+        if (!$iconHashFound)
+        {
+            $iconFile = new File();
+            $iconFile->path = $iconPath;
+            $iconFile->hash = $iconHash;
+            $iconFile->save();
+
+            $request->app_icon->move(public_path('images'), $iconPath);
+        }
+
+        // create entry.
+        $appInfo = new AppInfo();
+        $appInfo->app_icon = $iconPath;
         $appInfo->app_name = $inputs['app_name'];
         $appInfo->app_bundle = $inputs['app_bundle'];
         $appInfo->fb_app_id = $inputs['fb_app_id'];

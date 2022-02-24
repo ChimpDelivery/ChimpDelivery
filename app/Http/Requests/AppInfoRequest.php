@@ -25,7 +25,8 @@ class AppInfoRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'app_icon' => 'required|image|mimes:png|max:1024',
+            'app_icon' => 'image|mimes:png|max:1024',
+            'app_icon_hash' => 'optional',
             'app_name' => 'required',
             'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id')),
                                   'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
