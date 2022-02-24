@@ -33,23 +33,17 @@ class DashboardController extends Controller
         // generate file hash.
         if (isset($inputs['app_icon']))
         {
-            $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
-            $iconHash = md5_file($inputs['app_icon']);
-
-            $iconHashFound = File::where('hash', $iconHash)->first();
+            $currentIconHash = md5_file($inputs['app_icon']);
+            $matchingHash = File::where('hash', $currentIconHash)->first();
 
             // icon hash not found so upload icon to public folder.
-            if (!$iconHashFound)
+            if (!$matchingHash)
             {
-                $iconFile = new File();
-                $iconFile->path = $iconPath;
-                $iconFile->hash = $iconHash;
-                $iconFile->save();
-
-                $request->app_icon->move(public_path('images'), $iconPath);
+                $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
+                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
             }
 
-            $appInfo->app_icon = ($iconHashFound) ? $iconHashFound->path : $iconPath;
+            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
         }
 
         $appInfo->app_name = $inputs['app_name'];
@@ -68,5 +62,22 @@ class DashboardController extends Controller
         $appInfo?->delete();
 
         return redirect()->route('get_app_list');
+    }
+
+    /**
+     * @param string                            $iconPath
+     * @param bool|string                       $iconHash
+     * @param \App\Http\Requests\AppInfoRequest $request
+     *
+     * @return void
+     */
+    public function GenerateHashAndUpload(string $iconPath, bool|string $iconHash, AppInfoRequest $request): void
+    {
+        $iconFile = new File();
+        $iconFile->path = $iconPath;
+        $iconFile->hash = $iconHash;
+        $iconFile->save();
+
+        $request->app_icon->move(public_path('images'), $iconPath);
     }
 }
