@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AppInfoRequest extends FormRequest
 {
@@ -26,10 +27,12 @@ class AppInfoRequest extends FormRequest
         return [
             'app_icon' => 'required|image|mimes:png|max:1024',
             'app_name' => 'required',
-            'app_bundle' => array('required', 'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/', 'unique:app_infos'),
-            'fb_app_id' => 'required|numeric|unique:app_infos',
-            'elephant_id' => 'required|unique:app_infos',
-            'elephant_secret' => 'required|unique:app_infos'
+            'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id')),
+                                  'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
+
+            'fb_app_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))),
+            'elephant_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))),
+            'elephant_secret' => array('required', Rule::unique('app_infos')->ignore($this->route('id')))
         ];
     }
 

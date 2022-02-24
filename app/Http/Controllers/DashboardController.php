@@ -25,20 +25,20 @@ class DashboardController extends Controller
 
     public function update(AppInfoRequest $request)
     {
-        $validated = $request->all();
+        $inputs = $request->all();
 
         $appInfo = AppInfo::find($request->id);
 
         // upload updated icon to public folder.
-        $appIconPath = time().'-'.$validated['app_name'].'.'.$validated['app_icon']->getClientOriginalExtension();
+        $appIconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
         $request->app_icon->move(public_path('images'), $appIconPath);
 
         $appInfo->app_icon = $appIconPath;
-        $appInfo->app_name = $validated['app_name'];
-        $appInfo->app_bundle = $validated['app_bundle'];
-        $appInfo->fb_app_id = $validated['fb_app_id'];
-        $appInfo->elephant_id = $validated['elephant_id'];
-        $appInfo->elephant_secret = $validated['elephant_secret'];
+        $appInfo->app_name = $inputs['app_name'];
+        $appInfo->app_bundle = $inputs['app_bundle'];
+        $appInfo->fb_app_id = $inputs['fb_app_id'];
+        $appInfo->elephant_id = $inputs['elephant_id'];
+        $appInfo->elephant_secret = $inputs['elephant_secret'];
         $appInfo->save();
 
         return redirect()->route('get_app_list');
