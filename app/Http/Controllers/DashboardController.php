@@ -28,28 +28,30 @@ class DashboardController extends Controller
     public function update(AppInfoRequest $request)
     {
         $inputs = $request->all();
-
         $appInfo = AppInfo::find($request->id);
 
         // generate file hash.
-        $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
-        $iconHash = md5_file($inputs['app_icon']);
-
-        $iconHashFound = File::where('hash', $iconHash)->first();
-
-        // icon hash not found so upload icon to public folder.
-        if (!$iconHashFound)
+        if (isset($inputs['app_icon']))
         {
-            $iconFile = new File();
-            $iconFile->path = $iconPath;
-            $iconFile->hash = $iconHash;
-            $iconFile->save();
+            $iconPath = time().'-'.$inputs['app_name'].'.'.$inputs['app_icon']->getClientOriginalExtension();
+            $iconHash = md5_file($inputs['app_icon']);
 
-            $request->app_icon->move(public_path('images'), $iconPath);
+            $iconHashFound = File::where('hash', $iconHash)->first();
+
+            // icon hash not found so upload icon to public folder.
+            if (!$iconHashFound)
+            {
+                $iconFile = new File();
+                $iconFile->path = $iconPath;
+                $iconFile->hash = $iconHash;
+                $iconFile->save();
+
+                $request->app_icon->move(public_path('images'), $iconPath);
+            }
+
+            $appInfo->app_icon = ($iconHashFound) ? $iconHashFound->path : $iconPath;
         }
 
-        // create entry.
-        $appInfo->app_icon = ($iconHashFound) ? $iconHashFound->path : $iconPath;
         $appInfo->app_name = $inputs['app_name'];
         $appInfo->app_bundle = $inputs['app_bundle'];
         $appInfo->fb_app_id = $inputs['fb_app_id'];
