@@ -1,7 +1,7 @@
 @php($appInfos = \App\Models\AppInfo::all())
 @php($appInfo = \App\Models\AppInfo::find($id))
 
-@extends('layouts.master');
+@extends('layouts.master')
 
 @section('title', 'Update App')
 
