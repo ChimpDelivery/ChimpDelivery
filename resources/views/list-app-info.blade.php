@@ -12,7 +12,7 @@
             <th scope="col" class="text-center">#</th>
             <th scope="col" class="text-center">App Icon</th>
             <th scope="col" class="text-center">App Name</th>
-            <th scope="col" class="text-center">App Bundle</th>
+            <th scope="col" class="text-center">Bundle ID</th>
             <th scope="col" class="text-center">Facebook App ID</th>
             <th scope="col" class="text-center">Elephant ID</th>
             <th scope="col" class="text-center">Elephant Secret</th>

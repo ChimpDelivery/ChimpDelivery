@@ -20,8 +20,8 @@ class AppInfoFactory extends Factory
         return [
             'app_icon' => '',
             'app_name' => $this->faker->name(),
-            'app_bundle' => Str::random(5),
-            'fb_app_id' => Str::random(10),
+            'app_bundle' => 'com.Talus.Example'.Str::random(5),
+            'fb_app_id' => $this->faker->numberBetween(100000000, 999999999),
             'elephant_id' => Str::random(10),
             'elephant_secret' => Str::random(10)
         ];
