@@ -97,7 +97,7 @@
 <!--
 <footer class="page-footer font-small blue fixed-bottom">
     <div class="footer-copyright text-center py-1 text-muted">
-        <span class="font-weight-bold font-italic">app count: {{ count($appInfos) }}</span>
+        <span class="font-weight-bold font-italic">Talus Studio</span>
     </div>
 </footer>
 </body>

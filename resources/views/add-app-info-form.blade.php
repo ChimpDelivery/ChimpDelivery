@@ -1,4 +1,3 @@
-@php( $appInfos = \App\Models\AppInfo::all() )
 @php( $allAppInfos = json_decode(\App\Http\Controllers\DataProviders\AppStoreConnectDataProvider::getAppDictionary()->getContent()) )
 
 @extends('layouts.master')
