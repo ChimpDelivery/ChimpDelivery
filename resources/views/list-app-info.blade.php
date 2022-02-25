@@ -1,4 +1,4 @@
-@php( $appInfos = \App\Models\AppInfo::paginate(20) )
+@php( $appInfos = \App\Models\AppInfo::paginate(10) )
 
 @extends('layouts.master')
 
