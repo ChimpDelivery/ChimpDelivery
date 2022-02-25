@@ -22,7 +22,17 @@ php artisan serve
 - Recommended FTP client https://winscp.net/eng/download.php (only Windows)
 - Recommended REST client https://www.postman.com 
 
-# 🔑 Endpoints
+# 🔑 Talus App Api - Endpoints
 ```
 GET  |  api/appinfo/{db_id}
+```
+
+# 🔑 Talus AppStoreConnect Api - Endpoints
+```
+GET  |  api/appstoreconnect/get-token
+GET  |  api/appstoreconnect/get-full-info
+GET  |  api/appstoreconnect/get-app-list
+GET  |  api/appstoreconnect/get-app-dictionary
+GET  |  api/appstoreconnect/get-all-bundles
+GET  |  api/appstoreconnect/clear-cache
 ```
