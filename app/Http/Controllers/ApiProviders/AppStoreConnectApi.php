@@ -24,11 +24,19 @@ class AppStoreConnectApi
      */
     public static function sign($payload, $header, $key) : string
     {
+        // JWT temel olarak Base64 ile kodlanmış 3 ayrı parçadan oluşur.
+        // bu parçalar birbirinden .(dot) ile ayrılır.
+        // header-payload-signature
+        // signature->jwt oluşturulurken kullanılan anahtarın bulunduğu kısımdır.
+        // header'da belirtilen şifreleme metodu ile şifrelenir.(appstoreconnectapi ES256 kullanıyor.)
+        // JWT'de signature hariç diğer veriler okunabilir.
+        // Base64 decode yapmamız yeterli, içerikteki bilgiyi değiştirirsek anahtar kullanılamaz olur.
         $segments = [];
         $segments[] = static::urlsafeB64Encode(static::jsonEncode($header));
         $segments[] = static::urlsafeB64Encode(static::jsonEncode($payload));
         $signing_input = implode('.', $segments);
 
+        //
         $signature = static::_sign($signing_input, $key);
         $segments[] = static::urlsafeB64Encode($signature);
 
