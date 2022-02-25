@@ -1,4 +1,4 @@
-@php( $appInfos = \App\Models\AppInfo::all() )
+@php( $appInfos = \App\Models\AppInfo::paginate(20) )
 
 @extends('layouts.master')
 
@@ -8,7 +8,7 @@
 <div class="table-responsive-sm">
     <table class="table table-striped table-hover">
         <thead>
-        <tr>
+        <tr class="bg-primary text-light">
             <th scope="col" class="text-center">#</th>
             <th scope="col" class="text-center">App Icon</th>
             <th scope="col" class="text-center">App Name</th>
@@ -53,5 +53,8 @@
         @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        {{ $appInfos->links() }}
+    </div>
 </div>
 @endsection
