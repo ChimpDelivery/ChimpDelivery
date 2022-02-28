@@ -74,9 +74,9 @@ class AppStoreConnectDataProvider
     public static function getAllBundles() : JsonResponse
     {
         $bundleIds = array();
-        $fullAppDictionary = json_decode(self::getAppDictionary()->getContent());
+        $fullAppDictionary = json_decode(self::getAppList()->getContent());
 
-        foreach ($fullAppDictionary->app_dictionary as $appBundleAndNamePair)
+        foreach ($fullAppDictionary->apps as $appBundleAndNamePair)
         {
             $bundleIds []= $appBundleAndNamePair[0];
         }
@@ -87,7 +87,7 @@ class AppStoreConnectDataProvider
     }
 
     // https://api.appstoreconnect.apple.com/v1/apps/{appstore_id}/builds
-    public static function getAllBuilds($appApiUrl)
+    public static function getAllBuilds($appApiUrl) : JsonResponse
     {
         $token = self::getToken();
 
