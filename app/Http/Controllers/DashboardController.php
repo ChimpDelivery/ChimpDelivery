@@ -77,17 +77,15 @@ class DashboardController extends Controller
      */
     public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : RedirectResponse
     {
-        $inputs = $request->all();
-
-        if (isset($inputs['app_icon']))
+        if (isset($request->app_icon))
         {
-            $currentIconHash = md5_file($inputs['app_icon']);
+            $currentIconHash = md5_file($request->app_icon);
             $matchingHash = File::where('hash', $currentIconHash)->first();
 
             // icon hash not found so generate hash and upload icon file.
             if (!$matchingHash)
             {
-                $iconPath = time() . '-' . $inputs['app_name'] . '.' . $inputs['app_icon']->getClientOriginalExtension();
+                $iconPath = time() . '-' . $request->app_name . '.' . $request->app_icon->getClientOriginalExtension();
                 $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
             }
 
@@ -97,14 +95,14 @@ class DashboardController extends Controller
         // we can't update app_name, app_bundle and appstore_id in created apps.
         if (!$appInfo->exists)
         {
-            $appInfo->app_name = $inputs['app_name'];
-            $appInfo->app_bundle = $inputs['app_bundle'];
-            $appInfo->appstore_id = $inputs['appstore_id'];
+            $appInfo->app_name = $request->app_name;
+            $appInfo->app_bundle = $request->app_bundle;
+            $appInfo->appstore_id = $request->appstore_id;
         }
 
-        $appInfo->fb_app_id = $inputs['fb_app_id'];
-        $appInfo->elephant_id = $inputs['elephant_id'];
-        $appInfo->elephant_secret = $inputs['elephant_secret'];
+        $appInfo->fb_app_id = $request->fb_app_id;
+        $appInfo->elephant_id = $request->elephant_id;
+        $appInfo->elephant_secret = $request->elephant_secret;
 
         $appInfo->save();
         return to_route('get_app_list');

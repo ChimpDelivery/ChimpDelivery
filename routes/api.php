@@ -28,13 +28,14 @@ Route::controller(AppInfoController::class)->group(function () {
     // not-implementeds
     Route::get('appinfo', 'index');
     Route::post('appinfo', 'store');
-    Route::get('appinfo/create', action: 'create');
+    Route::get('appinfo/create', 'create');
     Route::get('appinfo/{id}/edit', 'edit');
     Route::put('appinfo/{id}', 'update');
     Route::delete('appinfo/{id}', 'destroy');
 });
 
 Route::controller(AppStoreConnectController::class)->group(function () {
+    // active endpoints
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
