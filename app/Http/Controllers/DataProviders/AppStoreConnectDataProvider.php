@@ -52,38 +52,22 @@ class AppStoreConnectDataProvider
     public static function getAppList() : JsonResponse
     {
         $appList = self::getFullInfo()->getContent();
-        $decodedAppList = json_decode($appList, true);
+        $decodedAppList = json_decode($appList);
 
-        $data = $decodedAppList['app_list']['data'];
+        $data = $decodedAppList->app_list->data;
 
         $apps = array();
         foreach ($data as $content)
         {
-            $bundleId = $content['attributes']['bundleId'];
-            $appName = $content['attributes']['name'];
-            $appstoreId = $content['id'];
+            $bundleId = $content->attributes->bundleId;
+            $appName = $content->attributes->name;
+            $appstoreId = $content->id;
 
             $apps []= array($bundleId, $appName, $appstoreId);
         }
 
         return response()->json([
             'apps' => $apps
-        ]);
-    }
-
-    public static function getAppDictionary()  : JsonResponse
-    {
-        $appList = self::getAppList()->getContent();
-        $decodedAppList = json_decode($appList, true);
-
-        $dictionary = array();
-        foreach ($decodedAppList['apps'] as $val)
-        {
-            $dictionary []= array($val[0], $val[1], $val[2]);
-        }
-
-        return response()->json([
-            'app_dictionary' => $dictionary
         ]);
     }
 

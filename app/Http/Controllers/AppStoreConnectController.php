@@ -25,11 +25,6 @@ class AppStoreConnectController extends Controller
         return AppStoreConnectDataProvider::getAppList();
     }
 
-    public function GetAppDictionary() : JsonResponse
-    {
-        return AppStoreConnectDataProvider::getAppDictionary();
-    }
-
     public function GetAllBundles() : JsonResponse
     {
         return AppStoreConnectDataProvider::getAllBundles();

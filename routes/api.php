@@ -38,7 +38,6 @@ Route::controller(AppStoreConnectController::class)->group(function () {
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
-    Route::get('appstoreconnect/get-app-dictionary', 'GetAppDictionary');
     Route::get('appstoreconnect/get-all-bundles', 'GetAllBundles');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/clear-cache', 'ClearCache');

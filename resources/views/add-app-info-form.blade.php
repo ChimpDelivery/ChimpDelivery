@@ -1,4 +1,4 @@
-@php( $allAppInfos = json_decode(\App\Http\Controllers\DataProviders\AppStoreConnectDataProvider::getAppDictionary()->getContent()) )
+@php( $allAppInfos = json_decode(\App\Http\Controllers\DataProviders\AppStoreConnectDataProvider::getAppList()->getContent()) )
 
 @extends('layouts.master')
 
@@ -27,7 +27,7 @@
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
-                            @foreach($allAppInfos->app_dictionary as $appInfo)
+                            @foreach($allAppInfos->apps as $appInfo)
                                 <input type="text" id="app_info_name" name="app_info_name" hidden>
                                 <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}', '{{$appInfo[2]}}')">{{ $appInfo[0] }}</a>
                             @endforeach
