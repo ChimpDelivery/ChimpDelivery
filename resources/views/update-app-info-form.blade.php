@@ -30,6 +30,11 @@
                            value="{{ $appInfo->app_bundle }}" readonly>
                 </div>
                 <div class="form-group">
+                    <label for="app_bundle">Appstore ID</label>
+                    <input type="text" id="form-control" name="appstore_id" class="form-control" required=""
+                           value="{{ $appInfo->appstore_id }}" readonly>
+                </div>
+                <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
                     <input type="text" id="form-control" name="fb_app_id" class="form-control" required=""
                            value="{{ $appInfo->fb_app_id }}">

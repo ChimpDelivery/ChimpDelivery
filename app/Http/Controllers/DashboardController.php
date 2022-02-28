@@ -94,11 +94,12 @@ class DashboardController extends Controller
             $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
         }
 
-        // we can't update app_name and app_bundle in created apps.
+        // we can't update app_name, app_bundle and appstore_id in created apps.
         if (!$appInfo->exists)
         {
             $appInfo->app_name = $inputs['app_name'];
             $appInfo->app_bundle = $inputs['app_bundle'];
+            $appInfo->appstore_id = $inputs['appstore_id'];
         }
 
         $appInfo->fb_app_id = $inputs['fb_app_id'];

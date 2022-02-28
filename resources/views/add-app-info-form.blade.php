@@ -33,10 +33,14 @@
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos->app_dictionary as $appInfo)
                                 <input type="text" id="app_info_name" name="app_info_name" hidden>
-                                <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}')">{{ $appInfo[0] }}</a>
+                                <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}', '{{$appInfo[2]}}')">{{ $appInfo[0] }}</a>
                             @endforeach
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="app_name">Appstore ID</label>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
@@ -74,9 +78,12 @@
         });
     });
 
-    function updateAppNameField(appName) {
+    function updateAppNameField(appName, appstoreId) {
         var appNameField = document.getElementById('app_name');
         appNameField.value = appName;
+
+        var appstoreIdField = document.getElementById('appstore_id')
+        appstoreIdField.value = appstoreId;
     }
 
     function preview() {

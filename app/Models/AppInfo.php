@@ -16,6 +16,7 @@ class AppInfo extends Model
         'app_icon_hash',
         'app_name',
         'app_bundle',
+        'appstore_id',
         'fb_app_id',
         'elephant_id',
         'elephant_secret'

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\DataProviders\AppStoreConnectDataProvider;
+
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 
@@ -31,6 +33,12 @@ class AppStoreConnectController extends Controller
     public function GetAllBundles() : JsonResponse
     {
         return AppStoreConnectDataProvider::getAllBundles();
+    }
+
+    public function GetBuildList(Request $request) : JsonResponse
+    {
+        // app id: 1608173554
+        return AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/{$request->appstore_id}/builds");
     }
 
     public function ClearCache() : JsonResponse

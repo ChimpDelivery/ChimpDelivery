@@ -61,8 +61,9 @@ class AppStoreConnectDataProvider
         {
             $bundleId = $content['attributes']['bundleId'];
             $appName = $content['attributes']['name'];
+            $appstoreId = $content['id'];
 
-            $apps []= array($bundleId, $appName);
+            $apps []= array($bundleId, $appName, $appstoreId);
         }
 
         return response()->json([
@@ -70,7 +71,7 @@ class AppStoreConnectDataProvider
         ]);
     }
 
-    public static function getAppDictionary() : JsonResponse
+    public static function getAppDictionary()  : JsonResponse
     {
         $appList = self::getAppList()->getContent();
         $decodedAppList = json_decode($appList, true);
@@ -78,7 +79,7 @@ class AppStoreConnectDataProvider
         $dictionary = array();
         foreach ($decodedAppList['apps'] as $val)
         {
-            $dictionary []= array($val[0], $val[1]);
+            $dictionary []= array($val[0], $val[1], $val[2]);
         }
 
         return response()->json([
@@ -98,6 +99,21 @@ class AppStoreConnectDataProvider
 
         return response()->json([
             'bundle_ids' => $bundleIds
+        ]);
+    }
+
+    // https://api.appstoreconnect.apple.com/v1/apps/{appstore_id}/builds
+    public static function getAllBuilds($appApiUrl)
+    {
+        $token = self::getToken();
+
+        $appList = Http::withToken($token)->get($appApiUrl);
+        $fullAppList = json_decode($appList);
+
+        $buildsCollection = collect($fullAppList->data);
+
+        return response()->json([
+            'builds' =>  $buildsCollection->pluck('attributes.uploadedDate', 'attributes.version')->sort()
         ]);
     }
 }

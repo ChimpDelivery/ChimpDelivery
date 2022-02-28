@@ -13,7 +13,7 @@
             <th scope="col" class="text-center">App Icon</th>
             <th scope="col" class="text-center">App Name</th>
             <th scope="col" class="text-center">Bundle ID</th>
-            <th scope="col" class="text-center">Facebook App ID</th>
+            <th scope="col" class="text-center">Appstore ID</th>
             <th scope="col" class="text-center">Elephant ID</th>
             <th scope="col" class="text-center">Elephant Secret</th>
             <th scope="col" class="text-center font-italic">Edit App</th>
@@ -28,7 +28,7 @@
                                                           height="100px" alt="..." class="img-thumbnail"/></td>
                 <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
                 <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
-                <td class="text-center align-middle">{{ $appInfo->fb_app_id }}</td>
+                <td class="text-center align-middle">{{ $appInfo->appstore_id }}</td>
                 <td class="text-center align-middle">{{ $appInfo->elephant_id }}</td>
                 <td class="text-center align-middle">{{ $appInfo->elephant_secret }}</td>
                 <td class="text-center align-middle">
