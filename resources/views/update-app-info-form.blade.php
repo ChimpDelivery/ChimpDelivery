@@ -20,6 +20,11 @@
                          alt="..." class="img-thumbnail"/>
                 </div>
                 <div class="form-group">
+                    <label for="app_bundle">Appstore ID</label>
+                    <input type="text" id="form-control" name="appstore_id" class="form-control" required=""
+                           value="{{ $appInfo->appstore_id }}" readonly>
+                </div>
+                <div class="form-group">
                     <label for="app_name">App Name</label>
                     <input type="text" id="title" name="app_name" class="form-control" required=""
                            value="{{ $appInfo->app_name }}" readonly>
@@ -28,11 +33,6 @@
                     <label for="app_bundle">App Bundle</label>
                     <input type="text" id="form-control" name="app_bundle" class="form-control" required=""
                            value="{{ $appInfo->app_bundle }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="app_bundle">Appstore ID</label>
-                    <input type="text" id="form-control" name="appstore_id" class="form-control" required=""
-                           value="{{ $appInfo->appstore_id }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

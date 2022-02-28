@@ -18,10 +18,6 @@
                     <img id="frame" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                 </div>
                 <div class="form-group">
-                    <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="select bundle from list..." readonly>
-                </div>
-                <div class="form-group">
                     <div class="dropdown">
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
@@ -41,6 +37,10 @@
                 <div class="form-group">
                     <label for="app_name">Appstore ID</label>
                     <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="select bundle from list..." readonly>
+                </div>
+                <div class="form-group">
+                    <label for="app_name">App Name</label>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

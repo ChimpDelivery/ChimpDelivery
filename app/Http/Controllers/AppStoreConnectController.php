@@ -37,8 +37,7 @@ class AppStoreConnectController extends Controller
 
     public function GetBuildList(Request $request) : JsonResponse
     {
-        // app id: 1608173554
-        return AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/{$request->appstore_id}/builds");
+        return AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/$request->appstore_id/builds");
     }
 
     public function ClearCache() : JsonResponse

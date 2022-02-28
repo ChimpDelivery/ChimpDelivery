@@ -11,11 +11,11 @@
         <tr class="bg-primary text-light">
             <th scope="col" class="text-center">#</th>
             <th scope="col" class="text-center">App Icon</th>
+            <th scope="col" class="text-center">Appstore ID</th>
             <th scope="col" class="text-center">App Name</th>
             <th scope="col" class="text-center">Bundle ID</th>
-            <th scope="col" class="text-center">Appstore ID</th>
             <th scope="col" class="text-center">Elephant ID</th>
-            <th scope="col" class="text-center">Elephant Secret</th>
+            <th scope="col" class="text-center font-italic">Build App</th>
             <th scope="col" class="text-center font-italic">Edit App</th>
             <th scope="col" class="text-center font-italic">Delete App</th>
         </tr>
@@ -26,11 +26,20 @@
                 <th scope="row" class="text-center align-middle">{{ $appInfo->id }}</th>
                 <td class="text-center align-middle"><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px"
                                                           height="100px" alt="..." class="img-thumbnail"/></td>
+
+                <td class="text-center align-middle">{{ $appInfo->appstore_id }}</td>
                 <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
                 <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
-                <td class="text-center align-middle">{{ $appInfo->appstore_id }}</td>
                 <td class="text-center align-middle">{{ $appInfo->elephant_id }}</td>
-                <td class="text-center align-middle">{{ $appInfo->elephant_secret }}</td>
+
+                <td class="text-center align-middle">
+                    <a href="dashboard/build-app/{{$appInfo->appstore_id}}">
+                        <button class="btn text-white bg-success">
+                            <i class="fa fa-plus-square"></i>
+                        </button>
+                    </a>
+                </td>
+
                 <td class="text-center align-middle">
                     <a href="dashboard/update-app-info/{{$appInfo->id}}">
                         <button class="btn text-white bg-warning">
@@ -38,6 +47,7 @@
                         </button>
                     </a>
                 </td>
+
                 <td class="text-center align-middle">
                     <form name="delete-app-info-form" id="delete-app-info-form" method="post"
                           action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
