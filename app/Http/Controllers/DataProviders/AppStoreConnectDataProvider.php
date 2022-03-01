@@ -19,7 +19,7 @@ class AppStoreConnectDataProvider
 
         $payload = [
             'iss' => env('APPSTORECONNECT_ISSUER_ID'),
-            'exp' => time() + 600,
+            'exp' => time() + 120,
             'aud' => 'appstoreconnect-v1'
         ];
 
