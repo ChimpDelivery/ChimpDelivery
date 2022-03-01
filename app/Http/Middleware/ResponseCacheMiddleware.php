@@ -18,6 +18,6 @@ class ResponseCacheMiddleware
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-        return Cache::remember($response->getContent(), 300, fn() => $next($request));
+        return Cache::remember($response->getContent(), 120, fn() => $next($request));
     }
 }
