@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
     public function SelectApp(Request $request)
     {
-        return view('update-app-info-form')->with('id', $request->id);
+        return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
 
     public function UpdateApp(AppInfoRequest $request)
