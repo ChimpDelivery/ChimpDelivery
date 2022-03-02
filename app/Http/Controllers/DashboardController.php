@@ -6,6 +6,7 @@ use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -14,39 +15,41 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
-    public function Index()
+    public function Index() : View
     {
         return view('list-app-info')->with('appInfos', AppInfo::paginate(10));
     }
 
-    public function CreateApp(Request $request)
+    public function CreateApp(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
         return view('add-app-info-form')->with('allAppInfos', $allAppInfos);
     }
 
-    public function StoreApp(AppInfoRequest $request)
+    public function StoreApp(AppInfoRequest $request) : RedirectResponse
     {
-        return $this->PopulateAppData($request, new AppInfo());
+        $this->PopulateAppData($request, new AppInfo());
+        return to_route('get_app_list');
     }
 
-    public function SelectApp(Request $request)
+    public function SelectApp(Request $request) : View
     {
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
 
-    public function UpdateApp(AppInfoRequest $request)
+    public function UpdateApp(AppInfoRequest $request) : RedirectResponse
     {
-        return $this->PopulateAppData($request, AppInfo::find($request->id));
+        $this->PopulateAppData($request, AppInfo::find($request->id));
+        return to_route('get_app_list');
     }
 
-    public function BuildApp(Request $request)
+    public function BuildApp(Request $request) : RedirectResponse
     {
         Artisan::call("jenkins:trigger {$request->id}");
         return to_route('get_app_list');
     }
 
-    public function DeleteApp(Request $request)
+    public function DeleteApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
         $appInfo?->delete();
@@ -54,19 +57,12 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function ClearCache()
+    public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
         return to_route('get_app_list');
     }
 
-    /**
-     * @param string                            $iconPath
-     * @param string                            $iconHash
-     * @param \App\Http\Requests\AppInfoRequest $request
-     *
-     * @return void
-     */
     private function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
     {
         $iconFile = new File();
@@ -77,13 +73,7 @@ class DashboardController extends Controller
         $request->app_icon->move(public_path('images'), $iconPath);
     }
 
-    /**
-     * @param \App\Http\Requests\AppInfoRequest $request
-     * @param \App\Models\AppInfo               $appInfo
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : RedirectResponse
+    private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
         if (isset($request->app_icon))
         {
@@ -113,6 +103,5 @@ class DashboardController extends Controller
         $appInfo->elephant_secret = $request->elephant_secret;
 
         $appInfo->save();
-        return to_route('get_app_list');
     }
 }
