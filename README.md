@@ -1,5 +1,4 @@
 # Talus Web Backend
-- No ssh support for current host(cPanel host), only ftp server.
 
 # :exclamation: Requirements
 - php >= 8.1x
