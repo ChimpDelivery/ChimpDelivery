@@ -16,7 +16,7 @@ class AppStoreConnectController extends Controller
         // $this->middleware('cached-response');
     }
 
-    public static function GetToken() : JsonResponse
+    public static function GetToken(Request $request) : JsonResponse
     {
         $header = [
             'alg' => 'ES256',
@@ -37,7 +37,8 @@ class AppStoreConnectController extends Controller
 
     public function GetFullAppInfo(Request $request) : JsonResponse
     {
-        $appList = Http::withToken($this->GetTokenString())->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId');
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId');
 
         return response()->json([
             'app_list' => $appList->json()
@@ -83,13 +84,13 @@ class AppStoreConnectController extends Controller
 
     public function GetBuildList(Request $request) : JsonResponse
     {
-        $appList = Http::withToken($this->GetTokenString())->get("https://api.appstoreconnect.apple.com/v1/builds");
-        $fullAppList = json_decode($appList);
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->get("https://api.appstoreconnect.apple.com/v1/builds");
 
-        $buildsCollection = collect($fullAppList->data);
+        $builds = collect(json_decode($appList)->data);
 
         return response()->json([
-            'builds' =>  $buildsCollection->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
+            'builds' =>  $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
         ]);
     }
 
@@ -98,10 +99,5 @@ class AppStoreConnectController extends Controller
         return response()->json([
             'status' => Cache::flush() ? 200 : 400
         ]);
-    }
-
-    private function GetTokenString() : string
-    {
-        return self::GetToken()->getData()->appstore_token;
     }
 }
