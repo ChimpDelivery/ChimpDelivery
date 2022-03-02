@@ -90,7 +90,7 @@ class AppStoreConnectController extends Controller
 
     public function ClearCache(Request $request) : JsonResponse
     {
-        ResponseCache::clearResolvedInstances();
+        ResponseCache::clear();
 
         return response()->json([
             'status' => 200
