@@ -22,12 +22,12 @@ sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
-# install php8.1
-sudo apt install php8.1
-
 sudo apt-get install tasksel
 sudo tasksel install lamp-server
 sudo mysql_secure_installation
+
+# install php8.1
+sudo apt install php8.1
 
 # install php8.1 packages
 sudo apt-get install php8.1-curl
