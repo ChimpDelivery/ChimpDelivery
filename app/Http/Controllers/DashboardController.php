@@ -48,16 +48,13 @@ class DashboardController extends Controller
             'token' => 'required'
         ]);*/
 
-        $token = "jenkins";
-
         $app = AppInfo::where('id', $request->id)->first();
         if ($app)
         {
             $url = env('JENKINS_HOST') . "/job/$app->app_name/build?token=" . env('JENKINS_TOKEN');
             Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_PASS'))->get($url);
         }
-
-
+        
         return to_route('get_app_list');
     }
 
