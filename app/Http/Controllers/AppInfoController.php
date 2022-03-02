@@ -12,22 +12,14 @@ use Illuminate\Http\JsonResponse;
 class AppInfoController extends Controller
 {
 
-    public function index(Request $request)
+    public function Index(Request $request)
     {
         return response()->json([
             'not_implemented' => true
         ]);
     }
 
-    public function create(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
-    }
-
-
-    public function store(AppInfoRequest $request)
+    public function Create(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true
@@ -35,7 +27,15 @@ class AppInfoController extends Controller
     }
 
 
-    public function show(Request $request): JsonResponse
+    public function Store(AppInfoRequest $request)
+    {
+        return response()->json([
+            'not_implemented' => true
+        ]);
+    }
+
+
+    public function Show(Request $request): JsonResponse
     {
         return response()->json([
             'app_info' => AppInfo::find($request->id)
@@ -43,7 +43,7 @@ class AppInfoController extends Controller
     }
 
 
-    public function edit(AppInfoRequest $request)
+    public function Edit(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true
@@ -51,7 +51,7 @@ class AppInfoController extends Controller
     }
 
 
-    public function update(AppInfoRequest $request)
+    public function Update(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true
@@ -59,7 +59,7 @@ class AppInfoController extends Controller
     }
 
 
-    public function destroy(AppInfoRequest $request)
+    public function Destroy(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true

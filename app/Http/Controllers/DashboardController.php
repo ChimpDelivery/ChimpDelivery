@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function Index()
     {
         return view('list-app-info');
     }
@@ -40,13 +40,6 @@ class DashboardController extends Controller
 
     public function BuildApp(Request $request)
     {
-        /*$request->validate([
-            'user' => 'required',
-            'pass' => 'required',
-            'pipeline' => 'required',
-            'token' => 'required'
-        ]);*/
-
         $app = AppInfo::where('id', $request->id)->first();
         if ($app)
         {

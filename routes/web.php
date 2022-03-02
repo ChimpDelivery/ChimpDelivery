@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::controller(DashboardController::class)->group(function () {
 
     // main route.
-    Route::get('/dashboard', 'index')->name('get_app_list');
+    Route::get('/dashboard', 'Index')->name('get_app_list');
 
     // get and post routes to create app info data.
     Route::get('/dashboard/add-app-info', 'CreateApp')->name('add_app_info');
