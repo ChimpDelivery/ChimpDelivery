@@ -9,7 +9,6 @@ use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Http;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
