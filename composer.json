@@ -41,13 +41,13 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@/usr/local/bin/php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
-            "@/usr/local/bin/php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@/usr/local/bin/php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi"
         ]
     },
     "extra": {
@@ -56,7 +56,7 @@
         }
     },
     "config": {
-        "cache-dir": "/home/talusstu/public_html/cache",
+        "cache-dir": "~/.composer",
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
