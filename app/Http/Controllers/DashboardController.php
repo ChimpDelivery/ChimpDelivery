@@ -46,7 +46,7 @@ class DashboardController extends Controller
         if ($app)
         {
             $url = implode('', [
-                env('JENKINS_HOST'),
+                env('JENKINS_HOST', 'http://localhost:8080'),
                 "/job/{$app->app_name}/build?token=",
                 env('JENKINS_TOKEN')
             ]);

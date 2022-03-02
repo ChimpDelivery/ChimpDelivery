@@ -25,14 +25,12 @@ class AppInfoController extends Controller
         ]);
     }
 
-
     public function Store(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true
         ]);
     }
-
 
     public function Show(Request $request): JsonResponse
     {
@@ -41,7 +39,6 @@ class AppInfoController extends Controller
         ]);
     }
 
-
     public function Edit(AppInfoRequest $request)
     {
         return response()->json([
@@ -49,14 +46,12 @@ class AppInfoController extends Controller
         ]);
     }
 
-
     public function Update(AppInfoRequest $request)
     {
         return response()->json([
             'not_implemented' => true
         ]);
     }
-
 
     public function Destroy(AppInfoRequest $request)
     {
