@@ -33,7 +33,7 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/update-app-info/{id}', 'SelectApp')->name('get_app_info');
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->middleware('doNotCacheResponse')->name('update_app_info');
 
-    Route::get('/dashboard/build-app/{id}', 'BuildApp');
+    Route::get('/dashboard/build-app/{id}', 'BuildApp')->middleware('doNotCacheResponse');
 
     // post route to delete app info data.
     Route::post('/dashboard/delete-app-info/{id}', 'DeleteApp')->name('delete_app_info');
