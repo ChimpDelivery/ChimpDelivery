@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.talusstudio.com'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -138,6 +138,8 @@ return [
 
     'providers' => [
 
+        Barryvdh\Debugbar\ServiceProvider::class,
+
         /*
          * Laravel Framework Service Providers...
          */
@@ -163,6 +165,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -191,7 +194,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
     ])->toArray(),
 
 ];

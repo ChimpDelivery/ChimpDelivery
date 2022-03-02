@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+
     <meta name="description" content="Talus Studio">
     <meta name="keywords" content="Talus Studio, Mobile Games, Video Games">
     <meta name="author" content="Talus Studio">
@@ -9,25 +9,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Talus Studio</title>
     <style>
-        .vertical-center 
+        .vertical-center
 		{
 		  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
 		  min-height: 100vh; /* These two lines are counted as one :-)       */
 		  display: flex;
 		  align-items: center;
 		}
-		
-        @font-face 
+
+        @font-face
         {
             src: url(bada.TTF);
         }
-        
-        h4 
+
+        h4
         {
               src: url(bada.TTF);
         }
-        
-        p 
+
+        p
         {
             color: #696969;
         }
@@ -45,6 +45,7 @@
 				<h4>WE ARE TALUS</h4>
 				<p class="text-lowercase">info@talusstudio.com</p>
 				<a href="https://tr.linkedin.com/company/talusstudio"><img src="linkedin.png" class="img-fluid" style="width:64px; height:64px;" /></a>
+                <a href="http://localhost:8000/dashboard">Dashboard</a>
 			</center>
 		</div>
 	</div>
