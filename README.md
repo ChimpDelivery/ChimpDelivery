@@ -15,6 +15,7 @@ sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
+# install lamp stack
 sudo apt-get install tasksel
 sudo tasksel install lamp-server
 sudo mysql_secure_installation
