@@ -6,7 +6,6 @@ use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -54,7 +53,7 @@ class DashboardController extends Controller
             $url = env('JENKINS_HOST') . "/job/$app->app_name/build?token=" . env('JENKINS_TOKEN');
             Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_PASS'))->get($url);
         }
-        
+
         return to_route('get_app_list');
     }
 
@@ -80,7 +79,7 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
+    private function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
     {
         $iconFile = new File();
         $iconFile->path = $iconPath;
@@ -96,7 +95,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : RedirectResponse
+    private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : RedirectResponse
     {
         if (isset($request->app_icon))
         {
