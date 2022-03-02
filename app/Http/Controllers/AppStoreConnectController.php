@@ -15,32 +15,42 @@ class AppStoreConnectController extends Controller
         $this->middleware('cached-response');
     }
 
-    public function GetToken() : string
+    public function GetToken(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getToken();
+        return response()->json([
+            'appstore_token' => AppStoreConnectDataProvider::getToken()
+        ]);
     }
 
-    public function GetFullAppInfo() : JsonResponse
+    public function GetFullAppInfo(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getFullInfo();
+        return response()->json([
+            'appstore_full' => AppStoreConnectDataProvider::getFullInfo()
+        ]);
     }
 
-    public function GetAppList() : JsonResponse
+    public function GetAppList(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getAppList();
+        return response()->json([
+            'appstore_apps' => AppStoreConnectDataProvider::getAppList()
+        ]);
     }
 
-    public function GetAllBundles() : JsonResponse
+    public function GetAllBundles(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getAllBundles();
+        return response()->json([
+            'appstore_bundles' => AppStoreConnectDataProvider::getAllBundles()
+        ]);
     }
 
     public function GetBuildList(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/$request->appstore_id/builds");
+        return response()->json([
+            'appstore_builds' => AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/$request->appstore_id/builds")
+        ]);
     }
 
-    public function ClearCache() : JsonResponse
+    public function ClearCache(Request $request) : JsonResponse
     {
         return response()->json([
             'status' => Cache::flush() ? 200 : 400

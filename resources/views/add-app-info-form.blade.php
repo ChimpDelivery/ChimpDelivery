@@ -1,5 +1,3 @@
-@php( $allAppInfos = json_decode(\App\Http\Controllers\DataProviders\AppStoreConnectDataProvider::getAppList()->getContent()) )
-
 @extends('layouts.master')
 
 @section('title', 'Create App')

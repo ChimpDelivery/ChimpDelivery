@@ -4,7 +4,6 @@ namespace App\Http\Controllers\DataProviders;
 
 use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectDataProvider
@@ -28,23 +27,12 @@ class AppStoreConnectDataProvider
 
     public static function getFullInfo() : JsonResponse
     {
-        if (Cache::has('cached_app_list'))
-        {
-            return response()->json([
-                'cached_data' => true,
-                'app_list' => Cache::get('cached_app_list')
-            ]);
-        }
-
         $token = self::getToken();
 
         $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
         $fullAppList = json_decode($appList, true);
 
-        Cache::put('cached_app_list', $fullAppList, now()->addMinutes(env('APPSTORECONNECT_CACHE_DURATION')));
-
         return response()->json([
-            'cached_data' => false,
             'app_list' => $fullAppList
         ]);
     }
