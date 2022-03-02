@@ -63,7 +63,7 @@ class AppStoreConnectDataProvider
             $appName = $content->attributes->name;
             $appstoreId = $content->id;
 
-            $apps []= array($bundleId, $appName, $appstoreId);
+            $apps []= array('app_bundle' => $bundleId, 'app_name' => $appName, 'appstore_id' => $appstoreId);
         }
 
         return response()->json([
@@ -78,7 +78,7 @@ class AppStoreConnectDataProvider
 
         foreach ($fullAppDictionary->apps as $appBundleAndNamePair)
         {
-            $bundleIds []= $appBundleAndNamePair[0];
+            $bundleIds []= $appBundleAndNamePair->app_bundle;
         }
 
         return response()->json([

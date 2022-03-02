@@ -29,7 +29,7 @@
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos->apps as $appInfo)
                                 <input type="text" id="app_info_name" name="app_info_name" hidden>
-                                <a class="dropdown-item" href="#" onclick="updateAppNameField('{{$appInfo[1]}}', '{{$appInfo[2]}}')">{{ $appInfo[0] }}</a>
+                                <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -78,7 +78,7 @@
         });
     });
 
-    function updateAppNameField(appName, appstoreId) {
+    function updateAppField(appName, appstoreId) {
         var appNameField = document.getElementById('app_name');
         appNameField.value = appName;
 
