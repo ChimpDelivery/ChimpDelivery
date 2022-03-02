@@ -47,19 +47,17 @@ class AppStoreConnectController extends Controller
 
     public function GetAppList(Request $request) : JsonResponse
     {
-        $appList = $this->GetFullAppInfo($request)->getContent();
-        $decodedAppList = json_decode($appList);
+        $appList = $this->GetFullAppInfo($request)->getData();
+        $data = $appList->app_list->data;
 
-        $data = $decodedAppList->app_list->data;
-
-        $apps = array();
+        $apps = [];
         foreach ($data as $content)
         {
-            $bundleId = $content->attributes->bundleId;
-            $appName = $content->attributes->name;
-            $appstoreId = $content->id;
-
-            $apps []= array('app_bundle' => $bundleId, 'app_name' => $appName, 'appstore_id' => $appstoreId);
+            $apps []= [
+                'app_bundle' => $content->attributes->bundleId,
+                'app_name' => $content->attributes->name,
+                'appstore_id' => $content->id
+            ];
         }
 
         return response()->json([
@@ -69,8 +67,8 @@ class AppStoreConnectController extends Controller
 
     public function GetAllBundles(Request $request) : JsonResponse
     {
-        $bundleIds = array();
-        $fullAppDictionary = json_decode($this->GetAppList($request)->getContent());
+        $bundleIds = [];
+        $fullAppDictionary = $this->GetAppList($request)->getData();
 
         foreach ($fullAppDictionary->apps as $appBundleAndNamePair)
         {
