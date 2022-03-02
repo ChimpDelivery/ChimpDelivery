@@ -14,7 +14,6 @@
             <th scope="col" class="text-center">Appstore ID</th>
             <th scope="col" class="text-center">App Name</th>
             <th scope="col" class="text-center">Bundle ID</th>
-            <th scope="col" class="text-center">Elephant ID</th>
             <th scope="col" class="text-center font-italic">Build App</th>
             <th scope="col" class="text-center font-italic">Edit App</th>
             <th scope="col" class="text-center font-italic">Delete App</th>
@@ -34,7 +33,6 @@
                 </td>
                 <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
                 <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
-                <td class="text-center align-middle">{{ $appInfo->elephant_id }}</td>
                 <td class="text-center align-middle">
                     <a href="dashboard/build-app/{{$appInfo->id}}">
                         <button class="btn text-white bg-success">
