@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
-use Spatie\ResponseCache\Facades\ResponseCache;
-
 class AppStoreConnectController extends Controller
 {
     public static function GetToken(Request $request) : JsonResponse
@@ -85,15 +83,6 @@ class AppStoreConnectController extends Controller
 
         return response()->json([
             'builds' =>  $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
-        ]);
-    }
-
-    public function ClearCache(Request $request) : JsonResponse
-    {
-        ResponseCache::clear();
-
-        return response()->json([
-            'status' => 200
         ]);
     }
 }

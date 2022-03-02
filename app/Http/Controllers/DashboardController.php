@@ -8,8 +8,9 @@ use App\Models\File;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
@@ -66,7 +67,7 @@ class DashboardController extends Controller
 
     public function ClearCache()
     {
-        Cache::forget('cached_app_list');
+        ResponseCache::clear();
 
         return to_route('get_app_list');
     }
