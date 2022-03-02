@@ -16,7 +16,7 @@ class DashboardController extends Controller
 {
     public function Index()
     {
-        return view('list-app-info');
+        return view('list-app-info')->with('appInfos', AppInfo::paginate(10));
     }
 
     public function CreateApp()

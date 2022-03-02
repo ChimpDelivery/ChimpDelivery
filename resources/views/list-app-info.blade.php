@@ -1,5 +1,3 @@
-@php( $appInfos = \App\Models\AppInfo::paginate(10) )
-
 @extends('layouts.master')
 
 @section('title', 'Apps')
