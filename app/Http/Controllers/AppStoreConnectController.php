@@ -82,7 +82,7 @@ class AppStoreConnectController extends Controller
         $builds = collect(json_decode($appList)->data);
 
         return response()->json([
-            'builds' =>  $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
+            'builds' => $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
         ]);
     }
 }

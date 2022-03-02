@@ -57,7 +57,6 @@ class DashboardController extends Controller
     public function ClearCache()
     {
         ResponseCache::clear();
-
         return to_route('get_app_list');
     }
 
