@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('app_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('app_icon');
-            $table->string('app_name');
-            $table->string('app_bundle');
-            $table->string('fb_app_id');
-            $table->string('elephant_id');
-            $table->string('elephant_secret');
+            $table->string('app_icon')->default('')->nullable();
+            $table->string('app_name')->unique();
+            $table->string('app_bundle')->unique();
+            $table->string('appstore_id')->unique();
+            $table->string('fb_app_id')->default('')->nullable();
+            $table->string('elephant_id')->default('')->nullable();
+            $table->string('elephant_secret')->default('')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

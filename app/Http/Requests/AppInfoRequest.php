@@ -26,19 +26,20 @@ class AppInfoRequest extends FormRequest
     {
         return [
             'app_icon' => 'image|mimes:png|max:1024',
-            'app_icon_hash' => 'optional',
-            'app_name' => 'required',
+            'app_icon_hash' => 'nullable',
+
+            'app_name' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
 
             'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at')),
                                   'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
 
             'appstore_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
 
-            'fb_app_id' => array('required', 'numeric', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'fb_app_id' => array('nullable', 'numeric', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
 
-            'elephant_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'elephant_id' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
 
-            'elephant_secret' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
+            'elephant_secret' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
         ];
     }
 
@@ -48,10 +49,7 @@ class AppInfoRequest extends FormRequest
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.Talus.CozyKitchen)',
             'appstore_id.required' => 'appstore_id is required!',
-            'fb_app_id.required' => 'fb_app_id is required!',
-            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only number)',
-            'elephant_id.required' => 'elephant_id is required!',
-            'elephant_secret.required' => 'elephant_secret is required!'
+            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only number)'
         ];
     }
 }
