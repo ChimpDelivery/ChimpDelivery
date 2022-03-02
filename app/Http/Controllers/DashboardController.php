@@ -8,6 +8,7 @@ use App\Models\File;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
@@ -42,18 +43,7 @@ class DashboardController extends Controller
 
     public function BuildApp(Request $request)
     {
-        $app = AppInfo::where('id', $request->id)->first();
-        if ($app)
-        {
-            $url = implode('', [
-                env('JENKINS_HOST', 'http://localhost:8080'),
-                "/job/{$app->app_name}/build?token=",
-                env('JENKINS_TOKEN')
-            ]);
-
-            Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_PASS'))->get($url);
-        }
-
+        Artisan::call("jenkins:trigger {$request->id}");
         return to_route('get_app_list');
     }
 
