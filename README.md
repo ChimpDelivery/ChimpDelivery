@@ -32,6 +32,10 @@ sudo mysql_secure_installation
 # install curl package for php8.1
 sudo apt-get install php8.1-curl
 
+# restart apache && mysql
+sudo service apache2 restart
+sudo serivce mysql restart
+
 cp .env.example .env
 composer update
 php artisan serve
