@@ -1,9 +1,9 @@
 # Talus Web Backend
 - No ssh support for current host(cPanel host), only ftp server.
 
-# :exclamation: Requirements on cPanel
-- php >= 8.1x on cpanel host (with mbstring extension)
-- laravel >= 9.1
+# :exclamation: Requirements
+- php >= 8.1x
+- laravel >= 9.3
 
 # 💿 Installation (on Local)
 - Install XAMPP from https://www.apachefriends.org/tr/index.html and install it.
@@ -14,8 +14,26 @@
 - Open bash/powershell etc. in project folder.
 
 ```
-php artisan key:generate
-php artisan migrate
+# update sudo packages
+sudo apt update && sudo apt -y upgrade
+
+# add sudo repository for php >= 8.1
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+
+# install php8.1
+sudo apt install php8.1
+
+sudo apt-get install tasksel
+sudo tasksel install lamp-server
+sudo mysql_secure_installation
+
+# install curl package for php8.1
+sudo apt-get install php8.1-curl
+
+cp .env.example .env
+composer update
 php artisan serve
 ```
 
