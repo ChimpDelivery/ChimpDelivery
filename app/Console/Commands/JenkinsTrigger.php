@@ -20,7 +20,7 @@ class JenkinsTrigger extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Trigger jenkins pipeline to build.';
 
     /**
      * Create a new command instance.
