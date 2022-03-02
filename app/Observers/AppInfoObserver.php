@@ -36,11 +36,11 @@ class AppInfoObserver
      */
     public function deleted(AppInfo $appInfo)
     {
-        $appInfo->update([
+        /*$appInfo->update([
             'app_name' => time() . '::' . $appInfo->app_name,
             'app_bundle' => time() . '::' . $appInfo->app_bundle,
             'appstore_id' => time() . '::' . $appInfo->appstore_id
-        ]);
+        ]);*/
     }
 
     /**

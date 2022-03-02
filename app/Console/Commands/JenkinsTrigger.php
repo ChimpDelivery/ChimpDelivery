@@ -8,36 +8,15 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsTrigger extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'jenkins:trigger {appInfoID}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Trigger jenkins pipeline to build.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle() : void
     {
         $app = AppInfo::where('id', $this->argument('appInfoID'))->first();
         if ($app)

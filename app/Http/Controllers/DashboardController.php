@@ -7,6 +7,7 @@ use App\Models\AppInfo;
 use App\Models\File;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -20,15 +21,15 @@ class DashboardController extends Controller
         return view('list-app-info')->with('appInfos', AppInfo::paginate(10));
     }
 
-    public function CreateApp(Request $request) : View
+    public function CreateAppForm(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
         return view('add-app-info-form')->with('allAppInfos', $allAppInfos);
     }
 
-    public function StoreApp(AppInfoRequest $request) : RedirectResponse
+    public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
     {
-        $this->PopulateAppData($request, new AppInfo());
+        $this->PopulateAppData($request, AppInfo::withTrashed()->where('appstore_id', $request->appstore_id)->first());
         session()->flash('success', "App: {$request->app_name} created...");
         return to_route('get_app_list');
     }
@@ -40,7 +41,7 @@ class DashboardController extends Controller
 
     public function UpdateApp(AppInfoRequest $request) : RedirectResponse
     {
-        $this->PopulateAppData($request, AppInfo::find($request->id));
+        $this->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
         session()->flash('success', "App: {$request->app_name} updated...");
         return to_route('get_app_list');
     }
@@ -92,6 +93,11 @@ class DashboardController extends Controller
             }
 
             $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
+        }
+
+        if ($appInfo->trashed())
+        {
+            $appInfo->restore();
         }
 
         // we can't update app_name, app_bundle and appstore_id in created apps.
