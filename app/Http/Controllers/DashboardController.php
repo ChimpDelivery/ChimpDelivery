@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\DataProviders\AppStoreConnectDataProvider;
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
@@ -19,9 +18,10 @@ class DashboardController extends Controller
         return view('list-app-info')->with('appInfos', AppInfo::paginate(10));
     }
 
-    public function CreateApp()
+    public function CreateApp(Request $request)
     {
-        return view('add-app-info-form')->with('allAppInfos', json_decode(AppStoreConnectDataProvider::getAppList()->getContent()));
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        return view('add-app-info-form')->with('allAppInfos', $allAppInfos);
     }
 
     public function StoreApp(AppInfoRequest $request)
