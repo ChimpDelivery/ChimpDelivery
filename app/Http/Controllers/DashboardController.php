@@ -28,8 +28,8 @@ class DashboardController extends Controller
 
     public function StoreApp(AppInfoRequest $request) : RedirectResponse
     {
-        session()->flash('success', 'App created!...');
         $this->PopulateAppData($request, new AppInfo());
+        session()->flash('success', "App: {$request->app_name} created...");
         return to_route('get_app_list');
     }
 
@@ -40,22 +40,22 @@ class DashboardController extends Controller
 
     public function UpdateApp(AppInfoRequest $request) : RedirectResponse
     {
-        session()->flash('success', 'App updated!');
         $this->PopulateAppData($request, AppInfo::find($request->id));
+        session()->flash('success', "App: {$request->app_name} updated...");
         return to_route('get_app_list');
     }
 
     public function BuildApp(Request $request) : RedirectResponse
     {
-        session()->flash('success', 'App building...');
+        session()->flash('success', "App building...");
         Artisan::call("jenkins:trigger {$request->id}");
         return to_route('get_app_list');
     }
 
     public function DeleteApp(Request $request) : RedirectResponse
     {
-        session()->flash('success', 'App deleted!');
         $appInfo = AppInfo::find($request->id);
+        session()->flash('success', "App: {$appInfo->app_name} deleted...");
         $appInfo?->delete();
 
         return to_route('get_app_list');

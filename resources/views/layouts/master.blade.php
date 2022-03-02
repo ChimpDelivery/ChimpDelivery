@@ -25,14 +25,7 @@
 </head>
 
 <body>
-
     <div class="container-fluid">
-        @if(session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-        @endif
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand font-weight-bold" href="/dashboard">
                 <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
@@ -104,8 +97,7 @@
         <div id="toast-flash" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
             <div class="toast-header bg-success">
                 <img src="{{ asset('Talus_icon.ico') }}" class="rounded mr-2" alt="..." width="16" height="16">
-                <strong class="mr-auto text-white">Talus Dashboard</strong>
-                <small class="text-white">1 mins ago</small>
+                <strong class="mr-auto text-white">Notification</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,18 +109,6 @@
         @endif
     </div>
     <!-- toast_end !-->
-
-    <!-- footer_begin !-->
-    <!--
-<footer class="page-footer font-small blue fixed-bottom">
-    <div class="footer-copyright text-center py-1 text-muted">
-        <span class="font-weight-bold font-italic">Talus Studio</span>
-    </div>
-</footer>
-</body>
-</html>
-!-->
-    <!-- footer_end !-->
 </body>
 
 <section class="scripts">
