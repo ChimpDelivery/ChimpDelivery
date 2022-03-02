@@ -29,8 +29,9 @@ sudo apt-get install tasksel
 sudo tasksel install lamp-server
 sudo mysql_secure_installation
 
-# install curl package for php8.1
+# install php8.1 packages
 sudo apt-get install php8.1-curl
+sudo apt-get install php8.1-mysql
 
 # restart apache && mysql
 sudo service apache2 restart
