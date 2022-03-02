@@ -44,15 +44,15 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="form-control" name="fb_app_id" class="form-control" required="" placeholder="facebook app id...">
+                    <input type="text" id="form-control" name="fb_app_id" class="form-control" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
                     <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="form-control" name="elephant_id" class="form-control" required="" placeholder="elephant id...">
+                    <input type="text" id="form-control" name="elephant_id" class="form-control" placeholder="elephant id...">
                 </div>
                 <div class="form-group">
                     <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="form-control" name="elephant_secret" class="form-control" required="" placeholder="elephant secret...">
+                    <input type="text" id="form-control" name="elephant_secret" class="form-control" placeholder="elephant secret...">
                 </div>
                 <button type="submit" class="btn btn-success">Create App</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>

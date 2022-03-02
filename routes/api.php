@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(AppInfoController::class)->group(function () {
+Route::controller(AppInfoController::class)->group(function() {
     // active endpoints
     Route::get('appinfo/{id}', 'show');
 
@@ -34,7 +34,7 @@ Route::controller(AppInfoController::class)->group(function () {
     Route::delete('appinfo/{id}', 'destroy');
 });
 
-Route::controller(AppStoreConnectController::class)->group(function () {
+Route::controller(AppStoreConnectController::class)->group(function() {
     // active endpoints
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
@@ -43,5 +43,3 @@ Route::controller(AppStoreConnectController::class)->group(function () {
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/clear-cache', 'ClearCache');
 });
-
-

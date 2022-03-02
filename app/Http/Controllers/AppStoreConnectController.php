@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Cache;
 
 class AppStoreConnectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('cached-response');
+    }
+
     public function GetToken() : string
     {
         return AppStoreConnectDataProvider::getToken();

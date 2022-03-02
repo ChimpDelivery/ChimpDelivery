@@ -36,18 +36,15 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="form-control" name="fb_app_id" class="form-control" required=""
-                           value="{{ $appInfo->fb_app_id }}">
+                    <input type="text" id="form-control" name="fb_app_id" class="form-control" value="{{ $appInfo->fb_app_id }}">
                 </div>
                 <div class="form-group">
                     <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="form-control" name="elephant_id" class="form-control" required=""
-                           value="{{ $appInfo->elephant_id }}">
+                    <input type="text" id="form-control" name="elephant_id" class="form-control" value="{{ $appInfo->elephant_id }}">
                 </div>
                 <div class="form-group">
                     <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="form-control" name="elephant_secret" class="form-control" required=""
-                           value="{{ $appInfo->elephant_secret }}">
+                    <input type="text" id="form-control" name="elephant_secret" class="form-control" value="{{ $appInfo->elephant_secret }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>

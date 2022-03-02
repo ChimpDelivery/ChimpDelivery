@@ -24,9 +24,9 @@
         @foreach($appInfos as $appInfo)
             <tr>
                 <th scope="row" class="text-center align-middle">{{ $appInfo->id }}</th>
-                <td class="text-center align-middle"><img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px"
-                                                          height="100px" alt="..." class="img-thumbnail"/></td>
-
+                <td class="text-center align-middle">
+                    <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail"/>
+                </td>
                 <td class="text-center align-middle">
                     <a href="https://appstoreconnect.apple.com/apps/{{$appInfo->appstore_id}}/testflight">
                         {{ $appInfo->appstore_id }}
@@ -35,15 +35,13 @@
                 <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
                 <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
                 <td class="text-center align-middle">{{ $appInfo->elephant_id }}</td>
-
                 <td class="text-center align-middle">
-                    <a href="dashboard/build-app/{{$appInfo->appstore_id}}">
+                    <a href="dashboard/build-app/{{$appInfo->id}}">
                         <button class="btn text-white bg-success">
                             <i class="fa fa-plus-square"></i>
                         </button>
                     </a>
                 </td>
-
                 <td class="text-center align-middle">
                     <a href="dashboard/update-app-info/{{$appInfo->id}}">
                         <button class="btn text-white bg-warning">
@@ -51,7 +49,6 @@
                         </button>
                     </a>
                 </td>
-
                 <td class="text-center align-middle">
                     <form name="delete-app-info-form" id="delete-app-info-form" method="post"
                           action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
