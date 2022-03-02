@@ -29,7 +29,7 @@ class DashboardController extends Controller
 
     public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
     {
-        $this->PopulateAppData($request, AppInfo::withTrashed()->where('appstore_id', $request->appstore_id)->first());
+        $this->PopulateAppData($request, AppInfo::withTrashed()->where('appstore_id', $request->appstore_id)->firstOrNew());
         session()->flash('success', "App: {$request->app_name} created...");
         return to_route('get_app_list');
     }
