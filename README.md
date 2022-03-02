@@ -6,13 +6,6 @@
 - laravel >= 9.3
 
 # 💿 Installation (on Local)
-- Install XAMPP from https://www.apachefriends.org/tr/index.html and install it.
-- Open XAMPP control panel and start Apache and MySQL modules.
-- Clone repository and extract it.
-- Create ".env" file from ".env.example" template in project folder.
-- Populate ".env" contents.
-- Open bash/powershell etc. in project folder.
-
 ```
 # update sudo packages
 sudo apt update && sudo apt -y upgrade
@@ -42,7 +35,6 @@ composer update
 php artisan serve
 ```
 
-- Recommended FTP client https://winscp.net/eng/download.php (only Windows)
 - Recommended REST client https://www.postman.com 
 
 # 🔑 Talus App Api - Endpoints
