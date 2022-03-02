@@ -50,7 +50,12 @@ class DashboardController extends Controller
         $app = AppInfo::where('id', $request->id)->first();
         if ($app)
         {
-            $url = env('JENKINS_HOST') . "/job/$app->app_name/build?token=" . env('JENKINS_TOKEN');
+            $url = implode('', [
+                env('JENKINS_HOST'),
+                "/job/{$app->app_name}/build?token=",
+                env('JENKINS_TOKEN')
+            ]);
+
             Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_PASS'))->get($url);
         }
 
