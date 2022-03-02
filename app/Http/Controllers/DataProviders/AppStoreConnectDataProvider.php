@@ -27,13 +27,10 @@ class AppStoreConnectDataProvider
 
     public static function getFullInfo() : JsonResponse
     {
-        $token = self::getToken();
-
-        $appList = Http::withToken($token)->get('https://api.appstoreconnect.apple.com/v1/apps');
-        $fullAppList = json_decode($appList, true);
+        $appList = Http::withToken(self::getToken())->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId');
 
         return response()->json([
-            'app_list' => $fullAppList
+            'app_list' => $appList->json()
         ]);
     }
 
