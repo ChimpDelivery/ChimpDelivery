@@ -1,5 +1,3 @@
-@php($appInfo = \App\Models\AppInfo::find($id))
-
 @extends('layouts.master')
 
 @section('title', 'Update App')
@@ -9,7 +7,7 @@
     <div class="card">
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post"
-                  action="{{url('dashboard/update-app-info/'.$id.'/update')}}" enctype="multipart/form-data">
+                  action="{{url('dashboard/update-app-info/'.$appInfo->id.'/update')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>

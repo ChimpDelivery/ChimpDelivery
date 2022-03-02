@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\ClearsResponseCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ class AppInfo extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    use ClearsResponseCache;
 
     protected $fillable = [
         'app_icon',
@@ -28,6 +30,7 @@ class AppInfo extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**

@@ -49,7 +49,7 @@ class AppInfoRequest extends FormRequest
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.Talus.CozyKitchen)',
             'appstore_id.required' => 'appstore_id is required!',
-            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only number)'
+            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only numbers)'
         ];
     }
 }

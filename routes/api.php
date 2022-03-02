@@ -23,15 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(AppInfoController::class)->group(function() {
     // active endpoints
-    Route::get('appinfo/{id}', 'show');
+    Route::get('appinfo/{id}', 'Show');
 
     // not-implementeds
-    Route::get('appinfo', 'index');
-    Route::post('appinfo', 'store');
-    Route::get('appinfo/create', 'create');
-    Route::get('appinfo/{id}/edit', 'edit');
-    Route::put('appinfo/{id}', 'update');
-    Route::delete('appinfo/{id}', 'destroy');
+    Route::get('appinfo', 'Index');
+    Route::post('appinfo', 'Store');
+    Route::get('appinfo/create', 'Create');
+    Route::get('appinfo/{id}/edit', 'Edit');
+    Route::put('appinfo/{id}', 'Update');
+    Route::delete('appinfo/{id}', 'Destroy');
 });
 
 Route::controller(AppStoreConnectController::class)->group(function() {

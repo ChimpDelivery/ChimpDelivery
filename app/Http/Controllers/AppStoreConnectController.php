@@ -2,48 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\DataProviders\AppStoreConnectDataProvider;
+use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectController extends Controller
 {
-    public function __construct()
+    public static function GetToken(Request $request) : JsonResponse
     {
-        $this->middleware('cached-response');
+        $header = [
+            'alg' => 'ES256',
+            'kid' => env('APPSTORECONNECT_KID'),
+            'typ' => 'JWT',
+        ];
+
+        $payload = [
+            'iss' => env('APPSTORECONNECT_ISSUER_ID'),
+            'exp' => time() + 120,
+            'aud' => 'appstoreconnect-v1'
+        ];
+
+        return response()->json([
+            'appstore_token' => AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'))
+        ]);
     }
 
-    public function GetToken() : string
+    public function GetFullAppInfo(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getToken();
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId');
+
+        return response()->json([
+            'app_list' => $appList->json()
+        ]);
     }
 
-    public function GetFullAppInfo() : JsonResponse
+    public function GetAppList(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getFullInfo();
+        $appList = $this->GetFullAppInfo($request)->getData();
+        $data = $appList->app_list->data;
+
+        $apps = [];
+        foreach ($data as $content)
+        {
+            $apps []= [
+                'app_bundle' => $content->attributes->bundleId,
+                'app_name' => $content->attributes->name,
+                'appstore_id' => $content->id
+            ];
+        }
+
+        return response()->json([
+            'apps' => $apps
+        ]);
     }
 
-    public function GetAppList() : JsonResponse
+    public function GetAllBundles(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getAppList();
-    }
+        $bundleIds = [];
+        $fullAppDictionary = $this->GetAppList($request)->getData();
 
-    public function GetAllBundles() : JsonResponse
-    {
-        return AppStoreConnectDataProvider::getAllBundles();
+        foreach ($fullAppDictionary->apps as $appBundleAndNamePair)
+        {
+            $bundleIds []= $appBundleAndNamePair->app_bundle;
+        }
+
+        return response()->json([
+            'bundle_ids' => $bundleIds
+        ]);
     }
 
     public function GetBuildList(Request $request) : JsonResponse
     {
-        return AppStoreConnectDataProvider::getAllBuilds("https://api.appstoreconnect.apple.com/v1/apps/$request->appstore_id/builds");
-    }
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->get("https://api.appstoreconnect.apple.com/v1/builds");
 
-    public function ClearCache() : JsonResponse
-    {
+        $builds = collect(json_decode($appList)->data);
+
         return response()->json([
-            'status' => Cache::flush() ? 200 : 400
+            'builds' => $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
         ]);
     }
 }

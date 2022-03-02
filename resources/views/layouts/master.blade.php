@@ -104,6 +104,7 @@
 </html>
 !-->
 <!-- footer_end !-->
+</body>
 
 <section class="scripts">
 <script type="text/javascript">
