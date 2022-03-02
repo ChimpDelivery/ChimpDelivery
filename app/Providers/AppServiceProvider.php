@@ -26,8 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // to work with pagination link view with bootstrap css
-        // otherwise we may see huge pagination icons.
+        // to fix: "paginator huge icons"
         Paginator::useBootstrap();
 
         // to fix: "/SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry..."
