@@ -6,9 +6,11 @@ use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -17,27 +19,49 @@ class DashboardController extends Controller
         return view('list-app-info');
     }
 
-    public function create()
+    public function CreateApp()
     {
         return view('add-app-info-form');
     }
 
-    public function select(Request $request)
-    {
-        return view('update-app-info-form')->with('id', $request->id);
-    }
-
-    public function store(AppInfoRequest $request)
+    public function StoreApp(AppInfoRequest $request)
     {
         return $this->PopulateAppData($request, new AppInfo());
     }
 
-    public function update(AppInfoRequest $request)
+    public function SelectApp(Request $request)
+    {
+        return view('update-app-info-form')->with('id', $request->id);
+    }
+
+    public function UpdateApp(AppInfoRequest $request)
     {
         return $this->PopulateAppData($request, AppInfo::find($request->id));
     }
 
-    public function delete(Request $request)
+    public function BuildApp(Request $request)
+    {
+        /*$request->validate([
+            'user' => 'required',
+            'pass' => 'required',
+            'pipeline' => 'required',
+            'token' => 'required'
+        ]);*/
+
+        $token = "jenkins";
+
+        $app = AppInfo::where('id', $request->id)->first();
+        if ($app)
+        {
+            $url = env('JENKINS_HOST') . "/job/$app->app_name/build?token=" . env('JENKINS_TOKEN');
+            Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_PASS'))->get($url);
+        }
+
+
+        return to_route('get_app_list');
+    }
+
+    public function DeleteApp(Request $request)
     {
         $appInfo = AppInfo::find($request->id);
         $appInfo?->delete();

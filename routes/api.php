@@ -43,10 +43,3 @@ Route::controller(AppStoreConnectController::class)->group(function() {
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/clear-cache', 'ClearCache');
 });
-
-Route::controller(\App\Http\Controllers\JenkinsController::class)->group(function() {
-    // active endpoints
-    Route::post('jenkins/trigger-pipeline', 'TriggerJenkinsPipeline');
-});
-
-
