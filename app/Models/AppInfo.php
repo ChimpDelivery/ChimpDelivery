@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\ClearsResponseCache;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +12,7 @@ class AppInfo extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    use ClearsResponseCache;
 
     protected $fillable = [
         'app_icon',

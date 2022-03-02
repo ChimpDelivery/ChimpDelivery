@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 
 class AppInfoController extends Controller
 {
-
     public function Index(Request $request)
     {
         return response()->json([

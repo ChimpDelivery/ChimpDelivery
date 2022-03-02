@@ -6,16 +6,12 @@ use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class AppStoreConnectController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('cached-response');
-    }
-
     public static function GetToken(Request $request) : JsonResponse
     {
         $header = [
@@ -94,8 +90,10 @@ class AppStoreConnectController extends Controller
 
     public function ClearCache(Request $request) : JsonResponse
     {
+        ResponseCache::clearResolvedInstances();
+
         return response()->json([
-            'status' => Cache::flush() ? 200 : 400
+            'status' => 200
         ]);
     }
 }
