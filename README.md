@@ -1,9 +1,5 @@
 # Talus Web Backend
 
-# :exclamation: Requirements
-- php >= 8.1x
-- laravel >= 9.3
-
 # 💿 Installation (on Local)
 ```
 # update sudo packages
