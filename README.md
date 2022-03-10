@@ -30,7 +30,9 @@ sudo apt-get install php8.1-mysql
 
 # restart apache && mysql
 sudo service apache2 restart
-sudo service mysql restart
+sudo service mysql stop
+sudo usermod -d /var/lib/mysql/ mysql
+sudo service mysql start
 sudo mysql_secure_installation
 
 cp .env.example .env
