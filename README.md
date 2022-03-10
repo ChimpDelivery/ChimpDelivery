@@ -27,6 +27,7 @@ sudo apt install php8.1
 # install php8.1 packages
 sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-mysql
+sudo apt-get install composer
 
 # restart apache && mysql
 sudo service apache2 restart
