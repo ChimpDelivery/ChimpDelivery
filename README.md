@@ -20,7 +20,6 @@ sudo apt update
 
 sudo apt-get install tasksel
 sudo tasksel install lamp-server
-sudo mysql_secure_installation
 
 # install php8.1
 sudo apt install php8.1
@@ -31,7 +30,8 @@ sudo apt-get install php8.1-mysql
 
 # restart apache && mysql
 sudo service apache2 restart
-sudo serivce mysql restart
+sudo service mysql restart
+sudo mysql_secure_installation
 
 cp .env.example .env
 composer update
