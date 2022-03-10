@@ -27,7 +27,11 @@ sudo apt install php8.1
 # install php8.1 packages
 sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-mysql
-sudo apt-get install composer
+sudo apt-get install php-xml
+
+# install composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04
+sudo mv /usr/local/bin/composer /usr/bin
 
 # restart apache && mysql
 sudo service apache2 restart
