@@ -25,6 +25,7 @@
 </head>
 
 <body>
+    <!-- navbar_begin !-->
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand font-weight-bold" href="/dashboard">
@@ -48,13 +49,20 @@
                         <a class="nav-link font-italic" href="/dashboard/clear-cache">Clear Cache</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="nav-link font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
+    <!-- navbar_end !-->
 
     <!-- errors_begin !-->
     <div class="container-fluid">
