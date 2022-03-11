@@ -40,16 +40,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
-            </form>
-
-            <form class="float-right" name="delete-app-info-form" id="delete-app-info-form" method="post" action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
-                @csrf
-                <a href="dashboard/delete-app-info/{{$appInfo->id}}">
-                    <button class="btn text-white bg-danger" onclick="return confirm('Are you sure?')">
-                        <i class="fa fa-trash"></i>
-                        Delete
-                    </button>
-                </a>
+                <button class="btn btn-danger float-right" type="submit" class="btn text-white bg-danger" onclick="return confirm('Are you sure?')" 
+                        formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" 
+                        formmethod="post">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </button>
             </form>
         </div>
     </div>
