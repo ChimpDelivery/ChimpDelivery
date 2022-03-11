@@ -50,13 +50,18 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a class="nav-link font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hi, {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu rounded-pill dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="rounded-pill text-center dropdown-item text-muted" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fa fa-sign-out fa-lg text-danger"></i> {{ __('Log Out') }}
+                                </a>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>
