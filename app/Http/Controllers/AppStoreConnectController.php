@@ -11,12 +11,6 @@ class AppStoreConnectController extends Controller
 {
     public static function GetToken(Request $request) : JsonResponse
     {
-        $header = [
-            'alg' => 'ES256',
-            'kid' => env('APPSTORECONNECT_KID'),
-            'typ' => 'JWT',
-        ];
-
         $payload = [
             'iss' => env('APPSTORECONNECT_ISSUER_ID'),
             'exp' => time() + 120,
