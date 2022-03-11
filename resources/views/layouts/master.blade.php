@@ -27,7 +27,7 @@
 <body>
     <!-- navbar_begin !-->
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <a class="navbar-brand font-weight-bold" href="/dashboard">
                 <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
                 Dashboard
@@ -51,14 +51,14 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle font-weight-bold text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle font-weight-bold font-italic text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hi, {{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu rounded-pill dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="rounded-pill text-center dropdown-item text-muted" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    <i class="fa fa-sign-out fa-lg text-danger"></i> {{ __('Log Out') }}
+                                <a class="text-center dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fa fa-sign-out fa-lg text-white "></i> {{ __('Log Out') }}
                                 </a>
                             </form>
                         </div>
