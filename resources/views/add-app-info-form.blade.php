@@ -20,7 +20,7 @@
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select bundle
+                            Select bundle id
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
@@ -52,8 +52,8 @@
                     <label for="elephant_secret">Elephant Secret</label>
                     <input type="text" id="form-control" name="elephant_secret" class="form-control" placeholder="elephant secret...">
                 </div>
-                <button type="submit" class="btn btn-success">Create App</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create App</button>
+                <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
     </div>
@@ -64,7 +64,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('.dropdown-menu a').click(function () {
+        $('.dropdown-menu a').click(function() {
             var bundleName = $(this).text();
 
             // update dropdown

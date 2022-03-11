@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ApiProviders\AppStoreConnectApi;
-
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
@@ -12,12 +11,6 @@ class AppStoreConnectController extends Controller
 {
     public static function GetToken(Request $request) : JsonResponse
     {
-        $header = [
-            'alg' => 'ES256',
-            'kid' => env('APPSTORECONNECT_KID'),
-            'typ' => 'JWT',
-        ];
-
         $payload = [
             'iss' => env('APPSTORECONNECT_ISSUER_ID'),
             'exp' => time() + 120,
@@ -25,7 +18,7 @@ class AppStoreConnectController extends Controller
         ];
 
         return response()->json([
-            'appstore_token' => AppStoreConnectApi::sign($payload, $header, env('APPSTORECONNECT_PRIVATE_KEY'))
+            'appstore_token' => JWT::encode($payload, env('APPSTORECONNECT_PRIVATE_KEY'), 'ES256', env('APPSTORECONNECT_KID'))
         ]);
     }
 

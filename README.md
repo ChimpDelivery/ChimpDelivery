@@ -4,9 +4,9 @@
 ```
 # update sudo packages
 sudo apt update && sudo apt -y upgrade
+sudo apt-get install software-properties-common
 
 # add sudo repository for php >= 8.1
-sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
@@ -20,7 +20,9 @@ sudo apt install php8.1
 # install php8.1 packages
 sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-mysql
-sudo apt-get install php-xml
+sudo apt-get install php8.1-mbstring
+sudo apt-get install php8.1-xml
+sudo apt-get install zip unzip php8.1-zip
 
 # install composer
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04
@@ -34,8 +36,19 @@ sudo service mysql start
 sudo mysql_secure_installation
 
 cp .env.example .env
-composer update
+composer install
+php artisan key:generate
+php artisan migrate
 php artisan serve
+```
+
+# OpenSSL Issue
+``` 
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+composer dump-autoload
 ```
 
 - Recommended REST client https://www.postman.com 

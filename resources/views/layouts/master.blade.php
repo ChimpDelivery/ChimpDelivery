@@ -25,8 +25,9 @@
 </head>
 
 <body>
+    <!-- navbar_begin !-->
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <a class="navbar-brand font-weight-bold" href="/dashboard">
                 <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
                 Dashboard
@@ -48,13 +49,25 @@
                         <a class="nav-link font-italic" href="/dashboard/clear-cache">Clear Cache</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold font-italic text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hi, {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="active text-center dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
+                                </a>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
+    <!-- navbar_end !-->
 
     <!-- errors_begin !-->
     <div class="container-fluid">
