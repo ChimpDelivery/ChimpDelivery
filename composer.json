@@ -58,7 +58,6 @@
         }
     },
     "config": {
-        "cache-dir": "~/.composer",
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
