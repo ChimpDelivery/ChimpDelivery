@@ -20,7 +20,7 @@
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select bundle
+                            Select bundle id
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
