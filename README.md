@@ -13,7 +13,6 @@ sudo apt update
 # install lamp stack
 sudo apt-get install tasksel
 sudo tasksel install lamp-server
-sudo mysql_secure_installation
 
 # install php8.1
 sudo apt install php8.1
