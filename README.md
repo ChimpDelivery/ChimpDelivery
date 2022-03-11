@@ -23,6 +23,7 @@ sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-mysql
 sudo apt-get install php8.1-mbstring
 sudo apt-get install php8.1-xml
+sudo apt-get install zip unzip php8.1-zip
 
 # install composer
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04
@@ -42,6 +43,15 @@ php artisan migrate
 php artisan serve
 ```
 
+# OpenSSL Issue
+``` 
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+composer dump-autoload
+```
+
 - Recommended REST client https://www.postman.com 
 
 # 🔑 Talus App Api - Endpoints
@@ -57,12 +67,4 @@ GET  |  api/appstoreconnect/get-app-list
 GET  |  api/appstoreconnect/get-app-dictionary
 GET  |  api/appstoreconnect/get-all-bundles
 GET  |  api/appstoreconnect/clear-cache
-```
-
-``` OpenSSL Issue
-php artisan config:clear
-php artisan cache:clear
-php artisan view:clear
-php artisan route:clear
-composer dump-autoload
 ```
