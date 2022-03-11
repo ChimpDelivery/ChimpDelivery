@@ -47,12 +47,6 @@ class AppStoreConnectController extends Controller
                 'app_name' => $content->attributes->name,
                 'appstore_id' => $content->id
             ];
-
-            $apps [] = [
-                'app_bundle' => 'com.Talus.TalusTemplateDEV',
-                'app_name' => 'TalusTemplate-Development',
-                'appstore_id' => 123
-            ];
         }
 
         return response()->json($apps);
