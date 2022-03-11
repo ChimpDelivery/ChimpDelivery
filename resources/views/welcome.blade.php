@@ -45,7 +45,7 @@
 				<h4>WE ARE TALUS</h4>
 				<p class="text-lowercase">info@talusstudio.com</p>
 				<a href="https://tr.linkedin.com/company/talusstudio"><img src="linkedin.png" class="img-fluid" style="width:64px; height:64px;" /></a>
-                <a href="http://localhost:8000/dashboard">Dashboard</a>
+                <a href="/dashboard">Dashboard</a>
 			</center>
 		</div>
 	</div>
