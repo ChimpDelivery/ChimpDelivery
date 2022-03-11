@@ -57,8 +57,8 @@
                         <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="text-center dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    <i class="fa fa-sign-out fa-lg text-white "></i> {{ __('Log Out') }}
+                                <a class="active text-center dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
                                 </a>
                             </form>
                         </div>

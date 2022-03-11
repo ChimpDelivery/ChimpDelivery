@@ -23,13 +23,13 @@
                 <td class="text-center align-middle">
                     <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </td>
-                <td class="text-center align-middle">{{ $appInfo->app_name }}</td>
+                <td class="text-center align-middle text-dark">{{ $appInfo->app_name }}</td>
                 <td class="text-center align-middle">
-                    <a href="https://appstoreconnect.apple.com/apps/{{$appInfo->appstore_id}}/testflight">
+                    <a href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
                         {{ $appInfo->appstore_id }}
                     </a>
                 </td>
-                <td class="text-center align-middle">{{ $appInfo->app_bundle}}</td>
+                <td class="text-center align-middle text-muted">{{ $appInfo->app_bundle }}</td>
                 <td class="text-center align-middle">
                     <a href="dashboard/build-app/{{$appInfo->id}}">
                         <button class="btn text-white bg-transparent">
