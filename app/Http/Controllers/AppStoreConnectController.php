@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppInfo;
+
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -45,11 +47,26 @@ class AppStoreConnectController extends Controller
                 'app_name' => $content->attributes->name,
                 'appstore_id' => $content->id
             ];
+
+            $apps [] = [
+                'app_bundle' => 'com.Talus.TalusTemplateDEV',
+                'app_name' => 'TalusTemplate-Development',
+                'appstore_id' => 123
+            ];
         }
 
-        return response()->json([
-            'apps' => $apps
-        ]);
+        return response()->json($apps);
+    }
+
+    public function GetSpecificApp(Request $request) : JsonResponse
+    {
+        $app = AppInfo::where('app_name', $request->projectName)->first();
+        $response = [
+            'app_bundle' => $app->app_bundle,
+            'app_name' => $app->app_name
+        ];
+
+        return response()->json($response);
     }
 
     public function GetAllBundles(Request $request) : JsonResponse
@@ -57,7 +74,7 @@ class AppStoreConnectController extends Controller
         $bundleIds = [];
         $fullAppDictionary = $this->GetAppList($request)->getData();
 
-        foreach ($fullAppDictionary->apps as $appBundleAndNamePair)
+        foreach ($fullAppDictionary as $appBundleAndNamePair)
         {
             $bundleIds []= $appBundleAndNamePair->app_bundle;
         }
