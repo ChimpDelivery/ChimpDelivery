@@ -14,7 +14,6 @@
                 <th scope="col" class="text-center">Bundle ID</th>
                 <th scope="col" class="text-center font-italic">Build App</th>
                 <th scope="col" class="text-center font-italic">Edit App</th>
-                <th scope="col" class="text-center font-italic">Delete App</th>
             </tr>
         </thead>
         <tbody>
@@ -44,17 +43,6 @@
                             <i class="fa fa-pencil"></i>
                         </button>
                     </a>
-                </td>
-                <td class="text-center align-middle">
-                    <form name="delete-app-info-form" id="delete-app-info-form" method="post"
-                          action="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}">
-                        @csrf
-                        <a href="dashboard/delete-app-info/{{$appInfo->id}}">
-                            <button class="btn text-white bg-danger" onclick="return confirm('Are you sure?')">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </a>
-                    </form>
                 </td>
             </tr>
         @endforeach
