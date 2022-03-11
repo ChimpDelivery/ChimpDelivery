@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(DashboardController::class)->middleware('doNotCacheResponse')->group(function() {
 
+Route::controller(DashboardController::class)->middleware('auth')->group(function () {
     // main route.
     Route::get('/dashboard', 'Index')->name('get_app_list');
 
@@ -40,3 +40,9 @@ Route::controller(DashboardController::class)->middleware('doNotCacheResponse')-
     //
     Route::get('/dashboard/clear-cache', 'ClearCache');
 });
+
+Route::get('/breezedash', function () {
+    return view('breezedash');
+})->middleware(['auth'])->name('breezedash');
+
+require __DIR__.'/auth.php';
