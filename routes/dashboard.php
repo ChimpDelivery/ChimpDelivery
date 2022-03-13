@@ -20,6 +20,9 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     // post route to delete app info data.
     Route::post('/dashboard/delete-app-info/{id}', 'DeleteApp')->name('delete_app_info');
 
+    Route::get('/dashboard/create-bundle', 'CreateBundleForm')->name('create_bundle');
+    Route::post('/dashboard/store-bundle', 'StoreBundleForm');
+    
     //
     Route::get('/dashboard/clear-cache', 'ClearCache');
 });

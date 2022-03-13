@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
+use GuzzleHttp\Client as GuzzleClient;
+
 class AppStoreConnectController extends Controller
 {
     public function GetToken(Request $request) : JsonResponse
@@ -87,6 +89,32 @@ class AppStoreConnectController extends Controller
 
         return response()->json([
             'builds' => $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
+        ]);
+    }
+
+    public function CreateBundle(Request $request)
+    {
+        $bundleIdAttributes = [
+            'identifier' => $request->bundle_id,
+            'name' => $request->bundle_name,
+            'platform' => 'IOS'
+        ];
+
+        $body = [
+            'attributes' => $bundleIdAttributes,
+            'type' => 'bundleIds'
+        ];
+
+        $data = [
+            'data' => $body
+        ];
+
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->withBody(json_encode($data), 'application/json')
+            ->post("https://api.appstoreconnect.apple.com/v1/bundleIds");
+
+        return response()->json([
+            'status' => $appList->json()
         ]);
     }
 }

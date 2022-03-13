@@ -61,6 +61,20 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    public function CreateBundleForm(Request $request) : View
+    {
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
+    }
+
+    public function StoreBundleForm(Request $request) : RedirectResponse
+    {
+        app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request);
+
+        session()->flash('success', "Bundle: {$request->bundle_id} created...");
+        return to_route('get_app_list');
+    }
+
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
