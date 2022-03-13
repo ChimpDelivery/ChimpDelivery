@@ -21,7 +21,6 @@ Route::middleware('guest')->group(function () {
     // Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 
     // DISABLED ROUTES FORWARDED!
-    // Route::any('register', [AuthenticatedSessionController::class, 'create']);
     Route::any('forgot-password', [AuthenticatedSessionController::class, 'create']);
     Route::any('reset-password', [AuthenticatedSessionController::class, 'create']);
 });

@@ -8,10 +8,9 @@ use App\Models\User;
 class UserObserver
 {
     public function created(User $user)
-    {
-        $user->update([
-            'api_token' => Str::random(60)
-        ]);
+    {        
+        $user->api_token = Str::random(60);
+        $user->save();
     }
 
     public function updated(User $user)
