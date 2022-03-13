@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
-use GuzzleHttp\Client as GuzzleClient;
-
 class AppStoreConnectController extends Controller
 {
+    /// related with app store connect.
+    private const BUNDLE_ID_PREFIX = 'com.Talus';
+
     public function GetToken(Request $request) : JsonResponse
     {
         $payload = [
@@ -95,7 +96,7 @@ class AppStoreConnectController extends Controller
     public function CreateBundle(Request $request)
     {
         $bundleIdAttributes = [
-            'identifier' => 'com.Talus'.$request->bundle_id,
+            'identifier' => self::BUNDLE_ID_PREFIX . '.' . $request->bundle_id,
             'name' => $request->bundle_name,
             'platform' => 'IOS'
         ];
