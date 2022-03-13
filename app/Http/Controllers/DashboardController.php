@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -69,9 +69,21 @@ class DashboardController extends Controller
 
     public function StoreBundleForm(Request $request) : RedirectResponse
     {
+        $validator = Validator::make($request->all(), [
+            'bundle_id' => array('required'),
+            'bundle_name' => array('required'),
+        ]);
+
+        if ($validator->fails())
+        {
+            return to_route('create_bundle')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request);
 
-        session()->flash('success', "Bundle: {$request->bundle_id} created...");
+        session()->flash('success', "Bundle: com.Talus.{$request->bundle_id} created...");
         return to_route('get_app_list');
     }
 

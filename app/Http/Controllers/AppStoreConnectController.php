@@ -95,7 +95,7 @@ class AppStoreConnectController extends Controller
     public function CreateBundle(Request $request)
     {
         $bundleIdAttributes = [
-            'identifier' => $request->bundle_id,
+            'identifier' => 'com.Talus'.$request->bundle_id,
             'name' => $request->bundle_name,
             'platform' => 'IOS'
         ];
