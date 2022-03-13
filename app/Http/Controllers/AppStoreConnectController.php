@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectController extends Controller
 {
-    public static function GetToken(Request $request) : JsonResponse
+    public function GetToken(Request $request) : JsonResponse
     {
         $payload = [
             'iss' => env('APPSTORECONNECT_ISSUER_ID'),

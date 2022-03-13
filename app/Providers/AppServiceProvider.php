@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Models\AppInfo;
+
+use App\Observers\UserObserver;
 use App\Observers\AppInfoObserver;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,8 +33,10 @@ class AppServiceProvider extends ServiceProvider
         // to fix: "paginator huge icons"
         Paginator::useBootstrap();
 
-        // to fix: "/SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry..."
-        // https://dev.to/mmollick/using-unique-columns-and-soft-deletes-in-laravel-470p
+        // to generate api-tokens.
+        User::observe(UserObserver::class);
+
+        //
         AppInfo::observe(AppInfoObserver::class);
     }
 }
