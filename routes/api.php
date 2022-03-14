@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppInfoController;
 use App\Http\Controllers\AppStoreConnectController;
+use App\Http\Controllers\JenkinsController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,11 @@ Route::controller(AppStoreConnectController::class)->group(function() {
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/create-bundle', 'CreateBundle');
     Route::get('appstoreconnect/clear-cache', 'ClearCache');
+});
+
+Route::controller(JenkinsController::class)->group(function() {
+    // active endpoints
+    Route::get('jenkins/get-job-list', 'GetJobList');
+    Route::get('jenkins/get-job/{projectName}', 'GetJob');
+    Route::get('jenkins/get-build-list/{projectName}', 'GetBuildList');
 });
