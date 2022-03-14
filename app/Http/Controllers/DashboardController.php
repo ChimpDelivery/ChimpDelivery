@@ -73,8 +73,8 @@ class DashboardController extends Controller
     public function StoreBundleForm(Request $request) : RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'bundle_id' => array('required'),
-            'bundle_name' => array('required'),
+            'bundle_id' => array('required', 'alpha_num'),
+            'bundle_name' => array('required', 'alpha_num'),
         ]);
 
         if ($validator->fails())
