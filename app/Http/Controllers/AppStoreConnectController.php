@@ -14,6 +14,11 @@ class AppStoreConnectController extends Controller
     /// related with app store connect.
     private const BUNDLE_ID_PREFIX = 'com.Talus';
 
+    public function GetBundlePrefix() : string
+    {
+        return self::BUNDLE_ID_PREFIX;
+    }
+
     public function GetToken(Request $request) : JsonResponse
     {
         $payload = [
@@ -68,16 +73,13 @@ class AppStoreConnectController extends Controller
 
     public function GetAllBundles(Request $request) : JsonResponse
     {
-        $bundleIds = [];
-        $fullAppDictionary = $this->GetAppList($request)->getData();
-
-        foreach ($fullAppDictionary as $appBundleAndNamePair)
-        {
-            $bundleIds []= $appBundleAndNamePair->app_bundle;
-        }
+        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+            ->get('https://api.appstoreconnect.apple.com/v1/bundleIds?fields[bundleIds]=name,identifier');
+        
+        $bundleIds = collect(json_decode($appList)->data);
 
         return response()->json([
-            'bundle_ids' => $bundleIds
+            'bundle_ids' => $bundleIds->pluck('attributes.identifier')
         ]);
     }
 

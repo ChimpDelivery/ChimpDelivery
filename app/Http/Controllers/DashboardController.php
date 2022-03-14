@@ -23,7 +23,10 @@ class DashboardController extends Controller
     public function CreateAppForm(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
-        return view('add-app-info-form')->with('allAppInfos', $allAppInfos);
+
+        return view('add-app-info-form')->with([
+            'allAppInfos' => $allAppInfos
+        ]);
     }
 
     public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
@@ -78,6 +81,16 @@ class DashboardController extends Controller
         {
             return to_route('create_bundle')
                 ->withErrors($validator)
+                ->withInput();
+        }
+
+        $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
+        $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
+
+        if (in_array($bundleId, $bundleList))
+        {
+            return to_route('create_bundle')
+                ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
                 ->withInput();
         }
 

@@ -52,7 +52,7 @@
                     <label for="elephant_secret">Elephant Secret</label>
                     <input type="text" id="form-control" name="elephant_secret" class="form-control" placeholder="elephant secret...">
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create App</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>

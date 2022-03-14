@@ -38,7 +38,7 @@
                     <label for="elephant_secret">Elephant Secret</label>
                     <input type="text" id="form-control" name="elephant_secret" class="form-control" value="{{ $appInfo->elephant_secret }}">
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check-square"></i> Apply</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
                 <button class="btn btn-danger float-right" type="submit" class="btn text-white bg-danger" onclick="return confirm('Are you sure?')" 
                         formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" 
