@@ -45,9 +45,6 @@
                     <li class="nav-item {{ (request()->is('dashboard/create-bundle')) ? 'active' : '' }}">
                         <a class="nav-link font-weight-bold" href="/dashboard/create-bundle">Create Bundle</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="https://appstoreconnect.apple.com/apps">Appstore Connect</a>
-                    </li>
                     <li class="nav-item {{ (request()->is('dashboard/add-app-info')) ? 'active' : '' }}">
                         <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
                     </li>

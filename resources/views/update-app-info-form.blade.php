@@ -3,8 +3,11 @@
 @section('title', 'Update App')
 
 @section('content')
-<div class="container">
+<div class="container py-2">
     <div class="card">
+        <div class="card-header bg-dark text-white font-weight-bold">
+            Updating {{ $appInfo->app_name }}
+        </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$appInfo->id.'/update')}}" enctype="multipart/form-data">
                 @csrf
@@ -40,9 +43,7 @@
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
-                <button class="btn btn-danger float-right" type="submit" class="btn text-white bg-danger" onclick="return confirm('Are you sure?')" 
-                        formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" 
-                        formmethod="post">
+                <button class="btn btn-danger float-right" type="submit" class="btn text-white bg-danger" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
                     <i class="fa fa-trash"></i>
                     Delete
                 </button>
