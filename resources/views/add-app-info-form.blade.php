@@ -3,8 +3,11 @@
 @section('title', 'Create App')
 
 @section('content')
-<div class="container">
+<div class="container py-2">
     <div class="card">
+        <div class="card-header bg-dark text-white font-weight-bold">
+            📲 Create App
+        </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}" enctype="multipart/form-data">
                 @csrf
@@ -26,8 +29,8 @@
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos as $appInfo)
-                                <input type="text" id="app_info_name" name="app_info_name" hidden>
-                                <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
+                            <input type="text" id="app_info_name" name="app_info_name" hidden>
+                            <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -52,9 +55,12 @@
                     <label for="elephant_secret">Elephant Secret</label>
                     <input type="text" id="form-control" name="elephant_secret" class="form-control" placeholder="elephant secret...">
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create App</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
             </form>
+        </div>
+        <div class="card-footer text-muted">
+            🔥 If you don't see the bundle id in the list, make sure there is an app using that bundle id on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
 </div>

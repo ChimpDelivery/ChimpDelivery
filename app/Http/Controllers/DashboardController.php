@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +23,10 @@ class DashboardController extends Controller
     public function CreateAppForm(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
-        return view('add-app-info-form')->with('allAppInfos', $allAppInfos);
+
+        return view('add-app-info-form')->with([
+            'allAppInfos' => $allAppInfos
+        ]);
     }
 
     public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
@@ -58,6 +61,42 @@ class DashboardController extends Controller
         session()->flash('success', "App: {$appInfo->app_name} deleted...");
         $appInfo?->delete();
 
+        return to_route('get_app_list');
+    }
+
+    public function CreateBundleForm(Request $request) : View
+    {
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
+    }
+
+    public function StoreBundleForm(Request $request) : RedirectResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'bundle_id' => array('required', 'alpha_num'),
+            'bundle_name' => array('required', 'alpha_num'),
+        ]);
+
+        if ($validator->fails())
+        {
+            return to_route('create_bundle')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
+        $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
+
+        if (in_array($bundleId, $bundleList))
+        {
+            return to_route('create_bundle')
+                ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
+                ->withInput();
+        }
+
+        app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request);
+
+        session()->flash('success', "Bundle: com.Talus.{$request->bundle_id} created...");
         return to_route('get_app_list');
     }
 

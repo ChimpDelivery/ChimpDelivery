@@ -42,5 +42,6 @@ Route::controller(AppStoreConnectController::class)->group(function() {
     Route::get('appstoreconnect/get-app-list/{projectName}', 'GetSpecificApp');
     Route::get('appstoreconnect/get-all-bundles', 'GetAllBundles');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
+    Route::get('appstoreconnect/create-bundle', 'CreateBundle');
     Route::get('appstoreconnect/clear-cache', 'ClearCache');
 });
