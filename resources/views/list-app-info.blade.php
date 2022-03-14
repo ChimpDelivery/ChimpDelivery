@@ -44,16 +44,16 @@
                                 <p>
                                     <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                         @if ($appInfo->latest_build_number != -1)
-                                            {{ $appInfo->latest_build_number }}
+                                        {{ $appInfo->latest_build_number }}
                                         @endif
                                     </a>
                                 </p>
                                 <p>
-                                @if ($appInfo->latest_build_number == -1)
+                                    @if ($appInfo->latest_build_number == -1)
                                 <h5 class="text-danger font-weight-bold rounded">
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
                                     MISSING
-                                    <i class="fa fa-file-o" aria-hidden="true"></i>
+                                    <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                 </h5>
                                 @endif
 
@@ -85,9 +85,9 @@
 
                                 @if ($appInfo->latest_build_status == "SUCCESS")
                                 <h5 class="text-success font-weight-bold rounded">
-                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                     {{ $appInfo->latest_build_status }}
-                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
                                 </h5>
                                 @endif
                                 </p>
