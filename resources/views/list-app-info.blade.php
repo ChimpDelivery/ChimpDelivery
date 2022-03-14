@@ -25,7 +25,7 @@
                     </a>
                 </td>
                 <td class="text-center align-middle">
-                    {{ $appInfo->jenkins_job_list }}
+                    {{ $appInfo->latest_build_number }}
                 </td>
                 <td class="text-center align-middle">
                     <a href="dashboard/build-app/{{$appInfo->id}}">

@@ -46,20 +46,28 @@ class JenkinsController extends Controller
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
-        $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
+        
+        $retrievedData = json_decode($jenkinsInfo);
+        if (isset($retrievedData->builds))
+        {
+            $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
+
+            return response()->json([
+                'build_list' => $jenkinsJobBuildList
+            ]);
+        }
 
         return response()->json([
-            'build_list' => $jenkinsJobBuildList 
+            'build_list' => ''
         ]);
     }
 
     public function GetLatestBuildNumber(Request $request) : JsonResponse
     {
-        $buildList = $this->GetBuildList($request);
-        $latestBuildNumber = $buildList->getData()->build_list;
-
+        $retrievedData = $this->GetBuildList($request)->getData();
+        
         return response()->json([
-            'latest_build_number' => $latestBuildNumber[0]->number
+            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -1
         ]);
     }
 }

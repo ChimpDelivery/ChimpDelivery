@@ -21,8 +21,8 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::paginate(10)->onEachSide(1)
         ];
 
-        $data['appInfos']->each(function ($item){
-            $item->jenkins_job_list = $item->app_name;
+        $data['appInfos']->each(function ($item) use ($request) {
+            $item->latest_build_number = 1;
         });
 
         return view('list-app-info')->with($data);
