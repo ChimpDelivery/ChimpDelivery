@@ -6,7 +6,7 @@
 <div class="container py-2">
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
-            📲 Apps
+            📱 Apps
         </div>
         <div class="card-body">
             <div class="table-responsive-sm">
@@ -14,7 +14,7 @@
                     <thead>
                         <tr class="text-dark text-light">
                             <th scope="col" class="text-center col-1">🆔 </th>
-                            <th scope="col" class="text-center col-2">🖼️ App</th>
+                            <th scope="col" class="text-center col-2">📱 App</th>
                             <th scope="col" class="text-center col-2">🔎 Status</th>
                             <th scope="col" class="text-center col-3">📲 Build</th>
                             <th scope="col" class="text-center col-2">⚙️ Edit</th>
