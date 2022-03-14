@@ -44,25 +44,25 @@
                                 <p>
                                     <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                         @if ($appInfo->latest_build_number != -1)
-                                        {{ $appInfo->latest_build_number }}
+                                            {{ $appInfo->latest_build_number }}
                                         @endif
                                     </a>
                                 </p>
                                 <p>
-                                    @if ($appInfo->latest_build_number == -1)
-                                <p class="text-white bg-danger font-weight-bold rounded">
+                                @if ($appInfo->latest_build_number == -1)
+                                <h5 class="text-danger font-weight-bold rounded">
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
                                     MISSING
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
-                                </p>
+                                </h5>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "ABORTED")
-                                <p class="text-white bg-secondary font-weight-bold rounded">
+                                <h5 class="text-secondary font-weight-bold rounded">
                                     <i class="fa fa-ban" aria-hidden="true"></i>
                                     {{ $appInfo->latest_build_status }}
                                     <i class="fa fa-ban" aria-hidden="true"></i>
-                                </p>
+                                </h5>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "BUILDING")
@@ -84,11 +84,11 @@
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "SUCCESS")
-                                <p class="text-white bg-success font-weight-bold rounded">
+                                <h5 class="text-success font-weight-bold rounded">
                                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                                     {{ $appInfo->latest_build_status }}
                                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                </p>
+                                </h5>
                                 @endif
                                 </p>
                             </td>
