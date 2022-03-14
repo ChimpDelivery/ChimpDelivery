@@ -16,7 +16,7 @@
                             <th scope="col" class="text-center col-1">🆔 </th>
                             <th scope="col" class="text-center col-2">📱 App</th>
                             <th scope="col" class="text-center col-2">🔎 Last Build</th>
-                            <th scope="col" class="text-center col-3">📲 Build</th>
+                            <th scope="col" class="text-center col-2">📲 Build</th>
                             <th scope="col" class="text-center col-2">⚙️ Edit</th>
                         </tr>
                     </thead>
@@ -28,9 +28,9 @@
                                 <div class="container">
                                     <div class="col">
                                         @if (!empty($appInfo->app_icon))
-                                            <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                                        <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                                         @else
-                                            <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                                        <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                                         @endif
                                     </div>
                                     <div class="col">
@@ -49,12 +49,33 @@
                                     </a>
                                 </p>
                                 <p>
-                                    @if ($appInfo->latest_build_number == -1)
-                                <p class="text-danger font-weight-bold">Jenkinsfile not found!</p>
+                                @if ($appInfo->latest_build_number == -1)
+                                    <p class="text-white bg-danger font-weight-bold rounded">🥸 MISSING 🥸</p>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "ABORTED")
-                                <p class="text-danger font-weight-bold">{{ $appInfo->latest_build_status }}</p>
+                                    <p class="text-white bg-secondary font-weight-bold rounded">🥲 {{ $appInfo->latest_build_status }} 🥲</p>
+                                @endif
+
+                                @if ($appInfo->latest_build_status == "BUILDING")
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-success" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-danger" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-warning" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+
+                                    <p class="text-dark font-weight-bold rounded">🤖 {{ $appInfo->latest_build_status }} 🤖</p>
+                                @endif
+
+                                @if ($appInfo->latest_build_status == "SUCCESS")
+                                    <p class="text-white bg-success font-weight-bold rounded">🤩 {{ $appInfo->latest_build_status }} 🤩</p>
                                 @endif
                                 </p>
                             </td>

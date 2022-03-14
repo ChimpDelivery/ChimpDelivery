@@ -87,8 +87,10 @@ class JenkinsController extends Controller
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
+        $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
+
         return response()->json([
-            'latest_build_status' => isset($retrievedData->result) ? $retrievedData->result : -1
+            'latest_build_status' => $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : -1)
         ]);
     }
 }
