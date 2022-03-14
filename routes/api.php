@@ -53,4 +53,5 @@ Route::controller(JenkinsController::class)->group(function() {
     Route::get('jenkins/get-job/{projectName}', 'GetJob');
     Route::get('jenkins/get-build-list/{projectName}', 'GetBuildList');
     Route::get('jenkins/get-latest-build-number/{projectName}', 'GetLatestBuildNumber');
+    Route::get('jenkins/get-latest-build-info/{projectName}/{buildNumber}', 'GetLatestBuildInfo');
 });

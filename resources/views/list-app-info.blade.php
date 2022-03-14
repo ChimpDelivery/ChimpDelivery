@@ -15,7 +15,7 @@
                         <tr class="text-dark text-light">
                             <th scope="col" class="text-center col-1">🆔 </th>
                             <th scope="col" class="text-center col-2">📱 App</th>
-                            <th scope="col" class="text-center col-2">🔎 Status</th>
+                            <th scope="col" class="text-center col-2">🔎 Last Build</th>
                             <th scope="col" class="text-center col-3">📲 Build</th>
                             <th scope="col" class="text-center col-2">⚙️ Edit</th>
                         </tr>
@@ -27,7 +27,11 @@
                             <td class="text-center align-middle">
                                 <div class="container">
                                     <div class="col">
-                                        <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                                        @if (!empty($appInfo->app_icon))
+                                            <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                                        @else
+                                            <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                                        @endif
                                     </div>
                                     <div class="col">
                                         <a class="text-dark font-weight-bold" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
@@ -37,9 +41,22 @@
                                 </div>
                             </td>
                             <td class="text-center align-middle">
-                                <a class="text-dark" href="{{ $appInfo->latest_build_url }}">
-                                    {{ $appInfo->latest_build_number }}
-                                </a>
+                                <p>
+                                    <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
+                                        @if ($appInfo->latest_build_number != -1)
+                                        {{ $appInfo->latest_build_number }}
+                                        @endif
+                                    </a>
+                                </p>
+                                <p>
+                                    @if ($appInfo->latest_build_number == -1)
+                                <p class="text-danger font-weight-bold">Jenkinsfile not found!</p>
+                                @endif
+
+                                @if ($appInfo->latest_build_status == "ABORTED")
+                                <p class="text-danger font-weight-bold">{{ $appInfo->latest_build_status }}</p>
+                                @endif
+                                </p>
                             </td>
                             <td class="text-center align-middle">
                                 <a href="dashboard/build-app/{{$appInfo->id}}">
