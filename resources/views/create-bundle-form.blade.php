@@ -30,7 +30,7 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            🔥 After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            📌 After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
 </div>

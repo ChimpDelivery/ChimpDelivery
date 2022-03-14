@@ -10,14 +10,28 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
-    public function Index() : View
+    public function Index(Request $request) //: View
     {
-        return view('list-app-info')->with('appInfos', AppInfo::paginate(10)->onEachSide(1));
+        $data = [
+            'appInfos' => AppInfo::paginate(10)->onEachSide(1)
+        ];
+
+        $data['appInfos']->each(function ($item) use ($request) {
+            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
+            $item->latest_build_number = $appData->latest_build_number;
+            $item->latest_build_url = Str::replace('http://localhost:8080', env('JENKINS_HOST'), $appData->jenkins_url);
+
+            $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->app_name, $appData->latest_build_number)->getData();
+            $item->latest_build_status = $buildStatus->latest_build_status;
+        });
+
+        return view('list-app-info')->with($data);
     }
 
     public function CreateAppForm(Request $request) : View
@@ -50,8 +64,15 @@ class DashboardController extends Controller
 
     public function BuildApp(Request $request) : RedirectResponse
     {
-        session()->flash('success', "App building...");
+        session()->flash('success', 'App building...');
         Artisan::call("jenkins:trigger {$request->id}");
+        return to_route('get_app_list');
+    }
+
+    public function StopJob(Request $request) : RedirectResponse
+    {
+        session()->flash('success', 'Build stopping...');
+        Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
         return to_route('get_app_list');
     }
 
