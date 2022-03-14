@@ -9,7 +9,7 @@
             <tr class="bg-dark text-light">
                 <th scope="col" class="text-center">🆔 </th>
                 <th scope="col" class="text-center">🖼️ App</th>
-                <th scope="col" class="text-center">   App Status</th>
+                <th scope="col" class="text-center"> App Status</th>
                 <th scope="col" class="text-center">📲 Build App</th>
                 <th scope="col" class="text-center">⚙️ Edit App</th>
             </tr>
@@ -25,7 +25,9 @@
                     </a>
                 </td>
                 <td class="text-center align-middle">
-                    {{ $appInfo->latest_build_number }}
+                    <a class="text-dark" href="{{ $appInfo->latest_build_url }}">
+                        {{ $appInfo->latest_build_number }}
+                    </a>
                 </td>
                 <td class="text-center align-middle">
                     <a href="dashboard/build-app/{{$appInfo->id}}">

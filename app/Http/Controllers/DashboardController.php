@@ -10,19 +10,22 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
-    public function Index(Request $request) : View
+    public function Index(Request $request) //: View
     {
         $data = [
             'appInfos' => AppInfo::paginate(10)->onEachSide(1)
         ];
 
         $data['appInfos']->each(function ($item) use ($request) {
-            $item->latest_build_number = 1;
+            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
+            $item->latest_build_number = $appData->latest_build_number;
+            $item->latest_build_url = Str::replace('http://localhost:8080', env('JENKINS_HOST'), $appData->jenkins_url);
         });
 
         return view('list-app-info')->with($data);

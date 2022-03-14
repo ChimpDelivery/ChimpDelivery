@@ -38,11 +38,13 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetBuildList(Request $request) : JsonResponse
+    public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
+        $app = is_null($appName) ? $request->projectName : $appName;
+
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/job/{$request->projectName}/job/master/api/json"
+            "/job/Talus-WorkSpace/job/{$app}/job/master/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
@@ -62,12 +64,13 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetLatestBuildNumber(Request $request) : JsonResponse
+    public function GetLatestBuildNumber(Request $request, $appName = null) : JsonResponse
     {
-        $retrievedData = $this->GetBuildList($request)->getData();
+        $retrievedData = $this->GetBuildList($request, $appName)->getData();
         
         return response()->json([
-            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -1
+            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -1,
+            'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : -1
         ]);
     }
 }
