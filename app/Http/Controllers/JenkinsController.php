@@ -19,7 +19,7 @@ class JenkinsController extends Controller
         $jenkinsJobList = collect(json_decode($jenkinsInfo)->jobs);
 
         return response()->json([
-            'job_list' => $jenkinsJobList
+            'job_list' => $jenkinsJobList->pluck('name')
         ]);
     }
 
@@ -50,6 +50,16 @@ class JenkinsController extends Controller
 
         return response()->json([
             'build_list' => $jenkinsJobBuildList 
+        ]);
+    }
+
+    public function GetLatestBuildNumber(Request $request) : JsonResponse
+    {
+        $buildList = $this->GetBuildList($request);
+        $latestBuildNumber = $buildList->getData()->build_list;
+
+        return response()->json([
+            'latest_build_number' => $latestBuildNumber[0]->number
         ]);
     }
 }

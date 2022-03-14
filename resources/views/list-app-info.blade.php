@@ -8,8 +8,8 @@
         <thead>
             <tr class="bg-dark text-light">
                 <th scope="col" class="text-center">🆔 </th>
-                <th scope="col" class="text-center">🖼️ App Icon</th>
-                <th scope="col" class="text-center">📝 App Name</th>
+                <th scope="col" class="text-center">🖼️ App</th>
+                <th scope="col" class="text-center">   App Status</th>
                 <th scope="col" class="text-center">📲 Build App</th>
                 <th scope="col" class="text-center">⚙️ Edit App</th>
             </tr>
@@ -20,11 +20,12 @@
                 <th scope="row" class="text-center align-middle">{{ $appInfo->id }}</th>
                 <td class="text-center align-middle">
                     <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
-                </td>
-                <td class="text-center align-middle">
                     <a class="text-dark" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
                         {{ $appInfo->app_name }}
                     </a>
+                </td>
+                <td class="text-center align-middle">
+                    {{ $appInfo->jenkins_job_list }}
                 </td>
                 <td class="text-center align-middle">
                     <a href="dashboard/build-app/{{$appInfo->id}}">

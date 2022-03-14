@@ -15,9 +15,17 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
-    public function Index() : View
+    public function Index(Request $request) : View
     {
-        return view('list-app-info')->with('appInfos', AppInfo::paginate(10)->onEachSide(1));
+        $data = [
+            'appInfos' => AppInfo::paginate(10)->onEachSide(1)
+        ];
+
+        $data['appInfos']->each(function ($item){
+            $item->jenkins_job_list = $item->app_name;
+        });
+
+        return view('list-app-info')->with($data);
     }
 
     public function CreateAppForm(Request $request) : View
