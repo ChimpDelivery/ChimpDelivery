@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function Index() : View
     {
-        return view('list-app-info')->with('appInfos', AppInfo::paginate(10));
+        return view('list-app-info')->with('appInfos', AppInfo::paginate(10)->onEachSide(1));
     }
 
     public function CreateAppForm(Request $request) : View

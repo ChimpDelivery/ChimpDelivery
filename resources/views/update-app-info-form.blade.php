@@ -15,11 +15,11 @@
                     <label for="app_icon">App Icon</label>
                     <input type="file" onchange="previewAppIcon()" id="app_icon" name="app_icon" class="form-control form-control-file" accept="image/png">
                     <br />
-                    <img id="frame" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                    <img id="app_icon_preview" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">Appstore ID</label>
-                    <input type="text" id="form-control" name="appstore_id" class="form-control" required="" value="{{ $appInfo->appstore_id }}" readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" value="{{ $appInfo->appstore_id }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
@@ -27,19 +27,27 @@
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">App Bundle</label>
-                    <input type="text" id="form-control" name="app_bundle" class="form-control" required="" value="{{ $appInfo->app_bundle }}" readonly>
+                    <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" value="{{ $appInfo->app_bundle }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="form-control" name="fb_app_id" class="form-control" value="{{ $appInfo->fb_app_id }}">
+                    <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" value="{{ $appInfo->fb_app_id }}">
                 </div>
                 <div class="form-group">
                     <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="form-control" name="elephant_id" class="form-control" value="{{ $appInfo->elephant_id }}">
+                    <input type="text" id="elephant_id" name="elephant_id" class="form-control" value="{{ $appInfo->elephant_id }}">
                 </div>
                 <div class="form-group">
                     <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="form-control" name="elephant_secret" class="form-control" value="{{ $appInfo->elephant_secret }}">
+                    <input type="text" id="elephant_secret" name="elephant_secret" class="form-control" value="{{ $appInfo->elephant_secret }}">
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="form_confirmation" required="">
+                        <label class="form-check-label" for="form_confirmation">
+                            I have reviewed and approved the information.
+                        </label>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
@@ -56,7 +64,7 @@
 @section('scripts')
 <script type="text/javascript">
     function previewAppIcon() {
-        document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById('app_icon_preview').src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
 @endsection
