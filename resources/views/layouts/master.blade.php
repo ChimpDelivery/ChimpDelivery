@@ -75,6 +75,7 @@
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://elephant.rollic.gs">
                                     <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Elephant Dashboard') }}
                                 </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
                                 </a>
