@@ -16,6 +16,7 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->name('update_app_info');
 
     Route::get('/dashboard/build-app/{id}', 'BuildApp');
+    Route::get('/dashboard/stop-job/{projectName}/{buildNumber}', 'StopJob');
 
     // post route to delete app info data.
     Route::post('/dashboard/delete-app-info/{id}', 'DeleteApp')->name('delete_app_info');

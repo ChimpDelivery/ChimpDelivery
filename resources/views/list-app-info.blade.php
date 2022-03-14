@@ -86,7 +86,7 @@
                                 @if ($appInfo->latest_build_status == "SUCCESS")
                                 <p class="text-white bg-success font-weight-bold rounded">
                                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                        {{ $appInfo->latest_build_status }}
+                                    {{ $appInfo->latest_build_status }}
                                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                                 </p>
                                 @endif
@@ -100,7 +100,7 @@
                                     </button>
                                 </a>
                                 @else
-                                <a href="dashboard#">
+                                <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{$appInfo->app_name}}/{{$appInfo->latest_build_number}}">
                                     <button class="btn text-white bg-transparent">
                                         <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
                                     </button>

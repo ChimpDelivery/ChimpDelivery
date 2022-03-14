@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -92,5 +94,18 @@ class JenkinsController extends Controller
         return response()->json([
             'latest_build_status' => $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : -1)
         ]);
+    }
+
+    public function PostStopJob(Request $request, $appName = null, $buildNumber = null) : void
+    {
+        $app = is_null($appName) ? $request->projectName : $appName;
+        $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
+
+        $url = implode('', [
+            env('JENKINS_HOST', 'http://localhost:8080'),
+            "/job/Talus-WorkSpace/job/{$app}/job/master/{$appBuildNumber}/stop"
+        ]);
+
+        Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);
     }
 }

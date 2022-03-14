@@ -64,8 +64,15 @@ class DashboardController extends Controller
 
     public function BuildApp(Request $request) : RedirectResponse
     {
-        session()->flash('success', "App building...");
+        session()->flash('success', 'App building...');
         Artisan::call("jenkins:trigger {$request->id}");
+        return to_route('get_app_list');
+    }
+
+    public function StopJob(Request $request) : RedirectResponse
+    {
+        session()->flash('success', 'Build stopping...');
+        Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
         return to_route('get_app_list');
     }
 
