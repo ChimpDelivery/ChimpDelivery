@@ -97,7 +97,7 @@
                             <td class="text-center align-middle">
                                 <a href="dashboard/update-app-info/{{$appInfo->id}}">
                                     <button class="btn text-white bg-transparent">
-                                        <i style="font-size:2em;" class="fa fa-pencil text-primary"></i>
+                                        <i style="font-size:2em;" class="fa fa-pencil-square-o text-primary"></i>
                                     </button>
                                 </a>
                             </td>
