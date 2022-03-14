@@ -52,7 +52,7 @@
                                     @if ($appInfo->latest_build_number == -1)
                                 <p class="text-white bg-danger font-weight-bold rounded">
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
-                                        MISSING
+                                    MISSING
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
                                 </p>
                                 @endif
@@ -78,21 +78,34 @@
                                 <div class="spinner-grow text-warning" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
-
-                                <p class="text-dark font-weight-bold rounded">🤖 {{ $appInfo->latest_build_status }} 🤖</p>
+                                <p class="text-muted font-weight-bold rounded">
+                                    {{ $appInfo->latest_build_status }}
+                                </p>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "SUCCESS")
-                                <p class="text-white bg-success font-weight-bold rounded">🤩 {{ $appInfo->latest_build_status }} 🤩</p>
+                                <p class="text-white bg-success font-weight-bold rounded">
+                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                        {{ $appInfo->latest_build_status }}
+                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                </p>
                                 @endif
                                 </p>
                             </td>
                             <td class="text-center align-middle">
+                                @if ($appInfo->latest_build_status != "BUILDING")
                                 <a href="dashboard/build-app/{{$appInfo->id}}">
                                     <button class="btn text-white bg-transparent">
                                         <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
                                     </button>
                                 </a>
+                                @else
+                                <a href="dashboard#">
+                                    <button class="btn text-white bg-transparent">
+                                        <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                                    </button>
+                                </a>
+                                @endif
                             </td>
                             <td class="text-center align-middle">
                                 <a href="dashboard/update-app-info/{{$appInfo->id}}">
