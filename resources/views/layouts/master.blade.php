@@ -57,8 +57,23 @@
                         <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/Fsk0UIrL/talus-board">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Trello') }}
+                                </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://drive.google.com/drive/folders/1HiDzlKwkSWMF9sk22pqwoG058933hqwa?usp=sharing">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Google Drive') }}
+                                </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://github.com/talusstudio">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Github') }}
+                                </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">
                                     <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Appstore Connect') }}
+                                </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Facebook Dashboard') }}
+                                </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://elephant.rollic.gs">
+                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Elephant Dashboard') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
