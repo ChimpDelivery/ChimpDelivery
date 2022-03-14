@@ -57,23 +57,24 @@
                         <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="#">
+                                    <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ __('Talus Workspace') }}
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/Fsk0UIrL/talus-board">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Trello') }}
+                                    <i class="fa fa-trello fa-lg text-white"></i> {{ __('Trello') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://drive.google.com/drive/folders/1HiDzlKwkSWMF9sk22pqwoG058933hqwa?usp=sharing">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Google Drive') }}
+                                    <i class="fa fa-google fa-lg text-white"></i> {{ __('Google Drive') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://github.com/talusstudio">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Github') }}
+                                    <i class="fa fa-github fa-lg text-white"></i> {{ __('Github') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Appstore Connect') }}
+                                    <i class="fa fa-apple fa-lg text-white"></i> {{ __('Appstore Connect') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Facebook Dashboard') }}
-                                </a>
-                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://elephant.rollic.gs">
-                                    <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Elephant Dashboard') }}
+                                    <i class="fa fa-facebook fa-lg text-white"></i> {{ __('Facebook Dashboard') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
