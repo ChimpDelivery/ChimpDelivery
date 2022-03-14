@@ -76,6 +76,9 @@
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
                                     <i class="fa fa-facebook fa-lg text-white"></i> {{ __('Facebook Dashboard') }}
                                 </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="http://webmail.talusstudio.com">
+                                    <i class="fa fa-envelope text-white"></i> {{ __('Webmail') }}
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
