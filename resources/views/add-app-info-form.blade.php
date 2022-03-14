@@ -16,7 +16,7 @@
                     <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file" accept="image/png">
                 </div>
                 <div class="form-group">
-                    <img id="frame" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
+                    <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
@@ -29,8 +29,8 @@
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
                             @foreach($allAppInfos as $appInfo)
-                            <input type="text" id="app_info_name" name="app_info_name" hidden>
-                            <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
+                                <input type="text" id="app_info_name" name="app_info_name" hidden>
+                                <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -45,15 +45,15 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="form-control" name="fb_app_id" class="form-control" placeholder="facebook app id...">
+                    <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
                     <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="form-control" name="elephant_id" class="form-control" placeholder="elephant id...">
+                    <input type="text" id="elephant_id" name="elephant_id" class="form-control" placeholder="elephant id...">
                 </div>
                 <div class="form-group">
                     <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="form-control" name="elephant_secret" class="form-control" placeholder="elephant secret...">
+                    <input type="text" id="elephant_secret" name="elephant_secret" class="form-control" placeholder="elephant secret...">
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
@@ -91,8 +91,8 @@
     }
 
     function preview() {
-        document.getElementById('frame').src = URL.createObjectURL(event.target.files[0]);
-        document.getElementById('frame').hidden = false
+        document.getElementById('app_icon_preview').src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById('app_icon_preview').hidden = false
     }
 
     function filterFunction() {
