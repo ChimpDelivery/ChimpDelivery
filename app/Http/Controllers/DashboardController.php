@@ -49,6 +49,7 @@ class DashboardController extends Controller
     {
         $this->PopulateAppData($request, AppInfo::withTrashed()->where('appstore_id', $request->appstore_id)->firstOrNew());
         session()->flash('success', "App: {$request->app_name} created...");
+
         return to_route('get_app_list');
     }
 
@@ -61,6 +62,7 @@ class DashboardController extends Controller
     {
         $this->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
         session()->flash('success', "App: {$request->app_name} updated...");
+
         return to_route('get_app_list');
     }
 
@@ -69,6 +71,7 @@ class DashboardController extends Controller
         $appInfo = AppInfo::find($request->id);
         session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
         Artisan::call("jenkins:trigger {$request->id}");
+
         return to_route('get_app_list');
     }
 
@@ -76,6 +79,7 @@ class DashboardController extends Controller
     {
         session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
         Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
+
         return to_route('get_app_list');
     }
 
@@ -91,6 +95,7 @@ class DashboardController extends Controller
     public function CreateBundleForm(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+
         return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
     }
 
@@ -117,14 +122,15 @@ class DashboardController extends Controller
         }
 
         app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request);
-
         session()->flash('success', "Bundle: com.Talus.{$request->bundle_id} created...");
+
         return to_route('get_app_list');
     }
 
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
+        
         return to_route('get_app_list');
     }
 

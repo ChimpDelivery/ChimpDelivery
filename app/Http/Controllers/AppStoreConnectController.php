@@ -86,7 +86,7 @@ class AppStoreConnectController extends Controller
     public function GetBuildList(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get("https://api.appstoreconnect.apple.com/v1/builds");
+            ->get('https://api.appstoreconnect.apple.com/v1/builds');
 
         $builds = collect(json_decode($appList)->data);
 
@@ -114,7 +114,7 @@ class AppStoreConnectController extends Controller
 
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
             ->withBody(json_encode($data), 'application/json')
-            ->post("https://api.appstoreconnect.apple.com/v1/bundleIds");
+            ->post('https://api.appstoreconnect.apple.com/v1/bundleIds');
 
         return response()->json([
             'status' => $appList->json()

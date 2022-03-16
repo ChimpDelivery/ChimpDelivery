@@ -12,7 +12,7 @@ class JenkinsController extends Controller
     {
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/api/json"
+            "/job/" . env('JENKINS_WS') . "/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
@@ -27,7 +27,7 @@ class JenkinsController extends Controller
     {
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/job/{$request->projectName}/api/json"
+            "/job/" . env('JENKINS_WS') ."/job/{$request->projectName}/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
@@ -44,7 +44,7 @@ class JenkinsController extends Controller
 
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/job/{$app}/job/master/api/json"
+            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
@@ -76,7 +76,9 @@ class JenkinsController extends Controller
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
         if (env('JENKINS_ENABLED') == false) {
-            return response()->json(['latest_build_status' => 'JENKINS DOWN!']);
+            return response()->json([
+                'latest_build_status' => 'JENKINS DOWN!'
+            ]);
         }
 
         $app = is_null($appName) ? $request->projectName : $appName;
@@ -84,7 +86,7 @@ class JenkinsController extends Controller
 
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/job/{$app}/job/master/{$appBuildNumber}/api/json"
+            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/{$appBuildNumber}/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
@@ -104,7 +106,7 @@ class JenkinsController extends Controller
 
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/Talus-WorkSpace/job/{$app}/job/master/{$appBuildNumber}/stop"
+            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/{$appBuildNumber}/stop"
         ]);
 
         Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);
