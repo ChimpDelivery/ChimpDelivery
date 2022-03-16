@@ -27,7 +27,7 @@ class JenkinsController extends Controller
     {
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') ."/job/{$request->projectName}/api/json"
+            "/job/" . env('JENKINS_WS') . "/job/{$request->projectName}/api/json"
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);

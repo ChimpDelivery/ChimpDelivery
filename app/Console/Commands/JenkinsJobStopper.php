@@ -16,15 +16,15 @@ class JenkinsJobStopper extends Command
         parent::__construct();
     }
 
-    public function handle(): void
+    public function handle() : void
     {
         $app = AppInfo::where('app_name', $this->argument('projectName'))->first();
-        if ($app) 
+        if ($app)
         {
             $url = implode('', [
-                    env('JENKINS_HOST', 'http://localhost:8080'),
-                    "/job/Talus-WorkSpace/job/{$app->app_name}/job/master/{$this->argument('buildNumber')}/stop"
-                ]);
+                env('JENKINS_HOST', 'http://localhost:8080'),
+                "/job/" . env('JENKINS_WS') . "/job/{$app->app_name}/job/master/{$this->argument('buildNumber')}/stop"
+            ]);
 
             Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);        
         }

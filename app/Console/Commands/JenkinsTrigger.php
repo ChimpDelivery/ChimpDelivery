@@ -23,7 +23,7 @@ class JenkinsTrigger extends Command
         {
             $url = implode('', [
                 env('JENKINS_HOST', 'http://localhost:8080'),
-                "/job/Talus-WorkSpace/job/{$app->app_name}/job/master/build"
+                "/job/" . env('JENKINS_WS') . "/job/{$app->app_name}/job/master/build"
             ]);
 
             Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);
