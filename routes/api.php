@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AppInfoController;
 use App\Http\Controllers\AppStoreConnectController;
 use App\Http\Controllers\JenkinsController;
 
@@ -20,19 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-Route::controller(AppInfoController::class)->group(function () {
-    // active endpoints
-    Route::get('appinfo/{id}', 'Show');
-
-    // not-implementeds
-    Route::get('appinfo', 'Index');
-    Route::post('appinfo', 'Store');
-    Route::get('appinfo/create', 'Create');
-    Route::get('appinfo/{id}/edit', 'Edit');
-    Route::put('appinfo/{id}', 'Update');
-    Route::delete('appinfo/{id}', 'Destroy');
 });
 
 Route::controller(AppStoreConnectController::class)->middleware('appstore')->group(function () {
