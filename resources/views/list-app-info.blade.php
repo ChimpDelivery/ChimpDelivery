@@ -118,7 +118,7 @@
                                 @else
                                     <h6 class="text-danger font-weight-bold rounded">
                                         <i class="fa fa-power-off" aria-hidden="true"></i>
-                                        JENKINS DOWN
+                                            JENKINS DOWN
                                         <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
                                     </h6>
                                 @endif

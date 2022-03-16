@@ -98,7 +98,7 @@ class DashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'bundle_id' => array('required', 'alpha_num'),
-            'bundle_name' => array('required', 'alpha_num'),
+            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'), // alpha-numeric with spaces
         ]);
 
         if ($validator->fails()) {
