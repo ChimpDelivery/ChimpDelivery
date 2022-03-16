@@ -23,7 +23,7 @@
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select bundle id
+                            Select bundle id ({{ count($allAppInfos) }})
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
@@ -60,7 +60,10 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            📌 If you don't see the bundle id in the list, make sure there is an app using that bundle id on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            <p>
+                📌 If you don't see the bundle id in the list, make sure there is an app using that bundle id
+                on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            </p>
         </div>
     </div>
 </div>

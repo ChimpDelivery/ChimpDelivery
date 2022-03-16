@@ -35,7 +35,7 @@ class AppStoreConnectController extends Controller
     public function GetFullAppInfo(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId');
+            ->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId&limit=100');
 
         return response()->json([
             'app_list' => $appList->json()
