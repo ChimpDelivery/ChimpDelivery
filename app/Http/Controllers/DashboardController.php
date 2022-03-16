@@ -103,7 +103,10 @@ class DashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'bundle_id' => array('required', 'alpha_num'),
-            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'), // alpha-numeric with spaces
+            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'),
+        ], [ 
+            'bundle_id.alpha_num' => 'Bundle id can only contains alpha-numeric characters!',
+            'bundle_name.regex' => 'Bundle name can only contains alpha-numeric characters and space!'
         ]);
 
         if ($validator->fails()) {
