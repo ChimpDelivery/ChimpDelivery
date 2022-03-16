@@ -35,7 +35,7 @@ Route::controller(AppInfoController::class)->group(function () {
     Route::delete('appinfo/{id}', 'Destroy');
 });
 
-Route::controller(AppStoreConnectController::class)->group(function () {
+Route::controller(AppStoreConnectController::class)->middleware('appstore')->group(function () {
     // active endpoints
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
