@@ -74,12 +74,13 @@ class AppStoreConnectController extends Controller
     public function GetAllBundles(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get('https://api.appstoreconnect.apple.com/v1/bundleIds?fields[bundleIds]=name,identifier');
+            ->get('https://api.appstoreconnect.apple.com/v1/bundleIds?fields[bundleIds]=name,identifier&limit=100&filter[platform]=IOS&sort=seedId');
         
         $bundleIds = collect(json_decode($appList)->data);
+        $sortedBundleIds = $bundleIds->pluck('attributes.identifier');
 
         return response()->json([
-            'bundle_ids' => $bundleIds->pluck('attributes.identifier')
+            'bundle_ids' => $sortedBundleIds->reverse()->values()
         ]);
     }
 
