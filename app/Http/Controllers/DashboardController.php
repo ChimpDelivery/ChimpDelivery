@@ -16,20 +16,23 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {
-    public function Index(Request $request) //: View
+    public function Index(Request $request) : View
     {
         $data = [
             'appInfos' => AppInfo::paginate(10)->onEachSide(1)
         ];
 
-        $data['appInfos']->each(function ($item) use ($request) {
-            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
-            $item->latest_build_number = $appData->latest_build_number;
-            $item->latest_build_url = Str::replace('http://localhost:8080', env('JENKINS_HOST'), $appData->jenkins_url);
+        if (env('JENKINS_ENABLED'))
+        {        
+            $data['appInfos']->each(function ($item) use ($request) {
+                $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
+                $item->latest_build_number = $appData->latest_build_number;
+                $item->latest_build_url = Str::replace('http://localhost:8080', env('JENKINS_HOST'), $appData->jenkins_url);
 
-            $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->app_name, $appData->latest_build_number)->getData();
-            $item->latest_build_status = $buildStatus->latest_build_status;
-        });
+                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->app_name, $appData->latest_build_number)->getData();
+                $item->latest_build_status = $buildStatus->latest_build_status;
+            });
+        }
 
         return view('list-app-info')->with($data);
     }

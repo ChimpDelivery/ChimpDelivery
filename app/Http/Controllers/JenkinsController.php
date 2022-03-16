@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -42,6 +40,10 @@ class JenkinsController extends Controller
 
     public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
+        if (env('JENKINS_ENABLED') == false) {            
+            return response()->json(['build_list' => '']);
+        }
+
         $app = is_null($appName) ? $request->projectName : $appName;
 
         $url = implode('', [
@@ -78,6 +80,10 @@ class JenkinsController extends Controller
 
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
+        if (env('JENKINS_ENABLED') == false) {
+            return response()->json(['latest_build_status' => 'JENKINS DOWN!']);
+        }
+
         $app = is_null($appName) ? $request->projectName : $appName;
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber; 
 

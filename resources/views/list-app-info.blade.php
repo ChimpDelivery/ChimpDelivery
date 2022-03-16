@@ -27,7 +27,7 @@
                             <td class="text-center align-middle">
                                 <div class="container">
                                     <div class="col">
-                                        @if (!empty($appInfo->app_icon))
+                                        @if (file_exists(public_path('images/'.$appInfo->app_icon)))
                                         <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                                         @else
                                         <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
@@ -49,20 +49,28 @@
                                     </a>
                                 </p>
                                 <p>
-                                    @if ($appInfo->latest_build_number == -1)
-                                <h5 class="text-danger font-weight-bold rounded">
+                                    @if (env('JENKINS_ENABLED') == false)
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    JENKINS DOWN
+                                    <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
+                                @endif
+
+                                @if ($appInfo->latest_build_number == -1)
+                                <h6 class="text-danger font-weight-bold rounded">
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
                                     MISSING
                                     <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                </h5>
+                                </h6>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "ABORTED")
-                                <h5 class="text-secondary font-weight-bold rounded">
+                                <h6 class="text-secondary font-weight-bold rounded">
                                     <i class="fa fa-ban" aria-hidden="true"></i>
                                     {{ $appInfo->latest_build_status }}
                                     <i class="fa fa-ban" aria-hidden="true"></i>
-                                </h5>
+                                </h6>
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "BUILDING")
@@ -84,15 +92,16 @@
                                 @endif
 
                                 @if ($appInfo->latest_build_status == "SUCCESS")
-                                <h5 class="text-success font-weight-bold rounded">
+                                <h6 class="text-success font-weight-bold rounded">
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                     {{ $appInfo->latest_build_status }}
                                     <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
-                                </h5>
+                                </h6>
                                 @endif
                                 </p>
                             </td>
                             <td class="text-center align-middle">
+                                @if (env('JENKINS_ENABLED'))
                                 @if ($appInfo->latest_build_status != "BUILDING")
                                 <a href="dashboard/build-app/{{$appInfo->id}}">
                                     <button class="btn text-white bg-transparent">
@@ -105,6 +114,13 @@
                                         <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
                                     </button>
                                 </a>
+                                @endif
+                                @else
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    JENKINS DOWN
+                                    <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
                                 @endif
                             </td>
                             <td class="text-center align-middle">
