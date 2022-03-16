@@ -26,7 +26,7 @@ class JenkinsJobStopper extends Command
                 "/job/" . env('JENKINS_WS') . "/job/{$app->app_name}/job/master/{$this->argument('buildNumber')}/stop"
             ]);
 
-            Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);        
+            echo 'Jenkins response code: ' . Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url)->status();
         }
     }
 }
