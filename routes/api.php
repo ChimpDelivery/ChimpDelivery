@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(AppInfoController::class)->group(function() {
+Route::controller(AppInfoController::class)->group(function () {
     // active endpoints
     Route::get('appinfo/{id}', 'Show');
 
@@ -35,7 +35,7 @@ Route::controller(AppInfoController::class)->group(function() {
     Route::delete('appinfo/{id}', 'Destroy');
 });
 
-Route::controller(AppStoreConnectController::class)->group(function() {
+Route::controller(AppStoreConnectController::class)->group(function () {
     // active endpoints
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
@@ -47,7 +47,7 @@ Route::controller(AppStoreConnectController::class)->group(function() {
     Route::get('appstoreconnect/clear-cache', 'ClearCache');
 });
 
-Route::controller(JenkinsController::class)->group(function() {
+Route::controller(JenkinsController::class)->middleware('jenkins')->group(function () {
     // active endpoints
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-job/{projectName}', 'GetJob');

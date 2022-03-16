@@ -40,10 +40,6 @@ class JenkinsController extends Controller
 
     public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
-        if (env('JENKINS_ENABLED') == false) {            
-            return response()->json(['build_list' => '']);
-        }
-
         $app = is_null($appName) ? $request->projectName : $appName;
 
         $url = implode('', [
@@ -52,10 +48,9 @@ class JenkinsController extends Controller
         ]);
 
         $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
-        
+
         $retrievedData = json_decode($jenkinsInfo);
-        if (isset($retrievedData->builds))
-        {
+        if (isset($retrievedData->builds)) {
             $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
 
             return response()->json([
@@ -71,7 +66,7 @@ class JenkinsController extends Controller
     public function GetLatestBuildNumber(Request $request, $appName = null) : JsonResponse
     {
         $retrievedData = $this->GetBuildList($request, $appName)->getData();
-        
+
         return response()->json([
             'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -1,
             'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : -1
@@ -85,7 +80,7 @@ class JenkinsController extends Controller
         }
 
         $app = is_null($appName) ? $request->projectName : $appName;
-        $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber; 
+        $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
         $url = implode('', [
             env('JENKINS_HOST', 'http://localhost:8080'),

@@ -22,8 +22,7 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::paginate(10)->onEachSide(1)
         ];
 
-        if (env('JENKINS_ENABLED'))
-        {        
+        if (env('JENKINS_ENABLED')) {
             $data['appInfos']->each(function ($item) use ($request) {
                 $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
                 $item->latest_build_number = $appData->latest_build_number;
@@ -58,7 +57,7 @@ class DashboardController extends Controller
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
 
-    public function UpdateApp(AppInfoRequest $request) : RedirectResponse
+    public function UpdateApp(AppInfoRequest $request): RedirectResponse
     {
         $this->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
         session()->flash('success', "App: {$request->app_name} updated...");
@@ -102,8 +101,7 @@ class DashboardController extends Controller
             'bundle_name' => array('required', 'alpha_num'),
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return to_route('create_bundle')
                 ->withErrors($validator)
                 ->withInput();
@@ -112,8 +110,7 @@ class DashboardController extends Controller
         $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
         $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
 
-        if (in_array($bundleId, $bundleList))
-        {
+        if (in_array($bundleId, $bundleList)) {
             return to_route('create_bundle')
                 ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
                 ->withInput();
@@ -143,14 +140,12 @@ class DashboardController extends Controller
 
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
-        if (isset($request->app_icon))
-        {
+        if (isset($request->app_icon)) {
             $currentIconHash = md5_file($request->app_icon);
             $matchingHash = File::where('hash', $currentIconHash)->first();
 
             // icon hash not found so generate hash and upload icon file.
-            if (!$matchingHash)
-            {
+            if (!$matchingHash) {
                 $iconPath = time() . '-' . $request->app_name . '.' . $request->app_icon->getClientOriginalExtension();
                 $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
             }
@@ -158,14 +153,12 @@ class DashboardController extends Controller
             $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
         }
 
-        if ($appInfo->trashed())
-        {
+        if ($appInfo->trashed()) {
             $appInfo->restore();
         }
 
         // we can't update app_name, app_bundle and appstore_id in created apps.
-        if (!$appInfo->exists)
-        {
+        if (!$appInfo->exists) {
             $appInfo->app_name = $request->app_name;
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
