@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class AppStoreConnectMiddleware
 {
@@ -21,14 +22,14 @@ class AppStoreConnectMiddleware
         if (!$apiKey) {
             return response()->json([
                 'appstore_status' => 'Api Key required!'
-            ]);
+            ])->setStatusCode(Response::HTTP_FORBIDDEN);
         }
 
         $token = User::where('api_token', $apiKey)->first();
         if (!$token) {
             return response()->json([
                 'appstore_status' => 'Api Key not found!'
-            ]);
+            ])->setStatusCode(Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);

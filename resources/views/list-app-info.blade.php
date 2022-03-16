@@ -44,83 +44,91 @@
                                 <p>
                                     <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                         @if ($appInfo->latest_build_number != -1)
-                                            {{ $appInfo->latest_build_number }}
+                                        {{ $appInfo->latest_build_number }}
                                         @endif
                                     </a>
                                 </p>
                                 <p>
                                     @if (env('JENKINS_ENABLED') == false)
-                                        <h6 class="text-danger font-weight-bold rounded">
-                                            <i class="fa fa-power-off" aria-hidden="true"></i>
-                                                JENKINS DOWN
-                                            <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                    @endif
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    JENKINS DOWN
+                                    <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
+                                @endif
 
-                                    @if ($appInfo->latest_build_number == -1)
-                                        <h6 class="text-danger font-weight-bold rounded">
-                                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                                                MISSING
-                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                    @endif
+                                @if ($appInfo->latest_build_number == -1)
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-file-o" aria-hidden="true"></i>
+                                    MISSING
+                                    <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
+                                @endif
 
-                                    @if ($appInfo->latest_build_status == "ABORTED")
-                                        <h6 class="text-secondary font-weight-bold rounded">
-                                            <i class="fa fa-ban" aria-hidden="true"></i>
-                                                {{ $appInfo->latest_build_status }}
-                                            <i class="fa fa-ban" aria-hidden="true"></i>
-                                        </h6>
-                                    @endif
+                                @if ($appInfo->latest_build_status == "ABORTED")
+                                <h6 class="text-secondary font-weight-bold rounded">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                    {{ $appInfo->latest_build_status }}
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </h6>
+                                @endif
 
-                                    @if ($appInfo->latest_build_status == "BUILDING")
-                                        <div class="spinner-grow text-primary" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-success" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-danger" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-warning" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <p class="text-muted font-weight-bold rounded">
-                                            {{ $appInfo->latest_build_status }}
-                                        </p>
-                                    @endif
+                                @if ($appInfo->latest_build_status == "BUILDING")
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-success" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-danger" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-warning" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <p class="text-muted font-weight-bold rounded">
+                                    {{ $appInfo->latest_build_status }}
+                                </p>
+                                @endif
 
-                                    @if ($appInfo->latest_build_status == "SUCCESS")
-                                        <h6 class="text-success font-weight-bold rounded">
-                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                {{ $appInfo->latest_build_status }}
-                                            <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                    @endif
+                                @if ($appInfo->latest_build_status == "SUCCESS")
+                                <h6 class="text-success font-weight-bold rounded">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    {{ $appInfo->latest_build_status }}
+                                    <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
+                                @endif
+
+                                @if ($appInfo->latest_build_status == "FAILURE")
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    {{ $appInfo->latest_build_status }}
+                                    <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
+                                @endif
                                 </p>
                             </td>
                             <td class="text-center align-middle">
                                 @if (env('JENKINS_ENABLED'))
-                                    @if ($appInfo->latest_build_status != "BUILDING")
-                                    <a href="dashboard/build-app/{{$appInfo->id}}">
-                                        <button class="btn text-white bg-transparent">
-                                            <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
-                                        </button>
-                                    </a>
-                                    @else
-                                    <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{$appInfo->app_name}}/{{$appInfo->latest_build_number}}">
-                                        <button class="btn text-white bg-transparent">
-                                            <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
-                                        </button>
-                                    </a>
-                                    @endif
+                                @if ($appInfo->latest_build_status != "BUILDING")
+                                <a href="dashboard/build-app/{{$appInfo->id}}">
+                                    <button class="btn text-white bg-transparent">
+                                        <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
+                                    </button>
+                                </a>
                                 @else
-                                    <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-power-off" aria-hidden="true"></i>
-                                            JENKINS DOWN
-                                        <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
-                                    </h6>
+                                <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{$appInfo->app_name}}/{{$appInfo->latest_build_number}}">
+                                    <button class="btn text-white bg-transparent">
+                                        <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                                    </button>
+                                </a>
+                                @endif
+                                @else
+                                <h6 class="text-danger font-weight-bold rounded">
+                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    JENKINS DOWN
+                                    <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
+                                </h6>
                                 @endif
                             </td>
                             <td class="text-center align-middle">
