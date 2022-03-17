@@ -30,13 +30,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // to fix: "paginator huge icons"
+        // to fix: "huge paginator icons"
         Paginator::useBootstrap();
 
-        // to generate api-tokens.
-        User::observe(UserObserver::class);
-
         //
+        User::observe(UserObserver::class);
         AppInfo::observe(AppInfoObserver::class);
     }
 }
