@@ -34,7 +34,7 @@ class HealthServiceProvider extends ServiceProvider
             ScheduleCheck::new(),
             EnvironmentCheck::new(),
             CacheCheck::new(),
-            EnvVars::new()->requireVars([
+            EnvVars::new()->label('Environment Variables')->requireVars([
                 'APPSTORECONNECT_PRIVATE_KEY',
                 'APPSTORECONNECT_ISSUER_ID',
                 'APPSTORECONNECT_KID',
