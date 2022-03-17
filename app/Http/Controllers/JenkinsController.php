@@ -11,11 +11,11 @@ class JenkinsController extends Controller
     public function GetJobList(Request $request) : JsonResponse
     {
         $url = implode('', [
-            env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') . "/api/json"
+            config('jenkins.host'),
+            "/job/" . config('jenkins.ws') . "/api/json"
         ]);
 
-        $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
         $jenkinsJobList = collect(json_decode($jenkinsInfo)->jobs);
 
         return response()->json([
@@ -26,11 +26,11 @@ class JenkinsController extends Controller
     public function GetJob(Request $request) : JsonResponse
     {
         $url = implode('', [
-            env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') . "/job/{$request->projectName}/api/json"
+            config('jenkins.host'),
+            "/job/" . config('jenkins.ws') . "/job/{$request->projectName}/api/json"
         ]);
 
-        $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
         $jenkinsJobInfo = collect(json_decode($jenkinsInfo));
 
         return response()->json([
@@ -43,11 +43,11 @@ class JenkinsController extends Controller
         $app = is_null($appName) ? $request->projectName : $appName;
 
         $url = implode('', [
-            env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/api/json"
+            config('jenkins.host'),
+            "/job/" . config('jenkins.ws'). "/job/{$app}/job/master/api/json"
         ]);
 
-        $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
 
         $retrievedData = json_decode($jenkinsInfo);
         if (isset($retrievedData->builds)) {
@@ -75,7 +75,7 @@ class JenkinsController extends Controller
 
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
-        if (env('JENKINS_ENABLED') == false) {
+        if (config('jenkins.enabled') == false) {
             return response()->json([
                 'latest_build_status' => 'JENKINS DOWN!'
             ]);
@@ -85,11 +85,11 @@ class JenkinsController extends Controller
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
         $url = implode('', [
-            env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/{$appBuildNumber}/api/json"
+            config('jenkins.host'),
+            "/job/" . config('jenkins.ws') . "/job/{$app}/job/master/{$appBuildNumber}/api/json"
         ]);
 
-        $jenkinsInfo = Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
         $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
@@ -105,10 +105,10 @@ class JenkinsController extends Controller
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
         $url = implode('', [
-            env('JENKINS_HOST', 'http://localhost:8080'),
-            "/job/" . env('JENKINS_WS') . "/job/{$app}/job/master/{$appBuildNumber}/stop"
+            config('jenkins.host'),
+            "/job/" . config('jenkins.ws') . "/job/{$app}/job/master/{$appBuildNumber}/stop"
         ]);
 
-        Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url);
+        Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }
 }

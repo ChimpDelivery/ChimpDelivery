@@ -22,11 +22,11 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::paginate(10)->onEachSide(1)
         ];
 
-        if (env('JENKINS_ENABLED')) {
+        if (config('jenkins.enabled')) {
             $data['appInfos']->each(function ($item) use ($request) {
                 $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
                 $item->latest_build_number = $appData->latest_build_number;
-                $item->latest_build_url = Str::replace('http://localhost:8080', env('JENKINS_HOST'), $appData->jenkins_url);
+                $item->latest_build_url = Str::replace('http://localhost:8080', config('jenkins.host'), $appData->jenkins_url);
 
                 $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->app_name, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;

@@ -30,7 +30,7 @@ class HealthServiceProvider extends ServiceProvider
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
             DebugModeCheck::new(),
-            PingCheck::new()->name('Jenkins Server')->url(env('JENKINS_HOST')),
+            PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host')),
             ScheduleCheck::new(),
             EnvironmentCheck::new(),
             CacheCheck::new(),
