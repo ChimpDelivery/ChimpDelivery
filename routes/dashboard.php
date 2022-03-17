@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
-Route::controller(DashboardController::class)->middleware('auth')->group(function () {
+Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
     // main route.
     Route::get('/dashboard', 'Index')->name('get_app_list');
 
