@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fc54c5f5dacc770c090f32023611050",
+    "content-hash": "192621ed13e215d36721645408df9f97",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -839,6 +839,86 @@
                 }
             ],
             "time": "2021-10-11T09:18:27+00:00"
+        },
+        {
+            "name": "encodia/laravel-health-env-vars",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/encodia/laravel-health-env-vars.git",
+                "reference": "1bf74f110f55a910965caec44888996fa0743358"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/1bf74f110f55a910965caec44888996fa0743358",
+                "reference": "1bf74f110f55a910965caec44888996fa0743358",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.75|^9.0",
+                "php": "^8.0",
+                "spatie/laravel-health": "^1.8",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^5.10|^6.0",
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^6.23|^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Encodia\\EnvVarsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Encodia\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erik D'Ercole",
+                    "email": "erik.dercole@encodia.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Custom check for Spaties' Laravel Health - Ensure every .env variable you need has been set",
+            "homepage": "https://github.com/encodia/laravel-health-env-vars",
+            "keywords": [
+                "checks",
+                "encodia",
+                "env",
+                "environment",
+                "health",
+                "laravel",
+                "laravel-health-env-vars",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/encodia/laravel-health-env-vars/issues",
+                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/encodia",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-03-03T07:15:54+00:00"
         },
         {
             "name": "firebase/php-jwt",

@@ -13,6 +13,7 @@ use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
+use Encodia\Health\Checks\EnvVars;
 
 class HealthServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,18 @@ class HealthServiceProvider extends ServiceProvider
             PingCheck::new()->name('Jenkins Server')->url(env('JENKINS_HOST')),
             ScheduleCheck::new(),
             EnvironmentCheck::new(),
-            CacheCheck::new()
+            CacheCheck::new(),
+            EnvVars::new()->requireVars([
+                'APPSTORECONNECT_PRIVATE_KEY',
+                'APPSTORECONNECT_ISSUER_ID',
+                'APPSTORECONNECT_KID',
+                'APPSTORECONNECT_CACHE_DURATION',
+                'JENKINS_ENABLED',
+                'JENKINS_WS',
+                'JENKINS_HOST',
+                'JENKINS_USER',
+                'JENKINS_TOKEN'
+            ])
         ]);
     }
 
