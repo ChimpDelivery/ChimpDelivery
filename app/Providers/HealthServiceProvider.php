@@ -23,16 +23,6 @@ class HealthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-    }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
         Health::checks([
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
@@ -42,7 +32,17 @@ class HealthServiceProvider extends ServiceProvider
             PingCheck::new()->name('Jenkins Server')->url(env('JENKINS_HOST')),
             ScheduleCheck::new(),
             EnvironmentCheck::new(),
-            CacheCheck::new(),
+            CacheCheck::new()
         ]);
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+
     }
 }
