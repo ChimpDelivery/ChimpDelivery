@@ -1,5 +1,8 @@
 # Talus Web Backend
 
+- [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
+- [Postman](https://www.postman.com)
+
 # 💿 Installation (on Local)
 ```
 # update sudo packages
@@ -41,17 +44,6 @@ php artisan key:generate
 php artisan migrate
 php artisan serve
 ```
-
-# OpenSSL Issue
-``` 
-php artisan config:clear
-php artisan cache:clear
-php artisan view:clear
-php artisan route:clear
-composer dump-autoload
-```
-
-- Recommended REST client https://www.postman.com 
 
 # 🔑 Talus App Api - Endpoints
 ```
