@@ -46,6 +46,9 @@
                     <li class="nav-item {{ (request()->is('dashboard/add-app-info')) ? 'active' : '' }}">
                         <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold font-italic" href="/health">Health</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">

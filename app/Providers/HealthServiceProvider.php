@@ -5,10 +5,14 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
+
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
+use Spatie\Health\Checks\Checks\ScheduleCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\CacheCheck;
 
 class HealthServiceProvider extends ServiceProvider
 {
@@ -35,7 +39,10 @@ class HealthServiceProvider extends ServiceProvider
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
             DebugModeCheck::new(),
-            PingCheck::new()->url(env('JENKINS_HOST')),
+            PingCheck::new()->name('Jenkins Server')->url(env('JENKINS_HOST')),
+            ScheduleCheck::new(),
+            EnvironmentCheck::new(),
+            CacheCheck::new(),
         ]);
     }
 }
