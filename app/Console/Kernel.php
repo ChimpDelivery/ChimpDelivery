@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
-        $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
     }
 
     /**

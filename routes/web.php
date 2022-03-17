@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('health', HealthCheckResultsController::class);
+Route::get('health', HealthCheckResultsController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
