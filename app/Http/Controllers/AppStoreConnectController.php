@@ -22,13 +22,13 @@ class AppStoreConnectController extends Controller
     public function GetToken(Request $request) : JsonResponse
     {
         $payload = [
-            'iss' => env('APPSTORECONNECT_ISSUER_ID'),
+            'iss' => config('appstore.issuer_id'),
             'exp' => time() + 120,
             'aud' => 'appstoreconnect-v1'
         ];
 
         return response()->json([
-            'appstore_token' => JWT::encode($payload, env('APPSTORECONNECT_PRIVATE_KEY'), 'ES256', env('APPSTORECONNECT_KID'))
+            'appstore_token' => JWT::encode($payload, config('appstore.private_key'), 'ES256', config('appstore.kid'))
         ]);
     }
 

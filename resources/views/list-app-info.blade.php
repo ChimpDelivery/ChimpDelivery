@@ -42,7 +42,7 @@
                             </td>
                             <td class="text-center align-middle">
                                 <p>
-                                    @if (env('JENKINS_ENABLED', false) == false)
+                                    @if (config('jenkins.enabled') == false)
                                         <h6 class="text-danger font-weight-bold rounded">
                                             <i class="fa fa-power-off" aria-hidden="true"></i>
                                                 JENKINS DOWN
@@ -107,7 +107,7 @@
                                 </p>
                             </td>
                             <td class="text-center align-middle">
-                                @if (env('JENKINS_ENABLED'))
+                                @if (config('jenkins.enabled'))
                                     @if ($appInfo->latest_build_status != 'BUILDING')
                                         <a href="dashboard/build-app/{{$appInfo->id}}">
                                             <button class="btn text-white bg-transparent">
