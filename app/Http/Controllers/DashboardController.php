@@ -71,7 +71,8 @@ class DashboardController extends Controller
     {
         $appInfo = AppInfo::find($request->id);
 
-        if ($appInfo) {
+        if ($appInfo)
+        {
             Artisan::call("jenkins:trigger {$request->id}");
             session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
         }
@@ -91,7 +92,8 @@ class DashboardController extends Controller
     {
         $appInfo = AppInfo::find($request->id);
 
-        if ($appInfo) {
+        if ($appInfo)
+        {
             $appInfo->delete();
             session()->flash('success', "App: {$appInfo->app_name} deleted...");
         }
@@ -131,40 +133,22 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    private function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
-    {
-        $iconFile = new File();
-        $iconFile->path = $iconPath;
-        $iconFile->hash = $iconHash;
-        $iconFile->save();
-
-        $request->app_icon->move(public_path('images'), $iconPath);
-    }
-
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
-        if (isset($request->app_icon)) {
-            $currentIconHash = md5_file($request->app_icon);
-            $matchingHash = File::where('hash', $currentIconHash)->first();
-
-            // icon hash not found so generate hash and upload icon file.
-            if (!$matchingHash) {
-                $iconPath = time() . '-' . $request->app_name . '.' . $request->app_icon->getClientOriginalExtension();
-                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
-            }
-
-            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
-        }
-
         if ($appInfo->trashed()) {
             $appInfo->restore();
         }
 
         // we can't update app_name, app_bundle and appstore_id in created apps.
-        if (!$appInfo->exists) {
+        if (!$appInfo->exists)
+        {
             $appInfo->app_name = $request->app_name;
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
+        }
+
+        if ($request->hasFile('app_icon')) {
+            $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
         }
 
         $appInfo->fb_app_id = $request->fb_app_id;
@@ -172,5 +156,26 @@ class DashboardController extends Controller
         $appInfo->elephant_secret = $request->elephant_secret;
 
         $appInfo->save();
+    }
+
+    private function GenerateHashAndUpload($iconImage) : string
+    {
+        $hash = md5_file($iconImage);
+        $iconFile = File::where('hash', $hash)->first();
+
+        if (!$iconFile)
+        {
+            $fileName = pathinfo($iconImage->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $iconFile = new File();
+            $iconFile->path = time() . "-" . $fileName . "." . $iconImage->getClientOriginalExtension();
+            $iconFile->hash = md5_file($iconImage);
+            $iconFile->save();
+
+            $iconImage->move(public_path('images/app-icons'), $iconFile->path);
+            return $iconFile->path;
+        }
+
+        return $iconFile->path;
     }
 }
