@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectController extends Controller
 {
-    /// related with app store connect.
     private const BUNDLE_ID_PREFIX = 'com.Talus';
 
     public function GetBundlePrefix() : string
@@ -75,7 +74,7 @@ class AppStoreConnectController extends Controller
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
             ->get('https://api.appstoreconnect.apple.com/v1/bundleIds?fields[bundleIds]=name,identifier&limit=100&filter[platform]=IOS&sort=seedId');
-        
+
         $bundleIds = collect(json_decode($appList)->data);
         $sortedBundleIds = $bundleIds->pluck('attributes.identifier');
 

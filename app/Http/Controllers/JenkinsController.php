@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsController extends Controller
 {
-    private $baseUrl;
+    private string $baseUrl;
 
     public function __construct()
     {
