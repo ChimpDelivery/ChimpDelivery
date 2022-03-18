@@ -21,12 +21,12 @@ class JenkinsJobStopper extends Command
         $app = AppInfo::where('app_name', $this->argument('projectName'))->first();
         if ($app)
         {
-            $url = implode('', [
-                env('JENKINS_HOST', 'http://localhost:8080'),
-                "/job/" . env('JENKINS_WS') . "/job/{$app->app_name}/job/master/{$this->argument('buildNumber')}/stop"
-            ]);
+            $url = config('jenkins.host').
+                "/job/".
+                config('jenkins.ws').
+                "/job/{$app->app_name}/job/master/{$this->argument('buildNumber')}/stop";
 
-            echo 'Jenkins response code: ' . Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url)->status();
+            echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }
     }
 }

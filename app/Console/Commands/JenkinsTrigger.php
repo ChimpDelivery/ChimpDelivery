@@ -21,12 +21,12 @@ class JenkinsTrigger extends Command
         $app = AppInfo::where('id', $this->argument('appInfoID'))->first();
         if ($app)
         {
-            $url = implode('', [
-                env('JENKINS_HOST', 'http://localhost:8080'),
-                "/job/" . env('JENKINS_WS') . "/job/{$app->app_name}/job/master/build"
-            ]);
+            $url = config('jenkins.host').
+                "/job/".
+                config('jenkins.ws').
+                "/job/{$app->app_name}/job/master/build";
 
-            echo 'Jenkins response code: ' . Http::withBasicAuth(env('JENKINS_USER'), env('JENKINS_TOKEN'))->post($url)->status();
+            echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }
     }
 }
