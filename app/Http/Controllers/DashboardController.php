@@ -6,7 +6,7 @@ use App\Http\Requests\AppInfoRequest;
 use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
 use App\Models\File;
-use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -70,16 +70,19 @@ class DashboardController extends Controller
     public function BuildApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
-        session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
-        Artisan::call("jenkins:trigger {$request->id}");
+
+        if ($appInfo) {
+            Artisan::call("jenkins:trigger {$request->id}");
+            session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
+        }
 
         return to_route('get_app_list');
     }
 
     public function StopJob(Request $request) : RedirectResponse
     {
-        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
         Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
+        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
 
         return to_route('get_app_list');
     }
@@ -87,8 +90,11 @@ class DashboardController extends Controller
     public function DeleteApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
-        session()->flash('success', "App: {$appInfo->app_name} deleted...");
-        $appInfo?->delete();
+
+        if ($appInfo) {
+            $appInfo->delete();
+            session()->flash('success', "App: {$appInfo->app_name} deleted...");
+        }
 
         return to_route('get_app_list');
     }
@@ -102,7 +108,7 @@ class DashboardController extends Controller
 
     public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
-        $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
+        $bundleId = config('appstore.bundle_prefix') . '.' . $request->bundle_id;
         $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
 
         if (in_array($bundleId, $bundleList)) {
@@ -120,6 +126,7 @@ class DashboardController extends Controller
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
+        session()->flash('success', "Cache cleared...");
 
         return to_route('get_app_list');
     }

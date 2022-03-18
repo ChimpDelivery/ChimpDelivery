@@ -15,7 +15,7 @@
                     <label for="bundle_id">Bundle ID</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold bg-primary text-white font-italic" id="basic-addon3">com.Talus.</span>
+                            <span class="input-group-text font-weight-bold bg-primary text-white font-italic" id="basic-addon3">{{ config('appstore.bundle_prefix') }}.</span>
                         </div>
                         <input type="text" class="form-control" name="bundle_id" aria-describedby="basic-addon3" placeholder="id..." required="">
                     </div>

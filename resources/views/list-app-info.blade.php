@@ -17,7 +17,7 @@
                             <th scope="col" class="text-center col-2">📱 App</th>
                             <th scope="col" class="text-center col-2">🔎 Last Build</th>
                             <th scope="col" class="text-center col-2">📲 Build</th>
-                            <th scope="col" class="text-center col-2">⚙️ Edit</th>
+                            <th scope="col" class="text-center col-2">⚙ Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,7 +27,7 @@
                             <td class="text-center align-middle">
                                 <div class="container">
                                     <div class="col">
-                                        @if (file_exists(public_path("images/{$appInfo->app_icon}")))
+                                        @if (file_exists(public_path("images/{$appInfo->app_icon}")) && !empty($appInfo->app_icon))
                                             <img src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                                         @else
                                             <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />

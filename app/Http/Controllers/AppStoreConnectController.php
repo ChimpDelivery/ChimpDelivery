@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Http;
 class AppStoreConnectController extends Controller
 {
     private const API_URL = 'https://api.appstoreconnect.apple.com/v1';
-    private const BUNDLE_ID_PREFIX = 'com.Talus';
-
-    public function GetBundlePrefix() : string
-    {
-        return self::BUNDLE_ID_PREFIX;
-    }
 
     public function GetToken(Request $request) : JsonResponse
     {
@@ -98,7 +92,7 @@ class AppStoreConnectController extends Controller
     public function CreateBundle(Request $request)
     {
         $bundleIdAttributes = [
-            'identifier' => self::BUNDLE_ID_PREFIX . '.' . $request->bundle_id,
+            'identifier' => config('appstore.bundle_prefix') . '.' . $request->bundle_id,
             'name' => $request->bundle_name,
             'platform' => 'IOS'
         ];

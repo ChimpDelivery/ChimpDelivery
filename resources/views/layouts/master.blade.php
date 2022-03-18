@@ -49,6 +49,9 @@
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold font-italic" href="/health">Health</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold font-italic" href="/dashboard/clear-cache">Clear Cache</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
