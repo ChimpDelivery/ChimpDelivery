@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
+use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 use Illuminate\Support\Facades\Validator;
@@ -99,22 +100,8 @@ class DashboardController extends Controller
         return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
     }
 
-    public function StoreBundleForm(Request $request) : RedirectResponse
+    public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
-        $validator = Validator::make($request->all(), [
-            'bundle_id' => array('required', 'alpha_num'),
-            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'),
-        ], [ 
-            'bundle_id.alpha_num' => 'Bundle id can only contains alpha-numeric characters!',
-            'bundle_name.regex' => 'Bundle name can only contains alpha-numeric characters and space!'
-        ]);
-
-        if ($validator->fails()) {
-            return to_route('create_bundle')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
         $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
 
@@ -133,7 +120,7 @@ class DashboardController extends Controller
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
-        
+
         return to_route('get_app_list');
     }
 
