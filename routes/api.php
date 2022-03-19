@@ -32,7 +32,7 @@ Route::controller(AppStoreConnectController::class)->middleware('appstore')->gro
     Route::get('appstoreconnect/create-bundle', 'CreateBundle');
 });
 
-Route::controller(JenkinsController::class)->middleware('jenkins')->group(function () {
+Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
     // active endpoints
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-job/{projectName}', 'GetJob');
