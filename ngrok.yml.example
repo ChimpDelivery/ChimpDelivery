@@ -1,10 +1,10 @@
-authtoken: 
+authtoken:
 region: eu
 tunnels:
   laravel_tunnel:
     proto: http
     hostname: dashboard.talusstudio.eu.ngrok.io
-    addr: 127.0.0.1:8000
+    addr: 127.0.0.1:80
 
     # -------------------------
     # Additional options
