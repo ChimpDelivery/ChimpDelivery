@@ -133,6 +133,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    // todo: refactor mass-assignment
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
         if ($appInfo->trashed()) {
@@ -158,6 +159,7 @@ class DashboardController extends Controller
         $appInfo->save();
     }
 
+    // todo: refactor
     private function GenerateHashAndUpload($iconImage) : string
     {
         $hash = md5_file($iconImage);
