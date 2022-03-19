@@ -7,7 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('health', HealthCheckResultsController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
