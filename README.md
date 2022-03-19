@@ -45,9 +45,23 @@ php artisan migrate
 php artisan serve
 ```
 
-# 💿 Production Server
+# 💿 Production Server - Apache
+- enable mod_rewrite ```sudo a2enmod rewrite```
+- edit ```/etc/apache2/apache2.conf```
+```
+  <Directory /var/www/>
+      Options Indexes FollowSymLinks
+      AllowOverride all
+      Require all granted
+  </Directory>
+```
+- set ```DocumentRoot``` in ```/etc/apache2/sites-enabled/000-default.conf```
+- ```sudo service apache2 restart```
+
+# 💿 Production Server - Permission
 ```
 sudo chmod -R o+w storage/
+sudo chmod -R o+w bootstrap/cache
 ```
 
 # 🔑 Talus App Api - Endpoints
