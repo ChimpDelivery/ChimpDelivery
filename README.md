@@ -45,6 +45,11 @@ php artisan migrate
 php artisan serve
 ```
 
+# 💿 Production Server
+```
+sudo chmod -R o+w storage/
+```
+
 # 🔑 Talus App Api - Endpoints
 ```
 GET  |  api/appinfo/{db_id}
