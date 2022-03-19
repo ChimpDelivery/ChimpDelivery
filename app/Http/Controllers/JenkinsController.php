@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsController extends Controller
 {
-    private $baseUrl;
+    private string $baseUrl;
 
     public function __construct()
     {
@@ -44,6 +44,7 @@ class JenkinsController extends Controller
         $url = $this->baseUrl."/job/{$app}/job/master/api/json";
         $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
         $retrievedData = json_decode($jenkinsInfo);
+
         if (isset($retrievedData->builds)) {
             $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
 
@@ -60,6 +61,7 @@ class JenkinsController extends Controller
     public function GetLatestBuildNumber(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
+
         $retrievedData = $this->GetBuildList($request, $app)->getData();
 
         return response()->json([

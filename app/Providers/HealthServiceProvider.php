@@ -17,12 +17,7 @@ use Encodia\Health\Checks\EnvVars;
 
 class HealthServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register() : void
     {
         Health::checks([
             UsedDiskSpaceCheck::new()
@@ -48,12 +43,7 @@ class HealthServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot() : void
     {
 
     }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
+use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
 use App\Models\File;
-use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -69,16 +70,20 @@ class DashboardController extends Controller
     public function BuildApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
-        session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
-        Artisan::call("jenkins:trigger {$request->id}");
+
+        if ($appInfo)
+        {
+            Artisan::call("jenkins:trigger {$request->id}");
+            session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
+        }
 
         return to_route('get_app_list');
     }
 
     public function StopJob(Request $request) : RedirectResponse
     {
-        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
         Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
+        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
 
         return to_route('get_app_list');
     }
@@ -86,8 +91,12 @@ class DashboardController extends Controller
     public function DeleteApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
-        session()->flash('success', "App: {$appInfo->app_name} deleted...");
-        $appInfo?->delete();
+
+        if ($appInfo)
+        {
+            $appInfo->delete();
+            session()->flash('success', "App: {$appInfo->app_name} deleted...");
+        }
 
         return to_route('get_app_list');
     }
@@ -99,23 +108,9 @@ class DashboardController extends Controller
         return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
     }
 
-    public function StoreBundleForm(Request $request) : RedirectResponse
+    public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
-        $validator = Validator::make($request->all(), [
-            'bundle_id' => array('required', 'alpha_num'),
-            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'),
-        ], [ 
-            'bundle_id.alpha_num' => 'Bundle id can only contains alpha-numeric characters!',
-            'bundle_name.regex' => 'Bundle name can only contains alpha-numeric characters and space!'
-        ]);
-
-        if ($validator->fails()) {
-            return to_route('create_bundle')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $bundleId = app('App\Http\Controllers\AppStoreConnectController')->GetBundlePrefix() . '.' . $request->bundle_id;
+        $bundleId = config('appstore.bundle_prefix') . '.' . $request->bundle_id;
         $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
 
         if (in_array($bundleId, $bundleList)) {
@@ -133,44 +128,27 @@ class DashboardController extends Controller
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
-        
+        session()->flash('success', "Cache cleared...");
+
         return to_route('get_app_list');
-    }
-
-    private function GenerateHashAndUpload(string $iconPath, string $iconHash, AppInfoRequest $request) : void
-    {
-        $iconFile = new File();
-        $iconFile->path = $iconPath;
-        $iconFile->hash = $iconHash;
-        $iconFile->save();
-
-        $request->app_icon->move(public_path('images'), $iconPath);
     }
 
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
-        if (isset($request->app_icon)) {
-            $currentIconHash = md5_file($request->app_icon);
-            $matchingHash = File::where('hash', $currentIconHash)->first();
-
-            // icon hash not found so generate hash and upload icon file.
-            if (!$matchingHash) {
-                $iconPath = time() . '-' . $request->app_name . '.' . $request->app_icon->getClientOriginalExtension();
-                $this->GenerateHashAndUpload($iconPath, $currentIconHash, $request);
-            }
-
-            $appInfo->app_icon = ($matchingHash) ? $matchingHash->path : $iconPath;
-        }
-
         if ($appInfo->trashed()) {
             $appInfo->restore();
         }
 
         // we can't update app_name, app_bundle and appstore_id in created apps.
-        if (!$appInfo->exists) {
+        if (!$appInfo->exists)
+        {
             $appInfo->app_name = $request->app_name;
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
+        }
+
+        if ($request->hasFile('app_icon')) {
+            $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
         }
 
         $appInfo->fb_app_id = $request->fb_app_id;
@@ -178,5 +156,26 @@ class DashboardController extends Controller
         $appInfo->elephant_secret = $request->elephant_secret;
 
         $appInfo->save();
+    }
+
+    private function GenerateHashAndUpload($iconImage) : string
+    {
+        $hash = md5_file($iconImage);
+        $iconFile = File::where('hash', $hash)->first();
+
+        if (!$iconFile)
+        {
+            $fileName = pathinfo($iconImage->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $iconFile = new File();
+            $iconFile->path = time() . "-" . $fileName . "." . $iconImage->getClientOriginalExtension();
+            $iconFile->hash = md5_file($iconImage);
+            $iconFile->save();
+
+            $iconImage->move(public_path('images/app-icons'), $iconFile->path);
+            return $iconFile->path;
+        }
+
+        return $iconFile->path;
     }
 }

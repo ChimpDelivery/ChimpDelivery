@@ -11,13 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectController extends Controller
 {
-    /// related with app store connect.
-    private const BUNDLE_ID_PREFIX = 'com.Talus';
-
-    public function GetBundlePrefix() : string
-    {
-        return self::BUNDLE_ID_PREFIX;
-    }
+    private const API_URL = 'https://api.appstoreconnect.apple.com/v1';
 
     public function GetToken(Request $request) : JsonResponse
     {
@@ -35,7 +29,7 @@ class AppStoreConnectController extends Controller
     public function GetFullAppInfo(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get('https://api.appstoreconnect.apple.com/v1/apps?fields[apps]=name,bundleId&limit=100');
+            ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit=100');
 
         return response()->json([
             'app_list' => $appList->json()
@@ -48,8 +42,7 @@ class AppStoreConnectController extends Controller
         $data = $appList->app_list->data;
 
         $apps = [];
-        foreach ($data as $content)
-        {
+        foreach ($data as $content) {
             $apps []= [
                 'app_bundle' => $content->attributes->bundleId,
                 'app_name' => $content->attributes->name,
@@ -74,8 +67,8 @@ class AppStoreConnectController extends Controller
     public function GetAllBundles(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get('https://api.appstoreconnect.apple.com/v1/bundleIds?fields[bundleIds]=name,identifier&limit=100&filter[platform]=IOS&sort=seedId');
-        
+            ->get(self::API_URL.'/bundleIds?fields[bundleIds]=name,identifier&limit=100&filter[platform]=IOS&sort=seedId');
+
         $bundleIds = collect(json_decode($appList)->data);
         $sortedBundleIds = $bundleIds->pluck('attributes.identifier');
 
@@ -87,7 +80,7 @@ class AppStoreConnectController extends Controller
     public function GetBuildList(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get('https://api.appstoreconnect.apple.com/v1/builds');
+            ->get(self::API_URL.'/builds');
 
         $builds = collect(json_decode($appList)->data);
 
@@ -99,7 +92,7 @@ class AppStoreConnectController extends Controller
     public function CreateBundle(Request $request)
     {
         $bundleIdAttributes = [
-            'identifier' => self::BUNDLE_ID_PREFIX . '.' . $request->bundle_id,
+            'identifier' => config('appstore.bundle_prefix') . '.' . $request->bundle_id,
             'name' => $request->bundle_name,
             'platform' => 'IOS'
         ];
@@ -115,7 +108,7 @@ class AppStoreConnectController extends Controller
 
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
             ->withBody(json_encode($data), 'application/json')
-            ->post('https://api.appstoreconnect.apple.com/v1/bundleIds');
+            ->post(self::API_URL.'/bundleIds');
 
         return response()->json([
             'status' => $appList->json()
