@@ -28,8 +28,11 @@ sudo apt-get install php8.1-xml
 sudo apt-get install zip unzip php8.1-zip
 
 # install composer
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04
-sudo mv /usr/local/bin/composer /usr/bin
+cd ~
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+HASH=`curl -sS https://composer.github.io/installer.sig`
+php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+sudo php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer
 
 # restart apache && mysql
 sudo service apache2 restart
