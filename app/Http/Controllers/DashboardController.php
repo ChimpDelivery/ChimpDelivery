@@ -83,7 +83,7 @@ class DashboardController extends Controller
     public function StopJob(Request $request) : RedirectResponse
     {
         Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
-        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} stopping, wait 3-4 seconds then reload the page.");
+        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} aborted, wait 3-4 seconds then reload the page.");
 
         return to_route('get_app_list');
     }
