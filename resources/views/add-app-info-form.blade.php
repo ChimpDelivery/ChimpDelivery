@@ -60,10 +60,7 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <p>
-                📌 If you don't see the bundle id in the list, make sure there is an app using that bundle id
-                on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
-            </p>
+            📌 If you don't see the bundle id in the list, make sure there is an app using that bundle id on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
 </div>
