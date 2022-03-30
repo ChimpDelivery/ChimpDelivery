@@ -20,7 +20,7 @@ class AppInfoFactory extends Factory
         return [
             'app_icon' => '',
             'app_name' => $this->faker->name(),
-            'app_bundle' => config('appstore.bundle_prefix') . 'Example' . Str::random(5),
+            'app_bundle' => config('appstore.bundle_prefix') . '.Example' . Str::random(5),
             'appstore_id' => Str::random(10),
             'fb_app_id' => $this->faker->numberBetween(100000000, 999999999),
             'elephant_id' => Str::random(10),
