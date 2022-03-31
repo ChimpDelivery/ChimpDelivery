@@ -55,10 +55,10 @@ class AppStoreConnectController extends Controller
 
     public function GetSpecificApp(Request $request) : JsonResponse
     {
-        $app = AppInfo::where('app_name', $request->projectName)->first();
+        $app = AppInfo::where('project_name', $request->projectName)->first();
         $response = [
             'app_bundle' => $app->app_bundle,
-            'app_name' => $app->app_name
+            'app_name' => $app->project_name
         ];
 
         return response()->json($response);

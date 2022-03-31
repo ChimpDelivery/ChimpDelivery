@@ -25,8 +25,7 @@ class DashboardController extends Controller
 
         if (config('jenkins.enabled')) {
             $data['appInfos']->each(function ($item) use ($request) {
-                // AppName(stripped by github) is crucial for jenkins path settings
-                $appName = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $item->app_name);
+                $appName = $item->project_name;
 
                 $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $appName)->getData();
                 $item->latest_build_number = $appData->latest_build_number;
@@ -155,6 +154,7 @@ class DashboardController extends Controller
         if (!$appInfo->exists)
         {
             $appInfo->app_name = $request->app_name;
+            $appInfo->project_name = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $request->app_name);
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
         }
