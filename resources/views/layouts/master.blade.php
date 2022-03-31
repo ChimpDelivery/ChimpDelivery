@@ -55,6 +55,9 @@
                         <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link font-weight-bold font-italic" href="/health">Health</a>
                     </li>
                     <li class="nav-item">

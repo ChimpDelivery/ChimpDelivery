@@ -88,6 +88,14 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    public function ScanRepo(Request $request) : RedirectResponse
+    {
+        Artisan::call("jenkins:scan-repo");
+        session()->flash('success', "Repository scanning begins...");
+
+        return to_route('get_app_list');
+    }
+
     public function DeleteApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
