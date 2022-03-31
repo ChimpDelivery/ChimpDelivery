@@ -21,10 +21,12 @@ class JenkinsTrigger extends Command
         $app = AppInfo::where('id', $this->argument('appInfoID'))->first();
         if ($app)
         {
+            $appName = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $app->app_name);
+
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->app_name}/job/master/build";
+                "/job/{$appName}/job/master/build";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }

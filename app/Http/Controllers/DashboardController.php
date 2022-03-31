@@ -25,11 +25,14 @@ class DashboardController extends Controller
 
         if (config('jenkins.enabled')) {
             $data['appInfos']->each(function ($item) use ($request) {
-                $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $item->app_name)->getData();
+                // AppName(stripped by github) is crucial for jenkins path settings
+                $appName = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $item->app_name);
+
+                $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $appName)->getData();
                 $item->latest_build_number = $appData->latest_build_number;
                 $item->latest_build_url = Str::replace('http://localhost:8080', config('jenkins.host'), $appData->jenkins_url);
 
-                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->app_name, $appData->latest_build_number)->getData();
+                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
             });
         }
