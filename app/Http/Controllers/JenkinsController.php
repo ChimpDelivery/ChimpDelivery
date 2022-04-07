@@ -54,7 +54,7 @@ class JenkinsController extends Controller
         }
 
         return response()->json([
-            'build_list' => ''
+            'build_list' => null
         ]);
     }
 
@@ -65,7 +65,8 @@ class JenkinsController extends Controller
         $retrievedData = $this->GetBuildList($request, $app)->getData();
 
         return response()->json([
-            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -1,
+            'latest_build_number' => !is_null($retrievedData->build_list) ?
+                (!empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -2) : -1,
             'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : -1
         ]);
     }

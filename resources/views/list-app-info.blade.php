@@ -57,7 +57,15 @@
                                             </h6>
                                         @endif
 
-                                        @if ($appInfo->latest_build_number != -1)
+                                        @if ($appInfo->latest_build_number == -2)
+                                            <h6 class="text-danger font-weight-bold rounded">
+                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                                NO BUILD
+                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
+                                            </h6>
+                                        @endif
+
+                                        @if ($appInfo->latest_build_number != -1 && $appInfo->latest_build_number != -2)
                                             <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                                 {{ $appInfo->latest_build_number }}
                                             </a>
