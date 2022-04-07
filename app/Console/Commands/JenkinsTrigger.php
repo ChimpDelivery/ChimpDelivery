@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsTrigger extends Command
 {
-    protected $signature = 'jenkins:trigger {appInfoID}';
+    protected $signature = 'jenkins:trigger {appInfoID} {isWorkspace} {tfVersion}';
     protected $description = 'Trigger jenkins pipeline to build.';
 
     public function __construct()
@@ -24,7 +24,7 @@ class JenkinsTrigger extends Command
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->project_name}/job/master/build";
+                "/job/{$app->project_name}/job/master/buildWithParameters?IS_WORKSPACE={$this->argument('isWorkspace')}&TF_BUILD_VERSION={$this->argument('tfVersion')}";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }

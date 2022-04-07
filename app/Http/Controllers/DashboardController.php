@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
         if ($appInfo)
         {
-            Artisan::call("jenkins:trigger {$request->id}");
+            Artisan::call("jenkins:trigger {$request->id} " . config('appstore.is_default_project_ws') . " " . config('appstore.default_tf_version'));
             session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
         }
 
