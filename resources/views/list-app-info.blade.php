@@ -22,7 +22,7 @@
                     <div class="form-check">
                         <input onchange="updateLink()" class="form-check-input" type="checkbox" value="" id="is_workspace">
                         <label class="form-check-label" for="is_workspace">
-                            With Pods
+                            Is Workspace
                         </label>
                     </div>
                 </div>
@@ -195,20 +195,19 @@
         $(document).ready(function() {
             $('#exampleModal').on('show.bs.modal', function (event) {
 
+                resetValues();
+
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
 
                 // Extract value from the custom data-* attribute
                 var appId = button.data("title");
-                setCookie('target_app_id', appId, 1);
-                updateLink(appId);
 
+                setCookie('target_app_id', appId, 1);
+
+                updateLink(appId);
                 // Change modal title
                 // $(this).find(".modal-title").text(titleData);
-            });
-
-            $('#exampleModal').on('hide.bs.modal', function (event) {
-                resetValues();
             });
         });
 

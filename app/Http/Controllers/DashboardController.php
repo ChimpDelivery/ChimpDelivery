@@ -75,8 +75,8 @@ class DashboardController extends Controller
 
         if ($appInfo)
         {
-            Artisan::call("jenkins:trigger {$request->id} {$request->isWorkspace} " . $request->tfVersion);
-            session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
+            Artisan::call("jenkins:trigger {$request->id} {$request->isWorkspace} {$request->tfVersion}");
+            session()->flash('success', "{$appInfo->app_name} building(IS_WORKSPACE:{$request->isWorkspace}, TF_VERSION:$request->tfVersion), wait 3-4seconds then reload the page.");
         }
 
         return to_route('get_app_list');
