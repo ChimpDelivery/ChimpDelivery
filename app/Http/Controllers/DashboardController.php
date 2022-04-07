@@ -72,10 +72,12 @@ class DashboardController extends Controller
     public function BuildApp(Request $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
+        $isPodProject = !empty($appInfo->fb_app_id) && !empty($appInfo->elephant_id) && !empty($appInfo->elephant_secret);
+        $wsArgument = $isPodProject ? 'true' : 'false';
 
         if ($appInfo)
         {
-            Artisan::call("jenkins:trigger {$request->id} " . config('appstore.is_default_project_ws') . " " . config('appstore.default_tf_version'));
+            Artisan::call("jenkins:trigger {$request->id} {$wsArgument} " . config('appstore.default_tf_version'));
             session()->flash('success', "{$appInfo->app_name} building, wait 3-4seconds then reload the page.");
         }
 
