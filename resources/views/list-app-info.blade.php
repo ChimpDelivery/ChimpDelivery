@@ -4,6 +4,38 @@
 
 @section('content')
 <div class="container py-2">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Build Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tf_version">TF Version</label>
+                        <input oninput="updateLink()" type="text" id="tf_version" name="tf_version" class="form-control" required="" value="{{ config('appstore.default_tf_version') }}">
+                    </div>
+                    <div class="form-check">
+                        <input onchange="updateLink()" class="form-check-input" type="checkbox" value="" id="is_workspace">
+                        <label class="form-check-label" for="is_workspace">
+                            With Pods
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a id="build_link" href="dashboard/build-app/">
+                        <button type="button" class="btn btn-primary">Build</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
             📱 Apps
@@ -117,14 +149,12 @@
                             <td class="text-center align-middle">
                                 @if (config('jenkins.enabled'))
                                     @if ($appInfo->latest_build_status != 'BUILDING')
-                                        <a href="dashboard/build-app/{{$appInfo->id}}">
-                                            <button class="btn text-white bg-transparent">
+                                            <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal" data-target="#exampleModal" data-title="{{$appInfo->id}}">
                                                 <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
                                             </button>
-                                        </a>
                                     @else
                                         <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->latest_build_number }}">
-                                            <button class="btn text-white bg-transparent">
+                                            <button type="button" class="btn text-white bg-transparent">
                                                 <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
                                             </button>
                                         </a>
@@ -158,4 +188,45 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#exampleModal').on('show.bs.modal', function (event) {
+
+                // Get the button that triggered the modal
+                var button = $(event.relatedTarget);
+
+                // Extract value from the custom data-* attribute
+                var appId = button.data("title");
+                setCookie('target_app_id', appId, 1);
+                updateLink(appId);
+
+                // Change modal title
+                // $(this).find(".modal-title").text(titleData);
+            });
+
+            $('#exampleModal').on('hide.bs.modal', function (event) {
+                resetValues();
+            });
+        });
+
+        function resetValues() {
+            document.getElementById('tf_version').value = '7.0';
+            document.getElementById('is_workspace').checked = false;
+        }
+
+        function updateLink(appId) {
+            console.log('app_id:' + appId);
+
+            var tfVersion = document.getElementById('tf_version').value;
+            console.log('tf_version: ' + tfVersion);
+
+            var isWorkspace = document.getElementById('is_workspace').checked;
+            console.log('is_workspace: ' + isWorkspace);
+
+            document.getElementById('build_link').href = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+        }
+    </script>
 @endsection
