@@ -58,7 +58,10 @@ class AppStoreConnectController extends Controller
         $app = AppInfo::where('project_name', $request->projectName)->first();
         $response = [
             'app_bundle' => $app->app_bundle,
-            'app_name' => $app->app_name
+            'app_name' => $app->app_name,
+            'fb_id' => $app->fb_app_id,
+            'elephant_id' => $app->elephant_id,
+            'elephant_secret' => $app->elephant_secret
         ];
 
         return response()->json($response);
