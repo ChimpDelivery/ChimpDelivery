@@ -88,3 +88,13 @@ GET  |  api/appstoreconnect/get-app-list/{id}
 GET  |  api/appstoreconnect/get-all-bundles
 GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
+
+# 🔑 Talus Jenkins Api - Endpoints
+```
+GET  |  api/jenkins/get-job-list
+GET  |  api/jenkins/get-job/{projectName}
+GET  |  api/jenkins/get-build-list/{projectName}
+GET  |  api/jenkins/get-latest-build-number/{projectName}
+GET  |  api/jenkins/get-latest-build-info/{projectName}/{buildNumber}
+GET  |  api/jenkins/stop-job/{projectName}/{buildNumber}
+```
