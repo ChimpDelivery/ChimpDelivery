@@ -154,7 +154,11 @@ class DashboardController extends Controller
         if (!$appInfo->exists)
         {
             $appInfo->app_name = $request->app_name;
-            $appInfo->project_name = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $request->app_name);
+
+            $projectName = $request->app_name;
+            $projectName = str_replace(' ', '-', $projectName);
+            $appInfo->project_name = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $projectName);
+            
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
         }
