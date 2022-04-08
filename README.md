@@ -74,11 +74,6 @@ cp ngrok.yml.example ngrok.yml
 ngrok start -config ngrok.yml laravel_tunnel
 ```
 
-# 🔑 Talus App Api - Endpoints
-```
-GET  |  api/appinfo/{db_id}
-```
-
 # 🔑 Talus AppStoreConnect Api - Endpoints
 ```
 GET  |  api/appstoreconnect/get-token
