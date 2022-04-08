@@ -64,6 +64,9 @@ class JenkinsController extends Controller
 
         $retrievedData = $this->GetBuildList($request, $app)->getData();
 
+        // refactor error codes.
+        // -2 => workspace exists but there is no builds.
+        // -1 => workspace doesn't exists.
         return response()->json([
             'latest_build_number' => !is_null($retrievedData->build_list) ?
                 (!empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -2) : -1,
