@@ -4,12 +4,14 @@
 
 @section('content')
 <div class="container py-2">
-    <!-- Modal -->
+    <!-- Modal_Start !-->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Build Information</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Build Information
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -35,6 +37,7 @@
             </div>
         </div>
     </div>
+    <!-- Modal_End !-->
 
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
@@ -87,17 +90,13 @@
                                                     MISSING
                                                 <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                             </h6>
-                                        @endif
-
-                                        @if ($appInfo->latest_build_number == -2)
+                                        @elseif ($appInfo->latest_build_number == -2)
                                             <h6 class="text-danger font-weight-bold rounded">
                                                 <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                                                NO BUILD
+                                                    NO BUILD
                                                 <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
                                             </h6>
-                                        @endif
-
-                                        @if ($appInfo->latest_build_number != -1 && $appInfo->latest_build_number != -2)
+                                        @else ($appInfo->latest_build_number != -1 && $appInfo->latest_build_number != -2)
                                             <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                                 {{ $appInfo->latest_build_number }}
                                             </a>
