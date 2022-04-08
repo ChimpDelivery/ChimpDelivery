@@ -24,7 +24,7 @@ class JenkinsTrigger extends Command
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->project_name}/job/master/buildWithParameters?IS_WORKSPACE={$this->argument('isWorkspace')}&TF_BUILD_VERSION={$this->argument('tfVersion')}";
+                "/job/{$app->project_name}/job/master/buildWithParameters?IS_WORKSPACE={$this->argument('isWorkspace')}&TF_BUILD_VERSION={$this->argument('tfVersion')}&APP_ID={$app->id}";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }
