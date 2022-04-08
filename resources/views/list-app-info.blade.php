@@ -26,11 +26,11 @@
                         </label>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer justify-content-between">
                     <a id="build_link" href="dashboard/build-app/">
-                        <button type="button" class="btn btn-primary">Build</button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Build</button>
                     </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-window-close" aria-hidden="true"></i> Close</button>
                 </div>
             </div>
         </div>
