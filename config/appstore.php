@@ -6,6 +6,5 @@ return [
     'kid' => env('APPSTORECONNECT_KID'),
     'cache_duration' => env('APPSTORECONNECT_CACHE_DURATION'),
     'bundle_prefix' => 'com.Talus',
-    'is_default_project_ws' => env('APPSTORECONNECT_IS_DEFAULT_WS_SCHEME'),
     'default_tf_version' => env('APPSTORECONNECT_DEFAULT_TF_VERSION')
 ];
