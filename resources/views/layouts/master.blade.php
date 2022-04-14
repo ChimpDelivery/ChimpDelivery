@@ -57,12 +57,6 @@
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold font-italic" href="/health">Health</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-weight-bold font-italic" href="/dashboard/clear-cache">Clear Cache</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
@@ -76,23 +70,30 @@
                                     <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ __('Talus Workspace') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('Dashboard Health') }}
+                                </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="/dashboard/clear-cache">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i> {{ __('Clear Cache') }}
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/Fsk0UIrL/talus-board">
-                                    <i class="fa fa-trello fa-lg text-white"></i> {{ __('Trello') }}
+                                    <i class="fa fa-trello fa-lg text-white" aria-hidden="true"></i> {{ __('Trello') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://drive.google.com/drive/folders/1HiDzlKwkSWMF9sk22pqwoG058933hqwa?usp=sharing">
-                                    <i class="fa fa-google fa-lg text-white"></i> {{ __('Google Drive') }}
+                                    <i class="fa fa-google fa-lg text-white" aria-hidden="true"></i> {{ __('Google Drive') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://github.com/talusstudio">
-                                    <i class="fa fa-github fa-lg text-white"></i> {{ __('Github') }}
+                                    <i class="fa fa-github fa-lg text-white" aria-hidden="true"></i> {{ __('Github') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">
-                                    <i class="fa fa-apple fa-lg text-white"></i> {{ __('Appstore Connect') }}
+                                    <i class="fa fa-apple fa-lg text-white" aria-hidden="true"></i> {{ __('Appstore Connect') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
-                                    <i class="fa fa-facebook fa-lg text-white"></i> {{ __('Facebook Dashboard') }}
+                                    <i class="fa fa-facebook fa-lg text-white" aria-hidden="true"></i> {{ __('Facebook Dashboard') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="http://webmail.talusstudio.com">
-                                    <i class="fa fa-envelope text-white"></i> {{ __('Webmail') }}
+                                    <i class="fa fa-envelope text-white" aria-hidden="true"></i> {{ __('Webmail') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">

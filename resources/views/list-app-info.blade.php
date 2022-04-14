@@ -205,11 +205,13 @@
                 setCookie('target_app_id', appId, 1);
 
                 updateLink(appId);
+
                 // Change modal title
                 // $(this).find(".modal-title").text(titleData);
             });
         });
 
+        // reset modal inputs
         function resetValues() {
             document.getElementById('tf_version').value = '7.0';
             document.getElementById('is_workspace').checked = false;
