@@ -31,15 +31,18 @@ class AppStoreConnectController extends Controller
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
             ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit=100');
 
+        $sortedAppCollection = collect(json_decode($appList)->data);
+        $sortedAppList = $sortedAppCollection->sortByDesc('id');
+
         return response()->json([
-            'app_list' => $appList->json()
+            'app_list' => $sortedAppList
         ]);
     }
 
     public function GetAppList(Request $request) : JsonResponse
     {
         $appList = $this->GetFullAppInfo($request)->getData();
-        $data = $appList->app_list->data;
+        $data = $appList->app_list;
 
         $apps = [];
         foreach ($data as $content) {
