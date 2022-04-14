@@ -37,15 +37,15 @@
                 </div>
                 <div class="form-group">
                     <label for="app_name">Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="select bundle from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="select bundle from list..." readonly>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="Select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="project_name">Git Project Name</label>
-                    <input type="text" id="project_name" name="project_name" class="form-control" required="" placeholder="for example Oh-My-Luggage...">
+                    <input type="text" id="project_name" name="project_name" class="form-control" required="" placeholder="project name on Talus Github...">
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
