@@ -23,7 +23,7 @@
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select bundle id ({{ count($allAppInfos) }})
+                            <i class="fa fa-hand-o-right" aria-hidden="true"></i> Select Bundle ID ({{ count($allAppInfos) }})
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
@@ -37,11 +37,11 @@
                 </div>
                 <div class="form-group">
                     <label for="app_name">Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select bundle from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select bundle id from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="Select bundle from list..." readonly>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="Select bundle id from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="project_name">Git Project Name</label>
