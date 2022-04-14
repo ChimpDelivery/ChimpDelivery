@@ -92,6 +92,9 @@
 
         var appstoreIdField = document.getElementById('appstore_id')
         appstoreIdField.value = appstoreId;
+
+        var projectNameField = document.getElementById('project_name')
+        projectNameField.value = appName.replace(/[^a-zA-Z0-9]/g, '')
     }
 
     function preview() {
