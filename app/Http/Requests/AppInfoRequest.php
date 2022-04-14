@@ -30,6 +30,8 @@ class AppInfoRequest extends FormRequest
 
             'app_name' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
 
+            'project_name' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
+
             'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at')),
                                   'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
 
@@ -46,6 +48,7 @@ class AppInfoRequest extends FormRequest
     public function messages() : array
     {
         return [
+            'git_name.required' => 'git project name is required!',
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.Talus.CozyKitchen)',
             'appstore_id.required' => 'appstore_id is required!',

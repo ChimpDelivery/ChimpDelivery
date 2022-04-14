@@ -44,6 +44,10 @@
                     <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="select bundle from list..." readonly>
                 </div>
                 <div class="form-group">
+                    <label for="project_name">Git Project Name</label>
+                    <input type="text" id="project_name" name="project_name" class="form-control" required="" placeholder="for example Oh-My-Luggage...">
+                </div>
+                <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
                     <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" placeholder="facebook app id...">
                 </div>
