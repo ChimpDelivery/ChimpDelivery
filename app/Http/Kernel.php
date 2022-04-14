@@ -65,7 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'doNotCacheResponse' => \Spatie\ResponseCache\Middlewares\DoNotCacheResponse::class,
-        'jenkins' => \App\Http\Middleware\JenkinsMiddleware::class,
         'appstore' => \App\Http\Middleware\AppStoreConnectMiddleware::class
     ];
 }
