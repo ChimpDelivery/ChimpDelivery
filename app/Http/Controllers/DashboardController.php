@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function Index(Request $request) : View
     {
         $data = [
-            'appInfos' => AppInfo::paginate(10)->onEachSide(1)
+            'appInfos' => AppInfo::paginate(10)->onEachSide(1),
         ];
 
         if (config('jenkins.enabled')) {
@@ -42,9 +42,11 @@ class DashboardController extends Controller
     public function CreateAppForm(Request $request) : View
     {
         $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        $allGitProjects = app('App\Http\Controllers\GithubController')->GetRepositories()->getData();
 
         return view('add-app-info-form')->with([
-            'allAppInfos' => $allAppInfos
+            'allAppInfos' => $allAppInfos,
+            'allGitProjects' => $allGitProjects
         ]);
     }
 

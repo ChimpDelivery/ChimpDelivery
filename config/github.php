@@ -42,7 +42,7 @@ return [
 
         'main' => [
             'method'     => 'token',
-            'token'      => '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',
+            'token'      => env('GIT_ACCESS_TOKEN'),
             // 'backoff'    => false,
             // 'cache'      => false,
             // 'version'    => 'v3',
