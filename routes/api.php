@@ -21,16 +21,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(AppStoreConnectController::class)->middleware('appstore')->group(function () {
+Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
     // active endpoints
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
-    Route::get('appstoreconnect/get-app-list/{id}', 'GetSpecificApp');
     Route::get('appstoreconnect/get-all-bundles', 'GetAllBundles');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/create-bundle', 'CreateBundle');
 });
+
+Route::get('appstoreconnect/get-app-list/{id}', 'App\Http\Controllers\AppStoreConnectController@GetSpecificApp')->middleware('appstore');
 
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
     // active endpoints
