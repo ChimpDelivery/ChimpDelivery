@@ -30,8 +30,8 @@
                     <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" value="{{ $appInfo->app_bundle }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="project_name">Git Project Name</label>
-                    <input type="text" id="project_name" name="project_name" class="form-control" required="" value="{{ $appInfo->project_name }}">
+                    <label for="project_name">Github Project</label>
+                    <input type="text" id="project_name" name="project_name" class="form-control" required="" value="{{ $appInfo->project_name }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>

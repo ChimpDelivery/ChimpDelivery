@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppStoreConnectController;
+use App\Http\Controllers\GithubController;
 use App\Http\Controllers\JenkinsController;
 
 use Illuminate\Http\Request;
@@ -41,4 +42,9 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
     Route::get('jenkins/get-latest-build-number/{projectName}', 'GetLatestBuildNumber');
     Route::get('jenkins/get-latest-build-info/{projectName}/{buildNumber}', 'GetLatestBuildInfo');
     Route::get('jenkins/stop-job/{projectName}/{buildNumber}', 'PostStopJob');
+});
+
+Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
+    // active endpoints
+    Route::get('github/get-repositories', 'GetRepositories');
 });

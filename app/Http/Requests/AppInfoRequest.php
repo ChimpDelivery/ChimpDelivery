@@ -48,7 +48,8 @@ class AppInfoRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'git_name.required' => 'git project name is required!',
+            'app_name.required' => 'app_name is required!',
+            'project_name.required' => 'github_project is required!',
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.Talus.CozyKitchen)',
             'appstore_id.required' => 'appstore_id is required!',

@@ -27,7 +27,7 @@
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="search_input" onkeyup="filterFunction()">
+                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
                             @foreach($allAppInfos as $appInfo)
                             <input type="text" id="app_info_name" name="app_info_name" hidden>
                             <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
@@ -44,8 +44,19 @@
                     <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="Select bundle id from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="project_name">Git Project Name</label>
-                    <input type="text" id="project_name" name="project_name" class="form-control" required="" placeholder="project name on Talus Github...">
+                    <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
+
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-hand-o-right" aria-hidden="true"></i> Select Github Project ({{ count($allGitProjects) }})
+                    </button>
+
+                    <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
+                        <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
+                        @foreach($allGitProjects as $gitProject)
+                            <input type="text" id="git_project_name" name="git_project_name" hidden>
+                            <a class="dropdown-item" href="#" onclick="updateGitField('{{ $gitProject->name }}')">{{ $gitProject->name }}</a>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
@@ -74,15 +85,26 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('.dropdown-menu a').click(function() {
+        $('#dropdown-inputs a').click(function() {
             var bundleName = $(this).text();
 
             // update dropdown
-            $('button[data-toggle="dropdown"]').text(bundleName);
+            $('button[id="dropdownMenuButton"]').text(bundleName);
 
             // update hidden bundle input
             var appBundle = document.getElementById('app_bundle');
             appBundle.value = bundleName;
+        });
+
+        $('#dropdown-inputs-git-project a').click(function () {
+            var gitProjectName = $(this).text();
+
+            // update dropdown
+            $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName);
+
+            // update hidden git project field
+            var hiddenGitField = document.getElementById('project_name')
+            hiddenGitField.value = gitProjectName;
         });
     });
 
@@ -97,16 +119,21 @@
         projectNameField.value = appName.replace(/[^a-zA-Z0-9]/g, '')
     }
 
+    function updateGitField(gitName) {
+        var gitField = document.getElementById('git_project_name')
+        gitField.value = gitName;
+    }
+
     function preview() {
         document.getElementById('app_icon_preview').src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('app_icon_preview').hidden = false
     }
 
-    function filterFunction() {
+    function filterFunction(searchInputId, dropdownId) {
         var input, filter, ul, li, a, i;
-        input = document.getElementById("search_input");
+        input = document.getElementById(searchInputId);
         filter = input.value.toUpperCase();
-        div = document.getElementById("dropdown-inputs");
+        div = document.getElementById(dropdownId);
         a = div.getElementsByTagName("a");
         for (i = 0; i < a.length; i++) {
             txtValue = a[i].textContent || a[i].innerText;
