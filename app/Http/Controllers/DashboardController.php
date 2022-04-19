@@ -156,11 +156,10 @@ class DashboardController extends Controller
         if (!$appInfo->exists)
         {
             $appInfo->app_name = $request->app_name;
+            $appInfo->project_name = $request->project_name;
             $appInfo->app_bundle = $request->app_bundle;
             $appInfo->appstore_id = $request->appstore_id;
         }
-
-        $appInfo->project_name = $request->project_name;
 
         if ($request->hasFile('app_icon')) {
             $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
