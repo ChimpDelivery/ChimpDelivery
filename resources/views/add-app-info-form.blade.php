@@ -54,7 +54,7 @@
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
                         @foreach($allGitProjects as $gitProject)
                             <input type="text" id="git_project_name" name="git_project_name" hidden>
-                            <a class="dropdown-item" href="#" onclick="updateGitField('{{ $gitProject->name }}')">{{ $gitProject->name }}</a>
+                            <a class="dropdown-item" href="#">{{ $gitProject->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -103,25 +103,19 @@
             $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName);
 
             // update hidden git project field
-            var hiddenGitField = document.getElementById('project_name')
-            hiddenGitField.value = gitProjectName;
+            var gitField = document.getElementById('project_name')
+            gitField.value = gitProjectName;
         });
     });
 
     function updateAppField(appName, appstoreId) {
+        console.log('updating app field...');
+
         var appNameField = document.getElementById('app_name');
         appNameField.value = appName;
 
         var appstoreIdField = document.getElementById('appstore_id')
         appstoreIdField.value = appstoreId;
-
-        var projectNameField = document.getElementById('project_name')
-        projectNameField.value = appName.replace(/[^a-zA-Z0-9]/g, '')
-    }
-
-    function updateGitField(gitName) {
-        var gitField = document.getElementById('git_project_name')
-        gitField.value = gitName;
     }
 
     function preview() {
