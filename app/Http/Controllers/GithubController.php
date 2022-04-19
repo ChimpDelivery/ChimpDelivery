@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class GithubController extends Controller
 {
@@ -12,8 +11,13 @@ class GithubController extends Controller
     {
         $response = collect();
 
-        // organization - type - page
-        $organizationProjects = collect(GitHub::api('organization')->repositories('TalusStudio', 'private', 1));
+        // http://developer.github.com/v3/repos/#list-organization-repositories
+        $organizationProjects = collect(GitHub::api('repo')->org('TalusStudio', [
+            'per_page' => 30,
+            'sort' => 'created',
+            'type' => 'private'
+        ]));
+
         $projectInfos = $organizationProjects->pluck('id', 'name');
 
         $projectInfos->each(function ($item, $key) use ($response, $projectInfos) {
