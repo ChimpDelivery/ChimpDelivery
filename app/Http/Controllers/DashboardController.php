@@ -33,6 +33,8 @@ class DashboardController extends Controller
 
                 $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
+
+                $item->git_url = "https://github.com/TalusStudio/{$appName}";
             });
         }
 

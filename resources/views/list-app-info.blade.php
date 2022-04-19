@@ -72,6 +72,11 @@
                                         <a class="text-dark font-weight-bold" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
                                             {{ $appInfo->app_name }}
                                         </a>
+                                        <p>
+                                            <a class="text-muted" href="{{ $appInfo->git_url }}">
+                                                (Github)
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             </td>
