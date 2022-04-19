@@ -54,7 +54,7 @@
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
                         @foreach($allGitProjects as $gitProject)
                             <input type="text" id="git_project_name" name="git_project_name" hidden>
-                            <a class="dropdown-item" href="#">{{ $gitProject->name }}</a>
+                            <a class="dropdown-item" href="#">{{ $gitProject->name }} ({{ $gitProject->size }})</a>
                         @endforeach
                     </div>
                 </div>
