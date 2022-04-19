@@ -97,14 +97,14 @@
         });
 
         $('#dropdown-inputs-git-project a').click(function () {
-            var gitProjectName = $(this).text();
+            var gitProjectName = $(this).text().split('(');
 
             // update dropdown
-            $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName);
+            $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName[0]);
 
             // update hidden git project field
             var gitField = document.getElementById('project_name')
-            gitField.value = gitProjectName;
+            gitField.value = gitProjectName[0];
         });
     });
 
