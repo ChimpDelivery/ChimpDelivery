@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function Index(Request $request) : View
     {
         $data = [
-            'appInfos' => AppInfo::paginate(10)->onEachSide(1),
+            'appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
         ];
 
         if (config('jenkins.enabled')) {
