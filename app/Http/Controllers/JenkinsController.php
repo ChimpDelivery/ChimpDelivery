@@ -18,7 +18,10 @@ class JenkinsController extends Controller
     public function GetJobList(Request $request) : JsonResponse
     {
         $url = $this->baseUrl.'/api/json';
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
         $jenkinsJobList = collect(json_decode($jenkinsInfo)->jobs);
 
         return response()->json([
@@ -29,7 +32,10 @@ class JenkinsController extends Controller
     public function GetJob(Request $request) : JsonResponse
     {
         $url = $this->baseUrl."/job/{$request->projectName}/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
         $jenkinsJobInfo = collect(json_decode($jenkinsInfo));
 
         return response()->json([
@@ -42,7 +48,10 @@ class JenkinsController extends Controller
         $app = is_null($appName) ? $request->projectName : $appName;
 
         $url = $this->baseUrl."/job/{$app}/job/master/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
         if (isset($retrievedData->builds)) {
@@ -76,7 +85,7 @@ class JenkinsController extends Controller
 
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
-        if (config('jenkins.enabled') == false) {
+        if (!config('jenkins.enabled')) {
             return response()->json([
                 'latest_build_status' => 'JENKINS DOWN!'
             ]);
@@ -86,7 +95,10 @@ class JenkinsController extends Controller
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
         $url = $this->baseUrl."/job/{$app}/job/master/{$appBuildNumber}/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->get($url);
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
         $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
