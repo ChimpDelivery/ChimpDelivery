@@ -23,7 +23,11 @@ class GithubController extends Controller
             ]));
 
             $response = $organizationProjects->map(function ($item) {
-                return ['id' => $item['id'], 'name' => $item['name'], 'size' => round($item['size'] / 1024, 2) . 'mb'];
+                return [
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'size' => round($item['size'] / 1024, 2) . 'mb'
+                ];
             });
 
             return response()->json($response);
