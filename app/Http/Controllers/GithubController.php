@@ -6,6 +6,7 @@ use Github\Exception\RuntimeException;
 use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 
 class GithubController extends Controller
 {
@@ -22,9 +23,16 @@ class GithubController extends Controller
                 'type' => 'private'
             ]));
 
-            $response = $organizationProjects->map(function ($item) {
+            // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
+            $filteredOrganizationProjects = $organizationProjects->filter(function ($value) {
+                return !Str::contains($value['name'], 'deprecated', true) &&
+                    !Str::contains($value['name'], 'backend', true) &&
+                    !Str::contains($value['name'], 'package', true);
+            });
+
+            $response = $filteredOrganizationProjects->values()->map(function ($item) {
                 return [
-                    'id' => $item['id'],
+                    'id'   => $item['id'],
                     'name' => $item['name'],
                     'size' => round($item['size'] / 1024, 2) . 'mb'
                 ];
