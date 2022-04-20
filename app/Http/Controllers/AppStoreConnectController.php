@@ -29,7 +29,7 @@ class AppStoreConnectController extends Controller
     public function GetFullAppInfo(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit=100&filter[appStoreVersions.platform]=IOS');
+            ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit='.config('appstore.item_limit').'&filter[appStoreVersions.platform]=IOS');
 
         $sortedAppCollection = collect(json_decode($appList)->data);
         $sortedAppList = $sortedAppCollection->sortByDesc('id');
@@ -74,7 +74,7 @@ class AppStoreConnectController extends Controller
     public function GetAllBundles(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
-            ->get(self::API_URL.'/bundleIds?fields[bundleIds]=name,identifier&limit=100&filter[platform]=IOS&sort=seedId');
+            ->get(self::API_URL.'/bundleIds?fields[bundleIds]=name,identifier&limit='.config('appstore.item_limit').'&filter[platform]=IOS&sort=seedId');
 
         $bundleIds = collect(json_decode($appList)->data);
         $sortedBundleIds = $bundleIds->pluck('attributes.identifier');

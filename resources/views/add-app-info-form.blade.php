@@ -99,7 +99,7 @@
         $('#dropdown-inputs-git-project a').click(function () {
             var gitProjectName = $(this).text().split('(');
 
-            // update dropdown
+            // update dropdown without size info
             $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName[0]);
 
             // update hidden git project field

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 return [
 
+    'item_limit' => env('GIT_ITEM_LIMIT', 50),
+
     /*
     |--------------------------------------------------------------------------
     | Default Connection Name
