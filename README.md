@@ -93,3 +93,9 @@ GET  |  api/jenkins/get-latest-build-number/{projectName}
 GET  |  api/jenkins/get-latest-build-info/{projectName}/{buildNumber}
 GET  |  api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
+
+# 🔑 Talus Github Api - Endpoints
+```
+GET  |  api/github/get-repositories
+GET  |  api/github/get-repository/{id}
+```
