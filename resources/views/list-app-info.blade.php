@@ -101,6 +101,12 @@
                                                     NO BUILD
                                                 <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
                                             </h6>
+                                        @elseif ($appInfo->latest_build_number == -3)
+                                            <h6 class="text-danger font-weight-bold rounded">
+                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                                FIRST BUILD
+                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
+                                            </h6>
                                         @else ($appInfo->latest_build_number != -1 && $appInfo->latest_build_number != -2)
                                             <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
                                                 {{ $appInfo->latest_build_number }}
@@ -152,16 +158,24 @@
                             </td>
                             <td class="text-center align-middle">
                                 @if (config('jenkins.enabled'))
-                                    @if ($appInfo->latest_build_status != 'BUILDING')
+                                    @if ($appInfo->latest_build_number != -1)
+                                        @if ($appInfo->latest_build_status != 'BUILDING')
                                             <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal" data-target="#exampleModal" data-title="{{$appInfo->id}}">
                                                 <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
                                             </button>
+                                        @else
+                                            <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->latest_build_number }}">
+                                                <button type="button" class="btn text-white bg-transparent">
+                                                    <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                                                </button>
+                                            </a>
+                                        @endif
                                     @else
-                                        <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->latest_build_number }}">
-                                            <button type="button" class="btn text-white bg-transparent">
-                                                <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
-                                            </button>
-                                        </a>
+                                        <h6 class="text-danger font-weight-bold rounded">
+                                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                                            MISSING
+                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
+                                        </h6>
                                     @endif
                                 @else
                                     <h6 class="text-danger font-weight-bold rounded">

@@ -6,9 +6,9 @@ use App\Models\AppInfo;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class JenkinsTrigger extends Command
+class JenkinsDefaultTrigger extends Command
 {
-    protected $signature = 'jenkins:trigger {appInfoID} {isWorkspace} {tfVersion}';
+    protected $signature = 'jenkins:default-trigger {appInfoID}';
     protected $description = 'Trigger jenkins pipeline to build.';
 
     public function __construct()
@@ -24,7 +24,7 @@ class JenkinsTrigger extends Command
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->project_name}/job/master/buildWithParameters?IS_WORKSPACE={$this->argument('isWorkspace')}&TF_BUILD_VERSION={$this->argument('tfVersion')}&APP_ID={$app->id}";
+                "/job/{$app->project_name}/job/master/build?delay=0sec";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }

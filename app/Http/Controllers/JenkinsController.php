@@ -43,6 +43,7 @@ class JenkinsController extends Controller
         ]);
     }
 
+    // todo: refactor
     public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
@@ -54,7 +55,15 @@ class JenkinsController extends Controller
             ->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
-        if (isset($retrievedData->builds)) {
+        if (!$retrievedData)
+        {
+            return response()->json([
+                'build_list' => null
+            ]);
+        }
+
+        if (isset($retrievedData->builds) && !empty($retrievedData->builds))
+        {
             $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
 
             return response()->json([
@@ -62,8 +71,17 @@ class JenkinsController extends Controller
             ]);
         }
 
+        // todo: bug fix when repo removed in jenkins
+        // probably $retrievedData when null
+        if (isset($retrievedData->nextBuildNumber) && $retrievedData->nextBuildNumber == 1)
+        {
+            return response()->json([
+                'build_list' => 'FIRST_BUILD'
+            ]);
+        }
+
         return response()->json([
-            'build_list' => null
+            'build_list' => []
         ]);
     }
 
@@ -73,13 +91,30 @@ class JenkinsController extends Controller
 
         $retrievedData = $this->GetBuildList($request, $app)->getData();
 
-        // refactor error codes.
-        // -2 => workspace exists but there is no builds.
+        // todo: refactor error codes.
+        // -3 => workspace exists, but there is no builds.
+        // -2 => workspace exists, first build triggered, but all builds cleared.
         // -1 => workspace doesn't exists.
+
+        if (is_null($retrievedData->build_list))
+        {
+            return response()->json([
+                'latest_build_number' => -1,
+                'jenkins_url' => ''
+            ]);
+        }
+
+        if ($retrievedData->build_list == 'FIRST_BUILD')
+        {
+            return response()->json([
+                'latest_build_number' => -3,
+                'jenkins_url' => ''
+            ]);
+        }
+
         return response()->json([
-            'latest_build_number' => !is_null($retrievedData->build_list) ?
-                (!empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -2) : -1,
-            'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : -1
+            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -2,
+            'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : ''
         ]);
     }
 
@@ -94,6 +129,14 @@ class JenkinsController extends Controller
         $app = is_null($appName) ? $request->projectName : $appName;
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
+        $isProjectValid = $this->GetLatestBuildNumber($request, $app)->getData();
+        if ($isProjectValid->latest_build_number == -1)
+        {
+            return response()->json([
+                'latest_build_status' => 'MISSING'
+            ]);
+        }
+
         $url = $this->baseUrl."/job/{$app}/job/master/{$appBuildNumber}/api/json";
         $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
             ->timeout(5)
@@ -104,7 +147,7 @@ class JenkinsController extends Controller
         $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
 
         return response()->json([
-            'latest_build_status' => $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : -1)
+            'latest_build_status' => $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : '')
         ]);
     }
 
