@@ -23,7 +23,8 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
         ];
 
-        if (config('jenkins.enabled')) {
+        if (config('jenkins.enabled'))
+        {
             $data['appInfos']->each(function ($item) use ($request) {
                 $appName = $item->project_name;
 
@@ -33,10 +34,16 @@ class DashboardController extends Controller
 
                 $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
+
                 if ($buildStatus->latest_build_status == 'BUILDING')
                 {
+                    $seconds = ceil($buildStatus->timestamp / 1000);
+                    $dateInfo = date("d-m-Y H:i:s", $seconds);
+
+                    $item->timestamp = $dateInfo;
                     $item->latest_estimated_time = $this->FormatMilliseconds($buildStatus->estimated_duration);
                 }
+
                 $item->git_url = "https://github.com/TalusStudio/{$appName}";
             });
         }

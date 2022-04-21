@@ -150,13 +150,18 @@
                                                 <div class="spinner-grow text-warning" role="status">
                                                     <span class="sr-only">Loading...</span>
                                                 </div>
-                                                <p class="text-muted font-weight-bold rounded">
+                                                <span class="text-muted font-weight-bold rounded">
                                                     {{ $appInfo->latest_build_status }}
+                                                    <br />
+                                                    <span class="text-success">
+                                                        {{ $appInfo->timestamp }}
+                                                    </span>
                                                     <br />
                                                     <span class="font-weight-normal">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                         {{ $appInfo->latest_estimated_time }}</span>
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    </span>
                                                 </p>
                                                 @break
                                             @case('SUCCESS')

@@ -153,6 +153,7 @@ class JenkinsController extends Controller
             return response()->json([
                 'latest_build_status' => 'BUILDING',
                 'estimated_duration' => $retrievedData->estimatedDuration,
+                'timestamp' => $retrievedData->timestamp
             ]);
         }
 
