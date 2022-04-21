@@ -18,7 +18,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="tf_version">TF Version</label>
+                        <label for="git_branch">Git Branch</label>
+
+                        <div class="dropdown">
+                            <input type="text" id="git_branch" name="git_branch" class="form-control" value="" hidden>
+
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                master
+                            </button>
+
+                            <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+                                <input type="text" id="git_branch_name" name="git_branch_name" hidden>
+                                <a class="dropdown-item" href="#">{{ __('master') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tf_version">Test-Flight Version</label>
                         <input oninput="updateLink()" type="text" id="tf_version" name="tf_version" class="form-control" required="" value="{{ config('appstore.default_tf_version') }}">
                     </div>
                     <div class="form-check">
