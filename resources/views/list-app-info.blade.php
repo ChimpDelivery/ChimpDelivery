@@ -150,16 +150,12 @@
                                                 <div class="spinner-grow text-warning" role="status">
                                                     <span class="sr-only">Loading...</span>
                                                 </div>
-                                                <span class="text-muted font-weight-bold rounded">
+                                                <p class="text-muted font-weight-bold rounded">
                                                     {{ $appInfo->latest_build_status }}
                                                     <br />
-                                                    <span class="text-success">
-                                                        {{ $appInfo->timestamp }}
-                                                    </span>
-                                                    <br />
-                                                    <span class="font-weight-normal">
+                                                    <span class="font-weight-normal font-italic text-info">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                        {{ $appInfo->latest_estimated_time }}</span>
+                                                        {{ $appInfo->estimated_time }}
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                     </span>
                                                 </p>
