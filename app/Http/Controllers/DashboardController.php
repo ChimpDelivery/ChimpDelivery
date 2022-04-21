@@ -37,8 +37,12 @@ class DashboardController extends Controller
 
                 if ($buildStatus->latest_build_status == 'BUILDING')
                 {
+                    $currentTime = date("H:i:s");
+
                     $estimatedTime = ceil($buildStatus->timestamp / 1000) + ceil($buildStatus->estimated_duration / 1000);
-                    $item->estimated_time = date("H:i:s", $estimatedTime);
+                    $estimatedTime = date("H:i:s", $estimatedTime);
+
+                    $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
                 }
 
                 $item->git_url = "https://github.com/TalusStudio/{$appName}";
