@@ -152,6 +152,11 @@
                                                 </div>
                                                 <p class="text-muted font-weight-bold rounded">
                                                     {{ $appInfo->latest_build_status }}
+                                                    <br />
+                                                    <span class="font-weight-normal">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                        {{ $appInfo->latest_estimated_time }}</span>
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                 </p>
                                                 @break
                                             @case('SUCCESS')

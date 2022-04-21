@@ -33,7 +33,10 @@ class DashboardController extends Controller
 
                 $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
-
+                if ($buildStatus->latest_build_status == 'BUILDING')
+                {
+                    $item->latest_estimated_time = $this->FormatMilliseconds($buildStatus->estimated_duration);
+                }
                 $item->git_url = "https://github.com/TalusStudio/{$appName}";
             });
         }
@@ -206,5 +209,20 @@ class DashboardController extends Controller
         }
 
         return $iconFile->path;
+    }
+
+    // todo: refactor
+    private function FormatMilliseconds($milliseconds)
+    {
+        $seconds = floor($milliseconds / 1000);
+        $minutes = floor($seconds / 60);
+        $hours = floor($minutes / 60);
+        $seconds = $seconds % 60;
+        $minutes = $minutes % 60;
+
+        $format = '%uh:%02um:%02us';
+        $time = sprintf($format, $hours, $minutes, $seconds);
+
+        return rtrim($time, '0');
     }
 }
