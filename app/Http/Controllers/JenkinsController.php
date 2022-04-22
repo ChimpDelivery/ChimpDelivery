@@ -118,6 +118,7 @@ class JenkinsController extends Controller
         ]);
     }
 
+    // todo: replace with master/lastBuild/
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
         if (!config('jenkins.enabled')) {
