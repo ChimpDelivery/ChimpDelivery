@@ -23,7 +23,8 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
         ];
 
-        if (config('jenkins.enabled')) {
+        if (config('jenkins.enabled'))
+        {
             $data['appInfos']->each(function ($item) use ($request) {
                 $appName = $item->project_name;
 
@@ -33,6 +34,16 @@ class DashboardController extends Controller
 
                 $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
+
+                if ($buildStatus->latest_build_status == 'BUILDING')
+                {
+                    $currentTime = date("H:i:s");
+
+                    $estimatedTime = ceil($buildStatus->timestamp / 1000) + ceil($buildStatus->estimated_duration / 1000);
+                    $estimatedTime = date("H:i:s", $estimatedTime);
+
+                    $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                }
 
                 $item->git_url = "https://github.com/TalusStudio/{$appName}";
             });
@@ -89,7 +100,7 @@ class DashboardController extends Controller
             }
             else
             {
-                Artisan::call("jenkins:trigger {$request->id} {$request->isWorkspace} {$request->tfVersion} {FALSE}");
+                Artisan::call("jenkins:trigger {$request->id} master {$request->isWorkspace} {$request->tfVersion} {FALSE}");
                 session()->flash('success', "{$appInfo->app_name} building(IS_WORKSPACE:{$request->isWorkspace}, TF_VERSION:$request->tfVersion), wait 3-4seconds then reload the page.");
             }
         }
@@ -206,5 +217,20 @@ class DashboardController extends Controller
         }
 
         return $iconFile->path;
+    }
+
+    // todo: refactor
+    private function FormatMilliseconds($milliseconds)
+    {
+        $seconds = floor($milliseconds / 1000);
+        $minutes = floor($seconds / 60);
+        $hours = floor($minutes / 60);
+        $seconds = $seconds % 60;
+        $minutes = $minutes % 60;
+
+        $format = '%uh:%02um:%02us';
+        $time = sprintf($format, $hours, $minutes, $seconds);
+
+        return rtrim($time, '0');
     }
 }

@@ -118,6 +118,7 @@ class JenkinsController extends Controller
         ]);
     }
 
+    // todo: replace with master/lastBuild/
     public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
     {
         if (!config('jenkins.enabled')) {
@@ -146,8 +147,19 @@ class JenkinsController extends Controller
 
         $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
 
+        $response = $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : '');
+
+        if ($response == 'BUILDING')
+        {
+            return response()->json([
+                'latest_build_status' => 'BUILDING',
+                'estimated_duration' => $retrievedData->estimatedDuration,
+                'timestamp' => $retrievedData->timestamp
+            ]);
+        }
+
         return response()->json([
-            'latest_build_status' => $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : '')
+            'latest_build_status' => $response
         ]);
     }
 
