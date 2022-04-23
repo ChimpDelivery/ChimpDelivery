@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class JenkinsController extends Controller
 {
@@ -13,6 +14,22 @@ class JenkinsController extends Controller
     public function __construct()
     {
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
+    }
+
+    public function GetJob(Request $request, $appName = null) : JsonResponse
+    {
+        $app = is_null($appName) ? $request->projectName : $appName;
+
+        $url = $this->baseUrl."/job/{$app}/api/json";
+        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
+        $jenkinsJobInfo = collect(json_decode($jenkinsInfo));
+
+        return response()->json([
+            'job' => $jenkinsJobInfo
+        ]);
     }
 
     public function GetJobList(Request $request) : JsonResponse
@@ -29,21 +46,6 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetJob(Request $request) : JsonResponse
-    {
-        $url = $this->baseUrl."/job/{$request->projectName}/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
-        $jenkinsJobInfo = collect(json_decode($jenkinsInfo));
-
-        return response()->json([
-            'job' => $jenkinsJobInfo
-        ]);
-    }
-
-    // todo: refactor
     public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
@@ -55,77 +57,46 @@ class JenkinsController extends Controller
             ->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
-        if (!$retrievedData)
-        {
+        // job doesn't exists.
+        if (!$retrievedData) {
             return response()->json([
                 'build_list' => null
             ]);
         }
 
-        if (isset($retrievedData->builds) && !empty($retrievedData->builds))
-        {
-            $jenkinsJobBuildList = collect(json_decode($jenkinsInfo)->builds);
-
+        // job exists but there is no build at all.
+        if (isset($retrievedData->nextBuildNumber) && $retrievedData->nextBuildNumber == 1) {
             return response()->json([
-                'build_list' => $jenkinsJobBuildList
+                'build_list' => []
             ]);
         }
 
-        // todo: bug fix when repo removed in jenkins
-        // probably $retrievedData when null
-        if (isset($retrievedData->nextBuildNumber) && $retrievedData->nextBuildNumber == 1)
-        {
-            return response()->json([
-                'build_list' => 'FIRST_BUILD'
-            ]);
+        // job exists, builds exists.
+        $jenkinsJobBuildList = collect();
+
+        if (isset($retrievedData->builds) && !empty($retrievedData->builds)) {
+            $jenkinsJobBuildList = $jenkinsJobBuildList->merge($retrievedData->builds);
         }
 
-        return response()->json([
-            'build_list' => []
-        ]);
-    }
+        // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
+        if (isset($retrievedData->builds) && empty($retrievedData->builds)) {
 
-    public function GetLatestBuildNumber(Request $request, $appName = null) : JsonResponse
-    {
-        $app = is_null($appName) ? $request->projectName : $appName;
-
-        $retrievedData = $this->GetBuildList($request, $app)->getData();
-
-        // todo: refactor error codes.
-        // -3 => workspace exists, but there is no builds.
-        // -2 => workspace exists, first build triggered, but all builds cleared.
-        // -1 => workspace doesn't exists.
-
-        if (is_null($retrievedData->build_list))
-        {
-            return response()->json([
-                'latest_build_number' => -1,
-                'jenkins_url' => ''
+            $additionalBuildInfo = collect([
+                '_class' => '',
+                'number' => $retrievedData->nextBuildNumber,
+                'url' => ''
             ]);
-        }
 
-        if ($retrievedData->build_list == 'FIRST_BUILD')
-        {
-            return response()->json([
-                'latest_build_number' => -3,
-                'jenkins_url' => ''
-            ]);
+            $jenkinsJobBuildList = $jenkinsJobBuildList->add($additionalBuildInfo);
         }
 
         return response()->json([
-            'latest_build_number' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->number : -2,
-            'jenkins_url' => !empty($retrievedData->build_list) ? $retrievedData->build_list[0]->url : ''
+            'build_list' => $jenkinsJobBuildList
         ]);
     }
 
     public function GetLatestBuildInfo(Request $request, $appName = null) : JsonResponse
     {
-        if (!config('jenkins.enabled')) {
-            return response()->json([
-                'latest_build_status' => 'JENKINS DOWN!'
-            ]);
-        }
-
         $app = is_null($appName) ? $request->projectName : $appName;
 
         $url = $this->baseUrl."/job/{$app}/job/master/lastBuild/api/json";
@@ -135,22 +106,35 @@ class JenkinsController extends Controller
             ->get($url);
         $retrievedData = json_decode($jenkinsInfo);
 
-        $isBuilding = isset($retrievedData->building) && $retrievedData->building == true;
+        $jobExists = !empty($this->GetJob($request, $app)->getData()->job);
+        if ($jobExists)
+        {
+            $jobIsBuilding = $retrievedData && isset($retrievedData->building) && $retrievedData->building == true;
+            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (($retrievedData) ? $retrievedData->result : '');
 
-        $response = $isBuilding ? 'BUILDING' : (isset($retrievedData->result) ? $retrievedData->result : '');
+            $lastBuildNumberData = $this->GetBuildList($request, $app)->getData();
+            $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
 
-        if ($response == 'BUILDING')
+            $changeSets = $retrievedData && isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
+
+            $response = collect([
+                'job_exists' => $jobExists,
+                'build_status' => $jobStatus,
+                'build_number' => $buildNumber,
+                'change_sets' => $changeSets,
+                'estimated_duration' => $retrievedData ? $retrievedData->estimatedDuration : '',
+                'timestamp' => $retrievedData ? $retrievedData->timestamp : '',
+                'jenkins_url' => $retrievedData ? Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData->url) : ''
+            ]);
+
+            return response()->json($response);
+        }
+        else
         {
             return response()->json([
-                'latest_build_status' => 'BUILDING',
-                'estimated_duration' => $retrievedData->estimatedDuration,
-                'timestamp' => $retrievedData->timestamp
+                'job_exists' => false
             ]);
         }
-
-        return response()->json([
-            'latest_build_status' => $response
-        ]);
     }
 
     public function PostStopJob(Request $request, $appName = null, $buildNumber = null) : void

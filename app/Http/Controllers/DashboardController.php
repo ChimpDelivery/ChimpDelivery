@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
@@ -23,31 +22,28 @@ class DashboardController extends Controller
             'appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
         ];
 
-        if (config('jenkins.enabled'))
-        {
-            $data['appInfos']->each(function ($item) use ($request) {
-                $appName = $item->project_name;
+        $data['appInfos']->each(function ($item) use ($request) {
+            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->project_name)->getData();
 
-                $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $appName)->getData();
-                $item->latest_build_number = $appData->latest_build_number;
-                $item->latest_build_url = Str::replace('http://localhost:8080', config('jenkins.host'), $appData->jenkins_url);
+            $item->job_exists = $appData->job_exists;
 
-                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName)->getData();
-                $item->latest_build_status = $buildStatus->latest_build_status;
+            if ($item->job_exists)
+            {
+                $item->build_number = $appData->build_number;
+                $item->build_status = $appData->build_status;
+                $item->change_sets = $appData->change_sets;
+                $item->jenkins_url = $appData->jenkins_url;
+                $item->git_url = "https://github.com/TalusStudio/{$item->project_name}";
 
-                if ($buildStatus->latest_build_status == 'BUILDING')
+                if ($item->build_status == 'BUILDING')
                 {
-                    $currentTime = date("H:i:s");
-
-                    $estimatedTime = ceil($buildStatus->timestamp / 1000) + ceil($buildStatus->estimated_duration / 1000);
-                    $estimatedTime = date("H:i:s", $estimatedTime);
-
+                    $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
+                    $estimatedTime = date('H:i:s', $estimatedTime);
+                    $currentTime = date('H:i:s');
                     $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
                 }
-
-                $item->git_url = "https://github.com/TalusStudio/{$appName}";
-            });
-        }
+            }
+        });
 
         return view('list-app-info')->with($data);
     }
@@ -92,8 +88,8 @@ class DashboardController extends Controller
         {
             $appName = $appInfo->project_name;
 
-            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildNumber($request, $appName)->getData();
-            if ($appData->latest_build_number == -3)
+            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName)->getData();
+            if (empty($appData->build_number))
             {
                 Artisan::call("jenkins:default-trigger {$request->id}");
                 session()->flash('success', "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!");
@@ -149,7 +145,8 @@ class DashboardController extends Controller
         $bundleId = config('appstore.bundle_prefix') . '.' . $request->bundle_id;
         $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
 
-        if (in_array($bundleId, $bundleList)) {
+        if (in_array($bundleId, $bundleList))
+        {
             return to_route('create_bundle')
                 ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
                 ->withInput();
@@ -172,7 +169,8 @@ class DashboardController extends Controller
     // todo: refactor mass-assignment
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
-        if ($appInfo->trashed()) {
+        if ($appInfo->trashed())
+        {
             $appInfo->restore();
         }
 
@@ -186,7 +184,8 @@ class DashboardController extends Controller
 
         $appInfo->project_name = $request->project_name;
 
-        if ($request->hasFile('app_icon')) {
+        if ($request->hasFile('app_icon'))
+        {
             $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
         }
 
@@ -217,20 +216,5 @@ class DashboardController extends Controller
         }
 
         return $iconFile->path;
-    }
-
-    // todo: refactor
-    private function FormatMilliseconds($milliseconds)
-    {
-        $seconds = floor($milliseconds / 1000);
-        $minutes = floor($seconds / 60);
-        $hours = floor($minutes / 60);
-        $seconds = $seconds % 60;
-        $minutes = $minutes % 60;
-
-        $format = '%uh:%02um:%02us';
-        $time = sprintf($format, $hours, $minutes, $seconds);
-
-        return rtrim($time, '0');
     }
 }
