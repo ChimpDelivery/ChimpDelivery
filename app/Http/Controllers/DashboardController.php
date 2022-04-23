@@ -19,22 +19,24 @@ class DashboardController extends Controller
     public function Index(Request $request) : View
     {
         $data = [
-            'appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
+            'appInfos' => AppInfo::orderBy('id', 'desc')
+                ->paginate(10)
+                ->onEachSide(1),
         ];
 
-        $data['appInfos']->each(function ($item) use ($request) {
-            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $item->project_name)->getData();
+        $data['appInfos']->each(function ($item) use ($request)
+        {
+            $appData = app('App\Http\Controllers\JenkinsController')
+                ->GetLatestBuildInfo($request, $item->project_name)
+                ->getData();
 
             $item->job_exists = $appData->job_exists;
 
             if ($item->job_exists)
             {
+                // jenkins relative data.
                 $item->build_number = $appData->build_number;
                 $item->build_status = $appData->build_status;
-                $item->change_sets = $appData->change_sets;
-                $item->jenkins_url = $appData->jenkins_url;
-                $item->git_url = "https://github.com/TalusStudio/{$item->project_name}";
-
                 if ($item->build_status == 'BUILDING')
                 {
                     $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
@@ -42,6 +44,11 @@ class DashboardController extends Controller
                     $currentTime = date('H:i:s');
                     $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
                 }
+                $item->change_sets = $appData->change_sets;
+                $item->jenkins_url = $appData->jenkins_url;
+
+                // for dashboard buttons.
+                $item->git_url = "https://github.com/TalusStudio/{$item->project_name}";
             }
         });
 
@@ -61,7 +68,11 @@ class DashboardController extends Controller
 
     public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
     {
-        $this->PopulateAppData($request, AppInfo::withTrashed()->where('appstore_id', $request->appstore_id)->firstOrNew());
+        $this->PopulateAppData($request, AppInfo::withTrashed()
+            ->where('appstore_id', $request->appstore_id)
+            ->firstOrNew()
+        );
+
         session()->flash('success', "App: {$request->app_name} created...");
 
         return to_route('get_app_list');
@@ -88,7 +99,10 @@ class DashboardController extends Controller
         {
             $appName = $appInfo->project_name;
 
-            $appData = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName)->getData();
+            $appData = app('App\Http\Controllers\JenkinsController')
+                ->GetLatestBuildInfo($request, $appName)
+                ->getData();
+
             if (empty($appData->build_number))
             {
                 Artisan::call("jenkins:default-trigger {$request->id}");
@@ -135,7 +149,9 @@ class DashboardController extends Controller
 
     public function CreateBundleForm(Request $request) : View
     {
-        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')
+            ->GetAppList($request)
+            ->getData();
 
         return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
     }
@@ -143,7 +159,10 @@ class DashboardController extends Controller
     public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
         $bundleId = config('appstore.bundle_prefix') . '.' . $request->bundle_id;
-        $bundleList = app('App\Http\Controllers\AppStoreConnectController')->GetAllBundles($request)->getData()->bundle_ids;
+        $bundleList = app('App\Http\Controllers\AppStoreConnectController')
+            ->GetAllBundles($request)
+            ->getData()
+            ->bundle_ids;
 
         if (in_array($bundleId, $bundleList))
         {

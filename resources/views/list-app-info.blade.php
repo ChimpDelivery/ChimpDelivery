@@ -98,83 +98,83 @@
                             </td>
                             <td class="text-center align-middle">
                                 <p>
-                                @if (!$appInfo->job_exists)
-                                    <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-file-o" aria-hidden="true"></i>
-                                        MISSING
-                                        <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                    </h6>
-                                @else
-                                    @if (empty($appInfo->build_number))
-                                        <h6 class="text-primary font-weight-bold rounded">
-                                            <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                                            FIRST BUILD
-                                            <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
+                                    @if (!$appInfo->job_exists)
+                                        <h6 class="text-danger font-weight-bold rounded">
+                                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                                            MISSING
+                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                         </h6>
                                     @else
-                                        <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
-                                            {{ $appInfo->build_number }}
-                                        </a>
+                                        @if ($appInfo->build_number == 1)
+                                            <h6 class="text-primary font-weight-bold rounded">
+                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                                FIRST BUILD
+                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
+                                            </h6>
+                                        @else
+                                            <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
+                                                {{ $appInfo->build_number }}
+                                            </a>
+                                        @endif
                                     @endif
-                                @endif
 
-                                @switch($appInfo->build_status)
-                                    @case('ABORTED')
-                                    <h6 class="text-secondary font-weight-bold rounded">
-                                        <i class="fa fa-ban" aria-hidden="true"></i>
-                                        {{ $appInfo->build_status }}
-                                        <i class="fa fa-ban" aria-hidden="true"></i>
-                                        <br />
-                                        ({{ count($appInfo->change_sets) }})
-                                    </h6>
-                                    @break
+                                    @switch($appInfo->build_status)
+                                        @case('ABORTED')
+                                        <h6 class="text-secondary font-weight-bold rounded">
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                            {{ $appInfo->build_status }}
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                        </h6>
+                                        @break
 
-                                    @case('BUILDING')
-                                    <div class="spinner-grow text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <div class="spinner-grow text-success" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <div class="spinner-grow text-danger" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <div class="spinner-grow text-warning" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <p class="text-muted font-weight-bold rounded">
-                                        {{ $appInfo->build_status }}
-                                        <br />
-                                        ({{ count($appInfo->change_sets) }})
-                                        <br />
-                                        <span class="font-weight-normal font-italic text-info">
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            {{ $appInfo->estimated_time }}
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                        </span>
-                                    </p>
-                                    @break
+                                        @case('BUILDING')
+                                        <div class="spinner-grow text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="spinner-grow text-success" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="spinner-grow text-danger" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="spinner-grow text-warning" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <p class="text-muted font-weight-bold rounded">
+                                            {{ $appInfo->build_status }}
+                                            <br />
+                                            <span class="font-weight-normal font-italic text-info">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                {{ $appInfo->estimated_time }}
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </span>
+                                        </p>
+                                        @break
 
-                                    @case('SUCCESS')
-                                    <h6 class="text-success font-weight-bold rounded">
-                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                        {{ $appInfo->build_status }}
-                                        <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
-                                        <br />
-                                        ({{ count($appInfo->change_sets) }})
-                                    </h6>
-                                    @break
+                                        @case('SUCCESS')
+                                        <h6 class="text-success font-weight-bold rounded">
+                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                            {{ $appInfo->build_status }}
+                                            <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
+                                        </h6>
+                                        @break
 
-                                    @case('FAILURE')
-                                    <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                        {{ $appInfo->build_status }}
-                                        <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
-                                        <br />
-                                        ({{ count($appInfo->change_sets) }})
-                                    </h6>
-                                    @break
-                                @endswitch
+                                        @case('FAILURE')
+                                        <h6 class="text-danger font-weight-bold rounded">
+                                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                            {{ $appInfo->build_status }}
+                                            <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
+                                        </h6>
+                                        @break
+                                    @endswitch
+
+                                    <span class="text-muted font-italic" style="font-size:0.8rem;">
+                                    @if(isset($appInfo->change_sets) && count($appInfo->change_sets) > 0)
+                                        @foreach(array_slice($appInfo->change_sets, 0, 3) as $change)
+                                            ({{ trim($change) }}) <br />
+                                        @endforeach
+                                    @endif
+                                    </span>
                                 </p>
                             </td>
                             <td class="text-center align-middle">

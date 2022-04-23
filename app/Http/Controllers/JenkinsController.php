@@ -32,7 +32,7 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetJobList(Request $request) : JsonResponse
+    public function GetJobList() : JsonResponse
     {
         $url = $this->baseUrl.'/api/json';
         $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
@@ -58,29 +58,23 @@ class JenkinsController extends Controller
         $retrievedData = json_decode($jenkinsInfo);
 
         // job doesn't exists.
-        if (!$retrievedData) {
+        if (!$retrievedData)
+        {
             return response()->json([
                 'build_list' => null
             ]);
         }
 
-        // job exists but there is no build at all.
-        if (isset($retrievedData->nextBuildNumber) && $retrievedData->nextBuildNumber == 1) {
-            return response()->json([
-                'build_list' => []
-            ]);
-        }
-
-        // job exists, builds exists.
         $jenkinsJobBuildList = collect();
 
-        if (isset($retrievedData->builds) && !empty($retrievedData->builds)) {
+        if (isset($retrievedData->builds) && !empty($retrievedData->builds))
+        {
             $jenkinsJobBuildList = $jenkinsJobBuildList->merge($retrievedData->builds);
         }
 
         // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
-        if (isset($retrievedData->builds) && empty($retrievedData->builds)) {
-
+        if (isset($retrievedData->builds) && empty($retrievedData->builds))
+        {
             $additionalBuildInfo = collect([
                 '_class' => '',
                 'number' => $retrievedData->nextBuildNumber,
@@ -104,37 +98,32 @@ class JenkinsController extends Controller
             ->timeout(5)
             ->connectTimeout(2)
             ->get($url);
-        $retrievedData = json_decode($jenkinsInfo);
+
+        $response = collect(['job_exists' => false]);
 
         $jobExists = !empty($this->GetJob($request, $app)->getData()->job);
         if ($jobExists)
         {
-            $jobIsBuilding = $retrievedData && isset($retrievedData->building) && $retrievedData->building == true;
-            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (($retrievedData) ? $retrievedData->result : '');
+            $retrievedData = json_decode($jenkinsInfo);
+
+            $jobIsBuilding = isset($retrievedData->building) && $retrievedData->building == true;
+            $jobStatus = ($jobIsBuilding) ? 'BUILDING' :$retrievedData->result;
 
             $lastBuildNumberData = $this->GetBuildList($request, $app)->getData();
             $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
 
-            $changeSets = $retrievedData && isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
+            $changeSets = isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
 
-            $response = collect([
-                'job_exists' => $jobExists,
-                'build_status' => $jobStatus,
-                'build_number' => $buildNumber,
-                'change_sets' => $changeSets,
-                'estimated_duration' => $retrievedData ? $retrievedData->estimatedDuration : '',
-                'timestamp' => $retrievedData ? $retrievedData->timestamp : '',
-                'jenkins_url' => $retrievedData ? Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData->url) : ''
-            ]);
+            $response->put('job_exists', true);
+            $response->put('build_status', $jobStatus);
+            $response->put('build_number', $buildNumber);
+            $response->put('change_sets', $changeSets);
+            $response->put('estimated_duration', $retrievedData->estimatedDuration);
+            $response->put('timestamp', $retrievedData->timestamp);
+            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData->url));
+        }
 
-            return response()->json($response);
-        }
-        else
-        {
-            return response()->json([
-                'job_exists' => false
-            ]);
-        }
+        return response()->json($response);
     }
 
     public function PostStopJob(Request $request, $appName = null, $buildNumber = null) : void
