@@ -66,11 +66,7 @@ class JenkinsController extends Controller
         }
 
         $jenkinsJobBuildList = collect();
-
-        if (isset($retrievedData->builds) && !empty($retrievedData->builds))
-        {
-            $jenkinsJobBuildList = $jenkinsJobBuildList->merge($retrievedData->builds);
-        }
+        $jenkinsJobBuildList = $jenkinsJobBuildList->merge($retrievedData?->builds);
 
         // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
         if (isset($retrievedData->builds) && empty($retrievedData->builds))
@@ -106,21 +102,20 @@ class JenkinsController extends Controller
         {
             $retrievedData = json_decode($jenkinsInfo);
 
-            $jobIsBuilding = isset($retrievedData->building) && $retrievedData->building == true;
-            $jobStatus = ($jobIsBuilding) ? 'BUILDING' :$retrievedData->result;
+            $jobIsBuilding = $retrievedData?->building == true;
+            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$retrievedData ? 'NO BUILD' : $retrievedData->result);
 
             $lastBuildNumberData = $this->GetBuildList($request, $app)->getData();
             $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
-
             $changeSets = isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
 
             $response->put('job_exists', true);
             $response->put('build_status', $jobStatus);
             $response->put('build_number', $buildNumber);
             $response->put('change_sets', $changeSets);
-            $response->put('estimated_duration', $retrievedData->estimatedDuration);
-            $response->put('timestamp', $retrievedData->timestamp);
-            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData->url));
+            $response->put('estimated_duration', $retrievedData?->estimatedDuration);
+            $response->put('timestamp', $retrievedData?->timestamp);
+            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData?->url));
         }
 
         return response()->json($response);
