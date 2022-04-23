@@ -17,7 +17,7 @@ class AppStoreConnectController extends Controller
     {
         $payload = [
             'iss' => config('appstore.issuer_id'),
-            'exp' => time() + 120,
+            'exp' => time() + config('appstore.cache_duration') * 60,
             'aud' => 'appstoreconnect-v1'
         ];
 
