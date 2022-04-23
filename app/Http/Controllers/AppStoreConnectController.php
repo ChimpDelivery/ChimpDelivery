@@ -65,7 +65,7 @@ class AppStoreConnectController extends Controller
             'elephant_id',
             'elephant_secret'
         ]);
-        
+
         return response()->json($response);
     }
 

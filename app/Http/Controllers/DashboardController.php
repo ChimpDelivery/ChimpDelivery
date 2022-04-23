@@ -158,22 +158,15 @@ class DashboardController extends Controller
 
     public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
-        $bundleId = config('appstore.bundle_prefix') . '.' . $request->bundle_id;
-        $bundleList = app('App\Http\Controllers\AppStoreConnectController')
-            ->GetAllBundles($request)
-            ->getData()
-            ->bundle_ids;
-
-        if (in_array($bundleId, $bundleList))
+        $response = app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request)->getData();
+        if ($response->status->errors)
         {
             return to_route('create_bundle')
                 ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
                 ->withInput();
         }
 
-        app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request);
         session()->flash('success', "Bundle: com.Talus.{$request->bundle_id} created...");
-
         return to_route('get_app_list');
     }
 

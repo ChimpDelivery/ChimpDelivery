@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -89,11 +90,24 @@ class JenkinsController extends Controller
     {
         $app = is_null($appName) ? $request->projectName : $appName;
 
-        $url = $this->baseUrl."/job/{$app}/job/master/lastBuild/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
+        $url = $this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json";
+
+        try
+        {
+            $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+                ->timeout(5)
+                ->connectTimeout(2)
+                ->get($url);
+        }
+        catch (ConnectionException $exception)
+        {
+            $response = collect([
+                'jenkins_status' => false,
+                'job_exists' => false
+            ]);
+
+            return response()->json($response);
+        }
 
         $response = collect(['job_exists' => false]);
 
