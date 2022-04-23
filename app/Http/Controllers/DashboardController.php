@@ -103,7 +103,7 @@ class DashboardController extends Controller
                 ->GetLatestBuildInfo($request, $appName)
                 ->getData();
 
-            if ($appData->build_number == 1)
+            if ($appData->build_number == 1 && $appData->build_status != 'ABORTED')
             {
                 Artisan::call("jenkins:default-trigger {$request->id}");
                 session()->flash('success', "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!");

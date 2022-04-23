@@ -12,6 +12,14 @@ class JenkinsController extends Controller
 {
     private string $baseUrl;
 
+    private function GetJenkinsApi($url)
+    {
+        return Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url);
+    }
+
     public function __construct()
     {
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
@@ -20,42 +28,28 @@ class JenkinsController extends Controller
     public function GetJob(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
-
-        $url = $this->baseUrl."/job/{$app}/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
-        $jenkinsJobInfo = collect(json_decode($jenkinsInfo));
+        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$app}/api/json");
+        $response = collect(json_decode($jenkinsInfo));
 
         return response()->json([
-            'job' => $jenkinsJobInfo
+            'job' => $response
         ]);
     }
 
     public function GetJobList() : JsonResponse
     {
-        $url = $this->baseUrl.'/api/json';
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
-        $jenkinsJobList = collect(json_decode($jenkinsInfo)->jobs);
+        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl.'/api/json');
+        $response = collect(json_decode($jenkinsInfo)->jobs);
 
         return response()->json([
-            'job_list' => $jenkinsJobList->pluck('name')
+            'job_list' => $response->pluck('name')
         ]);
     }
 
     public function GetBuildList(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
-
-        $url = $this->baseUrl."/job/{$app}/job/master/api/json";
-        $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
+        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$app}/job/master/api/json");
         $retrievedData = json_decode($jenkinsInfo);
 
         // job doesn't exists.
@@ -66,8 +60,8 @@ class JenkinsController extends Controller
             ]);
         }
 
-        $jenkinsJobBuildList = collect();
-        $jenkinsJobBuildList = $jenkinsJobBuildList->merge($retrievedData?->builds);
+        $response = collect();
+        $response = $response->merge($retrievedData?->builds);
 
         // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
         if (isset($retrievedData->builds) && empty($retrievedData->builds))
@@ -78,26 +72,21 @@ class JenkinsController extends Controller
                 'url' => ''
             ]);
 
-            $jenkinsJobBuildList = $jenkinsJobBuildList->add($additionalBuildInfo);
+            $response = $response->add($additionalBuildInfo);
         }
 
         return response()->json([
-            'build_list' => $jenkinsJobBuildList
+            'build_list' => $response
         ]);
     }
 
     public function GetLatestBuildInfo(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
-
-        $url = $this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json";
-
+        
         try
         {
-            $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-                ->timeout(5)
-                ->connectTimeout(2)
-                ->get($url);
+            $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json");
         }
         catch (ConnectionException $exception)
         {
