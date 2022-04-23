@@ -118,8 +118,7 @@ class JenkinsController extends Controller
         ]);
     }
 
-    // todo: replace with master/lastBuild/
-    public function GetLatestBuildInfo(Request $request, $appName = null, $buildNumber = null) : JsonResponse
+    public function GetLatestBuildInfo(Request $request, $appName = null) : JsonResponse
     {
         if (!config('jenkins.enabled')) {
             return response()->json([
@@ -128,17 +127,8 @@ class JenkinsController extends Controller
         }
 
         $app = is_null($appName) ? $request->projectName : $appName;
-        $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
-        $isProjectValid = $this->GetLatestBuildNumber($request, $app)->getData();
-        if ($isProjectValid->latest_build_number == -1)
-        {
-            return response()->json([
-                'latest_build_status' => 'MISSING'
-            ]);
-        }
-
-        $url = $this->baseUrl."/job/{$app}/job/master/{$appBuildNumber}/api/json";
+        $url = $this->baseUrl."/job/{$app}/job/master/lastBuild/api/json";
         $jenkinsInfo = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
             ->timeout(5)
             ->connectTimeout(2)

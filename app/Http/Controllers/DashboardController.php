@@ -32,7 +32,7 @@ class DashboardController extends Controller
                 $item->latest_build_number = $appData->latest_build_number;
                 $item->latest_build_url = Str::replace('http://localhost:8080', config('jenkins.host'), $appData->jenkins_url);
 
-                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName, $appData->latest_build_number)->getData();
+                $buildStatus = app('App\Http\Controllers\JenkinsController')->GetLatestBuildInfo($request, $appName)->getData();
                 $item->latest_build_status = $buildStatus->latest_build_status;
 
                 if ($buildStatus->latest_build_status == 'BUILDING')
