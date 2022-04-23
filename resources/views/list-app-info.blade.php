@@ -98,83 +98,84 @@
                             </td>
                             <td class="text-center align-middle">
                                 <p>
-                                    @if (!$appInfo->job_exists)
+                                    @if ($appInfo->job_exists)
+                                        <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
+                                            {{ $appInfo->build_number }}
+                                        </a>
+
+                                        @switch ($appInfo->build_status)
+
+                                            @case ('ABORTED')
+                                                <h6 class="text-secondary font-weight-bold rounded">
+                                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                                    {{ $appInfo->build_status }}
+                                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                                </h6>
+                                            @break
+
+                                            @case ('BUILDING')
+                                                <div class="spinner-grow text-primary" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-success" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-danger" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-warning" role="status"><span class="sr-only">.</span></div>
+                                                <p class="text-muted font-weight-bold rounded">
+                                                    {{ $appInfo->build_status }}
+                                                    <br />
+                                                    <span class="font-weight-normal font-italic text-info">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                        {{ $appInfo->estimated_time }}
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    </span>
+                                                </p>
+                                            @break
+
+                                            @case ('SUCCESS')
+                                                <h6 class="text-success font-weight-bold rounded">
+                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                    {{ $appInfo->build_status }}
+                                                    <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
+                                                </h6>
+                                            @break
+
+                                            @case ('FAILURE')
+                                                <h6 class="text-danger font-weight-bold rounded">
+                                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                    {{ $appInfo->build_status }}
+                                                    <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
+                                                </h6>
+                                            @break
+
+                                            @case ('NO_BUILD')
+                                                @if ($appInfo->build_number != 1)
+                                                    <h6 class="text-secondary font-weight-bold rounded">
+                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                                                        {{ $appInfo->build_status }}
+                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                                                    </h6>
+                                                @endif
+                                            @break
+                                        @endswitch
+
+                                        @php
+                                            $commitCount = count($appInfo?->change_sets);
+                                            $commitHistory = '';
+
+                                            for ($i = 0; $i < $commitCount; ++$i)
+                                            {
+                                                $commitHistory .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
+                                            }
+                                        @endphp
+
+                                        @if (count($appInfo?->change_sets) > 0)
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="popover" title="Commit History ({{ $commitCount }})" data-html="true" data-content="{{ $commitHistory }}">Commits</button>
+                                        @endif
+                                    @else
                                         <h6 class="text-danger font-weight-bold rounded">
                                             <i class="fa fa-file-o" aria-hidden="true"></i>
                                             MISSING
                                             <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                         </h6>
-                                    @else
-                                        @if ($appInfo->build_number == 1)
-                                            <h6 class="text-primary font-weight-bold rounded">
-                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                                                FIRST BUILD
-                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
-                                            </h6>
-                                        @else
-                                            <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
-                                                {{ $appInfo->build_number }}
-                                            </a>
-                                        @endif
                                     @endif
-
-                                    @switch($appInfo->build_status)
-                                        @case('ABORTED')
-                                        <h6 class="text-secondary font-weight-bold rounded">
-                                            <i class="fa fa-ban" aria-hidden="true"></i>
-                                            {{ $appInfo->build_status }}
-                                            <i class="fa fa-ban" aria-hidden="true"></i>
-                                        </h6>
-                                        @break
-
-                                        @case('BUILDING')
-                                        <div class="spinner-grow text-primary" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-success" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-danger" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <div class="spinner-grow text-warning" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        <p class="text-muted font-weight-bold rounded">
-                                            {{ $appInfo->build_status }}
-                                            <br />
-                                            <span class="font-weight-normal font-italic text-info">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                {{ $appInfo->estimated_time }}
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            </span>
-                                        </p>
-                                        @break
-
-                                        @case('SUCCESS')
-                                        <h6 class="text-success font-weight-bold rounded">
-                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                            {{ $appInfo->build_status }}
-                                            <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                        @break
-
-                                        @case('FAILURE')
-                                        <h6 class="text-danger font-weight-bold rounded">
-                                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                            {{ $appInfo->build_status }}
-                                            <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                        @break
-                                    @endswitch
-
-                                    <span class="text-muted font-italic" style="font-size:0.8rem;">
-                                    @if(isset($appInfo->change_sets) && count($appInfo->change_sets) > 0)
-                                        @foreach(array_slice($appInfo->change_sets, 0, 3) as $change)
-                                            ({{ trim($change) }}) <br />
-                                        @endforeach
-                                    @endif
-                                    </span>
                                 </p>
                             </td>
                             <td class="text-center align-middle">
@@ -223,10 +224,14 @@
 
 @section('scripts')
     <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
         $(document).ready(function() {
             $('#exampleModal').on('show.bs.modal', function (event) {
 
-                resetValues();
+                resetBuildInputs();
 
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
@@ -237,16 +242,14 @@
                 setCookie('target_app_id', appId, 1);
 
                 updateLink(appId);
-
-                // Change modal title
-                // $(this).find(".modal-title").text(titleData);
             });
         });
 
         // reset modal inputs
-        function resetValues() {
-            document.getElementById('tf_version').value = '7.0';
-            document.getElementById('is_workspace').checked = false;
+        function resetBuildInputs() {
+            const tfVersion = {{ config('appstore.default_tf_version') }};
+            document.getElementById('tf_version').value = tfVersion.toFixed(1);
+            document.getElementById('is_workspace').checked = getCookie('target_is_ws');
         }
 
         function updateLink(appId) {
@@ -258,7 +261,8 @@
             var isWorkspace = document.getElementById('is_workspace').checked;
             console.log('is_workspace: ' + isWorkspace);
 
-            document.getElementById('build_link').href = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+            document.getElementById('build_link').href = buildUrl;
         }
     </script>
 @endsection

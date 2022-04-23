@@ -103,7 +103,7 @@ class JenkinsController extends Controller
             $retrievedData = json_decode($jenkinsInfo);
 
             $jobIsBuilding = $retrievedData?->building == true;
-            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$retrievedData ? 'NO BUILD' : $retrievedData->result);
+            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$retrievedData ? 'NO_BUILD' : $retrievedData->result);
 
             $lastBuildNumberData = $this->GetBuildList($request, $app)->getData();
             $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
