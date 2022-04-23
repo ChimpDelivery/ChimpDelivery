@@ -98,60 +98,28 @@
                             </td>
                             <td class="text-center align-middle">
                                 <p>
-                                    @if (config('jenkins.enabled') == false)
-                                        <h6 class="text-danger font-weight-bold rounded">
-                                            <i class="fa fa-power-off" aria-hidden="true"></i>
-                                                JENKINS DOWN
-                                            <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
-                                    @else
-                                        @if ($appInfo->latest_build_number == -1)
-                                            <h6 class="text-danger font-weight-bold rounded">
-                                                <i class="fa fa-file-o" aria-hidden="true"></i>
-                                                    MISSING
-                                                <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                            </h6>
-                                        @elseif ($appInfo->latest_build_number == -2)
-                                            <h6 class="text-danger font-weight-bold rounded">
-                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                                                    NO BUILD
-                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
-                                            </h6>
-                                        @elseif ($appInfo->latest_build_number == -3)
-                                            <h6 class="text-danger font-weight-bold rounded">
-                                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                                                FIRST BUILD
-                                                <i class="fa fa-minus-square-o fa-flip-horizontal" aria-hidden="true"></i>
-                                            </h6>
-                                        @else ($appInfo->latest_build_number != -1 && $appInfo->latest_build_number != -2)
-                                            <a class="text-dark font-weight-bold" href="{{ $appInfo->latest_build_url }}">
-                                                {{ $appInfo->latest_build_number }}
-                                            </a>
-                                        @endif
+                                    @if ($appInfo->job_exists)
+                                        <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
+                                            {{ $appInfo->build_number }}
+                                        </a>
 
-                                        @switch($appInfo->latest_build_status)
-                                            @case('ABORTED')
+                                        @switch ($appInfo->build_status)
+
+                                            @case ('ABORTED')
                                                 <h6 class="text-secondary font-weight-bold rounded">
                                                     <i class="fa fa-ban" aria-hidden="true"></i>
-                                                        {{ $appInfo->latest_build_status }}
+                                                    {{ $appInfo->build_status }}
                                                     <i class="fa fa-ban" aria-hidden="true"></i>
                                                 </h6>
-                                                @break
-                                            @case('BUILDING')
-                                                <div class="spinner-grow text-primary" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                                <div class="spinner-grow text-success" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                                <div class="spinner-grow text-danger" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                                <div class="spinner-grow text-warning" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
+                                            @break
+
+                                            @case ('BUILDING')
+                                                <div class="spinner-grow text-primary" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-success" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-danger" role="status"><span class="sr-only">.</span></div>
+                                                <div class="spinner-grow text-warning" role="status"><span class="sr-only">.</span></div>
                                                 <p class="text-muted font-weight-bold rounded">
-                                                    {{ $appInfo->latest_build_status }}
+                                                    {{ $appInfo->build_status }}
                                                     <br />
                                                     <span class="font-weight-normal font-italic text-info">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -159,38 +127,47 @@
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                     </span>
                                                 </p>
-                                                @break
-                                            @case('SUCCESS')
+                                            @break
+
+                                            @case ('SUCCESS')
                                                 <h6 class="text-success font-weight-bold rounded">
                                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                        {{ $appInfo->latest_build_status }}
+                                                    {{ $appInfo->build_status }}
                                                     <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
                                                 </h6>
-                                                @break
-                                            @case('FAILURE')
+                                            @break
+
+                                            @case ('FAILURE')
                                                 <h6 class="text-danger font-weight-bold rounded">
                                                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                                        {{ $appInfo->latest_build_status }}
+                                                    {{ $appInfo->build_status }}
                                                     <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
                                                 </h6>
-                                                @break
+                                            @break
+
+                                            @case ('NO_BUILD')
+                                                @if ($appInfo->build_number != 1)
+                                                    <h6 class="text-secondary font-weight-bold rounded">
+                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                                                        {{ $appInfo->build_status }}
+                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                                                    </h6>
+                                                @endif
+                                            @break
                                         @endswitch
-                                    @endif
-                                </p>
-                            </td>
-                            <td class="text-center align-middle">
-                                @if (config('jenkins.enabled'))
-                                    @if ($appInfo->latest_build_number != -1)
-                                        @if ($appInfo->latest_build_status != 'BUILDING')
-                                            <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal" data-target="#exampleModal" data-title="{{$appInfo->id}}">
-                                                <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
-                                            </button>
-                                        @else
-                                            <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->latest_build_number }}">
-                                                <button type="button" class="btn text-white bg-transparent">
-                                                    <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
-                                                </button>
-                                            </a>
+
+                                        @php
+                                            $commitCount = count($appInfo?->change_sets);
+                                            $commitHistory = '';
+
+                                            for ($i = 0; $i < $commitCount; ++$i)
+                                            {
+                                                $commitHistory .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
+                                            }
+                                        @endphp
+
+                                        @if (count($appInfo?->change_sets) > 0)
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="popover" title="Commit History ({{ $commitCount }})" data-html="true" data-content="{{ $commitHistory }}">Commits</button>
                                         @endif
                                     @else
                                         <h6 class="text-danger font-weight-bold rounded">
@@ -199,11 +176,26 @@
                                             <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                         </h6>
                                     @endif
+                                </p>
+                            </td>
+                            <td class="text-center align-middle">
+                                @if ($appInfo->job_exists)
+                                    @if ($appInfo->build_status != 'BUILDING')
+                                        <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal" data-target="#exampleModal" data-title="{{$appInfo->id}}">
+                                            <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
+                                        </button>
+                                    @else
+                                        <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->build_number }}">
+                                            <button type="button" class="btn text-white bg-transparent">
+                                                <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                                            </button>
+                                        </a>
+                                    @endif
                                 @else
                                     <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-power-off" aria-hidden="true"></i>
-                                            JENKINS DOWN
-                                        <i class="fa fa-power-off fa-flip-horizontal" aria-hidden="true"></i>
+                                        <i class="fa fa-file-o" aria-hidden="true"></i>
+                                        MISSING
+                                        <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
                                     </h6>
                                 @endif
                             </td>
@@ -232,10 +224,14 @@
 
 @section('scripts')
     <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
         $(document).ready(function() {
             $('#exampleModal').on('show.bs.modal', function (event) {
 
-                resetValues();
+                resetBuildInputs();
 
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
@@ -246,16 +242,14 @@
                 setCookie('target_app_id', appId, 1);
 
                 updateLink(appId);
-
-                // Change modal title
-                // $(this).find(".modal-title").text(titleData);
             });
         });
 
         // reset modal inputs
-        function resetValues() {
-            document.getElementById('tf_version').value = '7.0';
-            document.getElementById('is_workspace').checked = false;
+        function resetBuildInputs() {
+            const tfVersion = {{ config('appstore.default_tf_version') }};
+            document.getElementById('tf_version').value = tfVersion.toFixed(1);
+            document.getElementById('is_workspace').checked = getCookie('target_is_ws');
         }
 
         function updateLink(appId) {
@@ -267,7 +261,8 @@
             var isWorkspace = document.getElementById('is_workspace').checked;
             console.log('is_workspace: ' + isWorkspace);
 
-            document.getElementById('build_link').href = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+            document.getElementById('build_link').href = buildUrl;
         }
     </script>
 @endsection

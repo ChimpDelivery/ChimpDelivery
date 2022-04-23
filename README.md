@@ -80,7 +80,6 @@ GET  |  api/appstoreconnect/get-token
 GET  |  api/appstoreconnect/get-full-info
 GET  |  api/appstoreconnect/get-app-list
 GET  |  api/appstoreconnect/get-app-list/{id}
-GET  |  api/appstoreconnect/get-all-bundles
 GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
@@ -89,8 +88,7 @@ GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bund
 GET  |  api/jenkins/get-job-list
 GET  |  api/jenkins/get-job/{projectName}
 GET  |  api/jenkins/get-build-list/{projectName}
-GET  |  api/jenkins/get-latest-build-number/{projectName}
-GET  |  api/jenkins/get-latest-build-info/{projectName}/{buildNumber}
+GET  |  api/jenkins/get-latest-build-info/{projectName}
 GET  |  api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 

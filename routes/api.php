@@ -27,7 +27,6 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
-    Route::get('appstoreconnect/get-all-bundles', 'GetAllBundles');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/create-bundle', 'CreateBundle');
 });
@@ -36,11 +35,10 @@ Route::get('appstoreconnect/get-app-list/{id}', 'App\Http\Controllers\AppStoreCo
 
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
     // active endpoints
-    Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-job/{projectName}', 'GetJob');
+    Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list/{projectName}', 'GetBuildList');
-    Route::get('jenkins/get-latest-build-number/{projectName}', 'GetLatestBuildNumber');
-    Route::get('jenkins/get-latest-build-info/{projectName}/{buildNumber}', 'GetLatestBuildInfo');
+    Route::get('jenkins/get-latest-build-info/{projectName}', 'GetLatestBuildInfo');
     Route::get('jenkins/stop-job/{projectName}/{buildNumber}', 'PostStopJob');
 });
 
