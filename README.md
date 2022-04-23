@@ -80,7 +80,6 @@ GET  |  api/appstoreconnect/get-token
 GET  |  api/appstoreconnect/get-full-info
 GET  |  api/appstoreconnect/get-app-list
 GET  |  api/appstoreconnect/get-app-list/{id}
-GET  |  api/appstoreconnect/get-all-bundles
 GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 

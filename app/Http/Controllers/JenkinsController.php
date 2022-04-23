@@ -83,7 +83,7 @@ class JenkinsController extends Controller
     public function GetLatestBuildInfo(Request $request, $appName = null) : JsonResponse
     {
         $app = is_null($appName) ? $request->projectName : $appName;
-        
+
         try
         {
             $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json");
