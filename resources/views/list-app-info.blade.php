@@ -8,18 +8,20 @@
         <div class="card">
             <div class="card-header bg-dark text-white font-weight-bold">📱 Apps</div>
             <div class="card-body">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <table class="table table-striped table-borderless table-hover">
                         <thead>
                             <tr class="text-dark text-light">
-                                <th scope="col" class="text-center col-1">🆔</th>
-                                <th scope="col" class="text-center col-2">📱 App</th>
-                                <th scope="col" class="text-center col-2">🔎 Last Build</th>
-                                <th scope="col" class="text-center col-2">📲 Build</th>
-                                <th scope="col" class="text-center col-2">⚙ Edit</th>
+                                <th scope="col" class="text-sm-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top" title="ID"><span style="font-size:200%;">🆔</span></th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="App"><span style="font-size:200%;">📌</span></th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Build Status"><span style="font-size:200%;">🔍️</span></th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Build App"><span style="font-size:200%;">📲</span></th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update App"><span style="font-size:200%;">⚙</span></th>
                             </tr>
                         </thead>
-                        <tbody>@include('layouts.app-info-list')</tbody>
+                        <tbody>
+                            @include('layouts.app-info-list')
+                        </tbody>
                     </table>
                     <div class="d-flex justify-content-center">{{ $appInfos->links() }}</div>
                 </div>

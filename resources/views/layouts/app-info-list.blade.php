@@ -1,12 +1,10 @@
 @foreach($appInfos as $appInfo)
     <tr>
         <th scope="row"
-            class="text-center font-italic font-weight-light text-muted align-middle">
+            class="text-center font-italic font-weight-normal text-muted align-middle d-none d-sm-table-cell">
             #{{ $appInfo->id }}</th>
         <td class="text-center align-middle">
-            <div class="container">
-                @include('layouts.app-info')
-            </div>
+            @include('layouts.app-info')
         </td>
         <td class="text-center align-middle">
             @if ($appInfo->job_exists)
