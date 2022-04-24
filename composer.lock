@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.220.0",
+            "version": "3.220.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8beb098a2224742b2756e3b40a07593b1e6ff967"
+                "reference": "fbb2d7349916c15758ee02dfd001a714883a9adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8beb098a2224742b2756e3b40a07593b1e6ff967",
-                "reference": "8beb098a2224742b2756e3b40a07593b1e6ff967",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fbb2d7349916c15758ee02dfd001a714883a9adf",
+                "reference": "fbb2d7349916c15758ee02dfd001a714883a9adf",
                 "shasum": ""
             },
             "require": {
@@ -199,9 +199,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.220.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.220.3"
             },
-            "time": "2022-04-19T18:17:15+00:00"
+            "time": "2022-04-22T18:18:31+00:00"
         },
         {
             "name": "brick/math",
@@ -1199,16 +1199,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.1.1",
+            "version": "v6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "e67638d067a537731e3f9c03e097c7c1b1f31fe8"
+                "reference": "c297139da7c6873dbd67cbd1093f09ec0bbd0c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/e67638d067a537731e3f9c03e097c7c1b1f31fe8",
-                "reference": "e67638d067a537731e3f9c03e097c7c1b1f31fe8",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/c297139da7c6873dbd67cbd1093f09ec0bbd0c50",
+                "reference": "c297139da7c6873dbd67cbd1093f09ec0bbd0c50",
                 "shasum": ""
             },
             "require": {
@@ -1250,9 +1250,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.1.1"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.1.2"
             },
-            "time": "2022-04-13T23:27:14+00:00"
+            "time": "2022-04-21T14:37:18+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -1458,27 +1458,27 @@
         },
         {
             "name": "graham-campbell/bounded-cache",
-            "version": "v1.1.3",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Bounded-Cache.git",
-                "reference": "cbb12c2d7b2f93f4d8c2a1e46e16fb1e5842c92b"
+                "reference": "b55815b1f89ebff32597672164c5fe55d5e9daf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Bounded-Cache/zipball/cbb12c2d7b2f93f4d8c2a1e46e16fb1e5842c92b",
-                "reference": "cbb12c2d7b2f93f4d8c2a1e46e16fb1e5842c92b",
+                "url": "https://api.github.com/repos/GrahamCampbell/Bounded-Cache/zipball/b55815b1f89ebff32597672164c5fe55d5e9daf3",
+                "reference": "b55815b1f89ebff32597672164c5fe55d5e9daf3",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5 || ^8.0",
-                "psr/simple-cache": "^1.0"
+                "php": "^7.4.15 || ^8.0.2",
+                "psr/simple-cache": "^1.0 || ^2.0"
             },
             "require-dev": {
-                "graham-campbell/analyzer": "^3.0",
-                "graham-campbell/testbench-core": "^3.1",
-                "mockery/mockery": "^1.3.2",
-                "phpunit/phpunit": "^8.5.8 || ^9.3.7"
+                "graham-campbell/analyzer": "^3.1",
+                "graham-campbell/testbench-core": "^3.4",
+                "mockery/mockery": "^1.5",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -1509,7 +1509,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Bounded-Cache/issues",
-                "source": "https://github.com/GrahamCampbell/Bounded-Cache/tree/v1.1.3"
+                "source": "https://github.com/GrahamCampbell/Bounded-Cache/tree/1.2"
             },
             "funding": [
                 {
@@ -1521,7 +1521,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-21T20:48:45+00:00"
+            "time": "2022-02-06T16:07:25+00:00"
         },
         {
             "name": "graham-campbell/github",
@@ -3435,16 +3435,16 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "f962321d81169f0cd9832aa10d083f022f1ada3e"
+                "reference": "84e689ed0daeedb0a20e8aaff6aa2f6ac365256c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/f962321d81169f0cd9832aa10d083f022f1ada3e",
-                "reference": "f962321d81169f0cd9832aa10d083f022f1ada3e",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/84e689ed0daeedb0a20e8aaff6aa2f6ac365256c",
+                "reference": "84e689ed0daeedb0a20e8aaff6aa2f6ac365256c",
                 "shasum": ""
             },
             "require": {
@@ -3501,7 +3501,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v1.7.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v1.8.0"
             },
             "funding": [
                 {
@@ -3517,7 +3517,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-30T11:19:29+00:00"
+            "time": "2022-04-22T12:02:12+00:00"
         },
         {
             "name": "php-http/cache-plugin",
@@ -4465,25 +4465,25 @@
         },
         {
             "name": "psr/simple-cache",
-            "version": "1.0.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/simple-cache.git",
-                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
+                "reference": "8707bf3cea6f710bf6ef05491234e3ab06f6432a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
-                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/8707bf3cea6f710bf6ef05491234e3ab06f6432a",
+                "reference": "8707bf3cea6f710bf6ef05491234e3ab06f6432a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -4498,7 +4498,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for simple caching",
@@ -4510,9 +4510,9 @@
                 "simple-cache"
             ],
             "support": {
-                "source": "https://github.com/php-fig/simple-cache/tree/master"
+                "source": "https://github.com/php-fig/simple-cache/tree/2.0.0"
             },
-            "time": "2017-10-23T01:57:42+00:00"
+            "time": "2021-10-29T13:22:09+00:00"
         },
         {
             "name": "psy/psysh",
@@ -4875,21 +4875,21 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.12.0",
+            "version": "3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173"
+                "reference": "f1a0f464ba909491a53e60a955ce84ad7cd93a2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/c0180f1de7c5d06e4b84efbc751ea19167140173",
-                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/f1a0f464ba909491a53e60a955ce84ad7cd93a2c",
+                "reference": "f1a0f464ba909491a53e60a955ce84ad7cd93a2c",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.4 || ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "fakerphp/faker": "^1.9.1",
@@ -4947,7 +4947,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-05T09:44:52+00:00"
+            "time": "2022-04-22T08:51:55+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -10792,16 +10792,16 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.2.7",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2"
+                "reference": "db25202fab2d5c14613b8914a1bb374998bbf870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2",
-                "reference": "2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/db25202fab2d5c14613b8914a1bb374998bbf870",
+                "reference": "db25202fab2d5c14613b8914a1bb374998bbf870",
                 "shasum": ""
             },
             "require": {
@@ -10858,7 +10858,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-29T08:48:34+00:00"
+            "time": "2022-04-23T20:37:21+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
