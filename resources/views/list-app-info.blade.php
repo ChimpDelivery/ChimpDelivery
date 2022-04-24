@@ -3,161 +3,124 @@
 @section('title', 'Apps')
 
 @section('content')
-<div class="container py-2">
-    <!-- Modal_Start !-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Build Information
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="git_branch">Git Branch</label>
+    <div class="container py-2">
+        @include('layouts.build-modal')
 
-                        <div class="dropdown">
-                            <input type="text" id="git_branch" name="git_branch" class="form-control" value="" hidden>
-
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                master
-                            </button>
-
-                            <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                                <input type="text" id="git_branch_name" name="git_branch_name" hidden>
-                                <a class="dropdown-item" href="#">{{ __('master') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tf_version">Test-Flight Version</label>
-                        <input oninput="updateLink()" type="text" id="tf_version" name="tf_version" class="form-control" required="" value="{{ config('appstore.default_tf_version') }}">
-                    </div>
-                    <div class="form-check">
-                        <input onchange="updateLink()" class="form-check-input" type="checkbox" value="" id="is_workspace">
-                        <label class="form-check-label" for="is_workspace">
-                            Is Workspace
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <a id="build_link" href="dashboard/build-app/">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Build</button>
-                    </a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-window-close" aria-hidden="true"></i> Close</button>
-                </div>
+        <div class="card">
+            <div class="card-header bg-dark text-white font-weight-bold">
+                📱 Apps
             </div>
-        </div>
-    </div>
-    <!-- Modal_End !-->
-
-    <div class="card">
-        <div class="card-header bg-dark text-white font-weight-bold">
-            📱 Apps
-        </div>
-        <div class="card-body">
-            <div class="table-responsive-sm">
-                <table class="table table-striped table-borderless table-hover">
-                    <thead>
+            <div class="card-body">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-borderless table-hover">
+                        <thead>
                         <tr class="text-dark text-light">
-                            <th scope="col" class="text-center col-1">🆔 </th>
+                            <th scope="col" class="text-center col-1">🆔</th>
                             <th scope="col" class="text-center col-2">📱 App</th>
                             <th scope="col" class="text-center col-2">🔎 Last Build</th>
                             <th scope="col" class="text-center col-2">📲 Build</th>
                             <th scope="col" class="text-center col-2">⚙ Edit</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         @foreach($appInfos as $appInfo)
-                        <tr>
-                            <th scope="row" class="text-center font-italic font-weight-light text-muted align-middle">#{{ $appInfo->id }}</th>
-                            <td class="text-center align-middle">
-                                <div class="container">
-                                    <div class="col">
-                                        @if (file_exists(public_path("images/app-icons/{$appInfo->app_icon}")) && !empty($appInfo->app_icon))
-                                            <img src="{{ asset('images/app-icons/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
-                                        @else
-                                            <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
-                                        @endif
-                                    </div>
-                                    <div class="col">
-                                        <a class="text-dark font-weight-bold" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
-                                            {{ $appInfo->app_name }}
-                                        </a>
-                                        <p>
-                                            <a class="text-muted" href="{{ $appInfo->git_url }}">
-                                                (Github)
+                            <tr>
+                                <th scope="row"
+                                    class="text-center font-italic font-weight-light text-muted align-middle">
+                                    #{{ $appInfo->id }}</th>
+                                <td class="text-center align-middle">
+                                    <div class="container">
+                                        <div class="col">
+                                            @if (file_exists(public_path("images/app-icons/{$appInfo->app_icon}")) && !empty($appInfo->app_icon))
+                                                <img src="{{ asset('images/app-icons/'.$appInfo->app_icon) }}"
+                                                     width="100px" height="100px" alt="..." class="img-thumbnail"/>
+                                            @else
+                                                <img src="{{ asset('Talus_icon.ico') }}" width="100px" height="100px"
+                                                     alt="..." class="img-thumbnail"/>
+                                            @endif
+                                        </div>
+                                        <div class="col">
+                                            <a class="text-dark font-weight-bold"
+                                                href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
+                                                {{ $appInfo->app_name }}
                                             </a>
-                                        </p>
+                                            <p>
+                                                <a class="text-muted" href="{{ $appInfo->git_url }}">
+                                                    (Github)
+                                                </a>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="text-center align-middle">
-                                @if ($appInfo->job_exists)
-                                    @if ($appInfo->build_status == 'BUILDING')
-                                        <p>
-                                            <div class="spinner-grow text-primary" role="status"><span class="sr-only">.</span></div>
-                                            <div class="spinner-grow text-success" role="status"><span class="sr-only">.</span></div>
-                                            <div class="spinner-grow text-danger" role="status"><span class="sr-only">.</span></div>
-                                            <div class="spinner-grow text-warning" role="status"><span class="sr-only">.</span></div>
-                                        </p>
-                                    @endif
+                                </td>
+                                <td class="text-center align-middle">
+                                    @if ($appInfo->job_exists)
+                                        @if ($appInfo->build_status == 'BUILDING')
+                                            <p>
+                                            <div class="spinner-grow text-primary" role="status"><span
+                                                    class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-success" role="status"><span
+                                                    class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-danger" role="status"><span
+                                                    class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-warning" role="status"><span
+                                                    class="sr-only">.</span></div>
+                                            </p>
+                                        @endif
 
-                                    @include('layouts.commit-button')
-                                @else
-                                    <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-file-o" aria-hidden="true"></i>
-                                        MISSING
-                                        <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                    </h6>
-                                @endif
-                            </td>
-                            <td class="text-center align-middle">
-                                @if ($appInfo->job_exists)
-                                    @if ($appInfo->build_status != 'BUILDING')
-                                        <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal" data-target="#exampleModal" data-title="{{$appInfo->id}}">
-                                            <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
-                                        </button>
+                                        @include('layouts.build-button')
                                     @else
-                                        <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->build_number }}">
-                                            <button type="button" class="btn text-white bg-transparent">
-                                                <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
-                                            </button>
-                                        </a>
+                                        <h6 class="text-danger font-weight-bold rounded">
+                                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                                            MISSING
+                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
+                                        </h6>
                                     @endif
-                                @else
-                                    <h6 class="text-danger font-weight-bold rounded">
-                                        <i class="fa fa-file-o" aria-hidden="true"></i>
-                                        MISSING
-                                        <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                    </h6>
-                                @endif
-                            </td>
-                            <td class="text-center align-middle">
-                                <a href="dashboard/update-app-info/{{ $appInfo->id }}">
-                                    <button class="btn text-white bg-transparent">
-                                        <i style="font-size:2em;" class="fa fa-pencil-square-o text-primary"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="text-center align-middle">
+                                    @if ($appInfo->job_exists)
+                                        @if ($appInfo->build_status != 'BUILDING')
+                                            <button id="build_button" type="button"
+                                                    class="btn text-white bg-transparent" data-toggle="modal"
+                                                    data-target="#exampleModal" data-title="{{$appInfo->id}}">
+                                                <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
+                                            </button>
+                                        @else
+                                            <a onclick="return confirm('Are you sure?')"
+                                                href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->build_number }}">
+                                                <button type="button" class="btn text-white bg-transparent">
+                                                    <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                                                </button>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <h6 class="text-danger font-weight-bold rounded">
+                                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                                            MISSING
+                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
+                                        </h6>
+                                    @endif
+                                </td>
+                                <td class="text-center align-middle">
+                                    <a href="dashboard/update-app-info/{{ $appInfo->id }}">
+                                        <button class="btn text-white bg-transparent">
+                                            <i style="font-size:2em;" class="fa fa-pencil-square-o text-primary"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                         @endforeach
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-                    {{ $appInfos->links() }}
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $appInfos->links() }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-footer text-muted">
-            📌 Total app count: {{ $appInfos->count() }}
+            <div class="card-footer text-muted">
+                📌 Total app count: {{ $appInfos->count() }}
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
@@ -166,7 +129,7 @@
             $('[data-toggle="popover"]').popover()
         })
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#exampleModal').on('show.bs.modal', function (event) {
 
                 resetBuildInputs();
