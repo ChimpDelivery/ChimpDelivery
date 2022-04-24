@@ -97,86 +97,24 @@
                                 </div>
                             </td>
                             <td class="text-center align-middle">
-                                <p>
-                                    @if ($appInfo->job_exists)
-                                        <a class="text-dark font-weight-bold" href="{{ $appInfo->jenkins_url }}">
-                                            {{ $appInfo->build_number }}
-                                        </a>
-
-                                        @switch ($appInfo->build_status)
-
-                                            @case ('ABORTED')
-                                                <h6 class="text-secondary font-weight-bold rounded">
-                                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                                    {{ $appInfo->build_status }}
-                                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                                </h6>
-                                            @break
-
-                                            @case ('BUILDING')
-                                                <div class="spinner-grow text-primary" role="status"><span class="sr-only">.</span></div>
-                                                <div class="spinner-grow text-success" role="status"><span class="sr-only">.</span></div>
-                                                <div class="spinner-grow text-danger" role="status"><span class="sr-only">.</span></div>
-                                                <div class="spinner-grow text-warning" role="status"><span class="sr-only">.</span></div>
-                                                <p class="text-muted font-weight-bold rounded">
-                                                    {{ $appInfo->build_status }}
-                                                    <br />
-                                                    <span class="font-weight-normal font-italic text-info">
-                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                        {{ $appInfo->estimated_time }}
-                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                    </span>
-                                                </p>
-                                            @break
-
-                                            @case ('SUCCESS')
-                                                <h6 class="text-success font-weight-bold rounded">
-                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                    {{ $appInfo->build_status }}
-                                                    <i class="fa fa-thumbs-o-up fa-flip-horizontal" aria-hidden="true"></i>
-                                                </h6>
-                                            @break
-
-                                            @case ('FAILURE')
-                                                <h6 class="text-danger font-weight-bold rounded">
-                                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                                    {{ $appInfo->build_status }}
-                                                    <i class="fa fa-thumbs-o-down fa-flip-horizontal" aria-hidden="true"></i>
-                                                </h6>
-                                            @break
-
-                                            @case ('NO_BUILD')
-                                                @if ($appInfo->build_number != 1)
-                                                    <h6 class="text-secondary font-weight-bold rounded">
-                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
-                                                        {{ $appInfo->build_status }}
-                                                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
-                                                    </h6>
-                                                @endif
-                                            @break
-                                        @endswitch
-
-                                        @php
-                                            $commitCount = count($appInfo?->change_sets);
-                                            $commitHistory = '';
-
-                                            for ($i = 0; $i < $commitCount; ++$i)
-                                            {
-                                                $commitHistory .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
-                                            }
-                                        @endphp
-
-                                        @if (count($appInfo?->change_sets) > 0)
-                                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="popover" title="Commit History ({{ $commitCount }})" data-html="true" data-content="{{ $commitHistory }}">Commits</button>
-                                        @endif
-                                    @else
-                                        <h6 class="text-danger font-weight-bold rounded">
-                                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                                            MISSING
-                                            <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
-                                        </h6>
+                                @if ($appInfo->job_exists)
+                                    @if ($appInfo->build_status == 'BUILDING')
+                                        <p>
+                                            <div class="spinner-grow text-primary" role="status"><span class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-success" role="status"><span class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-danger" role="status"><span class="sr-only">.</span></div>
+                                            <div class="spinner-grow text-warning" role="status"><span class="sr-only">.</span></div>
+                                        </p>
                                     @endif
-                                </p>
+
+                                    @include('layouts.commit-button')
+                                @else
+                                    <h6 class="text-danger font-weight-bold rounded">
+                                        <i class="fa fa-file-o" aria-hidden="true"></i>
+                                        MISSING
+                                        <i class="fa fa-file-o fa-flip-horizontal" aria-hidden="true"></i>
+                                    </h6>
+                                @endif
                             </td>
                             <td class="text-center align-middle">
                                 @if ($appInfo->job_exists)
@@ -200,7 +138,7 @@
                                 @endif
                             </td>
                             <td class="text-center align-middle">
-                                <a href="dashboard/update-app-info/{{$appInfo->id}}">
+                                <a href="dashboard/update-app-info/{{ $appInfo->id }}">
                                     <button class="btn text-white bg-transparent">
                                         <i style="font-size:2em;" class="fa fa-pencil-square-o text-primary"></i>
                                     </button>
