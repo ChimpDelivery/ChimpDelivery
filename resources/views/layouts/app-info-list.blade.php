@@ -21,7 +21,7 @@
         <td class="text-center align-middle">
             <a href="dashboard/update-app-info/{{ $appInfo->id }}">
                 <button class="btn text-white bg-transparent">
-                    <span style="font-size:2em;">⚙</span>
+                    <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" style="font-size:2em;"></i>
                 </button>
             </a>
         </td>

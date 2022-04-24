@@ -6,17 +6,33 @@
     <div class="container py-2">
         @include('layouts.build-modal')
         <div class="card">
-            <div class="card-header bg-dark text-white font-weight-bold">📱 Apps</div>
+            <div class="card-header bg-dark text-white font-weight-bold">
+                <span class="fa-stack fa-lg">
+                    <i class="fa fa-square-o fa-stack-2x"></i>
+                    <i class="fa fa-database fa-stack-1x"></i>
+                </span>
+                Talus Apps
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-borderless table-hover">
                         <thead>
                             <tr class="text-dark text-light">
-                                <th scope="col" class="text-sm-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top" title="ID"><span style="font-size:2em;">🆔</span></th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="App"><span style="font-size:2em;">📌</span></th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Build Status"><span style="font-size:2em;">🔍️</span></th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Build App"><span style="font-size:2em;">📲</span></th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update App"><span style="font-size:2em;">⚙</span></th>
+                                <th scope="col" class="text-sm-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top" title="ID">
+                                    <i class="fa fa-key" aria-hidden="true" style="font-size:2em;"></i>
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="App">
+                                    <i class="fa fa-apple" aria-hidden="true" style="font-size:2em;"></i>
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Build Status">
+                                    <i class="fa fa-flag" aria-hidden="true" style="font-size:2em;"></i>
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Build App">
+                                    <i class="fa fa-cloud-upload" aria-hidden="true" style="font-size:2em;"></i>
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update App">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:2em;"></i>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +42,10 @@
                     <div class="d-flex justify-content-center">{{ $appInfos->links() }}</div>
                 </div>
             </div>
-            <div class="card-footer text-muted">📌 Total app count: {{ $appInfos->count() }}</div>
+            <div class="card-footer text-muted">
+                <i class="fa fa-hashtag" aria-hidden="true"></i>
+                <span>Total app count: {{ $appInfos->count() }}</span>
+            </div>
         </div>
     </div>
 @endsection

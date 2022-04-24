@@ -6,7 +6,11 @@
 <div class="container py-2">
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
-            📦 Create Bundle Identifier
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-tag fa-stack-1x"></i>
+            </span>
+            Create Bundle ID
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{url('dashboard/store-bundle')}}">
@@ -30,7 +34,8 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            📌 After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            <i class="fa fa-hashtag" aria-hidden="true"></i>
+            After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
 </div>

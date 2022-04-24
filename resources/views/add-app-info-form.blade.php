@@ -6,7 +6,11 @@
 <div class="container py-2">
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
-            📲 Create App
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-apple fa-stack-1x"></i>
+            </span>
+            Create App
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}" enctype="multipart/form-data">
@@ -75,7 +79,8 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            📌 If you don't see the bundle id in the list, make sure there is an app using that bundle id on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            <i class="fa fa-hashtag" aria-hidden="true"></i>
+            If you don't see the bundle id in the list, make sure there is an app using that bundle id on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
 </div>
