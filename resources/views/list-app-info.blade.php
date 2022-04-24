@@ -37,6 +37,10 @@
             $('[data-toggle="popover"]').popover()
         })
 
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+
         $(document).ready(function () {
             $('#exampleModal').on('show.bs.modal', function (event) {
 

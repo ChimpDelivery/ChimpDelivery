@@ -19,13 +19,15 @@
 @endphp
 
 <div>
-    <button type="button"
-            class="btn btn-sm {{ $backgroundColor }}"
-            data-toggle="popover"
-            title="Build: {{ $appInfo->build_number }}"
-            data-html="true"
-            data-placement="bottom"
-            data-content="{{ $commitHistory }}">
+    <a tabindex="0"
+        class="btn btn-sm {{ $backgroundColor }}"
+        role="button"
+        title="Build: {{ $appInfo->build_number }}"
+        data-trigger="focus"
+        data-toggle="popover"
+        data-html="true"
+        data-placement="bottom"
+        data-content="{{ $commitHistory }}">
         {{ $appInfo->build_status }}
-    </button>
+    </a>
 </div>
