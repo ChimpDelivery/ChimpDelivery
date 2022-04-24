@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\ResponseCache\Facades\ResponseCache;
+
 use App\Http\Requests\AppInfoRequest;
 use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
@@ -12,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
-use Spatie\ResponseCache\Facades\ResponseCache;
 
 class DashboardController extends Controller
 {

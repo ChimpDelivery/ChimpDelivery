@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppInfo;
-
 use Firebase\JWT\JWT;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;

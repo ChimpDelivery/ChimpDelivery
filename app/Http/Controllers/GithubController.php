@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Github\Exception\RuntimeException;
+
 use GrahamCampbell\GitHub\Facades\GitHub;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
