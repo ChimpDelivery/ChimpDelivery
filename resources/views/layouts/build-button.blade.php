@@ -1,30 +1,18 @@
-@php
-    $backgroundColor = match ($appInfo->build_status)
-    {
-        'BUILDING' => 'btn-primary font-weight-bold',
-        'SUCCESS' => 'btn-success font-weight-bold',
-        'FAILURE' => 'btn-danger font-weight-bold',
-        default => 'btn-secondary font-weight-bold'
-    };
-@endphp
-
-@php
-    $commitCount = count($appInfo?->change_sets);
-    $commitHistory = $appInfo->build_status == 'BUILDING' ? '<span class=text-primary>Estimated finish: ' . $appInfo->estimated_time . '</span>' : '';
-
-    for ($i = 0; $i < $commitCount; ++$i)
-    {
-        $commitHistory .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
-    }
-@endphp
-
-<div>
-    <button type="button"
-            class="btn btn-sm {{ $backgroundColor }}"
-            data-toggle="popover"
-            title="Build: {{ $appInfo->build_number }}"
-            data-html="true"
-            data-content="{{ $commitHistory }}">
-        {{ $appInfo->build_status }}
-    </button>
-</div>
+@if ($appInfo->job_exists)
+    @if ($appInfo->build_status != 'BUILDING')
+        <button id="build_button" type="button"
+                class="btn text-white bg-transparent" data-toggle="modal"
+                data-target="#exampleModal" data-title="{{$appInfo->id}}">
+            <i style="font-size:2em;" class="fa fa-cloud-upload text-success"></i>
+        </button>
+    @else
+        <a onclick="return confirm('Are you sure?')"
+           href="dashboard/stop-job/{{ $appInfo->project_name }}/{{ $appInfo->build_number }}">
+            <button type="button" class="btn text-white bg-transparent">
+                <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+            </button>
+        </a>
+    @endif
+@else
+    @include('layouts.jenkinsfile-notfound')
+@endif
