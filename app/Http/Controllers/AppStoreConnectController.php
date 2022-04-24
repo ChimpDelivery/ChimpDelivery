@@ -56,19 +56,6 @@ class AppStoreConnectController extends Controller
         return response()->json($apps);
     }
 
-    public function GetSpecificApp(Request $request) : JsonResponse
-    {
-        $response = AppInfo::find($request->id, [
-            'app_bundle',
-            'app_name',
-            'fb_app_id',
-            'elephant_id',
-            'elephant_secret'
-        ]);
-
-        return response()->json($response);
-    }
-
     public function GetBuildList(Request $request) : JsonResponse
     {
         $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)

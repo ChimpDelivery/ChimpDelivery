@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfoRequest;
-
 use App\Models\AppInfo;
 
 use Illuminate\Http\Request;
@@ -11,52 +9,16 @@ use Illuminate\Http\JsonResponse;
 
 class AppInfoController extends Controller
 {
-    public function Index(Request $request)
+    public function GetSpecificApp(Request $request) : JsonResponse
     {
-        return response()->json([
-            'not_implemented' => true
+        $response = AppInfo::find($request->id, [
+            'app_bundle',
+            'app_name',
+            'fb_app_id',
+            'elephant_id',
+            'elephant_secret'
         ]);
-    }
 
-    public function Create(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
-    }
-
-    public function Store(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
-    }
-
-    public function Show(Request $request): JsonResponse
-    {
-        return response()->json([
-            'app_info' => AppInfo::find($request->id)
-        ]);
-    }
-
-    public function Edit(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
-    }
-
-    public function Update(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
-    }
-
-    public function Destroy(AppInfoRequest $request)
-    {
-        return response()->json([
-            'not_implemented' => true
-        ]);
+        return response()->json($response);
     }
 }
