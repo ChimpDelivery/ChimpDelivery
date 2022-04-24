@@ -18,7 +18,7 @@
     }
 @endphp
 
-<div>
+<div class="container">
     <a tabindex="0"
         class="btn btn-sm {{ $backgroundColor }}"
         role="button"

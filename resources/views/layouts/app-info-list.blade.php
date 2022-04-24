@@ -1,8 +1,6 @@
 @foreach($appInfos as $appInfo)
     <tr>
-        <th scope="row"
-            class="text-center font-italic font-weight-normal text-muted align-middle d-none d-sm-table-cell">
-            #{{ $appInfo->id }}</th>
+        <th scope="row" class="text-center font-italic font-weight-normal text-muted align-middle d-none d-sm-table-cell">#{{ $appInfo->id }}</th>
         <td class="text-center align-middle">
             @include('layouts.app-info')
         </td>
@@ -23,7 +21,7 @@
         <td class="text-center align-middle">
             <a href="dashboard/update-app-info/{{ $appInfo->id }}">
                 <button class="btn text-white bg-transparent">
-                    <i style="font-size:2em;" class="fa fa-pencil-square-o text-primary"></i>
+                    <span style="font-size:2em;">⚙</span>
                 </button>
             </a>
         </td>
