@@ -24,6 +24,7 @@
             data-toggle="popover"
             title="Build: {{ $appInfo->build_number }}"
             data-html="true"
+            data-placement="bottom"
             data-content="{{ $commitHistory }}">
         {{ $appInfo->build_status }}
     </button>
