@@ -4,14 +4,13 @@
              width="100px" height="100px"
              alt="..." class="img-thumbnail"/>
     @else
-        <img src="{{ asset('Talus_icon.ico') }}" class="img-fluid" alt="..." style="max-width:50px;"/>
+        <a class="text-muted" href="{{ $appInfo->git_url }}">
+            <img src="{{ asset('Talus_icon.ico') }}" class="img-fluid" alt="..." style="max-width:50px;"/>
+        </a>
     @endif
 </div>
 <div class="container text-center">
     <a class="text-dark font-weight-bold" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
         {{ $appInfo->app_name }}
     </a>
-    <p>
-        <a class="text-muted" href="{{ $appInfo->git_url }}">(Github)</a>
-    </p>
 </div>
