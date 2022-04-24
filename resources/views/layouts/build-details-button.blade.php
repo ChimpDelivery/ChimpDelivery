@@ -22,7 +22,7 @@
     <a tabindex="0"
         class="btn btn-sm {{ $backgroundColor }}"
         role="button"
-        title="Build: {{ $appInfo->build_number }}"
+        title="Build Number: {{ $appInfo->build_number }}"
         data-trigger="focus"
         data-toggle="popover"
         data-html="true"
