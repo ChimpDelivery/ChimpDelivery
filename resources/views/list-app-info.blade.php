@@ -5,35 +5,26 @@
 @section('content')
     <div class="container py-2">
         @include('layouts.build-modal')
-
         <div class="card">
-            <div class="card-header bg-dark text-white font-weight-bold">
-                📱 Apps
-            </div>
+            <div class="card-header bg-dark text-white font-weight-bold">📱 Apps</div>
             <div class="card-body">
                 <div class="table-responsive-sm">
                     <table class="table table-striped table-borderless table-hover">
                         <thead>
-                        <tr class="text-dark text-light">
-                            <th scope="col" class="text-center col-1">🆔</th>
-                            <th scope="col" class="text-center col-2">📱 App</th>
-                            <th scope="col" class="text-center col-2">🔎 Last Build</th>
-                            <th scope="col" class="text-center col-2">📲 Build</th>
-                            <th scope="col" class="text-center col-2">⚙ Edit</th>
-                        </tr>
+                            <tr class="text-dark text-light">
+                                <th scope="col" class="text-center col-1">🆔</th>
+                                <th scope="col" class="text-center col-2">📱 App</th>
+                                <th scope="col" class="text-center col-2">🔎 Last Build</th>
+                                <th scope="col" class="text-center col-2">📲 Build</th>
+                                <th scope="col" class="text-center col-2">⚙ Edit</th>
+                            </tr>
                         </thead>
-                        <tbody>
-                            @include('layouts.app-info-list')
-                        </tbody>
+                        <tbody>@include('layouts.app-info-list')</tbody>
                     </table>
-                    <div class="d-flex justify-content-center">
-                        {{ $appInfos->links() }}
-                    </div>
+                    <div class="d-flex justify-content-center">{{ $appInfos->links() }}</div>
                 </div>
             </div>
-            <div class="card-footer text-muted">
-                📌 Total app count: {{ $appInfos->count() }}
-            </div>
+            <div class="card-footer text-muted">📌 Total app count: {{ $appInfos->count() }}</div>
         </div>
     </div>
 @endsection
