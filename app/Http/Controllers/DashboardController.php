@@ -14,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
-
 class DashboardController extends Controller
 {
     public function Index(Request $request) : View
@@ -74,7 +73,7 @@ class DashboardController extends Controller
             ->firstOrNew()
         );
 
-        session()->flash('success', "App: {$request->app_name} created...");
+        session()->flash('success', "App: {$request->app_name} created.");
 
         return to_route('get_app_list');
     }
@@ -137,13 +136,8 @@ class DashboardController extends Controller
 
     public function DeleteApp(Request $request) : RedirectResponse
     {
-        $appInfo = AppInfo::find($request->id);
-
-        if ($appInfo)
-        {
-            $appInfo->delete();
-            session()->flash('success', "App: {$appInfo->app_name} deleted...");
-        }
+        $deleteAppResponse = app('App\Http\Controllers\AppInfoController')->DeleteApp($request)->getData();
+        session()->flash('success', $deleteAppResponse->message);
 
         return to_route('get_app_list');
     }

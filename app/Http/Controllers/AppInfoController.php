@@ -6,6 +6,7 @@ use App\Models\AppInfo;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class AppInfoController extends Controller
 {
@@ -20,5 +21,20 @@ class AppInfoController extends Controller
         ]);
 
         return response()->json($response);
+    }
+
+    public function DeleteApp(Request $request) : JsonResponse
+    {
+        $appInfo = AppInfo::find($request->id);
+
+        if ($appInfo)
+        {
+            $appInfo->delete();
+            return response()->json(['message' => "App: {$appInfo->app_name} deleted."])
+                ->setStatusCode(Response::HTTP_ACCEPTED);
+        }
+
+        return response()->json(['message' => 'App not found!'])
+            ->setStatusCode(Response::HTTP_FORBIDDEN);
     }
 }
