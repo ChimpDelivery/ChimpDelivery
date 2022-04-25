@@ -14,14 +14,6 @@ class JenkinsController extends Controller
 {
     private string $baseUrl;
 
-    private function GetJenkinsApi($url)
-    {
-        return Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
-            ->get($url);
-    }
-
     public function __construct()
     {
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
@@ -31,20 +23,18 @@ class JenkinsController extends Controller
     {
         $jobName = is_null($job) ? $request->projectName : $job;
         $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
-        $response = collect(json_decode($jenkinsInfo));
 
         return response()->json([
-            'job' => $response
+            'job' => collect($jenkinsInfo)
         ]);
     }
 
     public function GetJobList() : JsonResponse
     {
         $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl.'/api/json');
-        $response = collect(json_decode($jenkinsInfo)->jobs);
 
         return response()->json([
-            'job_list' => $response->pluck('name')
+            'job_list' => collect($jenkinsInfo->jobs)->pluck('name')
         ]);
     }
 
@@ -52,10 +42,9 @@ class JenkinsController extends Controller
     {
         $jobName = is_null($job) ? $request->projectName : $job;
         $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/job/master/api/json");
-        $retrievedData = json_decode($jenkinsInfo);
 
         // job doesn't exists.
-        if (!$retrievedData)
+        if (!$jenkinsInfo)
         {
             return response()->json([
                 'build_list' => null
@@ -63,14 +52,14 @@ class JenkinsController extends Controller
         }
 
         $response = collect();
-        $response = $response->merge($retrievedData?->builds);
+        $response = $response->merge($jenkinsInfo?->builds);
 
         // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
-        if (isset($retrievedData->builds) && empty($retrievedData->builds))
+        if (isset($jenkinsInfo->builds) && empty($jenkinsInfo->builds))
         {
             $additionalBuildInfo = collect([
                 '_class' => '',
-                'number' => $retrievedData->nextBuildNumber,
+                'number' => $jenkinsInfo->nextBuildNumber,
                 'url' => ''
             ]);
 
@@ -82,6 +71,7 @@ class JenkinsController extends Controller
         ]);
     }
 
+    // todo: refactor
     public function GetLatestBuildInfo(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
@@ -106,22 +96,20 @@ class JenkinsController extends Controller
         $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
         if ($jobExists)
         {
-            $retrievedData = json_decode($jenkinsInfo);
-
-            $jobIsBuilding = $retrievedData?->building == true;
-            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$retrievedData ? 'NO_BUILD' : $retrievedData->result);
+            $jobIsBuilding = $jenkinsInfo?->building == true;
+            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jenkinsInfo ? 'NO_BUILD' : $jenkinsInfo->result);
 
             $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
-            $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
-            $changeSets = isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
+            $buildNumber = isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '';
+            $changeSets = isset($jenkinsInfo->changeSets[0]) ? collect($jenkinsInfo->changeSets[0]->items)->pluck('comment') : [];
 
             $response->put('job_exists', true);
             $response->put('build_status', $jobStatus);
             $response->put('build_number', $buildNumber);
             $response->put('change_sets', $changeSets);
-            $response->put('estimated_duration', $retrievedData?->estimatedDuration);
-            $response->put('timestamp', $retrievedData?->timestamp);
-            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $retrievedData?->url));
+            $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
+            $response->put('timestamp', $jenkinsInfo?->timestamp);
+            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $jenkinsInfo?->url));
         }
 
         return response()->json($response);
@@ -135,5 +123,13 @@ class JenkinsController extends Controller
         $url = $this->baseUrl."/job/{$jobName}/job/master/{$appBuildNumber}/stop";
 
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
+    }
+
+    private function GetJenkinsApi($url)
+    {
+        return json_decode(Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(5)
+            ->connectTimeout(2)
+            ->get($url));
     }
 }
