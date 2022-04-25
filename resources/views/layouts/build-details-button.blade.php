@@ -9,25 +9,36 @@
 @endphp
 
 @php
-    $commitCount = count($appInfo?->change_sets);
-    $commitHistory = $appInfo->build_status == 'BUILDING' ? '<span class=text-primary>Estimated finish: ' . $appInfo->estimated_time . '</span><br />' : '';
+	$commitCount = count($appInfo?->change_sets);
+	$isHrActive = $commitCount >= 0 ? '<hr class="my-2">' : '';
+
+	$buildDetails = '';
+	if ($appInfo->build_status == 'BUILDING')
+	{
+		$buildDetails .= 'Estimated Finish: <span class="text-dark font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+	}
 
     for ($i = 0; $i < $commitCount; ++$i)
     {
-        $commitHistory .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
+        $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
     }
+
+	if ($commitCount == 0)
+	{
+		$buildDetails .= "No commit";
+	}
 @endphp
 
 <div class="container">
     <a tabindex="0"
         class="btn btn-sm {{ $backgroundColor }}"
         role="button"
-        title="Build Number: {{ $appInfo->build_number }}"
+        title="Build Number: <span class='text-dark font-weight-bold'>{{ $appInfo->build_number }}</span>"
         data-trigger="focus"
         data-toggle="popover"
         data-html="true"
         data-placement="bottom"
-        data-content="{{ $commitHistory }}">
+        data-content="{{ $buildDetails }}">
         {{ $appInfo->build_status }}
     </a>
 </div>

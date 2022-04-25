@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -88,10 +90,11 @@ class JenkinsController extends Controller
         {
             $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json");
         }
-        catch (ConnectionException $exception)
+        catch (ConnectionException|RequestException $exception)
         {
             $response = collect([
                 'jenkins_status' => false,
+                'jenkins_message' => $exception->getMessage(),
                 'job_exists' => false
             ]);
 
