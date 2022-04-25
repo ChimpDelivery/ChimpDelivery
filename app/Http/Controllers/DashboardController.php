@@ -44,6 +44,7 @@ class DashboardController extends Controller
                     $estimatedTime = date('H:i:s', $estimatedTime);
                     $currentTime = date('H:i:s');
                     $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                    $item->build_stage = $appData->build_stage;
                 }
                 $item->change_sets = $appData->change_sets;
                 $item->jenkins_url = $appData->jenkins_url;

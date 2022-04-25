@@ -83,7 +83,9 @@ GET  |  api/appstoreconnect/get-app-list/{id}
 GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
+
 # 🔑 Talus Jenkins Api - Endpoints
+1. [Jenkins REST API - Documentation](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
 GET  |  api/jenkins/get-job-list
 GET  |  api/jenkins/get-job/{projectName}

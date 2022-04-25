@@ -15,7 +15,8 @@
 	$buildDetails = '';
 	if ($appInfo->build_status == 'BUILDING')
 	{
-		$buildDetails .= 'Estimated Finish: <span class="text-dark font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+		$buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . $appInfo->build_stage . '</span><hr class="my-2">';
+		$buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
 	}
 
     for ($i = 0; $i < $commitCount; ++$i)
