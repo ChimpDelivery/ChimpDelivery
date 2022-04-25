@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class AppInfoController extends Controller
 {
-    public function GetSpecificApp(Request $request) : JsonResponse
+    public function GetApp(Request $request) : JsonResponse
     {
         $response = AppInfo::find($request->id, [
             'app_bundle',
