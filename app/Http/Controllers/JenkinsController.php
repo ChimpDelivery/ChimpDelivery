@@ -27,10 +27,10 @@ class JenkinsController extends Controller
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
     }
 
-    public function GetJob(Request $request, $appName = null) : JsonResponse
+    public function GetJob(Request $request, $job = null) : JsonResponse
     {
-        $app = is_null($appName) ? $request->projectName : $appName;
-        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$app}/api/json");
+        $jobName = is_null($job) ? $request->projectName : $job;
+        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
         $response = collect(json_decode($jenkinsInfo));
 
         return response()->json([
@@ -48,10 +48,10 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetBuildList(Request $request, $appName = null) : JsonResponse
+    public function GetBuildList(Request $request, $job = null) : JsonResponse
     {
-        $app = is_null($appName) ? $request->projectName : $appName;
-        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$app}/job/master/api/json");
+        $jobName = is_null($job) ? $request->projectName : $job;
+        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/job/master/api/json");
         $retrievedData = json_decode($jenkinsInfo);
 
         // job doesn't exists.
@@ -82,13 +82,13 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetLatestBuildInfo(Request $request, $appName = null) : JsonResponse
+    public function GetLatestBuildInfo(Request $request, $job = null) : JsonResponse
     {
-        $app = is_null($appName) ? $request->projectName : $appName;
+        $jobName = is_null($job) ? $request->projectName : $job;
 
         try
         {
-            $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$app}/job/master/lastBuild/api/json");
+            $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
         }
         catch (ConnectionException|RequestException $exception)
         {
@@ -103,7 +103,7 @@ class JenkinsController extends Controller
 
         $response = collect(['job_exists' => false]);
 
-        $jobExists = !empty($this->GetJob($request, $app)->getData()->job);
+        $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
         if ($jobExists)
         {
             $retrievedData = json_decode($jenkinsInfo);
@@ -111,7 +111,7 @@ class JenkinsController extends Controller
             $jobIsBuilding = $retrievedData?->building == true;
             $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$retrievedData ? 'NO_BUILD' : $retrievedData->result);
 
-            $lastBuildNumberData = $this->GetBuildList($request, $app)->getData();
+            $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
             $buildNumber = (isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '');
             $changeSets = isset($retrievedData->changeSets[0]) ? collect($retrievedData->changeSets[0]->items)->pluck('comment') : [];
 
@@ -127,12 +127,12 @@ class JenkinsController extends Controller
         return response()->json($response);
     }
 
-    public function PostStopJob(Request $request, $appName = null, $buildNumber = null) : void
+    public function PostStopJob(Request $request, $job = null, $buildNumber = null) : void
     {
-        $app = is_null($appName) ? $request->projectName : $appName;
+        $jobName = is_null($job) ? $request->projectName : $job;
         $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
 
-        $url = $this->baseUrl."/job/{$app}/job/master/{$appBuildNumber}/stop";
+        $url = $this->baseUrl."/job/{$jobName}/job/master/{$appBuildNumber}/stop";
 
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }

@@ -97,10 +97,8 @@ class DashboardController extends Controller
 
         if ($appInfo)
         {
-            $appName = $appInfo->project_name;
-
             $appData = app('App\Http\Controllers\JenkinsController')
-                ->GetLatestBuildInfo($request, $appName)
+                ->GetLatestBuildInfo($request, $appInfo->project_name)
                 ->getData();
 
             if ($appData->build_number == 1 && $appData->build_status != 'ABORTED')
