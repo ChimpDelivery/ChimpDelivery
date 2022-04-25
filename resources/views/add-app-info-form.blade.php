@@ -24,28 +24,28 @@
                 </div>
                 <div class="form-group">
                     <div class="dropdown">
-                        <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
+                        <input type="text" id="app_name" name="app_name" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-apple" aria-hidden="true"></i> Select Bundle ID ({{ count($allAppInfos) }})
+                            <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($allAppInfos) }})
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
                             @foreach($allAppInfos as $appInfo)
-                            <input type="text" id="app_info_name" name="app_info_name" hidden>
-                            <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_name }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_bundle }}</a>
+                                <input type="text" id="app_info_name" name="app_info_name" hidden>
+                                <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_bundle }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_name }}</a>
                             @endforeach
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="app_name">Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select bundle id from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="app_name">App Name</label>
-                    <input type="text" id="app_name" name="app_name" class="form-control" required="" placeholder="Select bundle id from list..." readonly>
+                    <label for="app_name">App Bundle</label>
+                    <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
@@ -91,14 +91,14 @@
     $(document).ready(function() {
 
         $('#dropdown-inputs a').click(function() {
-            var bundleName = $(this).text();
+            var appName = $(this).text();
 
-            // update dropdown
-            $('button[id="dropdownMenuButton"]').text(bundleName);
+            // update button text.
+            $('button[id="dropdownMenuButton"]').text(appName);
 
-            // update hidden bundle input
-            var appBundle = document.getElementById('app_bundle');
-            appBundle.value = bundleName;
+            // update hidden app name input.
+            var appNameField = document.getElementById('app_name');
+            appNameField.value = appName;
         });
 
         $('#dropdown-inputs-git-project a').click(function () {
@@ -113,11 +113,11 @@
         });
     });
 
-    function updateAppField(appName, appstoreId) {
+    function updateAppField(appBundleId, appstoreId) {
         console.log('updating app field...');
 
-        var appNameField = document.getElementById('app_name');
-        appNameField.value = appName;
+        var appBundleField = document.getElementById('app_bundle');
+        appBundleField.value = appBundleId;
 
         var appstoreIdField = document.getElementById('appstore_id')
         appstoreIdField.value = appstoreId;
