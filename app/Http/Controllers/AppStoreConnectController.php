@@ -12,7 +12,7 @@ class AppStoreConnectController extends Controller
 {
     private const API_URL = 'https://api.appstoreconnect.apple.com/v1';
 
-    public function GetToken(Request $request) : JsonResponse
+    public function GetToken() : JsonResponse
     {
         $payload = [
             'iss' => config('appstore.issuer_id'),
@@ -25,9 +25,9 @@ class AppStoreConnectController extends Controller
         ]);
     }
 
-    public function GetFullAppInfo(Request $request) : JsonResponse
+    public function GetFullAppInfo() : JsonResponse
     {
-        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+        $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
             ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit='.config('appstore.item_limit').'&filter[appStoreVersions.platform]=IOS');
 
         $sortedAppCollection = collect(json_decode($appList)->data);
@@ -38,9 +38,9 @@ class AppStoreConnectController extends Controller
         ]);
     }
 
-    public function GetAppList(Request $request) : JsonResponse
+    public function GetAppList() : JsonResponse
     {
-        $appList = $this->GetFullAppInfo($request)->getData();
+        $appList = $this->GetFullAppInfo()->getData();
         $data = $appList->app_list;
 
         $apps = [];
@@ -55,9 +55,9 @@ class AppStoreConnectController extends Controller
         return response()->json($apps);
     }
 
-    public function GetBuildList(Request $request) : JsonResponse
+    public function GetBuildList() : JsonResponse
     {
-        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+        $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
             ->get(self::API_URL.'/builds');
 
         $builds = collect(json_decode($appList)->data);
@@ -84,7 +84,7 @@ class AppStoreConnectController extends Controller
             'data' => $body
         ];
 
-        $appList = Http::withToken($this->GetToken($request)->getData()->appstore_token)
+        $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
             ->withBody(json_encode($data), 'application/json')
             ->post(self::API_URL.'/bundleIds');
 
