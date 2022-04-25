@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
+    // todo: refactor
     public function Index(Request $request) : View
     {
         $data = [
@@ -171,6 +172,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    // todo: move to AppInfoController
     // todo: refactor mass-assignment
     private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
     {
@@ -201,7 +203,7 @@ class DashboardController extends Controller
         $appInfo->save();
     }
 
-    // todo: refactor
+    // todo: move to another class
     private function GenerateHashAndUpload($iconImage) : string
     {
         $hash = md5_file($iconImage);
