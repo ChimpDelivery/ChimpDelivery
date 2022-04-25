@@ -27,7 +27,7 @@
                         <input type="text" id="app_bundle" name="app_bundle" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-hand-o-right" aria-hidden="true"></i> Select Bundle ID ({{ count($allAppInfos) }})
+                            <i class="fa fa-apple" aria-hidden="true"></i> Select Bundle ID ({{ count($allAppInfos) }})
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
@@ -51,7 +51,7 @@
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-hand-o-right" aria-hidden="true"></i> Select Github Project ({{ count($allGitProjects) }})
+                        <i class="fa fa-github" aria-hidden="true"></i> Select Git Project ({{ count($allGitProjects) }})
                     </button>
 
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
