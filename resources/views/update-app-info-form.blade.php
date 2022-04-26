@@ -6,7 +6,11 @@
 <div class="container py-2">
     <div class="card">
         <div class="card-header bg-dark text-white font-weight-bold">
-            Updating {{ $appInfo->app_name }}
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-apple fa-stack-1x"></i>
+            </span>
+            {{ $appInfo->app_name }}
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$appInfo->id.'/update')}}" enctype="multipart/form-data">
