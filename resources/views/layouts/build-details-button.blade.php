@@ -6,6 +6,8 @@
         'FAILURE' => 'btn-danger font-weight-bold',
         default => 'btn-secondary font-weight-bold'
     };
+
+	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo->build_number}</span>";
 @endphp
 
 @php
@@ -34,7 +36,7 @@
     <a tabindex="0"
         class="btn btn-sm {{ $backgroundColor }}"
         role="button"
-        title="Build Number: <span class='text-dark font-weight-bold'>{{ $appInfo->build_number }}</span>"
+        title="{{ $title }}"
         data-trigger="focus"
         data-toggle="popover"
         data-html="true"

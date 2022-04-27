@@ -101,10 +101,16 @@ class JenkinsController extends Controller
 
             $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
             $buildNumber = isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '';
-            $changeSets = isset($jenkinsInfo->changeSets[0]) ? collect($jenkinsInfo->changeSets[0]->items)->pluck('comment') : collect();
+
+            $changeSets = isset($jenkinsInfo->changeSets[0])
+                ? collect($jenkinsInfo->changeSets[0]->items)
+                    ->pluck('comment')
+                    ->take(10)
+                : collect();
             $changeSets = $changeSets->map(function ($item) {
                 return strtok($item, "\n");
             });
+
             $jobStageInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
 
             $response->put('job_exists', true);
