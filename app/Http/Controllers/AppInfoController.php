@@ -30,11 +30,13 @@ class AppInfoController extends Controller
         if ($appInfo)
         {
             $appInfo->delete();
-            return response()->json(['message' => "App: {$appInfo->app_name} deleted."])
-                ->setStatusCode(Response::HTTP_ACCEPTED);
+            return response()->json([
+                'message' => "App: {$appInfo->app_name} deleted."
+            ], Response::HTTP_ACCEPTED);
         }
 
-        return response()->json(['message' => 'App not found!'])
-            ->setStatusCode(Response::HTTP_FORBIDDEN);
+        return response()->json([
+            'message' => 'App not found!'
+        ], Response::HTTP_FORBIDDEN);
     }
 }
