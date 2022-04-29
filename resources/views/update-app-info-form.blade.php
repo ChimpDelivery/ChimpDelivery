@@ -19,7 +19,7 @@
                     <label for="app_icon">App Icon</label>
                     <input type="file" onchange="previewAppIcon()" id="app_icon" name="app_icon" class="form-control form-control-file" accept="image/png">
                     <br />
-                    <img id="app_icon_preview" src="{{ asset('images/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
+                    <img id="app_icon_preview" src="{{ asset('images/app-icons/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">Appstore ID</label>
