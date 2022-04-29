@@ -105,7 +105,6 @@ class JenkinsController extends Controller
             $changeSets = isset($jenkinsInfo->changeSets[0])
                 ? collect($jenkinsInfo->changeSets[0]->items)
                     ->pluck('comment')
-                    ->take(10)
                 : collect();
             $changeSets = $changeSets->map(function ($item) {
                 return strtok($item, "\n");
