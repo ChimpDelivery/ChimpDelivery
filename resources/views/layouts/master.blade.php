@@ -77,7 +77,7 @@
                                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ __('Clear Cache') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/Fsk0UIrL/talus-board">
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/U6FsYqMR/kanban-template">
                                     <i class="fa fa-trello fa-lg text-white" aria-hidden="true"></i> {{ __('Trello') }}
                                 </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://drive.google.com/drive/folders/1HiDzlKwkSWMF9sk22pqwoG058933hqwa?usp=sharing">
