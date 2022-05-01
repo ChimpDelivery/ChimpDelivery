@@ -85,10 +85,13 @@
             var tfVersion = document.getElementById('tf_version').value;
             console.log('tf_version: ' + tfVersion);
 
+            var tfBuildNumber = document.getElementById('tf_bundle_version').value;
+            console.log('tf_build_number: ' + tfBuildNumber)
+
             var isWorkspace = document.getElementById('is_workspace').checked;
             console.log('is_workspace: ' + isWorkspace);
 
-            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion;
+            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion + '/' tfBuildNumber;
             document.getElementById('build_link').href = buildUrl;
         }
     </script>
