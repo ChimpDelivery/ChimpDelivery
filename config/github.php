@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 return [
 
+    'organization_url' => env('GIT_ORGANIZATION_URL', ''),
     'item_limit' => env('GIT_ITEM_LIMIT', 50),
 
     /*

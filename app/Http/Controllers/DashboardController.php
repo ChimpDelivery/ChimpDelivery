@@ -49,16 +49,16 @@ class DashboardController extends Controller
                 $item->jenkins_url = $appData->jenkins_url;
 
                 // for dashboard buttons.
-                $item->git_url = "https://github.com/TalusStudio/{$item->project_name}";
+                $item->git_url = config('github.organization_url') . '/' . $item->project_name;
             }
         });
 
         return view('list-app-info')->with($data);
     }
 
-    public function CreateAppForm(Request $request) : View
+    public function CreateAppForm() : View
     {
-        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList()->getData();
         $allGitProjects = app('App\Http\Controllers\GithubController')->GetRepositories()->getData();
 
         return view('add-app-info-form')->with([
