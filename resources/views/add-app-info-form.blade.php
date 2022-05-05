@@ -40,11 +40,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="app_name">Appstore ID</label>
+                    <label for="appstore_id">Appstore ID</label>
                     <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="app_name">App Bundle</label>
+                    <label for="app_bundle">App Bundle</label>
                     <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">

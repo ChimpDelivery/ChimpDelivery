@@ -22,12 +22,12 @@
                     <img id="app_icon_preview" src="{{ asset('images/app-icons/'.$appInfo->app_icon) }}" width="100px" height="100px" alt="..." class="img-thumbnail" />
                 </div>
                 <div class="form-group">
-                    <label for="app_bundle">Appstore ID</label>
+                    <label for="appstore_id">Appstore ID</label>
                     <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" value="{{ $appInfo->appstore_id }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_name">App Name</label>
-                    <input type="text" id="title" name="app_name" class="form-control" required="" value="{{ $appInfo->app_name }}" readonly>
+                    <input type="text" id="app_name" name="app_name" class="form-control" required="" value="{{ $appInfo->app_name }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">App Bundle</label>
@@ -59,7 +59,7 @@
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
-                <button class="btn btn-danger float-right" type="submit" class="btn text-white bg-danger" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
+                <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
                     <i class="fa fa-trash"></i>
                     Delete
                 </button>
