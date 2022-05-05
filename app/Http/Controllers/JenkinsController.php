@@ -19,7 +19,7 @@ class JenkinsController extends Controller
     public function GetJob(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
+        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
 
         return response()->json([
             'job' => collect($jenkinsInfo)
@@ -28,7 +28,7 @@ class JenkinsController extends Controller
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl.'/api/json');
+        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl.'/api/json');
 
         return response()->json([
             'job_list' => collect($jenkinsInfo->jobs)->pluck('name')
@@ -38,7 +38,7 @@ class JenkinsController extends Controller
     public function GetBuildList(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl."/job/{$jobName}/job/master/api/json");
+        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl."/job/{$jobName}/job/master/api/json");
 
         // job doesn't exists.
         if (!$jenkinsInfo)
@@ -75,7 +75,7 @@ class JenkinsController extends Controller
 
         try
         {
-            $jenkinsInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
+            $jenkinsInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
         }
         catch (\Exception $exception)
         {
@@ -107,7 +107,7 @@ class JenkinsController extends Controller
                 return strtok($item, "\n");
             });
 
-            $jobStageInfo = $this->GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
+            $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
 
             $response->put('job_exists', true);
             $response->put('build_number', $buildNumber);
@@ -132,7 +132,7 @@ class JenkinsController extends Controller
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }
 
-    private function GetJenkinsApi($url)
+    private static function GetJenkinsApi($url)
     {
         return json_decode(Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
             ->timeout(5)
