@@ -49,7 +49,7 @@ class DashboardController extends Controller
                 $item->jenkins_url = $appData->jenkins_url;
 
                 // for dashboard buttons.
-                $item->git_url = "https://github.com/TalusStudio/{$item->project_name}";
+                $item->git_url = config('github.organization_url') . '/' . $item->project_name;
             }
         });
 
