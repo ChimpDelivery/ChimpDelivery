@@ -22,8 +22,13 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run')->daily()->at('01:30');
         $schedule->command('backup:monitor')->daily()->at('03:00');
 
-        $schedule->command(RunHealthChecksCommand::class)->everyMinute();
-        $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
+        $schedule->command(RunHealthChecksCommand::class)
+            ->timezone('Europe/Istanbul')
+            ->everyMinute();
+
+        $schedule->command(ScheduleCheckHeartbeatCommand::class)
+            ->timezone('Europe/Istanbul')
+            ->everyMinute();
     }
 
     /**
