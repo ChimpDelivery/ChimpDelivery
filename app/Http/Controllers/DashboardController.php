@@ -169,14 +169,14 @@ class DashboardController extends Controller
                 ->withInput();
         }
 
-        session()->flash('success', "Bundle: com.Talus.{$request->bundle_id} created...");
+        session()->flash('success', 'Bundle: ' . config('appstore.bundle_prefix') . '.' . $request->bundle_id . ' created!');
         return to_route('get_app_list');
     }
 
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
-        session()->flash('success', "Cache cleared...");
+        session()->flash('success', "Cache cleared!");
 
         return to_route('get_app_list');
     }
