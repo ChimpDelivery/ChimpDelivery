@@ -110,8 +110,17 @@ class DashboardController extends Controller
             }
             else
             {
-                Artisan::call("jenkins:trigger {$request->id} master {$request->isWorkspace} {$request->tfVersion} {FALSE} {}");
-                session()->flash('success', "{$appInfo->app_name} building(IS_WORKSPACE:{$request->isWorkspace}, TF_VERSION:$request->tfVersion), wait 3-4seconds then reload the page.");
+                $tfCustomVersion = isset($request->tfCustomVersion) && $request->tfCustomVersion == 'true';
+                $tfCustomVersion = var_export($tfCustomVersion, true);
+                $tfBuildNumber = ($tfCustomVersion == 'true') ? $request->tfBuildNumber : 0;
+
+                Artisan::call("jenkins:trigger {$request->id} master {$request->isWorkspace} {$request->tfVersion} {FALSE} {$tfCustomVersion} {$tfBuildNumber}");
+
+                session()->flash('success', "{$appInfo->app_name} building
+                    (IS_WORKSPACE: {$request->isWorkspace},
+                    TF_VERSION: {$request->tfVersion},
+                    TF_CUSTOM_VERSION: {$tfCustomVersion}),
+                    wait 3-4seconds then reload the page.");
             }
         }
 

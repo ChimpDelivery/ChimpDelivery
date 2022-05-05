@@ -31,6 +31,7 @@
                            class="form-control" required="" value="1.0">
                 </div>
                 <div class="form-group">
+                    <input type="text" id="tf_custom_version" name="tf_custom_version" class="form-control" value="" hidden>
                     <p>
                         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tf_build_version_collapse" aria-expanded="false" aria-controls="tf_build_version_collapse">
                             Custom TF Build Number
@@ -68,11 +69,13 @@
 </div>
 
 <script type="text/javascript">
-    $('#tf_bundle_version_collapse').on('shown.bs.collapse', function () {
-
+    $('#tf_build_version_collapse').on('shown.bs.collapse', function () {
+        console.log('custom_build_version modal shown!');
+        document.getElementById('tf_custom_version').value = 'true';
     });
 
-    $('#tf_bundle_version_collapse').on('hidden.bs.collapse', function () {
-
+    $('#tf_build_version_collapse').on('hidden.bs.collapse', function () {
+        console.log('custom_build_version modal hidden!');
+        document.getElementById('tf_custom_version').value = 'false';
     });
 </script>

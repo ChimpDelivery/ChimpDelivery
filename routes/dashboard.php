@@ -15,7 +15,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::get('/dashboard/update-app-info/{id}', 'SelectApp')->name('get_app_info');
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->name('update_app_info');
 
-    Route::get('/dashboard/build-app/{id}/{isWorkspace}/{tfVersion}/{buildNumber}', 'BuildApp');
+    Route::get('/dashboard/build-app/{id}/{isWorkspace}/{tfVersion}/{tfCustomVersion?}/{tfBuildNumber?}', 'BuildApp');
     Route::get('/dashboard/stop-job/{projectName}/{buildNumber}', 'StopJob');
     Route::get('/dashboard/scan-repo', 'ScanRepo');
 

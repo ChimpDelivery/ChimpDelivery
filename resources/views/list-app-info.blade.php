@@ -58,7 +58,7 @@
         $(document).ready(function () {
             $('#exampleModal').on('show.bs.modal', function (event) {
 
-                resetBuildInputs();
+                document.getElementById('is_workspace').checked = getCookie('target_is_ws');
 
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
@@ -72,26 +72,26 @@
             });
         });
 
-        // reset modal inputs
-        function resetBuildInputs() {
-            const tfVersion = {{ config('appstore.default_tf_version') }};
-            document.getElementById('tf_version').value = tfVersion.toFixed(1);
-            document.getElementById('is_workspace').checked = getCookie('target_is_ws');
-        }
-
         function updateLink(appId) {
-            console.log('app_id:' + appId);
-
-            var tfVersion = document.getElementById('tf_version').value;
-            console.log('tf_version: ' + tfVersion);
-
-            var tfBuildNumber = document.getElementById('tf_bundle_version').value;
-            console.log('tf_build_number: ' + tfBuildNumber)
+            if (appId == null) {
+                console.log('app_id: ' + getCookie('target_app_id'))
+            } else {
+                console.log('app_id:' + appId);
+            }
 
             var isWorkspace = document.getElementById('is_workspace').checked;
             console.log('is_workspace: ' + isWorkspace);
 
-            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion + '/' tfBuildNumber;
+            var tfVersion = document.getElementById('tf_version').value;
+            console.log('tf_version: ' + tfVersion);
+
+            var tfCustomVersion = document.getElementById('tf_custom_version').value;
+            console.log('tf_custom_version: ' + tfCustomVersion);
+
+            var tfBuildNumber = document.getElementById('tf_build_version').value;
+            console.log('tf_build_number: ' + tfBuildNumber)
+
+            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion + '/' + tfCustomVersion + '/' + tfBuildNumber;
             document.getElementById('build_link').href = buildUrl;
         }
     </script>

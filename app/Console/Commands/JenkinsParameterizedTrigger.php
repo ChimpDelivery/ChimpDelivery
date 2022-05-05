@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsParameterizedTrigger extends Command
 {
-    protected $signature = 'jenkins:trigger {appInfoID} {branch} {isWorkspace} {tfVersion} {invokeParameters} {tfCustomVersion} {tfBundleVersion}';
+    protected $signature = 'jenkins:trigger {appInfoID} {branch} {isWorkspace} {tfVersion} {invokeParameters} {tfCustomVersion} {tfBuildNumber}';
     protected $description = 'Trigger jenkins pipeline to build.';
 
     public function __construct()
@@ -24,13 +24,7 @@ class JenkinsParameterizedTrigger extends Command
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->project_name}/job/{$this->argument('branch')}/buildWithParameters?
-                    IS_WORKSPACE={$this->argument('isWorkspace')}&
-                    TF_BUILD_VERSION={$this->argument('tfVersion')}&
-                    APP_ID={$app->id}&
-                    INVOKE_PARAMETERS={$this->argument('invokeParameters')}&
-                    TF_CUSTOM_VERSION={$this->argument('tfCustomVersion')}&
-                    TF_BUNDLE_VERSION={$this->argument('tfBundleVersion')}";
+                "/job/{$app->project_name}/job/{$this->argument('branch')}/buildWithParameters?IS_WORKSPACE={$this->argument('isWorkspace')}&TF_BUILD_VERSION={$this->argument('tfVersion')}&TF_CUSTOM_VERSION={$this->argument('tfCustomVersion')}&TF_BUNDLE_VERSION={$this->argument('tfBuildNumber')}&APP_ID={$app->id}&INVOKE_PARAMETERS={$this->argument('invokeParameters')}";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }
