@@ -154,19 +154,15 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function CreateBundleForm(Request $request) : View
+    public function CreateBundleForm() : View
     {
-        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')
-            ->GetAppList($request)
-            ->getData();
-
-        return view('create-bundle-form')->with('allAppInfos', $allAppInfos);
+        return view('create-bundle-form');
     }
 
     public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
         $response = app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request)->getData();
-        if ($response->status->errors)
+        if (isset($response->status->errors))
         {
             return to_route('create_bundle')
                 ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
