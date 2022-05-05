@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Github\Exception\RuntimeException;
-
 use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Illuminate\Http\Request;
@@ -44,7 +42,7 @@ class GithubController extends Controller
 
             return response()->json($response);
         }
-        catch (RuntimeException $exception)
+        catch (\Exception $exception)
         {
             return response()->json(['message' => $exception->getMessage()]);
         }
@@ -69,7 +67,7 @@ class GithubController extends Controller
                 'url' => $project['html_url']
             ];
         }
-        catch (RuntimeException $exception)
+        catch (\Exception $exception)
         {
             return response()->json(['message' => $exception->getMessage()]);
         }

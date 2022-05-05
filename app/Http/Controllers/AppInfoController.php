@@ -20,7 +20,7 @@ class AppInfoController extends Controller
             'elephant_secret'
         ]);
 
-        return response()->json($response);
+        return response()->json($response, Response::HTTP_ACCEPTED);
     }
 
     public function DeleteApp(Request $request) : JsonResponse
