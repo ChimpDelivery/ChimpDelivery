@@ -56,9 +56,9 @@ class DashboardController extends Controller
         return view('list-app-info')->with($data);
     }
 
-    public function CreateAppForm(Request $request) : View
+    public function CreateAppForm() : View
     {
-        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList($request)->getData();
+        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList()->getData();
         $allGitProjects = app('App\Http\Controllers\GithubController')->GetRepositories()->getData();
 
         return view('add-app-info-form')->with([
