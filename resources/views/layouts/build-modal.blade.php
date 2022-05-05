@@ -26,9 +26,24 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf_version">Test-Flight Version</label>
+                    <label for="tf_version">TF Version</label>
                     <input oninput="updateLink()" type="text" id="tf_version" name="tf_version"
-                           class="form-control" required="" value="{{ config('appstore.default_tf_version') }}">
+                           class="form-control" required="" value="1.0">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="tf_custom_version" name="tf_custom_version" class="form-control" value="" hidden>
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tf_build_version_collapse" aria-expanded="false" aria-controls="tf_build_version_collapse">
+                            Custom TF Build Number
+                        </button>
+                    </p>
+                    <div class="collapse" id="tf_build_version_collapse">
+                        <div class="form-group">
+                            <label for="tf_build_version">TF Build Number</label>
+                            <input oninput="updateLink()" type="text" id="tf_build_version" name="tf_build_version"
+                                   class="form-control" required="" value="">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-check">
                     <input onchange="updateLink()" class="form-check-input" type="checkbox"
@@ -52,3 +67,15 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#tf_build_version_collapse').on('shown.bs.collapse', function () {
+        console.log('custom_build_version modal shown!');
+        document.getElementById('tf_custom_version').value = 'true';
+    });
+
+    $('#tf_build_version_collapse').on('hidden.bs.collapse', function () {
+        console.log('custom_build_version modal hidden!');
+        document.getElementById('tf_custom_version').value = 'false';
+    });
+</script>
