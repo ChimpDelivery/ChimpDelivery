@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\AppInfo;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
