@@ -41,8 +41,11 @@ sudo usermod -d /var/lib/mysql/ mysql
 sudo service mysql start
 sudo mysql_secure_installation
 
-# start cron
+# start cron and initialize it
 sudo service cron start
+crontab -e
+* * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
+
 
 cp .env.example .env
 composer install
