@@ -7,7 +7,6 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 use App\Http\Requests\AppInfoRequest;
 use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
-use App\Models\File;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -70,7 +69,9 @@ class DashboardController extends Controller
 
     public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
     {
-        $this->PopulateAppData($request, AppInfo::withTrashed()
+        $appInfoController = app('App\Http\Controllers\AppInfoController');
+
+        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
             ->where('appstore_id', $request->appstore_id)
             ->firstOrNew()
         );
@@ -87,7 +88,9 @@ class DashboardController extends Controller
 
     public function UpdateApp(AppInfoRequest $request): RedirectResponse
     {
-        $this->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
+        $appInfoController = app('App\Http\Controllers\AppInfoController');
+
+        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
         session()->flash('success', "App: {$request->app_name} updated...");
 
         return to_route('get_app_list');
@@ -135,7 +138,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function ScanRepo(Request $request) : RedirectResponse
+    public function ScanRepo() : RedirectResponse
     {
         Artisan::call("jenkins:scan-repo");
         session()->flash('success', "Repository scanning begins...");
@@ -180,58 +183,5 @@ class DashboardController extends Controller
         session()->flash('success', "Cache cleared...");
 
         return to_route('get_app_list');
-    }
-
-    // todo: move to AppInfoController
-    // todo: refactor mass-assignment
-    private function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
-    {
-        if ($appInfo->trashed())
-        {
-            $appInfo->restore();
-        }
-
-        // we can't update app_name, app_bundle and appstore_id in created apps.
-        if (!$appInfo->exists)
-        {
-            $appInfo->app_name = $request->app_name;
-            $appInfo->app_bundle = $request->app_bundle;
-            $appInfo->appstore_id = $request->appstore_id;
-        }
-
-        $appInfo->project_name = $request->project_name;
-
-        if ($request->hasFile('app_icon'))
-        {
-            $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
-        }
-
-        $appInfo->fb_app_id = $request->fb_app_id;
-        $appInfo->elephant_id = $request->elephant_id;
-        $appInfo->elephant_secret = $request->elephant_secret;
-
-        $appInfo->save();
-    }
-
-    // todo: move to another class
-    private function GenerateHashAndUpload($iconImage) : string
-    {
-        $hash = md5_file($iconImage);
-        $iconFile = File::where('hash', $hash)->first();
-
-        if (!$iconFile)
-        {
-            $fileName = pathinfo($iconImage->getClientOriginalName(), PATHINFO_FILENAME);
-
-            $iconFile = new File();
-            $iconFile->path = time() . "-" . $fileName . "." . $iconImage->getClientOriginalExtension();
-            $iconFile->hash = md5_file($iconImage);
-            $iconFile->save();
-
-            $iconImage->move(public_path('images/app-icons'), $iconFile->path);
-            return $iconFile->path;
-        }
-
-        return $iconFile->path;
     }
 }
