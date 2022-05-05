@@ -34,11 +34,14 @@ class HealthServiceProvider extends ServiceProvider
                 'APPSTORECONNECT_ISSUER_ID',
                 'APPSTORECONNECT_KID',
                 'APPSTORECONNECT_CACHE_DURATION',
-                'JENKINS_ENABLED',
+                'APPSTORECONNECT_ITEM_LIMIT',
                 'JENKINS_WS',
                 'JENKINS_HOST',
                 'JENKINS_USER',
-                'JENKINS_TOKEN'
+                'JENKINS_TOKEN',
+                'GIT_ORGANIZATION_URL',
+                'GIT_ACCESS_TOKEN',
+                'GIT_ITEM_LIMIT'
             ])
         ]);
     }

@@ -41,6 +41,9 @@ sudo usermod -d /var/lib/mysql/ mysql
 sudo service mysql start
 sudo mysql_secure_installation
 
+# start cron
+sudo service cron start
+
 cp .env.example .env
 composer install
 php artisan key:generate
@@ -64,8 +67,8 @@ php artisan serve
 
 # 💿 Production Server - Permission
 ```
-sudo chmod -R o+w storage/
-sudo chmod -R o+w bootstrap/cache
+sudo chmod -R 777 storage/
+sudo chmod -R 777 bootstrap/cache
 ```
 
 # 💿 Ngrok Tunnel
