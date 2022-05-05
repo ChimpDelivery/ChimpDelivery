@@ -26,7 +26,7 @@ class HealthServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             DebugModeCheck::new(),
             PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host').'/login'),
-            ScheduleCheck::new(),
+            ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             EnvironmentCheck::new(),
             CacheCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
