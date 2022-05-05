@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="bundle_name">Bundle ID Name</label>
-                    <input type="text" name="bundle_name" class="form-control" placeholder="bundle id name..." required="">
+                    <input type="text" id="bundle_name" name="bundle_name" class="form-control" placeholder="bundle id name..." required="">
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
