@@ -13,7 +13,7 @@
             Create Bundle ID
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{url('dashboard/store-bundle')}}">
+            <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{ url('dashboard/store-bundle') }}">
                 @csrf
                 <div class="form-group">
                     <label for="bundle_id">Bundle ID</label>
