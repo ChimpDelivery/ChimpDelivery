@@ -69,10 +69,7 @@ php artisan serve
 - ```sudo service apache2 restart```
 
 # 💿 Production Server - Permission
-```
-sudo chmod -R 777 storage/
-sudo chmod -R 777 bootstrap/cache
-```
+- https://linuxhint.com/how-to-set-up-file-permissions-for-laravel/
 
 # 💿 Ngrok Tunnel
 ```

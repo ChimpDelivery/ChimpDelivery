@@ -23,7 +23,7 @@
                 <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
                     <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
 
-                    <div class="px-2 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
+                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
                         @yield('code')
                     </div>
 
