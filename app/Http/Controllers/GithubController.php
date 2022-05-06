@@ -17,7 +17,7 @@ class GithubController extends Controller
 
         try
         {
-            $organizationProjects = collect(GitHub::api('repo')->org('TalusStudio', [
+            $organizationProjects = collect(GitHub::api('repo')->org(config('github.organization_name'), [
                 'per_page' => config('github.item_limit'),
                 'sort' => 'updated',
                 'type' => 'private'
