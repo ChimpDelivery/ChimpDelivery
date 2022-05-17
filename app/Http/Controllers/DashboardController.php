@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function Index(Request $request) : View
     {
-        $data = ['appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1)];
+        $data = ['appInfos' => AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1)];
 
         $data['appInfos']->each(function ($item) use ($request) {
             $appData = app('App\Http\Controllers\JenkinsController')
