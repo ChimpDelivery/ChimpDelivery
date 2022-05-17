@@ -21,17 +21,15 @@ class AppStoreConnectMiddleware
     {
         if (!$request->hasHeader('api-key'))
         {
-            return response()->json([
-                'appstore_status' => 'Api Key required!'
-            ], Response::HTTP_FORBIDDEN);
+            return response()->json(['server_response' => 'Api Key required!'],
+                Response::HTTP_FORBIDDEN);
         }
 
         $token = User::where('api_token', $request->header('api-key'))->first();
         if (!$token)
         {
-            return response()->json([
-                'appstore_status' => 'Api Key not found!'
-            ], Response::HTTP_FORBIDDEN);
+            return response()->json(['server_response' => 'Api Key not found!'],
+                Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);
