@@ -72,6 +72,7 @@ class JenkinsController extends Controller
     public function GetLatestBuildInfo(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
+        $jenkinsInfo = [];
 
         try
         {
@@ -87,39 +88,37 @@ class JenkinsController extends Controller
 
             return response()->json($response);
         }
-
-        $response = collect(['job_exists' => false]);
-
-        $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
-        if ($jobExists)
+        finally
         {
-            $jobIsBuilding = $jenkinsInfo?->building == true;
-            $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jenkinsInfo ? 'NO_BUILD' : $jenkinsInfo->result);
+            $response = collect(['job_exists' => false]);
 
-            $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
-            $buildNumber = isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '';
+            $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
+            if ($jobExists)
+            {
+                $jobIsBuilding = $jenkinsInfo?->building == true;
+                $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jenkinsInfo ? 'NO_BUILD' : $jenkinsInfo->result);
 
-            $changeSets = isset($jenkinsInfo->changeSets[0])
-                ? collect($jenkinsInfo->changeSets[0]->items)
-                    ->pluck('comment')
-                : collect();
-            $changeSets = $changeSets->map(function ($item) {
-                return strtok($item, "\n");
-            });
+                $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
+                $buildNumber = isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '';
 
-            $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
+                $changeSets = isset($jenkinsInfo->changeSets[0])
+                    ? collect($jenkinsInfo->changeSets[0]->items)->pluck('msg')
+                    : collect();
 
-            $response->put('job_exists', true);
-            $response->put('build_number', $buildNumber);
-            $response->put('build_status', $jobStatus);
-            $response->put('build_stage', collect($jobStageInfo?->stages)->pluck('name')->last());
-            $response->put('change_sets', $changeSets);
-            $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
-            $response->put('timestamp', $jenkinsInfo?->timestamp);
-            $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $jenkinsInfo?->url));
+                $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
+
+                $response->put('job_exists', true);
+                $response->put('build_number', $buildNumber);
+                $response->put('build_status', $jobStatus);
+                $response->put('build_stage', collect($jobStageInfo?->stages)->pluck('name')->last());
+                $response->put('change_sets', $changeSets);
+                $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
+                $response->put('timestamp', $jenkinsInfo?->timestamp);
+                $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $jenkinsInfo?->url));
+            }
+
+            return response()->json($response);
         }
-
-        return response()->json($response);
     }
 
     public function PostStopJob(Request $request, $job = null, $buildNumber = null) : void
