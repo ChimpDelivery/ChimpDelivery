@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
 use App\Models\AppInfo;
-
 use App\Models\File;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -32,14 +32,12 @@ class AppInfoController extends Controller
         if ($appInfo)
         {
             $appInfo->delete();
-            return response()->json([
-                'message' => "App: {$appInfo->app_name} deleted."
-            ], Response::HTTP_ACCEPTED);
+            return response()->json(['message' => "App: {$appInfo->app_name} deleted."],
+                Response::HTTP_ACCEPTED);
         }
 
-        return response()->json([
-            'message' => 'App not found!'
-        ], Response::HTTP_FORBIDDEN);
+        return response()->json(['message' => 'App not found!'],
+            Response::HTTP_FORBIDDEN);
     }
 
     // todo: refactor mass-assignment
@@ -65,9 +63,9 @@ class AppInfoController extends Controller
             $appInfo->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
         }
 
-        $appInfo->fb_app_id = $request->fb_app_id;
-        $appInfo->elephant_id = $request->elephant_id;
-        $appInfo->elephant_secret = $request->elephant_secret;
+        if (!empty($request->fb_app_id)) { $appInfo->fb_app_id = $request->fb_app_id; }
+        if (!empty($request->elephant_id)) { $appInfo->elephant_id = $request->elephant_id; }
+        if (!empty($request->elephant_secret)) { $appInfo->elephant_secret = $request->elephant_secret; }
 
         $appInfo->save();
     }
