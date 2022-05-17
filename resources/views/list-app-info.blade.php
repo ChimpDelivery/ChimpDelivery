@@ -39,7 +39,7 @@
             </div>
             <div class="card-footer text-muted">
                 <i class="fa fa-hashtag" aria-hidden="true"></i>
-                <span>Total app count: {{ $appInfos->count() }}</span>
+                <span>Total app count: {{ $appInfos->total() }}</span>
             </div>
         </div>
     </div>
