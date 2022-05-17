@@ -47,10 +47,10 @@ class DashboardController extends Controller
                 }
                 $item->change_sets = $appData->change_sets;
                 $item->jenkins_url = $appData->jenkins_url;
-
-                // for dashboard buttons.
-                $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
             }
+
+            // for dashboard buttons.
+            $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
         });
 
         return view('list-app-info')->with($data);
@@ -165,7 +165,7 @@ class DashboardController extends Controller
         if (isset($response->status->errors))
         {
             return to_route('create_bundle')
-                ->withErrors(['bundle_id' => 'Bundle id already exists on App Store Connect!'])
+                ->withErrors(['bundle_id' => $response->status->errors[0]->detail . " (Status code: {$response->status->errors[0]->status})"])
                 ->withInput();
         }
 
