@@ -58,14 +58,7 @@ class GithubController extends Controller
 
         try
         {
-            $project = GitHub::api('repo')->showById($request->id);
-
-            $response = [
-                'id' => $project['name'],
-                'name' => $project['name'],
-                'size' => $project['size'],
-                'url' => $project['html_url']
-            ];
+            $response = GitHub::api('repo')->showById($request->id);
         }
         catch (\Exception $exception)
         {

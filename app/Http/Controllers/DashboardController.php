@@ -15,42 +15,16 @@ use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
-    // todo: refactor
     public function Index(Request $request) : View
     {
-        $data = [
-            'appInfos' => AppInfo::orderBy('id', 'desc')
-                ->paginate(10)
-                ->onEachSide(1),
-        ];
+        $data = ['appInfos' => AppInfo::orderBy('id', 'desc')->paginate(10)->onEachSide(1)];
 
-        $data['appInfos']->each(function ($item) use ($request)
-        {
+        $data['appInfos']->each(function ($item) use ($request) {
             $appData = app('App\Http\Controllers\JenkinsController')
                 ->GetLatestBuildInfo($request, $item->project_name)
                 ->getData();
 
-            $item->job_exists = $appData->job_exists;
-
-            if ($item->job_exists)
-            {
-                // jenkins relative data.
-                $item->build_number = $appData->build_number;
-                $item->build_status = $appData->build_status;
-                if ($item->build_status == 'BUILDING')
-                {
-                    $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
-                    $estimatedTime = date('H:i:s', $estimatedTime);
-                    $currentTime = date('H:i:s');
-                    $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
-                    $item->build_stage = $appData->build_stage;
-                }
-                $item->change_sets = $appData->change_sets;
-                $item->jenkins_url = $appData->jenkins_url;
-            }
-
-            // for dashboard buttons.
-            $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
+            $this->PopulateAppDetails($item, $appData);
         });
 
         return view('list-app-info')->with($data);
@@ -176,8 +150,33 @@ class DashboardController extends Controller
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
-        session()->flash('success', "Cache cleared!");
+        session()->flash('success', 'Cache cleared!');
 
         return to_route('get_app_list');
+    }
+
+    private function PopulateAppDetails($item, mixed $appData) : void
+    {
+        $item->job_exists = $appData->job_exists;
+
+        if ($item->job_exists)
+        {
+            $item->build_number = $appData->build_number;
+            $item->build_status = $appData->build_status;
+
+            if ($item->build_status == 'BUILDING')
+            {
+                $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
+                $estimatedTime = date('H:i:s', $estimatedTime);
+                $currentTime = date('H:i:s');
+                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                $item->build_stage = $appData->build_stage;
+            }
+
+            $item->change_sets = $appData->change_sets;
+            $item->jenkins_url = $appData->jenkins_url;
+        }
+
+        $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
     }
 }
