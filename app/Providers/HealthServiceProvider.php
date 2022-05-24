@@ -39,7 +39,7 @@ class HealthServiceProvider extends ServiceProvider
                 'JENKINS_HOST',
                 'JENKINS_USER',
                 'JENKINS_TOKEN',
-                'GIT_ORGANIZATION_URL',
+                'GIT_ORGANIZATION_NAME',
                 'GIT_ACCESS_TOKEN',
                 'GIT_ITEM_LIMIT'
             ])
