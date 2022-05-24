@@ -48,9 +48,13 @@ sudo service cron start
 crontab -e
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 
-sudo chown -R USER_NAME /var/www/html/TalusWebBackend/
-
 cd /var/www/html/TalusWebBackend
+
+sudo chown -R $USER:www-data storage
+sudo chown -R $USER:www-data bootstrap/cache
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+
 composer install
 cp .env.example .env
 php artisan key:generate
