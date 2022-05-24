@@ -53,7 +53,6 @@ composer install
 php artisan key:generate
 php artisan migrate
 php artisan optimize
-php artisan serve
 ```
 
 # 💿 Production Server - Apache
