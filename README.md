@@ -48,8 +48,11 @@ sudo service cron start
 crontab -e
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 
-cp .env.example .env
+sudo chown -R USER_NAME /var/www/html/TalusWebBackend/
+
+cd /var/www/html/TalusWebBackend
 composer install
+cp .env.example .env
 php artisan key:generate
 php artisan migrate
 php artisan optimize
@@ -65,8 +68,9 @@ php artisan optimize
       Require all granted
   </Directory>
 ```
-- set ```DocumentRoot``` in ```/etc/apache2/sites-enabled/000-default.conf```
-- ```sudo service apache2 restart```
+- set ```DocumentRoot``` path in ```/etc/apache2/sites-enabled/000-default.conf``` with 
+ ```/var/www/html/TalusWebBackend/public```
+- and finally, run ```sudo service apache2 restart```
 
 # 🔑 AppStoreConnect Api - Endpoints
 ```
