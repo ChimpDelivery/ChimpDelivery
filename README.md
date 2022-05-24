@@ -68,8 +68,7 @@ php artisan optimize
       Require all granted
   </Directory>
 ```
-- set ```DocumentRoot``` path in ```/etc/apache2/sites-enabled/000-default.conf``` with 
- ```/var/www/html/TalusWebBackend/public```
+- set ```DocumentRoot``` path in ```/etc/apache2/sites-enabled/000-default.conf``` with ```/var/www/html/TalusWebBackend/public```
 - and finally, run ```sudo service apache2 restart```
 
 # 🔑 AppStoreConnect Api - Endpoints
