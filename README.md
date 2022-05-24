@@ -71,11 +71,6 @@ php artisan serve
 # 💿 Production Server - Permission
 - https://linuxhint.com/how-to-set-up-file-permissions-for-laravel/
 
-# 💿 Ngrok Tunnel
-```
-cp ngrok.yml.example ngrok.yml
-ngrok start -config ngrok.yml laravel_tunnel
-```
 
 # 🔑 Talus AppStoreConnect Api - Endpoints
 ```
