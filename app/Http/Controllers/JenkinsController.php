@@ -98,19 +98,16 @@ class JenkinsController extends Controller
                 $jobIsBuilding = $jenkinsInfo?->building == true;
                 $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jenkinsInfo ? 'NO_BUILD' : $jenkinsInfo->result);
 
-                $lastBuildNumberData = $this->GetBuildList($request, $jobName)->getData();
-                $buildNumber = isset($lastBuildNumberData->build_list[0]) ? $lastBuildNumberData->build_list[0]->number : '';
-
                 $changeSets = isset($jenkinsInfo->changeSets[0])
                     ? collect($jenkinsInfo->changeSets[0]->items)->pluck('msg')
                     : collect();
 
-                $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$buildNumber}/wfapi/describe");
+                $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$jenkinsInfo?->id}/wfapi/describe");
 
                 $response->put('job_exists', true);
-                $response->put('build_number', $buildNumber);
+                $response->put('build_number', $jenkinsInfo?->id);
                 $response->put('build_status', $jobStatus);
-                $response->put('build_stage', collect($jobStageInfo?->stages)->pluck('name')->last());
+                $response->put('build_stage', collect($jobStageInfo?->stages ?? [])->pluck('name')->last());
                 $response->put('change_sets', $changeSets);
                 $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
                 $response->put('timestamp', $jenkinsInfo?->timestamp);
