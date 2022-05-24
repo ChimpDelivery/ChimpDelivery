@@ -1,9 +1,11 @@
 # Talus Web Backend
-
+- Production server running on AWS Lightsail.
+- Ngrok Tunnel has to be opened on Build Mac. (There is a parameter ```JENKINS_HOST``` on .env file)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [Postman](https://www.postman.com)
 
-# 💿 Installation (on Local)
+# 💿 Environment Setup
+- Required OS >= Ubuntu 20.04
 ```
 # update sudo packages
 sudo apt update && sudo apt -y upgrade
@@ -67,11 +69,7 @@ php artisan serve
 - set ```DocumentRoot``` in ```/etc/apache2/sites-enabled/000-default.conf```
 - ```sudo service apache2 restart```
 
-# 💿 Production Server - Permission
-- https://linuxhint.com/how-to-set-up-file-permissions-for-laravel/
-
-
-# 🔑 Talus AppStoreConnect Api - Endpoints
+# 🔑 AppStoreConnect Api - Endpoints
 ```
 GET  |  api/appstoreconnect/get-token
 GET  |  api/appstoreconnect/get-full-info
@@ -81,7 +79,7 @@ GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bund
 ```
 
 
-# 🔑 Talus Jenkins Api - Endpoints
+# 🔑 Jenkins Api - Endpoints
 1. [Jenkins REST API - Documentation](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
 GET  |  api/jenkins/get-job-list
@@ -91,7 +89,7 @@ GET  |  api/jenkins/get-latest-build-info/{projectName}
 GET  |  api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 
-# 🔑 Talus Github Api - Endpoints
+# 🔑 GitHub Api - Endpoints
 ```
 GET  |  api/github/get-repositories
 GET  |  api/github/get-repository/{id}
