@@ -22,7 +22,7 @@ class JenkinsController extends Controller
         $jenkinsInfo = self::GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
 
         return response()->json([
-            'job' => collect($jenkinsInfo)
+            'job' => collect($jenkinsInfo)->only(['url', 'name'])
         ]);
     }
 
