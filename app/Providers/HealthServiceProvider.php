@@ -30,6 +30,13 @@ class HealthServiceProvider extends ServiceProvider
             EnvironmentCheck::new(),
             CacheCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
+                'CAPTCHA_SECRET',
+                'CAPTCHA_SITEKEY',
+                'AWS_ACCESS_KEY_ID',
+                'AWS_SECRET_ACCESS_KEY',
+                'AWS_DEFAULT_REGION',
+                'AWS_BUCKET',
+                'AWS_USE_PATH_STYLE_ENDPOINT',
                 'APPSTORECONNECT_PRIVATE_KEY',
                 'APPSTORECONNECT_ISSUER_ID',
                 'APPSTORECONNECT_KID',
