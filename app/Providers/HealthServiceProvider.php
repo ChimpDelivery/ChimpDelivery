@@ -28,10 +28,11 @@ class HealthServiceProvider extends ServiceProvider
             PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host').'/login'),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             EnvironmentCheck::new(),
-            CacheCheck::new(),
+            CacheCheck::new()->driver('redis'),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
                 'CAPTCHA_SECRET',
                 'CAPTCHA_SITEKEY',
+                'REDIS_CLIENT',
                 'AWS_ACCESS_KEY_ID',
                 'AWS_SECRET_ACCESS_KEY',
                 'AWS_DEFAULT_REGION',
