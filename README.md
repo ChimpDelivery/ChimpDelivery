@@ -21,6 +21,7 @@ sudo tasksel install lamp-server
 
 # install php8.1
 sudo apt install php8.1
+sudo apt install redis-server
 
 # install php8.1 packages
 sudo apt-get install php8.1-curl
@@ -47,6 +48,9 @@ sudo mysql_secure_installation
 sudo service cron start
 crontab -e
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
+
+# start redis
+sudo service start redis-server
 
 cd /var/www/html/TalusWebBackend
 
