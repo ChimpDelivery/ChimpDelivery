@@ -136,8 +136,8 @@ class JenkinsController extends Controller
     private static function GetJenkinsApi($url)
     {
         return json_decode(Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(5)
-            ->connectTimeout(2)
+            ->timeout(20)
+            ->connectTimeout(5)
             ->get($url));
     }
 }
