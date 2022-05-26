@@ -6,7 +6,7 @@
         </td>
         <td class="text-center align-middle">
             @if ($appInfo->job_exists)
-                @if ($appInfo->build_status == 'BUILDING')
+                @if ($appInfo->build_status->status == 'BUILDING')
                     @include('layouts.build-progress-bar')
                 @endif
 

@@ -164,7 +164,7 @@ class DashboardController extends Controller
             $item->build_number = $appData->build_number;
             $item->build_status = $appData->build_status;
 
-            if ($item->build_status == 'BUILDING')
+            if ($item->build_status->status == 'BUILDING')
             {
                 $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
                 $estimatedTime = date('H:i:s', $estimatedTime);

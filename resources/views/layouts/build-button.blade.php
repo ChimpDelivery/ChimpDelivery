@@ -1,5 +1,5 @@
 @if ($appInfo->job_exists)
-    @if ($appInfo->build_status != 'BUILDING')
+    @if ($appInfo->build_status->status != 'BUILDING')
         <button id="build_button" type="button"
                 class="btn text-white bg-transparent" data-toggle="modal"
                 data-target="#exampleModal" data-title="{{$appInfo->id}}">
