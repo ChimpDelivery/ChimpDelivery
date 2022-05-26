@@ -101,7 +101,7 @@ class JenkinsController extends Controller
                 $response->put('jenkins_url', $jobLastBuildResponse?->url);
 
                 $changeSets = isset($jobLastBuildResponse->changeSets[0])
-                    ? collect($jobLastBuildResponse->changeSets[0]->items)->pluck('msg')
+                    ? collect($jobLastBuildResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                     : collect();
 
                 $response->put('change_sets', $changeSets);
