@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 class JenkinsController extends Controller
 {
@@ -72,11 +71,11 @@ class JenkinsController extends Controller
     public function GetLatestBuildInfo(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = [];
+        $jobLastBuildResponse = [];
 
         try
         {
-            $jenkinsInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
+            $jobLastBuildResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
         }
         catch (\Exception $exception)
         {
@@ -95,26 +94,29 @@ class JenkinsController extends Controller
             $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
             if ($jobExists)
             {
-                $jobIsBuilding = $jenkinsInfo?->building == true;
-                $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jenkinsInfo ? 'NO_BUILD' : $jenkinsInfo->result);
+                $response->put('job_exists', true);
+                $response->put('build_number', $jobLastBuildResponse?->id);
+                $response->put('estimated_duration', $jobLastBuildResponse?->estimatedDuration);
+                $response->put('timestamp', $jobLastBuildResponse?->timestamp);
+                $response->put('jenkins_url', $jobLastBuildResponse?->url);
 
-                $changeSets = isset($jenkinsInfo->changeSets[0])
-                    ? collect($jenkinsInfo->changeSets[0]->items)->pluck('msg')
+                $changeSets = isset($jobLastBuildResponse->changeSets[0])
+                    ? collect($jobLastBuildResponse->changeSets[0]->items)->pluck('msg')
                     : collect();
 
-                $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$jenkinsInfo?->id}/wfapi/describe");
-                $stages = collect($jobStageInfo?->stages ?? []);
-
-                $message = $stages->firstWhere('status', 'FAILED')?->name;
-
-                $response->put('job_exists', true);
-                $response->put('build_number', $jenkinsInfo?->id);
-                $response->put('build_status', collect(['status' => $jobStatus, 'message' => $message]));
-                $response->put('build_stage', $stages->last()?->name);
                 $response->put('change_sets', $changeSets);
-                $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
-                $response->put('timestamp', $jenkinsInfo?->timestamp);
-                $response->put('jenkins_url', $jenkinsInfo?->url);
+
+                // show build_status->message when failure.
+                $jobIsBuilding = $jobLastBuildResponse?->building == true;
+                $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jobLastBuildResponse ? 'NO_BUILD' : $jobLastBuildResponse->result);
+
+                $jobStagesResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$jobLastBuildResponse?->id}/wfapi/describe");
+                $jobStages = collect($jobStagesResponse?->stages ?? []);
+                $jobFailureStage = $jobStages->firstWhere('status', 'FAILED')?->name;
+
+                $response->put('build_status', collect(['status' => $jobStatus, 'message' => $jobFailureStage]));
+                $response->put('build_stage', $jobStages->last()?->name);
+                //
             }
 
             return response()->json($response);
