@@ -111,7 +111,7 @@ class JenkinsController extends Controller
                 $response->put('change_sets', $changeSets);
                 $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
                 $response->put('timestamp', $jenkinsInfo?->timestamp);
-                $response->put('jenkins_url', Str::replace('http://localhost:8080', config('jenkins.host'), $jenkinsInfo?->url));
+                $response->put('jenkins_url', $jenkinsInfo?->url);
             }
 
             return response()->json($response);
