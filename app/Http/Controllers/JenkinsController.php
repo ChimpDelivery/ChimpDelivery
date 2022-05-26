@@ -103,11 +103,14 @@ class JenkinsController extends Controller
                     : collect();
 
                 $jobStageInfo = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$jenkinsInfo?->id}/wfapi/describe");
+                $stages = collect($jobStageInfo?->stages ?? []);
+
+                $message = $stages->firstWhere('status', 'FAILED')?->name;
 
                 $response->put('job_exists', true);
                 $response->put('build_number', $jenkinsInfo?->id);
-                $response->put('build_status', $jobStatus);
-                $response->put('build_stage', collect($jobStageInfo?->stages ?? [])->pluck('name')->last());
+                $response->put('build_status', collect(['status' => $jobStatus, 'message' => $message]));
+                $response->put('build_stage', $stages->last()?->name);
                 $response->put('change_sets', $changeSets);
                 $response->put('estimated_duration', $jenkinsInfo?->estimatedDuration);
                 $response->put('timestamp', $jenkinsInfo?->timestamp);

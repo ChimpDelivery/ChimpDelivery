@@ -1,5 +1,5 @@
 @php
-    $backgroundColor = match ($appInfo->build_status)
+    $backgroundColor = match ($appInfo->build_status->status)
     {
         'BUILDING' => 'btn-primary font-weight-bold',
         'SUCCESS' => 'btn-success font-weight-bold',
@@ -15,10 +15,15 @@
 	$isHrActive = $commitCount >= 0 ? '<hr class="my-2">' : '';
 
 	$buildDetails = '';
-	if ($appInfo->build_status == 'BUILDING')
+	if ($appInfo->build_status->status == 'BUILDING')
 	{
 		$buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . $appInfo->build_stage . '</span><hr class="my-2">';
 		$buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+	}
+
+	if ($appInfo->build_status->status == 'FAILURE')
+	{
+		$buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo->build_status->message . '</span><hr class="my-2">';
 	}
 
     for ($i = 0; $i < $commitCount; ++$i)
@@ -42,6 +47,6 @@
         data-html="true"
         data-placement="bottom"
         data-content="{{ $buildDetails }}">
-        {{ $appInfo->build_status }}
+        {{ $appInfo->build_status->status }}
     </a>
 </div>
