@@ -162,20 +162,24 @@ class DashboardController extends Controller
     private function PopulateAppDetails($item, mixed $appData) : void
     {
         $item->job_exists = $appData->job_exists;
-        $item->job_url = $appData->job_url;
-        $item->change_sets = $appData->change_sets;
 
-        $item->build_number = $appData->build_number;
-        $item->build_status = $appData->build_status;
-        $item->build_stage = $appData->build_stage;
-
-        if ($item->build_status->status == 'IN_PROGRESS')
+        if (isset($appData->job_url))
         {
-            $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
-            $estimatedTime = date('H:i:s', $estimatedTime);
-            $currentTime = date('H:i:s');
+            $item->job_url = $appData->job_url;
+            $item->change_sets = $appData->change_sets;
 
-            $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+            $item->build_number = $appData->build_number;
+            $item->build_status = $appData->build_status;
+            $item->build_stage = $appData->build_stage;
+
+            if ($item->build_status->status == 'IN_PROGRESS')
+            {
+                $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
+                $estimatedTime = date('H:i:s', $estimatedTime);
+                $currentTime = date('H:i:s');
+
+                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+            }
         }
 
         $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
