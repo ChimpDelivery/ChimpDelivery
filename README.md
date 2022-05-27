@@ -37,6 +37,11 @@ HASH=`curl -sS https://composer.github.io/installer.sig`
 php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 sudo php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer
 
+# install ruby & fastlane tools
+sudo apt install ruby-full
+sudo gem install fastlane
+sudo gem install pry
+
 # restart apache && mysql
 sudo service apache2 restart
 sudo service mysql stop
