@@ -24,7 +24,10 @@ class DashboardController extends Controller
                 ->GetLastBuildWithDetails($request, $item->project_name)
                 ->getData();
 
-            $this->PopulateAppDetails($item, $appData);
+            if ($appData->job_exists)
+            {
+                $this->PopulateAppDetails($item, $appData);
+            }
         });
 
         return view('list-app-info')->with(['appInfos' => $data]);
@@ -80,7 +83,7 @@ class DashboardController extends Controller
                 ->GetLastBuildSummary($request, $appInfo->project_name)
                 ->getData();
 
-            $latestBuild = $job->build_list[0];
+            $latestBuild = $job->build_list;
             if ($latestBuild->number == 1 && empty($latestBuild->url))
             {
                 Artisan::call("jenkins:default-trigger {$request->id}");
