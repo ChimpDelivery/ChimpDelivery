@@ -1,9 +1,11 @@
 @php
-    $backgroundColor = match ($appInfo->build_status->status)
+    $currentBuildStatus = $appInfo->build_status->status;
+
+    $backgroundColor = match ($currentBuildStatus)
     {
-        'BUILDING' => 'btn-primary font-weight-bold',
+        'IN_PROGRESS' => 'btn-primary font-weight-bold',
         'SUCCESS' => 'btn-success font-weight-bold',
-        'FAILURE' => 'btn-danger font-weight-bold',
+        'FAILED' => 'btn-danger font-weight-bold',
         default => 'btn-secondary font-weight-bold'
     };
 
@@ -11,30 +13,27 @@
 @endphp
 
 @php
-	$commitCount = count($appInfo?->change_sets);
-	$isHrActive = $commitCount >= 0 ? '<hr class="my-2">' : '';
-
+    $commitCount = count($appInfo?->change_sets);
+    $isHrActive = $commitCount >= 0 ? '<hr class="my-2">' : '';
 	$buildDetails = '';
-	if ($appInfo->build_status->status == 'BUILDING')
+
+	switch ($currentBuildStatus)
 	{
-		$buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . $appInfo->build_stage . '</span><hr class="my-2">';
-		$buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+		case 'IN_PROGRESS':
+			$buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . $appInfo->build_stage . '</span><hr class="my-2">';
+            $buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+			break;
+		case 'FAILED':
+			$buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo->build_status->message . '</span><hr class="my-2">';
+			break;
 	}
 
-	if ($appInfo->build_status->status == 'FAILURE')
-	{
-		$buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo->build_status->message . '</span><hr class="my-2">';
-	}
+	// commit history
+    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n"); }
+    if ($commitCount == 0) { $buildDetails .= "No commit"; }
 
-    for ($i = 0; $i < $commitCount; ++$i)
-    {
-        $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
-    }
-
-	if ($commitCount == 0)
-	{
-		$buildDetails .= "No commit";
-	}
+	// replace 'IN_PROGRESS' text
+    if ($currentBuildStatus == 'IN_PROGRESS') { $currentBuildStatus = 'BUILDING'; }
 @endphp
 
 <div class="container">
@@ -47,6 +46,6 @@
         data-html="true"
         data-placement="bottom"
         data-content="{{ $buildDetails }}">
-        {{ $appInfo->build_status->status }}
+        {{ $currentBuildStatus }}
     </a>
 </div>

@@ -17,17 +17,20 @@ class DashboardController extends Controller
 {
     public function Index(Request $request) : View
     {
-        $data = ['appInfos' => AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1)];
+        $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data['appInfos']->each(function ($item) use ($request) {
+        $data->each(function ($item) use ($request) {
             $appData = app('App\Http\Controllers\JenkinsController')
-                ->GetLatestBuildInfo($request, $item->project_name)
+                ->GetLastBuildWithDetails($request, $item->project_name)
                 ->getData();
 
-            $this->PopulateAppDetails($item, $appData);
+            if ($appData->job_exists)
+            {
+                $this->PopulateAppDetails($item, $appData);
+            }
         });
 
-        return view('list-app-info')->with($data);
+        return view('list-app-info')->with(['appInfos' => $data]);
     }
 
     public function CreateAppForm() : View
@@ -76,11 +79,12 @@ class DashboardController extends Controller
 
         if ($appInfo)
         {
-            $appData = app('App\Http\Controllers\JenkinsController')
-                ->GetLatestBuildInfo($request, $appInfo->project_name)
+            $job = app('App\Http\Controllers\JenkinsController')
+                ->GetLastBuildSummary($request, $appInfo->project_name)
                 ->getData();
 
-            if (($appData->build_number == 1 && $appData->build_status != 'ABORTED') || is_null($appData->build_number))
+            $latestBuild = $job->build_list;
+            if ($latestBuild->number == 1 && empty($latestBuild->url))
             {
                 Artisan::call("jenkins:default-trigger {$request->id}");
                 session()->flash('success', "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!");
@@ -159,22 +163,23 @@ class DashboardController extends Controller
     {
         $item->job_exists = $appData->job_exists;
 
-        if ($item->job_exists)
+        if (isset($appData->job_url))
         {
+            $item->job_url = $appData->job_url;
+            $item->change_sets = $appData->change_sets;
+
             $item->build_number = $appData->build_number;
             $item->build_status = $appData->build_status;
+            $item->build_stage = $appData->build_stage;
 
-            if ($item->build_status->status == 'BUILDING')
+            if ($item->build_status->status == 'IN_PROGRESS')
             {
                 $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
                 $estimatedTime = date('H:i:s', $estimatedTime);
                 $currentTime = date('H:i:s');
-                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
-                $item->build_stage = $appData->build_stage;
-            }
 
-            $item->change_sets = $appData->change_sets;
-            $item->jenkins_url = $appData->jenkins_url;
+                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+            }
         }
 
         $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;

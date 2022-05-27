@@ -18,109 +18,98 @@ class JenkinsController extends Controller
     public function GetJob(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl."/job/{$jobName}/api/json");
+        $jenkinsInfo = $this->GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/api/json")->getData();
 
         return response()->json([
-            'job' => collect($jenkinsInfo)->only(['url', 'name'])
+            'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
         ]);
     }
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl.'/api/json');
+        $jenkinsInfo = $this->GetJenkinsJobResponse($this->baseUrl.'/api/json')->getData();
 
         return response()->json([
-            'job_list' => collect($jenkinsInfo->jobs)->pluck('name')
+            'job_list' => collect($jenkinsInfo->job_info->jobs)->pluck('name')
         ]);
     }
 
-    public function GetBuildList(Request $request, $job = null) : JsonResponse
+    public function GetLastBuildSummary(Request $request, $job = null) //: JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = self::GetJenkinsApi($this->baseUrl."/job/{$jobName}/job/master/api/json");
+        $validatedResponse = collect($this->GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/job/master/api/json")->getData());
 
-        // job doesn't exists.
-        if (!$jenkinsInfo)
+        // job doesn't exist.
+        if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
-            return response()->json([
-                'build_list' => null
-            ]);
+            return response()->json($validatedResponse->except('job_info'));
         }
 
         $response = collect();
-        $response = $response->merge($jenkinsInfo?->builds);
+        $response = $response->merge($validatedResponse->get('job_info')?->builds);
 
-        // job exists, but builds are deleted. add nextBuildNumber value to build list for detailed info.
-        if (isset($jenkinsInfo->builds) && empty($jenkinsInfo->builds))
+        // job exists, but builds are deleted or no build.
+        // add nextBuildNumber value to build list for detailed info for job parametrization.
+        if (isset($validatedResponse->get('job_info')->builds) && empty($validatedResponse->get('job_info')->builds))
         {
             $additionalBuildInfo = collect([
                 '_class' => '',
-                'number' => $jenkinsInfo->nextBuildNumber,
+                'number' => $validatedResponse->get('job_info')->nextBuildNumber,
                 'url' => ''
             ]);
 
             $response = $response->add($additionalBuildInfo);
         }
 
-        return response()->json([
-            'build_list' => $response
-        ]);
+        $buildList = collect([ 'build_list' => $response->last() ]);
+
+        // copy jenkins params.
+        $validatedResponse->map(function ($item, $key) use (&$buildList) {
+            $buildList->put($key, $item);
+        });
+
+        return response()->json($buildList->except('job_info'));
     }
 
-    // todo: refactor
-    public function GetLatestBuildInfo(Request $request, $job = null) : JsonResponse
+    public function GetLastBuildWithDetails(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jobLastBuildResponse = [];
+        $validatedResponse = collect($this->GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/wfapi/runs")->getData());
 
-        try
+        if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
-            $jobLastBuildResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/lastBuild/api/json");
+            return response()->json($validatedResponse->except('job_info'));
         }
-        catch (\Exception $exception)
+
+        // builds exist.
+        if (!empty($validatedResponse->get('job_info')))
         {
-            $response = collect([
-                'jenkins_status' => false,
-                'jenkins_message' => $exception->getMessage(),
-                'job_exists' => false
-            ]);
+            $buildCollection = collect($validatedResponse->get('job_info'));
+            $lastBuild = $buildCollection->first();
+            $validatedResponse->put('job_url', $lastBuild->_links->self->href);
 
-            return response()->json($response);
+            $changeSetsResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json");
+            $changeSets = isset($changeSetsResponse->changeSets[0])
+                ? collect($changeSetsResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+                : collect();
+
+            $validatedResponse->put('change_sets', $changeSets);
+            $validatedResponse->put('build_number', $lastBuild->id);
+
+            $jobStages = collect($lastBuild->stages);
+            $jobFailureStage = $jobStages->firstWhere('status', 'FAILED')?->name ?? '';
+
+            $validatedResponse->put('build_status', collect([
+                'status' => $lastBuild->status,
+                'message' => $jobFailureStage
+            ]));
+
+            $validatedResponse->put('build_stage', $jobStages->last()?->name);
+            $validatedResponse->put('timestamp', $lastBuild->startTimeMillis);
+            $validatedResponse->put('estimated_duration', collect($validatedResponse->get('job_info'))->avg('durationMillis'));
         }
-        finally
-        {
-            $response = collect(['job_exists' => false]);
 
-            $jobExists = !empty($this->GetJob($request, $jobName)->getData()->job);
-            if ($jobExists)
-            {
-                $response->put('job_exists', true);
-                $response->put('build_number', $jobLastBuildResponse?->id);
-                $response->put('estimated_duration', $jobLastBuildResponse?->estimatedDuration);
-                $response->put('timestamp', $jobLastBuildResponse?->timestamp);
-                $response->put('jenkins_url', $jobLastBuildResponse?->url);
-
-                $changeSets = isset($jobLastBuildResponse->changeSets[0])
-                    ? collect($jobLastBuildResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
-                    : collect();
-
-                $response->put('change_sets', $changeSets);
-
-                // show build_status->message when failure.
-                $jobIsBuilding = $jobLastBuildResponse?->building == true;
-                $jobStatus = ($jobIsBuilding) ? 'BUILDING' : (!$jobLastBuildResponse ? 'NO_BUILD' : $jobLastBuildResponse->result);
-
-                $jobStagesResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$jobLastBuildResponse?->id}/wfapi/describe");
-                $jobStages = collect($jobStagesResponse?->stages ?? []);
-                $jobFailureStage = $jobStages->firstWhere('status', 'FAILED')?->name;
-
-                $response->put('build_status', collect(['status' => $jobStatus, 'message' => $jobFailureStage]));
-                $response->put('build_stage', $jobStages->last()?->name);
-                //
-            }
-
-            return response()->json($response);
-        }
+        return response()->json($validatedResponse->except('job_info'));
     }
 
     public function PostStopJob(Request $request, $job = null, $buildNumber = null) : void
@@ -133,11 +122,48 @@ class JenkinsController extends Controller
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }
 
+    private function GetJenkinsJobResponse($url) : JsonResponse
+    {
+        $response = collect([
+            'jenkins_status' => false,
+            'jenkins_message' => '',
+            'job_exists' => false,
+            'job_info' => collect()
+        ]);
+
+        $jenkinsResponse = '';
+
+        try
+        {
+            $jenkinsResponse = self::GetJenkinsApi($url);
+        }
+        catch (\Exception $exception)
+        {
+            $response->put('jenkins_message', $exception->getMessage());
+
+            return response()->json($response);
+        }
+        finally
+        {
+            $response->put('jenkins_status', true);
+            $response->put('jenkins_message', 'success');
+
+            $jobExists = !is_null($jenkinsResponse);
+            if ($jobExists)
+            {
+                $response->put('job_exists', true);
+                $response->put('job_info', collect($jenkinsResponse));
+            }
+
+            return response()->json($response);
+        }
+    }
+
     private static function GetJenkinsApi($url)
     {
         return json_decode(Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
             ->timeout(20)
-            ->connectTimeout(5)
+            ->connectTimeout(8)
             ->get($url));
     }
 }

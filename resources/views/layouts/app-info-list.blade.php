@@ -1,18 +1,23 @@
 @foreach($appInfos as $appInfo)
     <tr>
-        <th scope="row" class="text-center font-weight-normal text-muted align-middle d-none d-sm-table-cell">#{{ $appInfo->id }}</th>
+        <th scope="row" class="text-center font-weight-normal text-muted align-middle d-none d-sm-table-cell">
+            #{{ $appInfo->id }}</th>
         <td class="text-center align-middle">
             @include('layouts.app-info')
         </td>
         <td class="text-center align-middle">
-            @if ($appInfo->job_exists)
-                @if ($appInfo->build_status->status == 'BUILDING')
-                    @include('layouts.build-progress-bar')
-                @endif
+            @if($appInfo->job_exists)
+                @if($appInfo->job_url == '')
+                    @include('layouts.jenkins-no-build')
+                @else
+                    @if ($appInfo->build_status->status == 'IN_PROGRESS')
+                        @include('layouts.build-progress-bar')
+                    @endif
 
-                @include('layouts.build-details-button')
+                    @include('layouts.build-details-button')
+                @endif
             @else
-                @include('layouts.jenkinsfile-notfound')
+                @include('layouts.jenkins-file-notfound')
             @endif
         </td>
         <td class="text-center align-middle">
