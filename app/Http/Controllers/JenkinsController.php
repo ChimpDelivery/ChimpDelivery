@@ -88,9 +88,9 @@ class JenkinsController extends Controller
             $lastBuild = $buildCollection->first();
             $validatedResponse->put('job_url', $lastBuild->_links->self->href);
 
-            $changeSetsResponse = self::GetJenkinsApi($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json");
-            $changeSets = isset($changeSetsResponse->changeSets[0])
-                ? collect($changeSetsResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+            $changeSetsResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
+            $changeSets = isset($changeSetsResponse->get('job_info')->changeSets[0])
+                ? collect($changeSetsResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
 
             $validatedResponse->put('change_sets', $changeSets);
