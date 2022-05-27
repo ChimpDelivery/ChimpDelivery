@@ -27,21 +27,13 @@
 			$buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo->build_status->message . '</span><hr class="my-2">';
 			break;
 	}
-	
-    for ($i = 0; $i < $commitCount; ++$i)
-    {
-        $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n");
-    }
 
-    if ($commitCount == 0)
-    {
-        $buildDetails .= "No commit";
-    }
+	// commit history
+    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n"); }
+    if ($commitCount == 0) { $buildDetails .= "No commit"; }
 
-    if ($currentBuildStatus == 'IN_PROGRESS')
-    {
-        $currentBuildStatus = 'BUILDING';
-    }
+	// replace 'IN_PROGRESS' text
+    if ($currentBuildStatus == 'IN_PROGRESS') { $currentBuildStatus = 'BUILDING'; }
 @endphp
 
 <div class="container">
