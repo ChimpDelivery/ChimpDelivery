@@ -34,6 +34,7 @@
 
 	// replace 'IN_PROGRESS' text
     if ($currentBuildStatus == 'IN_PROGRESS') { $currentBuildStatus = 'BUILDING'; }
+	if ($currentBuildStatus == 'FAILED') { $currentBuildStatus = 'FAILURE'; }
 @endphp
 
 <div class="container">
