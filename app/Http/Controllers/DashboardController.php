@@ -46,7 +46,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function StoreAppForm(AppInfoRequest $request) //: RedirectResponse
+    public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
     {
         $appInfoController = app('App\Http\Controllers\AppInfoController');
         $githubController = app('App\Http\Controllers\GithubController');
