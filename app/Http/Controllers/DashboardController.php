@@ -28,6 +28,8 @@ class DashboardController extends Controller
             {
                 $this->PopulateAppDetails($item, $appData);
             }
+
+            $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
         });
 
         return view('list-app-info')->with(['appInfos' => $data]);
@@ -44,16 +46,46 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
+    public function StoreAppForm(AppInfoRequest $request) //: RedirectResponse
     {
         $appInfoController = app('App\Http\Controllers\AppInfoController');
+        $githubController = app('App\Http\Controllers\GithubController');
 
-        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-            ->where('appstore_id', $request->appstore_id)
-            ->firstOrNew()
-        );
+        // check repository name on org
+        $gitResponse = collect($githubController->GetRepository($request->project_name)->getData());
 
-        session()->flash('success', "App: {$request->app_name} created.");
+        // git repo doesn't exit, just create it from template
+        if (count($gitResponse) == 0)
+        {
+            $createRepoResponse = collect($githubController
+                ->CreateRepository($request->project_name)
+                ->getData()
+            );
+
+            if (!is_null($createRepoResponse->get('id')))
+            {
+                $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
+                    ->where('appstore_id', $request->appstore_id)
+                    ->firstOrNew()
+                );
+
+                $githubController->UpdateRepoTopics($createRepoResponse->get('name'));
+
+                Artisan::call("jenkins:scan-repo");
+
+                session()->flash('success', "App: {$request->app_name} created. New Git project: {$createRepoResponse->get('full_name')}");
+            }
+        }
+        else
+        {
+            $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
+                ->where('appstore_id', $request->appstore_id)
+                ->firstOrNew()
+            );
+
+            session()->flash('success', "App: {$request->app_name} created.");
+        }
+
 
         return to_route('get_app_list');
     }
@@ -181,7 +213,5 @@ class DashboardController extends Controller
                 $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
             }
         }
-
-        $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
     }
 }

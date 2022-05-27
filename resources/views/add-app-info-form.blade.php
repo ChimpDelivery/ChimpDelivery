@@ -51,11 +51,11 @@
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-github" aria-hidden="true"></i> Select Git Project ({{ count($allGitProjects) }})
+                        <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($allGitProjects) }})
                     </button>
 
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
-                        <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
+                        <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
                         @foreach($allGitProjects as $gitProject)
                             <input type="text" id="git_project_name" name="git_project_name" hidden>
                             <a class="dropdown-item" href="#">{{ $gitProject->name }} ({{ $gitProject->size }})</a>
@@ -91,24 +91,24 @@
     $(document).ready(function() {
 
         $('#dropdown-inputs a').click(function() {
-            var appName = $(this).text();
+            let appName = $(this).text();
 
             // update button text.
             $('button[id="dropdownMenuButton"]').text(appName);
 
             // update hidden app name input.
-            var appNameField = document.getElementById('app_name');
+            let appNameField = document.getElementById('app_name');
             appNameField.value = appName;
         });
 
         $('#dropdown-inputs-git-project a').click(function () {
-            var gitProjectName = $(this).text().split('(');
+            let gitProjectName = $(this).text().split('(');
 
             // update dropdown without size info
             $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName[0]);
 
             // update hidden git project field
-            var gitField = document.getElementById('project_name')
+            let gitField = document.getElementById('project_name')
             gitField.value = gitProjectName[0];
         });
     });
@@ -116,10 +116,10 @@
     function updateAppField(appBundleId, appstoreId) {
         console.log('updating app field...');
 
-        var appBundleField = document.getElementById('app_bundle');
+        let appBundleField = document.getElementById('app_bundle');
         appBundleField.value = appBundleId;
 
-        var appstoreIdField = document.getElementById('appstore_id')
+        let appstoreIdField = document.getElementById('appstore_id')
         appstoreIdField.value = appstoreId;
     }
 
@@ -134,13 +134,30 @@
         filter = input.value.toUpperCase();
         div = document.getElementById(dropdownId);
         a = div.getElementsByTagName("a");
+
+        let list = [];
+
         for (i = 0; i < a.length; i++) {
             txtValue = a[i].textContent || a[i].innerText;
+
+            if (searchInputId === 'git_search_input') {
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    list.push(true);
+                }
+            }
+
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 a[i].style.display = "";
             } else {
                 a[i].style.display = "none";
             }
+        }
+
+        if (searchInputId === 'git_search_input' && list.length === 0) {
+            $('button[id="dropdownMenuButtonGitProject"]').text(input.value);
+
+            let gitField = document.getElementById('project_name')
+            gitField.value = input.value;
         }
     }
 </script>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
@@ -44,7 +43,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
@@ -52,17 +51,17 @@ class GithubController extends Controller
         }
     }
 
-    public function GetRepository(Request $request) : JsonResponse
+    public function GetRepository($repoName) : JsonResponse
     {
         $response = [];
 
         try
         {
-            $response = GitHub::api('repo')->showById($request->id);
+            $response = GitHub::api('repo')->show(config('github.organization_name'), $repoName);
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
@@ -71,7 +70,7 @@ class GithubController extends Controller
     }
 
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
-    public function CreateRepository(Request $request) : JsonResponse
+    public function CreateRepository($repoName) : JsonResponse
     {
         $response = [];
 
@@ -81,8 +80,8 @@ class GithubController extends Controller
                 config('github.organization_name'),
                 config('github.template_project'),
                 [
-                    'name' => $request->projectName,
-                    'description' => $request->projectDescription,
+                    'name' => $repoName,
+                    'description' => '',
                     'owner' => config('github.organization_name'),
                     'include_all_branches' => false,
                     'private' => true
@@ -91,7 +90,29 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
+        }
+        finally
+        {
+            return response()->json($response);
+        }
+    }
+
+    public function UpdateRepoTopics($repoName)
+    {
+        $response = [];
+
+        try
+        {
+            $response = GitHub::api('repo')->replaceTopics(
+                config('github.organization_name'),
+                $repoName,
+                [ 'prototype' ]
+            );
+        }
+        catch (\Exception $exception)
+        {
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
