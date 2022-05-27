@@ -44,4 +44,5 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
 Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository/{id}', 'GetRepository');
+    Route::get('github/create-repository/{projectName}/{projectDescription}', 'CreateRepository');
 });
