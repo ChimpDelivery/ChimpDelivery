@@ -18,7 +18,7 @@ class JenkinsController extends Controller
     public function GetJob(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = $this->GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/api/json")->getData();
+        $jenkinsInfo = self::GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/api/json")->getData();
 
         return response()->json([
             'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
@@ -27,7 +27,7 @@ class JenkinsController extends Controller
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse($this->baseUrl.'/api/json')->getData();
+        $jenkinsInfo = self::GetJenkinsJobResponse($this->baseUrl.'/api/json')->getData();
 
         return response()->json([
             'job_list' => collect($jenkinsInfo->job_info->jobs)->pluck('name')
@@ -37,7 +37,7 @@ class JenkinsController extends Controller
     public function GetLastBuildSummary(Request $request, $job = null) //: JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/job/master/api/json")->getData());
+        $validatedResponse = collect(self::GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/job/master/api/json")->getData());
 
         // job doesn't exist.
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
@@ -74,7 +74,7 @@ class JenkinsController extends Controller
     public function GetLastBuildWithDetails(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/wfapi/runs")->getData());
+        $validatedResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/wfapi/runs")->getData());
 
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
@@ -122,7 +122,7 @@ class JenkinsController extends Controller
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }
 
-    private function GetJenkinsJobResponse($url) : JsonResponse
+    private static function GetJenkinsJobResponse($url) : JsonResponse
     {
         $response = collect([
             'jenkins_status' => false,
