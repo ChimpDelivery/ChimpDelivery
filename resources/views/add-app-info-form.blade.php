@@ -51,7 +51,7 @@
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-github" aria-hidden="true"></i> Select Git Project ({{ count($allGitProjects) }})
+                        <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($allGitProjects) }})
                     </button>
 
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
