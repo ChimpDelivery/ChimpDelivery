@@ -105,7 +105,7 @@ class DashboardController extends Controller
             }
         }
 
-        return to_route('get_app_list');
+        return back();
     }
 
     public function StopJob(Request $request) : RedirectResponse
@@ -113,7 +113,7 @@ class DashboardController extends Controller
         Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
         session()->flash('success', "{$request->projectName}: build {$request->buildNumber} aborted, wait 3-4 seconds then reload the page.");
 
-        return to_route('get_app_list');
+        return back();
     }
 
     public function ScanRepo() : RedirectResponse
@@ -121,7 +121,7 @@ class DashboardController extends Controller
         Artisan::call("jenkins:scan-repo");
         session()->flash('success', "Repository scanning begins...");
 
-        return to_route('get_app_list');
+        return back();
     }
 
     public function DeleteApp(Request $request) : RedirectResponse
@@ -156,7 +156,7 @@ class DashboardController extends Controller
         ResponseCache::clear();
         session()->flash('success', 'Cache cleared!');
 
-        return to_route('get_app_list');
+        return back();
     }
 
     private function PopulateAppDetails($item, mixed $appData) : void
