@@ -92,4 +92,22 @@ class AppStoreConnectController extends Controller
             'status' => $appList->json()
         ]);
     }
+
+    public function CreateApp(Request $request) : JsonResponse
+    {
+        $rubyScriptPath = base_path() . '/ruby-scripts/CreateAppstoreApplication.rb';
+
+        $fullCommand = "ruby {$rubyScriptPath}" . ' ' .
+            config('appstore.user_email') . ' ' .
+            config('appstore.user_pass') . ' ' .
+            $request->bundleId . ' ' .
+            $request->bundleName . ' ' .
+            $request->appName .  ' ' .
+            config('appstore.company_name');
+
+
+        $response = json_decode(shell_exec($fullCommand));
+
+        return response()->json($response);
+    }
 }

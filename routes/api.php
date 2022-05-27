@@ -31,6 +31,7 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
     Route::get('appstoreconnect/create-bundle', 'CreateBundle');
+    Route::get('appstoreconnect/create-app/{bundleId}/{bundleName}/{appName}', 'CreateApp');
 });
 
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {

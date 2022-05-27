@@ -5,11 +5,11 @@ require "spaceship"
 def set_response(status_code: 200, detail: "no_detail")
     response = { status: status_code, message: detail }
     puts response.to_json
+    exit
 end
 
 if ARGV.length != 6
-  puts "Expected 6 arguments: {appstore_acc} {appstore_pass} {bundle_id} {bundle_name} {app_name} {company_name}"
-  exit
+    set_response(status_code: 5505, detail: "Expected 6 arguments: {appstore_acc} {appstore_pass} {bundle_id} {bundle_name} {app_name} {company_name}")
 end
 
 app_company = ARGV[5]
