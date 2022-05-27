@@ -69,4 +69,33 @@ class GithubController extends Controller
             return response()->json($response);
         }
     }
+
+    // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
+    public function CreateRepository(Request $request) : JsonResponse
+    {
+        $response = [];
+
+        try
+        {
+            $response = GitHub::api('repo')->createFromTemplate(
+                config('github.organization_name'),
+                config('github.template_project'),
+                [
+                    'name' => $request->projectName,
+                    'description' => $request->projectDescription,
+                    'owner' => config('github.organization_name'),
+                    'include_all_branches' => false,
+                    'private' => true
+                ]
+            );
+        }
+        catch (\Exception $exception)
+        {
+            return response()->json(['message' => $exception->getMessage()]);
+        }
+        finally
+        {
+            return response()->json($response);
+        }
+    }
 }
