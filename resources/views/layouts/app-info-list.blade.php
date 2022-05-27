@@ -10,7 +10,7 @@
                 @if($appInfo->job_url == '')
                     @include('layouts.jenkins-no-build')
                 @else
-                    @if ($appInfo->build_status->status == 'IN_PROGRESS')
+                    @if ($appInfo->build_status->status == 'IN_PROGRESS' || $appInfo->build_status->status == 'NOT_EXECUTED')
                         @include('layouts.build-progress-bar')
                     @endif
 
