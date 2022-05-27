@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
@@ -44,7 +43,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
@@ -62,7 +61,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
@@ -91,7 +90,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {
@@ -105,12 +104,15 @@ class GithubController extends Controller
 
         try
         {
-            $response = GitHub::api('repo')->replaceTopics(config('github.organization_name'), $repoName, ['prototype']);
+            $response = GitHub::api('repo')->replaceTopics(
+                config('github.organization_name'),
+                $repoName,
+                [ 'prototype' ]
+            );
         }
         catch (\Exception $exception)
         {
-            return response()->json(['message' => $exception->getMessage()]);
-
+            return response()->json([ 'message' => $exception->getMessage() ]);
         }
         finally
         {

@@ -51,9 +51,10 @@ class DashboardController extends Controller
         $appInfoController = app('App\Http\Controllers\AppInfoController');
         $githubController = app('App\Http\Controllers\GithubController');
 
+        // check repository name on org
         $gitResponse = collect($githubController->GetRepository($request->project_name)->getData());
 
-        // if git repo doesn't exit, just create it from template.
+        // git repo doesn't exit, just create it from template
         if (count($gitResponse) == 0)
         {
             $createRepoResponse = collect($githubController
