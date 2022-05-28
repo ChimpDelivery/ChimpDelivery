@@ -55,7 +55,7 @@ crontab -e
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 
 # start redis
-sudo service start redis-server
+sudo service redis-server start
 
 cd /var/www/html/TalusWebBackend
 
