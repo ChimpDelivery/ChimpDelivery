@@ -9,26 +9,23 @@
 ```
 # update sudo packages
 sudo apt update && sudo apt -y upgrade
-sudo apt-get install software-properties-common
+sudo apt-get install software-properties-common -y
 
 # add sudo repository for php >= 8.1
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
 # install lamp stack
-sudo apt-get install tasksel
-sudo tasksel install lamp-server
+sudo apt-get install tasksel -y
+sudo tasksel install lamp-server -y
 
 # install php8.1
-sudo apt install php8.1
-sudo apt install redis-server
+sudo apt install php8.1 -y
+sudo apt install redis-server -y
 
 # install php8.1 packages
-sudo apt-get install php8.1-curl
-sudo apt-get install php8.1-mysql
-sudo apt-get install php8.1-mbstring
-sudo apt-get install php8.1-xml
-sudo apt-get install zip unzip php8.1-zip
+sudo apt-get install php8.1-curl php8.1-mysql php8.1-mbstring php8.1-xml -y
+sudo apt-get install zip unzip php8.1-zip -y
 
 # install composer
 cd ~
