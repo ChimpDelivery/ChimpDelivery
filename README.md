@@ -59,6 +59,7 @@ sudo service start redis-server
 
 cd /var/www/html/TalusWebBackend
 
+sudo chown -R user TalusWebBackend/
 sudo chown -R $USER:www-data storage
 sudo chown -R $USER:www-data bootstrap/cache
 chmod -R 775 storage
