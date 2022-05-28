@@ -17,7 +17,7 @@ sudo apt update
 
 # install lamp stack
 sudo apt-get install tasksel -y
-sudo tasksel install lamp-server -y
+sudo tasksel install lamp-server
 
 # install php8.1
 sudo apt install php8.1 -y
