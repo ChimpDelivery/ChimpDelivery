@@ -26,10 +26,10 @@ sudo apt-get install php8.1-curl php8.1-mysql php8.1-mbstring php8.1-xml -y
 sudo apt-get install zip unzip php8.1-zip -y
 
 # install composer
-cd ~
-curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
-HASH=`curl -sS https://composer.github.io/installer.sig`
-php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+cd ~ &&
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php &&
+HASH=`curl -sS https://composer.github.io/installer.sig` &&
+php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" &&
 sudo php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer
 
 # install ruby & fastlane tools
