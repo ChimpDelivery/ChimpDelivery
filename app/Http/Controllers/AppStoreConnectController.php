@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\InputStream;
+use Symfony\Component\Process\Process;
+
 use Firebase\JWT\JWT;
 
 use Illuminate\Http\Request;
@@ -91,5 +95,32 @@ class AppStoreConnectController extends Controller
         return response()->json([
             'status' => $appList->json()
         ]);
+    }
+
+    public function CreateApp(Request $request) : JsonResponse
+    {
+        $twoFactorAuth = storage_path() . '/ruby-scripts/TwoFactorBot.sh';
+        $rubyScriptPath = storage_path() . '/ruby-scripts/CreateAppstoreApplication.rb';
+
+        $process = Process::fromShellCommandline("sh $twoFactorAuth");
+        $process->start();
+        
+        dd($process->getOutput());
+
+        try
+        {
+            $process->setTimeout(null)
+                    ->mustRun();
+        }
+        catch (ProcessFailedException $exception)
+        {
+            dd($exception->getMessage());
+            return response()->json($exception->getMessage());
+        }
+        finally
+        {
+            dd($process->getOutput());
+            return response()->json($process->getOutput());
+        }
     }
 }
