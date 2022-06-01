@@ -22,9 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// app api
 Route::get('appstoreconnect/get-app-list/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
 Route::get('apps/get-app-list/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
+Route::get('apps/get-app/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
 
+// package api
+Route::get('packages/get-package/{id}', 'App\Http\Controllers\PackageController@GetPackage')->middleware('appstore');
+
+// appstore connect api
 Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
@@ -34,6 +40,7 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
     Route::get('appstoreconnect/create-app/{bundleId}/{bundleName}/{appName}', 'CreateApp');
 });
 
+// jenkins api
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('jenkins/get-job/{projectName}', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
@@ -42,6 +49,7 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
     Route::get('jenkins/stop-job/{projectName}/{buildNumber}', 'PostStopJob');
 });
 
+// github api
 Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository/{projectName}', 'GetRepository');

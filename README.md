@@ -49,8 +49,8 @@ crontab -e
 cd /var/www/html/TalusWebBackend && \
 sudo chown -R www-data:www-data storage && \
 sudo chown -R www-data:www-data bootstrap/cache && \
-chmod -R 775 storage && \
-chmod -R 775 bootstrap/cache && \
+sudo chmod -R 775 storage && \
+sudo chmod -R 775 bootstrap/cache && \
 composer install && \
 cp .env.example .env && \
 php artisan key:generate && \
