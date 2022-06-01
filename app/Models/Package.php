@@ -2,27 +2,17 @@
 
 namespace App\Models;
 
-use App\Http\Traits\ClearsResponseCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AppInfo extends Model
+class Package extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-    use ClearsResponseCache;
 
     protected $fillable = [
-        'app_icon',
-        'app_icon_hash',
-        'app_name',
-        'project_name',
-        'app_bundle',
-        'appstore_id',
-        'fb_app_id',
-        'elephant_id',
-        'elephant_secret'
+        'url',
+        'package_id',
+        'hash'
     ];
 
     /**
@@ -31,6 +21,8 @@ class AppInfo extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'id',
+        'package_id',
         'created_at',
         'updated_at',
         'deleted_at'
