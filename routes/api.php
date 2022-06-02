@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// todo: remove unnecessary routes
 // app api
 Route::get('appstoreconnect/get-app-list/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
 Route::get('apps/get-app-list/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
@@ -29,6 +30,7 @@ Route::get('apps/get-app/{id}', 'App\Http\Controllers\AppInfoController@GetApp')
 
 // package api
 Route::get('packages/get-package/{id}', 'App\Http\Controllers\PackageController@GetPackage')->middleware('appstore');
+Route::get('packages/update-package/{id}/{hash}', 'App\Http\Controllers\PackageController@UpdatePackage')->middleware('appstore');
 
 // appstore connect api
 Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
