@@ -16,4 +16,15 @@ class PackageController extends Controller
 
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
+
+    public function UpdatePackage(Request $request) : JsonResponse
+    {
+        $response = Package::where('package_id', '=', $request->id)->update([
+            'hash' => $request->hash
+        ]);
+
+        return response()->json([
+            'status' => ($response) ? Response::HTTP_ACCEPTED : Response::HTTP_FORBIDDEN
+        ]);
+    }
 }
