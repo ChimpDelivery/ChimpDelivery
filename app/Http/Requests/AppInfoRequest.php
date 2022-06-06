@@ -25,7 +25,7 @@ class AppInfoRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'app_icon' => 'image|mimes:png|max:1024',
+            'app_icon' => 'image|mimes:png|max:5120',
             'app_icon_hash' => 'nullable',
 
             'app_name' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
