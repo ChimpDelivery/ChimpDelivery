@@ -189,9 +189,9 @@ return [
         ],
 
         'discord' => [
-            'webhook_url' => '',
+            'webhook_url' => 'https://discord.com/api/webhooks/984204441114779681/-N5Iszye0zhsB5nsfhWyQdomy40eqwvkRs_daRbtOQHf9UnbiKeuySFCw7a1zvQpOFB_',
 
-            'username' => null,
+            'username' => 'Talus-Bot',
 
             'avatar_url' => null,
         ],
