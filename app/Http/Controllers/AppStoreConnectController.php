@@ -96,31 +96,4 @@ class AppStoreConnectController extends Controller
             'status' => $appList->json()
         ]);
     }
-
-    public function CreateApp(Request $request) : JsonResponse
-    {
-        $twoFactorAuth = storage_path() . '/ruby-scripts/TwoFactorBot.sh';
-        $rubyScriptPath = storage_path() . '/ruby-scripts/CreateAppstoreApplication.rb';
-
-        $process = Process::fromShellCommandline("sh $twoFactorAuth");
-        $process->start();
-        
-        dd($process->getOutput());
-
-        try
-        {
-            $process->setTimeout(null)
-                    ->mustRun();
-        }
-        catch (ProcessFailedException $exception)
-        {
-            dd($exception->getMessage());
-            return response()->json($exception->getMessage());
-        }
-        finally
-        {
-            dd($process->getOutput());
-            return response()->json($process->getOutput());
-        }
-    }
 }
