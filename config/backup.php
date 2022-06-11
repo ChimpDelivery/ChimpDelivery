@@ -189,7 +189,7 @@ return [
         ],
 
         'discord' => [
-            'webhook_url' => 'https://discord.com/api/webhooks/984204441114779681/-N5Iszye0zhsB5nsfhWyQdomy40eqwvkRs_daRbtOQHf9UnbiKeuySFCw7a1zvQpOFB_',
+            'webhook_url' => 'https://discord.com/api/webhooks/985202970624938014/xWonHj5kVUs-mB6UCM8Uarrq-GRM-WHDCflZ1rOm6el8SoKwla_GVdbeQuMVELlPsYxV',
 
             'username' => 'Talus-Bot',
 
