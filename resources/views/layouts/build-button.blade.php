@@ -1,5 +1,5 @@
 @if($appInfo->job_exists)
-    @if($appInfo->build_status?->status != 'IN_PROGRESS' && $appInfo->build_status?->status != 'NOT_EXECUTED')
+    @if($appInfo->build_status?->status != 'IN_PROGRESS')
         <button id="build_button" type="button"
                 class="btn text-white bg-transparent" data-toggle="modal"
                 data-target="#exampleModal" data-title="{{ $appInfo->id }}">
