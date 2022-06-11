@@ -30,11 +30,10 @@
 
 	// build details...
     for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n"); }
-    if ($commitCount == 0 && $currentBuildStatus != 'NOT_EXECUTED') { $buildDetails .= "No commit"; }
-	if ($currentBuildStatus == 'NOT_EXECUTED') { $buildDetails .= "Jenkins waiting..."; }
+    if ($commitCount == 0) { $buildDetails .= "No commit"; }
 
 	// replace jenkins status text
-    if ($currentBuildStatus == 'IN_PROGRESS' || $currentBuildStatus == 'NOT_EXECUTED') { $currentBuildStatus = 'BUILDING'; }
+    if ($currentBuildStatus == 'IN_PROGRESS') { $currentBuildStatus = 'BUILDING'; }
 	if ($currentBuildStatus == 'FAILED') { $currentBuildStatus = 'FAILURE'; }
 @endphp
 
