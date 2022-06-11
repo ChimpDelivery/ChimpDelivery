@@ -166,7 +166,7 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'talusci@talusstudio.com',
+            'to' => '',
 
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
@@ -189,9 +189,9 @@ return [
         ],
 
         'discord' => [
-            'webhook_url' => 'https://discord.com/api/webhooks/985202970624938014/xWonHj5kVUs-mB6UCM8Uarrq-GRM-WHDCflZ1rOm6el8SoKwla_GVdbeQuMVELlPsYxV',
+            'webhook_url' => config('services.discord.webhook_url'),
 
-            'username' => 'Talus-Bot',
+            'username' => config('services.discord.bot_name'),
 
             'avatar_url' => null,
         ],
