@@ -6,46 +6,64 @@
 
 # 💿 Environment Setup
 - Required OS >= Ubuntu 20.04
+# 1. Update Packages
 ```
-# update sudo packages
 sudo apt update && sudo apt -y upgrade && \
-sudo apt-get install software-properties-common -y && \
+sudo apt-get install software-properties-common -y
+```
 
-# add sudo repository for php >= 8.1
+# 2. Repository for php >= 8.1
+```
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
+```
 
-# install lamp stack
+# 3. Install LAMP Stack
+```
 sudo apt-get install tasksel -y
 sudo tasksel install lamp-server
+```
 
-# install php8.1 related packages
+# 4. Install PHP8.1 Related Packages
+```
 sudo apt-get install php8.1 -y && \
 sudo apt-get install redis-server -y && \
 sudo apt-get install php8.1-curl php8.1-mysql php8.1-mbstring php8.1-xml -y && \
 sudo apt-get install zip unzip php8.1-zip -y
+```
 
-# install composer
+# 5. Install Composer
+```
 cd ~ && \
 curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
 HASH=`curl -sS https://composer.github.io/installer.sig` && \
 php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
 sudo php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer
+```
 
-# restart services
+# 6. Crontab Settings
+crontab -e
+```
+* * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
+```
+
+# 7. MySQL Settings
+```
+change root password
+create database laravel
+```
+
+# 8. Restart Services
+```
 sudo service apache2 restart
 sudo service cron restart
 sudo service redis-server restart
-sudo service mysql stop
+sudo service mysql restart
 sudo usermod -d /var/lib/mysql/ mysql
-sudo service mysql start
-sudo mysql_secure_installation
+```
 
-# start cron and initialize it
-crontab -e
-* * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
-
-# laravel settings
+# 9. Laravel Settings
+```
 cd /var/www/html/TalusWebBackend && \
 sudo chown -R www-data:www-data storage && \
 sudo chown -R www-data:www-data bootstrap/cache && \
@@ -58,7 +76,7 @@ php artisan migrate && \
 php artisan optimize
 ```
 
-# 💿 Production Server - Apache
+# 10. Apache Settings
 - enable mod_rewrite ```sudo a2enmod rewrite```
 - edit ```/etc/apache2/apache2.conf```
 ```

@@ -189,9 +189,9 @@ return [
         ],
 
         'discord' => [
-            'webhook_url' => config('services.discord.webhook_url'),
+            'webhook_url' => env('DISCORD_WEBHOOK_URL', ''),
 
-            'username' => config('services.discord.bot_name'),
+            'username' => env('DISCORD_BOT_NAME', 'Bot'),
 
             'avatar_url' => null,
         ],
