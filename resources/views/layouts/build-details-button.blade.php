@@ -3,7 +3,7 @@
 
     $backgroundColor = match ($currentBuildStatus)
     {
-		'NOT_EXECUTED', 'IN_PROGRESS' => 'btn-primary font-weight-bold',
+		'IN_PROGRESS' => 'btn-primary font-weight-bold',
         'SUCCESS' => 'btn-success font-weight-bold',
         'FAILED' => 'btn-danger font-weight-bold',
         default => 'btn-secondary font-weight-bold'
