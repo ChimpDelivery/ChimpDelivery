@@ -1,5 +1,5 @@
 @php
-    $currentBuildStatus = $appInfo?->build_status->status;
+    $currentBuildStatus = $appInfo?->build_status?->status;
 
 	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo->build_number}</span>";
 @endphp
@@ -18,7 +18,7 @@
     }
 
     // build details...
-    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo->change_sets[$i]) . "\r\n"); }
+    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim($appInfo?->change_sets[$i]) . "\r\n"); }
     if ($commitCount == 0) { $buildDetails .= "No commit"; }
 @endphp
 
