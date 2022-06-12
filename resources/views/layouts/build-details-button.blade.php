@@ -31,7 +31,7 @@
         data-toggle="popover"
         data-html="true"
         data-placement="bottom"
-        data-content="">
+        data-content="{{ $buildDetails }}">
         <img alt="..." src="https://jenkins.talusstudio.eu.ngrok.io/buildStatus/icon?job={{ config('jenkins.ws') }}%2F{{ $appInfo->project_name }}%2Fmaster">
     </a>
 </div>
