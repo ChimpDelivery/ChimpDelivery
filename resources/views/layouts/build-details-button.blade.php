@@ -1,7 +1,8 @@
 @php
     $currentBuildStatus = $appInfo?->build_status?->status;
+    $currentBuildNumber = $appInfo?->build_number ?? 'NO_BUILD';
 
-	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo?->build_number ?? 'NO_BUILD'}</span>";
+    $title = "Build Number: <span class='text-dark font-weight-bold'>{$currentBuildNumber}</span>";
 @endphp
 
 @php
