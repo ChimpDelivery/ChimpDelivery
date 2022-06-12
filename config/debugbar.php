@@ -163,7 +163,7 @@ return [
         'session'         => true,  // Display session data
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
-        'laravel'         => true, // Laravel version and environment
+        'laravel'         => false, // Laravel version and environment
         'events'          => true, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'logs'            => true, // Add the latest log messages
