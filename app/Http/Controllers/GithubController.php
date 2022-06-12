@@ -107,7 +107,7 @@ class GithubController extends Controller
             $response = GitHub::api('repo')->replaceTopics(
                 config('github.organization_name'),
                 $repoName,
-                [ 'prototype' ]
+                [ config('github.prototype_topic') ]
             );
         }
         catch (\Exception $exception)
