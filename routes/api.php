@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppStoreConnectController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\JenkinsController;
+use App\Http\Controllers\PackageController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // dashboard apps
 Route::get('apps/get-app/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
 
-// dashboard packages
-Route::get('packages/get-package/{id}', 'App\Http\Controllers\PackageController@GetPackage')->middleware('appstore');
-Route::get('packages/update-package/{id}/{hash}', 'App\Http\Controllers\PackageController@UpdatePackage')->middleware('appstore');
+// package management
+Route::controller(PackageController::class)->middleware('appstore')->group(function () {
+    Route::get('packages/get-package/{id}', 'GetPackage');
+    Route::get('packages/update-package/{id}/{hash}', 'UpdatePackage');
+});
 
 // appstore connect
 Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
