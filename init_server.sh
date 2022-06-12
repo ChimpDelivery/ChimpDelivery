@@ -6,13 +6,13 @@ export LANGUAGE=en_US.UTF-8
 PROJECT_FOLDER=$PWD
 
 # update packages and install common packages
-sudo apt update
-sudo apt -y upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
 sudo apt-get install software-properties-common -y
 
 # add repo for >= php8.1
 sudo add-apt-repository ppa:ondrej/php -y
-sudo apt update
+sudo apt update -y
 
 # install lamp stack
 sudo apt-get install tasksel -y
@@ -40,6 +40,15 @@ sudo chown -R www-data:www-data bootstrap/cache
 sudo chmod -R 775 storage
 sudo chmod -R 775 bootstrap/cache
 
+# activate apache mod
+sudo a2enmod rewrite
+
+# restart related services
+sudo service apache2 restart
+sudo service cron restart
+sudo service redis-server restart
+sudo service mysql restart
+
 # laravel environment
 cd $PROJECT_FOLDER
 composer install
@@ -49,12 +58,3 @@ fi
 php artisan key:generate
 php artisan migrate
 php artisan optimize
-
-# apache settings
-sudo a2enmod rewrite
-
-# restart related services
-sudo service apache2 restart
-sudo service cron restart
-sudo service redis-server restart
-sudo service mysql restart
