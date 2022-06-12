@@ -36,36 +36,36 @@ create database laravel
 
 # 🔑 AppStoreConnect API
 ```
-GET  |  api/appstoreconnect/get-token
-GET  |  api/appstoreconnect/get-full-info
-GET  |  api/appstoreconnect/get-app-list
-GET  |  api/appstoreconnect/get-app-list/{id}
-GET  |  api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
+GET   |   api/appstoreconnect/get-token
+GET   |   api/appstoreconnect/get-full-info
+GET   |   api/appstoreconnect/get-app-list
+GET   |   api/appstoreconnect/get-app-list/{id}
+GET   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
 # 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
-GET  |  api/jenkins/get-job-list
-GET  |  api/jenkins/get-job/{projectName}
-GET  |  api/jenkins/get-build-list/{projectName}
-GET  |  api/jenkins/get-latest-build-info/{projectName}
-GET  |  api/jenkins/stop-job/{projectName}/{buildNumber}
+GET   |   api/jenkins/get-job-list
+GET   |   api/jenkins/get-job/{projectName}
+GET   |   api/jenkins/get-build-list/{projectName}
+GET   |   api/jenkins/get-latest-build-info/{projectName}
+GET   |   api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 
 # 🔑 GitHub API
 ```
-GET  |  api/github/get-repositories
-GET  |  api/github/get-repository/{id}
+GET   |   api/github/get-repositories
+GET   |   api/github/get-repository/{id}
 ```
 
 # 🔑 Apps API
 ```
-GET  |  api/get-app/{id}
+GET   |   api/get-app/{id}
 ```
 
 
 # 🔑 Packages API
 ```
-GET  |  api/get-package/{id}
-GET  |  api/update-package/{id}/{hash}
+GET   |   api/get-package/{id}
+POST  |   api/update-package/{id}/{hash}
 ```
