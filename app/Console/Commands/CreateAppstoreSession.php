@@ -7,30 +7,14 @@ use Symfony\Component\Process\Process;
 
 class CreateAppstoreSession extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'appstore:create-session';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'creates FASTLANE_SESSION data';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
+    private $twoFactorAuthBypass = 'sh /var/www/html/RubyBackend/TwoFactorBot.sh';
+
     public function handle()
     {
-        $twoFactorAuth = '/var/www/html/RubyBackend/TwoFactorBot.sh';
-
-        $process = Process::fromShellCommandline("sh $twoFactorAuth");
+        $process = Process::fromShellCommandline($this->twoFactorAuthBypass);
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
