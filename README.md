@@ -25,7 +25,7 @@ create database laravel
 
 # 4. Apache Settings
 - edit ```/etc/apache2/apache2.conf```
-```
+```php
   <Directory /var/www/>
       Options Indexes FollowSymLinks
       AllowOverride all
