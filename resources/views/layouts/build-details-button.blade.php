@@ -1,5 +1,5 @@
 @php
-    $currentBuildStatus = $appInfo->build_status->status;
+    $currentBuildStatus = isset($appInfo->build_status->status) ? $appInfo->build_status->status : 'MISSING';
 
 	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo->build_number}</span>";
 @endphp
