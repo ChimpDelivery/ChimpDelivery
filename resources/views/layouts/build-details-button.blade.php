@@ -1,11 +1,11 @@
 @php
     $currentBuildStatus = $appInfo?->build_status?->status;
 
-	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo->build_number}</span>";
+	$title = "Build Number: <span class='text-dark font-weight-bold'>{$appInfo?->build_number}</span>";
 @endphp
 
 @php
-    $commitCount = count($appInfo?->change_sets);
+    $commitCount = count($appInfo?->change_sets ?? []);
     $isHrActive = $commitCount >= 0 ? '<hr class="my-2">' : '';
     $buildDetails = '';
 
@@ -26,7 +26,7 @@
     <a tabindex="0"
         class="btn btn-sm"
         role="button"
-        title=""
+        title="{{ $title }}"
         data-trigger="focus"
         data-toggle="popover"
         data-html="true"
