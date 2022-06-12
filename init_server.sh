@@ -1,5 +1,6 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 # save project folder path
 PROJECT_FOLDER=$PWD
@@ -48,3 +49,12 @@ fi
 php artisan key:generate
 php artisan migrate
 php artisan optimize
+
+# apache settings
+sudo a2enmod rewrite
+
+# restart related services
+sudo service apache2 restart
+sudo service cron restart
+sudo service redis-server restart
+sudo service mysql restart
