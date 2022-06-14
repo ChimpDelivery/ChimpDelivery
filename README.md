@@ -32,7 +32,7 @@ create database laravel
 ```
 - set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
 
-# 🔑 App Store Connect API
+# 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
 GET   |   api/appstoreconnect/get-token
 GET   |   api/appstoreconnect/get-full-info
