@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="tf_version">TF Version</label>
                     <input oninput="updateLink()" type="text" id="tf_version" name="tf_version"
-                           class="form-control" required="" value="1.0">
+                            class="form-control" required="" value="1.0">
                 </div>
                 <div class="form-group">
                     <input type="text" id="tf_custom_version" name="tf_custom_version" class="form-control" value="" hidden>
@@ -41,14 +41,14 @@
                         <div class="form-group">
                             <label for="tf_build_version">TF Build Number</label>
                             <input oninput="updateLink()" type="text" id="tf_build_version" name="tf_build_version"
-                                   class="form-control" required="" value="">
+                                    class="form-control" required="" value="">
                         </div>
                     </div>
                 </div>
                 <div class="form-check">
                     <input onchange="updateLink()" class="form-check-input" type="checkbox"
-                           value=""
-                           id="is_workspace">
+                            value=""
+                            id="is_workspace">
                     <label class="form-check-label" for="is_workspace">
                         Is Workspace
                     </label>
