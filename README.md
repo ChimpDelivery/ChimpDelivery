@@ -1,6 +1,7 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
-- Production server running on AWS Lightsail.
-- Ngrok Tunnel has to be opened on Build Mac. (There is a parameter ```JENKINS_HOST``` on .env file)
+- Provides Web Dashboard and Backend APIs to work with ***CI/CD Pipeline***.
+- Production server running on ***AWS Lightsail***.
+- [Build Mac Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [Postman](https://www.postman.com)
 
@@ -11,28 +12,28 @@
 ```
 sh init_server.sh
 ```
-- Crontab Settings (`crontab -e`)
+- ***Crontab*** Settings (`crontab -e`)
 ```
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 ```
 
-- MySQL Settings
+- ***MySQL*** Settings
 ```
 change root password
 create database laravel
 ```
 
-- Apache Settings (`/etc/apache2/apache2.conf`)
-```
+- ***Apache*** Settings (`/etc/apache2/apache2.conf`)
+```php
   <Directory /var/www/>
       Options Indexes FollowSymLinks
       AllowOverride all
       Require all granted
   </Directory>
 ```
-- set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
+- Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
 
-# 🔑 AppStoreConnect API
+# 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
 GET   |   api/appstoreconnect/get-token
 GET   |   api/appstoreconnect/get-full-info
