@@ -1,5 +1,6 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
-- Production server running on AWS Lightsail.
+- Provides Web Dashboard and Backend APIs to work with ***CI/CD Pipeline***.
+- Production server running on ***AWS Lightsail***.
 - [Build Mac Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [Postman](https://www.postman.com)
