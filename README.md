@@ -11,18 +11,18 @@
 ```
 sh init_server.sh
 ```
-- Crontab Settings (`crontab -e`)
+- ***Crontab*** Settings (`crontab -e`)
 ```
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 ```
 
-- MySQL Settings
+- ***MySQL*** Settings
 ```
 change root password
 create database laravel
 ```
 
-- Apache Settings (`/etc/apache2/apache2.conf`)
+- ***Apache*** Settings (`/etc/apache2/apache2.conf`)
 ```php
   <Directory /var/www/>
       Options Indexes FollowSymLinks
@@ -30,7 +30,7 @@ create database laravel
       Require all granted
   </Directory>
 ```
-- set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
+- Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
 
 # 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
