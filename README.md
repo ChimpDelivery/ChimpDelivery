@@ -1,6 +1,6 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
 - Production server running on AWS Lightsail.
-- Ngrok Tunnel has to be opened on Build Mac. (There is a parameter ```JENKINS_HOST``` on .env file)
+- [Build Mac Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [Postman](https://www.postman.com)
 
