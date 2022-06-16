@@ -5,8 +5,7 @@
                 <h5 class="modal-title" id="build-modal-label">
                     Build Information
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button id="project-button" type="button" class="close" data-dismiss="modal" aria-label="Project Name">
                 </button>
             </div>
             <div class="modal-body">
@@ -70,7 +69,7 @@
 
 <script type="text/javascript">
     $('#exampleModal').on('shown.bs.modal', function () {
-        document.getElementById('build-modal-label').innerHTML = "Build Information: <b>" + getCookie('target_project_name') + "</b>";
+        document.getElementById('project-button').innerHTML = getCookie('target_project_name');
     });
 
     $('#tf_build_version_collapse').on('shown.bs.collapse', function () {
