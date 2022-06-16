@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="build-modal-label">
-                    Build Information
+                    Build Project
                 </h5>
                 <button id="project-button" type="button" class="close" data-dismiss="modal" aria-label="Project Name">
                 </button>
