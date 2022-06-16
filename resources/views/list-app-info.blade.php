@@ -65,8 +65,10 @@
 
                 // Extract value from the custom data-* attribute
                 var appId = button.data("title");
+                var projectName = button.data("project");
 
                 setCookie('target_app_id', appId, 1);
+                setCookie('target_project_name', projectName, 1);
 
                 updateLink(appId);
             });
