@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h5 class="modal-title" id="build-modal-label">
                     Build Information
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -69,6 +69,10 @@
 </div>
 
 <script type="text/javascript">
+    $('#exampleModal').on('shown.bs.modal', function () {
+        document.getElementById('build-modal-label').innerHTML = "Build Information: <b>" + getCookie('target_project_name') + "</b>";
+    });
+
     $('#tf_build_version_collapse').on('shown.bs.collapse', function () {
 
         console.log('custom_build_version modal shown!');
