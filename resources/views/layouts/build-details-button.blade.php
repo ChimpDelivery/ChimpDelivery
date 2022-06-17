@@ -1,6 +1,6 @@
 @php
     $currentBuildStatus = $appInfo?->build_status?->status;
-    $currentBuildNumber = $appInfo?->build_number;
+    $currentBuildNumber = $appInfo?->build_number ?? '-';
 
     $title = (!isset($currentBuildNumber))
         ? "NO_BUILD"
