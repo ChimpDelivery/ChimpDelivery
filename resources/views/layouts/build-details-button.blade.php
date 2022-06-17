@@ -26,15 +26,9 @@
 @endphp
 
 <div class="container">
-    <a tabindex="0"
-        class="btn btn-sm"
-        role="button"
+    <a tabindex="0" class="btn btn-sm" role="button" data-trigger="focus" data-toggle="popover" data-html="true" data-placement="bottom"
         title="{{ $title }}"
-        data-trigger="focus"
-        data-toggle="popover"
-        data-html="true"
-        data-placement="bottom"
         data-content="{{ $buildDetails }}">
-        <img alt="..." src="{{ config('jenkins.host') }}/buildStatus/icon?job={{ config('jenkins.ws') }}%2F{{ $appInfo->project_name }}%2Fmaster">
+        <img alt="..." src="{{ config('jenkins.host') }}/buildStatus/icon?subject={{ $currentBuildNumber }}&job={{ config('jenkins.ws') }}%2F{{ $appInfo->project_name }}%2Fmaster">
     </a>
 </div>
