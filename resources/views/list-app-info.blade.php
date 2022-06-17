@@ -11,7 +11,7 @@
                     <i class="fa fa-square-o fa-stack-2x"></i>
                     <i class="fa fa-database fa-stack-1x"></i>
                 </span>
-                Talus Apps
+                Apps
             </div>
             <div class="card-body">
                 <div class="table-responsive">
