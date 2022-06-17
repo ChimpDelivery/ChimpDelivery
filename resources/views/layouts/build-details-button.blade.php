@@ -2,7 +2,7 @@
     $currentBuildStatus = $appInfo?->build_status?->status;
     $currentBuildNumber = $appInfo?->build_number ?? '-';
 
-    $title = (!isset($currentBuildNumber))
+    $title = ($currentBuildNumber == '-')
         ? "NO_BUILD"
         : "Build Number: <span class='text-dark font-weight-bold'>{$currentBuildNumber}</span>";
 @endphp
