@@ -32,7 +32,12 @@ class DashboardController extends Controller
             $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
         });
 
-        return view('list-app-info')->with(['appInfos' => $data]);
+        $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
+
+        return view('list-app-info')->with([
+            'appInfos' => $data,
+            'currentBuildCount' => $currentBuildCount->count()
+        ]);
     }
 
     public function CreateAppForm() : View
