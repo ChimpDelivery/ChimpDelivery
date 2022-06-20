@@ -18,6 +18,9 @@
             $buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . Str::limit($appInfo->build_stage, 18) . '</span><hr class="my-2">';
             $buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
         break;
+        case 'FAILED':
+            $buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo?->build_status?->message . '</span><hr class="my-2">';
+            break;
     }
 
     // build details...
