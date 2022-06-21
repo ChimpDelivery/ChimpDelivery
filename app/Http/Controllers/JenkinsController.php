@@ -102,8 +102,8 @@ class JenkinsController extends Controller
 
             // add job build detail
             $jobStages = collect($lastBuild->stages);
-            $jobStopStage = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->name ?? '';
-            $jobStopStageDetail = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->error?->message ?? '';
+            $jobStopStage = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? '';
+            $jobStopStageDetail = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
 
             $validatedResponse->put('build_status', collect([
                 'status' => $lastBuild->status,
