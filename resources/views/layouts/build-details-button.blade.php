@@ -15,8 +15,8 @@
     switch ($currentBuildStatus)
     {
         case 'IN_PROGRESS':
-            $title = 'Current Stage: <span class="text-success">' . Str::limit($appInfo->build_stage, 15) . '</span>';
-            $buildDetails .= 'Average Finish: <span class="text-primary">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+            $title = 'Current Stage: <span class="text-primary font-weight-bold">' . Str::limit($appInfo->build_stage, 15) . '</span>';
+            $buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
         break;
         case 'FAILED':
             $title = '<span class="text-danger">
