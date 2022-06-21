@@ -29,14 +29,14 @@
         case 'FAILED':
             $buttonTitle = '<span class="text-danger">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            Failed: ' . $buildStopStage .
+                            Failed at: ' . $buildStopStage .
                         '</span>';
         break;
 
         case 'ABORTED':
             $buttonTitle = '<span class="text-secondary">
                             <i class="fa fa-stop-circle" aria-hidden="true"></i>
-                            Aborted: ' . $buildStopStage.
+                            Aborted at: ' . $buildStopStage.
                         '</span>';
         break;
 
@@ -46,6 +46,11 @@
                             Success
                         </span>';
         break;
+    }
+
+    if (!empty($buildStopStageDetail))
+    {
+        $buttonData .= "<span class='badge bg-secondary text-white'>Message:</span> {$buildStopStageDetail}<hr class='my-2'>";
     }
 
     // add pretty commit history to build details view.
