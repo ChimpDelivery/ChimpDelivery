@@ -25,7 +25,7 @@
                     '</span>';
         break;
         case 'ABORTED':
-            $title = '<span class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Aborted: ' . $appInfo?->build_status?->message . '</span>';
+            $title = '<span class="text-secondary"><i class="fa fa-stop-circle" aria-hidden="true"></i> Aborted: ' . $appInfo?->build_status?->message . '</span>';
         break;
         case 'SUCCESS':
             $title = '<span class="text-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Success</span>';
