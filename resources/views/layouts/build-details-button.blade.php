@@ -21,6 +21,9 @@
         case 'FAILED':
             $buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo?->build_status?->message . '</span><hr class="my-2">';
             break;
+        case 'ABORTED':
+            $buildDetails .= 'Aborted at: <span class="text-danger font-weight-bold">' . $appInfo?->build_status?->message . '</span><hr class="my-2">';
+            break;
     }
 
     // build details...
