@@ -4,6 +4,18 @@
     $buildNumber = $appInfo?->build_number;
     $buildCommits = collect($appInfo?->change_sets ?? []);
 
+    // fail/abort messages
+    $buildStopStage = $appInfo?->build_status?->message ?? '';
+
+    // jenkins prepare stage invoked!
+    // /wfapi/runs return failing response but actually aborted
+    if ($buildStopStage == 'Prepare')
+    {
+        $buildStatus = 'ABORTED';
+    }
+
+    $buildStopStageDetail = $appInfo?->build_status?->message_detail ?? '';
+
     $buttonTitle = $buildNumber ?? '<span class="text-secondary"><i class="fa fa-bell" aria-hidden="true"></i> No Build</span>';
     $buttonData = '';
 
@@ -17,14 +29,14 @@
         case 'FAILED':
             $buttonTitle = '<span class="text-danger">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            Failed: ' . $appInfo?->build_status?->message .
+                            Failed: ' . $buildStopStage .
                         '</span>';
         break;
 
         case 'ABORTED':
             $buttonTitle = '<span class="text-secondary">
                             <i class="fa fa-stop-circle" aria-hidden="true"></i>
-                            Aborted: ' . $appInfo?->build_status?->message .
+                            Aborted: ' . $buildStopStage.
                         '</span>';
         break;
 
