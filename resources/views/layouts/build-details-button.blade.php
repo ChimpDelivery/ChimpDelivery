@@ -4,7 +4,7 @@
 
     $title = ($currentBuildNumber == '-')
         ? "NO_BUILD"
-        : "Build Number: <span class='text-dark font-weight-bold'>{$currentBuildNumber}</span>";
+        : "";
 @endphp
 
 @php
@@ -15,19 +15,25 @@
     switch ($currentBuildStatus)
     {
         case 'IN_PROGRESS':
-            $buildDetails .= 'Current Stage: <span class="text-success font-weight-bold">' . Str::limit($appInfo->build_stage, 18) . '</span><hr class="my-2">';
-            $buildDetails .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo->estimated_time . "</span>{$isHrActive}";
+            $title = 'Current Stage: <span class="text-success">' . Str::limit($appInfo->build_stage, 15) . '</span>';
+            $buildDetails .= 'Average Finish: <span class="text-primary">' . $appInfo->estimated_time . "</span>{$isHrActive}";
         break;
         case 'FAILED':
-            $buildDetails .= 'Failed at: <span class="text-danger font-weight-bold">' . $appInfo?->build_status?->message . '</span><hr class="my-2">';
-            break;
+            $title = '<span class="text-danger">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        Failed: ' . $appInfo?->build_status?->message .
+                    '</span>';
+        break;
         case 'ABORTED':
-            $buildDetails .= 'Aborted at: <span class="text-danger font-weight-bold">' . $appInfo?->build_status?->message . '</span><hr class="my-2">';
-            break;
+            $title = '<span class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Aborted: ' . $appInfo?->build_status?->message . '</span>';
+        break;
+        case 'SUCCESS':
+            $title = '<span class="text-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Success</span>';
+        break;
     }
 
     // build details...
-    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim(Str::limit($appInfo?->change_sets[$i], 30)) . "\r\n"); }
+    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim(Str::limit($appInfo?->change_sets[$i], 27)) . "\r\n"); }
     if ($commitCount == 0) { $buildDetails .= "No commit"; }
 @endphp
 
