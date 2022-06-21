@@ -33,7 +33,7 @@
     }
 
     // build details...
-    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(trim(Str::limit($appInfo?->change_sets[$i], 27)) . "\r\n"); }
+    for ($i = 0; $i < $commitCount; ++$i) { $buildDetails .= ($i + 1) . '. ' . nl2br(Str::limit(trim($appInfo?->change_sets[$i]), 27) . "\r\n"); }
     if ($commitCount == 0) { $buildDetails .= "No commit"; }
 @endphp
 
