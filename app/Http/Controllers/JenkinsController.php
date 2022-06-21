@@ -97,7 +97,7 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             $jobStages = collect($lastBuild->stages);
-            $jobFailureStage = $jobStages->firstWhere('status', 'FAILED')?->name ?? '';
+            $jobFailureStage = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->name ?? '';
 
             $validatedResponse->put('build_status', collect([
                 'status' => $lastBuild->status,
