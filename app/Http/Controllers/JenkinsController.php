@@ -86,22 +86,29 @@ class JenkinsController extends Controller
         {
             $buildCollection = collect($validatedResponse->get('job_info'));
             $lastBuild = $buildCollection->first();
+
+            // add job url
             $validatedResponse->put('job_url', $lastBuild->_links->self->href);
 
+            // add build number
+            $validatedResponse->put('build_number', $lastBuild->id);
+
+            // add commit history
             $changeSetsResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
             $changeSets = isset($changeSetsResponse->get('job_info')->changeSets[0])
                 ? collect($changeSetsResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
-
             $validatedResponse->put('change_sets', $changeSets);
-            $validatedResponse->put('build_number', $lastBuild->id);
 
+            // add job build detail
             $jobStages = collect($lastBuild->stages);
-            $jobFailureStage = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->name ?? '';
+            $jobStopStage = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->name ?? '';
+            $jobStopStageDetail = $jobStages->firstWhere('status', '!=', 'SUCCESS')?->error?->message ?? '';
 
             $validatedResponse->put('build_status', collect([
                 'status' => $lastBuild->status,
-                'message' => $jobFailureStage
+                'message' => $jobStopStage,
+                'message_detail' => $jobStopStageDetail
             ]));
 
             $validatedResponse->put('build_stage', $jobStages->last()?->name);
