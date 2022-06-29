@@ -134,11 +134,7 @@ class DashboardController extends Controller
 
                 Artisan::call("jenkins:trigger {$request->id} master {$request->isWorkspace} {$request->tfVersion} {FALSE} {$tfCustomVersion} {$tfBuildNumber}");
 
-                session()->flash('success', "{$appInfo->app_name} building
-                    (IS_WORKSPACE: {$request->isWorkspace},
-                    TF_VERSION: {$request->tfVersion},
-                    TF_CUSTOM_VERSION: {$tfCustomVersion}),
-                    wait 3-4seconds then reload the page.");
+                session()->flash('success', "{$appInfo->app_name} building... Wait 3-4seconds then reload the page.");
             }
         }
 
