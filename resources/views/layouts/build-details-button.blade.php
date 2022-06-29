@@ -36,7 +36,7 @@
         case 'ABORTED':
             $buttonTitle = '<span class="text-secondary">
                             <i class="fa fa-stop-circle" aria-hidden="true"></i>
-                            Aborted at: ' . $buildStopStage.
+                            Aborted at: ' . Str::limit($buildStopStage, 15).
                         '</span>';
         break;
 
