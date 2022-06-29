@@ -26,7 +26,7 @@ class GithubController extends Controller
             // maybe extra organization is useful when filtering projects.
             $filteredOrganizationProjects = $organizationProjects->filter(function ($value) {
                 return !Str::contains($value['name'], 'deprecated', true) &&
-                    !Str::contains($value['name'], 'backend', true) &&
+                    !Str::contains($value['name'], 'web', true) &&
                     !Str::contains($value['name'], 'package', true) &&
                     !Str::contains($value['name'], '.github', true);
             });
