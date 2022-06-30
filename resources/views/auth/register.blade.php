@@ -45,6 +45,22 @@
                                 name="password_confirmation" required />
             </div>
 
+            <!-- Invitation Code -->
+            <div class="mt-4">
+                <x-label for="invite_code" :value="__('Invitation Code')" />
+
+                <x-input id="invite_code" class="block mt-1 w-full"
+                                type="text"
+                                name="invite_code"
+                                required />
+            </div>
+
+            <div class="block mt-4">
+                <div class="captcha">
+                    <span>{!! app('captcha')->display() !!}</span>
+                </div>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}

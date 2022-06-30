@@ -2,6 +2,8 @@
 
 return [
 
+    'invite_code' => env('AUTH_INVITE_CODE', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -106,6 +108,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    'password_timeout' => 86400,
 
 ];

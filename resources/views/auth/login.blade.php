@@ -43,7 +43,7 @@
 
             <div class="block mt-4">
                 <div class="captcha">
-                  <span>{!! app('captcha')->display() !!}</span>
+                    <span>{!! app('captcha')->display() !!}</span>
                 </div>
             </div>
 
