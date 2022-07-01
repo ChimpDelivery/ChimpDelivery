@@ -7,7 +7,7 @@ use Symfony\Component\Process\Process;
 
 class CreateAppstoreApp extends Command
 {
-    protected $signature = 'appstore:create-app {bundleId} {bundleName} {appName}';
+    protected $signature = 'appstore:create-app {bundleId} {appName}';
     protected $description = 'creates bundle id and app on appstore connect';
 
     private $scriptPath = '/var/www/html/RubyBackend/TwoFactorBot.sh';
@@ -18,7 +18,7 @@ class CreateAppstoreApp extends Command
         $appStorePass = config('appstore.user_pass');
         $companyName = config('appstore.company_name');
 
-        $createAppCommand = "sh {$this->scriptPath} {$appStoreUser} {$appStorePass} {$this->argument('bundleId')} {$this->argument('bundleName')} {$this->argument('appName')} {$companyName}";
+        $createAppCommand = "sh {$this->scriptPath} {$appStoreUser} {$appStorePass} {$this->argument('bundleId')} {$this->argument('appName')} {$companyName}";
 
         $process = Process::fromShellCommandline($createAppCommand);
         $process->run(function ($type, $buffer) {
