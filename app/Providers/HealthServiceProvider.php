@@ -55,7 +55,8 @@ class HealthServiceProvider extends ServiceProvider
                 'GIT_TEMPLATE_PROJECT',
                 'GIT_PROTOTYPE_TOPIC',
                 'DISCORD_WEBHOOK_URL',
-                'DISCORD_BOT_NAME'
+                'DISCORD_BOT_NAME',
+                'AUTH_INVITE_CODE'
             ])
         ]);
     }
