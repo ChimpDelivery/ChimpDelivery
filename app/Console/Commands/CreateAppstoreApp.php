@@ -5,10 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
-class CreateAppstoreSession extends Command
+class CreateAppstoreApp extends Command
 {
-    protected $signature = 'appstore:create-session';
-    protected $description = 'creates FASTLANE_SESSION data';
+    protected $signature = 'appstore:create-app';
+    protected $description = 'creates bundle id and app on appstore connect';
+
+    private $scriptPath = '/var/www/html/RubyBackend/TwoFactorBot.sh';
 
     private $appStoreUser = '';
     private $appStorePass = '';
@@ -27,7 +29,7 @@ class CreateAppstoreSession extends Command
         $this->appStorePass = config('appstore.user_pass');
         $this->companyName = config('appstore.company_name');
 
-        $this->twoFactorAuthBypass = "sh /var/www/html/RubyBackend/TwoFactorBot.sh {$this->appStoreUser} {$this->appStorePass} {$this->bundleId} {$this->bundleName} {$this->appName} {$this->companyName}";
+        $this->twoFactorAuthBypass = "sh {$this->scriptPath} {$this->appStoreUser} {$this->appStorePass} {$this->bundleId} {$this->bundleName} {$this->appName} {$this->companyName}";
     }
 
     public function handle()
