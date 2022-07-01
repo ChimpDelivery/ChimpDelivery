@@ -45,6 +45,9 @@ class HealthServiceProvider extends ServiceProvider
                 'APPSTORECONNECT_KID',
                 'APPSTORECONNECT_CACHE_DURATION',
                 'APPSTORECONNECT_ITEM_LIMIT',
+                'APPSTORECONNECT_COMPANY_NAME',
+                'APPSTORECONNECT_USER_EMAIL',
+                'APPSTORECONNECT_USER_PASS',
                 'JENKINS_WS',
                 'JENKINS_HOST',
                 'JENKINS_USER',
@@ -55,7 +58,8 @@ class HealthServiceProvider extends ServiceProvider
                 'GIT_TEMPLATE_PROJECT',
                 'GIT_PROTOTYPE_TOPIC',
                 'DISCORD_WEBHOOK_URL',
-                'DISCORD_BOT_NAME'
+                'DISCORD_BOT_NAME',
+                'AUTH_INVITE_CODE'
             ])
         ]);
     }
