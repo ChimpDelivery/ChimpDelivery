@@ -24,5 +24,11 @@ class CreateAppstoreApp extends Command
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
+
+        if ($process->isTerminated()) {
+            echo "Exit Code:" . $process->getExitCode() . "\n\r";
+            echo "Exit Text:" . $process->getExitCodeText() . "\n\r";
+            echo "Error Output:" . $process->getErrorOutput() . "\n\r";
+        }
     }
 }
