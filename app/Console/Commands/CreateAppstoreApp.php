@@ -3,14 +3,15 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+
 use Symfony\Component\Process\Process;
 
 class CreateAppstoreApp extends Command
 {
     protected $signature = 'appstore:create-app {bundleId} {appName}';
-    protected $description = 'creates bundle id and app on appstore connect';
+    protected $description = 'Creates App on App Store Connect with provided Bundle Identifier.';
 
-    private $scriptPath = '/var/www/html/RubyBackend/TwoFactorBot.sh';
+    private $scriptPath = '/var/www/html/AppstoreAutomation/TwoFactorBot.sh';
 
     public function handle()
     {
@@ -24,5 +25,12 @@ class CreateAppstoreApp extends Command
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
+
+        if ($process->isTerminated())
+        {
+            echo "Exit Code:" . $process->getExitCode() . "\n\r";
+            echo "Exit Text:" . $process->getExitCodeText() . "\n\r";
+            echo "Error Output:" . $process->getErrorOutput() . "\n\r";
+        }
     }
 }
