@@ -10,6 +10,10 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install software-properties-common -y
 
+# install required modules for appstore automation
+sudo apt-get install expect -y
+sudo gem install bundler
+
 # add repo for >= php8.1
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update -y
