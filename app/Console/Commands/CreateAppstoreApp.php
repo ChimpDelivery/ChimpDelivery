@@ -12,12 +12,13 @@ class CreateAppstoreApp extends Command
     protected $description = 'Creates App on App Store Connect with provided Bundle Identifier.';
 
     private $scriptPathRoot = '/var/www/html/AppstoreAutomation';
+    private $scriptName = 'CreateAppstoreApplication.rb';
 
     public function handle()
     {
         $companyName = config('appstore.company_name');
 
-        $createAppCommand = "cd {$this->scriptPathRoot} && sh {$this->scriptPathRoot}/CreateAppBridge.sh {$this->argument('bundleId')} {$this->argument('appName')} {$companyName}";
+        $createAppCommand = "cd {$this->scriptPathRoot} && ruby {$this->scriptPathRoot}/{$this->scriptName} {$this->argument('bundleId')} {$this->argument('appName')} {$companyName}";
 
         $process = Process::fromShellCommandline($createAppCommand, null, [
             'FASTLANE_USER' => config('appstore.user_email'),
@@ -26,7 +27,8 @@ class CreateAppstoreApp extends Command
             'LANG' => 'en_US.UTF-8',
             'LANGAUGE' => 'en_US.UTF-8'
         ]);
-
+        $process->setTimeout(120);
+        $process->setIdleTimeout(30);
         $process->run();
 
         while ($process->isRunning())
