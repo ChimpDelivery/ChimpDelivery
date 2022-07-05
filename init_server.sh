@@ -10,8 +10,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install software-properties-common -y
 
-# install required modules for appstore automation
-sudo apt-get install expect -y
+# install bundler for fastlane
 sudo gem install bundler
 
 # add repo for >= php8.1
