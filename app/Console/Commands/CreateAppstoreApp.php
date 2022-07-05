@@ -11,7 +11,7 @@ class CreateAppstoreApp extends Command
     protected $signature = 'appstore:create-app {bundleId} {appName}';
     protected $description = 'Creates App on App Store Connect with provided Bundle Identifier.';
 
-    private $scriptPath = '/var/www/html/AppstoreAutomation/TwoFactorBot.sh';
+    private $scriptPath = '/var/www/html/AppstoreAutomation/CreateAppBridge.sh';
 
     public function handle()
     {
