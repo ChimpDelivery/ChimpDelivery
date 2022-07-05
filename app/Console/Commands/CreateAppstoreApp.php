@@ -30,7 +30,6 @@ class CreateAppstoreApp extends Command
         {
             echo "Exit Code:" . $process->getExitCode() . "\n\r";
             echo "Exit Text:" . $process->getExitCodeText() . "\n\r";
-            echo "Error Output:" . $process->getErrorOutput() . "\n\r";
         }
     }
 }
