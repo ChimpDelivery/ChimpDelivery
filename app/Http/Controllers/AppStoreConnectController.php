@@ -6,7 +6,9 @@ use Firebase\JWT\JWT;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Artisan;
 
 class AppStoreConnectController extends Controller
 {
@@ -91,5 +93,12 @@ class AppStoreConnectController extends Controller
         return response()->json([
             'status' => $appList->json()
         ]);
+    }
+
+    public function CreateApp(Request $request)
+    {
+        Artisan::call("appstore:create-app {$request->bundle_id} {$request->app_name}");
+
+        return json_decode(Artisan::output());
     }
 }
