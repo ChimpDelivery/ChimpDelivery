@@ -41,11 +41,13 @@
             </div>
             !-->
 
+            <!--
             <div class="block mt-4">
                 <div class="captcha">
                     <span>{!! app('captcha')->display() !!}</span>
                 </div>
             </div>
+            !--->
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('register'))
