@@ -80,17 +80,17 @@
                 console.log('app_id:' + appId);
             }
 
-            var platform = 'Appstore';
-            console.log('paltform: ' + platform);
+            var platform = document.getElementById('dropdownMenuButton').innerHTML.trim();
+            console.log('platform:' + platform);
 
             var storeVersion = document.getElementById('store_version').value;
-            console.log('store_version: ' + storeVersion);
+            console.log('store_version:' + storeVersion);
 
             var storeCustomVersion = document.getElementById('store_custom_version').value;
-            console.log('store_custom_version: ' + storeCustomVersion);
+            console.log('store_custom_version:' + storeCustomVersion);
 
             var storeBuildNumber = document.getElementById('store_build_version').value;
-            console.log('store_build_number: ' + storeBuildNumber)
+            console.log('store_build_number:' + storeBuildNumber)
 
             var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + platform + '/' + storeVersion + '/' + storeCustomVersion + '/' + storeBuildNumber;
             document.getElementById('build_link').href = buildUrl;
