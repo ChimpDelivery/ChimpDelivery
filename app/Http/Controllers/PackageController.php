@@ -12,7 +12,7 @@ class PackageController extends Controller
 {
     public function GetPackage(Request $request) : JsonResponse
     {
-        $response = Package::where('package_id', '=', $request->id)->select(['url', 'hash'])->firstOrNew();
+        $response = Package::where('package_id', '=', $request->id)->select(['package_id', 'url', 'hash'])->firstOrNew();
 
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
