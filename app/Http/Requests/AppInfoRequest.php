@@ -39,9 +39,9 @@ class AppInfoRequest extends FormRequest
 
             'fb_app_id' => array('nullable', 'numeric', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
 
-            'elephant_id' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'ga_id' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
 
-            'elephant_secret' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
+            'ga_secret' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
         ];
     }
 

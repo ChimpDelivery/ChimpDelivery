@@ -18,8 +18,8 @@ class AppInfoController extends Controller
             'app_bundle',
             'app_name',
             'fb_app_id',
-            'elephant_id',
-            'elephant_secret'
+            'ga_id',
+            'ga_secret'
         ]);
 
         return response()->json($response, Response::HTTP_ACCEPTED);
@@ -64,8 +64,8 @@ class AppInfoController extends Controller
         }
 
         if (!empty($request->fb_app_id)) { $appInfo->fb_app_id = $request->fb_app_id; }
-        if (!empty($request->elephant_id)) { $appInfo->elephant_id = $request->elephant_id; }
-        if (!empty($request->elephant_secret)) { $appInfo->elephant_secret = $request->elephant_secret; }
+        if (!empty($request->ga_id)) { $appInfo->ga_id = $request->ga_id; }
+        if (!empty($request->ga_secret)) { $appInfo->ga_secret = $request->ga_secret; }
 
         $appInfo->save();
     }

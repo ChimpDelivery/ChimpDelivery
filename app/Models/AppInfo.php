@@ -21,8 +21,8 @@ class AppInfo extends Model
         'app_bundle',
         'appstore_id',
         'fb_app_id',
-        'elephant_id',
-        'elephant_secret'
+        'ga_id',
+        'ga_secret'
     ];
 
     /**
