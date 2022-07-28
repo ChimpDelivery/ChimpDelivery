@@ -19,8 +19,13 @@ sh init_server.sh
 
 - ***MySQL*** Settings
 ```
-change root password
-create database laravel
+sudo mysql --user=root mysql
+mysql> UPDATE mysql.user SET authentication_string=null WHERE User='root';
+mysql> flush privileges;
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password_here';
+mysql> flush privileges;
+mysql> create database laravel;
+mysql> exit;
 ```
 
 - ***Apache*** Settings (`/etc/apache2/apache2.conf`)
