@@ -24,8 +24,8 @@ mysql> UPDATE mysql.user SET authentication_string=null WHERE User='root';
 mysql> flush privileges;
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password_here';
 mysql> flush privileges;
+mysql> create database laravel;
 mysql> exit;
-create database laravel
 ```
 
 - ***Apache*** Settings (`/etc/apache2/apache2.conf`)
