@@ -132,8 +132,7 @@ class DashboardController extends Controller
                 $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
                 $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
 
-                //dd("jenkins:trigger {$request->id} master {FALSE} Appstore {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-                Artisan::call("jenkins:trigger {$request->id} master {FALSE} Appstore {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
+                Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
 
                 session()->flash('success', "{$appInfo->app_name} building... Wait 3-4seconds then reload the page.");
             }
