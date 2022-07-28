@@ -3,7 +3,7 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 # save project folder path
-PROJECT_FOLDER=$PWD
+PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
 # update packages and install common packages
 sudo apt-get update -y
@@ -59,6 +59,6 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
 no | php artisan key:generate
-no | php artisan migrate
+yes | php artisan migrate
 php artisan optimize:clear
 php artisan optimize
