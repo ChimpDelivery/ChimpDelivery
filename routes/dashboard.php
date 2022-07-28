@@ -19,7 +19,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/delete-app-info/{id}', 'DeleteApp')->name('delete_app_info');
 
     // jenkins bridge.
-    Route::get('/dashboard/build-app/{id}/{isWorkspace}/{tfVersion}/{tfCustomVersion?}/{tfBuildNumber?}', 'BuildApp');
+    Route::get('/dashboard/build-app/{id}/{platform}/{storeVersion}/{storeCustomVersion?}/{storeBuildNumber?}', 'BuildApp');
     Route::get('/dashboard/stop-job/{projectName}/{buildNumber}', 'StopJob');
     Route::get('/dashboard/scan-repo', 'ScanRepo');
 
