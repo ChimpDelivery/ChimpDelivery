@@ -20,8 +20,8 @@
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Appstore</a>
-                            <a class="dropdown-item" href="#">GooglePlay</a>
+                            <a class="dropdown-item" href="#Appstore">Appstore</a>
+                            <a class="dropdown-item" href="#GooglePlay">GooglePlay</a>
                         </div>
                     </div>
                 </div>

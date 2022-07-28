@@ -57,6 +57,19 @@
         })
 
         $(document).ready(function () {
+
+            $('#dropdown-inputs a').on('click', function() {
+
+                var platform = event.target.getAttribute("href");
+                platform = platform.substr(1);
+
+                //
+                document.getElementById('dropdownMenuButton').innerHTML = platform;
+                console.log("Selected platform:" + platform);
+
+                updateLink();
+            });
+
             $('#exampleModal').on('show.bs.modal', function (event) {
 
                 // Get the button that triggered the modal
