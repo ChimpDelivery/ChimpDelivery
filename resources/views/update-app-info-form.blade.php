@@ -42,12 +42,12 @@
                     <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" value="{{ $appInfo->fb_app_id }}">
                 </div>
                 <div class="form-group">
-                    <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="elephant_id" name="elephant_id" class="form-control" value="{{ $appInfo->elephant_id }}">
+                    <label for="ga_id">GA ID</label>
+                    <input type="text" id="ga_id" name="ga_id" class="form-control" value="{{ $appInfo->ga_id }}">
                 </div>
                 <div class="form-group">
-                    <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="elephant_secret" name="elephant_secret" class="form-control" value="{{ $appInfo->elephant_secret }}">
+                    <label for="ga_secret">GA Secret</label>
+                    <input type="text" id="ga_secret" name="ga_secret" class="form-control" value="{{ $appInfo->ga_secret }}">
                 </div>
                 <div class="form-group">
                     <div class="form-check">

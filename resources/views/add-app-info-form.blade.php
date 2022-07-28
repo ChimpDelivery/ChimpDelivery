@@ -67,12 +67,12 @@
                     <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
-                    <label for="elephant_id">Elephant ID</label>
-                    <input type="text" id="elephant_id" name="elephant_id" class="form-control" placeholder="elephant id...">
+                    <label for="ga_id">GA ID</label>
+                    <input type="text" id="ga_id" name="ga_id" class="form-control" placeholder="game analytics id...">
                 </div>
                 <div class="form-group">
-                    <label for="elephant_secret">Elephant Secret</label>
-                    <input type="text" id="elephant_secret" name="elephant_secret" class="form-control" placeholder="elephant secret...">
+                    <label for="ga_secret">GA Secret</label>
+                    <input type="text" id="ga_secret" name="ga_secret" class="form-control" placeholder="game analytics secret...">
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
