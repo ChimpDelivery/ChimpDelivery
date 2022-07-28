@@ -12,16 +12,14 @@ class PackageController extends Controller
 {
     public function GetPackage(Request $request) : JsonResponse
     {
-        $response = Package::where('package_id', '=', $request->id)->firstOrNew();
+        $response = Package::where('package_id', '=', $request->id)->select(['url', 'hash'])->firstOrNew();
 
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
 
     public function GetPackages() : JsonResponse
     {
-        $response = Package::all();
-
-        return response()->json($response, Response::HTTP_ACCEPTED);
+        return response()->json(['packages' => Package::all(['package_id', 'url', 'hash'])->values()]);
     }
 
     public function UpdatePackage(Request $request) : JsonResponse
