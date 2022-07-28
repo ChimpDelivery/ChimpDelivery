@@ -17,6 +17,13 @@ class PackageController extends Controller
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
 
+    public function GetPackages() : JsonResponse
+    {
+        $response = Package::all();
+
+        return response()->json($response, Response::HTTP_ACCEPTED);
+    }
+
     public function UpdatePackage(Request $request) : JsonResponse
     {
         $response = Package::where('package_id', '=', $request->id)->update([
