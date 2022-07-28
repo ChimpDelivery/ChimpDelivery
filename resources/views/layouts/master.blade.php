@@ -92,6 +92,9 @@
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
                                     <i class="fa fa-facebook fa-lg text-white" aria-hidden="true"></i> {{ __('Facebook Dashboard') }}
                                 </a>
+                                <a class="active text-left dropdown-item text-white font-weight-bold" href="https://go.gameanalytics.com/login">
+                                    <i class="fa fa-pie-chart text-white" aria-hidden="true"></i> {{ __('GA Dashboard') }}
+                                </a>
                                 <a class="active text-left dropdown-item text-white font-weight-bold" href="http://webmail.talusstudio.com">
                                     <i class="fa fa-envelope text-white" aria-hidden="true"></i> {{ __('Webmail') }}
                                 </a>
