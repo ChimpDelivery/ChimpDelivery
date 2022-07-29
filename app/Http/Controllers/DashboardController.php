@@ -134,7 +134,7 @@ class DashboardController extends Controller
 
                 Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
 
-                session()->flash('success', "{$appInfo->app_name} building... Wait 3-4seconds then reload the page.");
+                session()->flash('success', "{$appInfo->app_name} building for {$request->platform}... Wait 3-4seconds then reload the page.");
             }
         }
 
