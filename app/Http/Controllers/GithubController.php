@@ -45,10 +45,8 @@ class GithubController extends Controller
         {
             return response()->json([ 'message' => $exception->getMessage() ]);
         }
-        finally
-        {
-            return response()->json($response);
-        }
+
+        return response()->json($response);
     }
 
     public function GetRepository($repoName) : JsonResponse
@@ -63,10 +61,8 @@ class GithubController extends Controller
         {
             return response()->json([ 'message' => $exception->getMessage() ]);
         }
-        finally
-        {
-            return response()->json($response);
-        }
+
+        return response()->json($response);
     }
 
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
@@ -92,10 +88,8 @@ class GithubController extends Controller
         {
             return response()->json([ 'message' => $exception->getMessage() ]);
         }
-        finally
-        {
-            return response()->json($response);
-        }
+
+        return response()->json($response);
     }
 
     public function UpdateRepoTopics($repoName)
@@ -114,9 +108,7 @@ class GithubController extends Controller
         {
             return response()->json([ 'message' => $exception->getMessage() ]);
         }
-        finally
-        {
-            return response()->json($response);
-        }
+
+        return response()->json($response);
     }
 }
