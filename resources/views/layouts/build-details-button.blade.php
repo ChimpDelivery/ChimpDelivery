@@ -3,8 +3,7 @@
     $buildStatus = $appInfo?->build_status?->status;
     $buildNumber = $appInfo?->build_number;
     $buildCommits = collect($appInfo?->change_sets ?? []);
-    $buildPlatform = $appInfo?->build_platform;
-    $buildPlatformIcon = ($buildPlatform == "GooglePlay") ? 'fa fa-google' : 'fa fa-apple';
+    $buildPlatformIcon = ($appInfo?->build_platform == "GooglePlay") ? 'fa fa-google' : 'fa fa-apple';
 
     // fail/abort messages
     $buildStopStage = $appInfo?->build_status?->message ?? '';
@@ -21,33 +20,29 @@
     $buttonTitle = $buildNumber ?? '<span class="text-secondary"><i class="fa fa-bell" aria-hidden="true"></i> No Build</span>';
     $buttonData = '';
 
+    // there must be build...
+    if ($buildStatus)
+    {
+        $buttonTitle = '<i class="pull-right '.$buildPlatformIcon.'" aria-hidden="true"></i>';
+    }
+
     switch ($buildStatus)
     {
         case 'IN_PROGRESS':
-            $buttonTitle = '<i class="'.$buildPlatformIcon.'" aria-hidden="true"></i> |';
             $buttonTitle .= ' Stage: <span class="text-primary font-weight-bold">' . Str::limit($appInfo?->build_stage, 15) . '</span>';
             $buttonData .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo?->estimated_time . "</span><hr class='my-2'>";
         break;
 
         case 'FAILED':
-            $buttonTitle = '<i class="'.$buildPlatformIcon.'" aria-hidden="true"></i> |';
-            $buttonTitle .= '<span class="text-danger">
-                                Failed at: ' . $buildStopStage .
-                            '</span>';
+            $buttonTitle .= '<span class="text-danger font-weight-bold">FAILED at: ' . $buildStopStage . '</span>';
         break;
 
         case 'ABORTED':
-            $buttonTitle = '<i class="'.$buildPlatformIcon.'" aria-hidden="true"></i> |';
-            $buttonTitle .= '<span class="text-secondary">
-                                Aborted at: ' . Str::limit($buildStopStage, 15).
-                            '</span>';
+            $buttonTitle .= '<span class="text-secondary font-weight-bold">ABORTED at: ' . Str::limit($buildStopStage, 15). '</span>';
         break;
 
         case 'SUCCESS':
-            $buttonTitle = '<i class="'.$buildPlatformIcon.'" aria-hidden="true"></i> |';
-            $buttonTitle .= '<span class="text-success">
-                                Success
-                            </span>';
+            $buttonTitle .= '<span class="text-success font-weight-bold">SUCCESS</span>';
         break;
     }
 
