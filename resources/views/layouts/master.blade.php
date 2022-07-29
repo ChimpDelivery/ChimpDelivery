@@ -30,13 +30,13 @@
         }
 
         .popover-inner {
-            min-width: 220px !important;
-            max-width: 500px !important;
+            width: 250px !important;
+            max-width: 250px !important;
         }
 
         .popover {
-            min-width: 220px !important;
-            max-width: 500px !important;
+            width: 250px !important;
+            max-width: 250px !important;
         }
     </style>
 </head>

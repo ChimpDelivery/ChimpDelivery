@@ -42,7 +42,7 @@
         break;
 
         case 'SUCCESS':
-            $buttonTitle .= '<span class="text-success font-weight-bold">SUCCESS</span>';
+            $buttonTitle .= '<span class="text-success font-weight-bold"><i class="fa fa-check-circle-o" aria-hidden="true"></i> SUCCESS</span>';
         break;
     }
 
