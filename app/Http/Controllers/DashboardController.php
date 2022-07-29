@@ -128,13 +128,13 @@ class DashboardController extends Controller
             }
             else
             {
-                $tfCustomVersion = isset($request->tfCustomVersion) && $request->tfCustomVersion == 'true';
-                $tfCustomVersion = var_export($tfCustomVersion, true);
-                $tfBuildNumber = ($tfCustomVersion == 'true') ? $request->tfBuildNumber : 0;
+                $hasStoreCustomVersion = isset($request->storeCustomVersion) && $request->storeCustomVersion == 'true';
+                $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
+                $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
 
-                Artisan::call("jenkins:trigger {$request->id} master {$request->isWorkspace} {$request->tfVersion} {FALSE} {$tfCustomVersion} {$tfBuildNumber}");
+                Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
 
-                session()->flash('success', "{$appInfo->app_name} building... Wait 3-4seconds then reload the page.");
+                session()->flash('success', "{$appInfo->app_name} building for {$request->platform}... Wait 3-4seconds then reload the page.");
             }
         }
 
@@ -204,6 +204,7 @@ class DashboardController extends Controller
             $item->build_number = $appData->build_number;
             $item->build_status = $appData->build_status;
             $item->build_stage = $appData->build_stage;
+            $item->build_platform = $appData->build_platform;
 
             if ($item->build_status->status == 'IN_PROGRESS')
             {

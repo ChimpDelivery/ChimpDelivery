@@ -10,47 +10,40 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="dropdownMenuButton">Git Branch</label>
+                    <label for="dropdownMenuButton">Store</label>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false">
-                            master
+                            Appstore
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">master</a>
+                            <a class="dropdown-item" href="#Appstore">Appstore</a>
+                            <a class="dropdown-item" href="#GooglePlay">GooglePlay</a>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf_version">TF Version</label>
-                    <input oninput="updateLink()" type="text" id="tf_version" name="tf_version"
+                    <label for="store_version">Store Version</label>
+                    <input oninput="updateLink()" type="text" id="store_version" name="store_version"
                             class="form-control" required="" value="1.0">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="tf_custom_version" name="tf_custom_version" class="form-control" value="" hidden>
+                    <input type="text" id="store_custom_version" name="store_custom_version" class="form-control" value="" hidden>
                     <p>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tf_build_version_collapse" aria-expanded="false" aria-controls="tf_build_version_collapse">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#store_build_version_collapse" aria-expanded="false" aria-controls="store_build_version_collapse">
                             Custom Build Number
                         </button>
                     </p>
-                    <div class="collapse" id="tf_build_version_collapse">
+                    <div class="collapse" id="store_build_version_collapse">
                         <div class="form-group">
-                            <label for="tf_build_version">TF Build Number</label>
-                            <input oninput="updateLink()" type="text" id="tf_build_version" name="tf_build_version"
+                            <label for="store_build_version">Store Build Number</label>
+                            <input oninput="updateLink()" type="text" id="store_build_version" name="store_build_version"
                                     class="form-control" required="" value="">
                         </div>
                     </div>
-                </div>
-                <div class="form-check">
-                    <input onchange="updateLink()" class="form-check-input" type="checkbox"
-                            value=""
-                            id="is_workspace">
-                    <label class="form-check-label" for="is_workspace">
-                        Is Workspace
-                    </label>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -72,18 +65,18 @@
         document.getElementById('project-button').innerHTML = getCookie('target_project_name');
     });
 
-    $('#tf_build_version_collapse').on('shown.bs.collapse', function () {
+    $('#store_build_version_collapse').on('shown.bs.collapse', function () {
 
         console.log('custom_build_version modal shown!');
-        document.getElementById('tf_custom_version').value = 'true';
+        document.getElementById('store_custom_version').value = 'true';
 
         updateLink(getCookie('target_app_id'));
     });
 
-    $('#tf_build_version_collapse').on('hidden.bs.collapse', function () {
+    $('#store_build_version_collapse').on('hidden.bs.collapse', function () {
 
         console.log('custom_build_version modal hidden!');
-        document.getElementById('tf_custom_version').value = 'false';
+        document.getElementById('store_custom_version').value = 'false';
 
         updateLink(getCookie('target_app_id'));
     });

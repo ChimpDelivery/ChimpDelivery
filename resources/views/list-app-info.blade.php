@@ -57,9 +57,20 @@
         })
 
         $(document).ready(function () {
-            $('#exampleModal').on('show.bs.modal', function (event) {
 
-                document.getElementById('is_workspace').checked = getCookie('target_is_ws');
+            $('#dropdown-inputs a').on('click', function() {
+
+                var platform = event.target.getAttribute("href");
+                platform = platform.substr(1);
+
+                //
+                document.getElementById('dropdownMenuButton').innerHTML = platform;
+                console.log("Selected platform:" + platform);
+
+                updateLink();
+            });
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
 
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
@@ -82,19 +93,19 @@
                 console.log('app_id:' + appId);
             }
 
-            var isWorkspace = document.getElementById('is_workspace').checked;
-            console.log('is_workspace: ' + isWorkspace);
+            var platform = document.getElementById('dropdownMenuButton').innerHTML.trim();
+            console.log('platform:' + platform);
 
-            var tfVersion = document.getElementById('tf_version').value;
-            console.log('tf_version: ' + tfVersion);
+            var storeVersion = document.getElementById('store_version').value;
+            console.log('store_version:' + storeVersion);
 
-            var tfCustomVersion = document.getElementById('tf_custom_version').value;
-            console.log('tf_custom_version: ' + tfCustomVersion);
+            var storeCustomVersion = document.getElementById('store_custom_version').value;
+            console.log('store_custom_version:' + storeCustomVersion);
 
-            var tfBuildNumber = document.getElementById('tf_build_version').value;
-            console.log('tf_build_number: ' + tfBuildNumber)
+            var storeBuildNumber = document.getElementById('store_build_version').value;
+            console.log('store_build_number:' + storeBuildNumber)
 
-            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + isWorkspace + '/' + tfVersion + '/' + tfCustomVersion + '/' + tfBuildNumber;
+            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + platform + '/' + storeVersion + '/' + storeCustomVersion + '/' + storeBuildNumber;
             document.getElementById('build_link').href = buildUrl;
         }
     </script>

@@ -94,9 +94,9 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             // add commit history
-            $changeSetsResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
-            $changeSets = isset($changeSetsResponse->get('job_info')->changeSets[0])
-                ? collect($changeSetsResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+            $lastBuildDetailResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
+            $changeSets = isset($lastBuildDetailResponse->get('job_info')->changeSets[0])
+                ? collect($lastBuildDetailResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
             $validatedResponse->put('change_sets', $changeSets);
 
@@ -111,6 +111,8 @@ class JenkinsController extends Controller
                 'message_detail' => $jobStopStageDetail
             ]));
 
+            // parameters[1] equals == platform
+            $validatedResponse->put('build_platform', $lastBuildDetailResponse->get('job_info')->actions[0]->parameters[1]->value);
             $validatedResponse->put('build_stage', $jobStages->last()?->name);
             $validatedResponse->put('timestamp', $lastBuild->startTimeMillis);
             $validatedResponse->put('estimated_duration', collect($validatedResponse->get('job_info'))->avg('durationMillis'));
