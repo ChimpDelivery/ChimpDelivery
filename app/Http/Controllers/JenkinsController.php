@@ -124,14 +124,13 @@ class JenkinsController extends Controller
         return response()->json($validatedResponse->except('job_info'));
     }
 
-    public function PostStopJob(Request $request, $job = null, $buildNumber = null) : void
+    public function PostStopJob(Request $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $appBuildNumber = is_null($buildNumber) ? $request->buildNumber : $buildNumber;
+        $url = $this->baseUrl."/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
 
-        $url = $this->baseUrl."/job/{$jobName}/job/master/{$appBuildNumber}/stop";
-
-        Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
+        return response()->json([
+            'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status()
+        ]);
     }
 
     private static function GetJenkinsJobResponse($url) : JsonResponse
