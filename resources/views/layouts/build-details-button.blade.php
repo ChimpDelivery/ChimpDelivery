@@ -23,7 +23,7 @@
     // there must be build...
     if ($buildStatus)
     {
-        $buttonTitle = '<i class="'.$buildPlatformIcon.'" aria-hidden="true"></i> | ';
+        $buttonTitle = '<i class="pull-right '.$buildPlatformIcon.'" aria-hidden="true"></i>';
     }
 
     switch ($buildStatus)
@@ -34,15 +34,15 @@
         break;
 
         case 'FAILED':
-            $buttonTitle .= '<span class="text-danger font-weight-bold">Failed at: ' . $buildStopStage . '</span>';
+            $buttonTitle .= '<span class="text-danger font-weight-bold">FAILED at: ' . $buildStopStage . '</span>';
         break;
 
         case 'ABORTED':
-            $buttonTitle .= '<span class="text-secondary font-weight-bold">Aborted at: ' . Str::limit($buildStopStage, 15). '</span>';
+            $buttonTitle .= '<span class="text-secondary font-weight-bold">ABORTED at: ' . Str::limit($buildStopStage, 15). '</span>';
         break;
 
         case 'SUCCESS':
-            $buttonTitle .= '<span class="text-success font-weight-bold">Success</span>';
+            $buttonTitle .= '<span class="text-success font-weight-bold">SUCCESS</span>';
         break;
     }
 

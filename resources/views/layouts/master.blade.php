@@ -28,6 +28,16 @@
         .toast:not(.showing):not(.show) {
             display: none !important;
         }
+
+        .popover-inner {
+            min-width: 220px !important;
+            max-width: 500px !important;
+        }
+
+        .popover {
+            min-width: 220px !important;
+            max-width: 500px !important;
+        }
     </style>
 </head>
 <body>
