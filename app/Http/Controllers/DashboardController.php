@@ -204,6 +204,7 @@ class DashboardController extends Controller
             $item->build_number = $appData->build_number;
             $item->build_status = $appData->build_status;
             $item->build_stage = $appData->build_stage;
+            $item->build_platform = $appData->build_platform;
 
             if ($item->build_status->status == 'IN_PROGRESS')
             {
