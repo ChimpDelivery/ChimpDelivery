@@ -24,7 +24,13 @@ class JenkinsParameterizedTrigger extends Command
             $url = config('jenkins.host').
                 "/job/".
                 config('jenkins.ws').
-                "/job/{$app->project_name}/job/{$this->argument('branch')}/buildWithParameters?INVOKE_PARAMETERS={$this->argument('invokeParameters')}&PLATFORM={$this->argument('platform')}&APP_ID={$app->id}&STORE_BUILD_VERSION={$this->argument('storeVersion')}&STORE_CUSTOM_BUNDLE_VERSION={$this->argument('hasCustomBundleVersion')}&STORE_BUNDLE_VERSION={$this->argument('storeBundleVersion')}";
+                "/job/{$app->project_name}/job/{$this->argument('branch')}/buildWithParameters".
+                "?INVOKE_PARAMETERS={$this->argument('invokeParameters')}".
+                "&PLATFORM={$this->argument('platform')}".
+                "&APP_ID={$app->id}".
+                "&STORE_BUILD_VERSION={$this->argument('storeVersion')}".
+                "&STORE_CUSTOM_BUNDLE_VERSION={$this->argument('hasCustomBundleVersion')}".
+                "&STORE_BUNDLE_VERSION={$this->argument('storeBundleVersion')}";
 
             echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
         }
