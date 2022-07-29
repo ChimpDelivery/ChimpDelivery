@@ -112,7 +112,10 @@ class JenkinsController extends Controller
             ]));
 
             // parameters[1] equals == platform
-            $validatedResponse->put('build_platform', $lastBuildDetailResponse->get('job_info')->actions[0]?->parameters[1]?->value);
+            $jobHasParameters = isset($lastBuildDetailResponse->get('job_info')->actions[0]->parameters);
+            $buildPlatform = ($jobHasParameters) ? $lastBuildDetailResponse->get('job_info')->actions[0]?->parameters[1]?->value : 'Appstore';
+            $validatedResponse->put('build_platform', $buildPlatform);
+
             $validatedResponse->put('build_stage', $jobStages->last()?->name);
             $validatedResponse->put('timestamp', $lastBuild->startTimeMillis);
             $validatedResponse->put('estimated_duration', collect($validatedResponse->get('job_info'))->avg('durationMillis'));
