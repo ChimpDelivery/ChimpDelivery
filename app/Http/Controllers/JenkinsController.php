@@ -155,20 +155,18 @@ class JenkinsController extends Controller
 
             return response()->json($response);
         }
-        finally
+
+        $response->put('jenkins_status', true);
+        $response->put('jenkins_message', 'success');
+
+        $jobExists = !is_null($jenkinsResponse);
+        if ($jobExists)
         {
-            $response->put('jenkins_status', true);
-            $response->put('jenkins_message', 'success');
-
-            $jobExists = !is_null($jenkinsResponse);
-            if ($jobExists)
-            {
-                $response->put('job_exists', true);
-                $response->put('job_info', collect($jenkinsResponse));
-            }
-
-            return response()->json($response);
+            $response->put('job_exists', true);
+            $response->put('job_info', collect($jenkinsResponse));
         }
+
+        return response()->json($response);
     }
 
     private static function GetJenkinsApi($url)

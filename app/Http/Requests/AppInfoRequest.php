@@ -33,7 +33,7 @@ class AppInfoRequest extends FormRequest
             'project_name' => array('required', 'alpha_dash', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
 
             'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at')),
-                                  'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
+                'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
 
             'appstore_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
 
