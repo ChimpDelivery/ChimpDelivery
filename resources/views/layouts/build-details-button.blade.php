@@ -29,7 +29,7 @@
     switch ($buildStatus)
     {
         case 'IN_PROGRESS':
-            $buttonTitle .= ' Stage: <span class="text-primary font-weight-bold">' . Str::limit($appInfo?->build_stage, 15) . '</span>';
+            $buttonTitle .= '<span class="text-primary font-weight-bold">STAGE: ' . Str::limit($appInfo?->build_stage, 15) . '</span>';
             $buttonData .= 'Average Finish: <span class="text-primary font-weight-bold">' . $appInfo?->estimated_time . "</span><hr class='my-2'>";
         break;
 
