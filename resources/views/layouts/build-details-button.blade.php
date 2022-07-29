@@ -48,7 +48,8 @@
 
     if (!empty($buildStopStageDetail))
     {
-        $buttonData .= "<span class='badge bg-secondary text-white'>Message:</span> {$buildStopStageDetail}<hr class='my-2'>";
+        $buildStopStageDetail = Str::limit($buildStopStageDetail, 29);
+        $buttonData .= "<span class='badge bg-secondary text-white'>Info:</span> {$buildStopStageDetail}<hr class='my-2'>";
     }
 
     // add pretty commit history to build details view.
