@@ -18,6 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- bootstrap_end !-->
+    <!-- custom_js_start !-->
+    <script src="{{ asset('js/cookie.js') }}"></script>
+    <!-- custom_js_end !-->
     <style>
         .toast-container { position: fixed; right: 20px; top: 20px; }
         .toast:not(.showing):not(.show) { display: none !important; }
@@ -25,6 +28,7 @@
         .popover { width: 250px !important; max-width: 250px !important; }
     </style>
 </head>
+
 <body>
     <!-- navbar_begin !-->
     @include('layouts.navbar')
@@ -46,46 +50,5 @@
 </body>
 
 <section class="scripts">
-    <script type="text/javascript">
-        $(document).ready(function() {
-            console.log("talus-toast-cookie:" + getCookie('talus-toast-cookie'));
-
-            if (!getCookie('talus-toast-cookie')) {
-                $('#toast-talus').toast('show');
-            }
-
-            $('#toast-flash').toast('show');
-        });
-
-        function setToastCookie() {
-            setCookie('talus-toast-cookie', 1, 1);
-        }
-
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-        function expireCookie(name) {
-            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        }
-    </script>
-
     @yield('scripts')
 </section>
