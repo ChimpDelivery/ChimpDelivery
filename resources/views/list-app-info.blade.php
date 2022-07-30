@@ -70,7 +70,7 @@
                 updateLink();
             });
 
-            $('#exampleModal').on('show.bs.modal', function (event) {
+            $('#buildModal').on('show.bs.modal', function (event) {
 
                 // Get the button that triggered the modal
                 var button = $(event.relatedTarget);
