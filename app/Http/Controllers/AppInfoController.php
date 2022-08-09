@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAppInfoRequest;
-use App\Http\Requests\GetAppInfoRequest;
+use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 use App\Models\AppInfo;
 use App\Models\File;

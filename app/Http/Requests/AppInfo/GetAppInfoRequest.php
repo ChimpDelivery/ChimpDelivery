@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\AppInfo;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePackageRequest extends FormRequest
+class GetAppInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,15 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'package_id' => array('required', 'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
-            'hash' => array('required')
+            'id' => array('required', 'numeric')
         ];
     }
 
     public function messages() : array
     {
         return [
-            'package_id.required' => 'package_id is required!',
-            'package_id.regex' => 'package_id is incorrect! (e.g com.talus.talusci)',
-            'hash.required' => 'hash is required!'
+            'id.required' => 'id is required!',
+            'id.numeric' => 'id can only contains numerics!'
         ];
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 
-use App\Http\Requests\GetPackageRequest;
-use App\Http\Requests\UpdatePackageRequest;
+use App\Http\Requests\Package\GetPackageRequest;
+use App\Http\Requests\Package\UpdatePackageRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
