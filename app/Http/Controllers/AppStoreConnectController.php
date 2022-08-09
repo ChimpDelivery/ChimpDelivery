@@ -71,19 +71,17 @@ class AppStoreConnectController extends Controller
 
     public function CreateBundle(Request $request)
     {
-        $bundleIdAttributes = [
-            'identifier' => config('appstore.bundle_prefix') . '.' . $request->bundle_id,
-            'name' => $request->bundle_name,
-            'platform' => 'IOS'
-        ];
-
-        $body = [
-            'attributes' => $bundleIdAttributes,
-            'type' => 'bundleIds'
-        ];
-
         $data = [
-            'data' => $body
+            'data' =>
+            [
+                'attributes' =>
+                [
+                    'identifier' => config('appstore.bundle_prefix') . '.' . $request->bundle_id,
+                    'name' => $request->bundle_name,
+                    'platform' => 'IOS'
+                ],
+                'type' => 'bundleIds'
+            ]
         ];
 
         $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
