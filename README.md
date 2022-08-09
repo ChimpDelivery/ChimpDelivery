@@ -65,7 +65,7 @@ POST   |   api/github/create-repository/{projectName}
 
 # 🔑 Apps API
 ```
-GET    |   api/get-app/{id}
+GET    |   api/get-app?id={id}
 ```
 
 
