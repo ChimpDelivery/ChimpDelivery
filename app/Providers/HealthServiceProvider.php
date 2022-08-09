@@ -46,6 +46,7 @@ class HealthServiceProvider extends ServiceProvider
                 'APPSTORECONNECT_CACHE_DURATION',
                 'APPSTORECONNECT_ITEM_LIMIT',
                 'APPSTORECONNECT_COMPANY_NAME',
+                'APPSTORECONNECT_BUNDLE_PREFIX',
                 'APPSTORECONNECT_USER_EMAIL',
                 'APPSTORECONNECT_USER_PASS',
                 'JENKINS_WS',
