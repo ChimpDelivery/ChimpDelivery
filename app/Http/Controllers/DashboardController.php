@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
+use App\Models\AppInfo;
+
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
-use App\Models\AppInfo;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

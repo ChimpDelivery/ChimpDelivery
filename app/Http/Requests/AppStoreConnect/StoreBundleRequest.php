@@ -32,8 +32,8 @@ class StoreBundleRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'bundle_id.alpha_num' => 'Bundle id can only contains alpha-numeric characters!',
-            'bundle_name.regex' => 'Bundle name can only contains alpha-numeric characters and space!'
+            'bundle_id.alpha_num' => 'bundle_id can only contains alpha-numeric characters!',
+            'bundle_name.regex' => 'bundle_name can only contains alpha-numeric characters and space!'
         ];
     }
 }

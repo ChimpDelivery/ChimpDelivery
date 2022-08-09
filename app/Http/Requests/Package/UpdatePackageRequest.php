@@ -25,7 +25,7 @@ class UpdatePackageRequest extends FormRequest
     {
         return [
             'package_id' => array('required', 'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
-            'hash' => array('required')
+            'hash' => array('required', 'alpha_num')
         ];
     }
 
@@ -34,7 +34,8 @@ class UpdatePackageRequest extends FormRequest
         return [
             'package_id.required' => 'package_id is required!',
             'package_id.regex' => 'package_id is incorrect! (e.g com.talus.talusci)',
-            'hash.required' => 'hash is required!'
+            'hash.required' => 'hash is required!',
+            'hash.alpha_num' => 'hash can only contains alpha-numeric characters!'
         ];
     }
 }
