@@ -39,7 +39,7 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
-    Route::get('appstoreconnect/create-bundle', 'CreateBundle');
+    Route::post('appstoreconnect/create-bundle', 'CreateBundle');
     Route::post('appstoreconnect/create-app', 'CreateApp');
 });
 
@@ -56,5 +56,5 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
 Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository/{projectName}', 'GetRepository');
-    Route::get('github/create-repository/{projectName}/{projectDescription}', 'CreateRepository');
+    Route::post('github/create-repository/{projectName}/{projectDescription}', 'CreateRepository');
 });
