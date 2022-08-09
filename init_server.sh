@@ -57,8 +57,8 @@ cd $PROJECT_FOLDER
 composer install
 if [ ! -f ".env" ]; then
     cp .env.example .env
+    yes | php artisan key:generate
 fi
-yes | php artisan key:generate
-yes | php artisan migrate
+php artisan migrate --force
 php artisan optimize:clear
 php artisan optimize
