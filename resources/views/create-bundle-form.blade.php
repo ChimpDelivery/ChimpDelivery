@@ -8,7 +8,7 @@
         <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-tag fa-stack-1x"></i>
+                <i class="fa fa-apple fa-stack-1x" aria-hidden="true"></i>
             </span>
             Create Bundle ID
         </div>
@@ -34,7 +34,7 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <i class="fa fa-hashtag" aria-hidden="true"></i>
+            <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
             After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>

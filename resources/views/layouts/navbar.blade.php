@@ -14,11 +14,11 @@
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item {{ (request()->is('dashboard/create-bundle')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard/create-bundle">Create Bundle</a>
-                </li>
                 <li class="nav-item {{ (request()->is('dashboard/add-app-info')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
+                </li>
+                <li class="nav-item {{ (request()->is('dashboard/create-bundle')) ? 'active' : '' }}">
+                    <a class="nav-link font-weight-bold" href="/dashboard/create-bundle">iOS Bundle</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>

@@ -18,7 +18,7 @@ class JenkinsController extends Controller
     public function GetJob(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = self::GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/api/json")->getData();
+        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$jobName}/api/json")->getData();
 
         return response()->json([
             'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
@@ -27,7 +27,7 @@ class JenkinsController extends Controller
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = self::GetJenkinsJobResponse($this->baseUrl.'/api/json')->getData();
+        $jenkinsInfo = $this->GetJenkinsJobResponse('/api/json')->getData();
 
         return response()->json([
             'job_list' => collect($jenkinsInfo->job_info->jobs)->pluck('name')
@@ -37,7 +37,7 @@ class JenkinsController extends Controller
     public function GetLastBuildSummary(Request $request, $job = null) //: JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect(self::GetJenkinsJobResponse($this->baseUrl."/job/{$jobName}/job/master/api/json")->getData());
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/api/json")->getData());
 
         // job doesn't exist.
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
@@ -74,7 +74,7 @@ class JenkinsController extends Controller
     public function GetLastBuildWithDetails(Request $request, $job = null) : JsonResponse
     {
         $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/wfapi/runs")->getData());
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/wfapi/runs")->getData());
 
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
@@ -94,7 +94,7 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             // add commit history
-            $lastBuildDetailResponse = collect(self::GetJenkinsJobResponse($this->baseUrl . "/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
+            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
             $changeSets = isset($lastBuildDetailResponse->get('job_info')->changeSets[0])
                 ? collect($lastBuildDetailResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
@@ -124,16 +124,16 @@ class JenkinsController extends Controller
         return response()->json($validatedResponse->except('job_info'));
     }
 
-    public function PostStopJob(Request $request) : JsonResponse
+    public function StopJob(Request $request) : JsonResponse
     {
-        $url = $this->baseUrl."/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
+        $url = "/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
 
         return response()->json([
-            'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status()
+            'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($this->baseUrl . $url)->status()
         ]);
     }
 
-    private static function GetJenkinsJobResponse($url) : JsonResponse
+    private function GetJenkinsJobResponse($url) : JsonResponse
     {
         $response = collect([
             'jenkins_status' => false,
@@ -146,7 +146,7 @@ class JenkinsController extends Controller
 
         try
         {
-            $jenkinsResponse = self::GetJenkinsApi($url);
+            $jenkinsResponse = $this->GetJenkinsApi($this->baseUrl . $url);
         }
         catch (\Exception $exception)
         {
@@ -168,7 +168,7 @@ class JenkinsController extends Controller
         return response()->json($response);
     }
 
-    private static function GetJenkinsApi($url)
+    private function GetJenkinsApi($url)
     {
         return json_decode(Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
             ->timeout(20)
