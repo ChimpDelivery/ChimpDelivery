@@ -23,8 +23,8 @@ sudo tasksel install lamp-server
 
 # install php8.1 related packages
 sudo apt-get install php8.1 -y
-sudo apt-get install php8.1-curl php8.1-mysql php8.1-mbstring php8.1-xml -y
-sudo apt-get install zip unzip php8.1-zip -y
+sudo apt-get install php8.1-curl php8.1-mysql php8.1-mbstring php8.1-xml php8.1-zip -y
+sudo apt-get install zip unzip -y
 
 # install redis
 sudo apt-get install redis-server -y
@@ -58,7 +58,7 @@ composer install
 if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
-no | php artisan key:generate
+yes | php artisan key:generate
 yes | php artisan migrate
 php artisan optimize:clear
 php artisan optimize
