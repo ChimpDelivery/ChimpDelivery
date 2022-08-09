@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfoRequest;
+use App\Http\Requests\StoreAppInfoRequest;
 use App\Http\Requests\GetAppInfoRequest;
 
 use App\Models\AppInfo;
@@ -43,7 +43,7 @@ class AppInfoController extends Controller
     }
 
     // todo: refactor mass-assignment
-    public function PopulateAppData(AppInfoRequest $request, AppInfo $appInfo) : void
+    public function PopulateAppData(StoreAppInfoRequest $request, AppInfo $appInfo) : void
     {
         if ($appInfo->trashed())
         {
