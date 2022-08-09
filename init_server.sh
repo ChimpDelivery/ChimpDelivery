@@ -60,5 +60,10 @@ if [ ! -f ".env" ]; then
     php artisan key:generate --force
 fi
 php artisan migrate --force
+php artisan clear-compiled
 php artisan optimize:clear
+
+composer cc
+composer dump-autoload
+
 php artisan optimize
