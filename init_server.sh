@@ -10,9 +10,6 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install software-properties-common -y
 
-# install bundler for fastlane
-sudo gem install bundler
-
 # add repo for >= php8.1
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update -y
