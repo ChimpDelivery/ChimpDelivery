@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppInfoController;
 use App\Http\Controllers\AppStoreConnectController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\JenkinsController;
@@ -24,7 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // dashboard apps
-Route::get('apps/get-app/{id}', 'App\Http\Controllers\AppInfoController@GetApp')->middleware('appstore');
+Route::controller(AppInfoController::class)->middleware('appstore')->group(function () {
+    Route::get('apps/get-app', 'GetApp');
+});
 
 // package management
 Route::controller(PackageController::class)->middleware('appstore')->group(function () {

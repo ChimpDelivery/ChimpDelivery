@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AppInfoRequest;
+use App\Http\Requests\GetAppInfoRequest;
+
 use App\Models\AppInfo;
 use App\Models\File;
 
@@ -12,7 +14,7 @@ use Illuminate\Http\Response;
 
 class AppInfoController extends Controller
 {
-    public function GetApp(Request $request) : JsonResponse
+    public function GetApp(GetAppInfoRequest $request) : JsonResponse
     {
         $response = AppInfo::find($request->id, [
             'app_bundle',
