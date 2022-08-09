@@ -83,6 +83,8 @@ class GithubController extends Controller
                     'private' => true
                 ]
             );
+
+            $this->UpdateRepoTopics($repoName);
         }
         catch (\Exception $exception)
         {

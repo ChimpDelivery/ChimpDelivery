@@ -74,8 +74,6 @@ class DashboardController extends Controller
                     ->firstOrNew()
                 );
 
-                $githubController->UpdateRepoTopics($createRepoResponse->get('name'));
-
                 Artisan::call("jenkins:scan-repo");
 
                 session()->flash('success', "App: {$request->app_name} created. New Git project: {$createRepoResponse->get('full_name')}");
