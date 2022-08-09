@@ -71,7 +71,7 @@ GET    |   api/get-app/{id}
 
 # 🔑 Packages API
 ```
-GET   |   api/get-package/{id}
+GET   |   api/get-package?package_id={id}
 GET   |   api/get-packages
-POST  |   api/update-package/{id}/{hash}
+POST  |   api/update-package?package_id={id}&hash={hash}
 ```
