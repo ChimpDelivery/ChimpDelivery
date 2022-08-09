@@ -60,7 +60,7 @@ POST   |   api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository/{id}
-POST   |   api/github/create-repository/{projectName}/{projectDescription}
+POST   |   api/github/create-repository/{projectName}
 ```
 
 # 🔑 Apps API
