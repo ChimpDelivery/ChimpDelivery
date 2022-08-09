@@ -49,22 +49,22 @@ GET   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bu
 
 # 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
-GET   |   api/jenkins/get-job-list
-GET   |   api/jenkins/get-job/{projectName}
-GET   |   api/jenkins/get-build-list/{projectName}
-GET   |   api/jenkins/get-latest-build-info/{projectName}
-GET   |   api/jenkins/stop-job/{projectName}/{buildNumber}
+GET    |   api/jenkins/get-job-list
+GET    |   api/jenkins/get-job/{projectName}
+GET    |   api/jenkins/get-build-list/{projectName}
+GET    |   api/jenkins/get-latest-build-info/{projectName}
+POST   |   api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 
 # 🔑 GitHub API
 ```
-GET   |   api/github/get-repositories
-GET   |   api/github/get-repository/{id}
+GET    |   api/github/get-repositories
+GET    |   api/github/get-repository/{id}
 ```
 
 # 🔑 Apps API
 ```
-GET   |   api/get-app/{id}
+GET    |   api/get-app/{id}
 ```
 
 
