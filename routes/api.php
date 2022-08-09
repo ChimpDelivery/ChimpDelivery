@@ -28,9 +28,9 @@ Route::get('apps/get-app/{id}', 'App\Http\Controllers\AppInfoController@GetApp')
 
 // package management
 Route::controller(PackageController::class)->middleware('appstore')->group(function () {
-    Route::get('packages/get-package/{id}', 'GetPackage');
+    Route::get('packages/get-package', 'GetPackage');
     Route::get('packages/get-packages', 'GetPackages');
-    Route::post('packages/update-package/{id}/{hash}', 'UpdatePackage');
+    Route::post('packages/update-package', 'UpdatePackage');
 });
 
 // appstore connect
