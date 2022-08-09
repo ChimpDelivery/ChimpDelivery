@@ -124,7 +124,7 @@ class JenkinsController extends Controller
         return response()->json($validatedResponse->except('job_info'));
     }
 
-    public function PostStopJob(Request $request) : JsonResponse
+    public function StopJob(Request $request) : JsonResponse
     {
         $url = "/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
 
