@@ -40,11 +40,11 @@ mysql> exit;
 
 # 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
-GET   |   api/appstoreconnect/get-token
-GET   |   api/appstoreconnect/get-full-info
-GET   |   api/appstoreconnect/get-app-list
-GET   |   api/appstoreconnect/get-app-list/{id}
-GET   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
+GET    |   api/appstoreconnect/get-token
+GET    |   api/appstoreconnect/get-full-info
+GET    |   api/appstoreconnect/get-app-list
+GET    |   api/appstoreconnect/get-app-list/{id}
+POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
 # 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
@@ -60,6 +60,7 @@ POST   |   api/jenkins/stop-job/{projectName}/{buildNumber}
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository/{id}
+POST   |   api/github/create-repository/{projectName}
 ```
 
 # 🔑 Apps API
