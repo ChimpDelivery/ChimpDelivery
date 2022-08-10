@@ -29,16 +29,9 @@ class AppInfoController extends Controller
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
     {
         $appInfo = AppInfo::find($request->id);
+        $appInfo->delete();
 
-        if ($appInfo)
-        {
-            $appInfo->delete();
-            return response()->json(['message' => "App: {$appInfo->app_name} deleted."],
-                Response::HTTP_ACCEPTED);
-        }
-
-        return response()->json(['message' => 'App not found!'],
-            Response::HTTP_FORBIDDEN);
+        return response()->json(['message' => "App: {$appInfo->app_name} deleted."], Response::HTTP_ACCEPTED);
     }
 
     // todo: refactor mass-assignment
