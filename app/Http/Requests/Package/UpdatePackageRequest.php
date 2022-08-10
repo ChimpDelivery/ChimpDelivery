@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Package;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdatePackageRequest extends FormRequest
+class UpdatePackageRequest extends GetPackageRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'package_id' => array('required', 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i'),
+            'package_id' => array(
+                'required',
+                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
+                Rule::exists('packages', 'package_id')
+            ),
             'hash' => array('required', 'alpha_num')
         ];
     }
