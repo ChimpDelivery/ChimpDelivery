@@ -145,15 +145,12 @@ class JenkinsController extends Controller
             Artisan::call("jenkins:default-trigger {$validated['id']}");
             return response()->json(['status' => "{$app->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
-        else
-        {
-            $hasStoreCustomVersion = isset($validated['storeCustomVersion']) && $validated['storeCustomVersion'] == 'true';
-            $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
-            $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $validated['storeBuildNumber'] : 0;
 
-            Artisan::call("jenkins:trigger {$validated['id']} master {FALSE} {$validated['platform']} {$validated['storeVersion']} {$hasStoreCustomVersion} {$storeBuildNumber}");
-            return response()->json(['status' => "{$app->app_name} building for {$validated['platform']}..."]);
-        }
+        $hasStoreCustomVersion ??= $validated['storeCustomVersion'];
+        $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $validated['storeBuildNumber'] : 0;
+
+        Artisan::call("jenkins:trigger {$validated['id']} master false {$validated['platform']} {$validated['storeVersion']} {$hasStoreCustomVersion} {$storeBuildNumber}");
+        return response()->json(['status' => "{$app->app_name} building for {$validated['platform']}..."]);
     }
 
     public function StopJob(StopJobRequest $request) : JsonResponse
