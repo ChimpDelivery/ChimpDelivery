@@ -26,12 +26,7 @@ class DashboardController extends Controller
                 ->GetLastBuildWithDetails($request, $item->project_name)
                 ->getData();
 
-            if ($appData->job_exists)
-            {
-                $this->PopulateAppDetails($item, $appData);
-            }
-
-            $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
+            $this->PopulateAppDetails($item, $appData);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -194,26 +189,33 @@ class DashboardController extends Controller
 
     private function PopulateAppDetails($item, mixed $appData) : void
     {
-        $item->job_exists = $appData->job_exists;
-
-        if (isset($appData->job_url))
+        // if job exist on jenkins, populate project build data
+        if ($appData->job_exists)
         {
-            $item->job_url = $appData->job_url;
-            $item->change_sets = $appData->change_sets;
+            $item->job_exists = true;
 
-            $item->build_number = $appData->build_number;
-            $item->build_status = $appData->build_status;
-            $item->build_stage = $appData->build_stage;
-            $item->build_platform = $appData->build_platform;
-
-            if ($item->build_status->status == 'IN_PROGRESS')
+            if (isset($appData->job_url))
             {
-                $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
-                $estimatedTime = date('H:i:s', $estimatedTime);
-                $currentTime = date('H:i:s');
+                $item->job_url = $appData->job_url;
+                $item->change_sets = $appData->change_sets;
 
-                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                $item->build_number = $appData->build_number;
+                $item->build_status = $appData->build_status;
+                $item->build_stage = $appData->build_stage;
+                $item->build_platform = $appData->build_platform;
+
+                if ($item->build_status->status == 'IN_PROGRESS')
+                {
+                    $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
+                    $estimatedTime = date('H:i:s', $estimatedTime);
+                    $currentTime = date('H:i:s');
+
+                    $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                }
             }
         }
+
+        // always populate git url data
+        $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
     }
 }
