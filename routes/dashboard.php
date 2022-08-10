@@ -16,7 +16,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->name('update_app_info');
 
     // post route to delete app info data.
-    Route::post('/dashboard/delete-app-info/{id}', 'DeleteApp')->name('delete_app_info');
+    Route::post('/dashboard/delete-app-info', 'DeleteApp')->name('delete_app_info');
 
     // jenkins bridge.
     Route::get('/dashboard/build-app/{id}/{platform}/{storeVersion}/{storeCustomVersion?}/{storeBuildNumber?}', 'BuildApp');
