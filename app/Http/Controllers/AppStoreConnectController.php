@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
 use Firebase\JWT\JWT;
 
 use Illuminate\Http\Request;
@@ -69,7 +71,7 @@ class AppStoreConnectController extends Controller
         ]);
     }
 
-    public function CreateBundle(Request $request)
+    public function CreateBundle(StoreBundleRequest $request)
     {
         $data = [
             'data' =>
