@@ -121,8 +121,8 @@ class DashboardController extends Controller
     {
         $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
         $flashMessage = ($stopJobResponse->status == 200)
-            ? "{$request->projectName}: {$request->buildNumber} aborted!"
-            : "{$request->projectName}: {$request->buildNumber} can not aborted!";
+            ? "{$request->project_name}: {$request->build_number} aborted!"
+            : "{$request->project_name}: {$request->build_number} can not aborted!";
         session()->flash('success', $flashMessage);
 
         return back();
