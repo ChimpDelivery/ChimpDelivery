@@ -21,17 +21,12 @@ class DashboardController extends Controller
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data->each(function ($item) use ($request) {
-            $appData = app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($request, $item->project_name)
-                ->getData();
+        $data->each(function ($project) use ($request) {
+            $appData = collect(app('App\Http\Controllers\JenkinsController')
+                ->GetLastBuildWithDetails($request, $project->project_name)
+                ->getData());
 
-            if ($appData->job_exists)
-            {
-                $this->PopulateAppDetails($item, $appData);
-            }
-
-            $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
+            $this->PopulateAppDetails($project, $appData);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -69,6 +64,7 @@ class DashboardController extends Controller
                 ->getData()
             );
 
+            // new git repo created succesfully
             if (!is_null($createRepoResponse->get('id')))
             {
                 $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
@@ -81,7 +77,7 @@ class DashboardController extends Controller
                 session()->flash('success', "App: {$request->app_name} created. New Git project: {$createRepoResponse->get('full_name')}");
             }
         }
-        else
+        else // existing git project
         {
             $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
                 ->where('appstore_id', $request->appstore_id)
@@ -184,6 +180,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    // cache system disabled for now
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
@@ -192,28 +189,31 @@ class DashboardController extends Controller
         return back();
     }
 
-    private function PopulateAppDetails($item, mixed $appData) : void
+    private function PopulateAppDetails($project, mixed $appData) : void
     {
-        $item->job_exists = $appData->job_exists;
+        // always populate git url data
+        $project->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $project->project_name;
 
-        if (isset($appData->job_url))
+        // if job exist on jenkins, populate project build data
+        if (!$appData->get('job_exists')) { return; }
+
+        // copy params from jenkins job
+        $appData->map(function ($item, $key) use (&$project) {
+            $project->setAttribute($key, $item);
+        });
+
+        if ($project->build_status->status == 'IN_PROGRESS')
         {
-            $item->job_url = $appData->job_url;
-            $item->change_sets = $appData->change_sets;
-
-            $item->build_number = $appData->build_number;
-            $item->build_status = $appData->build_status;
-            $item->build_stage = $appData->build_stage;
-            $item->build_platform = $appData->build_platform;
-
-            if ($item->build_status->status == 'IN_PROGRESS')
-            {
-                $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
-                $estimatedTime = date('H:i:s', $estimatedTime);
-                $currentTime = date('H:i:s');
-
-                $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
-            }
+            $project->estimated_time = $this->CalculateBuildFinishDate($appData);
         }
+    }
+
+    private function CalculateBuildFinishDate(mixed $appData) : string
+    {
+        $estimatedTime = ceil($appData->get('timestamp') / 1000) + ceil($appData->get('estimated_duration') / 1000);
+        $estimatedTime = date('H:i:s', $estimatedTime);
+        $currentTime = date('H:i:s');
+
+        return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
     }
 }
