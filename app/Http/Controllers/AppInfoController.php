@@ -83,7 +83,7 @@ class AppInfoController extends Controller
 
             $iconFile = new File();
             $iconFile->path = time() . "-" . $fileName . "." . $iconImage->getClientOriginalExtension();
-            $iconFile->hash = md5_file($iconImage);
+            $iconFile->hash = $hash;
             $iconFile->save();
 
             $iconImage->move(public_path('images/app-icons'), $iconFile->path);
