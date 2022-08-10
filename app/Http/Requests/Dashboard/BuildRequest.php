@@ -4,6 +4,8 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Validation\Rule;
+
 class BuildRequest extends FormRequest
 {
     /**
@@ -27,7 +29,7 @@ class BuildRequest extends FormRequest
             'id' => array('required', 'numeric'),
             'platform' => array('required', 'alpha_num'),
             'storeVersion' => array('required', 'numeric'),
-            'storeCustomVersion' => array('nullable', 'numeric'),
+            'storeCustomVersion' => array('nullable', 'string', Rule::in(['true', 'false'])),
             'storeBuildNumber' => array('nullable', 'numeric')
         ];
     }

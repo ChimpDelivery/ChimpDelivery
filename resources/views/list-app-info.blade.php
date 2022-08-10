@@ -99,7 +99,7 @@
             var storeVersion = document.getElementById('store_version').value;
             console.log('store_version:' + storeVersion);
 
-            var storeCustomVersion = document.getElementById('store_custom_version').value;
+            var storeCustomVersion = document.getElementById('store_custom_version').value === 'true';
             console.log('store_custom_version:' + storeCustomVersion);
 
             var storeBuildNumber = document.getElementById('store_build_version').value;
