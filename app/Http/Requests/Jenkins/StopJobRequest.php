@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Jenkins;
 
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
+
 use Illuminate\Validation\Rule;
 
-class StopJobRequest extends GetJobRequest
+class StopJobRequest extends GetAppInfoRequest
 {
     /**
      * Determine if the user is authorized to make this request.

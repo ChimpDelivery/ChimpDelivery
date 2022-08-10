@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppInfo;
 
-use App\Http\Requests\Jenkins\GetJobRequest;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
@@ -22,7 +22,7 @@ class JenkinsController extends Controller
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
     }
 
-    public function GetJob(GetJobRequest $request) : JsonResponse
+    public function GetJob(GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
         $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
@@ -41,7 +41,7 @@ class JenkinsController extends Controller
         ]);
     }
 
-    public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
+    public function GetLastBuildSummary(GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
 
@@ -79,7 +79,7 @@ class JenkinsController extends Controller
         return response()->json($buildList->except('job_info'));
     }
 
-    public function GetLastBuildWithDetails(AppInfo|GetJobRequest $request) : JsonResponse
+    public function GetLastBuildWithDetails(AppInfo|GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->id);
 
@@ -147,7 +147,7 @@ class JenkinsController extends Controller
         }
         else
         {
-            $hasStoreCustomVersion = !is_null($validated['storeCustomVersion']) && $validated['storeCustomVersion'] == 'true';
+            $hasStoreCustomVersion = isset($validated['storeCustomVersion']) && $validated['storeCustomVersion'] == 'true';
             $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
             $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $validated['storeBuildNumber'] : 0;
 
