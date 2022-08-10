@@ -48,19 +48,3 @@ sudo service apache2 restart
 sudo service cron restart
 sudo service redis-server restart
 sudo service mysql restart
-
-# laravel environment
-cd $PROJECT_FOLDER
-composer install
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-    php artisan key:generate --force
-fi
-php artisan migrate --force
-php artisan clear-compiled
-php artisan optimize:clear
-
-composer cc
-composer dump-autoload
-
-php artisan optimize
