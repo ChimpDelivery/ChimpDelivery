@@ -34,11 +34,11 @@
         break;
 
         case 'FAILED':
-            $buttonTitle .= '<span class="text-danger font-weight-bold">FAILED at: ' . $buildStopStage . '</span>';
+            $buttonTitle .= '<span class="text-danger font-weight-bold">STAGE: ' . $buildStopStage . '</span>';
         break;
 
         case 'ABORTED':
-            $buttonTitle .= '<span class="text-secondary font-weight-bold">ABORTED at: ' . Str::limit($buildStopStage, 15). '</span>';
+            $buttonTitle .= '<span class="text-secondary font-weight-bold">STAGE: ' . Str::limit($buildStopStage, 15). '</span>';
         break;
 
         case 'SUCCESS':
