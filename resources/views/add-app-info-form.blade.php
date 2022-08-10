@@ -80,7 +80,7 @@
         </div>
         <div class="card-footer text-muted">
             <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            If you don't see the app in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            If you don't see the app in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
         </div>
     </div>
 </div>
