@@ -78,8 +78,8 @@ class AppStoreConnectController extends Controller
             [
                 'attributes' =>
                 [
-                    'identifier' => config('appstore.bundle_prefix') . '.' . $request->bundle_id,
-                    'name' => $request->bundle_name,
+                    'identifier' => config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id'),
+                    'name' => $request->validated('bundle_name'),
                     'platform' => 'IOS'
                 ],
                 'type' => 'bundleIds'
