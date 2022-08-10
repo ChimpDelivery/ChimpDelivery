@@ -25,7 +25,7 @@ class StoreBundleRequest extends FormRequest
     {
         return [
             'bundle_id' => array('required', 'alpha_num'),
-            'bundle_name' => array('required', 'regex:/^([a-zA-Z0-9 ]*$)/'),
+            'bundle_name' => array('required', 'alpha_num'),
         ];
     }
 
@@ -33,7 +33,7 @@ class StoreBundleRequest extends FormRequest
     {
         return [
             'bundle_id.alpha_num' => 'bundle_id can only contains alpha-numeric characters!',
-            'bundle_name.regex' => 'bundle_name can only contains alpha-numeric characters and space!'
+            'bundle_name.regex' => 'bundle_name can only contains alpha-numeric characters!'
         ];
     }
 }
