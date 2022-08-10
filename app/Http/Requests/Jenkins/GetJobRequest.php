@@ -24,7 +24,7 @@ class GetJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'projectName' => array('required', 'alpha_dash')
+            'project_name' => array('required', 'alpha_dash')
         ];
     }
 }

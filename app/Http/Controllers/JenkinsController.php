@@ -25,7 +25,7 @@ class JenkinsController extends Controller
 
     public function GetJob(GetJobRequest $request) : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$request->projectName}/api/json")->getData();
+        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$request->project_name}/api/json")->getData();
 
         return response()->json([
             'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
