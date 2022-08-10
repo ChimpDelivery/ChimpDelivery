@@ -80,7 +80,7 @@ class GithubController extends Controller
                 ]
             );
 
-            $this->UpdateRepoTopics($request->validated('project_name'));
+            $this->UpdateRepoTopics($request);
         }
         catch (\Exception $exception)
         {
@@ -90,7 +90,7 @@ class GithubController extends Controller
         return response()->json([ 'status' => 200, 'response' => $response ]);
     }
 
-    public function UpdateRepoTopics(string $repositoryName)
+    public function UpdateRepoTopics(GetRepositoryRequest $request)
     {
         $response = [];
 
@@ -98,15 +98,15 @@ class GithubController extends Controller
         {
             $response = GitHub::api('repo')->replaceTopics(
                 config('github.organization_name'),
-                $repositoryName,
+                $request->validated('project_name'),
                 [ config('github.prototype_topic') ]
             );
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'message' => $exception->getMessage() ]);
+            return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json($response);
+        return response()->json([ 'status' => 200, 'response' => $response ]);
     }
 }
