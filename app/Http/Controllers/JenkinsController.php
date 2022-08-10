@@ -79,7 +79,7 @@ class JenkinsController extends Controller
         return response()->json($buildList->except('job_info'));
     }
 
-    public function GetLastBuildWithDetails(AppInfo|GetAppInfoRequest $request) : JsonResponse
+    public function GetLastBuildWithDetails(GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->id);
 

@@ -23,10 +23,13 @@ class DashboardController extends Controller
     public function Index() : View
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
+        $data->each(function (AppInfo $app)
+        {
+            $request = GetAppInfoRequest::createFromGlobals();
+            $request = $request->merge(['id' => $app->id]);
 
-        $data->each(function (AppInfo $app) {
             $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($app)
+                ->GetLastBuildWithDetails($request)
                 ->getData()
             );
 
