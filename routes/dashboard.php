@@ -20,7 +20,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
 
     // jenkins bridge.
     Route::get('/dashboard/build-app', 'BuildApp');
-    Route::get('/dashboard/stop-job/{projectName}/{buildNumber}', 'StopJob');
+    Route::get('/dashboard/stop-job', 'StopJob');
     Route::get('/dashboard/scan-repo', 'ScanRepo');
 
     //

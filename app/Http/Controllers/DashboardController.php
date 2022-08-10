@@ -10,7 +10,9 @@ use App\Models\AppInfo;
 use App\Http\Requests\Dashboard\SelectAppRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
 use App\Http\Requests\Jenkins\BuildRequest;
+use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -110,15 +112,18 @@ class DashboardController extends Controller
 
     public function BuildApp(BuildRequest $request) : RedirectResponse
     {
-        $buildResponse = app('App\Http\Controllers\JenkinsController')->BuildJob($request)->getData();
-        session()->flash('success', $buildResponse->success);
+        session()->flash('success', app('App\Http\Controllers\JenkinsController')->BuildJob($request)->getData()->status);
+
         return back();
     }
 
-    public function StopJob(Request $request) : RedirectResponse
+    public function StopJob(StopJobRequest $request) : RedirectResponse
     {
-        Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
-        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} aborted, wait 3-4 seconds then reload the page.");
+        $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
+        $flashMessage = ($stopJobResponse->status == 200)
+            ? "{$request->projectName}: {$request->buildNumber} aborted!"
+            : "{$request->projectName}: {$request->buildNumber} can not aborted!";
+        session()->flash('success', $flashMessage);
 
         return back();
     }

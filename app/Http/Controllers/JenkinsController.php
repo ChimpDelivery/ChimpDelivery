@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AppInfo;
 
 use App\Http\Requests\Jenkins\BuildRequest;
+use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -136,7 +137,7 @@ class JenkinsController extends Controller
 
         if (!$appInfo)
         {
-            return response()->json(['success' => 'App can not found! Try again...']);
+            return response()->json(['status' => 'App can not found! Try again...']);
         }
 
         $job = $this->GetLastBuildSummary($request, $appInfo->project_name)->getData();
@@ -146,7 +147,7 @@ class JenkinsController extends Controller
         if ($latestBuild->number == 1 && empty($latestBuild->url))
         {
             Artisan::call("jenkins:default-trigger {$request->id}");
-            return response()->json(['success' => "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
+            return response()->json(['status' => "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
         else
         {
@@ -155,11 +156,11 @@ class JenkinsController extends Controller
             $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
 
             Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-            return response()->json(['success' => "{$appInfo->app_name} building for {$request->platform}..."]);
+            return response()->json(['status' => "{$appInfo->app_name} building for {$request->platform}..."]);
         }
     }
 
-    public function StopJob(Request $request) : JsonResponse
+    public function StopJob(StopJobRequest $request) : JsonResponse
     {
         $url = "/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
 
