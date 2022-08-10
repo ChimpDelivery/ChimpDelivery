@@ -95,6 +95,7 @@ class AppStoreConnectController extends Controller
         ]);
     }
 
+    // disabled for now
     public function CreateApp(Request $request)
     {
         Artisan::call("appstore:create-app {$request->bundle_id} {$request->app_name}");
