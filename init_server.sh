@@ -48,3 +48,8 @@ sudo service apache2 restart
 sudo service cron restart
 sudo service redis-server restart
 sudo service mysql restart
+
+# create environment file
+if [ ! -f ".env" ]; then
+    cp .env.example .env
+fi

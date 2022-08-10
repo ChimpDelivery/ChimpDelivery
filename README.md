@@ -1,23 +1,23 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
 - Provides Web Dashboard and Backend APIs to work with ***CI/CD Pipeline***.
-- Production server running on ***AWS Lightsail***.
-- [Build Mac Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
+- [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
+- [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
-- [Postman](https://www.postman.com)
+
 
 # 💿 Production Environment Setup
 - Required OS >= ***Ubuntu 20.04***
 
-- Run Script
+1. Run Script
 ```
 sh init_server.sh
 ```
-- ***Crontab*** Settings (`crontab -e`)
+2. ***Crontab*** Settings (`crontab -e`)
 ```
 * * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
 ```
 
-- ***MySQL*** Settings
+3. ***MySQL*** Root Password Settings
 ```
 sudo mysql --user=root mysql
 mysql> UPDATE mysql.user SET authentication_string=null WHERE User='root';
@@ -28,7 +28,7 @@ mysql> create database laravel;
 mysql> exit;
 ```
 
-- ***Apache*** Settings (`/etc/apache2/apache2.conf`)
+4. ***Apache*** Settings (`/etc/apache2/apache2.conf`)
 ```php
   <Directory /var/www/>
       Options Indexes FollowSymLinks
@@ -36,10 +36,11 @@ mysql> exit;
       Require all granted
   </Directory>
 ```
-- Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
-- Run Script
+5. Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
+6. Populate `.env` file
+7. Run Script
 ```
-sh init_production.sh
+sh init_project.sh
 ```
 
 # 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
