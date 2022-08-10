@@ -43,7 +43,7 @@ class JenkinsController extends Controller
 
     public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
-        $app = AppInfo::find($request->id);
+        $app = AppInfo::find($request->validated('id'));
 
         $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
