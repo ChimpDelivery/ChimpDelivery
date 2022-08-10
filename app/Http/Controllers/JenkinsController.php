@@ -9,7 +9,6 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
