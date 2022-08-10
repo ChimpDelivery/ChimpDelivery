@@ -4,6 +4,8 @@ namespace App\Http\Requests\AppInfo;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Validation\Rule;
+
 class GetAppInfoRequest extends FormRequest
 {
     /**
@@ -24,7 +26,7 @@ class GetAppInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric')
+            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at'))
         ];
     }
 
