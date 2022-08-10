@@ -22,11 +22,11 @@ class DashboardController extends Controller
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
         $data->each(function ($project) use ($request) {
-            $appData = collect(app('App\Http\Controllers\JenkinsController')
+            $jenkinsData = collect(app('App\Http\Controllers\JenkinsController')
                 ->GetLastBuildWithDetails($request, $project->project_name)
                 ->getData());
 
-            $this->PopulateAppDetails($project, $appData);
+            $this->PopulateAppDetails($project, $jenkinsData);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -191,28 +191,28 @@ class DashboardController extends Controller
         return back();
     }
 
-    private function PopulateAppDetails($project, mixed $appData) : void
+    private function PopulateAppDetails(AppInfo $project, mixed $jenkinsData) : void
     {
         // always populate git url data
         $project->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $project->project_name;
 
         // if job exist on jenkins, populate project build data
-        if (!$appData->get('job_exists')) { return; }
+        if (!$jenkinsData->get('job_exists')) { return; }
 
         // copy params from jenkins job
-        $appData->map(function ($item, $key) use (&$project) {
+        $jenkinsData->map(function ($item, $key) use (&$project) {
             $project->setAttribute($key, $item);
         });
 
         if ($project->build_status->status == 'IN_PROGRESS')
         {
-            $project->estimated_time = $this->CalculateBuildFinishDate($appData);
+            $project->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
         }
     }
 
-    private function CalculateBuildFinishDate(mixed $appData) : string
+    private function CalculateBuildFinishDate(mixed $jenkinsData) : string
     {
-        $estimatedTime = ceil($appData->get('timestamp') / 1000) + ceil($appData->get('estimated_duration') / 1000);
+        $estimatedTime = ceil($jenkinsData->get('timestamp') / 1000) + ceil($jenkinsData->get('estimated_duration') / 1000);
         $estimatedTime = date('H:i:s', $estimatedTime);
         $currentTime = date('H:i:s');
 
