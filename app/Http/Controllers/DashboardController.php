@@ -7,6 +7,7 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
 
+use App\Http\Requests\Dashboard\BuildRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
@@ -106,7 +107,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function BuildApp(Request $request) : RedirectResponse
+    public function BuildApp(BuildRequest $request) : RedirectResponse
     {
         $appInfo = AppInfo::find($request->id);
 
