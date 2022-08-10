@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\AppInfo;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Github\GetRepositoryRequest;
 
 use Illuminate\Validation\Rule;
 
-class StoreAppInfoRequest extends FormRequest
+class StoreAppInfoRequest extends GetRepositoryRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -59,18 +59,15 @@ class DashboardController extends Controller
         $githubController = app('App\Http\Controllers\GithubController');
 
         // check repository name on org
-        $gitResponse = collect($githubController->GetRepository($request)->getData());
+        $gitResponse = $githubController->GetRepository($request)->getData();
 
         // git repo doesn't exit, just create it from template
         if ($gitResponse->status == 404)
         {
-            $createRepoResponse = collect($githubController
-                ->CreateRepository($request)
-                ->getData()
-            );
+            $createRepoResponse = $githubController->CreateRepository($request)->getData();
 
             // new git repo created succesfully
-            if (!is_null($createRepoResponse->get('id')))
+            if ($createRepoResponse->status == 200)
             {
                 $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
                     ->where('appstore_id', $request->validated('appstore_id'))
@@ -79,7 +76,11 @@ class DashboardController extends Controller
 
                 Artisan::call("jenkins:scan-repo");
 
-                session()->flash('success', "App: {$request->validated('app_name')} created. New Git project: {$createRepoResponse->get('full_name')}");
+                session()->flash('success', "App: {$request->validated('app_name')} created. New Git project: {$createRepoResponse->response->full_name}");
+            }
+            else
+            {
+                session()->flash('error', "App: {$request->validated('app_name')} created but Git project can not created! Delete app from dashboard and try again.");
             }
         }
         else // existing git project
