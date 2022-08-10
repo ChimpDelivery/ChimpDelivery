@@ -5,7 +5,7 @@
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [Postman](https://www.postman.com)
 
-# 💿 Environment Setup
+# 💿 Production Environment Setup
 - Required OS >= ***Ubuntu 20.04***
 
 - Run Script
@@ -37,6 +37,10 @@ mysql> exit;
   </Directory>
 ```
 - Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
+- Run Script
+```
+sh init_production.sh
+```
 
 # 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
