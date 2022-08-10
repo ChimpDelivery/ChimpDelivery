@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Spatie\ResponseCache\Facades\ResponseCache;
 
-use App\Http\Requests\AppInfoRequest;
-use App\Http\Requests\StoreBundleRequest;
 use App\Models\AppInfo;
+
+use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -51,7 +52,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function StoreAppForm(AppInfoRequest $request) : RedirectResponse
+    public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
         $appInfoController = app('App\Http\Controllers\AppInfoController');
         $githubController = app('App\Http\Controllers\GithubController');
@@ -98,7 +99,7 @@ class DashboardController extends Controller
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
 
-    public function UpdateApp(AppInfoRequest $request): RedirectResponse
+    public function UpdateApp(StoreAppInfoRequest $request): RedirectResponse
     {
         $appInfoController = app('App\Http\Controllers\AppInfoController');
 
