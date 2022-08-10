@@ -99,13 +99,13 @@
             var storeVersion = document.getElementById('store_version').value;
             console.log('store_version:' + storeVersion);
 
-            var storeCustomVersion = document.getElementById('store_custom_version').value;
+            var storeCustomVersion = document.getElementById('store_custom_version').value === 'true';
             console.log('store_custom_version:' + storeCustomVersion);
 
             var storeBuildNumber = document.getElementById('store_build_version').value;
             console.log('store_build_number:' + storeBuildNumber)
 
-            var buildUrl = "dashboard/build-app/" + getCookie('target_app_id') + '/' + platform + '/' + storeVersion + '/' + storeCustomVersion + '/' + storeBuildNumber;
+            var buildUrl = "dashboard/build-app/?id=" + getCookie('target_app_id') + '&platform=' + platform + '&storeVersion=' + storeVersion + '&storeCustomVersion=' + storeCustomVersion + '&storeBuildNumber=' + storeBuildNumber;
             document.getElementById('build_link').href = buildUrl;
         }
     </script>

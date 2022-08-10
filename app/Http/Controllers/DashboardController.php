@@ -7,8 +7,12 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
 
+use App\Http\Requests\Dashboard\SelectAppRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
+use App\Http\Requests\Jenkins\BuildRequest;
+use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -91,7 +95,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function SelectApp(Request $request) : View
+    public function SelectApp(SelectAppRequest $request) : View
     {
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
@@ -106,43 +110,20 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function BuildApp(Request $request) : RedirectResponse
+    public function BuildApp(BuildRequest $request) : RedirectResponse
     {
-        $appInfo = AppInfo::find($request->id);
-
-        if ($appInfo)
-        {
-            $job = app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildSummary($request, $appInfo->project_name)
-                ->getData();
-
-            $latestBuild = $job->build_list;
-
-            // job exists but doesn't parameterized
-            if ($latestBuild->number == 1 && empty($latestBuild->url))
-            {
-                Artisan::call("jenkins:default-trigger {$request->id}");
-                session()->flash('success', "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!");
-            }
-            else
-            {
-                $hasStoreCustomVersion = isset($request->storeCustomVersion) && $request->storeCustomVersion == 'true';
-                $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
-                $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
-
-                Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-
-                session()->flash('success', "{$appInfo->app_name} building for {$request->platform}... Wait 3-4seconds then reload the page.");
-            }
-        }
+        session()->flash('success', app('App\Http\Controllers\JenkinsController')->BuildJob($request)->getData()->status);
 
         return back();
     }
 
-    public function StopJob(Request $request) : RedirectResponse
+    public function StopJob(StopJobRequest $request) : RedirectResponse
     {
-        Artisan::call("jenkins:stopper {$request->projectName} {$request->buildNumber}");
-        session()->flash('success', "{$request->projectName}: build {$request->buildNumber} aborted, wait 3-4 seconds then reload the page.");
+        $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
+        $flashMessage = ($stopJobResponse->status == 200)
+            ? "{$request->projectName}: {$request->buildNumber} aborted!"
+            : "{$request->projectName}: {$request->buildNumber} can not aborted!";
+        session()->flash('success', $flashMessage);
 
         return back();
     }
@@ -182,15 +163,6 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    // cache system disabled for now
-    public function ClearCache() : RedirectResponse
-    {
-        ResponseCache::clear();
-        session()->flash('success', 'Cache cleared!');
-
-        return back();
-    }
-
     private function PopulateAppDetails(AppInfo $project, mixed $jenkinsData) : void
     {
         // always populate git url data
@@ -203,6 +175,9 @@ class DashboardController extends Controller
         $jenkinsData->map(function ($item, $key) use (&$project) {
             $project->setAttribute($key, $item);
         });
+
+        // if job has no build, there is no build_status property (and other jenkins data)
+        if (!isset($project->build_status)) { return; }
 
         if ($project->build_status->status == 'IN_PROGRESS')
         {
@@ -217,5 +192,14 @@ class DashboardController extends Controller
         $currentTime = date('H:i:s');
 
         return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+    }
+
+    // cache system disabled for now
+    public function ClearCache() : RedirectResponse
+    {
+        ResponseCache::clear();
+        session()->flash('success', 'Cache cleared!');
+
+        return back();
     }
 }

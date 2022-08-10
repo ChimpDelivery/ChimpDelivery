@@ -32,7 +32,7 @@ class JenkinsParameterizedTrigger extends Command
                 "&STORE_CUSTOM_BUNDLE_VERSION={$this->argument('hasCustomBundleVersion')}".
                 "&STORE_BUNDLE_VERSION={$this->argument('storeBundleVersion')}";
 
-            echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
+            Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
         }
     }
 }

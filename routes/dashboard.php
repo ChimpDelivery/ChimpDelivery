@@ -12,15 +12,15 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/store-app-info', 'StoreAppForm');
 
     // get and post routes to update app info data.
-    Route::get('/dashboard/update-app-info/{id}', 'SelectApp')->name('get_app_info');
+    Route::get('/dashboard/update-app-info', 'SelectApp')->name('get_app_info');
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->name('update_app_info');
 
     // post route to delete app info data.
     Route::post('/dashboard/delete-app-info', 'DeleteApp')->name('delete_app_info');
 
     // jenkins bridge.
-    Route::get('/dashboard/build-app/{id}/{platform}/{storeVersion}/{storeCustomVersion?}/{storeBuildNumber?}', 'BuildApp');
-    Route::get('/dashboard/stop-job/{projectName}/{buildNumber}', 'StopJob');
+    Route::get('/dashboard/build-app', 'BuildApp');
+    Route::get('/dashboard/stop-job', 'StopJob');
     Route::get('/dashboard/scan-repo', 'ScanRepo');
 
     //

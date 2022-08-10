@@ -22,6 +22,6 @@ class JenkinsScanRepoTrigger extends Command
             config('jenkins.ws').
             "/build?delay=0";
 
-        echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
+        Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
     }
 }
