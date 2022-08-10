@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
@@ -156,7 +157,7 @@ class DashboardController extends Controller
         return back();
     }
 
-    public function DeleteApp(Request $request) : RedirectResponse
+    public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
         $deleteAppResponse = app('App\Http\Controllers\AppInfoController')->DeleteApp($request)->getData();
         session()->flash('success', $deleteAppResponse->message);

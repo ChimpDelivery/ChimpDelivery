@@ -8,7 +8,6 @@ use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Models\AppInfo;
 use App\Models\File;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -27,7 +26,7 @@ class AppInfoController extends Controller
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
 
-    public function DeleteApp(Request $request) : JsonResponse
+    public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
     {
         $appInfo = AppInfo::find($request->id);
 
