@@ -30,7 +30,7 @@ class AppStoreConnectController extends Controller
     public function GetFullAppInfo() : JsonResponse
     {
         $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
-            ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit='.config('appstore.item_limit').'&filter[appStoreVersions.platform]=IOS');
+            ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit='.config('appstore.item_limit').'&filter[appStoreVersions.platform]=IOS&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION');
 
         $sortedAppCollection = collect(json_decode($appList)->data);
         $sortedAppList = $sortedAppCollection->sortByDesc('id');
