@@ -37,8 +37,9 @@ mysql> exit;
   </Directory>
 ```
 5. Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
-6. Populate `.env` file
-7. Run Script
+6. Restart Apache `sudo service apache2 restart`
+7. Populate `.env` file on project root
+8. Run Script
 ```
 sh init_project.sh
 ```
