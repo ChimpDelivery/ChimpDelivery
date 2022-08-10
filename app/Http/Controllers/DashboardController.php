@@ -176,6 +176,9 @@ class DashboardController extends Controller
             $project->setAttribute($key, $item);
         });
 
+        // if job has no build, there is no build_status property (and other jenkins data)
+        if (!isset($project->build_status)) { return; }
+
         if ($project->build_status->status == 'IN_PROGRESS')
         {
             $project->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
