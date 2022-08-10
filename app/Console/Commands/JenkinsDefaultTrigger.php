@@ -26,7 +26,7 @@ class JenkinsDefaultTrigger extends Command
                 config('jenkins.ws').
                 "/job/{$app->project_name}/job/master/build?delay=0sec";
 
-            echo 'Jenkins response code: ' . Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url)->status();
+            Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
         }
     }
 }

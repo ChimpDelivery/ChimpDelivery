@@ -7,9 +7,9 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
 
-use App\Http\Requests\Dashboard\BuildRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+use App\Http\Requests\Jenkins\BuildRequest;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -109,34 +109,8 @@ class DashboardController extends Controller
 
     public function BuildApp(BuildRequest $request) : RedirectResponse
     {
-        $appInfo = AppInfo::find($request->id);
-
-        if ($appInfo)
-        {
-            $job = app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildSummary($request, $appInfo->project_name)
-                ->getData();
-
-            $latestBuild = $job->build_list;
-
-            // job exists but doesn't parameterized
-            if ($latestBuild->number == 1 && empty($latestBuild->url))
-            {
-                Artisan::call("jenkins:default-trigger {$request->id}");
-                session()->flash('success', "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!");
-            }
-            else
-            {
-                $hasStoreCustomVersion = isset($request->storeCustomVersion) && $request->storeCustomVersion == 'true';
-                $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
-                $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
-
-                Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-
-                session()->flash('success', "{$appInfo->app_name} building for {$request->platform}... Wait 3-4seconds then reload the page.");
-            }
-        }
-
+        $buildResponse = app('App\Http\Controllers\JenkinsController')->BuildJob($request)->getData();
+        session()->flash('success', $buildResponse->success);
         return back();
     }
 

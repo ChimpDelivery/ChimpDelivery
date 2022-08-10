@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboard;
+namespace App\Http\Requests\Jenkins;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +27,7 @@ class BuildRequest extends FormRequest
     {
         return [
             'id' => array('required', 'numeric'),
-            'platform' => array('required', 'alpha_num'),
+            'platform' => array('required', 'string', Rule::in(['Appstore', 'GooglePlay'])),
             'storeVersion' => array('required', 'numeric'),
             'storeCustomVersion' => array('nullable', 'string', Rule::in(['true', 'false'])),
             'storeBuildNumber' => array('nullable', 'numeric')
