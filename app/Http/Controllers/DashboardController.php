@@ -10,7 +10,6 @@ use App\Models\AppInfo;
 use App\Http\Requests\Dashboard\SelectAppRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
-
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
@@ -63,7 +62,7 @@ class DashboardController extends Controller
         $gitResponse = collect($githubController->GetRepository($request)->getData());
 
         // git repo doesn't exit, just create it from template
-        if (count($gitResponse) == 0)
+        if ($gitResponse->status == 404)
         {
             $createRepoResponse = collect($githubController
                 ->CreateRepository($request)

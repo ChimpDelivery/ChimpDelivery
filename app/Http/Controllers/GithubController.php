@@ -37,15 +37,13 @@ class GithubController extends Controller
                     'size' => round($item['size'] / 1024, 2) . 'mb'
                 ];
             });
-
-            return response()->json($response);
         }
         catch (\Exception $exception)
         {
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json($response);
+        return response()->json([ 'status' => 200, 'response' => $response ]);
     }
 
     public function GetRepository(GetRepositoryRequest $request) : JsonResponse
@@ -61,7 +59,7 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json($response);
+        return response()->json([ 'status' => 200, 'response' => $response ]);
     }
 
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
@@ -90,7 +88,7 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json($response);
+        return response()->json([ 'status' => 200, 'response' => $response ]);
     }
 
     public function UpdateRepoTopics(string $repositoryName)
