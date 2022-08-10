@@ -162,7 +162,7 @@ class JenkinsController extends Controller
 
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
-        $url = "/job/{$request->projectName}/job/master/{$request->buildNumber}/stop";
+        $url = "/job/{$request->project_name}/job/master/{$request->build_number}/stop";
 
         return response()->json([
             'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($this->baseUrl . $url)->status()

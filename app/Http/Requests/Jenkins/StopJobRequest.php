@@ -24,8 +24,8 @@ class StopJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'projectName' => array('required', 'alpha_dash'),
-            'buildNumber' => array('required', 'numeric')
+            'project_name' => array('required', 'alpha_dash'),
+            'build_number' => array('required', 'numeric')
         ];
     }
 }
