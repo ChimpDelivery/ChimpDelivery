@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Str;
 
 class GithubController extends Controller
 {
