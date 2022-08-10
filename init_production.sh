@@ -7,7 +7,7 @@ PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
 # laravel environment
 cd $PROJECT_FOLDER
-composer install
+composer install --no-dev
 if [ ! -f ".env" ]; then
     cp .env.example .env
     php artisan key:generate --force
