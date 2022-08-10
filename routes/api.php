@@ -25,40 +25,48 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // dashboard apps
-Route::controller(AppInfoController::class)->middleware('appstore')->group(function () {
+Route::controller(AppInfoController::class)->middleware('appstore')->group(function ()
+{
     Route::get('apps/get-app', 'GetApp');
 });
 
 // package management
-Route::controller(PackageController::class)->middleware('appstore')->group(function () {
+Route::controller(PackageController::class)->middleware('appstore')->group(function ()
+{
     Route::get('packages/get-package', 'GetPackage');
     Route::get('packages/get-packages', 'GetPackages');
     Route::post('packages/update-package', 'UpdatePackage');
 });
 
 // appstore connect
-Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function ()
+{
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
     Route::get('appstoreconnect/get-build-list', 'GetBuildList');
+
     Route::post('appstoreconnect/create-bundle', 'CreateBundle');
     // Route::post('appstoreconnect/create-app', 'CreateApp');
 });
 
 // jenkins
-Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function ()
+{
     Route::get('jenkins/get-job', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list', 'GetLastBuildSummary');
     Route::get('jenkins/get-latest-build-info/{projectName}', 'GetLastBuildWithDetails');
+
     Route::post('jenkins/build-job', 'BuildJob');
     Route::post('jenkins/stop-job', 'StopJob');
 });
 
 // github
-Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function ()
+{
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository/{projectName}', 'GetRepository');
+
     Route::post('github/create-repository/{projectName}', 'CreateRepository');
 });
