@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\Github\GetRepositoryRequest;
 
 use Illuminate\Http\JsonResponse;
