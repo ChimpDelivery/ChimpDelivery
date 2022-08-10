@@ -180,6 +180,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    // cache system disabled for now
     public function ClearCache() : RedirectResponse
     {
         ResponseCache::clear();
