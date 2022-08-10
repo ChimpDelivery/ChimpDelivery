@@ -12,7 +12,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/store-app-info', 'StoreAppForm');
 
     // get and post routes to update app info data.
-    Route::get('/dashboard/update-app-info/{id}', 'SelectApp')->name('get_app_info');
+    Route::get('/dashboard/update-app-info', 'SelectApp')->name('get_app_info');
     Route::post('/dashboard/update-app-info/{id}/update', 'UpdateApp')->name('update_app_info');
 
     // post route to delete app info data.

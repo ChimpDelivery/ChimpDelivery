@@ -7,6 +7,7 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
 
+use App\Http\Requests\Dashboard\SelectAppRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
@@ -92,7 +93,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function SelectApp(Request $request) : View
+    public function SelectApp(SelectAppRequest $request) : View
     {
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
     }
