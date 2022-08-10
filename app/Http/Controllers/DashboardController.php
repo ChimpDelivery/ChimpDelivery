@@ -15,22 +15,24 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Contracts\View\View;
+
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
-    public function Index(Request $request) : View
+    public function Index() : View
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data->each(function ($project) use ($request) {
-            $jenkinsData = collect(app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($request, $project->project_name)
-                ->getData());
+        $data->each(function ($project) {
+            $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
+                ->GetLastBuildWithDetails($project)
+                ->getData()
+            );
 
-            $this->PopulateAppDetails($project, $jenkinsData);
+            $this->PopulateAppDetails($project, $jenkinsResponse);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
