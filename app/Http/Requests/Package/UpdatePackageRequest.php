@@ -24,7 +24,7 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'package_id' => array('required', 'regex:/^([a-zA-Z0-9]+\.)+([a-zA-Z0-9]+\.)+([a-zA-Z0-9])/'),
+            'package_id' => array('required', 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i'),
             'hash' => array('required', 'alpha_num')
         ];
     }
@@ -33,7 +33,7 @@ class UpdatePackageRequest extends FormRequest
     {
         return [
             'package_id.required' => 'package_id is required!',
-            'package_id.regex' => 'package_id is incorrect! (e.g com.talus.talusci)',
+            'package_id.regex' => 'package_id is incorrect! (e.g com.CompanyName.AppName)',
             'hash.required' => 'hash is required!',
             'hash.alpha_num' => 'hash can only contains alpha-numeric characters!'
         ];
