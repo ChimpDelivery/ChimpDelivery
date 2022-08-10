@@ -7,7 +7,6 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 use App\Models\AppInfo;
 
-use App\Http\Requests\Dashboard\SelectAppRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
@@ -25,13 +24,13 @@ class DashboardController extends Controller
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data->each(function ($project) {
+        $data->each(function (AppInfo $app) {
             $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($project)
+                ->GetLastBuildWithDetails($app)
                 ->getData()
             );
 
-            $this->PopulateAppDetails($project, $jenkinsResponse);
+            $this->PopulateAppDetails($app, $jenkinsResponse);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -97,7 +96,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    public function SelectApp(SelectAppRequest $request) : View
+    public function SelectApp(GetAppInfoRequest $request) : View
     {
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->validated('id')));
     }
@@ -170,25 +169,25 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    private function PopulateAppDetails(AppInfo $project, mixed $jenkinsData) : void
+    private function PopulateAppDetails(AppInfo $app, mixed $jenkinsData) : void
     {
         // always populate git url data
-        $project->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $project->project_name;
+        $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
 
         // if job exist on jenkins, populate project build data
         if (!$jenkinsData->get('job_exists')) { return; }
 
         // copy params from jenkins job
-        $jenkinsData->map(function ($item, $key) use (&$project) {
-            $project->setAttribute($key, $item);
+        $jenkinsData->map(function ($item, $key) use (&$app) {
+            $app->setAttribute($key, $item);
         });
 
         // if job has no build, there is no build_status property (and other jenkins data)
-        if (!isset($project->build_status)) { return; }
+        if (!isset($app->build_status)) { return; }
 
-        if ($project->build_status->status == 'IN_PROGRESS')
+        if ($app->build_status->status == 'IN_PROGRESS')
         {
-            $project->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
+            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
         }
     }
 
