@@ -136,14 +136,11 @@ class JenkinsController extends Controller
     public function BuildJob(BuildRequest $request) : JsonResponse
     {
         $validated = $request->validated();
-
         $app = AppInfo::find($validated['id']);
-
-        $job = $this->GetLastBuildSummary($request)->getData();
-        $latestBuild = $job->build_list;
+        $latestBuildResponse = $this->GetLastBuildSummary($request)->getData()->build_list;
 
         // job exists but doesn't parameterized
-        if ($latestBuild->number == 1 && empty($latestBuild->url))
+        if ($latestBuildResponse->number == 1 && empty($latestBuildResponse->url))
         {
             Artisan::call("jenkins:default-trigger {$validated['id']}");
             return response()->json(['status' => "{$app->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
