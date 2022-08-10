@@ -25,26 +25,25 @@ class JenkinsController extends Controller
 
     public function GetJob(GetJobRequest $request) : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$request->project_name}/api/json")->getData();
+        $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$request->project_name}/api/json")->getData();
 
         return response()->json([
-            'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
+            'job' => collect($jenkinsResponse->job_info)->only(['name', 'url'])
         ]);
     }
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse('/api/json')->getData();
+        $jenkinsResponse = $this->GetJenkinsJobResponse('/api/json')->getData();
 
         return response()->json([
-            'job_list' => collect($jenkinsInfo->job_info->jobs)->pluck('name')
+            'job_list' => collect($jenkinsResponse->job_info->jobs)->pluck('name')
         ]);
     }
 
-    public function GetLastBuildSummary(Request $request, $job = null) //: JsonResponse
+    public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/api/json")->getData());
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$request->project_name}/job/master/api/json")->getData());
 
         // job doesn't exist.
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
