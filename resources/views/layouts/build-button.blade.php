@@ -5,7 +5,7 @@
             <i class="fa fa-cloud-upload text-primary" aria-hidden="true" style="font-size:2em;"></i>
         </button>
     @else
-        <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job?project_name={{ $appInfo->project_name }}&build_number={{ $appInfo->build_number }}">
+        <a onclick="return confirm('Are you sure?')" href="dashboard/stop-job?id={{ $appInfo->id }}&build_number={{ $appInfo->build_number }}">
             <button type="button" class="btn text-white bg-transparent">
                 <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
             </button>

@@ -43,7 +43,7 @@ class JenkinsController extends Controller
 
     public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
-        $app = AppInfo::find($request->id);
+        $app = AppInfo::find($request->validated('id'));
 
         $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
@@ -135,7 +135,9 @@ class JenkinsController extends Controller
 
     public function BuildJob(BuildRequest $request) : JsonResponse
     {
-        $app = AppInfo::find($request->id);
+        $validated = $request->validated();
+
+        $app = AppInfo::find($validated['id']);
 
         $job = $this->GetLastBuildSummary($request)->getData();
         $latestBuild = $job->build_list;
@@ -143,24 +145,24 @@ class JenkinsController extends Controller
         // job exists but doesn't parameterized
         if ($latestBuild->number == 1 && empty($latestBuild->url))
         {
-            Artisan::call("jenkins:default-trigger {$request->id}");
+            Artisan::call("jenkins:default-trigger {$validated['id']}");
             return response()->json(['status' => "{$app->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
         else
         {
-            $hasStoreCustomVersion = isset($request->storeCustomVersion) && $request->storeCustomVersion == 'true';
+            $hasStoreCustomVersion = !is_null($validated['storeCustomVersion']) && $validated['storeCustomVersion'] == 'true';
             $hasStoreCustomVersion = var_export($hasStoreCustomVersion, true);
-            $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
+            $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $validated['storeBuildNumber'] : 0;
 
-            Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-            return response()->json(['status' => "{$app->app_name} building for {$request->platform}..."]);
+            Artisan::call("jenkins:trigger {$validated['id']} master {FALSE} {$validated['platform']} {$validated['storeVersion']} {$hasStoreCustomVersion} {$storeBuildNumber}");
+            return response()->json(['status' => "{$app->app_name} building for {$validated['platform']}..."]);
         }
     }
 
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
-        $app = AppInfo::find($request->id);
-        $url = "/job/{$app->project_name}/job/master/{$request->build_number}/stop";
+        $app = AppInfo::find($request->validated('id'));
+        $url = "/job/{$app->project_name}/job/master/{$request->validated('build_number')}/stop";
 
         return response()->json([
             'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($this->baseUrl . $url)->status()

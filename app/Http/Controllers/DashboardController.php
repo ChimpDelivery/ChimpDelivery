@@ -121,13 +121,13 @@ class DashboardController extends Controller
 
     public function StopJob(StopJobRequest $request) : RedirectResponse
     {
-        $projectName = $request->validated('project_name');
+        $app = AppInfo::find($request->validated('id'));
         $buildNumber = $request->validated('build_number');
 
         $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
         $flashMessage = ($stopJobResponse->status == 200)
-            ? "{$projectName}: {$buildNumber} aborted!"
-            : "{$projectName}: {$buildNumber} can not aborted!";
+            ? "{$app->project_name}: {$buildNumber} aborted!"
+            : "{$app->project_name}: {$buildNumber} can not aborted!";
         session()->flash('success', $flashMessage);
 
         return back();
