@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Jenkins;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StopJobRequest extends FormRequest
+class StopJobRequest extends GetJobRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +22,7 @@ class StopJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => array('required', 'alpha_dash'),
+            'id' => array('required', 'numeric'),
             'build_number' => array('required', 'numeric')
         ];
     }

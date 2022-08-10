@@ -56,7 +56,7 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
     Route::get('jenkins/get-job', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list', 'GetLastBuildSummary');
-    Route::get('jenkins/get-latest-build-info/{projectName}', 'GetLastBuildWithDetails');
+    Route::get('jenkins/get-latest-build-info', 'GetLastBuildWithDetails');
 
     Route::post('jenkins/build-job', 'BuildJob');
     Route::post('jenkins/stop-job', 'StopJob');

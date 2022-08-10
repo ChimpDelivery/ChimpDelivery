@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\Jenkins;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
-class BuildRequest extends FormRequest
+class BuildRequest extends GetJobRequest
 {
     /**
      * Determine if the user is authorized to make this request.

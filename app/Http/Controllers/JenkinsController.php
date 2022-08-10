@@ -25,7 +25,14 @@ class JenkinsController extends Controller
 
     public function GetJob(GetJobRequest $request) : JsonResponse
     {
-        $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$request->project_name}/api/json")->getData();
+        $app = AppInfo::find($request->id);
+
+        if (!$app)
+        {
+            return response()->json(['status' => 'App can not found!']);
+        }
+
+        $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
 
         return response()->json([
             'job' => collect($jenkinsResponse->job_info)->only(['name', 'url'])
@@ -43,7 +50,14 @@ class JenkinsController extends Controller
 
     public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$request->project_name}/job/master/api/json")->getData());
+        $app = AppInfo::find($request->id);
+
+        if (!$app)
+        {
+            return response()->json(['status' => 'App can not found!']);
+        }
+
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
         // job doesn't exist.
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
@@ -139,7 +153,7 @@ class JenkinsController extends Controller
             return response()->json(['status' => 'App can not found! Try again...']);
         }
 
-        $job = $this->GetLastBuildSummary($request, $appInfo->project_name)->getData();
+        $job = $this->GetLastBuildSummary($request)->getData();
         $latestBuild = $job->build_list;
 
         // job exists but doesn't parameterized
@@ -161,7 +175,14 @@ class JenkinsController extends Controller
 
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
-        $url = "/job/{$request->project_name}/job/master/{$request->build_number}/stop";
+        $app = AppInfo::find($request->id);
+
+        if (!$app)
+        {
+            return response()->json(['status' => 'App can not found! Try again...']);
+        }
+
+        $url = "/job/{$app->project_name}/job/master/{$request->build_number}/stop";
 
         return response()->json([
             'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($this->baseUrl . $url)->status()
