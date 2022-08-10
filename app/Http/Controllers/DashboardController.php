@@ -163,15 +163,6 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    // cache system disabled for now
-    public function ClearCache() : RedirectResponse
-    {
-        ResponseCache::clear();
-        session()->flash('success', 'Cache cleared!');
-
-        return back();
-    }
-
     private function PopulateAppDetails(AppInfo $project, mixed $jenkinsData) : void
     {
         // always populate git url data
@@ -198,5 +189,14 @@ class DashboardController extends Controller
         $currentTime = date('H:i:s');
 
         return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+    }
+
+    // cache system disabled for now
+    public function ClearCache() : RedirectResponse
+    {
+        ResponseCache::clear();
+        session()->flash('success', 'Cache cleared!');
+
+        return back();
     }
 }

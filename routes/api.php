@@ -47,8 +47,8 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
 });
 
 // jenkins
-Route::controller(JenkinsController::class)->group(function () {
-    Route::get('jenkins/get-job/{projectName}', 'GetJob');
+Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('jenkins/get-job', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list/{projectName}', 'GetLastBuildSummary');
     Route::get('jenkins/get-latest-build-info/{projectName}', 'GetLastBuildWithDetails');

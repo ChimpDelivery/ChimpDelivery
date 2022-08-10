@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppInfo;
 
+use App\Http\Requests\Jenkins\GetJobRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
@@ -22,10 +23,9 @@ class JenkinsController extends Controller
         $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
     }
 
-    public function GetJob(Request $request, $job = null) : JsonResponse
+    public function GetJob(GetJobRequest $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$jobName}/api/json")->getData();
+        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$request->projectName}/api/json")->getData();
 
         return response()->json([
             'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
