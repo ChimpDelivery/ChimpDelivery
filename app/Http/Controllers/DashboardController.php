@@ -49,7 +49,7 @@ class DashboardController extends Controller
 
         return view('add-app-info-form')->with([
             'allAppInfos' => $allAppInfos,
-            'allGitProjects' => $allGitProjects
+            'allGitProjects' => $allGitProjects->response
         ]);
     }
 
