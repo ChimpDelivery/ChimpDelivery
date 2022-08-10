@@ -7,11 +7,11 @@ PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
 # laravel environment
 cd $PROJECT_FOLDER
+
+# only production packages (in local environment, use only 'composer install')
 composer install --no-dev
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-    php artisan key:generate --force
-fi
+
+php artisan key:generate --force
 php artisan migrate --force
 php artisan clear-compiled
 php artisan optimize:clear
