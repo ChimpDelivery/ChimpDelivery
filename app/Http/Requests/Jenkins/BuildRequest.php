@@ -24,7 +24,7 @@ class BuildRequest extends GetJobRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric'),
+            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at')),
             'platform' => array('required', 'string', Rule::in(['Appstore', 'GooglePlay'])),
             'storeVersion' => array('required', 'numeric'),
             'storeCustomVersion' => array('nullable', 'string', Rule::in(['true', 'false'])),

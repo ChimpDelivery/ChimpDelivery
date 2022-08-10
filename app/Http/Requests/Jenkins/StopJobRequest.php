@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Jenkins;
 
+use Illuminate\Validation\Rule;
+
 class StopJobRequest extends GetJobRequest
 {
     /**
@@ -22,7 +24,7 @@ class StopJobRequest extends GetJobRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric'),
+            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at')),
             'build_number' => array('required', 'numeric')
         ];
     }

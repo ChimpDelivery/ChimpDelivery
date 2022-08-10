@@ -26,12 +26,6 @@ class JenkinsController extends Controller
     public function GetJob(GetJobRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->id);
-
-        if (!$app)
-        {
-            return response()->json(['status' => 'App can not found!']);
-        }
-
         $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
 
         return response()->json([
@@ -51,11 +45,6 @@ class JenkinsController extends Controller
     public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->id);
-
-        if (!$app)
-        {
-            return response()->json(['status' => 'App can not found!']);
-        }
 
         $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
@@ -91,10 +80,11 @@ class JenkinsController extends Controller
         return response()->json($buildList->except('job_info'));
     }
 
-    public function GetLastBuildWithDetails(Request $request, $job = null) : JsonResponse
+    public function GetLastBuildWithDetails(GetJobRequest $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/wfapi/runs")->getData());
+        $app = AppInfo::find($request->id);
+
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/wfapi/runs")->getData());
 
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
@@ -114,7 +104,7 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             // add commit history
-            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
+            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json")->getData());
             $changeSets = isset($lastBuildDetailResponse->get('job_info')->changeSets[0])
                 ? collect($lastBuildDetailResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
@@ -146,12 +136,7 @@ class JenkinsController extends Controller
 
     public function BuildJob(BuildRequest $request) : JsonResponse
     {
-        $appInfo = AppInfo::find($request->id);
-
-        if (!$appInfo)
-        {
-            return response()->json(['status' => 'App can not found! Try again...']);
-        }
+        $app = AppInfo::find($request->id);
 
         $job = $this->GetLastBuildSummary($request)->getData();
         $latestBuild = $job->build_list;
@@ -160,7 +145,7 @@ class JenkinsController extends Controller
         if ($latestBuild->number == 1 && empty($latestBuild->url))
         {
             Artisan::call("jenkins:default-trigger {$request->id}");
-            return response()->json(['status' => "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
+            return response()->json(['status' => "{$app->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
         else
         {
@@ -169,19 +154,13 @@ class JenkinsController extends Controller
             $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
 
             Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-            return response()->json(['status' => "{$appInfo->app_name} building for {$request->platform}..."]);
+            return response()->json(['status' => "{$app->app_name} building for {$request->platform}..."]);
         }
     }
 
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->id);
-
-        if (!$app)
-        {
-            return response()->json(['status' => 'App can not found! Try again...']);
-        }
-
         $url = "/job/{$app->project_name}/job/master/{$request->build_number}/stop";
 
         return response()->json([
