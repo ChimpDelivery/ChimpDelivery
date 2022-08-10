@@ -15,7 +15,7 @@ class AppInfoController extends Controller
 {
     public function GetApp(GetAppInfoRequest $request) : JsonResponse
     {
-        $response = AppInfo::find($request->id, [
+        $response = AppInfo::find($request->validated('id'), [
             'app_bundle',
             'app_name',
             'fb_app_id',
@@ -28,7 +28,7 @@ class AppInfoController extends Controller
 
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
     {
-        $appInfo = AppInfo::find($request->id);
+        $appInfo = AppInfo::find($request->validated('id'));
         $appInfo->delete();
 
         return response()->json(['message' => "App: {$appInfo->app_name} deleted."], Response::HTTP_ACCEPTED);
