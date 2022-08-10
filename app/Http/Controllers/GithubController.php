@@ -25,10 +25,7 @@ class GithubController extends Controller
             // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
             // maybe extra organization is useful when filtering projects.
             $filteredOrganizationProjects = $organizationProjects->filter(function ($value) {
-                return !Str::contains($value['name'], 'deprecated', true) &&
-                    !Str::contains($value['name'], 'web', true) &&
-                    !Str::contains($value['name'], 'package', true) &&
-                    !Str::contains($value['name'], '.github', true);
+                return in_array(config('github.prototype_topic'), $value['topics']);
             });
 
             $response = $filteredOrganizationProjects->values()->map(function ($item) {

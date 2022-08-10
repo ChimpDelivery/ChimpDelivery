@@ -47,7 +47,7 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
 });
 
 // jenkins
-Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(JenkinsController::class)->group(function () {
     Route::get('jenkins/get-job/{projectName}', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list/{projectName}', 'GetLastBuildSummary');
@@ -56,7 +56,7 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
 });
 
 // github
-Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(GithubController::class)->group(function () {
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository/{projectName}', 'GetRepository');
     Route::post('github/create-repository/{projectName}', 'CreateRepository');
