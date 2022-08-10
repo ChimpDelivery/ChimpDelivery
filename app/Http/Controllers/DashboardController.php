@@ -21,12 +21,12 @@ class DashboardController extends Controller
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data->each(function ($item) use ($request) {
+        $data->each(function ($project) use ($request) {
             $appData = app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($request, $item->project_name)
+                ->GetLastBuildWithDetails($request, $project->project_name)
                 ->getData();
 
-            $this->PopulateAppDetails($item, $appData);
+            $this->PopulateAppDetails($project, $appData);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -64,6 +64,7 @@ class DashboardController extends Controller
                 ->getData()
             );
 
+            // new git repo created succesfully
             if (!is_null($createRepoResponse->get('id')))
             {
                 $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
@@ -76,7 +77,7 @@ class DashboardController extends Controller
                 session()->flash('success', "App: {$request->app_name} created. New Git project: {$createRepoResponse->get('full_name')}");
             }
         }
-        else
+        else // existing git project
         {
             $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
                 ->where('appstore_id', $request->appstore_id)
@@ -187,35 +188,35 @@ class DashboardController extends Controller
         return back();
     }
 
-    private function PopulateAppDetails($item, mixed $appData) : void
+    private function PopulateAppDetails($project, mixed $appData) : void
     {
         // if job exist on jenkins, populate project build data
         if ($appData->job_exists)
         {
-            $item->job_exists = true;
+            $project->job_exists = true;
 
             if (isset($appData->job_url))
             {
-                $item->job_url = $appData->job_url;
-                $item->change_sets = $appData->change_sets;
+                $project->job_url = $appData->job_url;
+                $project->change_sets = $appData->change_sets;
 
-                $item->build_number = $appData->build_number;
-                $item->build_status = $appData->build_status;
-                $item->build_stage = $appData->build_stage;
-                $item->build_platform = $appData->build_platform;
+                $project->build_number = $appData->build_number;
+                $project->build_status = $appData->build_status;
+                $project->build_stage = $appData->build_stage;
+                $project->build_platform = $appData->build_platform;
 
-                if ($item->build_status->status == 'IN_PROGRESS')
+                if ($project->build_status->status == 'IN_PROGRESS')
                 {
                     $estimatedTime = ceil($appData->timestamp / 1000) + ceil($appData->estimated_duration / 1000);
                     $estimatedTime = date('H:i:s', $estimatedTime);
                     $currentTime = date('H:i:s');
 
-                    $item->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+                    $project->estimated_time = ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
                 }
             }
         }
 
         // always populate git url data
-        $item->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $item->project_name;
+        $project->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $project->project_name;
     }
 }
