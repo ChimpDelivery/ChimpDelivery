@@ -9,7 +9,6 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
@@ -25,26 +24,28 @@ class JenkinsController extends Controller
 
     public function GetJob(GetJobRequest $request) : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse("/job/{$request->project_name}/api/json")->getData();
+        $app = AppInfo::find($request->validated('id'));
+        $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
 
         return response()->json([
-            'job' => collect($jenkinsInfo->job_info)->only(['name', 'url'])
+            'job' => collect($jenkinsResponse->job_info)->only(['name', 'url'])
         ]);
     }
 
     public function GetJobList() : JsonResponse
     {
-        $jenkinsInfo = $this->GetJenkinsJobResponse('/api/json')->getData();
+        $jenkinsResponse = $this->GetJenkinsJobResponse('/api/json')->getData();
 
         return response()->json([
-            'job_list' => collect($jenkinsInfo->job_info->jobs)->pluck('name')
+            'job_list' => collect($jenkinsResponse->job_info->jobs)->pluck('name')
         ]);
     }
 
-    public function GetLastBuildSummary(Request $request, $job = null) //: JsonResponse
+    public function GetLastBuildSummary(GetJobRequest $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/api/json")->getData());
+        $app = AppInfo::find($request->id);
+
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
         // job doesn't exist.
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
@@ -78,10 +79,11 @@ class JenkinsController extends Controller
         return response()->json($buildList->except('job_info'));
     }
 
-    public function GetLastBuildWithDetails(Request $request, $job = null) : JsonResponse
+    public function GetLastBuildWithDetails(AppInfo|GetJobRequest $request) : JsonResponse
     {
-        $jobName = is_null($job) ? $request->projectName : $job;
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/wfapi/runs")->getData());
+        $app = AppInfo::find($request->id);
+
+        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/wfapi/runs")->getData());
 
         if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
         {
@@ -101,7 +103,7 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             // add commit history
-            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$jobName}/job/master/{$lastBuild->id}/api/json")->getData());
+            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json")->getData());
             $changeSets = isset($lastBuildDetailResponse->get('job_info')->changeSets[0])
                 ? collect($lastBuildDetailResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
@@ -133,21 +135,16 @@ class JenkinsController extends Controller
 
     public function BuildJob(BuildRequest $request) : JsonResponse
     {
-        $appInfo = AppInfo::find($request->id);
+        $app = AppInfo::find($request->id);
 
-        if (!$appInfo)
-        {
-            return response()->json(['status' => 'App can not found! Try again...']);
-        }
-
-        $job = $this->GetLastBuildSummary($request, $appInfo->project_name)->getData();
+        $job = $this->GetLastBuildSummary($request)->getData();
         $latestBuild = $job->build_list;
 
         // job exists but doesn't parameterized
         if ($latestBuild->number == 1 && empty($latestBuild->url))
         {
             Artisan::call("jenkins:default-trigger {$request->id}");
-            return response()->json(['status' => "{$appInfo->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
+            return response()->json(['status' => "{$app->app_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
         else
         {
@@ -156,13 +153,14 @@ class JenkinsController extends Controller
             $storeBuildNumber = ($hasStoreCustomVersion == 'true') ? $request->storeBuildNumber : 0;
 
             Artisan::call("jenkins:trigger {$request->id} master {FALSE} {$request->platform} {$request->storeVersion} {$hasStoreCustomVersion} {$storeBuildNumber}");
-            return response()->json(['status' => "{$appInfo->app_name} building for {$request->platform}..."]);
+            return response()->json(['status' => "{$app->app_name} building for {$request->platform}..."]);
         }
     }
 
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
-        $url = "/job/{$request->project_name}/job/master/{$request->build_number}/stop";
+        $app = AppInfo::find($request->id);
+        $url = "/job/{$app->project_name}/job/master/{$request->build_number}/stop";
 
         return response()->json([
             'status' => Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($this->baseUrl . $url)->status()

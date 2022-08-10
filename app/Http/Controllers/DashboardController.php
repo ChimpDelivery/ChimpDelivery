@@ -15,22 +15,24 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Contracts\View\View;
+
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
-    public function Index(Request $request) : View
+    public function Index() : View
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
 
-        $data->each(function ($project) use ($request) {
-            $jenkinsData = collect(app('App\Http\Controllers\JenkinsController')
-                ->GetLastBuildWithDetails($request, $project->project_name)
-                ->getData());
+        $data->each(function ($project) {
+            $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
+                ->GetLastBuildWithDetails($project)
+                ->getData()
+            );
 
-            $this->PopulateAppDetails($project, $jenkinsData);
+            $this->PopulateAppDetails($project, $jenkinsResponse);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -58,13 +60,13 @@ class DashboardController extends Controller
         $githubController = app('App\Http\Controllers\GithubController');
 
         // check repository name on org
-        $gitResponse = collect($githubController->GetRepository($request->project_name)->getData());
+        $gitResponse = collect($githubController->GetRepository($request->validated('project_name'))->getData());
 
         // git repo doesn't exit, just create it from template
         if (count($gitResponse) == 0)
         {
             $createRepoResponse = collect($githubController
-                ->CreateRepository($request->project_name)
+                ->CreateRepository($request->validated('project_name'))
                 ->getData()
             );
 
@@ -72,23 +74,23 @@ class DashboardController extends Controller
             if (!is_null($createRepoResponse->get('id')))
             {
                 $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                    ->where('appstore_id', $request->appstore_id)
+                    ->where('appstore_id', $request->validated('appstore_id'))
                     ->firstOrNew()
                 );
 
                 Artisan::call("jenkins:scan-repo");
 
-                session()->flash('success', "App: {$request->app_name} created. New Git project: {$createRepoResponse->get('full_name')}");
+                session()->flash('success', "App: {$request->validated('app_name')} created. New Git project: {$createRepoResponse->get('full_name')}");
             }
         }
         else // existing git project
         {
             $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                ->where('appstore_id', $request->appstore_id)
+                ->where('appstore_id', $request->validated('appstore_id'))
                 ->firstOrNew()
             );
 
-            session()->flash('success', "App: {$request->app_name} created.");
+            session()->flash('success', "App: {$request->validated('app_name')} created.");
         }
 
 
@@ -97,15 +99,15 @@ class DashboardController extends Controller
 
     public function SelectApp(SelectAppRequest $request) : View
     {
-        return view('update-app-info-form')->with('appInfo', AppInfo::find($request->id));
+        return view('update-app-info-form')->with('appInfo', AppInfo::find($request->validated('id')));
     }
 
     public function UpdateApp(StoreAppInfoRequest $request): RedirectResponse
     {
         $appInfoController = app('App\Http\Controllers\AppInfoController');
 
-        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()->find($request->id));
-        session()->flash('success', "App: {$request->app_name} updated...");
+        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()->find($request->validated('id')));
+        session()->flash('success', "App: {$request->validated('app_name')} updated...");
 
         return to_route('get_app_list');
     }
@@ -119,10 +121,13 @@ class DashboardController extends Controller
 
     public function StopJob(StopJobRequest $request) : RedirectResponse
     {
+        $projectName = $request->validated('project_name');
+        $buildNumber = $request->validated('build_number');
+
         $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
         $flashMessage = ($stopJobResponse->status == 200)
-            ? "{$request->project_name}: {$request->build_number} aborted!"
-            : "{$request->project_name}: {$request->build_number} can not aborted!";
+            ? "{$projectName}: {$buildNumber} aborted!"
+            : "{$projectName}: {$buildNumber} can not aborted!";
         session()->flash('success', $flashMessage);
 
         return back();
@@ -154,12 +159,14 @@ class DashboardController extends Controller
         $response = app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request)->getData();
         if (isset($response->status->errors))
         {
+            $error = $response->status->errors[0];
+
             return to_route('create_bundle')
-                ->withErrors(['bundle_id' => $response->status->errors[0]->detail . " (Status code: {$response->status->errors[0]->status})"])
+                ->withErrors([ 'bundle_id' => $error->detail . " (Status code: {$error->status})" ])
                 ->withInput();
         }
 
-        session()->flash('success', 'Bundle: ' . config('appstore.bundle_prefix') . '.' . $request->bundle_id . ' created!');
+        session()->flash('success', 'Bundle: ' . config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id') . ' created!');
         return to_route('get_app_list');
     }
 

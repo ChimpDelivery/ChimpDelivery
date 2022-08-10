@@ -14,7 +14,9 @@ class PackageController extends Controller
 {
     public function GetPackage(GetPackageRequest $request) : JsonResponse
     {
-        $response = Package::where('package_id', '=', $request->package_id)->select(['package_id', 'url', 'hash'])->firstOrNew();
+        $response = Package::where('package_id', '=', $request->validated('package_id'))
+            ->select(['package_id', 'url', 'hash'])
+            ->firstOrNew();
 
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
@@ -26,13 +28,9 @@ class PackageController extends Controller
 
     public function UpdatePackage(UpdatePackageRequest $request) : JsonResponse
     {
-        $response = Package::where('package_id', '=', $request->package_id)->update([
-            'hash' => $request->hash
-        ]);
+        $response = Package::where('package_id', '=', $request->validated('package_id'))
+            ->update([ 'hash' => $request->validated('hash') ]);
 
-        return response()->json([
-            'message' => ($response) ? "{$request->package_id} updated successfully!" : "{$request->package_id} can not found!",
-            'status' => ($response) ? Response::HTTP_ACCEPTED : Response::HTTP_FORBIDDEN
-        ]);
+        return response()->json(['status' => $response], Response::HTTP_ACCEPTED);
     }
 }

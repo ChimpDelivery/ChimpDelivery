@@ -4,6 +4,8 @@ namespace App\Http\Requests\Jenkins;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Validation\Rule;
+
 class GetJobRequest extends FormRequest
 {
     /**
@@ -24,7 +26,7 @@ class GetJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => array('required', 'alpha_dash')
+            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at'))
         ];
     }
 }

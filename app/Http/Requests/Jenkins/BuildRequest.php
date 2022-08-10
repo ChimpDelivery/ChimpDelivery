@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\Jenkins;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
-class BuildRequest extends FormRequest
+class BuildRequest extends GetJobRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +24,7 @@ class BuildRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric'),
+            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at')),
             'platform' => array('required', 'string', Rule::in(['Appstore', 'GooglePlay'])),
             'storeVersion' => array('required', 'numeric'),
             'storeCustomVersion' => array('nullable', 'string', Rule::in(['true', 'false'])),

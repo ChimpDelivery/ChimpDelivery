@@ -3,6 +3,7 @@
 namespace App\Http\Requests\AppInfo;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use Illuminate\Validation\Rule;
 
 class StoreAppInfoRequest extends FormRequest
