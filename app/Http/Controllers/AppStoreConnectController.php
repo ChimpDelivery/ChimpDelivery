@@ -73,7 +73,8 @@ class AppStoreConnectController extends Controller
 
     public function CreateBundle(StoreBundleRequest $request)
     {
-        $data = [
+        $data =
+        [
             'data' =>
             [
                 'attributes' =>
