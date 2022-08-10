@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
-use Spatie\ResponseCache\Facades\ResponseCache;
-
 use App\Models\AppInfo;
 
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
@@ -201,14 +201,5 @@ class DashboardController extends Controller
         $currentTime = date('H:i:s');
 
         return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
-    }
-
-    // cache system disabled for now
-    public function ClearCache() : RedirectResponse
-    {
-        ResponseCache::clear();
-        session()->flash('success', 'Cache cleared!');
-
-        return back();
     }
 }

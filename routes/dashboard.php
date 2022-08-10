@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\DashboardController;
 
-Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
+Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function ()
+{
     // main route.
     Route::get('/dashboard', 'Index')->name('get_app_list');
 
@@ -26,7 +28,4 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     //
     Route::get('/dashboard/create-bundle', 'CreateBundleForm')->name('create_bundle');
     Route::post('/dashboard/store-bundle', 'StoreBundleForm');
-
-    //
-    Route::get('/dashboard/clear-cache', 'ClearCache');
 });
