@@ -45,23 +45,23 @@ class JenkinsController extends Controller
     {
         $app = AppInfo::find($request->validated('id'));
 
-        $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
+        $jobResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
         // job doesn't exist.
-        if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
+        if (!$jobResponse->get('jenkins_status') || !$jobResponse->get('job_exists'))
         {
-            return response()->json($validatedResponse->except('job_info'));
+            return response()->json($jobResponse->except('job_info'));
         }
 
         $response = collect();
-        $response = $response->merge($validatedResponse->get('job_info')?->builds);
+        $response = $response->merge($jobResponse->get('job_info')?->builds);
 
         // job exists, but builds are deleted or no build.
         // add nextBuildNumber value to build list for detailed info for job parametrization.
-        if (isset($validatedResponse->get('job_info')->builds) && empty($validatedResponse->get('job_info')->builds))
+        if (isset($jobResponse->get('job_info')->builds) && empty($jobResponse->get('job_info')->builds))
         {
             $additionalBuildInfo = collect([
-                'number' => $validatedResponse->get('job_info')->nextBuildNumber,
+                'number' => $jobResponse->get('job_info')->nextBuildNumber,
                 'url' => ''
             ]);
 
@@ -71,7 +71,7 @@ class JenkinsController extends Controller
         $buildList = collect([ 'build_list' => collect($response->first())->only(['number', 'url']) ]);
 
         // copy jenkins params.
-        $validatedResponse->map(function ($item, $key) use (&$buildList) {
+        $jobResponse->map(function ($item, $key) use (&$buildList) {
             $buildList->put($key, $item);
         });
 
