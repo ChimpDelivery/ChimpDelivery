@@ -13,6 +13,7 @@ use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 
@@ -35,6 +36,7 @@ class HealthServiceProvider extends ServiceProvider
             PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host').'/login'),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             EnvironmentCheck::new(),
+            CacheCheck::new(),
             RedisCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
                 'RESPONSE_CACHE_DRIVER',
