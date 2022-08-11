@@ -8,6 +8,7 @@ use Spatie\Health\Facades\Health;
 
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
@@ -15,10 +16,14 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Encodia\Health\Checks\EnvVars;
 
+use Spatie\Health\ResultStores\EloquentHealthResultStore;
+
 class HealthServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
+        $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
+
         Health::checks([
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
@@ -61,7 +66,8 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_WEBHOOK_URL',
                 'DISCORD_BOT_NAME',
                 'AUTH_INVITE_CODE'
-            ])
+            ]),
+            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50_000)
         ]);
     }
 
