@@ -34,11 +34,9 @@ class JenkinsController extends Controller
     public function GetJob(GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
-        $jenkinsResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
+        $jobResponse = $this->GetJenkinsJobResponse("/job/{$app->project_name}/api/json")->getData();
 
-        return response()->json([
-            'job' => collect($jenkinsResponse->job_info)->only(['name', 'url'])
-        ]);
+        return response()->json(collect($jobResponse->job_info)->only(['name', 'url']));
     }
 
     public function GetLastBuildSummary(GetAppInfoRequest $request) : JsonResponse
