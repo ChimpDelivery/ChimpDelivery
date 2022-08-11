@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
-use Spatie\ResponseCache\Facades\ResponseCache;
-
 use App\Models\AppInfo;
 
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Contracts\View\View;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Support\Facades\Artisan;
@@ -64,12 +65,12 @@ class DashboardController extends Controller
         $gitResponse = $githubController->GetRepository($request)->getData();
 
         // git repo doesn't exit, just create it from template
-        if ($gitResponse->status == 404)
+        if ($gitResponse->status == Response::HTTP_NOT_FOUND)
         {
             $createRepoResponse = $githubController->CreateRepository($request)->getData();
 
             // new git repo created succesfully
-            if ($createRepoResponse->status == 200)
+            if ($createRepoResponse->status == Response::HTTP_OK)
             {
                 $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
                     ->where('appstore_id', $request->validated('appstore_id'))
@@ -82,7 +83,7 @@ class DashboardController extends Controller
             }
             else
             {
-                session()->flash('error', "App: {$request->validated('app_name')} created but Git project can not created! Delete app from dashboard and try again.");
+                session()->flash('success', "App: {$request->validated('app_name')} created but Git project can not created! Delete app from dashboard and try again.");
             }
         }
         else // existing git project
@@ -201,14 +202,5 @@ class DashboardController extends Controller
         $currentTime = date('H:i:s');
 
         return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
-    }
-
-    // cache system disabled for now
-    public function ClearCache() : RedirectResponse
-    {
-        ResponseCache::clear();
-        session()->flash('success', 'Cache cleared!');
-
-        return back();
     }
 }

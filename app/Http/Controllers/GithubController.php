@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Github\GetRepositoryRequest;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
@@ -42,7 +43,7 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json([ 'status' => 200, 'response' => $response ]);
+        return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
     }
 
     public function GetRepository(GetRepositoryRequest $request) : JsonResponse
@@ -58,7 +59,7 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json([ 'status' => 200, 'response' => $response ]);
+        return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
     }
 
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
@@ -87,7 +88,7 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json([ 'status' => 200, 'response' => $response ]);
+        return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
     }
 
     public function UpdateRepoTopics(GetRepositoryRequest $request)
@@ -107,6 +108,6 @@ class GithubController extends Controller
             return response()->json([ 'status' => $exception->getCode() ]);
         }
 
-        return response()->json([ 'status' => 200, 'response' => $response ]);
+        return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
     }
 }
