@@ -67,7 +67,7 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_BOT_NAME',
                 'AUTH_INVITE_CODE'
             ]),
-            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50_000)
+            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50)
         ]);
     }
 
