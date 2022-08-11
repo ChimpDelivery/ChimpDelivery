@@ -61,7 +61,6 @@ class JenkinsController extends Controller
         if (isset($validatedResponse->get('job_info')->builds) && empty($validatedResponse->get('job_info')->builds))
         {
             $additionalBuildInfo = collect([
-                '_class' => '',
                 'number' => $validatedResponse->get('job_info')->nextBuildNumber,
                 'url' => ''
             ]);
@@ -69,7 +68,7 @@ class JenkinsController extends Controller
             $response = $response->add($additionalBuildInfo);
         }
 
-        $buildList = collect([ 'build_list' => $response->last() ]);
+        $buildList = collect([ 'build_list' => collect($response->first())->only(['number', 'url']) ]);
 
         // copy jenkins params.
         $validatedResponse->map(function ($item, $key) use (&$buildList) {
