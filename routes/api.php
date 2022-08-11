@@ -42,7 +42,7 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
 });
 
 // jenkins
-Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function ()
+Route::controller(JenkinsController::class)->group(function ()
 {
     Route::get('jenkins/get-job', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
