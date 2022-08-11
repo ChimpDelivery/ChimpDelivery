@@ -14,6 +14,8 @@ use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+
 use Encodia\Health\Checks\EnvVars;
 
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
@@ -67,7 +69,8 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_BOT_NAME',
                 'AUTH_INVITE_CODE'
             ]),
-            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50)
+            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
+            OptimizedAppCheck::new()
         ]);
     }
 
