@@ -191,13 +191,13 @@ class DashboardController extends Controller
 
         if ($app->build_status->status == 'IN_PROGRESS')
         {
-            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
+            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData->get('timestamp'), $jenkinsData->get('estimated_duration'));
         }
     }
 
-    private function CalculateBuildFinishDate(mixed $jenkinsData) : string
+    private function CalculateBuildFinishDate($timestamp, $estimatedDuration) : string
     {
-        $estimatedTime = ceil($jenkinsData->get('timestamp') / 1000) + ceil($jenkinsData->get('estimated_duration') / 1000);
+        $estimatedTime = ceil($timestamp / 1000) + ceil($estimatedDuration / 1000);
         $estimatedTime = date('H:i:s', $estimatedTime);
         $currentTime = date('H:i:s');
 
