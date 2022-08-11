@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'laravel_health' => config('app.name') . ' Health',
+    'laravel_health' => 'Pipeline Health',
 
     'check_failed_mail_subject' => 'Some of the health checks on :application_name have failed',
 
