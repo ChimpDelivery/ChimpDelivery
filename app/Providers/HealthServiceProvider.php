@@ -32,12 +32,13 @@ class HealthServiceProvider extends ServiceProvider
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
+            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
             DebugModeCheck::new(),
             PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host').'/login'),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
-            EnvironmentCheck::new(),
             CacheCheck::new(),
             RedisCheck::new(),
+            EnvironmentCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
                 'RESPONSE_CACHE_DRIVER',
                 'RESPONSE_CACHE_ENABLED',
@@ -71,7 +72,6 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_BOT_NAME',
                 'AUTH_INVITE_CODE'
             ]),
-            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes()
         ]);
     }
