@@ -45,6 +45,12 @@ class Kernel extends ConsoleKernel
         $schedule->command(ScheduleCheckHeartbeatCommand::class)
             ->timezone('Europe/Istanbul')
             ->everyMinute();
+
+        $schedule->command('model:prune', [
+            '--model' => [
+                \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
+            ],
+        ])->daily();
     }
 
     /**
