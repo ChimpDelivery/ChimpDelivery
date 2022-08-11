@@ -96,6 +96,9 @@ class JenkinsController extends Controller
             $buildCollection = collect($validatedResponse->get('job_info'));
             $lastBuild = $buildCollection->first();
 
+            // get last build detail
+            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json")->getData());
+
             // add job url
             $validatedResponse->put('job_url', $lastBuild->_links->self->href);
 
@@ -103,7 +106,6 @@ class JenkinsController extends Controller
             $validatedResponse->put('build_number', $lastBuild->id);
 
             // add commit history
-            $lastBuildDetailResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json")->getData());
             $changeSets = isset($lastBuildDetailResponse->get('job_info')->changeSets[0])
                 ? collect($lastBuildDetailResponse->get('job_info')->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
                 : collect();
