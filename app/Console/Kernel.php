@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('mail.from.address'));
 
-        // laravel health checks
+        // health checks
         $schedule->command(RunHealthChecksCommand::class)
             ->timezone('Europe/Istanbul')
             ->everyMinute();
@@ -46,11 +46,12 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->everyMinute();
 
+        // prune health checks
         $schedule->command('model:prune', [
             '--model' => [
                 \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             ],
-        ])->daily();
+        ])->daily()->at('03:45')->withoutOverlapping();
     }
 
     /**
