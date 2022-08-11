@@ -70,7 +70,7 @@ class HealthServiceProvider extends ServiceProvider
                 'AUTH_INVITE_CODE'
             ]),
             DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
-            OptimizedAppCheck::new()
+            OptimizedAppCheck::new()->checkConfig()->checkRoutes()
         ]);
     }
 
