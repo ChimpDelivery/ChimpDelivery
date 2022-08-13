@@ -6,6 +6,7 @@ use App\Models\AppInfo;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
@@ -105,12 +106,12 @@ class DashboardController extends Controller
         return view('update-app-info-form')->with('appInfo', AppInfo::find($request->validated('id')));
     }
 
-    public function UpdateApp(StoreAppInfoRequest $request): RedirectResponse
+    public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
-        $appInfoController = app('App\Http\Controllers\AppInfoController');
+        $selectedApp = AppInfo::find($request->validated('id'));
+        $selectedApp->update($request->all());
 
-        $appInfoController->PopulateAppData($request, AppInfo::withTrashed()->find($request->validated('id')));
-        session()->flash('success', "App: {$request->validated('app_name')} updated...");
+        session()->flash('success', "App: {$selectedApp->app_name} updated...");
 
         return to_route('get_app_list');
     }
