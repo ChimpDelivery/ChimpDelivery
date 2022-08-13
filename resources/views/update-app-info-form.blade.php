@@ -13,7 +13,7 @@
             {{ $appInfo->app_name }}
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info/'.$appInfo->id.'/update')}}" enctype="multipart/form-data">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/update-app-info?id=' . $appInfo->id)}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>
