@@ -116,6 +116,14 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
+    public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
+    {
+        $deleteAppResponse = app(AppInfoController::class)->DeleteApp($request)->getData();
+        session()->flash('success', $deleteAppResponse->message);
+
+        return to_route('get_app_list');
+    }
+
     public function BuildApp(BuildRequest $request) : RedirectResponse
     {
         session()->flash('success', app(JenkinsController::class)->BuildJob($request)->getData()->status);
@@ -143,14 +151,6 @@ class DashboardController extends Controller
         session()->flash('success', "Repository scanning begins...");
 
         return back();
-    }
-
-    public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
-    {
-        $deleteAppResponse = app(AppInfoController::class)->DeleteApp($request)->getData();
-        session()->flash('success', $deleteAppResponse->message);
-
-        return to_route('get_app_list');
     }
 
     public function CreateBundleForm() : View
