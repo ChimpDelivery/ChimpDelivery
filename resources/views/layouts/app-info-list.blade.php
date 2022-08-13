@@ -6,10 +6,14 @@
             @include('layouts.app-info')
         </td>
         <td class="text-center align-middle">
-            @if($appInfo->job_exists)
-                @include('layouts.build-details-button')
+            @if($appInfo->jenkins_status == false)
+                @include('layouts.jenkins-down')
             @else
-                @include('layouts.jenkins-file-notfound')
+                @if($appInfo->job_exists)
+                    @include('layouts.build-details-button')
+                @else
+                    @include('layouts.jenkins-file-notfound')
+                @endif
             @endif
         </td>
         <td class="text-center align-middle">

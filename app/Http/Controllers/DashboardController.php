@@ -178,13 +178,14 @@ class DashboardController extends Controller
         // always populate git url data
         $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
 
-        // if job exist on jenkins, populate project build data
-        if (!$jenkinsData->get('job_exists')) { return; }
-
         // copy params from jenkins job
-        $jenkinsData->map(function ($item, $key) use (&$app) {
+        $jenkinsData->map(function ($item, $key) use (&$app)
+        {
             $app->setAttribute($key, $item);
         });
+
+        // if job exist on jenkins, populate project build data
+        if (!$jenkinsData->get('job_exists')) { return; }
 
         // if job has no build, there is no build_status property (and other jenkins data)
         if (!isset($app->build_status)) { return; }
