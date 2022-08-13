@@ -178,26 +178,27 @@ class DashboardController extends Controller
         // always populate git url data
         $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
 
-        // if job exist on jenkins, populate project build data
-        if (!$jenkinsData->get('job_exists')) { return; }
-
         // copy params from jenkins job
-        $jenkinsData->map(function ($item, $key) use (&$app) {
+        $jenkinsData->map(function ($item, $key) use (&$app)
+        {
             $app->setAttribute($key, $item);
         });
+
+        // if job exist on jenkins, populate project build data
+        if (!$jenkinsData->get('job_exists')) { return; }
 
         // if job has no build, there is no build_status property (and other jenkins data)
         if (!isset($app->build_status)) { return; }
 
         if ($app->build_status->status == 'IN_PROGRESS')
         {
-            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData);
+            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData->get('timestamp'), $jenkinsData->get('estimated_duration'));
         }
     }
 
-    private function CalculateBuildFinishDate(mixed $jenkinsData) : string
+    private function CalculateBuildFinishDate($timestamp, $estimatedDuration) : string
     {
-        $estimatedTime = ceil($jenkinsData->get('timestamp') / 1000) + ceil($jenkinsData->get('estimated_duration') / 1000);
+        $estimatedTime = ceil($timestamp / 1000) + ceil($estimatedDuration / 1000);
         $estimatedTime = date('H:i:s', $estimatedTime);
         $currentTime = date('H:i:s');
 

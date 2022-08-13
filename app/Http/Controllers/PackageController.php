@@ -12,6 +12,11 @@ use Illuminate\Http\Response;
 
 class PackageController extends Controller
 {
+    public function GetPackages() : JsonResponse
+    {
+        return response()->json(['packages' => Package::all(['package_id', 'url', 'hash'])->values()]);
+    }
+
     public function GetPackage(GetPackageRequest $request) : JsonResponse
     {
         $response = Package::where('package_id', '=', $request->validated('package_id'))
@@ -19,11 +24,6 @@ class PackageController extends Controller
             ->firstOrNew();
 
         return response()->json($response, Response::HTTP_ACCEPTED);
-    }
-
-    public function GetPackages() : JsonResponse
-    {
-        return response()->json(['packages' => Package::all(['package_id', 'url', 'hash'])->values()]);
     }
 
     public function UpdatePackage(UpdatePackageRequest $request) : JsonResponse
