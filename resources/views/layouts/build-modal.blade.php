@@ -63,7 +63,7 @@
 <script type="text/javascript">
     $('#buildModal').on('shown.bs.modal', function () {
         let projectName = getCookie('target_project_name');
-        let prettyProjectName = projectName.substr(0, 15) + (projectName.length > 15 ? "..." : "");
+        let prettyProjectName = projectName.substr(0, 14) + (projectName.length > 14 ? "..." : "");
         document.getElementById('project-button').innerHTML = prettyProjectName;
     });
 

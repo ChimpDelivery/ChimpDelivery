@@ -9,6 +9,6 @@
 </div>
 <div class="container text-center">
     <a class="text-dark font-weight-bold" href="https://appstoreconnect.apple.com/apps/{{ $appInfo->appstore_id }}/testflight">
-        {{ Str::limit($appInfo->app_name, 15) }}
+        {{ Str::limit($appInfo->app_name, 14) }}
     </a>
 </div>
