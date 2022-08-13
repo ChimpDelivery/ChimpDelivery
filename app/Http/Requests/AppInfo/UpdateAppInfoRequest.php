@@ -36,6 +36,8 @@ class UpdateAppInfoRequest extends FormRequest
                 Rule::exists('app_infos', 'id')->whereNull('deleted_at'),
             ],
 
+            'app_icon' => 'image|mimes:png|max:5120',
+
             'fb_app_id' =>
             [
                 'nullable',
