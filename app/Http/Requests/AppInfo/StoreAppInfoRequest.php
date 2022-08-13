@@ -28,8 +28,6 @@ class StoreAppInfoRequest extends GetRepositoryRequest
         return [
             'app_icon' => 'image|mimes:png|max:5120',
 
-            'app_icon_hash' => 'nullable',
-
             'app_name' =>
             [
                 'required',
