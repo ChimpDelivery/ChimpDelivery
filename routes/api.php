@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request)
+{
     return $request->user();
 });
 
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(AppInfoController::class)->middleware('appstore')->group(function ()
 {
     Route::get('apps/get-app', 'GetApp');
+    Route::post('apps/update-app', 'UpdateApp');
 });
 
 // appstore connect

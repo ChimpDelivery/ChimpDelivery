@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
+use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 
 use App\Models\AppInfo;
 use App\Models\File;
@@ -24,6 +25,14 @@ class AppInfoController extends Controller
         ]);
 
         return response()->json($response, Response::HTTP_ACCEPTED);
+    }
+
+    public function UpdateApp(UpdateAppInfoRequest $request) : JsonResponse
+    {
+        $selectedApp = AppInfo::find($request->validated('id'));
+        $selectedApp->update($request->all());
+
+        return response()->json($selectedApp, Response::HTTP_ACCEPTED);
     }
 
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse

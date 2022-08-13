@@ -38,19 +38,19 @@ class UpdateAppInfoRequest extends FormRequest
             [
                 'nullable',
                 'numeric',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ],
 
             'ga_id' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ]
         ];
     }

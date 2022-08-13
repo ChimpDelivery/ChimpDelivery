@@ -48,8 +48,8 @@ class DashboardController extends Controller
 
     public function CreateAppForm() : View
     {
-        $allAppInfos = app('App\Http\Controllers\AppStoreConnectController')->GetAppList()->getData();
-        $allGitProjects = app('App\Http\Controllers\GithubController')->GetRepositories()->getData();
+        $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
+        $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
 
         return view('add-app-info-form')->with([
             'allAppInfos' => $allAppInfos,
@@ -59,8 +59,8 @@ class DashboardController extends Controller
 
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
-        $appInfoController = app('App\Http\Controllers\AppInfoController');
-        $githubController = app('App\Http\Controllers\GithubController');
+        $appInfoController = app(AppInfoController::class);
+        $githubController = app(GithubController::class);
 
         // check repository name on org
         $gitResponse = $githubController->GetRepository($request)->getData();
@@ -108,17 +108,17 @@ class DashboardController extends Controller
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
-        $selectedApp = AppInfo::find($request->validated('id'));
-        $selectedApp->update($request->all());
+        $appInfoController = app(AppInfoController::class);
+        $response = $appInfoController->UpdateApp($request);
 
-        session()->flash('success', "App: {$selectedApp->app_name} updated...");
+        session()->flash('success', "App: {$response->getData()->app_name} updated...");
 
         return to_route('get_app_list');
     }
 
     public function BuildApp(BuildRequest $request) : RedirectResponse
     {
-        session()->flash('success', app('App\Http\Controllers\JenkinsController')->BuildJob($request)->getData()->status);
+        session()->flash('success', app(JenkinsController::class)->BuildJob($request)->getData()->status);
 
         return back();
     }
@@ -128,7 +128,7 @@ class DashboardController extends Controller
         $app = AppInfo::find($request->validated('id'));
         $buildNumber = $request->validated('build_number');
 
-        $stopJobResponse = app('App\Http\Controllers\JenkinsController')->StopJob($request)->getData();
+        $stopJobResponse = app(JenkinsController::class)->StopJob($request)->getData();
         $flashMessage = ($stopJobResponse->status == 200)
             ? "{$app->project_name}: {$buildNumber} aborted!"
             : "{$app->project_name}: {$buildNumber} can not aborted!";
@@ -147,7 +147,7 @@ class DashboardController extends Controller
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
-        $deleteAppResponse = app('App\Http\Controllers\AppInfoController')->DeleteApp($request)->getData();
+        $deleteAppResponse = app(AppInfoController::class)->DeleteApp($request)->getData();
         session()->flash('success', $deleteAppResponse->message);
 
         return to_route('get_app_list');
@@ -160,7 +160,7 @@ class DashboardController extends Controller
 
     public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
     {
-        $response = app('App\Http\Controllers\AppStoreConnectController')->CreateBundle($request)->getData();
+        $response = app(AppStoreConnectController::class)->CreateBundle($request)->getData();
         if (isset($response->status->errors))
         {
             $error = $response->status->errors[0];
