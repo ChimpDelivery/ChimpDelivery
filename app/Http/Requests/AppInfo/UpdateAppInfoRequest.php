@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Auth;
+
 class UpdateAppInfoRequest extends FormRequest
 {
     /**
@@ -15,7 +17,7 @@ class UpdateAppInfoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
