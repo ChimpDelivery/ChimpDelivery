@@ -62,7 +62,9 @@
 
 <script type="text/javascript">
     $('#buildModal').on('shown.bs.modal', function () {
-        document.getElementById('project-button').innerHTML = getCookie('target_project_name');
+        let projectName = getCookie('target_project_name');
+        let prettyProjectName = projectName.substr(0, 15) + (projectName.length > 15 ? "..." : "");
+        document.getElementById('project-button').innerHTML = prettyProjectName;
     });
 
     $('#store_build_version_collapse').on('shown.bs.collapse', function () {
