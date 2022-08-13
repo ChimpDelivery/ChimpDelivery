@@ -2,13 +2,11 @@
 
 namespace App\Http\Requests\AppInfo;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\Auth;
 
-class UpdateAppInfoRequest extends FormRequest
+class UpdateAppInfoRequest extends GetAppInfoRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -42,19 +40,18 @@ class UpdateAppInfoRequest extends FormRequest
             [
                 'nullable',
                 'numeric',
-                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ],
 
             'ga_id' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
+                'string',
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
+                'string',
             ]
         ];
     }

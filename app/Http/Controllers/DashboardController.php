@@ -60,43 +60,21 @@ class DashboardController extends Controller
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
         $appInfoController = app(AppInfoController::class);
-        $githubController = app(GithubController::class);
+        $createAppResponse = $appInfoController->CreateApp($request)->getData();
 
-        // check repository name on org
-        $gitResponse = $githubController->GetRepository($request)->getData();
-
-        // git repo doesn't exit, just create it from template
-        if ($gitResponse->status == Response::HTTP_NOT_FOUND)
+        $flashMessage = 'Unknown';
+        switch ($createAppResponse->git->status)
         {
-            $createRepoResponse = $githubController->CreateRepository($request)->getData();
-
-            // new git repo created succesfully
-            if ($createRepoResponse->status == Response::HTTP_OK)
-            {
-                $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                    ->where('appstore_id', $request->validated('appstore_id'))
-                    ->firstOrNew()
-                );
-
-                Artisan::call("jenkins:scan-repo");
-
-                session()->flash('success', "App: {$request->validated('app_name')} created. New Git project: {$createRepoResponse->response->full_name}");
-            }
-            else
-            {
-                session()->flash('success', "App: {$request->validated('app_name')} created but Git project can not created! Delete app from dashboard and try again.");
-            }
+            case 200:
+                $flashMessage = "App created with new Git Project!";
+                break;
+                $flashMessage = "App created!";
+            case 422:
+                break;
+            default:
+                break;
         }
-        else // existing git project
-        {
-            $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                ->where('appstore_id', $request->validated('appstore_id'))
-                ->firstOrNew()
-            );
-
-            session()->flash('success', "App: {$request->validated('app_name')} created.");
-        }
-
+        session()->flash('success', $flashMessage);
 
         return to_route('get_app_list');
     }

@@ -29,6 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request)
 Route::controller(AppInfoController::class)->middleware('appstore')->group(function ()
 {
     Route::get('apps/get-app', 'GetApp');
+
+    Route::post('apps/create-app', 'CreateApp');
     Route::post('apps/update-app', 'UpdateApp');
 });
 

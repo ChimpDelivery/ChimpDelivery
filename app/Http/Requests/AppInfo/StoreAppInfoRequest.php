@@ -6,6 +6,8 @@ use App\Http\Requests\Github\GetRepositoryRequest;
 
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Auth;
+
 class StoreAppInfoRequest extends GetRepositoryRequest
 {
     /**
@@ -15,7 +17,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
      */
     public function authorize() : bool
     {
-        return true;
+        return true; // Auth::check();
     }
 
     /**
@@ -31,46 +33,45 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'app_name' =>
             [
                 'required',
-                Rule::unique('app_infos')->whereNull(('deleted_at'))
+                Rule::unique('app_infos')->whereNull('deleted_at'),
             ],
 
             'project_name' =>
             [
                 'required',
                 'alpha_dash',
-                Rule::unique('app_infos')->whereNull(('deleted_at'))
+                Rule::unique('app_infos')->whereNull('deleted_at'),
             ],
 
             'app_bundle' =>
             [
                 'required',
-                Rule::unique('app_infos')->whereNull(('deleted_at')),
-                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i'
+                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
+                Rule::unique('app_infos')->whereNull('deleted_at'),
             ],
 
             'appstore_id' =>
             [
                 'required',
-                Rule::unique('app_infos')->whereNull(('deleted_at'))
+                Rule::unique('app_infos')->whereNull('deleted_at'),
             ],
 
             'fb_app_id' =>
             [
                 'nullable',
                 'numeric',
-                Rule::unique('app_infos')->whereNull('deleted_at')
             ],
 
             'ga_id' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                'string',
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                'string',
             ]
         ];
     }
