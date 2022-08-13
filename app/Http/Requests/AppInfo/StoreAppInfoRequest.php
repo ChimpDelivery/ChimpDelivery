@@ -27,22 +27,53 @@ class StoreAppInfoRequest extends GetRepositoryRequest
     {
         return [
             'app_icon' => 'image|mimes:png|max:5120',
+
             'app_icon_hash' => 'nullable',
 
-            'app_name' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
+            'app_name' =>
+            [
+                'required',
+                Rule::unique('app_infos')->whereNull(('deleted_at'))
+            ],
 
-            'project_name' => array('required', 'alpha_dash', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
+            'project_name' =>
+            [
+                'required',
+                'alpha_dash',
+                Rule::unique('app_infos')->whereNull(('deleted_at'))
+            ],
 
-            'app_bundle' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at')),
-                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i'),
+            'app_bundle' =>
+            [
+                'required',
+                Rule::unique('app_infos')->whereNull(('deleted_at')),
+                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i'
+            ],
 
-            'appstore_id' => array('required', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull(('deleted_at'))),
+            'appstore_id' =>
+            [
+                'required',
+                Rule::unique('app_infos')->whereNull(('deleted_at'))
+            ],
 
-            'fb_app_id' => array('nullable', 'numeric', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'fb_app_id' =>
+            [
+                'nullable',
+                'numeric',
+                Rule::unique('app_infos')->whereNull('deleted_at')
+            ],
 
-            'ga_id' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at')),
+            'ga_id' =>
+            [
+                'nullable',
+                Rule::unique('app_infos')->whereNull('deleted_at')
+            ],
 
-            'ga_secret' => array('nullable', Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'))
+            'ga_secret' =>
+            [
+                'nullable',
+                Rule::unique('app_infos')->whereNull('deleted_at')
+            ]
         ];
     }
 

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Auth;
+
 class UpdateAppInfoRequest extends FormRequest
 {
     /**
@@ -15,7 +17,7 @@ class UpdateAppInfoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -38,19 +40,19 @@ class UpdateAppInfoRequest extends FormRequest
             [
                 'nullable',
                 'numeric',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ],
 
             'ga_id' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                Rule::unique('app_infos')->ignore($this->route('id'))->whereNull('deleted_at'),
+                Rule::unique('app_infos')->ignore($this->id)->whereNull('deleted_at'),
             ]
         ];
     }

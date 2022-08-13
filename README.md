@@ -70,8 +70,10 @@ POST   |   api/github/create-repository/{projectName}
 ```
 
 # 🔑 Apps API
+- Optional parameters marked with `?`
 ```
 GET    |   api/get-app?id={id}
+POST   |   api/update-app?id={id}&fb_app_id={fb_app_id?}&ga_id={ga_id?}&ga_secret={ga_secret?}
 ```
 
 
