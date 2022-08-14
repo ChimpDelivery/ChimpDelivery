@@ -30,7 +30,7 @@ class DashboardController extends Controller
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
 
-            $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
+            $jenkinsResponse = collect(app(JenkinsController::class)
                 ->GetLastBuildWithDetails($request)
                 ->getData()
             );
