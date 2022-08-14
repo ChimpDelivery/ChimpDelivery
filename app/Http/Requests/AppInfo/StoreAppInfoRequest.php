@@ -17,7 +17,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
      */
     public function authorize() : bool
     {
-        return true; // Auth::check();
+        return Auth::check();
     }
 
     /**
