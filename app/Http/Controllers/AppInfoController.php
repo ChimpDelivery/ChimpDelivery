@@ -58,7 +58,7 @@ class AppInfoController extends Controller
         $appInfo = AppInfo::find($request->validated('id'));
         $appInfo->delete();
 
-        return response()->json(['message' => "Project: {$appInfo->project_name} deleted."], Response::HTTP_OK);
+        return response()->json(['message' => "Project: <b>{$appInfo->project_name}</b> deleted."], Response::HTTP_OK);
     }
 
     private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)

@@ -60,13 +60,16 @@ class DashboardController extends Controller
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
         $createAppResponse = app(AppInfoController::class)->CreateApp($request)->getData();
+        $projectName = $createAppResponse->app->project_name;
+
+        Artisan::call("jenkins:scan-repo");
+
         $flashMessage = match($createAppResponse->git->status)
         {
-            Response::HTTP_OK => "Project: {$createAppResponse->app->project_name} created as new Git Project.", // new git project
-            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: {$createAppResponse->app->project_name} created.", // git project already exist
+            Response::HTTP_OK => "Project: <b>{$projectName}</b> created as new Git Project.", // new git project
+            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: <b>{$projectName}</b> created.", // git project already exist
             default => "Warning: Git project status: Unknown"
         };
-
         session()->flash('success', $flashMessage);
 
         return to_route('get_app_list');
@@ -80,7 +83,7 @@ class DashboardController extends Controller
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
         $response = app(AppInfoController::class)->UpdateApp($request);
-        session()->flash('success', "Project: {$response->getData()->project_name} updated.");
+        session()->flash('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
 
         return to_route('get_app_list');
     }
@@ -106,8 +109,8 @@ class DashboardController extends Controller
 
         $stopJobResponse = app(JenkinsController::class)->StopJob($request)->getData();
         $flashMessage = ($stopJobResponse->status == Response::HTTP_OK)
-            ? "{$app->project_name}: {$buildNumber} aborted!"
-            : "{$app->project_name}: {$buildNumber} can not aborted!";
+            ? "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> aborted!"
+            : "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> can not aborted!";
         session()->flash('success', $flashMessage);
 
         return back();
@@ -138,7 +141,7 @@ class DashboardController extends Controller
                 ->withInput();
         }
 
-        session()->flash('success', 'Bundle: ' . config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id') . ' created!');
+        session()->flash('success', 'Bundle: <b>' . config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id') . '</b> created!');
         return to_route('get_app_list');
     }
 
