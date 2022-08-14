@@ -66,13 +66,13 @@ class DashboardController extends Controller
         switch ($createAppResponse->git->status)
         {
             case 200:
-                $flashMessage = "App created with new Git Project!";
-                break;
-                $flashMessage = "App created!";
+                $flashMessage = "App: {$createAppResponse->app->app_name} created with new Git Project!";
+            break;
             case 422:
-                break;
+                $flashMessage = "App: {$createAppResponse->app->app_name} created!";
+            break;
             default:
-                break;
+            break;
         }
         session()->flash('success', $flashMessage);
 
