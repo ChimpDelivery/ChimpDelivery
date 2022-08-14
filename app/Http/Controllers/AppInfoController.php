@@ -34,11 +34,8 @@ class AppInfoController extends Controller
             ->where('app_bundle', '=', $request->validated('app_bundle'))
             ->firstOrNew();
 
-        // create or restore app and sync data if model trashed
-        if ($appModel->trashed()) { $appModel->restore(); }
-        $appModel->fill($request->all());
-        if ($request->hasFile('app_icon')) { $appModel->app_icon = $this->GenerateHashAndUpload($request->file('app_icon')); }
-        $appModel->save();
+        // populate model
+        $this->RestoreOrCreate($appModel, $request);
 
         $githubResponse = app(GithubController::class)->CreateRepository($request)->getData();
 
@@ -62,6 +59,21 @@ class AppInfoController extends Controller
         $appInfo->delete();
 
         return response()->json(['message' => "Project: {$appInfo->project_name} deleted."], Response::HTTP_ACCEPTED);
+    }
+
+    private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)
+    {
+        if ($appModel->trashed()) {
+            $appModel->restore();
+        }
+
+        $appModel->fill($request->all());
+
+        if ($request->hasFile('app_icon')) {
+            $appModel->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
+        }
+
+        $appModel->save();
     }
 
     // todo: move to service class
