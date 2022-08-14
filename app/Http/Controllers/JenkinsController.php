@@ -46,8 +46,7 @@ class JenkinsController extends Controller
         $jobResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/api/json")->getData());
 
         // job doesn't exist.
-        if (!$jobResponse->get('jenkins_status') || !$jobResponse->get('job_exists'))
-        {
+        if (!$jobResponse->get('jenkins_status') || !$jobResponse->get('job_exists')) {
             return response()->json($jobResponse->except('job_info'));
         }
 
@@ -82,8 +81,7 @@ class JenkinsController extends Controller
 
         $validatedResponse = collect($this->GetJenkinsJobResponse("/job/{$app->project_name}/job/master/wfapi/runs")->getData());
 
-        if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists'))
-        {
+        if (!$validatedResponse->get('jenkins_status') || !$validatedResponse->get('job_exists')) {
             return response()->json($validatedResponse->except('job_info'));
         }
 
@@ -141,8 +139,7 @@ class JenkinsController extends Controller
         $jobResponse = collect($this->GetLastBuildSummary($request)->getData());
 
         // job doesn't exist.
-        if (!$jobResponse->get('jenkins_status') || !$jobResponse->get('job_exists'))
-        {
+        if (!$jobResponse->get('jenkins_status') || !$jobResponse->get('job_exists')) {
             return response()->json($jobResponse);
         }
 

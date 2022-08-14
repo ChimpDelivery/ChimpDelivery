@@ -24,7 +24,10 @@ class GetRepositoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => array('required', 'string')
+            'project_name' => [
+                'required',
+                'string'
+            ]
         ];
     }
 }

@@ -56,7 +56,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'status' => $exception->getCode() ]);
+            return response()->json([ 'status' => $exception->getCode(), 'response' => $exception->getMessage() ]);
         }
 
         return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
@@ -85,7 +85,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'status' => $exception->getCode() ]);
+            return response()->json([ 'status' => $exception->getCode(), 'response' => $exception->getMessage() ]);
         }
 
         return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);
@@ -105,7 +105,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'status' => $exception->getCode() ]);
+            return response()->json([ 'status' => $exception->getCode(), 'response' => $exception->getMessage() ]);
         }
 
         return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);

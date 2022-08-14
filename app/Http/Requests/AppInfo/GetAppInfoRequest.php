@@ -26,7 +26,11 @@ class GetAppInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at'))
+            'id' => [
+                'required',
+                'numeric',
+                Rule::exists('app_infos', 'id')->whereNull('deleted_at'),
+            ]
         ];
     }
 

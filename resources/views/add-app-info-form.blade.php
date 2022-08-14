@@ -33,7 +33,6 @@
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
                             @foreach($allAppInfos as $appInfo)
-                                <input type="text" id="app_info_name" name="app_info_name" hidden>
                                 <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_bundle }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_name }}</a>
                             @endforeach
                         </div>
@@ -57,7 +56,6 @@
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
                         @foreach($allGitProjects as $gitProject)
-                            <input type="text" id="git_project_name" name="git_project_name" hidden>
                             <a class="dropdown-item" href="#">{{ $gitProject->name }} ({{ $gitProject->size }})</a>
                         @endforeach
                     </div>

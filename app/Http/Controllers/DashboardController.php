@@ -30,12 +30,12 @@ class DashboardController extends Controller
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
 
-            $jenkinsResponse = collect(app('App\Http\Controllers\JenkinsController')
+            $jenkinsResponse = collect(app(JenkinsController::class)
                 ->GetLastBuildWithDetails($request)
                 ->getData()
             );
 
-            $this->PopulateAppDetails($app, $jenkinsResponse);
+            $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -59,44 +59,15 @@ class DashboardController extends Controller
 
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
-        $appInfoController = app(AppInfoController::class);
-        $githubController = app(GithubController::class);
-
-        // check repository name on org
-        $gitResponse = $githubController->GetRepository($request)->getData();
-
-        // git repo doesn't exit, just create it from template
-        if ($gitResponse->status == Response::HTTP_NOT_FOUND)
+        $createAppResponse = app(AppInfoController::class)->CreateApp($request)->getData();
+        $flashMessage = match($createAppResponse->git->status)
         {
-            $createRepoResponse = $githubController->CreateRepository($request)->getData();
+            Response::HTTP_OK => "Project: {$createAppResponse->app->project_name} created as new Git Project.", // new git project
+            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: {$createAppResponse->app->project_name} created.", // git project already exist
+            default => "Warning: Git project status: Unknown"
+        };
 
-            // new git repo created succesfully
-            if ($createRepoResponse->status == Response::HTTP_OK)
-            {
-                $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                    ->where('appstore_id', $request->validated('appstore_id'))
-                    ->firstOrNew()
-                );
-
-                Artisan::call("jenkins:scan-repo");
-
-                session()->flash('success', "App: {$request->validated('app_name')} created. New Git project: {$createRepoResponse->response->full_name}");
-            }
-            else
-            {
-                session()->flash('success', "App: {$request->validated('app_name')} created but Git project can not created! Delete app from dashboard and try again.");
-            }
-        }
-        else // existing git project
-        {
-            $appInfoController->PopulateAppData($request, AppInfo::withTrashed()
-                ->where('appstore_id', $request->validated('appstore_id'))
-                ->firstOrNew()
-            );
-
-            session()->flash('success', "App: {$request->validated('app_name')} created.");
-        }
-
+        session()->flash('success', $flashMessage);
 
         return to_route('get_app_list');
     }
@@ -108,18 +79,15 @@ class DashboardController extends Controller
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
-        $appInfoController = app(AppInfoController::class);
-        $response = $appInfoController->UpdateApp($request);
-
-        session()->flash('success', "App: {$response->getData()->app_name} updated...");
+        $response = app(AppInfoController::class)->UpdateApp($request);
+        session()->flash('success', "Project: {$response->getData()->project_name} updated.");
 
         return to_route('get_app_list');
     }
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
-        $deleteAppResponse = app(AppInfoController::class)->DeleteApp($request)->getData();
-        session()->flash('success', $deleteAppResponse->message);
+        session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
 
         return to_route('get_app_list');
     }
@@ -137,7 +105,7 @@ class DashboardController extends Controller
         $buildNumber = $request->validated('build_number');
 
         $stopJobResponse = app(JenkinsController::class)->StopJob($request)->getData();
-        $flashMessage = ($stopJobResponse->status == 200)
+        $flashMessage = ($stopJobResponse->status == Response::HTTP_OK)
             ? "{$app->project_name}: {$buildNumber} aborted!"
             : "{$app->project_name}: {$buildNumber} can not aborted!";
         session()->flash('success', $flashMessage);
@@ -174,30 +142,29 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    private function PopulateAppDetails(AppInfo $app, mixed $jenkinsData) : void
+    private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsData) : void
     {
         // always populate git url data
         $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
 
         // copy params from jenkins job
-        $jenkinsData->map(function ($item, $key) use (&$app)
-        {
+        $jenkinsData->map(function ($item, $key) use (&$app) {
             $app->setAttribute($key, $item);
         });
 
         // if job exist on jenkins, populate project build data
         if (!$jenkinsData->get('job_exists')) { return; }
 
-        // if job has no build, there is no build_status property (and other jenkins data)
+        // if job has no build, there is no build_status property (and other build data)
         if (!isset($app->build_status)) { return; }
 
         if ($app->build_status->status == 'IN_PROGRESS')
         {
-            $app->estimated_time = $this->CalculateBuildFinishDate($jenkinsData->get('timestamp'), $jenkinsData->get('estimated_duration'));
+            $app->estimated_time = $this->GetBuildFinish($jenkinsData->get('timestamp'), $jenkinsData->get('estimated_duration'));
         }
     }
 
-    private function CalculateBuildFinishDate($timestamp, $estimatedDuration) : string
+    private function GetBuildFinish($timestamp, $estimatedDuration) : string
     {
         $estimatedTime = ceil($timestamp / 1000) + ceil($estimatedDuration / 1000);
         $estimatedTime = date('H:i:s', $estimatedTime);
