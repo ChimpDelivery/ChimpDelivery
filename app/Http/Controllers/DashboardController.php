@@ -60,20 +60,14 @@ class DashboardController extends Controller
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
         $appInfoController = app(AppInfoController::class);
-        $createAppResponse = $appInfoController->CreateApp($request)->getData();
 
-        $flashMessage = 'Unknown';
-        switch ($createAppResponse->git->status)
+        $createAppResponse = $appInfoController->CreateApp($request)->getData();
+        $flashMessage = match($createAppResponse->git->status)
         {
-            case 200:
-                $flashMessage = "App: {$createAppResponse->app->app_name} created with new Git Project!";
-            break;
-            case 422:
-                $flashMessage = "App: {$createAppResponse->app->app_name} created!";
-            break;
-            default:
-            break;
-        }
+            Response::HTTP_OK => "Project: {$createAppResponse->app->project_name} created as new Git Project.", // new git project
+            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: {$createAppResponse->app->project_name} created.", // git project already exist
+        };
+
         session()->flash('success', $flashMessage);
 
         return to_route('get_app_list');
@@ -89,7 +83,7 @@ class DashboardController extends Controller
         $appInfoController = app(AppInfoController::class);
         $response = $appInfoController->UpdateApp($request);
 
-        session()->flash('success', "App: {$response->getData()->app_name} updated...");
+        session()->flash('success', "Project: {$response->getData()->project_name} updated.");
 
         return to_route('get_app_list');
     }

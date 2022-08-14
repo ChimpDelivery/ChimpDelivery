@@ -61,7 +61,7 @@ class AppInfoController extends Controller
         $appInfo = AppInfo::find($request->validated('id'));
         $appInfo->delete();
 
-        return response()->json(['message' => "App: {$appInfo->app_name} deleted."], Response::HTTP_ACCEPTED);
+        return response()->json(['message' => "Project: {$appInfo->project_name} deleted."], Response::HTTP_ACCEPTED);
     }
 
     // todo: move to service class
