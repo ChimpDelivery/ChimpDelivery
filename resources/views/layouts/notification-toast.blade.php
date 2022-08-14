@@ -24,7 +24,7 @@
             </button>
         </div>
         <div class="toast-body">
-            {{ session('success') }}
+            {!! session('success') !!}
         </div>
     </div>
     @endif

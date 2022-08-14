@@ -154,7 +154,7 @@ class JenkinsController extends Controller
         $validated['storeBuildNumber'] = ($validated['storeCustomVersion'] == 'true') ? $validated['storeBuildNumber'] : 0;
 
         Artisan::call("jenkins:trigger {$validated['id']} master false {$validated['platform']} {$validated['storeVersion']} {$validated['storeCustomVersion']} {$validated['storeBuildNumber']}");
-        return response()->json(['status' => "Project: {$app->project_name} building for {$validated['platform']}..."]);
+        return response()->json(['status' => "Project: <b>{$app->project_name}</b> building for <b>{$validated['platform']}</b>..."]);
     }
 
     public function StopJob(StopJobRequest $request) : JsonResponse
