@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request)
-{
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
     return $request->user();
 });
 
 // dashboard apps
-Route::controller(AppInfoController::class)->middleware('appstore')->group(function ()
-{
+Route::controller(AppInfoController::class)->middleware('appstore')->group(function () {
+
     Route::get('apps/get-app', 'GetApp');
 
     Route::post('apps/create-app', 'CreateApp');
@@ -35,8 +35,8 @@ Route::controller(AppInfoController::class)->middleware('appstore')->group(funct
 });
 
 // appstore connect
-Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function ()
-{
+Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
+
     Route::get('appstoreconnect/get-token', 'GetToken');
     Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
     Route::get('appstoreconnect/get-app-list', 'GetAppList');
@@ -46,8 +46,8 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
 });
 
 // jenkins
-Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function ()
-{
+Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
+
     Route::get('jenkins/get-job', 'GetJob');
     Route::get('jenkins/get-job-list', 'GetJobList');
     Route::get('jenkins/get-build-list', 'GetLastBuildSummary');
@@ -58,8 +58,8 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
 });
 
 // github
-Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function ()
-{
+Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
+
     Route::get('github/get-repositories', 'GetRepositories');
     Route::get('github/get-repository', 'GetRepository');
 
@@ -67,8 +67,8 @@ Route::controller(GithubController::class)->middleware('auth:sanctum')->group(fu
 });
 
 // package management
-Route::controller(PackageController::class)->middleware('appstore')->group(function ()
-{
+Route::controller(PackageController::class)->middleware('appstore')->group(function () {
+
     Route::get('packages/get-packages', 'GetPackages');
     Route::get('packages/get-package', 'GetPackage');
 

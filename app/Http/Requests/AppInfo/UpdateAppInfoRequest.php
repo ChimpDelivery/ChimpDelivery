@@ -25,10 +25,8 @@ class UpdateAppInfoRequest extends GetAppInfoRequest
      */
     public function rules()
     {
-        return
-        [
-            'id' =>
-            [
+        return [
+            'id' => [
                 'required',
                 'numeric',
                 Rule::exists('app_infos', 'id')->whereNull('deleted_at'),
@@ -36,20 +34,17 @@ class UpdateAppInfoRequest extends GetAppInfoRequest
 
             'app_icon' => 'image|mimes:png|max:5120',
 
-            'fb_app_id' =>
-            [
+            'fb_app_id' => [
                 'nullable',
                 'numeric',
             ],
 
-            'ga_id' =>
-            [
+            'ga_id' => [
                 'nullable',
                 'alpha_num',
             ],
 
-            'ga_secret' =>
-            [
+            'ga_secret' => [
                 'nullable',
                 'alpha_num',
             ]

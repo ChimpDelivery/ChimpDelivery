@@ -26,11 +26,11 @@ class GetPackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'package_id' => array(
+            'package_id' => [
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
                 Rule::exists('packages', 'package_id')
-            )
+            ]
         ];
     }
 
