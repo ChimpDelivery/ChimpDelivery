@@ -35,7 +35,7 @@ class DashboardController extends Controller
                 ->getData()
             );
 
-            $this->PopulateAppDetails($app, $jenkinsResponse);
+            $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
         $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
@@ -66,6 +66,7 @@ class DashboardController extends Controller
         {
             Response::HTTP_OK => "Project: {$createAppResponse->app->project_name} created as new Git Project.", // new git project
             Response::HTTP_UNPROCESSABLE_ENTITY => "Project: {$createAppResponse->app->project_name} created.", // git project already exist
+            default => "Warning: Git project status: Unknown"
         };
 
         session()->flash('success', $flashMessage);
@@ -146,7 +147,7 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    private function PopulateAppDetails(AppInfo $app, mixed $jenkinsData) : void
+    private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsData) : void
     {
         // always populate git url data
         $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
