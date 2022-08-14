@@ -45,13 +45,13 @@ class UpdateAppInfoRequest extends GetAppInfoRequest
             'ga_id' =>
             [
                 'nullable',
-                'string',
+                'alpha_num',
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                'string',
+                'alpha_num',
             ]
         ];
     }
