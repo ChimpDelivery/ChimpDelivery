@@ -48,8 +48,7 @@ class AppStoreConnectController extends Controller
         $apps = [];
         foreach ($data as $content)
         {
-            $apps []=
-            [
+            $apps []= [
                 'app_bundle' => $content->attributes->bundleId,
                 'app_name' => $content->attributes->name,
                 'appstore_id' => $content->id,
@@ -73,12 +72,9 @@ class AppStoreConnectController extends Controller
 
     public function CreateBundle(StoreBundleRequest $request)
     {
-        $data =
-        [
-            'data' =>
-            [
-                'attributes' =>
-                [
+        $data = [
+            'data' => [
+                'attributes' => [
                     'identifier' => config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id'),
                     'name' => $request->validated('bundle_name'),
                     'platform' => 'IOS'

@@ -24,7 +24,7 @@ class AppInfoController extends Controller
             'ga_secret'
         ]);
 
-        return response()->json($response, Response::HTTP_ACCEPTED);
+        return response()->json($response, Response::HTTP_OK);
     }
 
     public function CreateApp(StoreAppInfoRequest $request) : JsonResponse
@@ -50,7 +50,7 @@ class AppInfoController extends Controller
         $selectedApp = AppInfo::find($request->validated('id'));
         $selectedApp->update($request->all());
 
-        return response()->json($selectedApp, Response::HTTP_ACCEPTED);
+        return response()->json($selectedApp, Response::HTTP_OK);
     }
 
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
@@ -58,7 +58,7 @@ class AppInfoController extends Controller
         $appInfo = AppInfo::find($request->validated('id'));
         $appInfo->delete();
 
-        return response()->json(['message' => "Project: {$appInfo->project_name} deleted."], Response::HTTP_ACCEPTED);
+        return response()->json(['message' => "Project: {$appInfo->project_name} deleted."], Response::HTTP_OK);
     }
 
     private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)
