@@ -65,13 +65,13 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'ga_id' =>
             [
                 'nullable',
-                'string',
+                'alpha_num',
             ],
 
             'ga_secret' =>
             [
                 'nullable',
-                'string',
+                'alpha_num',
             ]
         ];
     }
