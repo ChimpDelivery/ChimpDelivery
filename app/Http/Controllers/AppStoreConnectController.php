@@ -46,11 +46,13 @@ class AppStoreConnectController extends Controller
         $data = $appList->app_list;
 
         $apps = [];
-        foreach ($data as $content) {
-            $apps []= [
+        foreach ($data as $content)
+        {
+            $apps []=
+            [
                 'app_bundle' => $content->attributes->bundleId,
                 'app_name' => $content->attributes->name,
-                'appstore_id' => $content->id
+                'appstore_id' => $content->id,
             ];
         }
 
