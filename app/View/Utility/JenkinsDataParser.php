@@ -15,12 +15,45 @@ class JenkinsDataParser
         $this->jenkinsData = $jenkinsData;
     }
 
-    public function IsDataNull() : bool
+    public function GetButtonImage()
+    {
+        $ws = config('jenkins.ws');
+        $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->projectName}%2Fmaster";
+        return '<img alt="..." src="'.$url.'">';
+    }
+
+    public function GetButtonData()
+    {
+        // prepare button header(title)
+        $buttonTitle = $this->GetStage();
+
+        if ($this->IsDataNull())
+        {
+            return [
+                'header' => $buttonTitle,
+                'body' => ''
+            ];
+        }
+
+        $buttonTitle .= $this->GetJobPlatform();
+
+        // prepare button body
+        $buttonData = $this->GetStageDetail();
+        $buttonData .= $this->GetJobEstimatedFinish();
+        $buttonData .= $this->GetCommits();
+
+        return [
+            'header' => $buttonTitle,
+            'body' => $buttonData
+        ];
+    }
+
+    private function IsDataNull() : bool
     {
         return $this->jenkinsData == null;
     }
 
-    public function GetJobPlatform()
+    private function GetJobPlatform()
     {
         if (!isset($this->jenkinsData->build_platform)) { return ''; }
 
@@ -28,7 +61,7 @@ class JenkinsDataParser
         return '<i class="pull-right ' . $iconType . ' aria-hidden="true"></i>';
     }
 
-    public function GetStage()
+    private function GetStage()
     {
         if (!isset($this->jenkinsData->status))
         {
@@ -48,7 +81,7 @@ class JenkinsDataParser
         };
     }
 
-    public function GetStageDetail()
+    private function GetStageDetail()
     {
         if (!isset($this->jenkinsData->stop_details)) { return ''; }
         if (empty($this->jenkinsData->stop_details->output)) { return ''; }
@@ -62,7 +95,7 @@ class JenkinsDataParser
                 <hr class='my-2'>";
     }
 
-    public function GetJobEstimatedFinish()
+    private function GetJobEstimatedFinish()
     {
         if ($this->jenkinsData?->status != 'IN_PROGRESS') { return ''; }
         if (!isset($this->jenkinsData->estimated_time)) { return ''; }
@@ -70,7 +103,7 @@ class JenkinsDataParser
         return 'Average Finish: <span class="text-primary font-weight-bold">' . $this->jenkinsData->estimated_time . "</span><hr class='my-2'>";
     }
 
-    public function GetCommits()
+    private function GetCommits()
     {
         $buildCommits = collect($this->jenkinsData?->change_sets ?? []);
         if (count($buildCommits) == 0) { return 'No Commit'; }
@@ -85,12 +118,5 @@ class JenkinsDataParser
         });
 
         return $prettyCommits->implode(',');
-    }
-
-    public function GetJobBuildStatusImage()
-    {
-        $ws = config('jenkins.ws');
-        $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->projectName}%2Fmaster";
-        return '<img alt="..." src="'.$url.'">';
     }
 }

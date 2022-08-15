@@ -1,18 +1,6 @@
 @php
-    use App\View\Utility\JenkinsDataParser;
-
-    $parser = new JenkinsDataParser($appInfo->project_name, $appInfo->jenkins_data);
-
-    $buttonTitle = $parser->GetStage();
-    $buttonData = '';
-
-    if ($parser->IsDataNull()) { return; }
-
-    $buttonTitle .= $parser->GetJobPlatform();
-
-    $buttonData .= $parser->GetStageDetail();
-    $buttonData .= $parser->GetJobEstimatedFinish();
-    $buttonData .= $parser->GetCommits();
+    $parser = new App\View\Utility\JenkinsDataParser($appInfo->project_name, $appInfo->jenkins_data);
+    $buttonData = $parser->GetButtonData();
 @endphp
 
 <div class="container">
@@ -23,8 +11,8 @@
         data-toggle="popover"
         data-html="true"
         data-placement="bottom"
-        title="{{ $buttonTitle }}"
-        data-content="{{ $buttonData }}">
-        {!! $parser->GetJobBuildStatusImage() !!}
+        title="{{ $buttonData['header'] }}"
+        data-content="{{ $buttonData['body'] }}">
+        {!! $parser->GetButtonImage() !!}
     </a>
 </div>
