@@ -151,7 +151,10 @@ class DashboardController extends Controller
 
         if ($app?->jenkins_data?->status == 'IN_PROGRESS')
         {
-            $app->jenkins_data->estimated_time = 'Unknown'; //$this->GetBuildFinish($jenkinsData->get('startTimeMillis'), $jenkinsData->get('estimated_duration'));
+            $app->jenkins_data->estimated_time = $this->GetBuildFinish(
+                $app->jenkins_data->startTimeMillis,
+                $app->jenkins_data->estimated_duration
+            );
         }
     }
 
