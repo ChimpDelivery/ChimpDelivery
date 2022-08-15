@@ -1,5 +1,5 @@
 @php
-    use App\Http\Services\AppInfoView;
+    use App\View\Utility\AppInfoView;
 
     $jenkinsData = $appInfo->jenkins_data;
 
