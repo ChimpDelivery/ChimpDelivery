@@ -42,7 +42,8 @@ sudo service cron restart
 sudo service redis-server restart
 sudo service mysql restart
 
-# create environment file
+# create environment file in project folder
+cd $PROJECT_FOLDER
 if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
