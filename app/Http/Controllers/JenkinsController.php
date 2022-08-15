@@ -170,17 +170,11 @@ class JenkinsController extends Controller
             ->connectTimeout(8)
             ->get($url);
 
-        if ($request->header('Ngrok-Error-Code'))
-        {
-            return [
-                'jenkins_status' => 3200,
-                'jenkins_data' => null
-            ];
-        }
+        $isTunnelOffline = $request->header('Ngrok-Error-Code');
 
         return [
-            'jenkins_status' => $request->status(),
-            'jenkins_data' => json_decode($request)
+            'jenkins_status' => ($isTunnelOffline) ? 3200 : $request->status(),
+            'jenkins_data' => ($isTunnelOffline) ? null : json_decode($request),
         ];
     }
 }
