@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Utility;
+namespace App\View\Parsers;
 
 use Illuminate\Support\Str;
 
@@ -65,6 +65,8 @@ class JenkinsDataParser
                         <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
                     </span>';
         }
+
+        // todo: failing at prepare stage - text color
 
         return match($this->jenkinsData->status)
         {
