@@ -1,22 +1,22 @@
 @php
-    use App\View\Utility\AppInfoView;
+    use App\View\Utility\JenkinsDataParser;
 
-    $jenkinsData = $appInfo->jenkins_data;
+    $parser = new JenkinsDataParser($appInfo->project_name, $appInfo->jenkins_data);
 
-    $buttonTitle = AppInfoView::GetStage($jenkinsData);
+    $buttonTitle = $parser->GetStage();
     $buttonData = '';
 
-    if ($jenkinsData != null)
+    if (!$parser->IsDataNull())
     {
-        $buttonTitle .= AppInfoView::GetJobPlatform($jenkinsData);
-        $buttonData .= AppInfoView::GetStageDetail($jenkinsData);
+        $buttonTitle .= $parser->GetJobPlatform();
+        $buttonData .= $parser->GetStageDetail();
 
-        if ($jenkinsData?->status == 'IN_PROGRESS')
+        if ($appInfo?->jenkins_data?->status == 'IN_PROGRESS')
         {
-            $buttonData .= AppInfoView::GetJobEstimatedFinish($jenkinsData);
+            $buttonData .= $parser->GetJobEstimatedFinish();
         }
 
-        $buttonData .= AppInfoView::GetCommits($jenkinsData);
+        $buttonData .= $parser->GetCommits();
     }
 @endphp
 
@@ -24,6 +24,6 @@
     <a tabindex="0" class="btn btn-sm" role="button" data-trigger="focus" data-toggle="popover" data-html="true" data-placement="bottom"
         title="{{ $buttonTitle }}"
         data-content="{{ $buttonData }}">
-        <img alt="..." src="{{ config('jenkins.host') }}/buildStatus/icon?subject={{ $jenkinsData?->id }}&job={{ config('jenkins.ws') }}%2F{{ $appInfo->project_name }}%2Fmaster">
+        {!! $parser->GetJobBuildStatusImage() !!}
     </a>
 </div>
