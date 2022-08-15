@@ -148,7 +148,6 @@ class DashboardController extends Controller
         $app->jenkins_status = $jenkinsResponse->jenkins_status;
         $app->jenkins_data = $jenkinsResponse->jenkins_data;
 
-
         if ($app?->jenkins_data?->status == 'IN_PROGRESS')
         {
             $app->jenkins_data->estimated_time = $this->GetBuildFinish(

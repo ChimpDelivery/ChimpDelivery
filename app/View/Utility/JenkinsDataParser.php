@@ -27,11 +27,12 @@ class JenkinsDataParser
         // prepare button header(title)
         $buttonTitle = $this->GetStage();
 
-        if ($this->IsDataNull())
+        // there is no build
+        if ($this->jenkinsData == null)
         {
             return [
                 'header' => $buttonTitle,
-                'body' => ''
+                'body' => 'First build not executed!'
             ];
         }
 
@@ -46,11 +47,6 @@ class JenkinsDataParser
             'header' => $buttonTitle,
             'body' => $buttonData
         ];
-    }
-
-    private function IsDataNull() : bool
-    {
-        return $this->jenkinsData == null;
     }
 
     private function GetJobPlatform()
