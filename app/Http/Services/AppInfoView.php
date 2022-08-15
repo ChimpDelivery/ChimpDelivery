@@ -6,16 +6,17 @@ use Illuminate\Support\Str;
 
 class AppInfoView
 {
-    public static function GetJobPlatform($buildPlatform)
+    public static function GetJobPlatform(mixed $jenkinsData)
     {
-        $iconType = ($buildPlatform == 'GooglePlay') ? 'fa fa-google' : 'fa fa-apple';
+        if (!isset($jenkinsData->platform)) { return ''; }
 
+        $iconType = ($jenkinsData->platform == 'GooglePlay') ? 'fa fa-google' : 'fa fa-apple';
         return '<i class="pull-right ' . $iconType . ' aria-hidden="true"></i>';
     }
 
-    public static function GetStopStage($jenkinsData)
+    public static function GetStage($jenkinsData)
     {
-        if (is_null($jenkinsData))
+        if (!isset($jenkinsData->status))
         {
             return '<span class="text-secondary font-weight-bold">
                         <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
@@ -27,16 +28,17 @@ class AppInfoView
             'SUCCESS' => '<span class="text-success font-weight-bold"><i class="fa fa-check-circle-o" aria-hidden="true"></i> SUCCESS</span>',
             'ABORTED' => '<span class="text-secondary font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
             'FAILED' => '<span class="text-danger font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
+            'IN_PROGRESS' => '<span class="text-primary font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
             default => 'NOT_IMPLEMENTED'
         };
     }
 
-    public static function GetStopStageDetail($stopDetails)
+    public static function GetStageDetail($jenkinsData)
     {
-        if (!isset($stopDetails)) { return ''; }
-        if (empty($stopDetails->output)) { return ''; }
+        if (!isset($jenkinsData->stop_details)) { return ''; }
+        if (empty($jenkinsData->stop_details->output)) { return ''; }
 
-        $detail = Str::limit($stopDetails->output, 29);
+        $detail = Str::limit($jenkinsData->stop_details->output, 29);
 
         return "<span class='badge bg-warning text-white'>
                     <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
@@ -45,29 +47,27 @@ class AppInfoView
                 <hr class='my-2'>";
     }
 
-    public static function GetJobEstimatedFinish($estimatedTime)
+    public static function GetJobEstimatedFinish($jenkinsData)
     {
-        return 'Average Finish: <span class="text-primary font-weight-bold">' . $estimatedTime . "</span><hr class='my-2'>";
+        if (!isset($jenkinsData->estimated_time)) { return ''; }
+
+        return 'Average Finish: <span class="text-primary font-weight-bold">' . $jenkinsData->estimated_time . "</span><hr class='my-2'>";
     }
 
-    public static function GetNoBuildButton()
+    public static function GetCommits($jenkinsData)
     {
-        return '<span class="text-secondary"><i class="fa fa-bell" aria-hidden="true"></i> No Build</span>';
-    }
+        $buildCommits = collect($jenkinsData?->change_sets ?? []);
+        if (count($buildCommits) == 0) { return 'No Commit'; }
 
-    public static function SetCommitsView($buildCommits, &$buttonData)
-    {
-        if (count($buildCommits) == 0)
-        {
-            $buttonData .= 'No commit';
-            return;
-        }
+        $prettyCommits = collect();
 
         // add pretty commit history to build details view.
-        $buildCommits->each(function ($commitText, $order) use (&$buttonData) {
+        $buildCommits->each(function ($commitText, $order) use (&$prettyCommits) {
             $prefix = ($order + 1) . '. ';
             $prettyText = Str::of(Str::limit(trim($commitText), 27))->newLine();
-            $buttonData .= $prefix . nl2br($prettyText);
+            $prettyCommits->push($prefix . nl2br($prettyText));
         });
+
+        return $prettyCommits->implode(',');
     }
 }

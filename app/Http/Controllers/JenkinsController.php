@@ -9,11 +9,9 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
-use stdClass;
 
 class JenkinsController extends Controller
 {
@@ -97,12 +95,12 @@ class JenkinsController extends Controller
             // add job build detail
             $jobStages = collect($lastBuild->stages);
 
-            $jobStopStage = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? '';
-            $jobStopStageDetail = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
+            $jobStage = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? $jobStages->last()?->name;
+            $jobStageDetail = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
 
             $lastBuild->stop_details =  collect([
-                'stage' => $jobStopStage,
-                'output' => $jobStopStageDetail
+                'stage' => $jobStage,
+                'output' => $jobStageDetail
             ]);
         }
 

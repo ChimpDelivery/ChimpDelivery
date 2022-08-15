@@ -3,21 +3,20 @@
 
     $jenkinsData = $appInfo->jenkins_data;
 
-    $buttonTitle = AppInfoView::GetStopStage($jenkinsData);
+    $buttonTitle = AppInfoView::GetStage($jenkinsData);
     $buttonData = '';
 
     if ($jenkinsData != null)
     {
-        $buttonData = AppInfoView::GetStopStageDetail($jenkinsData?->stop_details);
+        $buttonTitle .= AppInfoView::GetJobPlatform($jenkinsData);
+        $buttonData .= AppInfoView::GetStageDetail($jenkinsData);
 
         if ($jenkinsData?->status == 'IN_PROGRESS')
         {
-            $buttonData .= AppInfoView::GetJobEstimatedTime($appInfo?->estimated_time);
+            $buttonData .= AppInfoView::GetJobEstimatedFinish($jenkinsData);
         }
 
-        AppInfoView::SetCommitsView(collect($jenkinsData?->change_sets ?? []), $buttonData);
-
-        $buttonTitle .= AppInfoView::GetJobPlatform($jenkinsData?->build_platform);
+        $buttonData .= AppInfoView::GetCommits($jenkinsData);
     }
 @endphp
 
