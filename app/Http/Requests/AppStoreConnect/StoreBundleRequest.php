@@ -4,6 +4,8 @@ namespace App\Http\Requests\AppStoreConnect;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Support\Facades\Auth;
+
 class StoreBundleRequest extends FormRequest
 {
     /**
@@ -13,7 +15,7 @@ class StoreBundleRequest extends FormRequest
      */
     public function authorize() : bool
     {
-        return true;
+        return Auth::check();
     }
 
     /**
