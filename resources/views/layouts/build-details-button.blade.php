@@ -6,22 +6,23 @@
     $buttonTitle = $parser->GetStage();
     $buttonData = '';
 
-    if (!$parser->IsDataNull())
-    {
-        $buttonTitle .= $parser->GetJobPlatform();
-        $buttonData .= $parser->GetStageDetail();
+    if ($parser->IsDataNull()) { return; }
 
-        if ($appInfo?->jenkins_data?->status == 'IN_PROGRESS')
-        {
-            $buttonData .= $parser->GetJobEstimatedFinish();
-        }
+    $buttonTitle .= $parser->GetJobPlatform();
 
-        $buttonData .= $parser->GetCommits();
-    }
+    $buttonData .= $parser->GetStageDetail();
+    $buttonData .= $parser->GetJobEstimatedFinish();
+    $buttonData .= $parser->GetCommits();
 @endphp
 
 <div class="container">
-    <a tabindex="0" class="btn btn-sm" role="button" data-trigger="focus" data-toggle="popover" data-html="true" data-placement="bottom"
+    <a tabindex="0"
+        class="btn btn-sm"
+        role="button"
+        data-trigger="focus"
+        data-toggle="popover"
+        data-html="true"
+        data-placement="bottom"
         title="{{ $buttonTitle }}"
         data-content="{{ $buttonData }}">
         {!! $parser->GetJobBuildStatusImage() !!}

@@ -64,6 +64,7 @@ class JenkinsDataParser
 
     public function GetJobEstimatedFinish()
     {
+        if ($this->jenkinsData?->status != 'IN_PROGRESS') { return ''; }
         if (!isset($this->jenkinsData->estimated_time)) { return ''; }
 
         return 'Average Finish: <span class="text-primary font-weight-bold">' . $this->jenkinsData->estimated_time . "</span><hr class='my-2'>";
