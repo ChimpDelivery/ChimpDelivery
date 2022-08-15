@@ -8,9 +8,9 @@ class AppInfoView
 {
     public static function GetJobPlatform(mixed $jenkinsData)
     {
-        if (!isset($jenkinsData->platform)) { return ''; }
+        if (!isset($jenkinsData->build_platform)) { return ''; }
 
-        $iconType = ($jenkinsData->platform == 'GooglePlay') ? 'fa fa-google' : 'fa fa-apple';
+        $iconType = ($jenkinsData->build_platform == 'GooglePlay') ? 'fa fa-google' : 'fa fa-apple';
         return '<i class="pull-right ' . $iconType . ' aria-hidden="true"></i>';
     }
 
