@@ -25,16 +25,12 @@ class DashboardController extends Controller
     public function Index() : View
     {
         $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
-        $data->each(function (AppInfo $app)
-        {
+        $data->each(function (AppInfo $app) {
+
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
 
-            $jenkinsResponse = collect(app(JenkinsController::class)
-                ->GetLastBuildWithDetails($request)
-                ->getData()
-            );
-
+            $jenkinsResponse = app(JenkinsController::class)->GetJobLastBuild($request)->getData();
             $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
@@ -145,25 +141,16 @@ class DashboardController extends Controller
         return to_route('get_app_list');
     }
 
-    private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsData) : void
+    private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void
     {
-        // always populate git url data
         $app->git_url = 'https://github.com/' . config('github.organization_name') . '/' . $app->project_name;
 
-        // copy params from jenkins job
-        $jenkinsData->map(function ($item, $key) use (&$app) {
-            $app->setAttribute($key, $item);
-        });
+        $app->jenkins_status = $jenkinsResponse->jenkins_status;
+        $app->jenkins_data = $jenkinsResponse->jenkins_data;
 
-        // if job exist on jenkins, populate project build data
-        if (!$jenkinsData->get('job_exists')) { return; }
-
-        // if job has no build, there is no build_status property (and other build data)
-        if (!isset($app->build_status)) { return; }
-
-        if ($app->build_status->status == 'IN_PROGRESS')
+        if ($app?->jenkins_data?->status == 'IN_PROGRESS')
         {
-            $app->estimated_time = $this->GetBuildFinish($jenkinsData->get('timestamp'), $jenkinsData->get('estimated_duration'));
+            $app->jenkins_data->estimated_time = $this->GetBuildFinish($jenkinsData->get('startTimeMillis'), $jenkinsData->get('estimated_duration'));
         }
     }
 

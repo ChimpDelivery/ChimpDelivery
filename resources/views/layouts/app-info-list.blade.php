@@ -7,10 +7,10 @@
         @include('layouts.app-info')
     </td>
     <td class="text-center align-middle">
-        @if($appInfo->jenkins_status == false)
+        @if($appInfo->jenkins_status == 3200)
             @include('layouts.jenkins-down')
         @else
-            @if($appInfo->job_exists)
+            @if($appInfo->jenkins_status == 200)
                 @include('layouts.build-details-button')
             @else
                 @include('layouts.jenkins-file-notfound')

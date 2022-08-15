@@ -100,7 +100,9 @@ class GithubController extends Controller
             $response = GitHub::api('repo')->replaceTopics(
                 config('github.organization_name'),
                 $request->validated('project_name'),
-                [ config('github.prototype_topic') ]
+                [
+                    config('github.prototype_topic'),
+                ]
             );
         }
         catch (\Exception $exception)

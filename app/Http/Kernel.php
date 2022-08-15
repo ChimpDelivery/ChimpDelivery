@@ -65,6 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'doNotCacheResponse' => \Spatie\ResponseCache\Middlewares\DoNotCacheResponse::class,
-        'appstore' => \App\Http\Middleware\AppStoreConnectMiddleware::class
+        'appstore' => \App\Http\Middleware\AppStoreConnectMiddleware::class,
     ];
 }
