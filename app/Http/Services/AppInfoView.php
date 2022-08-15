@@ -29,6 +29,7 @@ class AppInfoView
             'ABORTED' => '<span class="text-secondary font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
             'FAILED' => '<span class="text-danger font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
             'IN_PROGRESS' => '<span class="text-primary font-weight-bold">STAGE: ' . Str::limit($jenkinsData->stop_details->stage, 14) . '</span>',
+            'NOT_EXECUTED' => '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
             default => 'NOT_IMPLEMENTED'
         };
     }

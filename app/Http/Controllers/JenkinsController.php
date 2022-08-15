@@ -149,6 +149,8 @@ class JenkinsController extends Controller
 
     private function TryJenkinsRequest(string $url) : JsonResponse
     {
+        $jenkinsResponse = '';
+
         try
         {
             $jenkinsResponse = $this->GetJenkinsApi($this->baseUrl . $url);
