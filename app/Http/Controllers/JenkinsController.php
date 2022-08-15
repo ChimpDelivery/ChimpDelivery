@@ -157,7 +157,11 @@ class JenkinsController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json($jenkinsResponse);
+            return response()->json([
+                'jenkins_status' => $exception->getCode(),
+                'jenkins_data' => null,
+                'exception_message' => $exception->getMessage()
+            ]);
         }
 
         return response()->json($jenkinsResponse);
