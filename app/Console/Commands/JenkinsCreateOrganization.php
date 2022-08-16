@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class JenkinsCreateOrganization extends Command
 {
-    protected $signature = 'jenkins:create-organization {wsName} {gitUserName} {gitAccessToken} {githubTopic} {repoOwner}';
+    protected $signature = 'jenkins:create-organization {gitUserName} {gitAccessToken} {wsName} {githubTopic} {repoOwner}';
     protected $description = 'Trigger Jenkins Seed job to create new workspace in Jenkins.';
 
     public function __construct()
@@ -21,9 +21,10 @@ class JenkinsCreateOrganization extends Command
         $url = config('jenkins.host').
             "/job".
             "/Seed".
-            "/buildWithParameters".
-            "?WORKSPACE_NAME={$this->argument('wsName')}".
-            "&GIT_CREDENTIALS={$this->argument('gitUserName')}/{$this->argument('gitAccessToken')}".
+            "/buildWithParameters?".
+            "&GIT_USERNAME={$this->argument('gitUserName')}".
+            "&GIT_ACCESS_TOKEN={$this->argument('gitAccessToken')}".
+            "&WORKSPACE_NAME={$this->argument('wsName')}".
             "&GITHUB_TOPIC={$this->argument('githubTopic')}".
             "&REPO_OWNER={$this->argument('repoOwner')}";
 
