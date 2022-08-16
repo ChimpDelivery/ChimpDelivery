@@ -12,6 +12,8 @@ use App\Models\File;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Auth;
+
 class AppInfoController extends Controller
 {
     public function GetApp(GetAppInfoRequest $request) : JsonResponse
@@ -63,6 +65,8 @@ class AppInfoController extends Controller
 
     private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)
     {
+        $request = $request->merge([ 'workspace_id' => Auth::user()->workspace->id ]);
+
         if ($appModel->trashed()) {
             $appModel->restore();
         }

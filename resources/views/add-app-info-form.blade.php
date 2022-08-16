@@ -72,9 +72,6 @@
                     <label for="ga_secret">GA Secret</label>
                     <input type="text" id="ga_secret" name="ga_secret" class="form-control" placeholder="game analytics secret...">
                 </div>
-
-                <input type="text" id="workspace_id" name="workspace_id" class="form-control" value="{{ Auth::user()->workspace->id }}" hidden>
-
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
             </form>
