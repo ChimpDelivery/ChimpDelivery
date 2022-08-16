@@ -69,12 +69,11 @@
             <i class="fa fa-apple" aria-hidden="true"></i>
             <a href="https://appstoreconnect.apple.com/access/api">Create Appstore Connect API Keys</a>
             |
-            <i class="fa fa-apple" aria-hidden="tru"></i>
-            <a href="https://appleid.apple.com/account/manage">Create App Specific Password
+            <i class="fa fa-apple" aria-hidden="true"></i>
+            <a href="https://appleid.apple.com/account/manage">Create App Specific Password</a>
             |
             <i class="fa fa-github" aria-hidden="true"></i>
             <a href="https://github.com/settings/tokens">Create Github API Keys</a>
-
         </div>
     </div>
 </div>
