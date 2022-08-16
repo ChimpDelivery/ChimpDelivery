@@ -41,10 +41,6 @@ class WorkspaceInviteCode extends Model
 
     ];
 
-    protected $with = [
-        'workspace'
-    ];
-
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
