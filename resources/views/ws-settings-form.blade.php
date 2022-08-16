@@ -17,37 +17,37 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="bundle_id">Appstore - Private Key</label>
+                    <label for="appstore_private_key">Appstore - Private Key</label>
                     <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" placeholder="{{ Auth::user()->workspace->appstore_private_key }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Appstore - Issuer ID</label>
+                    <label for="appstore_issuer_id">Appstore - Issuer ID</label>
                     <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_issuer_id }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Appstore - KID</label>
+                    <label for="appstore_kid">Appstore - KID</label>
                     <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_kid }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Github - Organization Name</label>
+                    <label for="github_org_name">Github - Organization Name</label>
                     <input type="text" id="github_org_name" name="github_org_name" class="form-control" placeholder="{{ Auth::user()->workspace->github_org_name }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Github - Access Token</label>
+                    <label for="github_access_token">Github - Access Token</label>
                     <input type="text" id="github_access_token" name="github_access_token" class="form-control" placeholder="{{ Auth::user()->workspace->github_access_token }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Github - Template Project Name</label>
+                    <label for="github_template">Github - Template Project</label>
                     <input type="text" id="github_template" name="github_template" class="form-control" placeholder="{{ Auth::user()->workspace->github_template }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="bundle_name">Github - Project Topic</label>
+                    <label for="github_topic">Github - Project Topic</label>
                     <input type="text" id="github_topic" name="github_topic" class="form-control" placeholder="{{ Auth::user()->workspace->github_topic }} " required="">
                 </div>
 

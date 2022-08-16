@@ -9,6 +9,7 @@ use App\Observers\UserObserver;
 use App\Observers\AppInfoObserver;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -7,6 +7,8 @@ use App\Http\Requests\Github\GetRepositoryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Auth;
+
 use GrahamCampbell\GitHub\Facades\GitHub;
 
 class GithubController extends Controller
@@ -18,7 +20,9 @@ class GithubController extends Controller
 
         try
         {
-            $organizationProjects = collect(GitHub::api('repo')->org(config('github.organization_name'), [
+            $gitWorkspace = Auth::user()->workspace;
+
+            $organizationProjects = collect(GitHub::api('repo')->org($gitWorkspace->github_org_name, [
                 'per_page' => config('github.item_limit'),
                 'sort' => 'updated',
                 'type' => 'private'
@@ -26,8 +30,8 @@ class GithubController extends Controller
 
             // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
             // maybe extra organization is useful when filtering projects.
-            $filteredOrganizationProjects = $organizationProjects->filter(function ($value) {
-                return in_array(config('github.prototype_topic'), $value['topics']);
+            $filteredOrganizationProjects = $organizationProjects->filter(function ($value) use ($gitWorkspace) {
+                return in_array($gitWorkspace->github_topic, $value['topics']);
             });
 
             $response = $filteredOrganizationProjects->values()->map(function ($item) {
@@ -52,7 +56,9 @@ class GithubController extends Controller
 
         try
         {
-            $response = GitHub::api('repo')->show(config('github.organization_name'), $request->validated('project_name'));
+            $gitWorkspace = Auth::user()->workspace;
+
+            $response = GitHub::api('repo')->show($gitWorkspace->github_org_name, $request->validated('project_name'));
         }
         catch (\Exception $exception)
         {
@@ -69,13 +75,15 @@ class GithubController extends Controller
 
         try
         {
+            $gitWorkspace = Auth::user()->workspace;
+
             $response = GitHub::api('repo')->createFromTemplate(
-                config('github.organization_name'),
-                config('github.template_project'),
+                $gitWorkspace->github_org_name,
+                $gitWorkspace->github_template,
                 [
                     'name' => $request->validated('project_name'),
                     'description' => '',
-                    'owner' => config('github.organization_name'),
+                    'owner' => $gitWorkspace->github_org_name,
                     'include_all_branches' => false,
                     'private' => true
                 ]
@@ -97,11 +105,13 @@ class GithubController extends Controller
 
         try
         {
+            $gitWorkspace = Auth::user()->workspace;
+
             $response = GitHub::api('repo')->replaceTopics(
-                config('github.organization_name'),
+                $gitWorkspace->github_org_name,
                 $request->validated('project_name'),
                 [
-                    config('github.prototype_topic'),
+                    $gitWorkspace->github_topic,
                 ]
             );
         }
