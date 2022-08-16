@@ -17,7 +17,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="appstore_private_key">App Store Connect- Private Key</label>
+                    <label for="appstore_private_key">App Store Connect - Private Key</label>
                     <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" placeholder="{{ Auth::user()->workspace->appstore_private_key }} " required="">
                 </div>
 
@@ -29,6 +29,16 @@
                 <div class="form-group">
                     <label for="appstore_kid">App Store Connect - Key ID</label>
                     <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_kid }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="apple_usermail">Apple - User Mail</label>
+                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" placeholder="{{ Auth::user()->workspace->apple_usermail }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="apple_app_pass">Apple - App Specific Password</label>
+                    <input type="text" id="apple_app_pass" name="apple_app_pass" class="form-control" placeholder="{{ Auth::user()->workspace->apple_app_pass }} " required="">
                 </div>
 
                 <div class="form-group">
@@ -59,8 +69,12 @@
             <i class="fa fa-apple" aria-hidden="true"></i>
             <a href="https://appstoreconnect.apple.com/access/api">Create Appstore Connect API Keys</a>
             |
+            <i class="fa fa-apple" aria-hidden="tru"></i>
+            <a href="https://appleid.apple.com/account/manage">Create App Specific Password
+            |
             <i class="fa fa-github" aria-hidden="true"></i>
             <a href="https://github.com/settings/tokens">Create Github API Keys</a>
+
         </div>
     </div>
 </div>

@@ -26,38 +26,46 @@ class StoreWsSettingsRequest extends FormRequest
         return [
             'id' => [
                 'required',
-                'integer'
+                'integer',
             ],
 
             'appstore_private_key' => [
-                'string'
+                'string',
             ],
 
             'appstore_issuer_id' => [
-                'string'
+                'string',
             ],
 
             'appstore_kid' => [
-                'string'
+                'string',
+            ],
+
+            'apple_usermail' => [
+                'string',
+            ],
+
+            'apple_app_pass' => [
+                'string',
             ],
 
             'github_org_name' => [
                 'required',
-                'string'
+                'string',
             ],
 
             'github_access_token' => [
                 'required',
-                'string'
+                'string',
             ],
 
             'github_template' => [
                 'required',
-                'string'
+                'string',
             ],
 
             'github_topic' => [
-                'string'
+                'string',
             ],
         ];
     }

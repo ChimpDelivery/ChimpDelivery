@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('appstore_private_key', 1024)->nullable();
             $table->string('appstore_issuer_id')->nullable();
             $table->string('appstore_kid')->nullable();
+            $table->string('apple_usermail')->nullable();
+            $table->string('apple_app_pass')->nullable();
             $table->string('github_org_name')->nullable()->unique();
             $table->string('github_access_token')->nullable();
             $table->string('github_template')->nullable();
