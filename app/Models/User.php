@@ -18,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'workspace_id',
         'name',
         'email',
         'password',
@@ -42,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class, 'workspace');
+    }
 }

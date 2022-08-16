@@ -42,6 +42,11 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function WsSettings() : View
+    {
+        return view('ws-settings-form');
+    }
+
     public function CreateAppForm() : View
     {
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
