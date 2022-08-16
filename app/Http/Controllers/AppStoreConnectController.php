@@ -8,6 +8,7 @@ use Firebase\JWT\JWT;
 
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class AppStoreConnectController extends Controller
@@ -17,13 +18,18 @@ class AppStoreConnectController extends Controller
     public function GetToken() : JsonResponse
     {
         $payload = [
-            'iss' => config('appstore.issuer_id'),
+            'iss' => Auth::user()->workspace->appstore_issuer_id,
             'exp' => time() + config('appstore.cache_duration') * 60,
             'aud' => 'appstoreconnect-v1'
         ];
 
         return response()->json([
-            'appstore_token' => JWT::encode($payload, config('appstore.private_key'), 'ES256', config('appstore.kid'))
+            'appstore_token' => JWT::encode(
+                $payload,
+                Auth::user()->workspace->appstore_private_key,
+                'ES256',
+                Auth::user()->workspace->appstore_kid,
+            )
         ]);
     }
 
