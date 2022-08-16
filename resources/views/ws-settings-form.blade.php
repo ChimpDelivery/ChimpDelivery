@@ -17,17 +17,17 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="appstore_private_key">Appstore - Private Key</label>
+                    <label for="appstore_private_key">App Store Connect- Private Key</label>
                     <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" placeholder="{{ Auth::user()->workspace->appstore_private_key }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="appstore_issuer_id">Appstore - Issuer ID</label>
+                    <label for="appstore_issuer_id">App Store Connect - Issuer ID</label>
                     <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_issuer_id }} " required="">
                 </div>
 
                 <div class="form-group">
-                    <label for="appstore_kid">Appstore - KID</label>
+                    <label for="appstore_kid">App Store Connect - Key ID</label>
                     <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_kid }} " required="">
                 </div>
 
@@ -56,8 +56,11 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            Workspace Settings - Footer
+            <i class="fa fa-apple" aria-hidden="true"></i>
+            <a href="https://appstoreconnect.apple.com/access/api">Create Appstore Connect API Keys</a>
+            |
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <a href="#">Create Github API Keys</a>
         </div>
     </div>
 </div>
