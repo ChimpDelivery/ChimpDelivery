@@ -22,7 +22,9 @@ class Workspace extends Model
         'appstore_issuer_id',
         'appstore_kid',
         'github_org_name',
-        'github_access_token'
+        'github_access_token',
+        'github_template',
+        'github_topic'
     ];
 
     /**

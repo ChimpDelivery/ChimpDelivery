@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('workspaces', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('appstore_private_key')->nullable();
+            $table->string('appstore_private_key', 1024)->nullable();
             $table->string('appstore_issuer_id')->nullable();
             $table->string('appstore_kid')->nullable();
             $table->string('github_org_name')->nullable()->unique();

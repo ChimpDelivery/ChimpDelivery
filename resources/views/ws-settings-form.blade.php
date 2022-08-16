@@ -8,35 +8,56 @@
         <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-apple fa-stack-1x" aria-hidden="true"></i>
+                <i class="fa fa-cog fa-stack-1x" aria-hidden="true"></i>
             </span>
-            @php (dd (Auth::user()) )
-            {{ Auth::user() }} Workspace Settings
+            {{ Auth::user()->workspace->name }} - Workspace Settings
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{ url('dashboard/store-bundle') }}">
+            <form name="ws-settings-form" id="ws-settings-form" method="post" action="{{ url('dashboard/ws-settings') }}">
                 @csrf
-                <div class="form-group">
-                    <label for="bundle_id">Bundle ID</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold bg-primary text-white font-italic" id="basic-addon3">{{ config('appstore.bundle_prefix') }}.</span>
-                        </div>
-                        <input type="text" class="form-control" name="bundle_id" aria-describedby="basic-addon3" placeholder="id..." required="">
-                    </div>
 
-                </div>
                 <div class="form-group">
-                    <label for="bundle_name">Bundle ID Name</label>
-                    <input type="text" id="bundle_name" name="bundle_name" class="form-control" placeholder="bundle id name..." required="">
+                    <label for="bundle_id">Appstore - Private Key</label>
+                    <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" placeholder="{{ Auth::user()->workspace->appstore_private_key }} " required="">
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create</button>
+
+                <div class="form-group">
+                    <label for="bundle_name">Appstore - Issuer ID</label>
+                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_issuer_id }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="bundle_name">Appstore - KID</label>
+                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" placeholder="{{ Auth::user()->workspace->appstore_kid }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="bundle_name">Github - Organization Name</label>
+                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" placeholder="{{ Auth::user()->workspace->github_org_name }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="bundle_name">Github - Access Token</label>
+                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" placeholder="{{ Auth::user()->workspace->github_access_token }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="bundle_name">Github - Template Project Name</label>
+                    <input type="text" id="github_template" name="github_template" class="form-control" placeholder="{{ Auth::user()->workspace->github_template }} " required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="bundle_name">Github - Project Topic</label>
+                    <input type="text" id="github_topic" name="github_topic" class="form-control" placeholder="{{ Auth::user()->workspace->github_topic }} " required="">
+                </div>
+
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Update</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
         <div class="card-footer text-muted">
             <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
+            Workspace Settings - Footer
         </div>
     </div>
 </div>

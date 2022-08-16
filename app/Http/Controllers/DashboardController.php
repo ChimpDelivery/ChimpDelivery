@@ -13,6 +13,8 @@ use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
+use App\Http\Requests\Workspace\StoreWsSettingsRequest;
+
 use Illuminate\Contracts\View\View;
 
 use Illuminate\Http\Response;
@@ -42,9 +44,14 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function WsSettings() : View
+    public function GetWsSettings() : View
     {
         return view('ws-settings-form');
+    }
+
+    public function StoreWsSettings(StoreWsSettingsRequest $request) : RedirectResponse
+    {
+        return back();
     }
 
     public function CreateAppForm() : View

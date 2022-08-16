@@ -44,8 +44,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'workspace'
+    ];
+
     public function workspace()
     {
-        return $this->belongsTo(Workspace::class, 'workspace');
+        return $this->belongsTo(Workspace::class);
     }
 }
