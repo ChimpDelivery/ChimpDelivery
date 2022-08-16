@@ -21,6 +21,8 @@ class Workspace extends Model
         'appstore_private_key',
         'appstore_issuer_id',
         'appstore_kid',
+        'apple_usermail',
+        'apple_app_pass',
         'github_org_name',
         'github_access_token',
         'github_template',
