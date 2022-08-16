@@ -27,12 +27,13 @@ class DashboardController extends Controller
 {
     public function Index() : View
     {
-        $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id)
-            ->orderBy('id', 'desc')
+        $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id);
+
+        $paginatedApps = $wsApps->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
 
-        $wsApps->each(function (AppInfo $app) {
+        $paginatedApps->each(function (AppInfo $app) {
 
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
@@ -41,10 +42,11 @@ class DashboardController extends Controller
             $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
-        $currentBuildCount = $wsApps->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
+        $currentBuildCount = $paginatedApps->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
 
         return view('list-app-info')->with([
-            'appInfos' => $wsApps,
+            'totalAppCount' => $wsApps->count(),
+            'appInfos' => $paginatedApps,
             'currentBuildCount' => $currentBuildCount->count()
         ]);
     }

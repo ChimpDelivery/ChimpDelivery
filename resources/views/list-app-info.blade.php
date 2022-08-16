@@ -39,7 +39,7 @@
             </div>
             <div class="card-footer text-muted">
                 <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                <span>Total app count: {{ $appInfos->total() }}</span>
+                <span>Total app count: {{ $totalAppCount }}</span>
                 <span class="float-right">Current builds: {{ $currentBuildCount }} </span>
             </div>
         </div>
