@@ -19,7 +19,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

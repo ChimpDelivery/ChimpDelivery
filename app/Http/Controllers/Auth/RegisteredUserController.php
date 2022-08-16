@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\WorkspaceInviteCode;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
@@ -39,11 +41,18 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'g-recaptcha-response' => ['required', 'captcha'],
-            'invite_code' => ['required', 'string', 'in:'.config('auth.invite_code')]
+            'invite_code' => [
+                'required',
+                'string',
+                Rule::exists('workspace_invite_codes', 'code')->whereNull('deleted_at')
+            ]
         ]);
 
+        // find invite code
+        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->firstOrFail();
+
         $user = User::create([
-            'workspace_id' => 1,
+            'workspace_id' => $inviteCode->workspace_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -53,6 +62,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        // expires invite code
+        $inviteCode->delete();
 
         return redirect(RouteServiceProvider::HOME);
     }
