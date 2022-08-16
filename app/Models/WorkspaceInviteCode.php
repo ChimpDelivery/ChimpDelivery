@@ -6,25 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Workspace extends Model
+class WorkspaceInviteCode extends Model
 {
     use SoftDeletes;
     use HasFactory;
 
-    /**
+        /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'appstore_private_key',
-        'appstore_issuer_id',
-        'appstore_kid',
-        'github_org_name',
-        'github_access_token',
-        'github_template',
-        'github_topic'
+        'workspace_id',
+        'code',
     ];
 
     /**
@@ -47,18 +41,12 @@ class Workspace extends Model
 
     ];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+    protected $with = [
+        'workspace'
+    ];
 
-    public function apps()
+    public function workspace()
     {
-        return $this->hasMany(AppInfo::class);
-    }
-
-    public function inviteCodes()
-    {
-        return $this->hasMany(WorkspaceInviteCode::class);
+        return $this->belongsTo(Workspace::class);
     }
 }

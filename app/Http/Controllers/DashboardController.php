@@ -20,14 +20,19 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
     public function Index() : View
     {
-        $data = AppInfo::orderBy('id', 'desc')->paginate(5)->onEachSide(1);
-        $data->each(function (AppInfo $app) {
+        $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id)
+            ->orderBy('id', 'desc')
+            ->paginate(5)
+            ->onEachSide(1);
+
+        $wsApps->each(function (AppInfo $app) {
 
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
@@ -36,10 +41,10 @@ class DashboardController extends Controller
             $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
-        $currentBuildCount = $data->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
+        $currentBuildCount = $wsApps->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
 
         return view('list-app-info')->with([
-            'appInfos' => $data,
+            'appInfos' => $wsApps,
             'currentBuildCount' => $currentBuildCount->count()
         ]);
     }

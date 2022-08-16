@@ -10,9 +10,15 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
+use Illuminate\Support\Facades\Config;
 
 class GithubController extends Controller
 {
+    public function __construct()
+    {
+        Config::set('github.connections.main.token', Auth::user()->workspace->github_access_token);
+    }
+
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function GetRepositories() : JsonResponse
     {

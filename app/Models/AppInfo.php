@@ -14,6 +14,7 @@ class AppInfo extends Model
     use ClearsResponseCache;
 
     protected $fillable = [
+        'workspace_id',
         'app_icon',
         'app_icon_hash',
         'app_name',
@@ -43,4 +44,9 @@ class AppInfo extends Model
      */
     protected $casts = [
     ];
+
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class);
+    }
 }

@@ -28,6 +28,10 @@ class StoreAppInfoRequest extends GetRepositoryRequest
     public function rules() : array
     {
         return [
+            'workspace_id' => [
+                Rule::exists('workspaces', 'id')->whereNull('deleted_at'),
+            ],
+
             'app_icon' => 'image|mimes:png|max:5120',
 
             'app_name' => [

@@ -13,20 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('app_infos', function (Blueprint $table) {
+        Schema::create('workspace_invite_codes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('workspace_id')
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('app_icon')->nullable();
-            $table->string('app_name');
-            $table->string('project_name');
-            $table->string('app_bundle')->unique();
-            $table->string('appstore_id')->unique();
-            $table->string('fb_app_id')->nullable();
-            $table->string('ga_id')->nullable();
-            $table->string('ga_secret')->nullable();
+            $table->string('code');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -39,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('app_infos');
+        Schema::dropIfExists('workspace_invite_codes');
     }
 };
