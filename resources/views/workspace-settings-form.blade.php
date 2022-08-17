@@ -1,10 +1,3 @@
-@php
-    function mask(string $str, $full = false)
-    {
-        return ($full) ? Str::mask($str, '*', 0) : Str::mask($str, '*', 2, Str::length($str) - 4);
-    }
-@endphp
-
 @extends('layouts.master')
 
 @section('title', 'Workspace Settings')
@@ -28,15 +21,15 @@
                 </div>
                 <div class="form-group">
                     <label for="appstore_private_key">Private Key</label>
-                    <input type="password" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" value="{{ Auth::user()->workspace->appstore_private_key }}" required="">
+                    <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" value="{{ Auth::user()->workspace->appstore_private_key }}" required="">
                 </div>
                 <div class="form-group">
                     <label for="appstore_issuer_id">Issuer ID</label>
-                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" value="{{ mask(Auth::user()->workspace->appstore_issuer_id) }}" required="">
+                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" value="{{ Auth::user()->workspace->appstore_issuer_id }}" required="">
                 </div>
                 <div class="form-group">
                     <label for="appstore_kid">Key ID</label>
-                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" value="{{ mask(Auth::user()->workspace->appstore_kid) }}" required="">
+                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" value="{{ Auth::user()->workspace->appstore_kid }}" required="">
                 </div>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
@@ -44,11 +37,11 @@
                 </div>
                 <div class="form-group">
                     <label for="apple_usermail">User Mail</label>
-                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" value="{{ mask(Auth::user()->workspace->apple_usermail) }}" required="">
+                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" value="{{ Auth::user()->workspace->apple_usermail }}" required="">
                 </div>
                 <div class="form-group">
                     <label for="apple_app_pass">App Specific Password</label>
-                    <input type="password" id="apple_app_pass" name="apple_app_pass" class="form-control" value="{{ Auth::user()->workspace->apple_app_pass }}" required="">
+                    <input type="text" id="apple_app_pass" name="apple_app_pass" class="form-control" value="{{ Auth::user()->workspace->apple_app_pass }}" required="">
                 </div>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-github" aria-hidden="true"></i>
@@ -60,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label for="github_access_token">Personal Access Token</label>
-                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="{{ mask(Auth::user()->workspace->github_access_token) }}" required="">
+                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="{{ Auth::user()->workspace->github_access_token }}" required="">
                 </div>
                 <div class="form-group">
                     <label for="github_template">Template Project</label>

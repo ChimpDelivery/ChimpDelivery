@@ -56,7 +56,7 @@ class WorkspacePolicy
     {
         if ($user->can('update workspace'))
         {
-            return $user->workspace()->id == $workspace->id;
+            return $user->workspace->id == $workspace->id;
         }
     }
 
