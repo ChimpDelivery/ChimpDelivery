@@ -15,7 +15,11 @@ class WorkspaceController extends Controller
 {
     public function UpdateWorkspace(StoreWsSettingsRequest $request) : JsonResponse
     {
-        $response = Workspace::find(Auth::user()->workspace->id)->update($request->all());
+        $workspace = Workspace::find(Auth::user()->workspace->id);
+
+        $this->authorize('update', $workspace);
+
+        $response = $workspace->update($request->all());
 
         return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);
     }
