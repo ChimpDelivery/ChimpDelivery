@@ -21,16 +21,27 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+        // workspace permissions
         Permission::create([ 'name' => 'update workspace' ]);
+
+        // app permissions
         Permission::create([ 'name' => 'create app' ]);
         Permission::create([ 'name' => 'view app' ]);
         Permission::create([ 'name' => 'update app' ]);
         Permission::create([ 'name' => 'delete app' ]);
 
+        // bundle permissions
+        Permission::create([ 'name' => 'create bundle' ]);
+
+        // jenkins permissions
+        Permission::create([ 'name' => 'build job' ]);
+        Permission::create([ 'name' => 'abort job' ]);
+
         // create roles and assign existing permissions
         $role1 = Role::create( ['name' => 'user' ]);
         $role1->givePermissionTo('create app');
         $role1->givePermissionTo('view app');
+        $role1->givePermissionTo('update app');
 
         $role2 = Role::create( ['name' => 'admin' ]);
         $role2->givePermissionTo('update workspace');
@@ -38,6 +49,9 @@ class PermissionSeeder extends Seeder
         $role2->givePermissionTo('view app');
         $role2->givePermissionTo('update app');
         $role2->givePermissionTo('delete app');
+        $role2->givePermissionTo('create bundle');
+        $role2->givePermissionTo('build job');
+        $role2->givePermissionTo('abort job');
 
         $role3 = Role::create( ['name' => 'Super-Admin' ]);
         // gets all permissions via Gate::before rule; see AuthServiceProvider

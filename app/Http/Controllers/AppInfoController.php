@@ -31,6 +31,8 @@ class AppInfoController extends Controller
 
     public function CreateApp(StoreAppInfoRequest $request) : JsonResponse
     {
+        $this->authorize('create', AppInfo::class);
+
         // prepare model
         $appModel = AppInfo::withTrashed()
             ->where('app_bundle', '=', $request->validated('app_bundle'))
@@ -50,6 +52,9 @@ class AppInfoController extends Controller
     public function UpdateApp(UpdateAppInfoRequest $request) : JsonResponse
     {
         $selectedApp = AppInfo::find($request->validated('id'));
+
+        $this->authorize('update', $selectedApp);
+
         $selectedApp->update($request->all());
 
         return response()->json($selectedApp, Response::HTTP_OK);
@@ -58,6 +63,9 @@ class AppInfoController extends Controller
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
     {
         $appInfo = AppInfo::find($request->validated('id'));
+
+        $this->authorize('delete', $appInfo);
+
         $appInfo->delete();
 
         return response()->json(['message' => "Project: <b>{$appInfo->project_name}</b> deleted."], Response::HTTP_OK);

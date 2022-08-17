@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\AppInfoPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Workspace::class => WorkspacePolicy::class,
+        AppInfo::class => AppInfoPolicy::class,
     ];
 
     /**
@@ -29,11 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Implicitly grant "Super-Admin" role all permission checks using can()
-        Gate::before(function ($user, $ability)
-        {
-            if ($user->hasRole('Super-Admin')) {
-                return true;
-            }
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super-Admin');
         });
     }
 }
