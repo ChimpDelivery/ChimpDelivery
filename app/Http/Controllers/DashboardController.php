@@ -58,6 +58,8 @@ class DashboardController extends Controller
 
     public function StoreWsSettings(StoreWsSettingsRequest $request) : RedirectResponse
     {
+        app(WorkspaceController::class)->UpdateWorkspace($request);
+
         return back();
     }
 

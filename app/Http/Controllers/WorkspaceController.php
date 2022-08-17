@@ -15,6 +15,6 @@ class WorkspaceController extends Controller
     {
         $response = Workspace::find($request->validated('id'))->update($request->all());
 
-        return response()->json(['status' => $response], Response::HTTP_ACCEPTED);
+        return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);
     }
 }
