@@ -53,14 +53,14 @@ class DashboardController extends Controller
 
     public function GetWsSettings() : View
     {
-        return view('ws-settings-form');
+        return view('workspace-settings-form');
     }
 
     public function StoreWsSettings(StoreWsSettingsRequest $request) : RedirectResponse
     {
         app(WorkspaceController::class)->UpdateWorkspace($request);
 
-        return back();
+        return to_route('workspace_settings');
     }
 
     public function CreateAppForm() : View

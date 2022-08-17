@@ -13,7 +13,7 @@
             {{ Auth::user()->workspace->name }} - Workspace Settings
         </div>
         <div class="card-body">
-            <form name="ws-settings-form" id="ws-settings-form" method="post" action="{{ url('dashboard/ws-settings') }}">
+            <form name="workspace-settings-form" id="workspace-settings-form" method="post" action="{{ url('dashboard/workspace-settings') }}">
                 @csrf
 
                 <div class="form-group">
