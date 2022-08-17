@@ -24,7 +24,7 @@
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                 </li>
                 <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard/ws-settings">Workspace Settings</a>
+                    <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

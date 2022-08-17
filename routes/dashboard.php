@@ -9,8 +9,8 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     // main route.
     Route::get('/dashboard', 'Index')->name('get_app_list');
 
-    Route::get('/dashboard/ws-settings', 'GetWsSettings')->name('get_ws_settings');
-    Route::post('/dashboard/ws-settings', 'StoreWsSettings');
+    Route::get('/dashboard/workspace-settings', 'GetWsSettings')->name('get_ws_settings');
+    Route::post('/dashboard/workspace-settings', 'StoreWsSettings');
 
     // get and post routes to create app info data.
     Route::get('/dashboard/add-app-info', 'CreateAppForm')->name('add_app_info');
