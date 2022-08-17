@@ -54,11 +54,10 @@ class DashboardController extends Controller
     public function GetWsSettings() : View
     {
         $workspace = Auth::user()->workspace;
-
-        $this->authorize('view', $workspace);
+        app(WorkspaceController::class)->GetWorkspace($workspace->id);
 
         return view('workspace-settings-form')->with([
-            'workspace_id' => $workspace->id,
+            'workspace' => $workspace,
         ]);
     }
 
