@@ -5,16 +5,12 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WorkspaceInviteCode>
- */
+use App\Models\WorkspaceInviteCode;
+
 class WorkspaceInviteCodeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = WorkspaceInviteCode::class;
+
     public function definition()
     {
         return [

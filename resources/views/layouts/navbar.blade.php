@@ -23,12 +23,11 @@
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                 </li>
-                @if (Auth::user()->can('view workspace'))
-                    <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
-                        <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
-                    </li>
-                @endif
-
+                @hasanyrole('Workspace Admin|Super Admin')
+                <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
+                    <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
+                </li>
+                @endhasanyrole
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">

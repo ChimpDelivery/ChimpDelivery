@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkspaceSeeder::class);
         $this->call(WorkspaceInviteCodeSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(UserSeeder::class);
         $this->call(PackageSeeder::class);
     }
 }

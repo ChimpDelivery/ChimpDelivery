@@ -30,7 +30,7 @@ class AppInfoPolicy
      */
     public function view(User $user, AppInfo $appInfo)
     {
-        if ($user->can('view app'))
+        if ($user->hasPermissionTo('view app'))
         {
             return $user->workspace->id == $appInfo->workspace_id;
         }
@@ -44,7 +44,7 @@ class AppInfoPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_app');
+        return $user->hasPermissionTo('create_app');
     }
 
     /**
@@ -56,7 +56,7 @@ class AppInfoPolicy
      */
     public function update(User $user, AppInfo $appInfo)
     {
-        if ($user->can('update app'))
+        if ($user->hasPermissionTo('update app'))
         {
             return $user->workspace->id == $appInfo->workspace_id;
         }
@@ -71,7 +71,7 @@ class AppInfoPolicy
      */
     public function delete(User $user, AppInfo $appInfo)
     {
-        if ($user->can('delete app'))
+        if ($user->hasPermissionTo('delete app'))
         {
             return $user->workspace_id == $appInfo->workspace_id;
         }

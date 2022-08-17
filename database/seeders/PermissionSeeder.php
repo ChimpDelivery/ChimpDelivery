@@ -21,69 +21,65 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        // workspace permissions
-        Permission::create([ 'name' => 'view workspace' ]);
-        Permission::create([ 'name' => 'update workspace' ]);
+        $permissions = [
+            'view workspace',
+            'update workspace',
+            'create app',
+            'view app',
+            'update app',
+            'delete app',
+            'create bundle',
+            'scan jobs',
+            'build job',
+            'abort job',
+        ];
 
-        // app permissions
-        Permission::create([ 'name' => 'create app' ]);
-        Permission::create([ 'name' => 'view app' ]);
-        Permission::create([ 'name' => 'update app' ]);
-        Permission::create([ 'name' => 'delete app' ]);
+        // create all permissions
+        foreach ($permissions as $permission)
+        {
+            Permission::create([
+                'name' => $permission
+            ]);
+        }
 
-        // bundle permissions
-        Permission::create([ 'name' => 'create bundle' ]);
+        ////////////////
+        $user = Role::create([ 'name' => 'User' ]);
 
-        // jenkins permissions
-        Permission::create([ 'name' => 'scan jobs']);
-        Permission::create([ 'name' => 'build job' ]);
-        Permission::create([ 'name' => 'abort job' ]);
+        $userPermissions = [
+            'view app',
+            'create app',
+            'update app',
+            'scan jobs',
+            'build job',
+            'abort job',
+        ];
 
-        // create roles and assign existing permissions
-        $role1 = Role::create( ['name' => 'user' ]);
-        $role1->givePermissionTo('create app');
-        $role1->givePermissionTo('view app');
-        $role1->givePermissionTo('update app');
-        $role1->givePermissionTo('scan jobs');
+        foreach ($userPermissions as $permission)   {
+            $user->givePermissionTo($permission);
+        }
+        //////////////
+        
+        //////////////
+        $workspaceAdmin = Role::create([ 'name' => 'Workspace Admin' ]);
 
-        $role2 = Role::create( ['name' => 'admin' ]);
-        $role2->givePermissionTo('view workspace');
-        $role2->givePermissionTo('update workspace');
+        $workspaceAdminPermissions = [
+            'view workspace',
+            'update workspace',
+            'view app',
+            'create app',
+            'update app',
+            'delete app',
+            'scan jobs',
+            'build job',
+            'abort job',
+        ];
 
-        $role2->givePermissionTo('create app');
-        $role2->givePermissionTo('view app');
-        $role2->givePermissionTo('update app');
-        $role2->givePermissionTo('delete app');
+        foreach ($workspaceAdminPermissions as $permission) {
+            $workspaceAdmin->givePermissionTo($permission);
+        }
+        ///////////////
 
-        $role2->givePermissionTo('create bundle');
-
-        $role2->givePermissionTo('scan jobs');
-        $role2->givePermissionTo('build job');
-        $role2->givePermissionTo('abort job');
-
-        $role3 = Role::create( ['name' => 'Super-Admin' ]);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
-
-        // create demo users
-        $user1 = \App\Models\User::factory()->create([
-            'workspace_id' => 1,
-            'name' => 'Example User',
-            'email' => 'test@example.com',
-        ]);
-        $user1->assignRole($role1);
-
-        $user2 = \App\Models\User::factory()->create([
-            'workspace_id' => 1,
-            'name' => 'Example Admin User',
-            'email' => 'admin@example.com',
-        ]);
-        $user2->assignRole($role2);
-
-        $user3 = \App\Models\User::factory()->create([
-            'workspace_id' => 1,
-            'name' => 'Example Super-Admin User',
-            'email' => 'superadmin@example.com',
-        ]);
-        $user3->assignRole($role3);
+        Role::create([ 'name' => 'Super Admin' ]);
     }
 }
