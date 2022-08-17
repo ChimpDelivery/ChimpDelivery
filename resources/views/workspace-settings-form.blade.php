@@ -18,47 +18,47 @@
 
                 <div class="form-group">
                     <label for="appstore_private_key">App Store Connect - Private Key</label>
-                    <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" value="{{ Auth::user()->workspace->appstore_private_key }} " required="">
+                    <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" value="{{ Auth::user()->workspace->appstore_private_key }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="appstore_issuer_id">App Store Connect - Issuer ID</label>
-                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" value="{{ Auth::user()->workspace->appstore_issuer_id }} " required="">
+                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" value="{{ Auth::user()->workspace->appstore_issuer_id }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="appstore_kid">App Store Connect - Key ID</label>
-                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" value="{{ Auth::user()->workspace->appstore_kid }} " required="">
+                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" value="{{ Auth::user()->workspace->appstore_kid }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="apple_usermail">Apple - User Mail</label>
-                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" value="{{ Auth::user()->workspace->apple_usermail }} " required="">
+                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" value="{{ Auth::user()->workspace->apple_usermail }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="apple_app_pass">Apple - App Specific Password</label>
-                    <input type="text" id="apple_app_pass" name="apple_app_pass" class="form-control" value="{{ Auth::user()->workspace->apple_app_pass }} " required="">
+                    <input type="text" id="apple_app_pass" name="apple_app_pass" class="form-control" value="{{ Auth::user()->workspace->apple_app_pass }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="github_org_name">Github - Organization Name</label>
-                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" value="{{ Auth::user()->workspace->github_org_name }} " required="">
+                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" value="{{ Auth::user()->workspace->github_org_name }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="github_access_token">Github - Access Token</label>
-                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="{{ Auth::user()->workspace->github_access_token }} " required="">
+                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="{{ Auth::user()->workspace->github_access_token }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="github_template">Github - Template Project</label>
-                    <input type="text" id="github_template" name="github_template" class="form-control" value="{{ Auth::user()->workspace->github_template }} " required="">
+                    <input type="text" id="github_template" name="github_template" class="form-control" value="{{ Auth::user()->workspace->github_template }}" required="">
                 </div>
 
                 <div class="form-group">
                     <label for="github_topic">Github - Project Topic</label>
-                    <input type="text" id="github_topic" name="github_topic" class="form-control" value="{{ Auth::user()->workspace->github_topic }} " required="">
+                    <input type="text" id="github_topic" name="github_topic" class="form-control" value="{{ Auth::user()->workspace->github_topic }}" required="">
                 </div>
 
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Update</button>
