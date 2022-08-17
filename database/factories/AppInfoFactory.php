@@ -18,6 +18,7 @@ class AppInfoFactory extends Factory
     public function definition()
     {
         return [
+            'workspace_id' => rand(1, 3),
             'app_icon' => '',
             'app_name' => $this->faker->name(),
             'project_name' => $this->faker->name(),

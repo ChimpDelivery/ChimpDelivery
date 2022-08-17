@@ -18,7 +18,7 @@ class WorkspaceInviteCodeFactory extends Factory
     public function definition()
     {
         return [
-            'workspace_id' => rand(1, 2),
+            'workspace_id' => rand(1, 3),
             'code' => Str::random(10),
         ];
     }

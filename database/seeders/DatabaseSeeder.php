@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,8 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
-        \App\Models\AppInfo::factory(10)->create();
-        \App\Models\Package::factory(10)->create();
+        $this->call(WorkspaceSeeder::class);
+        $this->call(WorkspaceInviteCodeSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(PackageSeeder::class);
     }
 }

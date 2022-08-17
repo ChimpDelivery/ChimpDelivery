@@ -19,7 +19,7 @@ class PackageFactory extends Factory
     {
         return [
             'url' => 'www.github.com/testuser/'.Str::random(5),
-            'package_id' => config('appstore.bundle_prefix') . '.' . Str::random(5),
+            'package_id' => 'com.' . Str::random(4) . '.' . Str::random(5),
             'hash' => Str::random(16)
         ];
     }
