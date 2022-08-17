@@ -31,7 +31,10 @@ class WorkspacePolicy
      */
     public function view(User $user, Workspace $workspace)
     {
-        return $user->workspace()->id == $workspace->id;
+        if ($user->can('view workspace'))
+        {
+            return $user->workspace->id == $workspace->id;
+        }
     }
 
     /**
