@@ -9,11 +9,13 @@ use App\Models\Workspace;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Auth;
+
 class WorkspaceController extends Controller
 {
     public function UpdateWorkspace(StoreWsSettingsRequest $request) : JsonResponse
     {
-        $response = Workspace::find($request->validated('id'))->update($request->all());
+        $response = Workspace::find(Auth::user()->workspace->id)->update($request->all());
 
         return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);
     }

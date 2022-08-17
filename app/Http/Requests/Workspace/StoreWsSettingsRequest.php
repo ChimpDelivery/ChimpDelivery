@@ -24,10 +24,6 @@ class StoreWsSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
-                'required',
-                'integer',
-            ],
 
             'appstore_private_key' => [
                 'string',
