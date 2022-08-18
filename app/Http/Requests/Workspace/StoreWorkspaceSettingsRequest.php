@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Workspace;
 
 use App\Rules\AlphaDashDot;
-use Illuminate\Validation\Rules\File;
 
 use Illuminate\Foundation\Http\FormRequest;
 
