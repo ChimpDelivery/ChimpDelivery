@@ -24,9 +24,11 @@
                     <a class="nav-link font-weight-bold" href="/dashboard/create-bundle">iOS Bundle</a>
                 </li>
                 @endcan
+                @can('scan jobs')
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                 </li>
+                @endcan
                 @can('view workspace')
                 <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
