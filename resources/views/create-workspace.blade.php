@@ -84,12 +84,13 @@
                     <input type="text" id="api_key" name="api_key" class="form-control" value="">
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i> Create</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create</button>
                 <button type="reset" class="btn btn-secondary ml-2"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
         <div class="card-footer text-muted">
-            <i class="fa fa-apple" aria-hidden="true"></i>
+            <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+            Fields can be updated later by Workspace Admin(s).
         </div>
     </div>
 </div>
