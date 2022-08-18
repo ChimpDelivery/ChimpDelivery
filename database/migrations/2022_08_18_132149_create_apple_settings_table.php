@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('usermail')->nullable();
             $table->string('app_specific_pass')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

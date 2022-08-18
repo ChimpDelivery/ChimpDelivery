@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('issuer_id')->nullable();
             $table->string('kid')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

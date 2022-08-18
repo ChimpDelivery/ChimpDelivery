@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('template_name')->nullable();
             $table->string('topic_name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

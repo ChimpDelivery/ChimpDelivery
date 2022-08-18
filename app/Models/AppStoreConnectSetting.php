@@ -26,4 +26,9 @@ class AppStoreConnectSetting extends Model
 
     protected $casts = [
     ];
+
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class);
+    }
 }

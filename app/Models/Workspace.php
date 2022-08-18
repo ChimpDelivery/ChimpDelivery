@@ -35,6 +35,12 @@ class Workspace extends Model
 
     ];
 
+    protected $with = [
+        'AppStoreConnectSetting',
+        'AppleSetting',
+        'GithubSetting',
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class);
@@ -48,5 +54,20 @@ class Workspace extends Model
     public function inviteCodes()
     {
         return $this->hasMany(WorkspaceInviteCode::class);
+    }
+
+    public function AppStoreConnectSetting()
+    {
+        return $this->hasOne(AppStoreConnectSetting::class);
+    }
+
+    public function AppleSetting()
+    {
+        return $this->hasOne(AppleSetting::class);
+    }
+
+    public function GithubSetting()
+    {
+        return $this->hasOne(GithubSetting::class);
     }
 }

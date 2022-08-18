@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
-use App\Http\Requests\Workspace\UpdateWorkspaceSettingsRequest;
 
 use App\Models\Workspace;
 use App\Models\AppStoreConnectSetting;
@@ -29,10 +28,12 @@ class WorkspaceController extends Controller
     {
         $this->authorize('create', Workspace::class);
 
-        $newWorkspace = Workspace::create($request->safe()->only([
-            'name',
-            'api_key',
-        ]));
+        $newWorkspace = Workspace::create(
+            $request->safe()->only([
+                'name',
+                'api_key',
+            ])
+        );
 
         $newAppStoreConnectSetting = AppStoreConnectSetting::create([ 'workspace_id' => $newWorkspace->id ]);
         $newAppStoreConnectSetting->update(
@@ -70,11 +71,12 @@ class WorkspaceController extends Controller
         return response()->json([ 'response' => $newWorkspace ], Response::HTTP_ACCEPTED);
     }
 
-    public function Update(UpdateWorkspaceSettingsRequest $request) : JsonResponse
+    public function Update(StoreWorkspaceSettingsRequest $request) : JsonResponse
     {
         $workspace = Auth::user()->workspace;
         $this->authorize('update', $workspace);
-        $response = $workspace->update($request->all());
+
+        $response = $workspace->update($request->safe()->only([ 'name', 'api_key' ]));
 
         return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);
     }
