@@ -16,7 +16,7 @@ class GithubController extends Controller
 {
     public function __construct()
     {
-        Config::set('github.connections.main.token', Auth::user()->workspace->github_access_token);
+        Config::set('github.connections.main.token', Auth::user()->workspace->githubSetting->personal_access_token);
     }
 
     // http://developer.github.com/v3/repos/#list-organization-repositories
@@ -26,9 +26,9 @@ class GithubController extends Controller
 
         try
         {
-            $gitWorkspace = Auth::user()->workspace;
+            $gitSetting = Auth::user()->workspace->githubSetting;
 
-            $organizationProjects = collect(GitHub::api('repo')->org($gitWorkspace->github_org_name, [
+            $organizationProjects = collect(GitHub::api('repo')->org($gitSetting->organization_name, [
                 'per_page' => config('github.item_limit'),
                 'sort' => 'updated',
                 'type' => 'private'
@@ -36,8 +36,8 @@ class GithubController extends Controller
 
             // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
             // maybe extra organization is useful when filtering projects.
-            $filteredOrganizationProjects = $organizationProjects->filter(function ($value) use ($gitWorkspace) {
-                return in_array($gitWorkspace->github_topic, $value['topics']);
+            $filteredOrganizationProjects = $organizationProjects->filter(function ($value) use ($gitSetting) {
+                return in_array($gitSetting->topic_name, $value['topics']);
             });
 
             $response = $filteredOrganizationProjects->values()->map(function ($item) {
@@ -62,9 +62,9 @@ class GithubController extends Controller
 
         try
         {
-            $gitWorkspace = Auth::user()->workspace;
+            $gitSetting = Auth::user()->workspace->githubSetting;
 
-            $response = GitHub::api('repo')->show($gitWorkspace->github_org_name, $request->validated('project_name'));
+            $response = GitHub::api('repo')->show($gitSetting->organization_name, $request->validated('project_name'));
         }
         catch (\Exception $exception)
         {
@@ -81,15 +81,15 @@ class GithubController extends Controller
 
         try
         {
-            $gitWorkspace = Auth::user()->workspace;
+            $gitSetting = Auth::user()->workspace->githubSetting;
 
             $response = GitHub::api('repo')->createFromTemplate(
-                $gitWorkspace->github_org_name,
-                $gitWorkspace->github_template,
+                $gitSetting->organization_name,
+                $gitSetting->template_name,
                 [
                     'name' => $request->validated('project_name'),
                     'description' => '',
-                    'owner' => $gitWorkspace->github_org_name,
+                    'owner' => $gitSetting->organization_name,
                     'include_all_branches' => false,
                     'private' => true
                 ]
@@ -111,13 +111,13 @@ class GithubController extends Controller
 
         try
         {
-            $gitWorkspace = Auth::user()->workspace;
+            $gitSetting = Auth::user()->workspace->githubSetting;
 
             $response = GitHub::api('repo')->replaceTopics(
-                $gitWorkspace->github_org_name,
+                $gitSetting->organization_name,
                 $request->validated('project_name'),
                 [
-                    $gitWorkspace->github_topic,
+                    $gitSetting->topic_name,
                 ]
             );
         }

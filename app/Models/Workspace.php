@@ -47,17 +47,17 @@ class Workspace extends Model
         return $this->hasMany(WorkspaceInviteCode::class);
     }
 
-    public function AppStoreConnectSetting()
+    public function appStoreConnectSetting()
     {
         return $this->hasOne(AppStoreConnectSetting::class);
     }
 
-    public function AppleSetting()
+    public function appleSetting()
     {
         return $this->hasOne(AppleSetting::class);
     }
 
-    public function GithubSetting()
+    public function githubSetting()
     {
         return $this->hasOne(GithubSetting::class);
     }

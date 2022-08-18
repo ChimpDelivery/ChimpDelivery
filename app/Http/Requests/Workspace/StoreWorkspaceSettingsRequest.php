@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Workspace;
 
 use App\Rules\AlphaDashDot;
+use Illuminate\Validation\Rules\File;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +26,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 Rule::unique('workspaces')->whereNull('deleted_at')
             ],
 
-            'private_key' => [ 'nullable', 'string' ],
+            'private_key' => [ 'nullable', 'mimetypes:text/plain' ],
             'issuer_id' => [ 'nullable', 'alpha_dash' ],
             'kid' => [ 'nullable', 'alpha_dash' ],
 

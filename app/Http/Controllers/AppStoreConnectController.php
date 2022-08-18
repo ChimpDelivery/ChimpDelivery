@@ -18,7 +18,7 @@ class AppStoreConnectController extends Controller
     public function GetToken() : JsonResponse
     {
         $payload = [
-            'iss' => Auth::user()->workspace->appstore_issuer_id,
+            'iss' => Auth::user()->workspace->appStoreConnectSetting->issuer_id,
             'exp' => time() + config('appstore.cache_duration') * 60,
             'aud' => 'appstoreconnect-v1'
         ];
@@ -26,9 +26,9 @@ class AppStoreConnectController extends Controller
         return response()->json([
             'appstore_token' => JWT::encode(
                 $payload,
-                Auth::user()->workspace->appstore_private_key,
+                Auth::user()->workspace->appStoreConnectSetting->private_key,
                 'ES256',
-                Auth::user()->workspace->appstore_kid,
+                Auth::user()->workspace->appStoreConnectSetting->kid,
             )
         ]);
     }

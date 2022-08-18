@@ -37,11 +37,14 @@ class WorkspaceController extends Controller
             ])
         );
 
-        $newAppStoreConnectSetting = AppStoreConnectSetting::create([ 'workspace_id' => $newWorkspace->id ]);
+        $newAppStoreConnectSetting = AppStoreConnectSetting::create([
+            'workspace_id' => $newWorkspace->id,
+            'private_key' => $validated->private_key->get(),
+        ]);
+
         $newAppStoreConnectSetting->update(
             $validated->only([
                 'workspace_id',
-                'private_key',
                 'issuer_id',
                 'kid',
             ])

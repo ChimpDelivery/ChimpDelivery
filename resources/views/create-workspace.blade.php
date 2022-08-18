@@ -13,7 +13,7 @@
             Create Workspace
         </div>
         <div class="card-body">
-            <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/store-workspace') }}">
+            <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/store-workspace') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
@@ -28,9 +28,14 @@
                     <i class="fa fa-apple" aria-hidden="true"></i>
                     <b>App Store Connect Settings</b> (to create Appstore Connect API Keys: <a href="https://appstoreconnect.apple.com/access/api">Click Here</a>)
                 </div>
-                <div class="form-group">
-                    <label for="private_key">Private Key</label>
-                    <input type="text" class="form-control" name="private_key" aria-describedby="basic-addon3" value="">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Private Key</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
+                        <label class="custom-file-label" for="private_key">Choose file</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="issuer_id">Issuer ID</label>
@@ -94,4 +99,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $('input[type="file"]').change(function(e) {
+        let fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+</script>
 @endsection
