@@ -22,7 +22,6 @@ class CreateWorkspaceUserSeeder extends Seeder
         $permissions = [
             'create app',
             'update app',
-            'delete app',
             'create bundle',
             'scan jobs',
             'build job',

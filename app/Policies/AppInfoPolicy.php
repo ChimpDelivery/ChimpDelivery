@@ -44,7 +44,7 @@ class AppInfoPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermissionTo('create_app');
+        return $user->hasPermissionTo('create app');
     }
 
     /**
