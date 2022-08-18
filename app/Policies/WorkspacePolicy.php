@@ -32,7 +32,7 @@ class WorkspacePolicy
     public function view(User $user, Workspace $workspace)
     {
         if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
-            return $user->workspace_id === $workspace->id;
+            return $user->workspace->id === $workspace->id;
         }
     }
 
@@ -44,7 +44,9 @@ class WorkspacePolicy
      */
     public function create(User $user)
     {
-        //
+        if ($user->can('create workspace')) {
+            return $user->workspace->id == 1;
+        }
     }
 
     /**
@@ -57,7 +59,7 @@ class WorkspacePolicy
     public function update(User $user, Workspace $workspace)
     {
         if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
-            return $user->workspace_id === $workspace->id;
+            return $user->workspace->id === $workspace->id;
         }
     }
 

@@ -13,7 +13,7 @@ use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
-use App\Http\Requests\Workspace\StoreWsSettingsRequest;
+use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use Illuminate\Contracts\View\View;
 
@@ -27,40 +27,54 @@ class DashboardController extends Controller
 {
     public function Index() : View
     {
-        $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id);
+        $isWorkspaceUser = Auth::user()->workspace->id != 1;
 
-        $paginatedApps = $wsApps->orderBy('id', 'desc')
-            ->paginate(5)
-            ->onEachSide(1);
+        if ($isWorkspaceUser)
+        {
+            $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id);
 
-        $paginatedApps->each(function (AppInfo $app) {
+            $paginatedApps = $wsApps->orderBy('id', 'desc')
+                ->paginate(5)
+                ->onEachSide(1);
 
-            $request = GetAppInfoRequest::createFromGlobals();
-            $request = $request->merge(['id' => $app->id]);
+            $paginatedApps->each(function (AppInfo $app) {
 
-            $jenkinsResponse = app(JenkinsController::class)->GetJobLastBuild($request)->getData();
-            $this->PopulateBuildDetails($app, $jenkinsResponse);
-        });
+                $request = GetAppInfoRequest::createFromGlobals();
+                $request = $request->merge(['id' => $app->id]);
 
-        $currentBuildCount = $paginatedApps->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
+                $jenkinsResponse = app(JenkinsController::class)->GetJobLastBuild($request)->getData();
+                $this->PopulateBuildDetails($app, $jenkinsResponse);
+            });
 
-        return view('list-app-info')->with([
-            'totalAppCount' => $wsApps->count(),
-            'appInfos' => $paginatedApps,
-            'currentBuildCount' => $currentBuildCount->count()
-        ]);
+            $currentBuildCount = $paginatedApps->pluck('build_status.status')->filter(fn ($buildStatus) => $buildStatus == 'IN_PROGRESS');
+
+            return view('list-app-info')->with([
+                'totalAppCount' => $wsApps->count(),
+                'appInfos' => $paginatedApps,
+                'currentBuildCount' => $currentBuildCount->count()
+            ]);
+        }
+
+        return view('create-workspace');
     }
 
-    public function GetWsSettings() : View
+    public function StoreWorkspace(StoreWorkspaceSettingsRequest $request) : RedirectResponse
+    {
+        app(WorkspaceController::class)->Store($request)->getData();
+
+        return to_route('get_app_list');
+    }
+
+    public function GetWorkspaceSettings() : View
     {
         return view('workspace-settings-form')->with([
-            'workspace' => app(WorkspaceController::class)->GetWorkspace()->getData(),
+            'workspace' => app(WorkspaceController::class)->Get()->getData(),
         ]);
     }
 
-    public function StoreWsSettings(StoreWsSettingsRequest $request) : RedirectResponse
+    public function UpdateWorkspaceSettings(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        app(WorkspaceController::class)->UpdateWorkspace($request);
+        app(WorkspaceController::class)->Update($request);
 
         return to_route('workspace_settings');
     }

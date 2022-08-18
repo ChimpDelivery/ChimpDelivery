@@ -4,63 +4,67 @@ namespace App\Http\Requests\Workspace;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreWsSettingsRequest extends FormRequest
+use Illuminate\Validation\Rule;
+
+class StoreWorkspaceSettingsRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
 
+            'name' => [
+                'required',
+                'alpha_num',
+                Rule::unique('workspaces')->whereNull('deleted_at'),
+            ],
+
             'appstore_private_key' => [
+                'nullable',
                 'string',
             ],
 
             'appstore_issuer_id' => [
+                'nullable',
                 'string',
             ],
 
             'appstore_kid' => [
+                'nullable',
                 'string',
             ],
 
             'apple_usermail' => [
+                'nullable',
                 'string',
             ],
 
             'apple_app_pass' => [
+                'nullable',
                 'string',
             ],
 
             'github_org_name' => [
-                'required',
+                'nullable',
                 'string',
             ],
 
             'github_access_token' => [
-                'required',
+                'nullable',
                 'string',
             ],
 
             'github_template' => [
-                'required',
+                'nullable',
                 'string',
             ],
 
             'github_topic' => [
+                'nullable',
                 'string',
             ],
         ];

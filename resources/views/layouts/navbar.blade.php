@@ -11,9 +11,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto nav-pills">
+                @can('view app')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps <span class="sr-only">(current)</span></a>
                 </li>
+                @endcan
                 @can('create app')
                 <li class="nav-item {{ (request()->is('dashboard/add-app-info')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
