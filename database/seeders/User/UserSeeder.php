@@ -1,12 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\User;
 
 use Illuminate\Database\Seeder;
 
 use App\Models\User;
-
-use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -19,15 +17,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456')
         ]);
 
-        $role = Role::where('name', '=', 'User')->firstOrFail();
-
-        $permissions = [
-            'create workspace',
-            'join workspace'
-        ];
-
-        $role->syncPermissions($permissions);
-
-        $user->assignRole([ $role->id ]);
+        $user->syncRoles([ 'User' ]);
     }
 }

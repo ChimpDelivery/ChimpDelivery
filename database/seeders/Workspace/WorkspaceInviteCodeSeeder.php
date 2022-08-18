@@ -1,13 +1,15 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Workspace;
 
 use Illuminate\Database\Seeder;
+
+use App\Models\WorkspaceInviteCode;
 
 class WorkspaceInviteCodeSeeder extends Seeder
 {
     public function run()
     {
-        \App\Models\WorkspaceInviteCode::factory(10)->create();
+        WorkspaceInviteCode::factory(10)->create();
     }
 }
