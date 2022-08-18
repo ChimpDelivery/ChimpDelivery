@@ -34,7 +34,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'app_specific_pass' => [ 'nullable', 'string' ],
 
             'organization_name' => [ 'nullable', new AlphaDashDot() ],
-            'personal_access_token' => [ 'nullable', 'alpha_num' ],
+            'personal_access_token' => [ 'nullable', 'alpha_dash' ],
             'template_name' => [ 'nullable', new AlphaDashDot() ],
             'topic_name' => [ 'nullable', new AlphaDashDot() ],
 
