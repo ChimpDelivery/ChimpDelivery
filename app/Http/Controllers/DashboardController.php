@@ -14,6 +14,7 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
+use App\Http\Requests\Workspace\UpdateWorkspaceSettingsRequest;
 
 use Illuminate\Contracts\View\View;
 
@@ -72,7 +73,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function UpdateWorkspaceSettings(StoreWorkspaceSettingsRequest $request) : RedirectResponse
+    public function UpdateWorkspaceSettings(UpdateWorkspaceSettingsRequest $request) : RedirectResponse
     {
         app(WorkspaceController::class)->Update($request);
 

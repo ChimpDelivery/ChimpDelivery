@@ -28,6 +28,7 @@ class WorkspaceController extends Controller
         $newWorkspace = Workspace::create($request->all());
 
         Auth::user()->update([ 'workspace_id' => $newWorkspace->id ]);
+        Auth::user()->syncRoles([ 'Admin_Workspace' ]);
 
         return response()->json([ 'response' => $newWorkspace ], Response::HTTP_ACCEPTED);
     }
