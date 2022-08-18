@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Workspace Name</label>
-                    <input type="text" class="form-control" name="name" aria-describedby="basic-addon3" value="" required="">
+                    <input type="text" class="form-control" name="name" aria-describedby="basic-addon3" value="{{ $workspace->name }}" disabled>
                 </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">
