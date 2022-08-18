@@ -15,14 +15,19 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
+            'create workspace',
+            'join workspace',
             'delete workspace',
             'view workspace',
             'update workspace',
+
             'create app',
             'view app',
             'update app',
             'delete app',
+
             'create bundle',
+
             'scan jobs',
             'build job',
             'abort job',

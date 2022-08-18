@@ -13,12 +13,13 @@ class WorkspaceUserSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create([
+            'workspace_id' => 1,
             'name' => 'Workspace User',
             'email' => 'workspaceuser@example.com',
             'password' => bcrypt('123456')
         ]);
 
-        $role = Role::where('name', '=', 'User')->firstOrFail();
+        $role = Role::where('name', '=', 'User_Workspace')->firstOrFail();
 
         $permissions = [
             'create app',

@@ -7,22 +7,24 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class SuperAdminUserSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run()
     {
         $user = User::factory()->create([
             'workspace_id' => 1,
-            'name' => 'Super Admin',
-            'email' => 'superadmin@example.com',
+            'email' => 'user1@example.com',
+            'name' => 'User',
             'password' => bcrypt('123456')
         ]);
 
-        $role = Role::where('name', '=', 'Admin_Super')->firstOrFail();
+        $role = Role::where('name', '=', 'User')->firstOrFail();
 
-        $permissions = Permission::pluck('id', 'id')->all();
+        $permissions = [
+            'create workspace',
+            'join workspace'
+        ];
 
         $role->syncPermissions($permissions);
 

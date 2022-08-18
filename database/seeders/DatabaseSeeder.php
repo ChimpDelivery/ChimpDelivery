@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             WorkspaceInviteCodeSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
+            UserSeeder::class,
             WorkspaceUserSeeder::class,
             WorkspaceAdminSeeder::class,
             SuperAdminUserSeeder::class,

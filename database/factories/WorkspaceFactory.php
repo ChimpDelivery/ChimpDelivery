@@ -20,7 +20,7 @@ class WorkspaceFactory extends Factory
             'appstore_kid' => Str::random(10),
             'apple_usermail' => $this->faker->unique()->safeEmail(),
             'apple_app_pass' => Str::random(10),
-            'github_org_name' => Str::random(4) . 'Studio',
+            'github_org_name' => Str::random(10),
             'github_access_token' => Str::random(10),
             'github_template' => 'Unity3D-Template',
             'github_topic' => 'prototype',
