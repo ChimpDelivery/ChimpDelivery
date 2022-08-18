@@ -43,16 +43,6 @@ class RoleSeeder extends Seeder
         $workspaceAdminRole->syncPermissions($workspaceAdminPermissions);
 
         $superAdminRole = Role::create([ 'name' => 'Admin_Super' ]);
-        $superAdminPerssions = [
-
-        ];
-
-        /*$role = Role::where('name', '=', 'Admin_Super')->firstOrFail();
-
-        $permissions = Permission::pluck('id', 'id')->all();
-
-        $role->syncPermissions($permissions);
-
-        $user->assignRole([ $role->id ]);*/
+        // check AuthServiceProvider to get information about Super Admin role
     }
 }
