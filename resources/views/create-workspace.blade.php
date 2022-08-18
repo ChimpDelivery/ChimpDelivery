@@ -59,12 +59,12 @@
                     <b>Github Settings</b> (to create Github Personal Access Token: <a href="https://github.com/settings/tokens">Click Here</a>)
                 </div>
                 <div class="form-group">
-                    <label for="github_org_name">Organization Name</label>
-                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" value="">
-                </div>
-                <div class="form-group">
                     <label for="github_access_token">Personal Access Token</label>
                     <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label for="github_org_name">Organization Name</label>
+                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" value="">
                 </div>
                 <div class="form-group">
                     <label for="github_template">Template Project</label>
@@ -80,7 +80,7 @@
                     <b>Dashboard Settings</b>
                 </div>
                 <div class="form-group">
-                    <label for="api_key">Api Key (used by Unity3D Projects)</label>
+                    <label for="api_key">Api Key (used by <b>Unity3D</b> Projects to retrieve App Infos)</label>
                     <input type="text" id="api_key" name="api_key" class="form-control" value="">
                 </div>
                 <br/>
