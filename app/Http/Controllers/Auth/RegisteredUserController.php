@@ -66,7 +66,7 @@ class RegisteredUserController extends Controller
         $user->syncRoles([ ($inviteCode) ? 'User_Workspace' : 'User' ]);
 
         // expires invite code
-            if ($inviteCode) {
+        if ($inviteCode) {
             $inviteCode->delete();
         }
 
