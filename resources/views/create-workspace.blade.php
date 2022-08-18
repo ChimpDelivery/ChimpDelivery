@@ -29,16 +29,16 @@
                     <b>App Store Connect Settings</b> (to create Appstore Connect API Keys: <a href="https://appstoreconnect.apple.com/access/api">Click Here</a>)
                 </div>
                 <div class="form-group">
-                    <label for="appstore_private_key">Private Key</label>
-                    <input type="text" class="form-control" name="appstore_private_key" aria-describedby="basic-addon3" value="">
+                    <label for="private_key">Private Key</label>
+                    <input type="text" class="form-control" name="private_key" aria-describedby="basic-addon3" value="">
                 </div>
                 <div class="form-group">
-                    <label for="appstore_issuer_id">Issuer ID</label>
-                    <input type="text" id="appstore_issuer_id" name="appstore_issuer_id" class="form-control" value="">
+                    <label for="issuer_id">Issuer ID</label>
+                    <input type="text" id="issuer_id" name="issuer_id" class="form-control" value="">
                 </div>
                 <div class="form-group">
-                    <label for="appstore_kid">Key ID</label>
-                    <input type="text" id="appstore_kid" name="appstore_kid" class="form-control" value="">
+                    <label for="kid">Key ID</label>
+                    <input type="text" id="kid" name="kid" class="form-control" value="">
                 </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">
@@ -46,12 +46,12 @@
                     <b>Apple Settings</b> (to create App Specific Password: <a href="https://appleid.apple.com/account/manage">Click Here</a>)
                 </div>
                 <div class="form-group">
-                    <label for="apple_usermail">User Mail</label>
-                    <input type="text" id="apple_usermail" name="apple_usermail" class="form-control" value="">
+                    <label for="usermail">User Mail</label>
+                    <input type="text" id="usermail" name="usermail" class="form-control" value="">
                 </div>
                 <div class="form-group">
-                    <label for="apple_app_pass">App Specific Password</label>
-                    <input type="text" id="apple_app_pass" name="apple_app_pass" class="form-control" value="">
+                    <label for="app_specific_pass">App Specific Password</label>
+                    <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control" value="">
                 </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">
@@ -59,20 +59,20 @@
                     <b>Github Settings</b> (to create Github Personal Access Token: <a href="https://github.com/settings/tokens">Click Here</a>)
                 </div>
                 <div class="form-group">
-                    <label for="github_access_token">Personal Access Token</label>
-                    <input type="text" id="github_access_token" name="github_access_token" class="form-control" value="">
+                    <label for="personal_access_token">Personal Access Token</label>
+                    <input type="text" id="personal_access_token" name="personal_access_token" class="form-control" value="">
                 </div>
                 <div class="form-group">
-                    <label for="github_org_name">Organization Name</label>
-                    <input type="text" id="github_org_name" name="github_org_name" class="form-control" value="">
+                    <label for="organization_name">Organization Name</label>
+                    <input type="text" id="organization_name" name="organization_name" class="form-control" value="">
                 </div>
                 <div class="form-group">
-                    <label for="github_template">Template Project</label>
-                    <input type="text" id="github_template" name="github_template" class="form-control" value="">
+                    <label for="template_name">Template Project</label>
+                    <input type="text" id="template_name" name="template_name" class="form-control" value="">
                 </div>
                 <div class="form-group">
-                    <label for="github_topic">Project Topic</label>
-                    <input type="text" id="github_topic" name="github_topic" class="form-control" value="">
+                    <label for="topic_name">Project Topic</label>
+                    <input type="text" id="topic_name" name="topic_name" class="form-control" value="">
                 </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">

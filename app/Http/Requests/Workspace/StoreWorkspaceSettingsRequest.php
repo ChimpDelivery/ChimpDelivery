@@ -25,17 +25,17 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 Rule::unique('workspaces')->whereNull('deleted_at')
             ],
 
-            'appstore_private_key' => [ 'nullable', 'string' ],
-            'appstore_issuer_id' => [ 'nullable', 'alpha_dash' ],
-            'appstore_kid' => [ 'nullable', 'alpha_dash' ],
+            'private_key' => [ 'nullable', 'string' ],
+            'issuer_id' => [ 'nullable', 'alpha_dash' ],
+            'kid' => [ 'nullable', 'alpha_dash' ],
 
-            'apple_usermail' => [ 'nullable', 'email:rfc' ],
-            'apple_app_pass' => [ 'nullable', 'string' ],
+            'usermail' => [ 'nullable', 'email:rfc' ],
+            'app_specific_pass' => [ 'nullable', 'string' ],
 
-            'github_org_name' => [ 'nullable', new AlphaDashDot() ],
-            'github_access_token' => [ 'nullable', 'alpha_num' ],
-            'github_template' => [ 'nullable', new AlphaDashDot() ],
-            'github_topic' => [ 'nullable', new AlphaDashDot() ],
+            'organization_name' => [ 'nullable', new AlphaDashDot() ],
+            'personal_access_token' => [ 'nullable', 'alpha_num' ],
+            'template_name' => [ 'nullable', new AlphaDashDot() ],
+            'topic_name' => [ 'nullable', new AlphaDashDot() ],
 
             'api_key' => [ 'nullable', 'alpha_num' ],
         ];
