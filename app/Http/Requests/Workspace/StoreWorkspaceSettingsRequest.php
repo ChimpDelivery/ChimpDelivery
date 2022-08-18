@@ -26,10 +26,10 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             ],
 
             'appstore_private_key' => [ 'nullable', 'string' ],
-            'appstore_issuer_id' => [ 'nullable', 'alpha_num' ],
-            'appstore_kid' => [ 'nullable', 'alpha_num' ],
+            'appstore_issuer_id' => [ 'nullable', 'alpha_dash' ],
+            'appstore_kid' => [ 'nullable', 'alpha_dash' ],
 
-            'apple_usermail' => [ 'nullable', 'string' ],
+            'apple_usermail' => [ 'nullable', 'email:rfc' ],
             'apple_app_pass' => [ 'nullable', 'string' ],
 
             'github_org_name' => [ 'nullable', new AlphaDashDot() ],

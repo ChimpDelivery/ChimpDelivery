@@ -20,7 +20,7 @@ class UpdateWorkspaceSettingsRequest extends FormRequest
             'appstore_issuer_id' => [ 'nullable', 'string' ],
             'appstore_kid' => [ 'nullable', 'string' ],
 
-            'apple_usermail' => [ 'nullable', 'string' ],
+            'apple_usermail' => [ 'nullable', 'email:rfc' ],
             'apple_app_pass' => [ 'nullable', 'string' ],
 
             'github_org_name' => [ 'nullable', new AlphaDashDot() ],
