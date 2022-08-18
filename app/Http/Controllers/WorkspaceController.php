@@ -28,8 +28,10 @@ class WorkspaceController extends Controller
     {
         $this->authorize('create', Workspace::class);
 
+        $validated = $request->safe();
+
         $newWorkspace = Workspace::create(
-            $request->safe()->only([
+            $validated->only([
                 'name',
                 'api_key',
             ])
@@ -37,7 +39,7 @@ class WorkspaceController extends Controller
 
         $newAppStoreConnectSetting = AppStoreConnectSetting::create([ 'workspace_id' => $newWorkspace->id ]);
         $newAppStoreConnectSetting->update(
-            $request->safe()->only([
+            $validated->only([
                 'workspace_id',
                 'private_key',
                 'issuer_id',
@@ -47,7 +49,7 @@ class WorkspaceController extends Controller
 
         $newAppleSetting = AppleSetting::create([ 'workspace_id' => $newWorkspace->id ]);
         $newAppleSetting->update(
-            $request->safe()->only([
+            $validated->only([
                 'workspace_id',
                 'usermail',
                 'app_specific_pass',
@@ -56,7 +58,7 @@ class WorkspaceController extends Controller
 
         $newGitSetting = GithubSetting::create([ 'workspace_id' => $newWorkspace->id ]);
         $newGitSetting->update(
-            $request->safe()->only([
+            $validated->only([
                 'workspace_id',
                 'personal_access_token',
                 'organization_name',
