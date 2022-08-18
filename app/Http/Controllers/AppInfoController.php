@@ -55,7 +55,7 @@ class AppInfoController extends Controller
 
         $this->authorize('update', $selectedApp);
 
-        $selectedApp->update($request->all());
+        $selectedApp->update($request->safe()->all());
 
         return response()->json($selectedApp, Response::HTTP_OK);
     }
@@ -79,7 +79,7 @@ class AppInfoController extends Controller
             $appModel->restore();
         }
 
-        $appModel->fill($request->all());
+        $appModel->fill($request->safe()->all());
 
         if ($request->hasFile('app_icon')) {
             $appModel->app_icon = $this->GenerateHashAndUpload($request->file('app_icon'));
