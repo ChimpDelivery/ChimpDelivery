@@ -29,25 +29,15 @@ class UpdateAppInfoRequest extends GetAppInfoRequest
             'id' => [
                 'required',
                 'numeric',
-                Rule::exists('app_infos', 'id')->whereNull('deleted_at'),
+                Rule::exists('app_infos', 'id')->whereNull('deleted_at')
             ],
 
             'app_icon' => 'image|mimes:png|max:5120',
 
-            'fb_app_id' => [
-                'nullable',
-                'numeric',
-            ],
+            'fb_app_id' => [ 'nullable', 'numeric' ],
 
-            'ga_id' => [
-                'nullable',
-                'alpha_num',
-            ],
-
-            'ga_secret' => [
-                'nullable',
-                'alpha_num',
-            ]
+            'ga_id' => [ 'nullable', 'alpha_num' ],
+            'ga_secret' => [ 'nullable', 'alpha_num' ]
         ];
     }
 }

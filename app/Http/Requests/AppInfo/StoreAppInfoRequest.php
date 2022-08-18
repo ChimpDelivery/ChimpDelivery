@@ -29,47 +29,37 @@ class StoreAppInfoRequest extends GetRepositoryRequest
     {
         return [
             'workspace_id' => [
-                Rule::exists('workspaces', 'id')->whereNull('deleted_at'),
+                Rule::exists('workspaces', 'id')->whereNull('deleted_at')
             ],
 
             'app_icon' => 'image|mimes:png|max:5120',
 
             'app_name' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                Rule::unique('app_infos')->whereNull('deleted_at')
             ],
 
             'project_name' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                Rule::unique('app_infos')->whereNull('deleted_at')
             ],
 
             'app_bundle' => [
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                Rule::unique('app_infos')->whereNull('deleted_at')
             ],
 
             'appstore_id' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                Rule::unique('app_infos')->whereNull('deleted_at')
             ],
 
-            'fb_app_id' => [
-                'nullable',
-                'numeric',
-            ],
+            'fb_app_id' => [ 'nullable', 'numeric' ],
 
-            'ga_id' => [
-                'nullable',
-                'alpha_num',
-            ],
-
-            'ga_secret' => [
-                'nullable',
-                'alpha_num',
-            ]
+            'ga_id' => [ 'nullable', 'alpha_num' ],
+            'ga_secret' => [ 'nullable', 'alpha_num' ]
         ];
     }
 

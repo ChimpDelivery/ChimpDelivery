@@ -30,10 +30,7 @@ class UpdatePackageRequest extends GetPackageRequest
                 Rule::exists('packages', 'package_id')
             ],
 
-            'hash' => [
-                'required',
-                'alpha_num'
-            ]
+            'hash' => [ 'required', 'alpha_num' ]
         ];
     }
 

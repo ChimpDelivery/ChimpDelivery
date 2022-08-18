@@ -26,8 +26,13 @@ class StopJobRequest extends GetAppInfoRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at')),
-            'build_number' => array('required', 'numeric')
+            'id' => [
+                'required',
+                'numeric',
+                Rule::exists('app_infos', 'id')->whereNull('deleted_at')
+            ],
+
+            'build_number' => [ 'required', 'numeric' ]
         ];
     }
 }

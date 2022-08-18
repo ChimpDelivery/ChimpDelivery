@@ -22,22 +22,22 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'name' => [
                 'required',
                 'alpha_num',
-                Rule::unique('workspaces')->whereNull('deleted_at'),
+                Rule::unique('workspaces')->whereNull('deleted_at')
             ],
 
-            'appstore_private_key' => [ 'nullable', 'string', ],
-            'appstore_issuer_id' => [ 'nullable', 'string', ],
-            'appstore_kid' => [ 'nullable', 'string', ],
+            'appstore_private_key' => [ 'nullable', 'string' ],
+            'appstore_issuer_id' => [ 'nullable', 'alpha_num' ],
+            'appstore_kid' => [ 'nullable', 'alpha_num' ],
 
-            'apple_usermail' => [ 'nullable', 'string', ],
-            'apple_app_pass' => [ 'nullable', 'string', ],
+            'apple_usermail' => [ 'nullable', 'string' ],
+            'apple_app_pass' => [ 'nullable', 'string' ],
 
-            'github_org_name' => [ 'nullable', new AlphaDashDot(), ],
-            'github_access_token' => [ 'nullable', 'string', ],
-            'github_template' => [ 'nullable', new AlphaDashDot(), ],
-            'github_topic' => [ 'nullable', 'string', ],
+            'github_org_name' => [ 'nullable', new AlphaDashDot() ],
+            'github_access_token' => [ 'nullable', 'alpha_num' ],
+            'github_template' => [ 'nullable', new AlphaDashDot() ],
+            'github_topic' => [ 'nullable', new AlphaDashDot() ],
 
-            'api_key' => [ 'nullable', 'string', ],
+            'api_key' => [ 'nullable', 'alpha_num' ],
         ];
     }
 }
