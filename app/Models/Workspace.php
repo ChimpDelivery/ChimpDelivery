@@ -13,15 +13,6 @@ class Workspace extends Model
 
     protected $fillable = [
         'name',
-        'appstore_private_key',
-        'appstore_issuer_id',
-        'appstore_kid',
-        'apple_usermail',
-        'apple_app_pass',
-        'github_org_name',
-        'github_access_token',
-        'github_template',
-        'github_topic',
         'api_key',
     ];
 
