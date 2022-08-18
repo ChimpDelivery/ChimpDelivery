@@ -31,7 +31,7 @@ class WorkspacePolicy
      */
     public function view(User $user, Workspace $workspace)
     {
-        if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
+        if ($user->can('view workspace')) {
             return $user->workspace->id === $workspace->id;
         }
     }
@@ -58,7 +58,7 @@ class WorkspacePolicy
      */
     public function update(User $user, Workspace $workspace)
     {
-        if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
+        if ($user->can('update workspace')) {
             return $user->workspace->id === $workspace->id;
         }
     }
