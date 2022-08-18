@@ -10,13 +10,10 @@ class WorkspaceUserSeeder extends Seeder
 {
     public function run()
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'workspace_id' => 2,
             'name' => 'Workspace User',
             'email' => 'workspaceuser@example.com',
-            'password' => bcrypt('123456')
-        ]);
-
-        $user->syncRoles([ 'User_Workspace' ]);
+        ])->syncRoles([ 'User_Workspace' ]);
     }
 }

@@ -10,13 +10,9 @@ class SuperAdminUserSeeder extends Seeder
 {
     public function run()
     {
-        $user = User::factory()->create([
-            'workspace_id' => 1,
+        User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
-            'password' => bcrypt('123456')
-        ]);
-
-        $user->syncRoles([ 'Admin_Super' ]);
+        ])->syncRoles([ 'Admin_Super' ]);
     }
 }
