@@ -31,9 +31,7 @@ class WorkspacePolicy
      */
     public function view(User $user, Workspace $workspace)
     {
-        if ($user->can('view workspace')) {
-            return $user->workspace->id === $workspace->id;
-        }
+        return $user->can('view workspace') && $user->workspace->id === $workspace->id;
     }
 
     /**
@@ -44,9 +42,7 @@ class WorkspacePolicy
      */
     public function create(User $user)
     {
-        if ($user->can('create workspace')) {
-            return $user->workspace->id == 1;
-        }
+        return $user->can('create workspace') && $user->workspace->id == 1;
     }
 
     /**
@@ -58,9 +54,7 @@ class WorkspacePolicy
      */
     public function update(User $user, Workspace $workspace)
     {
-        if ($user->can('update workspace')) {
-            return $user->workspace->id === $workspace->id;
-        }
+        return $user->can('update workspace') && $user->workspace->id === $workspace->id;
     }
 
     /**
