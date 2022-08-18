@@ -7,12 +7,9 @@ use App\Models\AppInfo;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
-
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
-
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
-
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use Illuminate\Contracts\View\View;
@@ -60,7 +57,8 @@ class DashboardController extends Controller
 
     public function StoreWorkspace(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        app(WorkspaceController::class)->Store($request)->getData();
+        $createWorkspaceRequest = app(WorkspaceController::class)->Store($request)->getData();
+        session()->flash('success', "Workspace: <b>{$createWorkspaceRequest->response->name}</b> created!");
 
         return to_route('get_app_list');
     }

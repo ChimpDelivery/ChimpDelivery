@@ -50,7 +50,7 @@ class WorkspaceController extends Controller
             $request->safe()->only([
                 'workspace_id',
                 'usermail',
-                'app_specific_pass'
+                'app_specific_pass',
             ])
         );
 
