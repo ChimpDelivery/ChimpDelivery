@@ -24,6 +24,7 @@ class WorkspaceFactory extends Factory
             'github_access_token' => Str::random(10),
             'github_template' => 'Unity3D-Template',
             'github_topic' => 'prototype',
+            'api_key' => Str::random(10),
         ];
     }
 }

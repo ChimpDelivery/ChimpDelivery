@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('github_access_token')->nullable();
             $table->string('github_template')->nullable();
             $table->string('github_topic')->nullable();
+            $table->string('api_key')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

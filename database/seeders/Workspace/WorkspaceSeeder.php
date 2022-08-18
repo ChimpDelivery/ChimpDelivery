@@ -22,6 +22,7 @@ class WorkspaceSeeder extends Seeder
             'github_access_token' => null,
             'github_template' => null,
             'github_topic' => null,
+            'api_key' => null,
         ]);
 
         // seed demo Workspaces

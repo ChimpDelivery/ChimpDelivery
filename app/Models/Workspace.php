@@ -30,7 +30,8 @@ class Workspace extends Model
         'github_org_name',
         'github_access_token',
         'github_template',
-        'github_topic'
+        'github_topic',
+        'api_key',
     ];
 
     /**

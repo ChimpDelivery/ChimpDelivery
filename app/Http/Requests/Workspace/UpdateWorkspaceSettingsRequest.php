@@ -25,6 +25,8 @@ class UpdateWorkspaceSettingsRequest extends FormRequest
             'github_access_token' => [ 'nullable', 'string', ],
             'github_template' => [ 'nullable', 'string', ],
             'github_topic' => [ 'nullable', 'string', ],
+
+            'api_key' => [ 'nullable', 'string', ],
         ];
     }
 }
