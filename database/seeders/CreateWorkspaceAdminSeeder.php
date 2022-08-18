@@ -7,7 +7,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class CreateWorkspaceAdminUserSeeder extends Seeder
+class CreateWorkspaceAdminSeeder extends Seeder
 {
     public function run()
     {
@@ -19,7 +19,17 @@ class CreateWorkspaceAdminUserSeeder extends Seeder
 
         $role = Role::create(['name' => 'Admin_Workspace']);
 
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = [
+            'view workspace',
+            'update workspace',
+            'create app',
+            'update app',
+            'delete app',
+            'create bundle',
+            'scan jobs',
+            'build job',
+            'abort job'
+        ];
 
         $role->syncPermissions($permissions);
 

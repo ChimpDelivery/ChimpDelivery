@@ -22,9 +22,9 @@ class PermissionSeeder extends Seeder
 
         // create permissions
         $permissions = [
+            'delete workspace',
             'view workspace',
             'update workspace',
-            'delete workspace',
             'create app',
             'view app',
             'update app',

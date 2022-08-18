@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             WorkspaceSeeder::class,
             WorkspaceInviteCodeSeeder::class,
             PermissionSeeder::class,
-            CreateWorkspaceAdminUserSeeder::class,
+            CreateSuperAdminUserSeeder::class,
+            CreateWorkspaceAdminSeeder::class,
             CreateWorkspaceUserSeeder::class,
             PackageSeeder::class
         ]);

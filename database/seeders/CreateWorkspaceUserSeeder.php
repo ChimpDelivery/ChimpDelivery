@@ -19,7 +19,15 @@ class CreateWorkspaceUserSeeder extends Seeder
 
         $role = Role::create(['name' => 'User']);
 
-        $permissions = [ 'view workspace' ];
+        $permissions = [
+            'create app',
+            'update app',
+            'delete app',
+            'create bundle',
+            'scan jobs',
+            'build job',
+            'abort job'
+        ];
 
         $role->syncPermissions($permissions);
 
