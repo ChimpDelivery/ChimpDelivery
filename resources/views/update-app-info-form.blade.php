@@ -59,10 +59,12 @@
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-check-square"></i> Apply</button>
                 <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
+                @can('delete app')
                 <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
                     <i class="fa fa-trash"></i>
                     Delete
                 </button>
+                @endcan
             </form>
         </div>
     </div>
