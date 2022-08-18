@@ -51,8 +51,7 @@
 
                 <x-input id="invite_code" class="block mt-1 w-full"
                                 type="text"
-                                name="invite_code"
-                                required />
+                                name="invite_code" />
             </div>
 
             <div class="block mt-4">

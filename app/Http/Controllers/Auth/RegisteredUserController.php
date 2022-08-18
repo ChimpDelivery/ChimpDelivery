@@ -42,17 +42,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'g-recaptcha-response' => ['required', 'captcha'],
             'invite_code' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::exists('workspace_invite_codes', 'code')->whereNull('deleted_at')
             ]
         ]);
 
         // find invite code
-        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->firstOrFail();
+        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
 
         $user = User::create([
-            'workspace_id' => $inviteCode->workspace_id,
+            'workspace_id' => ($inviteCode) ? $inviteCode->workspace_id : 1,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -63,8 +63,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $user->syncRoles([ ($inviteCode) ? 'User_Workspace' : 'User' ]);
+
         // expires invite code
-        $inviteCode->delete();
+            if ($inviteCode) {
+            $inviteCode->delete();
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
