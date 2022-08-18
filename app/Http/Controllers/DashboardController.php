@@ -52,29 +52,27 @@ class DashboardController extends Controller
             ]);
         }
 
-        return view('create-workspace');
+        return view('workspace-settings')->with([
+            'workspace' => Auth::user()->workspace,
+            'isNew' => true,
+        ]);
     }
 
-    public function StoreWorkspace(StoreWorkspaceSettingsRequest $request) : RedirectResponse
+    public function StoreWorkspaceForm(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        $createWorkspaceRequest = app(WorkspaceController::class)->Store($request)->getData();
-        session()->flash('success', "Workspace: <b>{$createWorkspaceRequest->response->name}</b> created!");
+        app(WorkspaceController::class)->Store($request)->getData();
 
         return to_route('get_app_list');
     }
 
-    public function GetWorkspaceSettings() : View
+    public function GetWorkspaceForm() : View
     {
-        return view('workspace-settings-form')->with([
-            'workspace' => app(WorkspaceController::class)->Get()->getData(),
+        $workspace = app(WorkspaceController::class)->Get();
+
+        return view('workspace-settings')->with([
+            'workspace' => $workspace,
+            'isNew' => false,
         ]);
-    }
-
-    public function UpdateWorkspaceSettings(StoreWorkspaceSettingsRequest $request) : RedirectResponse
-    {
-        app(WorkspaceController::class)->Update($request);
-
-        return to_route('workspace_settings');
     }
 
     public function CreateAppForm() : View

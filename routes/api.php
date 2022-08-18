@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\AppInfoController;
 use App\Http\Controllers\AppStoreConnectController;
 use App\Http\Controllers\JenkinsController;
@@ -25,12 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     return $request->user();
-});
-
-// workspaces
-Route::controller(WorkspaceController::class)->middleware('auth:sanctum')->group(function () {
-
-    Route::post('ws/update-ws', 'Update');
 });
 
 // dashboard apps

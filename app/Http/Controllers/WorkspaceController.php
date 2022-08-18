@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkspaceController extends Controller
 {
-    public function Get() : JsonResponse
+    public function Get() : Workspace
     {
         $workspace = Auth::user()->workspace;
         $this->authorize('view', $workspace);
 
-        return response()->json($workspace);
+        return $workspace;
     }
 
     public function Store(StoreWorkspaceSettingsRequest $request) : JsonResponse
@@ -39,7 +39,7 @@ class WorkspaceController extends Controller
 
         $newAppStoreConnectSetting = AppStoreConnectSetting::create([
             'workspace_id' => $newWorkspace->id,
-            'private_key' => $validated->private_key->get(),
+            'private_key' => ($request->hasFile('private_key')) ? $validated->private_key->get() : null,
         ]);
 
         $newAppStoreConnectSetting->update(

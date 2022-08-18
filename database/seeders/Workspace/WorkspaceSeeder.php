@@ -12,7 +12,7 @@ class WorkspaceSeeder extends Seeder
     {
         // seed default Workspace for new Users
         Workspace::factory(1)->create([
-            'name' => 'New-Registered-Users-WS',
+            'name' => 'Default',
             'api_key' => null,
         ]);
 
