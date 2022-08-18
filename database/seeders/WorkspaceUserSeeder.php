@@ -13,7 +13,7 @@ class WorkspaceUserSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create([
-            'workspace_id' => 1,
+            'workspace_id' => 2,
             'name' => 'Workspace User',
             'email' => 'workspaceuser@example.com',
             'password' => bcrypt('123456')
