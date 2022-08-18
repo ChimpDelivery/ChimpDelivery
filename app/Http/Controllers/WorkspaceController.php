@@ -15,6 +15,8 @@ class WorkspaceController extends Controller
     {
         $workspace = Auth::user()->workspace;
 
+        $this->authorize('view', $workspace);
+
         return response()->json($workspace);
     }
 
@@ -22,6 +24,7 @@ class WorkspaceController extends Controller
     {
         $workspace = Auth::user()->workspace;
 
+        $this->authorize('update', $workspace);
         $response = $workspace->update($request->all());
 
         return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);

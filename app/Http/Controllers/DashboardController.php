@@ -55,16 +55,8 @@ class DashboardController extends Controller
 
     public function GetWsSettings() : View
     {
-        dump (Auth::user()->getRoleNames());
-        dump (Auth::user());
-        dump (Auth::user()->workspace);
-
-        $response = Gate::inspect('ViewWorkspace', Auth::user()->workspace);
-        dd ($response);
-        //$this->authorize('view', Auth::user()->workspace);
-
         return view('workspace-settings-form')->with([
-            'workspace' => Auth::user()->workspace
+            'workspace' => app(WorkspaceController::class)->GetWorkspace()->getData(),
         ]);
     }
 

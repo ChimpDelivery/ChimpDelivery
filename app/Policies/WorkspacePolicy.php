@@ -29,9 +29,11 @@ class WorkspacePolicy
      * @param  \App\Models\Workspace  $workspace
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function ViewWorkspace(User $user, Workspace $workspace)
+    public function view(User $user, Workspace $workspace)
     {
-        return $user->workspace_id === $workspace->id;
+        if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
+            return $user->workspace_id === $workspace->id;
+        }
     }
 
     /**
@@ -54,7 +56,9 @@ class WorkspacePolicy
      */
     public function update(User $user, Workspace $workspace)
     {
-        return $user->workspace_id === $workspace->id;
+        if ($user->hasAnyRole([ 'Admin_Workspace', 'Admin_Super' ])) {
+            return $user->workspace_id === $workspace->id;
+        }
     }
 
     /**
