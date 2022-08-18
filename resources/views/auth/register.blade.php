@@ -33,7 +33,7 @@
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="new-password" />
+                                required autocomplete="off" />
             </div>
 
             <!-- Confirm Password -->
