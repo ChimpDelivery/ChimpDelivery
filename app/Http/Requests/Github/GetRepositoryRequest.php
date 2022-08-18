@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Github;
 
+use App\Rules\AlphaDashDot;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class GetRepositoryRequest extends FormRequest
@@ -24,7 +26,7 @@ class GetRepositoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => [ 'required', 'string' ]
+            'project_name' => [ 'required', new AlphaDashDot() ]
         ];
     }
 }
