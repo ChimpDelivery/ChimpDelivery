@@ -28,7 +28,8 @@
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>App Store Connect Settings</b> (to create Appstore Connect API Keys: <a href="https://appstoreconnect.apple.com/access/api">Click Here</a>)
+                    <b>App Store Connect Keys</b>
+                    <a class="float-right badge badge-success text-nowrap" href="https://appstoreconnect.apple.com/access/api"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -50,7 +51,8 @@
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>Apple Settings</b> (to create App Specific Password: <a href="https://appleid.apple.com/account/manage">Click Here</a>)
+                    <b>TestFlight Settings</b>
+                    <a class="float-right badge badge-success text-nowrap" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get App Specific Password</a>
                 </div>
                 <div class="form-group">
                     <label for="usermail">User Mail</label>
@@ -63,7 +65,8 @@
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                    <b>Github Settings</b> (to create Github Personal Access Token: <a href="https://github.com/settings/tokens">Click Here</a>)
+                    <b>Github Settings</b>
+                    <a class="float-right badge badge-success text-nowrap" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Access Token</a>
                 </div>
                 <div class="form-group">
                     <label for="personal_access_token">Personal Access Token</label>
