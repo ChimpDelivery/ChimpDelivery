@@ -14,7 +14,6 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
         $permissions = [
             'delete workspace',
             'view workspace',
@@ -29,7 +28,6 @@ class PermissionSeeder extends Seeder
             'abort job',
         ];
 
-        // create all permissions
         foreach ($permissions as $permission)
         {
             Permission::create([
