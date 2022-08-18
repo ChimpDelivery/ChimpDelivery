@@ -24,6 +24,7 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'view workspace',
             'update workspace',
+            'delete workspace',
             'create app',
             'view app',
             'update app',
@@ -41,45 +42,5 @@ class PermissionSeeder extends Seeder
                 'name' => $permission
             ]);
         }
-
-        ////////////////
-        $user = Role::create([ 'name' => 'User' ]);
-
-        $userPermissions = [
-            'view app',
-            'create app',
-            'update app',
-            'scan jobs',
-            'build job',
-            'abort job',
-        ];
-
-        foreach ($userPermissions as $permission)   {
-            $user->givePermissionTo($permission);
-        }
-        //////////////
-        
-        //////////////
-        $workspaceAdmin = Role::create([ 'name' => 'Workspace Admin' ]);
-
-        $workspaceAdminPermissions = [
-            'view workspace',
-            'update workspace',
-            'view app',
-            'create app',
-            'update app',
-            'delete app',
-            'scan jobs',
-            'build job',
-            'abort job',
-        ];
-
-        foreach ($workspaceAdminPermissions as $permission) {
-            $workspaceAdmin->givePermissionTo($permission);
-        }
-        ///////////////
-
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
-        Role::create([ 'name' => 'Super Admin' ]);
     }
 }

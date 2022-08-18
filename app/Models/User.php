@@ -16,6 +16,10 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasRoles;
 
+    public $guarded = [
+
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

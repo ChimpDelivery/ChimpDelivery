@@ -23,6 +23,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 
+use Illuminate\Support\Facades\Gate;
+
 class DashboardController extends Controller
 {
     public function Index() : View
@@ -53,11 +55,16 @@ class DashboardController extends Controller
 
     public function GetWsSettings() : View
     {
-        $workspace = Auth::user()->workspace;
-        app(WorkspaceController::class)->GetWorkspace($workspace->id);
+        dump (Auth::user()->getRoleNames());
+        dump (Auth::user());
+        dump (Auth::user()->workspace);
+
+        $response = Gate::inspect('ViewWorkspace', Auth::user()->workspace);
+        dd ($response);
+        //$this->authorize('view', Auth::user()->workspace);
 
         return view('workspace-settings-form')->with([
-            'workspace' => $workspace,
+            'workspace' => Auth::user()->workspace
         ]);
     }
 

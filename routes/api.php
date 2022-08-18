@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // workspaces
-Route::controller(WorkspaceController::class)->group(function () {
+Route::controller(WorkspaceController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::post('ws/update-ws', 'UpdateWorkspace');
 });

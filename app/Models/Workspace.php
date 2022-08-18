@@ -11,6 +11,10 @@ class Workspace extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public $guarded = [
+
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

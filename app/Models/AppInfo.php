@@ -13,6 +13,10 @@ class AppInfo extends Model
     use HasFactory;
     use ClearsResponseCache;
 
+    public $guarded = [
+
+    ];
+
     protected $fillable = [
         'workspace_id',
         'app_icon',

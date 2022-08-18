@@ -23,7 +23,7 @@
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                 </li>
-                @hasanyrole('Workspace Admin|Super Admin')
+                @hasanyrole('Admin_Workspace|Admin_Super')
                 <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
                 </li>
