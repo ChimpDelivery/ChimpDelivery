@@ -25,7 +25,7 @@ class WorkspaceController extends Controller
     public function Store(StoreWorkspaceSettingsRequest $request) : JsonResponse
     {
         $this->authorize('create', Workspace::class);
-        $newWorkspace = Workspace::create($request->all());
+        $newWorkspace = Workspace::create($request->safe()->all());
 
         Auth::user()->update([ 'workspace_id' => $newWorkspace->id ]);
         Auth::user()->syncRoles([ 'Admin_Workspace' ]);

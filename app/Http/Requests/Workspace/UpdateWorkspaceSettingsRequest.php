@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Workspace;
 
+use App\Rules\AlphaDashDot;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateWorkspaceSettingsRequest extends FormRequest
@@ -21,9 +23,9 @@ class UpdateWorkspaceSettingsRequest extends FormRequest
             'apple_usermail' => [ 'nullable', 'string', ],
             'apple_app_pass' => [ 'nullable', 'string', ],
 
-            'github_org_name' => [ 'nullable', 'string', ],
+            'github_org_name' => [ 'nullable', new AlphaDashDot(), ],
             'github_access_token' => [ 'nullable', 'string', ],
-            'github_template' => [ 'nullable', 'string', ],
+            'github_template' => [ 'nullable', new AlphaDashDot(), ],
             'github_topic' => [ 'nullable', 'string', ],
 
             'api_key' => [ 'nullable', 'string', ],
