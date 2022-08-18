@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model
+class AppleSetting extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'url',
-        'package_id',
-        'hash',
+        'workspace_id',
+        'usermail',
+        'app_specific_pass',
     ];
 
     protected $hidden = [

@@ -9,13 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AppInfo extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
     use ClearsResponseCache;
-
-    public $guarded = [
-
-    ];
 
     protected $fillable = [
         'workspace_id',
@@ -27,25 +23,15 @@ class AppInfo extends Model
         'appstore_id',
         'fb_app_id',
         'ga_id',
-        'ga_secret'
+        'ga_secret',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
     ];
 

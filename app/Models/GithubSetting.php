@@ -4,15 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model
+class GithubSetting extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'url',
-        'package_id',
-        'hash',
+        'workspace_id',
+        'personal_access_token',
+        'organization_name',
+        'template_name',
+        'topic_name',
     ];
 
     protected $hidden = [

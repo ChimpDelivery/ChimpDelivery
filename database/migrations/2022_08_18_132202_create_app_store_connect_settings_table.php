@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workspaces', function (Blueprint $table) {
+        Schema::create('app_store_connect_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('api_key')->nullable();
+            $table->foreignId('workspace_id')
+                ->references('id')
+                ->on('workspaces')
+                ->onDelete('cascade');
+            $table->string('private_key', 1024)->nullable();
+            $table->string('issuer_id')->nullable();
+            $table->string('kid')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workspaces');
+        Schema::dropIfExists('app_store_connect_settings');
     }
 };

@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workspaces', function (Blueprint $table) {
+        Schema::create('apple_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('api_key')->nullable();
+            $table->foreignId('workspace_id')
+                ->references('id')
+                ->on('workspaces')
+                ->onDelete('cascade');
+            $table->string('usermail')->nullable();
+            $table->string('app_specific_pass')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workspaces');
+        Schema::dropIfExists('apple_settings');
     }
 };

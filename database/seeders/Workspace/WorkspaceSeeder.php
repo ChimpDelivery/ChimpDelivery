@@ -12,16 +12,7 @@ class WorkspaceSeeder extends Seeder
     {
         // seed default Workspace for new Users
         Workspace::factory(1)->create([
-            'name' => 'Default',
-            'appstore_private_key' => null,
-            'appstore_issuer_id' => null,
-            'appstore_kid' => null,
-            'apple_usermail' => null,
-            'apple_app_pass' => null,
-            'github_org_name' => null,
-            'github_access_token' => null,
-            'github_template' => null,
-            'github_topic' => null,
+            'name' => 'New-Registered-Users-WS',
             'api_key' => null,
         ]);
 

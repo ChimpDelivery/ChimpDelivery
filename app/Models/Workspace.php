@@ -8,18 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Workspace extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
-    public $guarded = [
-
-    ];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'appstore_private_key',
@@ -34,22 +25,12 @@ class Workspace extends Model
         'api_key',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
 
     ];
