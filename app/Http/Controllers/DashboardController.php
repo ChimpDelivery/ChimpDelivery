@@ -23,8 +23,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 
-use Illuminate\Support\Facades\Gate;
-
 class DashboardController extends Controller
 {
     public function Index() : View
