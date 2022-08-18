@@ -1,9 +1,6 @@
 <?php
 
 return [
-
-    'invite_code' => env('AUTH_INVITE_CODE', ''),
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

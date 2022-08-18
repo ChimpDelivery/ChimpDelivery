@@ -66,7 +66,6 @@ class HealthServiceProvider extends ServiceProvider
                 'GIT_ITEM_LIMIT',
                 'DISCORD_WEBHOOK_URL',
                 'DISCORD_BOT_NAME',
-                'AUTH_INVITE_CODE'
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes()
         ]);
