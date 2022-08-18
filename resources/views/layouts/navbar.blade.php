@@ -53,28 +53,6 @@
                                 <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://trello.com/b/U6FsYqMR/kanban-template">
-                                <i class="fa fa-trello fa-lg text-white" aria-hidden="true"></i> {{ __('Trello') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://drive.google.com/drive/folders/1HiDzlKwkSWMF9sk22pqwoG058933hqwa?usp=sharing">
-                                <i class="fa fa-google fa-lg text-white" aria-hidden="true"></i> {{ __('Google Drive') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://github.com/talusstudio">
-                                <i class="fa fa-github fa-lg text-white" aria-hidden="true"></i> {{ __('Github') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">
-                                <i class="fa fa-apple fa-lg text-white" aria-hidden="true"></i> {{ __('Appstore Connect') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://developers.facebook.com">
-                                <i class="fa fa-facebook fa-lg text-white" aria-hidden="true"></i> {{ __('Facebook Dashboard') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="https://go.gameanalytics.com/login">
-                                <i class="fa fa-pie-chart text-white" aria-hidden="true"></i> {{ __('GA Dashboard') }}
-                            </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="http://webmail.talusstudio.com">
-                                <i class="fa fa-envelope text-white" aria-hidden="true"></i> {{ __('Webmail') }}
-                            </a>
-                            <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
                             </a>

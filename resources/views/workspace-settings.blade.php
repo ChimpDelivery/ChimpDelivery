@@ -19,16 +19,20 @@
                 @csrf
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>General Settings</b>
+                    <b>Board Settings</b>
                 </div>
                 <div class="form-group">
                     <label for="name">Workspace Name</label>
                     <input type="text" class="form-control" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                 </div>
+                <div class="form-group">
+                    <label for="api_key">Workspace API Key</label>
+                    <input type="text" id="api_key" name="api_key" class="form-control" value="">
+                </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>App Store Connect Keys</b>
+                    <b>App Store Connect Auth</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://appstoreconnect.apple.com/access/api"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
                 </div>
                 <div class="input-group mb-3">
@@ -51,8 +55,8 @@
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>TestFlight Settings</b>
-                    <a class="float-right badge badge-success text-nowrap" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get App Specific Password</a>
+                    <b>TestFlight Auth</b>
+                    <a class="float-right badge badge-success text-nowrap" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get Password</a>
                 </div>
                 <div class="form-group">
                     <label for="usermail">User Mail</label>
@@ -65,8 +69,8 @@
                 <br/>
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                    <b>Github Settings</b>
-                    <a class="float-right badge badge-success text-nowrap" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Access Token</a>
+                    <b>Github Auth</b>
+                    <a class="float-right badge badge-success text-nowrap" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Token</a>
                 </div>
                 <div class="form-group">
                     <label for="personal_access_token">Personal Access Token</label>
@@ -83,15 +87,6 @@
                 <div class="form-group">
                     <label for="topic_name">Project Topic</label>
                     <input type="text" id="topic_name" name="topic_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
-                </div>
-                <br/>
-                <div class="alert alert-primary" role="alert">
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                    <b>Dashboard Settings</b>
-                </div>
-                <div class="form-group">
-                    <label for="api_key">Api Key (used by <b>Unity3D</b> Projects to retrieve App Infos)</label>
-                    <input type="text" id="api_key" name="api_key" class="form-control" value="">
                 </div>
                 <br/>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> {{ $title }}</button>
