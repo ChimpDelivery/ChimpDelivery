@@ -3,28 +3,26 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class CreateWorkspaceAdminSeeder extends Seeder
+use App\Models\User;
+
+use Spatie\Permission\Models\Role;
+
+class WorkspaceUserSeeder extends Seeder
 {
     public function run()
     {
         $user = User::factory()->create([
-            'name' => 'Workspace Admin',
-            'email' => 'workspaceadmin@example.com',
+            'name' => 'Workspace User',
+            'email' => 'workspaceuser@example.com',
             'password' => bcrypt('123456')
         ]);
 
-        $role = Role::create(['name' => 'Admin_Workspace']);
+        $role = Role::where('name', '=', 'User')->firstOrFail();
 
         $permissions = [
-            'view workspace',
-            'update workspace',
             'create app',
             'update app',
-            'delete app',
             'create bundle',
             'scan jobs',
             'build job',
@@ -33,6 +31,6 @@ class CreateWorkspaceAdminSeeder extends Seeder
 
         $role->syncPermissions($permissions);
 
-        $user->assignRole([$role->id]);
+        $user->assignRole([ $role->id ]);
     }
 }

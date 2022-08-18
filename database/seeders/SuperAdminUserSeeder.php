@@ -3,11 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+
 use App\Models\User;
+
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class CreateSuperAdminUserSeeder extends Seeder
+class SuperAdminUserSeeder extends Seeder
 {
     public function run()
     {
@@ -17,12 +19,12 @@ class CreateSuperAdminUserSeeder extends Seeder
             'password' => bcrypt('123456')
         ]);
 
-        $role = Role::create(['name' => 'Admin_Super']);
+        $role = Role::where('name', '=', 'Admin_Super')->firstOrFail();
 
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id', 'id')->all();
 
         $role->syncPermissions($permissions);
 
-        $user->assignRole([$role->id]);
+        $user->assignRole([ $role->id ]);
     }
 }
