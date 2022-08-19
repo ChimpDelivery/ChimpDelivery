@@ -25,7 +25,7 @@ class WorkspaceController extends Controller
     {
         // check new user
         $currentWorkspace = Auth::user()->workspace;
-        $isNewUser = $currentWorkspace->id == 1;
+        $isNewUser = $currentWorkspace->id === 1;
 
         // gate
         $method = $isNewUser ? 'create' : 'update';

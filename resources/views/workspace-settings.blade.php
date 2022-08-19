@@ -1,4 +1,4 @@
-@php ($title = $isNew == true ? 'Create Workspace' : $workspace->name . ' Workspace')
+@php ($title = ($isNew === true) ? 'Create Workspace' : $workspace->name . ' Workspace')
 
 @extends('layouts.master')
 

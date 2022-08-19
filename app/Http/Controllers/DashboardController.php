@@ -24,7 +24,7 @@ class DashboardController extends Controller
 {
     public function Index() : View
     {
-        $isWorkspaceUser = Auth::user()->workspace->id != 1;
+        $isWorkspaceUser = Auth::user()->workspace->id !== 1;
 
         if ($isWorkspaceUser)
         {
@@ -52,10 +52,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        return view('workspace-settings')->with([
-            'workspace' => Auth::user()->workspace,
-            'isNew' => true,
-        ]);
+        return view('workspace-settings')->with([ 'isNew' => true ]);
     }
 
     public function StoreWorkspaceForm(StoreWorkspaceSettingsRequest $request) : RedirectResponse
