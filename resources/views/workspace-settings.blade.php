@@ -17,7 +17,7 @@
         <div class="card-body">
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary shadow-sm" role="alert">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 <b>Board Settings</b>
                 </div>
@@ -30,7 +30,7 @@
                     <input type="text" id="api_key" name="api_key" class="form-control" value="{{ ($isNew) ? '' : $workspace->api_key }}">
                 </div>
                 <br/>
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
                     <b>App Store Connect Auth</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://appstoreconnect.apple.com/access/api"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
@@ -53,7 +53,7 @@
                     <input type="text" id="kid" name="kid" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
                 </div>
                 <br/>
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
                     <b>TestFlight Auth</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get Password</a>
@@ -67,7 +67,7 @@
                     <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control" value="{{ ($isNew) ? '' : $workspace->appleSetting->app_specific_pass }}">
                 </div>
                 <br/>
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-github" aria-hidden="true"></i>
                     <b>Github Auth</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Token</a>
