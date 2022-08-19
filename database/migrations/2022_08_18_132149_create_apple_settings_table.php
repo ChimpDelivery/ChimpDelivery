@@ -20,7 +20,7 @@ return new class extends Migration
                 ->on('workspaces')
                 ->onDelete('cascade');
             $table->string('usermail')->nullable();
-            $table->string('app_specific_pass')->nullable();
+            $table->text('app_specific_pass')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

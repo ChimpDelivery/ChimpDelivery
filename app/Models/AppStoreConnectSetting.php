@@ -19,12 +19,14 @@ class AppStoreConnectSetting extends Model
     ];
 
     protected $hidden = [
+        'private_key',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $casts = [
+        'private_key' => 'encrypted'
     ];
 
     public function workspace()

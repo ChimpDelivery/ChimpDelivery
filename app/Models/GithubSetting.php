@@ -20,12 +20,14 @@ class GithubSetting extends Model
     ];
 
     protected $hidden = [
+        'personal_access_token',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $casts = [
+        'personal_access_token' => 'encrypted'
     ];
 
     public function workspace()

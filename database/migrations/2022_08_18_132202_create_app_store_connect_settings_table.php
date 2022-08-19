@@ -19,7 +19,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('private_key', 1024)->nullable();
+            $table->text('private_key')->nullable();
             $table->string('issuer_id')->nullable();
             $table->string('kid')->nullable();
             $table->timestamps();

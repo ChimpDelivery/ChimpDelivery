@@ -18,12 +18,14 @@ class AppleSetting extends Model
     ];
 
     protected $hidden = [
+        'app_specific_pass',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $casts = [
+        'app_specific_pass' => 'encrypted'
     ];
 
     public function workspace()

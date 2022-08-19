@@ -19,7 +19,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('personal_access_token')->nullable();
+            $table->text('personal_access_token')->nullable();
             $table->string('organization_name')->nullable()->unique();
             $table->string('template_name')->nullable();
             $table->string('topic_name')->nullable();
