@@ -2,14 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Models\AppInfo;
-
-use App\Observers\UserObserver;
-use App\Observers\AppInfoObserver;
-
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
         // to fix: "huge paginator icons"
         Paginator::useBootstrap();
 
-        //
-        User::observe(UserObserver::class);
-        AppInfo::observe(AppInfoObserver::class);
+        // disabled observers
+        // User::observe(UserObserver::class);
+        // AppInfo::observe(AppInfoObserver::class);
     }
 }
