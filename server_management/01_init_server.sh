@@ -5,9 +5,11 @@ export LANGUAGE=en_US.UTF-8
 # save project folder path
 PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
-# update packages and install common packages
+# update packages
 sudo apt-get update -y
 sudo apt-get upgrade -y
+
+# install common packages
 sudo apt-get install software-properties-common -y
 
 # add repo for >= php8.1
@@ -41,9 +43,3 @@ sudo service apache2 restart
 sudo service cron restart
 sudo service redis-server restart
 sudo service mysql restart
-
-# create environment file in project folder
-cd $PROJECT_FOLDER
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-fi
