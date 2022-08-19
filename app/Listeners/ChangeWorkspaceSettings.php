@@ -20,7 +20,7 @@ class ChangeWorkspaceSettings
         $targetWorkspace = $event->workspace;
         $validated = $event->request->safe();
 
-        $targetWorkspace->update($validated->only([ 'name', 'api_key' ]));
+        $targetWorkspace->fill($validated->only([ 'name', 'api_key' ]));
         $targetWorkspace->save();
 
         if ($targetWorkspace->wasRecentlyCreated)
@@ -31,39 +31,31 @@ class ChangeWorkspaceSettings
 
         // 1. app store connect
         $appStoreConnectSetting = AppStoreConnectSetting::firstOrCreate([ 'workspace_id' => $targetWorkspace->id ]);
-
         if ($event->request->hasFile('private_key')) {
             $appStoreConnectSetting->update([ 'private_key' => $validated->private_key->get() ]);
         }
-
-        $appStoreConnectSetting->update(
-            $validated->only([
-                'workspace_id',
-                'issuer_id',
-                'kid',
-            ])
-        );
+        $appStoreConnectSetting->update($validated->only([
+            'workspace_id',
+            'issuer_id',
+            'kid',
+        ]));
 
         // 2. apple
         $appleSetting = AppleSetting::firstOrCreate([ 'workspace_id' => $targetWorkspace->id ]);
-        $appleSetting->update(
-            $validated->only([
-                'workspace_id',
-                'usermail',
-                'app_specific_pass',
-            ])
-        );
+        $appleSetting->update($validated->only([
+            'workspace_id',
+            'usermail',
+            'app_specific_pass',
+        ]));
 
         // 3. github
         $githubSetting = GithubSetting::firstOrCreate([ 'workspace_id' => $targetWorkspace->id ]);
-        $githubSetting->update(
-            $validated->only([
-                'workspace_id',
-                'personal_access_token',
-                'organization_name',
-                'template_name',
-                'topic_name',
-            ])
-        );
+        $githubSetting->update($validated->only([
+            'workspace_id',
+            'personal_access_token',
+            'organization_name',
+            'template_name',
+            'topic_name',
+        ]));
     }
 }
