@@ -30,9 +30,5 @@ class AppServiceProvider extends ServiceProvider
     {
         // to fix: "huge paginator icons"
         Paginator::useBootstrap();
-
-        // disabled observers
-        // User::observe(UserObserver::class);
-        // AppInfo::observe(AppInfoObserver::class);
     }
 }
