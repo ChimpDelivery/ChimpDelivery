@@ -1,0 +1,1 @@
+- Use '00_full_settings.sh' script to set up production server quickly.
