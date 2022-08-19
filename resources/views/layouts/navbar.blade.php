@@ -2,7 +2,11 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm">
         <a class="navbar-brand font-weight-bold" href="/dashboard">
             <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
-            Dashboard
+            @hasrole('User')
+                <b>{{ config('app.name') }}</b>
+            @else
+                <span class="text-capitalize font-weight-bold text-dark">{{ Auth::user()->workspace->name }}</span>
+            @endrole
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,6 +15,17 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto nav-pills">
+                @can('create workspace')
+                <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
+                    <a class="nav-link font-weight-bold" href="/dashboard">Create Workspace <span class="sr-only">(current)</span></a>
+                </li>
+                @endcan
+                @can('join workspace')
+                <li class="nav-item {{ (request()->is('dashboard/join-workspace')) ? 'active' : '' }}">
+                    <a class="nav-link font-weight-bold" href="/dashboard/join-workspace">Join Workspace</a>
+                </li>
+                @endcan
+
                 @can('view app')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps <span class="sr-only">(current)</span></a>
@@ -31,6 +46,7 @@
                     <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
                 </li>
                 @endcan
+
                 @can('view workspace')
                 <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
@@ -46,11 +62,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="#">
-                                <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ __('Talus Workspace') }}
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">
-                                <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
+                                <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ config('app.name') }}
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
