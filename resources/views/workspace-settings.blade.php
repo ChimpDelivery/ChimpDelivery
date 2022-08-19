@@ -1,8 +1,8 @@
-@php ($title = $isNew == true ? 'Create' : 'Update')
+@php ($title = $isNew == true ? 'Create Workspace' : $workspace->name . ' Workspace')
 
 @extends('layouts.master')
 
-@section('title', $title . ' Workspace')
+@section('title', $title)
 
 @section('content')
 <div class="container py-2">
@@ -12,7 +12,7 @@
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-globe fa-stack-1x" aria-hidden="true"></i>
             </span>
-            {{ $title }} Workspace
+            {{ $title }}
         </div>
         <div class="card-body">
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
