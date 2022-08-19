@@ -18,8 +18,8 @@
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="alert alert-primary" role="alert">
-                    <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>Board Settings</b>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <b>Board Settings</b>
                 </div>
                 <div class="form-group">
                     <label for="name">Workspace Name</label>
