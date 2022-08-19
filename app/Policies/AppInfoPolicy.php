@@ -30,7 +30,7 @@ class AppInfoPolicy
      */
     public function view(User $user, AppInfo $appInfo)
     {
-        return $user->can('wiew app') && $user->workspace->id == $appInfo->workspace_id;
+        return $user->can('wiew app') && $user->workspace->id === $appInfo->workspace_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class AppInfoPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create app');
+        return $user->can('create app') && $user->workspace->id !== 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class AppInfoPolicy
      */
     public function update(User $user, AppInfo $appInfo)
     {
-        return $user->can('update app') && $user->workspace->id == $appInfo->workspace_id;
+        return $user->can('update app') && $user->workspace->id === $appInfo->workspace_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class AppInfoPolicy
      */
     public function delete(User $user, AppInfo $appInfo)
     {
-        return $user->can('delete app') && $user->workspace_id == $appInfo->workspace_id;
+        return $user->can('delete app') && $user->workspace_id === $appInfo->workspace_id;
     }
 
     /**

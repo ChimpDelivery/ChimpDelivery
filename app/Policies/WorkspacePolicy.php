@@ -42,7 +42,7 @@ class WorkspacePolicy
      */
     public function create(User $user)
     {
-        return $user->can('create workspace') && $user->workspace->id == 1;
+        return $user->can('create workspace') && $user->workspace->id === 1;
     }
 
     /**
