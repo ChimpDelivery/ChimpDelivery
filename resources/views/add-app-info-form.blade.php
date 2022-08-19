@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="app_icon">App Icon</label>
-                    <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file" accept="image/png">
+                    <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file shadow-sm" accept="image/png">
                 </div>
                 <div class="form-group">
                     <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
@@ -26,7 +26,7 @@
                     <div class="dropdown">
                         <input type="text" id="app_name" name="app_name" class="form-control" value="" hidden>
 
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($allAppInfos) }})
                         </button>
 
@@ -40,16 +40,16 @@
                 </div>
                 <div class="form-group">
                     <label for="appstore_id">Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" class="form-control" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">App Bundle</label>
-                    <input type="text" id="app_bundle" name="app_bundle" class="form-control" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="app_bundle" name="app_bundle" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($allGitProjects) }})
                     </button>
 
@@ -62,18 +62,18 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="fb_app_id" name="fb_app_id" class="form-control" placeholder="facebook app id...">
+                    <input type="text" id="fb_app_id" name="fb_app_id" class="form-control shadow-sm" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_id">GA ID</label>
-                    <input type="text" id="ga_id" name="ga_id" class="form-control" placeholder="game analytics id...">
+                    <input type="text" id="ga_id" name="ga_id" class="form-control shadow-sm" placeholder="game analytics id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_secret">GA Secret</label>
-                    <input type="text" id="ga_secret" name="ga_secret" class="form-control" placeholder="game analytics secret...">
+                    <input type="text" id="ga_secret" name="ga_secret" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create </button>
-                <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
+                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create </button>
+                <button type="reset" class="btn btn-secondary font-weight-bold shadow"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
         <div class="card-footer text-muted">

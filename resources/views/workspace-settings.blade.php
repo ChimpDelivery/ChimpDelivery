@@ -26,11 +26,11 @@
                 <div class="collapse show" id="collapse_workspace_settings">
                     <div class="form-group">
                         <label for="name">Workspace Name</label>
-                        <input type="text" class="form-control" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
+                        <input type="text" class="form-control shadow-sm" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                     </div>
                     <div class="form-group">
                         <label for="api_key">Workspace API Key</label>
-                        <input type="text" id="api_key" name="api_key" class="form-control" value="{{ ($isNew) ? '' : $workspace->api_key }}">
+                        <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->api_key }}">
                         <small class="form-text text-muted">
                             Using by Unity3D projects to fetch app information when building.
                         </small>
@@ -58,11 +58,11 @@
                     </div>
                     <div class="form-group">
                         <label for="kid">Key ID</label>
-                        <input type="text" id="kid" name="kid" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
+                        <input type="text" id="kid" name="kid" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
                     </div>
                     <div class="form-group">
                         <label for="issuer_id">Issuer ID</label>
-                        <input type="text" id="issuer_id" name="issuer_id" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
+                        <input type="text" id="issuer_id" name="issuer_id" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
                     </div>
                 </div>
 
@@ -78,11 +78,11 @@
                     </div>
                     <div class="form-group">
                         <label for="usermail">User Mail</label>
-                        <input type="text" id="usermail" name="usermail" class="form-control" value="{{ ($isNew) ? '' : $workspace->appleSetting->usermail }}">
+                        <input type="text" id="usermail" name="usermail" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appleSetting->usermail }}">
                     </div>
                     <div class="form-group">
                         <label for="app_specific_pass">App Specific Password</label>
-                        <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control" value="{{ ($isNew) ? '' : $workspace->appleSetting->app_specific_pass }}">
+                        <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appleSetting->app_specific_pass }}">
                     </div>
                 </div>
 
@@ -98,26 +98,26 @@
                     </div>
                     <div class="form-group">
                         <label for="personal_access_token">Personal Access Token</label>
-                        <input type="text" id="personal_access_token" name="personal_access_token" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->personal_access_token }}">
+                        <input type="text" id="personal_access_token" name="personal_access_token" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->personal_access_token }}">
                     </div>
                     <div class="form-group">
                         <label for="organization_name">Organization Name</label>
-                        <input type="text" id="organization_name" name="organization_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}">
+                        <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}">
                         <small class="form-text text-muted">
                             Github Organization name linked to the account where the access token was generated.
                         </small>
                     </div>
                     <div class="form-group">
                         <label for="template_name">Template Project</label>
-                        <input type="text" id="template_name" name="template_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
+                        <input type="text" id="template_name" name="template_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
                     </div>
                     <div class="form-group">
                         <label for="topic_name">Project Topic</label>
-                        <input type="text" id="topic_name" name="topic_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
+                        <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
                     </div>
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-success font-weight-bold"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}</button>
+                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}</button>
             </form>
         </div>
         <div class="card-footer text-muted">
