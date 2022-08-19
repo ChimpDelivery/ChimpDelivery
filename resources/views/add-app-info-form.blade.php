@@ -21,7 +21,7 @@
                     </div>
                     <div class="custom-file">
                         <input type="file" onchange="preview()" class="custom-file-input" id="app_icon" name="app_icon" accept="image/png">
-                        <label class="custom-file-label" for="app_icon">Choose App Icon...</label>
+                        <label class="custom-file-label" for="app_icon">Choose Icon...</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -58,7 +58,7 @@
                         <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($github_projects) }})
                     </button>
                     @if($github_auth_failed)
-                    <a class="badge badge-danger ">Error: Github API Auth failed!</a>
+                    <a class="badge badge-danger text-wrap">Error: Github API Auth failed!</a>
                     @endif
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
