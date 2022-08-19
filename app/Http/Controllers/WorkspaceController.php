@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
-
 use App\Models\Workspace;
-use App\Models\AppStoreConnectSetting;
-use App\Models\AppleSetting;
-use App\Models\GithubSetting;
+use App\Events\WorkspaceChanged;
+use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -24,65 +21,25 @@ class WorkspaceController extends Controller
         return $workspace;
     }
 
-    public function Store(StoreWorkspaceSettingsRequest $request) : JsonResponse
+    public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : JsonResponse
     {
-        $this->authorize('create', Workspace::class);
+        // check new user
+        $currentWorkspace = Auth::user()->workspace;
+        $isNewUser = $currentWorkspace->id == 1;
 
-        $validated = $request->safe();
+        // gate
+        $method = $isNewUser ? 'create' : 'update';
+        $action = $isNewUser ? Workspace::class : $currentWorkspace;
+        $this->authorize($method, $action);
 
-        $newWorkspace = Workspace::create(
-            $validated->only([
-                'name',
-                'api_key',
-            ])
-        );
+        //
+        $targetWorkspace = ($isNewUser) ? new Workspace() : $currentWorkspace;
 
-        $newAppStoreConnectSetting = AppStoreConnectSetting::create([
-            'workspace_id' => $newWorkspace->id,
-            'private_key' => ($request->hasFile('private_key')) ? $validated->private_key->get() : null,
-        ]);
+        event(new WorkspaceChanged($targetWorkspace, $request));
 
-        $newAppStoreConnectSetting->update(
-            $validated->only([
-                'workspace_id',
-                'issuer_id',
-                'kid',
-            ])
-        );
-
-        $newAppleSetting = AppleSetting::create([ 'workspace_id' => $newWorkspace->id ]);
-        $newAppleSetting->update(
-            $validated->only([
-                'workspace_id',
-                'usermail',
-                'app_specific_pass',
-            ])
-        );
-
-        $newGitSetting = GithubSetting::create([ 'workspace_id' => $newWorkspace->id ]);
-        $newGitSetting->update(
-            $validated->only([
-                'workspace_id',
-                'personal_access_token',
-                'organization_name',
-                'template_name',
-                'topic_name',
-            ])
-        );
-
-        Auth::user()->update([ 'workspace_id' => $newWorkspace->id ]);
-        Auth::user()->syncRoles([ 'Admin_Workspace' ]);
-
-        return response()->json([ 'response' => $newWorkspace ], Response::HTTP_ACCEPTED);
-    }
-
-    public function Update(StoreWorkspaceSettingsRequest $request) : JsonResponse
-    {
-        $workspace = Auth::user()->workspace;
-        $this->authorize('update', $workspace);
-
-        $response = $workspace->update($request->safe()->only([ 'name', 'api_key' ]));
-
-        return response()->json([ 'status' => $response ], Response::HTTP_ACCEPTED);
+        return response()->json([
+            'response' => $targetWorkspace,
+            'wasRecentlyCreated' => $isNewUser
+        ], Response::HTTP_ACCEPTED);
     }
 }

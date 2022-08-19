@@ -60,9 +60,11 @@ class DashboardController extends Controller
 
     public function StoreWorkspaceForm(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        app(WorkspaceController::class)->Store($request)->getData();
+        $response = app(WorkspaceController::class)->StoreOrUpdate($request)->getData();
+        $flashMessage = "Workspace: <b>{$response->response->name}</b> " . (($response->wasRecentlyCreated) ? 'created.' : 'updated.');
+        session()->flash('success', $flashMessage);
 
-        return to_route('get_app_list');
+        return to_route('workspace_settings');
     }
 
     public function GetWorkspaceForm() : View

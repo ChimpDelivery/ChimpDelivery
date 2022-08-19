@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="api_key">Workspace API Key</label>
-                    <input type="text" id="api_key" name="api_key" class="form-control" value="">
+                    <input type="text" id="api_key" name="api_key" class="form-control" value="{{ ($isNew) ? '' : $workspace->api_key }}">
                 </div>
                 <br/>
                 <div class="alert alert-primary" role="alert">
