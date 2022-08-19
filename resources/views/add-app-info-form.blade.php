@@ -58,7 +58,7 @@
                         <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($github_projects) }})
                     </button>
                     @if($github_auth_failed)
-                    <a class="badge badge-danger text-wrap">Error: Github API Auth failed!</a>
+                    <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
                     @endif
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
