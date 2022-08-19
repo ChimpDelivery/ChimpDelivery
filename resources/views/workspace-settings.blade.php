@@ -89,7 +89,7 @@
                     <input type="text" id="topic_name" name="topic_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> {{ $title }}</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create' : 'Update' }}</button>
                 <button type="reset" class="btn btn-secondary ml-2"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>

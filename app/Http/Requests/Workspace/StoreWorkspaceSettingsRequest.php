@@ -36,7 +36,12 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'usermail' => [ 'nullable', 'email:rfc' ],
             'app_specific_pass' => [ 'nullable', 'string' ],
 
-            'organization_name' => [ 'nullable', new AlphaDashDot() ],
+            'organization_name' => [
+                'nullable',
+                new AlphaDashDot(),
+                Rule::unique('github_settings')->ignore(Auth::user()->workspace->id, 'workspace_id')->whereNull('deleted_at')
+            ],
+
             'personal_access_token' => [ 'nullable', 'alpha_dash' ],
             'template_name' => [ 'nullable', new AlphaDashDot() ],
             'topic_name' => [ 'nullable', new AlphaDashDot() ],

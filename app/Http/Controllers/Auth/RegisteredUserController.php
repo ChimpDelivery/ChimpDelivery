@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'g-recaptcha-response' => ['required', 'captcha'],
             'invite_code' => [
                 'nullable',
-                'string',
+                'alpha_num',
                 Rule::exists('workspace_invite_codes', 'code')->whereNull('deleted_at')
             ]
         ]);
