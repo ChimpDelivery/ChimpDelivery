@@ -32,7 +32,7 @@
                 <br/>
                 <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>App Store Connect Auth</b>
+                    <b>AppStore API</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://appstoreconnect.apple.com/access/api"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
                 </div>
                 <div class="input-group mb-3">
@@ -55,7 +55,7 @@
                 <br/>
                 <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-apple" aria-hidden="true"></i>
-                    <b>TestFlight Auth</b>
+                    <b>TestFlight API</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get Password</a>
                 </div>
                 <div class="form-group">
@@ -69,7 +69,7 @@
                 <br/>
                 <div class="alert alert-primary shadow-sm" role="alert">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                    <b>Github Auth</b>
+                    <b>Github API</b>
                     <a class="float-right badge badge-success text-nowrap" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Token</a>
                 </div>
                 <div class="form-group">
