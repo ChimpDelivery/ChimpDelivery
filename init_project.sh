@@ -17,7 +17,6 @@ sudo chmod -R 775 bootstrap/cache
 # only production packages (in local environment, use only 'composer install')
 composer install --no-dev
 
-php artisan key:generate --force
 php artisan migrate --force
 php artisan clear-compiled
 php artisan optimize:clear
