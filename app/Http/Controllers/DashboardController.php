@@ -79,9 +79,12 @@ class DashboardController extends Controller
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
         $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
 
+        $isBadCredentials = $allGitProjects->status == Response::HTTP_UNAUTHORIZED;
+
         return view('add-app-info-form')->with([
-            'allAppInfos' => $allAppInfos,
-            'allGitProjects' => $allGitProjects->response
+            'all_appstore_apps' => $allAppInfos,
+            'github_auth_failed' => $isBadCredentials,
+            'github_projects' => ($allGitProjects->status == Response::HTTP_UNAUTHORIZED) ? collect() : $allGitProjects->response
         ]);
     }
 

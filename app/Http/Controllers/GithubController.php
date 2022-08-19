@@ -16,13 +16,16 @@ class GithubController extends Controller
 {
     public function __construct()
     {
-        Config::set('github.connections.main.token', Auth::user()->workspace->githubSetting->personal_access_token);
+        Config::set(
+            'github.connections.main.token',
+            Auth::user()->workspace->githubSetting->personal_access_token ?? 'INVALID_TOKEN'
+        );
     }
 
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function GetRepositories() : JsonResponse
     {
-        $response = [];
+        $response = collect();
 
         try
         {
@@ -50,7 +53,7 @@ class GithubController extends Controller
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'status' => $exception->getCode() ]);
+            return response()->json([ 'status' => $exception->getCode(), 'response' => $response ]);
         }
 
         return response()->json([ 'status' => Response::HTTP_OK, 'response' => $response ]);

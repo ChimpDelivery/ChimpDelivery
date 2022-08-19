@@ -32,12 +32,12 @@
                         <input type="text" id="app_name" name="app_name" class="form-control" value="" hidden>
 
                         <button class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($allAppInfos) }})
+                            <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($all_appstore_apps) }})
                         </button>
 
                         <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
-                            @foreach($allAppInfos as $appInfo)
+                            @foreach($all_appstore_apps as $appInfo)
                                 <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_bundle }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_name }}</a>
                             @endforeach
                         </div>
@@ -54,13 +54,15 @@
                 <div class="form-group">
                     <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
-                    <button class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($allGitProjects) }})
+                    <button @if($github_auth_failed) disabled @endif class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($github_projects) }})
                     </button>
-
+                    @if($github_auth_failed)
+                    <a class="badge badge-danger ">Error: Github API Auth failed!</a>
+                    @endif
                     <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
                         <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
-                        @foreach($allGitProjects as $gitProject)
+                        @foreach($github_projects as $gitProject)
                             <a class="dropdown-item" href="#">{{ $gitProject->name }} ({{ $gitProject->size }})</a>
                         @endforeach
                     </div>
