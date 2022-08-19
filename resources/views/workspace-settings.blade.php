@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container py-2">
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
