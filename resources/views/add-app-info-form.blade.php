@@ -15,9 +15,14 @@
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
-                    <label for="app_icon">App Icon</label>
-                    <input type="file" onchange="preview()" id="app_icon" name="app_icon" class="form-control form-control-file shadow-sm" accept="image/png">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Icon</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" onchange="preview()" class="custom-file-input" id="app_icon" name="app_icon" accept="image/png">
+                        <label class="custom-file-label" for="app_icon">Choose App Icon...</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
