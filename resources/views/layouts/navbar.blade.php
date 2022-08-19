@@ -17,7 +17,7 @@
             <ul class="navbar-nav mr-auto nav-pills">
                 @can('create workspace')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard">Create Workspace <span class="sr-only">(current)</span></a>
+                    <a class="nav-link font-weight-bold" href="/dashboard">Create Workspace</a>
                 </li>
                 @endcan
                 @can('join workspace')
@@ -28,7 +28,7 @@
 
                 @can('view app')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard">Apps <span class="sr-only">(current)</span></a>
+                    <a class="nav-link font-weight-bold" href="/dashboard">Apps</a>
                 </li>
                 @endcan
                 @can('create app')
