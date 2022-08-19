@@ -7,6 +7,7 @@ use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use Firebase\JWT\JWT;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -17,20 +18,33 @@ class AppStoreConnectController extends Controller
 
     public function GetToken() : JsonResponse
     {
+        $appStoreSetting = Auth::user()->workspace->appStoreConnectSetting;
+
         $payload = [
-            'iss' => Auth::user()->workspace->appStoreConnectSetting->issuer_id,
+            'iss' => $appStoreSetting->issuer_id,
             'exp' => time() + config('appstore.cache_duration') * 60,
             'aud' => 'appstoreconnect-v1'
         ];
 
-        return response()->json([
-            'appstore_token' => JWT::encode(
-                $payload,
-                Auth::user()->workspace->appStoreConnectSetting->private_key,
+        $token = null;
+
+        try
+        {
+            $token = JWT::encode($payload,
+                $appStoreSetting->private_key,
                 'ES256',
-                Auth::user()->workspace->appStoreConnectSetting->kid,
-            )
-        ]);
+                $appStoreSetting->kid,
+            );
+        }
+        catch (\Exception $e)
+        {
+            return response()->json([
+                'appstore_token' => null,
+                'error' => 'Could not generate token', Response::HTTP_INTERNAL_SERVER_ERROR
+            ]);
+        }
+
+        return response()->json([ 'appstore_token' => $token ]);
     }
 
     public function GetFullAppInfo() : JsonResponse
@@ -38,7 +52,7 @@ class AppStoreConnectController extends Controller
         $appList = Http::withToken($this->GetToken()->getData()->appstore_token)
             ->get(self::API_URL.'/apps?fields[apps]=name,bundleId&limit='.config('appstore.item_limit').'&filter[appStoreVersions.platform]=IOS&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION');
 
-        $sortedAppCollection = collect(json_decode($appList)->data);
+        $sortedAppCollection = collect(($appList->failed()) ? [] : json_decode($appList)->data);
         $sortedAppList = $sortedAppCollection->sortByDesc('id');
 
         return response()->json([
