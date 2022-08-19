@@ -18,12 +18,12 @@
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
                 @csrf
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_workspace_settings" role="button" aria-expanded="false" aria-controls="collapse_workspace_settings">
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_workspace_settings" role="button" aria-expanded="true" aria-controls="collapse_workspace_settings">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         <b>Board Settings</b>
                     </a>
                 </p>
-                <div class="collapse" id="collapse_workspace_settings">
+                <div class="collapse show" id="collapse_workspace_settings">
                     <div class="form-group">
                         <label for="name">Workspace Name</label>
                         <input type="text" class="form-control" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
