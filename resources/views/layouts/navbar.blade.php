@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm">
         <a class="navbar-brand font-weight-bold" href="/dashboard">
             <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
             Dashboard
