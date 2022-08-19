@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-success font-weight-bold"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create' : 'Update Workspace' }}</button>
+                <button type="submit" class="btn btn-success font-weight-bold"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}</button>
             </form>
         </div>
         <div class="card-footer text-muted">
