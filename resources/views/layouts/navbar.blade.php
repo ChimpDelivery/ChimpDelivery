@@ -3,7 +3,7 @@
         <a class="navbar-brand font-weight-bold" href="/dashboard">
             <img src="{{ asset('Talus_icon.ico') }}" alt="..." height="36" />
             @hasrole('User')
-                <b>{{ config('app.name') }}</b>
+                {{ config('app.name') }}
             @else
                 <span class="text-capitalize font-weight-bold text-dark">{{ Auth::user()->workspace->name }}</span>
             @endrole
