@@ -59,16 +59,14 @@ class RegisteredUserController extends Controller
             'api_token' => Str::random(60)
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
         $user->syncRoles([ ($inviteCode) ? 'User_Workspace' : 'User' ]);
 
         // expires invite code
-        if ($inviteCode) {
-            $inviteCode->delete();
-        }
+        $inviteCode?->delete();
+
+        event(new Registered($user));
+
+        Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
