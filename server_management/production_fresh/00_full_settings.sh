@@ -11,7 +11,7 @@ export NO_COLOR='\033[0m'
 # save project folder path
 export PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
-#
+# todo: add yes/no input for confirmation
 echo "${COLOR_RED}Caution! Do not run this script if the production server is already live."
 echo "\n${COLOR_GREEN}Installation starting...${NO_COLOR}"
 echo "${COLOR_YELLOW}Target project folder:${NO_COLOR} $PROJECT_FOLDER"
