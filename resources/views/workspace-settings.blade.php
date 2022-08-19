@@ -18,7 +18,7 @@
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
                 @csrf
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_workspace_settings" role="button" aria-expanded="false" aria-controls="collapse_workspace_settings">
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_workspace_settings" role="button" aria-expanded="false" aria-controls="collapse_workspace_settings">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         <b>Board Settings</b>
                     </a>
@@ -31,14 +31,14 @@
                     <div class="form-group">
                         <label for="api_key">Workspace API Key</label>
                         <input type="text" id="api_key" name="api_key" class="form-control" value="{{ ($isNew) ? '' : $workspace->api_key }}">
-                        <small id="passwordHelpBlock" class="form-text text-muted">
+                        <small class="form-text text-muted">
                             Using by Unity3D projects to fetch app information when building.
                         </small>
                     </div>
                 </div>
 
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_app_store_connect_settings" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_app_store_connect_settings" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
                         <b>AppStore API</b>
                     </a>
@@ -57,17 +57,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="issuer_id">Issuer ID</label>
-                        <input type="text" id="issuer_id" name="issuer_id" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
-                    </div>
-                    <div class="form-group">
                         <label for="kid">Key ID</label>
                         <input type="text" id="kid" name="kid" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="issuer_id">Issuer ID</label>
+                        <input type="text" id="issuer_id" name="issuer_id" class="form-control" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
                     </div>
                 </div>
 
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
                         <b>TestFlight API</b>
                     </a>
@@ -87,7 +87,7 @@
                 </div>
 
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
                         <i class="fa fa-github" aria-hidden="true"></i>
                         <b>Github API</b>
                     </a>
@@ -103,6 +103,9 @@
                     <div class="form-group">
                         <label for="organization_name">Organization Name</label>
                         <input type="text" id="organization_name" name="organization_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}">
+                        <small class="form-text text-muted">
+                            Github Organization name linked to the account where the access token was generated.
+                        </small>
                     </div>
                     <div class="form-group">
                         <label for="template_name">Template Project</label>
@@ -113,13 +116,13 @@
                         <input type="text" id="topic_name" name="topic_name" class="form-control" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create' : 'Update' }}</button>
-                <button type="reset" class="btn btn-secondary ml-2"><i class="fa fa-refresh"></i> Reset</button>
+                <br/>
+                <button type="submit" class="btn btn-success font-weight-bold"><i class="fa fa-plus-square"></i> {{ ($isNew) ? 'Create' : 'Update Workspace' }}</button>
             </form>
         </div>
         <div class="card-footer text-muted">
             <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            Fields can be updated later by Workspace Admin(s).
+            Fields can be changed later by Workspace Admin(s).
         </div>
     </div>
 </div>
