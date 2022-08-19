@@ -45,7 +45,7 @@
                 </p>
                 <div class="collapse" id="collapse_app_store_connect_settings">
                     <div class="form-group">
-                        <a class="badge badge-success" href="https://appstoreconnect.apple.com/access/api"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
+                        <a class="badge badge-success" href="https://appstoreconnect.apple.com/access/api" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Keys</a>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -74,7 +74,7 @@
                 </p>
                 <div class="collapse" id="collapse_apple_settings">
                     <div class="form-group">
-                        <a class="badge badge-success" href="https://appleid.apple.com/account/manage"><i class="fa fa-external-link" aria-hidden="true"></i> Get Password</a>
+                        <a class="badge badge-success" href="https://appleid.apple.com/account/manage" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Password</a>
                     </div>
                     <div class="form-group">
                         <label for="usermail">User Mail</label>
@@ -94,7 +94,7 @@
                 </p>
                 <div class="collapse" id="collapse_github_settings">
                     <div class="form-group">
-                        <a class="badge badge-success" href="https://github.com/settings/tokens"><i class="fa fa-external-link" aria-hidden="true"></i> Get Token</a>
+                        <a class="badge badge-success" href="https://github.com/settings/tokens" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Token</a>
                     </div>
                     <div class="form-group">
                         <label for="personal_access_token">Personal Access Token</label>
