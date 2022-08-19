@@ -53,7 +53,7 @@
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
-                            <label class="custom-file-label" for="private_key">Choose file</label>
+                            <label class="custom-file-label" for="private_key">Choose...</label>
                         </div>
                     </div>
                     <div class="form-group">
