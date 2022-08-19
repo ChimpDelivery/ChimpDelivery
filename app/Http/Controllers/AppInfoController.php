@@ -73,12 +73,11 @@ class AppInfoController extends Controller
 
     private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)
     {
-        $request = $request->merge([ 'workspace_id' => Auth::user()->workspace->id ]);
-
         if ($appModel->trashed()) {
             $appModel->restore();
         }
 
+        $appModel->fill([ 'workspace_id' => Auth::user()->workspace_id ]);
         $appModel->fill($request->safe()->all());
 
         if ($request->hasFile('app_icon')) {
