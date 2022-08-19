@@ -1,9 +1,8 @@
+echo "\n${COLOR_CYAN}Step 1 - SERVER INITIALIZATION${NO_COLOR}"
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
-
-# save project folder path
-PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
 # update packages
 sudo apt-get update -y
