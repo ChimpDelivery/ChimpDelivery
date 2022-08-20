@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <select name="app_name" id="app_name"
                         class="form-control selectpicker show-tick" 
-                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false"
+                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                         title="Select App ({{ count($all_appstore_apps) }})...">
 
                         @foreach($all_appstore_apps as $appInfo)
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <select name="project_name" 
                         class="form-control selectpicker show-tick" 
-                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false"
+                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                         title="Select Github Project ({{ count($github_projects) }})..." {{ ($github_auth_failed) ? 'disabled' : '' }}>
                         
                         @foreach($github_projects as $gitProject)
