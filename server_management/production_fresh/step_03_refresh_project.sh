@@ -1,4 +1,4 @@
-cd $PROJECT_FOLDER
+cd $1
 
 # project permissions
 sudo chown -R www-data:www-data storage

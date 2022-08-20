@@ -1,4 +1,4 @@
-cd $PROJECT_FOLDER
+cd $1
 
 # if environment file already exists, skip this step
 if [ ! -f ".env" ]; then
@@ -12,4 +12,6 @@ if [ ! -f ".env" ]; then
 
     php artisan key:generate --force
     php artisan migrate:fresh --seed --force
+else
+    echo "\n Step - 2: Environment file already exists, skipping this step...\n"
 fi
