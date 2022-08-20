@@ -76,8 +76,8 @@
                     <label for="ga_secret">GA Secret</label>
                     <input type="text" id="ga_secret" name="ga_secret" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
-                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create</button>
-                <button type="reset" class="btn btn-secondary font-weight-bold shadow"><i class="fa fa-refresh"></i> Reset</button>
+                <br/>
+                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create App</button>
             </form>
         </div>
         <div class="card-footer text-muted">
