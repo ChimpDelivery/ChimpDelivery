@@ -4,6 +4,8 @@ namespace App\View\Parsers;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Auth;
+
 class JenkinsDataParser
 {
     private $projectName;
@@ -17,7 +19,7 @@ class JenkinsDataParser
 
     public function GetButtonImage()
     {
-        $ws = config('jenkins.ws');
+        $ws = Auth::user()->workspace->githubSetting->organization_name;
         $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->projectName}%2Fmaster";
         return '<img alt="..." src="'.$url.'">';
     }
