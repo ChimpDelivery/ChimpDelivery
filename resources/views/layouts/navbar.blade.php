@@ -25,7 +25,6 @@
                     <a class="nav-link font-weight-bold" href="/dashboard/join-workspace">Join Workspace</a>
                 </li>
                 @endcan
-
                 @can('view apps')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps</a>
@@ -37,16 +36,25 @@
                 </li>
                 @endcan
                 @can('create bundle')
-                <li class="nav-item {{ (request()->is('dashboard/create-bundle')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard/create-bundle">iOS Bundle</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle font-weight-bold bg-transparent" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    AppStore
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/dashboard/create-bundle">Bundle ID</a>
+                    </div>
                 </li>
                 @endcan
-                @can('scan jobs')
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="/dashboard/scan-repo">Scan Github</a>
+                @can('create bundle')
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle font-weight-bold bg-transparent" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    GooglePlay
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/dashboard/create-bundle">Bundle ID</a>
+                    </div>
                 </li>
                 @endcan
-
                 @can('view workspace')
                 <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
