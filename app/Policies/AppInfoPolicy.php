@@ -18,7 +18,7 @@ class AppInfoPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->can('view apps');
     }
 
     /**
@@ -30,7 +30,7 @@ class AppInfoPolicy
      */
     public function view(User $user, AppInfo $appInfo)
     {
-        return $user->can('wiew app') && $user->workspace->id === $appInfo->workspace_id;
+        return $user->can('view app') && $user->workspace->id === $appInfo->workspace_id;
     }
 
     /**

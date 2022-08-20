@@ -76,6 +76,8 @@ class DashboardController extends Controller
 
     public function CreateAppForm() : View
     {
+        $this->authorize('create', AppInfo::class);
+        
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
         $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
 
