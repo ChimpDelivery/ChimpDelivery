@@ -7,7 +7,7 @@ sudo chmod -R 775 storage
 sudo chmod -R 775 bootstrap/cache
 
 # only production packages (in local environment, use only 'composer install')
-composer install # --no-dev
+composer install --no-dev
 
 php artisan clear-compiled
 php artisan optimize:clear
