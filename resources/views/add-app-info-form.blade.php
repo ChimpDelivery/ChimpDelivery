@@ -30,12 +30,11 @@
                 <div class="form-group">
                     <select name="app_name" id="app_name"
                         class="form-control selectpicker show-tick" 
-                        data-style="btn-primary" data-live-search="true" 
+                        data-style="btn-primary" data-live-search="true"
                         title="Select App ({{ count($all_appstore_apps) }})...">
 
                         @foreach($all_appstore_apps as $appInfo)
-                        <option data-appstore-bundle="{{ $appInfo->app_bundle }}" 
-                            data-appstore-id="{{ $appInfo->appstore_id }}">
+                        <option data-appstore-bundle="{{ $appInfo->app_bundle }}" data-appstore-id="{{ $appInfo->appstore_id }}">
                             {{ $appInfo->app_name }}
                         </option>
                         @endforeach
@@ -52,7 +51,7 @@
                 <div class="form-group">
                     <select name="project_name" 
                         class="form-control selectpicker show-tick" 
-                        data-style="btn-primary" data-live-search="true" 
+                        data-style="btn-primary" data-live-search="true"
                         title="Select Github Project ({{ count($github_projects) }})..." {{ ($github_auth_failed) ? 'disabled' : '' }}>
                         
                         @foreach($github_projects as $gitProject)
@@ -90,17 +89,21 @@
 @section('scripts')
 <script type="text/javascript">
 
+    // get selected app data
     $('select[name=app_name]').change(function () {
-        var selectedApp = $('select[name=app_name]').val();
-        alert(selectedApp);
+        let selectedOption = $('option:selected', this);
+        let appStoreId = selectedOption.attr('data-appstore-id');
+        let appStoreBundle = selectedOption.attr('data-appstore-bundle');
+
+        updateAppstoreFields(appStoreId, appStoreBundle);
     });
 
-    function updateAppstoreFields(selectedProject) {
-        let appstoreBundleField = document.getElementById('app_bundle');
-        appstoreBundleField.value = selectedProject.getAttribute('data-appstore-bundle');
-
+    function updateAppstoreFields(appStoreId, appStoreBundle) {
         let appstoreIdField = document.getElementById('appstore_id');
-        appstoreIdField.value = selectedProject.getAttribute('data-appstore-id');
+        appstoreIdField.value = appStoreId;
+
+        let appstoreBundleField = document.getElementById('app_bundle');
+        appstoreBundleField.value = appStoreBundle;
     }
 
     function preview() {
