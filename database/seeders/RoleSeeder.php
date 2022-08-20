@@ -32,6 +32,7 @@ class RoleSeeder extends Seeder
         $workspaceAdminPermissions = [
             'view workspace',
             'update workspace',
+            'view apps',
             'create app',
             'update app',
             'delete app',

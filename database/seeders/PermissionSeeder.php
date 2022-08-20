@@ -22,7 +22,7 @@ class PermissionSeeder extends Seeder
             'update workspace',
 
             'create app',
-            'view app',
+            'view apps',
             'update app',
             'delete app',
 
@@ -33,11 +33,8 @@ class PermissionSeeder extends Seeder
             'abort job',
         ];
 
-        foreach ($permissions as $permission)
-        {
-            Permission::create([
-                'name' => $permission
-            ]);
+        foreach ($permissions as $permission) {
+            Permission::create([ 'name' => $permission ]);
         }
     }
 }

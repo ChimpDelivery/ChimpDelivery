@@ -26,7 +26,7 @@
                 </li>
                 @endcan
 
-                @can('view app')
+                @can('view apps')
                 <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps</a>
                 </li>
