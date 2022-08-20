@@ -35,6 +35,7 @@
         .toast:not(.showing):not(.show) { display: none !important; }
         .popover-inner { width: 250px !important; max-width: 250px !important; }
         .popover { width: 250px !important; max-width: 250px !important; }
+        .filter-option-inner-inner { color: white; font-weight: bold; }
     </style>
 </head>
 
