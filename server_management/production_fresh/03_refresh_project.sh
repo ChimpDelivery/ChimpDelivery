@@ -1,4 +1,3 @@
-# laravel environment
 cd $PROJECT_FOLDER
 
 # project permissions

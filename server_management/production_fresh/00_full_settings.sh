@@ -1,5 +1,9 @@
 # entry point for preparing production server
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 # color utility
 export COLOR_RED='\033[0;31m'
 export COLOR_GREEN='\033[0;32m'
@@ -12,6 +16,7 @@ export PROJECT_FOLDER="/var/www/html/TalusWebBackend"
 
 # todo: add yes/no input for confirmation
 echo "${COLOR_RED}Caution! Do not run this script if the production server is already live."
+
 echo "\n${COLOR_GREEN}Installation starting...${NO_COLOR}"
 echo "${COLOR_YELLOW}Target project folder:${NO_COLOR} $PROJECT_FOLDER"
 
