@@ -1,2 +1,0 @@
-- No Laravel Key generation due to encrypted data.
-- No migration.
