@@ -1,5 +1,3 @@
-echo "\n${COLOR_CYAN}Step 2 - PROJECT INITIALIZATION${NO_COLOR}"
-
 # create environment file in project folder
 cd $PROJECT_FOLDER
 if [ ! -f ".env" ]; then

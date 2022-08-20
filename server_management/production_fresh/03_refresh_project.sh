@@ -1,5 +1,3 @@
-echo "\n${COLOR_CYAN}Step 3 - PROJECT REFRESHING${NO_COLOR}"
-
 # laravel environment
 cd $PROJECT_FOLDER
 
@@ -19,14 +17,3 @@ composer cc
 composer dump-autoload
 
 php artisan optimize
-
-# display success
-echo "\n${COLOR_GREEN}Success ! Project initialized!${NO_COLOR}"
-
-# unset created environment variables after all process completed
-unset PROJECT_FOLDER
-unset COLOR_RED
-unset COLOR_GREEN
-unset COLOR_YELLOW
-unset COLOR_CYAN
-unset NO_COLOR

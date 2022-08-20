@@ -1,5 +1,4 @@
 # entry point for preparing production server
-# don't forget to check crontab for multiple same entry
 
 # color utility
 export COLOR_RED='\033[0;31m'
@@ -16,6 +15,25 @@ echo "${COLOR_RED}Caution! Do not run this script if the production server is al
 echo "\n${COLOR_GREEN}Installation starting...${NO_COLOR}"
 echo "${COLOR_YELLOW}Target project folder:${NO_COLOR} $PROJECT_FOLDER"
 
+echo "\n${COLOR_CYAN}Step 1 - SERVER INITIALIZATION${NO_COLOR}"
 sh 01_init_server.sh
+echo "\n${COLOR_GREEN}Step 1 - Completed!${NO_COLOR}"
+
+echo "\n${COLOR_CYAN}Step 2 - PROJECT INITIALIZATION${NO_COLOR}"
 sh 02_init_project.sh
+echo "\n${COLOR_GREEN}Step 2 - Completed!${NO_COLOR}"
+
+echo "\n${COLOR_CYAN}Step 3 - PROJECT REFRESHING${NO_COLOR}"
 sh 03_refresh_project.sh
+echo "\n${COLOR_GREEN}Step 3 - Completed!${NO_COLOR}"
+
+# display success
+echo "\n${COLOR_GREEN}Success ! Project initialized!${NO_COLOR}"
+
+# unset created environment variables after all process completed
+unset PROJECT_FOLDER
+unset COLOR_RED
+unset COLOR_GREEN
+unset COLOR_YELLOW
+unset COLOR_CYAN
+unset NO_COLOR
