@@ -28,20 +28,18 @@
                     <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                 </div>
                 <div class="form-group">
-                    <div class="dropdown">
-                        <input type="text" id="app_name" name="app_name" class="form-control" value="" hidden>
+                    <select name="app_name" id="app_name"
+                        class="form-control selectpicker show-tick" 
+                        data-style="btn-primary" data-live-search="true" 
+                        title="Select App ({{ count($all_appstore_apps) }})...">
 
-                        <button class="btn btn-primary dropdown-toggle font-weight-bold btn-block shadow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($all_appstore_apps) }})
-                        </button>
-
-                        <div id="dropdown-inputs" class="dropdown-menu pre-scrollable w-100" aria-labelledby="dropdownMenuButton">
-                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
-                            @foreach($all_appstore_apps as $appInfo)
-                                <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_bundle }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_name }}</a>
-                            @endforeach
-                        </div>
-                    </div>
+                        @foreach($all_appstore_apps as $appInfo)
+                        <option data-appstore-bundle="{{ $appInfo->app_bundle }}" 
+                            data-appstore-id="{{ $appInfo->appstore_id }}">
+                            {{ $appInfo->app_name }}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="appstore_id">Appstore ID</label>
@@ -52,22 +50,18 @@
                     <input type="text" id="app_bundle" name="app_bundle" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <div class="dropdown">
-                        <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
-
-                        <button @if($github_auth_failed) disabled @endif class="btn btn-primary dropdown-toggle font-weight-bold btn-block shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-github" aria-hidden="true"></i> Select / Create Project ({{ count($github_projects) }})
-                        </button>
-                        @if($github_auth_failed)
-                        <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
-                        @endif
-                        <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable w-100" aria-labelledby="dropdownMenuButtonGitProject">
-                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
-                            @foreach($github_projects as $gitProject)
-                                <a class="dropdown-item" href="#">{{ $gitProject->name }} <span class="badge badge-info pull-right">{{ $gitProject->size }}</span> </a>
-                            @endforeach
-                        </div>
-                    </div>
+                    <select name="project_name" 
+                        class="form-control selectpicker show-tick" 
+                        data-style="btn-primary" data-live-search="true" 
+                        title="Select Github Project ({{ count($github_projects) }})..." {{ ($github_auth_failed) ? 'disabled' : '' }}>
+                        
+                        @foreach($github_projects as $gitProject)
+                        <option data-subtext="{{ $gitProject->size }}">{{ $gitProject->name }}</option>
+                        @endforeach
+                    </select>
+                    @if($github_auth_failed)
+                    <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
@@ -95,77 +89,23 @@
 
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function() {
 
-        $('#dropdown-inputs a').click(function() {
-            let appName = $(this).text();
-
-            // update button text.
-            $('button[id="dropdownMenuButton"]').text(appName);
-
-            // update hidden app name input.
-            let appNameField = document.getElementById('app_name');
-            appNameField.value = appName;
-        });
-
-        $('#dropdown-inputs-git-project a').click(function () {
-            let gitProjectName = $(this).text().split('(');
-
-            // update dropdown without size info
-            $('button[id="dropdownMenuButtonGitProject"]').text(gitProjectName[0]);
-
-            // update hidden git project field
-            let gitField = document.getElementById('project_name')
-            gitField.value = gitProjectName[0];
-        });
+    $('select[name=app_name]').change(function () {
+        var selectedApp = $('select[name=app_name]').val();
+        alert(selectedApp);
     });
 
-    function updateAppField(appBundleId, appstoreId) {
-        console.log('updating app field...');
+    function updateAppstoreFields(selectedProject) {
+        let appstoreBundleField = document.getElementById('app_bundle');
+        appstoreBundleField.value = selectedProject.getAttribute('data-appstore-bundle');
 
-        let appBundleField = document.getElementById('app_bundle');
-        appBundleField.value = appBundleId;
-
-        let appstoreIdField = document.getElementById('appstore_id')
-        appstoreIdField.value = appstoreId;
+        let appstoreIdField = document.getElementById('appstore_id');
+        appstoreIdField.value = selectedProject.getAttribute('data-appstore-id');
     }
 
     function preview() {
         document.getElementById('app_icon_preview').src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('app_icon_preview').hidden = false
-    }
-
-    function filterFunction(searchInputId, dropdownId) {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById(searchInputId);
-        filter = input.value.toUpperCase();
-        div = document.getElementById(dropdownId);
-        a = div.getElementsByTagName("a");
-
-        let list = [];
-
-        for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-
-            if (searchInputId === 'git_search_input') {
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    list.push(true);
-                }
-            }
-
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
-            }
-        }
-
-        if (searchInputId === 'git_search_input' && list.length === 0) {
-            $('button[id="dropdownMenuButtonGitProject"]').text(input.value);
-
-            let gitField = document.getElementById('project_name')
-            gitField.value = input.value;
-        }
     }
 </script>
 @endsection
