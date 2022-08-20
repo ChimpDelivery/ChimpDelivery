@@ -1,7 +1,4 @@
-PROJECT_FOLDER="/var/www/html/TalusWebBackend"
-
-# laravel environment
-cd $PROJECT_FOLDER
+cd $1
 
 # activate maintanence mode
 php artisan down

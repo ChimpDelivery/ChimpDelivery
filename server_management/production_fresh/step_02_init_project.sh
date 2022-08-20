@@ -5,7 +5,7 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 
     # add cron entry for scheduling in laravel
-    (crontab -l 2>/dev/null; echo "* * * * * cd $PROJECT_FOLDER && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1") | crontab -
+    (crontab -l 2>/dev/null; echo "* * * * * cd $1 && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1") | crontab -
 
     # only production packages (in local environment, use only 'composer install')
     composer install --no-dev
