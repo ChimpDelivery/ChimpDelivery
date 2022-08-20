@@ -6,6 +6,7 @@ use App\Models\AppInfo;
 
 use Illuminate\Console\Command;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class JenkinsParameterizedTrigger extends Command
@@ -24,7 +25,7 @@ class JenkinsParameterizedTrigger extends Command
 
         $url = config('jenkins.host').
             "/job/".
-            config('jenkins.ws').
+            Auth::user()->workspace->githubSetting->organization_name.
             "/job/{$app->project_name}/job/{$this->argument('branch')}/buildWithParameters".
             "?INVOKE_PARAMETERS={$this->argument('invokeParameters')}".
             "&PLATFORM={$this->argument('platform')}".

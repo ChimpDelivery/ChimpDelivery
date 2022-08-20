@@ -24,7 +24,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/delete-app-info', 'DeleteApp')->name('delete_app_info');
 
     // jenkins bridge.
-    Route::get('/dashboard/build-app', 'BuildApp');
+    Route::post('/dashboard/build-app', 'BuildApp');
     Route::get('/dashboard/stop-job', 'StopJob');
     Route::get('/dashboard/scan-repo', 'ScanRepo');
 

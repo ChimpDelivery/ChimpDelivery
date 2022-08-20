@@ -38,9 +38,9 @@ class BuildRequest extends GetAppInfoRequest
                 Rule::in([ 'Appstore', 'GooglePlay' ])
             ],
 
-            'storeVersion' => [ 'required', 'numeric' ],
-            'storeCustomVersion' => [ 'nullable', 'string', Rule::in(['true', 'false']) ],
-            'storeBuildNumber' => [ 'nullable', 'numeric' ],
+            'store_version' => [ 'required', 'numeric' ],
+            'store_custom_version' => [ 'nullable', 'string', Rule::in(['true', 'false']) ],
+            'store_build_number' => [ 'nullable', 'numeric' ],
         ];
     }
 }

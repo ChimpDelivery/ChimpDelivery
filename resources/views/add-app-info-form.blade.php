@@ -34,7 +34,7 @@
                         title="Select App ({{ count($all_appstore_apps) }})...">
 
                         @foreach($all_appstore_apps as $appInfo)
-                        <option data-appstore-bundle="{{ $appInfo->app_bundle }}" data-appstore-id="{{ $appInfo->appstore_id }}">
+                        <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appInfo->app_bundle }}" data-appstore-id="{{ $appInfo->appstore_id }}">
                             {{ $appInfo->app_name }}
                         </option>
                         @endforeach
@@ -55,7 +55,7 @@
                         title="Select Github Project ({{ count($github_projects) }})..." {{ ($github_auth_failed) ? 'disabled' : '' }}>
                         
                         @foreach($github_projects as $gitProject)
-                        <option data-subtext="{{ $gitProject->size }}">{{ $gitProject->name }}</option>
+                        <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">{{ $gitProject->name }}</option>
                         @endforeach
                     </select>
                     @if($github_auth_failed)
@@ -74,7 +74,7 @@
                     <label for="ga_secret">GA Secret</label>
                     <input type="text" id="ga_secret" name="ga_secret" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
-                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create </button>
+                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create</button>
                 <button type="reset" class="btn btn-secondary font-weight-bold shadow"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>

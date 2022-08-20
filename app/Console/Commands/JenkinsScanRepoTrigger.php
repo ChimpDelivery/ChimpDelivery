@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class JenkinsScanRepoTrigger extends Command
 {
@@ -20,7 +21,7 @@ class JenkinsScanRepoTrigger extends Command
     {
         $url = config('jenkins.host').
             "/job/".
-            config('jenkins.ws').
+            Auth::user()->workspace->githubSetting->organization_name.
             "/build?delay=0";
 
         Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);

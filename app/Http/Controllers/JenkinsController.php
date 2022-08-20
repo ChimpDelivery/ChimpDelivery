@@ -111,9 +111,9 @@ class JenkinsController extends Controller
     }
 
     public function BuildJob(BuildRequest $request) : JsonResponse
-    {
+    {        
         $validated = $request->validated();
-
+        
         $app = AppInfo::find($validated['id']);
 
         $jobResponse = $this->GetJobBuilds($request)->getData();
@@ -126,10 +126,10 @@ class JenkinsController extends Controller
             return response()->json(['status' => "Project: {$app->project_name} building for first time. This build gonna be aborted by Jenkins!"]);
         }
 
-        $validated['storeCustomVersion'] ??= 'false';
-        $validated['storeBuildNumber'] = ($validated['storeCustomVersion'] == 'true') ? $validated['storeBuildNumber'] : 0;
+        $validated['store_custom_version'] ??= 'false';
+        $validated['store_build_number'] = ($validated['store_custom_version'] == 'true') ? ($validated['store_build_number'] ?? 1) : 0;
 
-        Artisan::call("jenkins:trigger {$validated['id']} master false {$validated['platform']} {$validated['storeVersion']} {$validated['storeCustomVersion']} {$validated['storeBuildNumber']}");
+        Artisan::call("jenkins:trigger {$validated['id']} master false {$validated['platform']} {$validated['store_version']} {$validated['store_custom_version']} {$validated['store_build_number']}");
         return response()->json(['status' => "Project: <b>{$app->project_name}</b> building for <b>{$validated['platform']}</b>..."]);
     }
 

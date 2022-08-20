@@ -57,56 +57,19 @@
         })
 
         $(document).ready(function () {
-
-            $('#dropdown-inputs a').on('click', function() {
-
-                var platform = event.target.getAttribute("href");
-                platform = platform.substr(1);
-
-                //
-                document.getElementById('dropdownMenuButton').innerHTML = platform;
-                console.log("Selected platform:" + platform);
-
-                updateLink();
-            });
-
             $('#buildModal').on('show.bs.modal', function (event) {
 
                 // Get the button that triggered the modal
-                var button = $(event.relatedTarget);
+                let button = $(event.relatedTarget);
 
                 // Extract value from the custom data-* attribute
-                var appId = button.data("title");
-                var projectName = button.data("project");
+                let appId = button.data('title');
+                let projectName = button.data('project');
 
-                setCookie('target_app_id', appId, 1);
                 setCookie('target_project_name', projectName, 1);
 
-                updateLink(appId);
+                document.getElementById('build-app').action = '/dashboard/build-app?id=' + appId;
             });
         });
-
-        function updateLink(appId) {
-            if (appId == null) {
-                console.log('app_id: ' + getCookie('target_app_id'))
-            } else {
-                console.log('app_id:' + appId);
-            }
-
-            var platform = document.getElementById('dropdownMenuButton').innerHTML.trim();
-            console.log('platform:' + platform);
-
-            var storeVersion = document.getElementById('store_version').value;
-            console.log('store_version:' + storeVersion);
-
-            var storeCustomVersion = document.getElementById('store_custom_version').value === 'true';
-            console.log('store_custom_version:' + storeCustomVersion);
-
-            var storeBuildNumber = document.getElementById('store_build_version').value;
-            console.log('store_build_number:' + storeBuildNumber)
-
-            var buildUrl = "dashboard/build-app/?id=" + getCookie('target_app_id') + '&platform=' + platform + '&storeVersion=' + storeVersion + '&storeCustomVersion=' + storeCustomVersion + '&storeBuildNumber=' + storeBuildNumber;
-            document.getElementById('build_link').href = buildUrl;
-        }
     </script>
 @endsection
