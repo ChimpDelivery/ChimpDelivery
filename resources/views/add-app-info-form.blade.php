@@ -59,7 +59,9 @@
                         @endforeach
                     </select>
                     @if($github_auth_failed)
-                    <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
+                    <a class="badge badge-danger text-wrap">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERROR: Github API Auth failed!
+                    </a>
                     @endif
                 </div>
                 <div class="form-group">
