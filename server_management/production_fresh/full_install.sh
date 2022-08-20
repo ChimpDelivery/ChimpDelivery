@@ -21,15 +21,15 @@ echo "\n${COLOR_GREEN}Installation starting...${NO_COLOR}"
 echo "${COLOR_YELLOW}Target project folder:${NO_COLOR} $PROJECT_FOLDER"
 
 echo "\n${COLOR_CYAN}Step 1 - SERVER INITIALIZATION${NO_COLOR}"
-sh 01_init_server.sh
+sh step_01_init_server.sh
 echo "\n${COLOR_GREEN}Step 1 - Completed!${NO_COLOR}"
 
 echo "\n${COLOR_CYAN}Step 2 - PROJECT INITIALIZATION${NO_COLOR}"
-sh 02_init_project.sh
+sh step_02_init_project.sh
 echo "\n${COLOR_GREEN}Step 2 - Completed!${NO_COLOR}"
 
 echo "\n${COLOR_CYAN}Step 3 - PROJECT REFRESHING${NO_COLOR}"
-sh 03_refresh_project.sh
+sh step_03_refresh_project.sh
 echo "\n${COLOR_GREEN}Step 3 - Completed!${NO_COLOR}"
 
 # display success
