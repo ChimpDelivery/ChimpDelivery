@@ -10,6 +10,7 @@ use App\Http\Requests\Jenkins\StopJobRequest;
 
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
 
@@ -19,7 +20,7 @@ class JenkinsController extends Controller
 
     public function __construct()
     {
-        $this->baseUrl = config('jenkins.host').'/job/'.config('jenkins.ws');
+        $this->baseUrl = config('jenkins.host') . '/job/' . Auth::user()->workspace->githubSetting->organization_name;
     }
 
     public function GetJobList() : JsonResponse
