@@ -31,7 +31,7 @@
                     <select name="app_name" id="app_name"
                         class="form-control selectpicker show-tick shadow" 
                         data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                        title="Select App ({{ count($all_appstore_apps) }})">
+                        title="• Select App ({{ count($all_appstore_apps) }})">
 
                         @foreach($all_appstore_apps as $appInfo)
                         <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appInfo->app_bundle }}" data-appstore-id="{{ $appInfo->appstore_id }}">
@@ -52,7 +52,7 @@
                     <select name="project_name" 
                         class="form-control selectpicker show-tick shadow" 
                         data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                        title="Select Github Project ({{ count($github_projects) }})" {{ ($github_auth_failed) ? 'disabled' : '' }}>
+                        title="• Select Github Project ({{ count($github_projects) }})" {{ ($github_auth_failed) ? 'disabled' : '' }}>
                         
                         @foreach($github_projects as $gitProject)
                         <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">{{ $gitProject->name }}</option>
