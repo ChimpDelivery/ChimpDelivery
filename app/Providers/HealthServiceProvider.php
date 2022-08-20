@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
 
+use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
@@ -28,6 +29,9 @@ class HealthServiceProvider extends ServiceProvider
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
 
         Health::checks([
+            CpuLoadCheck::new()
+                ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
+                ->failWhenLoadIsHigherInTheLast15Minutes(1.5),
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
