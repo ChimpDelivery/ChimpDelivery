@@ -31,11 +31,11 @@
                     <div class="dropdown">
                         <input type="text" id="app_name" name="app_name" class="form-control" value="" hidden>
 
-                        <button class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle font-weight-bold btn-block shadow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-apple" aria-hidden="true"></i> Select App ({{ count($all_appstore_apps) }})
                         </button>
 
-                        <div id="dropdown-inputs" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+                        <div id="dropdown-inputs" class="dropdown-menu pre-scrollable w-100" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search..." id="bundle_search_input" onkeyup="filterFunction('bundle_search_input', 'dropdown-inputs')">
                             @foreach($all_appstore_apps as $appInfo)
                                 <a class="dropdown-item" href="#" onclick="updateAppField('{{ $appInfo->app_bundle }}', '{{ $appInfo->appstore_id }}')">{{ $appInfo->app_name }}</a>
@@ -52,19 +52,21 @@
                     <input type="text" id="app_bundle" name="app_bundle" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
+                    <div class="dropdown">
+                        <input type="text" id="project_name" name="project_name" class="form-control" value="" hidden>
 
-                    <button @if($github_auth_failed) disabled @endif class="btn btn-primary dropdown-toggle font-weight-bold shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-github" aria-hidden="true"></i> Select/Create Project ({{ count($github_projects) }})
-                    </button>
-                    @if($github_auth_failed)
-                    <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
-                    @endif
-                    <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButtonGitProject">
-                        <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
-                        @foreach($github_projects as $gitProject)
-                            <a class="dropdown-item" href="#">{{ $gitProject->name }} ({{ $gitProject->size }})</a>
-                        @endforeach
+                        <button @if($github_auth_failed) disabled @endif class="btn btn-primary dropdown-toggle font-weight-bold btn-block shadow" type="button" id="dropdownMenuButtonGitProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-github" aria-hidden="true"></i> Select / Create Project ({{ count($github_projects) }})
+                        </button>
+                        @if($github_auth_failed)
+                        <a class="badge badge-danger text-wrap">ERROR: Github API Auth failed!</a>
+                        @endif
+                        <div id="dropdown-inputs-git-project" class="dropdown-menu pre-scrollable w-100" aria-labelledby="dropdownMenuButtonGitProject">
+                            <input type="text" class="dropdown-item bg-secondary text-white font-italic" placeholder="search or create..." id="git_search_input" onkeyup="filterFunction('git_search_input', 'dropdown-inputs-git-project')">
+                            @foreach($github_projects as $gitProject)
+                                <a class="dropdown-item" href="#">{{ $gitProject->name }} <span class="badge badge-info pull-right">{{ $gitProject->size }}</span> </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
