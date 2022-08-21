@@ -1,3 +1,6 @@
+@php ($title = isset($appInfo) ? 'Update App' : 'Create App')
+@php ($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('store_app_info'))
+
 @extends('layouts.master')
 
 @section('title', 'Create App')
@@ -10,7 +13,7 @@
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-plus fa-stack-1x" aria-hidden="true"></i>
             </span>
-            {{ isset($appInfo) ? 'Update' : 'Create' }} App
+            {{ $title }}
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ url('dashboard/store-app-info') }}" enctype="multipart/form-data">
@@ -43,11 +46,11 @@
                 </div>
                 <div class="form-group">
                     <label for="appstore_id"><i class="fa fa-apple" aria-hidden="true"></i> Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" value="{{ isset($appInfo) ? $appInfo->appstore_id : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> App Bundle</label>
-                    <input type="text" id="app_bundle" name="app_bundle" value="{{ isset($appInfo) ? $appInfo->app_bundle : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     @if (!isset($appInfo))
@@ -72,15 +75,15 @@
 
                 <div class="form-group">
                     <label for="fb_app_id"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook App ID</label>
-                    <input type="text" id="fb_app_id" name="fb_app_id" value="{{ isset($appInfo) ? $appInfo->fb_app_id : '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
+                    <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_id">GA ID</label>
-                    <input type="text" id="ga_id" name="ga_id" value="{{ isset($appInfo) ? $appInfo->ga_id : '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
+                    <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_secret">GA Secret</label>
-                    <input type="text" id="ga_secret" name="ga_secret" value="{{ isset($appInfo) ? $appInfo->ga_secret : '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
+                    <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
                 <br/>
                 @can('delete app')
@@ -91,12 +94,9 @@
                         </button>
                     @endisset
                 @endcan
-
-                @php($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('store_app_info'))
-
                 <button type="submit" class="btn btn-success font-weight-bold shadow" formaction="{{ $formAction }}">
                     <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i> 
-                    {{ isset($appInfo) ? 'Update' : 'Create' }} App
+                    {{ $title }}
                 </button>
             </form>
         </div>
