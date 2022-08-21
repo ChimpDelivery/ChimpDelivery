@@ -16,6 +16,7 @@ class GithubController extends Controller
 {
     public function __construct()
     {
+        // is it safe?
         Config::set(
             'github.connections.main.token',
             Auth::user()->workspace->githubSetting->personal_access_token ?? 'INVALID_TOKEN'
