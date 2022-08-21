@@ -34,11 +34,7 @@
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="• Select App ({{ count($all_appstore_apps) }})">
 
-                            @foreach($all_appstore_apps as $appstore_app)
-                                <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appstore_app->app_bundle }}" data-appstore-id="{{ $appstore_app->appstore_id }}">
-                                    {{ $appstore_app->app_name }}
-                                </option>
-                            @endforeach
+                            @each('layouts.appstore.app', $all_appstore_apps, 'appstore_app')
                         </select>
                     @else
                         <label for="app_name"><i class="fa fa-apple" aria-hidden="true"></i> App Store Name</label>
@@ -53,19 +49,15 @@
                     <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> App Bundle</label>
                     <input type="text" id="app_bundle" name="app_bundle" value="{{ isset($appInfo) ? $appInfo->app_bundle : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
-                @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select Github Project (' . count($github_projects) . ')')
-
                 <div class="form-group">
                     @if (!isset($appInfo))
+                        @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select Github Project (' . count($github_projects) . ')')
                         <select name="project_name" 
                             class="form-control selectpicker show-tick shadow" 
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed)>
-                                @foreach($github_projects as $gitProject)
-                                <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">
-                                    {{ $gitProject->name }}
-                                </option>
-                                @endforeach
+                            
+                            @each('layouts.github.project', $github_projects, 'github_project')
                         </select>
                     @else
                         <label for="project_name"><i class="fa fa-github" aria-hidden="true"></i> Git Project</label>
@@ -91,7 +83,7 @@
                     <input type="text" id="ga_secret" name="ga_secret" value="{{ isset($appInfo) ? $appInfo->ga_secret : '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
                 <br/>
-                 @can('delete app')
+                @can('delete app')
                     @isset($appInfo)
                         <button class="btn btn-danger float-right font-weight-bold shadow" type="submit" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
                             <i class="fa fa-trash"></i>
