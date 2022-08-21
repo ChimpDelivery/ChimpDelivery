@@ -11,7 +11,7 @@
         <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-plus fa-stack-1x" aria-hidden="true"></i>
+                <i class="fa fa-database fa-stack-1x" aria-hidden="true"></i>
             </span>
             {{ $title }}
         </div>
@@ -102,7 +102,11 @@
         </div>
         <div class="card-footer text-muted">
             <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            If you don't see the app in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
+            @if (!isset($appInfo))
+                If you don't see the app in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
+            @else
+                Add footer text
+            @endif
         </div>
     </div>
 </div>
