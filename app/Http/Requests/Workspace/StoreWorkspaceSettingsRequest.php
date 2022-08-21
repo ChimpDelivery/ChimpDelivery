@@ -33,7 +33,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'issuer_id' => [ 'nullable', 'alpha_dash' ],
             'kid' => [ 'nullable', 'alpha_dash' ],
 
-            'usermail' => [ 'nullable', 'email:rfc' ],
+            'usermail' => [ 'nullable', 'email' ],
             'app_specific_pass' => [ 'nullable', 'string' ],
 
             'organization_name' => [
