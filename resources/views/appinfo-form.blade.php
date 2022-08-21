@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="fb_app_id">Facebook App ID</label>
+                    <label for="fb_app_id"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook App ID</label>
                     <input type="text" id="fb_app_id" name="fb_app_id" value="{{ isset($appInfo) ? $appInfo->fb_app_id : '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
