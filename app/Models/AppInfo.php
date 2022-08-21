@@ -16,7 +16,6 @@ class AppInfo extends Model
     protected $fillable = [
         'workspace_id',
         'app_icon',
-        'app_icon_hash',
         'app_name',
         'project_name',
         'app_bundle',
