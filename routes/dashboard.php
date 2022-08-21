@@ -14,7 +14,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
 
     // get and post routes to create app info data.
     Route::get('/dashboard/add-app-info', 'CreateAppForm')->name('add_app_info');
-    Route::post('/dashboard/store-app-info', 'StoreAppForm');
+    Route::post('/dashboard/store-app-info', 'StoreAppForm')->name('store_app_info');
 
     // get and post routes to update app info data.
     Route::get('/dashboard/update-app-info', 'SelectApp')->name('get_app_info');
