@@ -48,7 +48,7 @@
         @yield('content')
     </section>
 
-    @include('layouts.notifications')
+    @include('layouts.toast-container')
 </body>
 
 <section class="scripts">
