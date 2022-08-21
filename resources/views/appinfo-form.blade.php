@@ -1,7 +1,7 @@
 @php ($title = isset($appInfo) ? 'Update App' : 'Create App')
 @php ($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('store_app_info'))
 
-@extends('layouts.master')
+@extends('master')
 
 @section('title', 'Create App')
 
