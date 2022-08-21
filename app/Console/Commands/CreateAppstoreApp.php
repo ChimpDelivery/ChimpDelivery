@@ -16,6 +16,7 @@ class CreateAppstoreApp extends Command
 
     public function handle()
     {
+        /*
         $companyName = config('appstore.company_name');
 
         $createAppCommand = "cd {$this->scriptPathRoot} && ruby {$this->scriptPathRoot}/{$this->scriptName} {$this->argument('bundleId')} {$this->argument('appName')} {$companyName}";
@@ -42,5 +43,6 @@ class CreateAppstoreApp extends Command
         $response->put('output', $process->getOutput());
 
         $this->info($response);
+        */
     }
 }
