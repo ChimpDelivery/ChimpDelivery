@@ -39,14 +39,6 @@
                 </label>
             </div>!-->
 
-            <!--
-            <div class="block mt-4">
-                <div class="captcha">
-                    <span>{!! app('captcha')->display() !!}</span>
-                </div>
-            </div>
-            !--->
-
             <div class="flex items-center justify-between mt-4">
                 @if (Route::has('register'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 mr-auto" href="{{ route('register') }}">
