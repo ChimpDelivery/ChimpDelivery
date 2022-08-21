@@ -9,9 +9,17 @@
             . ' Workspace</span>.';
     @endphp
 
-    @include('layouts.toast', [ 'id' => 'toast-talus', 'message' => $dailyMessage ]) 
+    @include('layouts.toast', [ 
+        'id' => 'toast-talus', 
+        'message' => $dailyMessage,
+        'onClose' => 'setToastCookie()'
+    ]) 
 
     @if (session()->has('success'))
-        @include('layouts.toast', [ 'id' => 'toast-flash', 'message' => session('success') ])
+        @include('layouts.toast', [ 
+            'id' => 'toast-flash', 
+            'message' => session('success'),
+            'onClose' => '',
+        ])
     @endif
 </div>
