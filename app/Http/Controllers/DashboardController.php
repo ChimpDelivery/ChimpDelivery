@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
         $isBadCredentials = $allGitProjects->status == Response::HTTP_UNAUTHORIZED;
 
-        return view('add-app-info-form')->with([
+        return view('appinfo-form')->with([
             'all_appstore_apps' => $allAppInfos,
             'github_auth_failed' => $isBadCredentials,
             'github_projects' => ($allGitProjects->status == Response::HTTP_UNAUTHORIZED) ? collect() : $allGitProjects->response
@@ -111,7 +111,7 @@ class DashboardController extends Controller
 
     public function SelectApp(GetAppInfoRequest $request) : View
     {
-        return view('update-app-info-form')->with('appInfo', AppInfo::find($request->validated('id')));
+        return view('appinfo-form')->with('appInfo', AppInfo::find($request->validated('id')));
     }
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse

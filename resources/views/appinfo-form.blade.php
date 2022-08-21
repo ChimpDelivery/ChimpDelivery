@@ -10,10 +10,10 @@
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-plus fa-stack-1x" aria-hidden="true"></i>
             </span>
-            Create App
+            {{ isset($appInfo) ? 'Update' : 'Create' }} App
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{url('dashboard/store-app-info')}}" enctype="multipart/form-data">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ url('dashboard/store-app-info') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -27,27 +27,30 @@
                 <div class="form-group">
                     <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                 </div>
+                @if (!isset($appInfo))
                 <div class="form-group">
                     <select name="app_name" id="app_name"
                         class="form-control selectpicker show-tick shadow" 
                         data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                         title="• Select App ({{ count($all_appstore_apps) }})">
 
-                        @foreach($all_appstore_apps as $appInfo)
-                        <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appInfo->app_bundle }}" data-appstore-id="{{ $appInfo->appstore_id }}">
-                            {{ $appInfo->app_name }}
+                        @foreach($all_appstore_apps as $appstore_app)
+                        <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appstore_app->app_bundle }}" data-appstore-id="{{ $appstore_app->appstore_id }}">
+                            {{ $appstore_app->app_name }}
                         </option>
                         @endforeach
                     </select>
                 </div>
+                @endif
                 <div class="form-group">
                     <label for="appstore_id">Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" value="{{ isset($appInfo) ? $appInfo->appstore_id : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle">App Bundle</label>
-                    <input type="text" id="app_bundle" name="app_bundle" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="app_bundle" name="app_bundle" value="{{ isset($appInfo) ? $appInfo->app_bundle : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
+                @if (!isset($appInfo))
                 <div class="form-group">
                     <select name="project_name" 
                         class="form-control selectpicker show-tick shadow" 
@@ -55,7 +58,9 @@
                         title="• Select Github Project ({{ count($github_projects) }})" {{ ($github_auth_failed) ? 'disabled' : '' }}>
                         
                         @foreach($github_projects as $gitProject)
-                        <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">{{ $gitProject->name }}</option>
+                        <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">
+                            {{ $gitProject->name }}
+                        </option>
                         @endforeach
                     </select>
                     @if($github_auth_failed)
@@ -64,20 +69,33 @@
                     </a>
                     @endif
                 </div>
+                @endif
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
-                    <input type="text" id="fb_app_id" name="fb_app_id" class="form-control shadow-sm" placeholder="facebook app id...">
+                    <input type="text" id="fb_app_id" name="fb_app_id" value="{{ isset($appInfo) ? $appInfo->fb_app_id : '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_id">GA ID</label>
-                    <input type="text" id="ga_id" name="ga_id" class="form-control shadow-sm" placeholder="game analytics id...">
+                    <input type="text" id="ga_id" name="ga_id" value="{{ isset($appInfo) ? $appInfo->ga_id : '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
                 </div>
                 <div class="form-group">
                     <label for="ga_secret">GA Secret</label>
-                    <input type="text" id="ga_secret" name="ga_secret" class="form-control shadow-sm" placeholder="game analytics secret...">
+                    <input type="text" id="ga_secret" name="ga_secret" value="{{ isset($appInfo) ? $appInfo->ga_secret : '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-success font-weight-bold shadow"><i class="fa fa-plus-square"></i> Create App</button>
+                 @can('delete app')
+                    @isset($appInfo)
+                        <button class="btn btn-danger float-right font-weight-bold shadow" type="submit" onclick="return confirm('Are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </button>
+                    @endisset
+                @endcan
+
+                <button type="submit" class="btn btn-success font-weight-bold shadow">
+                    <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i> 
+                    {{ isset($appInfo) ? 'Update' : 'Create' }} App
+                </button>
             </form>
         </div>
         <div class="card-footer text-muted">
