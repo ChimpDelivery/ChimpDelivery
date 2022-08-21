@@ -15,11 +15,9 @@
         'onClose' => 'setToastCookie()'
     ]) 
 
-    @if (session()->has('success'))
-        @include('layouts.toast', [ 
-            'id' => 'toast-flash', 
-            'message' => session('success'),
-            'onClose' => '',
-        ])
-    @endif
+    @includeWhen(session()->has('success'), 'layouts.toast', [ 
+        'id' => 'toast-flash', 
+        'message' => session('success'),
+        'onClose' => '',
+    ])
 </div>
