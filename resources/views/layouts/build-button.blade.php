@@ -1,5 +1,5 @@
 @if($appInfo->jenkins_status == 3200)
-    @include('layouts.jenkins-down')
+    @include('errors.jenkins.jenkins-down')
 @else
     @if($appInfo->jenkins_status == 200)
         @if($appInfo?->jenkins_data?->status != 'IN_PROGRESS')
@@ -15,6 +15,6 @@
             </a>
         @endif
     @else
-        @include('layouts.jenkins-file-notfound')
+        @include('errors.jenkins.jenkins-file-notfound')
     @endif
 @endif
