@@ -100,7 +100,9 @@
                     @endisset
                 @endcan
 
-                <button type="submit" class="btn btn-success font-weight-bold shadow">
+                @php($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('add_app_info'))
+                
+                <button type="submit" class="btn btn-success font-weight-bold shadow" formaction="{{ $formAction }}">
                     <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i> 
                     {{ isset($appInfo) ? 'Update' : 'Create' }} App
                 </button>
