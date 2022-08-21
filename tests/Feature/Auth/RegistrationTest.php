@@ -24,8 +24,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
-            'g-recaptcha-response' => 1,
-            'invite_code' => config('auth.invite_code')
+            'invite_code' => '',
         ]);
 
         $this->assertAuthenticated();
