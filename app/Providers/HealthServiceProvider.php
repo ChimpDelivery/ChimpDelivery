@@ -46,8 +46,8 @@ class HealthServiceProvider extends ServiceProvider
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
                 'RESPONSE_CACHE_DRIVER',
                 'RESPONSE_CACHE_ENABLED',
-                'CAPTCHA_SECRET',
-                'CAPTCHA_SITEKEY',
+                'RECAPTCHA_SITE_KEY',
+                'RECAPTCHA_SECRET_KEY',
                 'REDIS_CLIENT',
                 'AWS_ACCESS_KEY_ID',
                 'AWS_SECRET_ACCESS_KEY',
@@ -56,7 +56,6 @@ class HealthServiceProvider extends ServiceProvider
                 'AWS_USE_PATH_STYLE_ENDPOINT',
                 'APPSTORECONNECT_CACHE_DURATION',
                 'APPSTORECONNECT_ITEM_LIMIT',
-                'JENKINS_WS',
                 'JENKINS_HOST',
                 'JENKINS_USER',
                 'JENKINS_TOKEN',
