@@ -27,49 +27,57 @@
                 <div class="form-group">
                     <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                 </div>
-                @if (!isset($appInfo))
                 <div class="form-group">
-                    <select name="app_name" id="app_name"
-                        class="form-control selectpicker show-tick shadow" 
-                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                        title="• Select App ({{ count($all_appstore_apps) }})">
+                    @if (!isset($appInfo))
+                        <select name="app_name" id="app_name"
+                            class="form-control selectpicker show-tick shadow" 
+                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            title="• Select App ({{ count($all_appstore_apps) }})">
 
-                        @foreach($all_appstore_apps as $appstore_app)
-                        <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appstore_app->app_bundle }}" data-appstore-id="{{ $appstore_app->appstore_id }}">
-                            {{ $appstore_app->app_name }}
-                        </option>
-                        @endforeach
-                    </select>
+                            @foreach($all_appstore_apps as $appstore_app)
+                                <option data-icon="fa fa-apple" data-appstore-bundle="{{ $appstore_app->app_bundle }}" data-appstore-id="{{ $appstore_app->appstore_id }}">
+                                    {{ $appstore_app->app_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <label for="app_name"><i class="fa fa-apple" aria-hidden="true"></i> App Store Name</label>
+                        <input type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" class="form-control shadow-sm" required="" readonly>
+                    @endif
                 </div>
-                @endif
                 <div class="form-group">
-                    <label for="appstore_id">Appstore ID</label>
+                    <label for="appstore_id"><i class="fa fa-apple" aria-hidden="true"></i> Appstore ID</label>
                     <input type="text" id="appstore_id" name="appstore_id" value="{{ isset($appInfo) ? $appInfo->appstore_id : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="app_bundle">App Bundle</label>
+                    <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> App Bundle</label>
                     <input type="text" id="app_bundle" name="app_bundle" value="{{ isset($appInfo) ? $appInfo->app_bundle : '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
                 </div>
-                @if (!isset($appInfo))
+                @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select Github Project (' . count($github_projects) . ')')
+
                 <div class="form-group">
-                    <select name="project_name" 
-                        class="form-control selectpicker show-tick shadow" 
-                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                        title="• Select Github Project ({{ count($github_projects) }})" {{ ($github_auth_failed) ? 'disabled' : '' }}>
-                        
-                        @foreach($github_projects as $gitProject)
-                        <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">
-                            {{ $gitProject->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @if($github_auth_failed)
-                    <a class="badge badge-danger text-wrap">
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERROR: Github API Auth failed!
-                    </a>
+                    @if (!isset($appInfo))
+                        <select name="project_name" 
+                            class="form-control selectpicker show-tick shadow" 
+                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed)>
+                                @foreach($github_projects as $gitProject)
+                                <option data-icon="fa fa-github" data-subtext="{{ $gitProject->size }}">
+                                    {{ $gitProject->name }}
+                                </option>
+                                @endforeach
+                        </select>
+                    @else
+                        <label for="project_name"><i class="fa fa-github" aria-hidden="true"></i> Git Project</label>
+                        <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
+                    @endif
+                    @if(isset($github_auth_failed) && $github_auth_failed)
+                        <a class="badge badge-danger text-wrap">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERROR: Github API Auth failed!
+                        </a>
                     @endif
                 </div>
-                @endif
+
                 <div class="form-group">
                     <label for="fb_app_id">Facebook App ID</label>
                     <input type="text" id="fb_app_id" name="fb_app_id" value="{{ isset($appInfo) ? $appInfo->fb_app_id : '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
