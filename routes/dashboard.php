@@ -6,29 +6,47 @@ use App\Http\Controllers\DashboardController;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
-    // main route.
+    // index route
     Route::get('/dashboard', 'Index')->name('get_app_list');
 
-    Route::get('/dashboard/workspace-settings', 'GetWorkspaceForm')->name('workspace_settings');
-    Route::post('/dashboard/workspace-settings', 'StoreWorkspaceForm');
+    // workspace routes
+    Route::get('/dashboard/workspace-settings', 'GetWorkspaceForm')
+        ->name('workspace_settings')
+        ->middleware('permission:view workspace');
 
-    // get and post routes to create app info data.
-    Route::get('/dashboard/add-app-info', 'CreateAppForm')->name('add_app_info');
-    Route::post('/dashboard/store-app-info', 'StoreAppForm')->name('store_app_info');
+    Route::post('/dashboard/workspace-settings', 'StoreWorkspaceForm')
+        ->middleware('permission:create workspace|update workspace');
 
-    // get and post routes to update app info data.
-    Route::get('/dashboard/update-app-info', 'SelectApp')->name('get_app_info');
-    Route::post('/dashboard/update-app-info', 'UpdateApp')->name('update_app_info');
+    // app info routes
+    Route::get('/dashboard/add-app-info', 'CreateAppForm')
+        ->name('add_app_info')
+        ->middleware('permission:create app');
 
-    // post route to delete app info data.
-    Route::post('/dashboard/delete-app-info', 'DeleteApp')->name('delete_app_info');
+    Route::post('/dashboard/store-app-info', 'StoreAppForm')
+        ->name('store_app_info')
+        ->middleware('permission:update app');
 
-    // jenkins bridge.
-    Route::post('/dashboard/build-app', 'BuildApp');
-    Route::get('/dashboard/stop-job', 'StopJob');
-    Route::get('/dashboard/scan-repo', 'ScanRepo');
+    Route::get('/dashboard/update-app-info', 'SelectApp')
+        ->name('get_app_info')
+        ->middleware('permission:update app');
 
-    //
-    Route::get('/dashboard/create-bundle', 'CreateBundleForm')->name('create_bundle');
+    Route::post('/dashboard/update-app-info', 'UpdateApp')
+        ->name('update_app_info')
+        ->middleware('permission:update app');
+
+    Route::post('/dashboard/delete-app-info', 'DeleteApp')
+        ->name('delete_app_info')
+        ->middleware('permission:delete app');
+
+    // jenkins routes
+    Route::post('/dashboard/build-app', 'BuildApp')->middleware('permission:build job');
+    Route::get('/dashboard/stop-job', 'StopJob')->middleware('permission:abort job');
+    Route::get('/dashboard/scan-repo', 'ScanRepo')->middleware('permission:scan jobs');
+
+    // app store connect routes
+    Route::get('/dashboard/create-bundle', 'CreateBundleForm')
+        ->name('create_bundle')
+        ->middleware('permission:create bundle');
+
     Route::post('/dashboard/store-bundle', 'StoreBundleForm');
 });

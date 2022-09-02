@@ -76,8 +76,6 @@ class DashboardController extends Controller
 
     public function CreateAppForm() : View
     {
-        $this->authorize('create', AppInfo::class);
-
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
         $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
 
@@ -92,8 +90,6 @@ class DashboardController extends Controller
 
     public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
     {
-        $this->authorize('create', AppInfo::class);
-
         $createAppResponse = app(AppInfoController::class)->CreateApp($request)->getData();
         $projectName = $createAppResponse->app->project_name;
 
@@ -113,12 +109,7 @@ class DashboardController extends Controller
 
     public function SelectApp(GetAppInfoRequest $request) : View
     {
-        // auth
-        $appId = $request->validated('id');
-        $app = AppInfo::find($appId);
-        $this->authorize('view', $app);
-
-        return view('appinfo-form')->with('appInfo', $app);
+        return view('appinfo-form')->with('appInfo', AppInfo::find($request->validated('id')));
     }
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
@@ -131,11 +122,6 @@ class DashboardController extends Controller
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
-        // auth
-        $appId = $request->validated('id');
-        $app = AppInfo::find($appId);
-        $this->authorize('delete', $app);
-
         session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
 
         return to_route('get_app_list');
