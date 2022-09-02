@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.234.7",
+            "version": "3.235.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "325931ead99e794657f88393c5b7cdf56723aadb"
+                "reference": "2025db05c7dd22ae414857dadd49207f64c2fc74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/325931ead99e794657f88393c5b7cdf56723aadb",
-                "reference": "325931ead99e794657f88393c5b7cdf56723aadb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2025db05c7dd22ae414857dadd49207f64c2fc74",
+                "reference": "2025db05c7dd22ae414857dadd49207f64c2fc74",
                 "shasum": ""
             },
             "require": {
@@ -200,9 +200,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.1"
             },
-            "time": "2022-08-31T18:25:01+00:00"
+            "time": "2022-09-02T18:18:19+00:00"
         },
         {
             "name": "biscolab/laravel-recaptcha",
@@ -3105,16 +3105,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.62.0",
+            "version": "2.62.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7507aec3d626797ce2123cf6c6556683be22b5f8"
+                "reference": "01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7507aec3d626797ce2123cf6c6556683be22b5f8",
-                "reference": "7507aec3d626797ce2123cf6c6556683be22b5f8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a",
+                "reference": "01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a",
                 "shasum": ""
             },
             "require": {
@@ -3203,7 +3203,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T19:48:05+00:00"
+            "time": "2022-09-02T07:48:13+00:00"
         },
         {
             "name": "nette/schema",
@@ -4917,16 +4917,16 @@
         },
         {
             "name": "spatie/db-dumper",
-            "version": "3.2.1",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/db-dumper.git",
-                "reference": "e90bdffb902b43c7d76dd45dd350a54f4330fee5"
+                "reference": "129b8254b2c9f10881a754a692bd9507b09a1893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/e90bdffb902b43c7d76dd45dd350a54f4330fee5",
-                "reference": "e90bdffb902b43c7d76dd45dd350a54f4330fee5",
+                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/129b8254b2c9f10881a754a692bd9507b09a1893",
+                "reference": "129b8254b2c9f10881a754a692bd9507b09a1893",
                 "shasum": ""
             },
             "require": {
@@ -4964,7 +4964,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/db-dumper/tree/3.2.1"
+                "source": "https://github.com/spatie/db-dumper/tree/3.3.0"
             },
             "funding": [
                 {
@@ -4976,7 +4976,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-15T13:27:17+00:00"
+            "time": "2022-09-01T20:20:26+00:00"
         },
         {
             "name": "spatie/enum",
@@ -5389,16 +5389,16 @@
         },
         {
             "name": "spatie/laravel-responsecache",
-            "version": "7.4.1",
+            "version": "7.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-responsecache.git",
-                "reference": "b9b5486b0843765c371ed9e47759504e92a79fef"
+                "reference": "370e53e225ef5391ccd28d07b41b300fb2279c89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-responsecache/zipball/b9b5486b0843765c371ed9e47759504e92a79fef",
-                "reference": "b9b5486b0843765c371ed9e47759504e92a79fef",
+                "url": "https://api.github.com/repos/spatie/laravel-responsecache/zipball/370e53e225ef5391ccd28d07b41b300fb2279c89",
+                "reference": "370e53e225ef5391ccd28d07b41b300fb2279c89",
                 "shasum": ""
             },
             "require": {
@@ -5456,7 +5456,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-responsecache/tree/7.4.1"
+                "source": "https://github.com/spatie/laravel-responsecache/tree/7.4.2"
             },
             "funding": [
                 {
@@ -5468,7 +5468,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-09T07:24:23+00:00"
+            "time": "2022-09-02T08:50:14+00:00"
         },
         {
             "name": "spatie/laravel-signal-aware-command",
@@ -10800,16 +10800,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "71c627a0838f107562e89bc2b0201a81f26e9011"
+                "reference": "29deea5d9cf921590184be6956e657c4f4566440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/71c627a0838f107562e89bc2b0201a81f26e9011",
-                "reference": "71c627a0838f107562e89bc2b0201a81f26e9011",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/29deea5d9cf921590184be6956e657c4f4566440",
+                "reference": "29deea5d9cf921590184be6956e657c4f4566440",
                 "shasum": ""
             },
             "require": {
@@ -10886,7 +10886,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-26T13:28:24+00:00"
+            "time": "2022-09-01T11:31:14+00:00"
         },
         {
             "name": "theseer/tokenizer",
