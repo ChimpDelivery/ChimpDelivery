@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
 
         $workspaceUserRole = Role::create([ 'name' => 'User_Workspace' ]);
         $workSpaceUserPermissions = [
+            'view apps',
             'create app',
             'update app',
             'create bundle',

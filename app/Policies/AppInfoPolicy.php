@@ -30,7 +30,7 @@ class AppInfoPolicy
      */
     public function view(User $user, AppInfo $appInfo)
     {
-        return $user->can('view app') && $user->workspace->id === $appInfo->workspace_id;
+        return $user->can('view apps') && $user->workspace->id === $appInfo->workspace_id;
     }
 
     /**
