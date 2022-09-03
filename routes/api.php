@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AppInfoController;
-use App\Http\Controllers\AppStoreConnectController;
-use App\Http\Controllers\JenkinsController;
-use App\Http\Controllers\GithubController;
-use App\Http\Controllers\PackageController;
+use App\Http\Controllers\Api\AppInfoController;
+use App\Http\Controllers\Api\AppStoreConnectController;
+use App\Http\Controllers\Api\GithubController;
+use App\Http\Controllers\Api\JenkinsController;
+use App\Http\Controllers\Api\PackageController;
 
 use Illuminate\Support\Facades\Route;
 

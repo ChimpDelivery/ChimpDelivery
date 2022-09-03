@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Github\GetRepositoryRequest;
+
+use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Auth;
-
-use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Support\Facades\Config;
 
 class GithubController extends Controller

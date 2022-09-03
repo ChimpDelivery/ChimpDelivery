@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Package;
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Package\GetPackageRequest;
 use App\Http\Requests\Package\UpdatePackageRequest;
+
+use App\Models\Package;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

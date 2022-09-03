@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppInfo;
+use App\Http\Controllers\Api\AppInfoController;
+use App\Http\Controllers\Api\AppStoreConnectController;
+use App\Http\Controllers\Api\GithubController;
+use App\Http\Controllers\Api\JenkinsController;
+use App\Http\Controllers\Api\WorkspaceController;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
@@ -12,13 +16,15 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
+use App\Models\AppInfo;
+
 use Illuminate\Contracts\View\View;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
@@ -11,10 +13,9 @@ use App\Models\File;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\UploadedFile;
 
 class AppInfoController extends Controller
 {

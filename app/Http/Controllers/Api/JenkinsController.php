@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\AppInfo;
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
+use App\Models\AppInfo;
+
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Artisan;
 
 class JenkinsController extends Controller
 {
@@ -111,9 +113,9 @@ class JenkinsController extends Controller
     }
 
     public function BuildJob(BuildRequest $request) : JsonResponse
-    {        
+    {
         $validated = $request->validated();
-        
+
         $app = AppInfo::find($validated['id']);
 
         $jobResponse = $this->GetJobBuilds($request)->getData();

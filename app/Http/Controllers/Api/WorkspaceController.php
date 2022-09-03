@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Events\WorkspaceChanged;
+
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use App\Models\Workspace;
-use App\Events\WorkspaceChanged;
-use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
