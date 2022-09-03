@@ -104,7 +104,7 @@ class DashboardController extends Controller
         };
         session()->flash('success', $flashMessage);
 
-        return to_route('get_app_list');
+        return to_route('index');
     }
 
     public function SelectApp(GetAppInfoRequest $request) : View
@@ -117,14 +117,14 @@ class DashboardController extends Controller
         $response = app(AppInfoController::class)->UpdateApp($request);
         session()->flash('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
 
-        return to_route('get_app_list');
+        return to_route('index');
     }
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
         session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
 
-        return to_route('get_app_list');
+        return to_route('index');
     }
 
     public function BuildApp(BuildRequest $request) : RedirectResponse
@@ -174,7 +174,7 @@ class DashboardController extends Controller
         }
 
         session()->flash('success', 'Bundle: <b>' . config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id') . '</b> created!');
-        return to_route('get_app_list');
+        return to_route('index');
     }
 
     private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void

@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
     // index route
-    Route::get('/dashboard', 'Index')->name('get_app_list');
+    Route::get('/dashboard', 'Index')->name('index');
 
     // workspace routes
     Route::get('/dashboard/workspace-settings', 'GetWorkspaceForm')
