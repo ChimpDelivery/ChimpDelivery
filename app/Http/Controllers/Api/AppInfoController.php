@@ -25,6 +25,7 @@ class AppInfoController extends Controller
             'app_bundle',
             'app_name',
             'fb_app_id',
+            'fb_client_token',
             'ga_id',
             'ga_secret'
         ]);

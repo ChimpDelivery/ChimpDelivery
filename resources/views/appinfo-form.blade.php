@@ -33,7 +33,7 @@
                 <div class="form-group">
                     @if (!isset($appInfo))
                         <select name="app_name" id="app_name"
-                            class="form-control selectpicker show-tick shadow" 
+                            class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="• Select App ({{ count($all_appstore_apps) }})">
 
@@ -55,11 +55,11 @@
                 <div class="form-group">
                     @if (!isset($appInfo))
                         @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select Github Project (' . count($github_projects) . ')')
-                        <select name="project_name" 
-                            class="form-control selectpicker show-tick shadow" 
+                        <select name="project_name"
+                            class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed)>
-                            
+
                             @each('layouts.github.project', $github_projects, 'github_project')
                         </select>
                     @else
@@ -76,6 +76,10 @@
                 <div class="form-group">
                     <label for="fb_app_id"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook App ID</label>
                     <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
+                </div>
+                <div class="form-group">
+                    <label for="fb_client_token"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Client Token</label>
+                    <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
                 </div>
                 <div class="form-group">
                     <label for="ga_id">GA ID</label>
@@ -95,7 +99,7 @@
                     @endisset
                 @endcan
                 <button type="submit" class="btn btn-success font-weight-bold shadow" formaction="{{ $formAction }}">
-                    <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i> 
+                    <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i>
                     {{ $title }}
                 </button>
             </form>

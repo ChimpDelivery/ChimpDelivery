@@ -21,6 +21,7 @@ class AppInfo extends Model
         'app_bundle',
         'appstore_id',
         'fb_app_id',
+        'fb_client_token',
         'ga_id',
         'ga_secret',
     ];
