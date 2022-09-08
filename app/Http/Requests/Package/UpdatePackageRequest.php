@@ -26,7 +26,7 @@ class UpdatePackageRequest extends GetPackageRequest
         return [
             'package_id' => [
                 'required',
-                'alpha_num',
+                'alpha_dash',
                 Rule::exists('packages', 'package_id')
             ],
 
