@@ -114,6 +114,9 @@
                     <div class="form-group">
                         <label for="topic_name">Project Topic</label>
                         <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
+                        <small class="form-text text-muted">
+                            Github Repository topic name to filter Github Projects.
+                        </small>
                     </div>
                 </div>
                 <br/>
