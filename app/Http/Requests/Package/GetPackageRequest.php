@@ -28,7 +28,7 @@ class GetPackageRequest extends FormRequest
         return [
             'package_id' => [
                 'required',
-                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
+                'alpha_num',
                 Rule::exists('packages', 'package_id')
             ]
         ];
@@ -38,7 +38,6 @@ class GetPackageRequest extends FormRequest
     {
         return [
             'package_id.required' => 'package_id is required!',
-            'package_id.regex' => 'package_id is incorrect! (e.g com.CompanyName.AppName)',
         ];
     }
 }
