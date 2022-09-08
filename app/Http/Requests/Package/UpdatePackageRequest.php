@@ -26,7 +26,7 @@ class UpdatePackageRequest extends GetPackageRequest
         return [
             'package_id' => [
                 'required',
-                'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
+                'regex:/^[A-Za-z0-9._-]+$/',
                 Rule::exists('packages', 'package_id')
             ],
 
@@ -38,7 +38,6 @@ class UpdatePackageRequest extends GetPackageRequest
     {
         return [
             'package_id.required' => 'package_id is required!',
-            'package_id.regex' => 'package_id is incorrect! (e.g com.CompanyName.AppName)',
             'hash.required' => 'hash is required!',
             'hash.alpha_num' => 'hash can only contains alpha-numeric characters!'
         ];
