@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="platform" id="platform"
-                            class="shadow-sm form-control selectpicker show-tick" 
+                            class="shadow-sm form-control selectpicker show-tick"
                             data-style="btn-primary" data-live-search="false" data-dropup-auto="false" data-size="10"
                             title="Select platform...">
 
@@ -56,7 +56,7 @@
 <script type="text/javascript">
     $('#buildModal').on('shown.bs.modal', function () {
         let projectName = getCookie('target_project_name');
-        let prettyProjectName = projectName.substr(0, 14) + (projectName.length > 14 ? '...' : '');
+        let prettyProjectName = projectName.slice(0, 14) + (projectName.length > 14 ? '...' : '');
         document.getElementById('project-button').innerHTML = prettyProjectName;
     });
 
