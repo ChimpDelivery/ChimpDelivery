@@ -8,14 +8,6 @@ use App\Http\Controllers\Api\PackageController;
 
 use Illuminate\Support\Facades\Route;
 
-/*
- * use Illuminate\Http\Request;
- * Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-
-    return $request->user();
-});
-*/
-
 // dashboard apps
 Route::controller(AppInfoController::class)->middleware('appstore')->group(function () {
 
