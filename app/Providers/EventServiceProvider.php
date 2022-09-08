@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\WorkspaceChanged;
+
 use App\Listeners\ChangeWorkspaceSettings;
 
 use Illuminate\Auth\Events\Registered;

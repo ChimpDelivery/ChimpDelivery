@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Facades\Health;
 
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
+
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
