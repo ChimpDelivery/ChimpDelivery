@@ -115,11 +115,16 @@ class DashboardController extends Controller
 
     public function SelectApp(GetAppInfoRequest $request) : View
     {
-        return view('appinfo-form')->with('appInfo', AppInfo::find($request->validated('id')));
+        $app = AppInfo::find($request->validated('id'));
+        $this->authorize('view', $app);
+
+        return view('appinfo-form')->with('appInfo', $app);
     }
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
+        $this->authorize('update', AppInfo::find($request->id));
+
         $response = app(AppInfoController::class)->UpdateApp($request);
         session()->flash('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
 
@@ -128,8 +133,9 @@ class DashboardController extends Controller
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
-        session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
+        $this->authorize('delete', AppInfo::find($request->id));
 
+        session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
         return to_route('index');
     }
 
