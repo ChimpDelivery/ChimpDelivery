@@ -123,7 +123,7 @@ class DashboardController extends Controller
 
     public function UpdateApp(UpdateAppInfoRequest $request): RedirectResponse
     {
-        $this->authorize('update', AppInfo::find($request->id));
+        $this->authorize('update', AppInfo::find($request->validated('id')));
 
         $response = app(AppInfoController::class)->UpdateApp($request);
         session()->flash('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
@@ -133,7 +133,7 @@ class DashboardController extends Controller
 
     public function DeleteApp(GetAppInfoRequest $request) : RedirectResponse
     {
-        $this->authorize('delete', AppInfo::find($request->id));
+        $this->authorize('delete', AppInfo::find($request->validated('id')));
 
         session()->flash('success', app(AppInfoController::class)->DeleteApp($request)->getData()->message);
         return to_route('index');
@@ -141,14 +141,17 @@ class DashboardController extends Controller
 
     public function BuildApp(BuildRequest $request) : RedirectResponse
     {
-        session()->flash('success', app(JenkinsController::class)->BuildJob($request)->getData()->status);
+        $this->authorize('build', AppInfo::find($request->validated('id')));
 
+        session()->flash('success', app(JenkinsController::class)->BuildJob($request)->getData()->status);
         return back();
     }
 
     public function StopJob(StopJobRequest $request) : RedirectResponse
     {
         $app = AppInfo::find($request->validated('id'));
+        $this->authorize('abort', $app);
+
         $buildNumber = $request->validated('build_number');
 
         $stopJobResponse = app(JenkinsController::class)->StopJob($request)->getData();

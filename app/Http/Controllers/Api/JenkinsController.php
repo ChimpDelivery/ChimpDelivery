@@ -90,7 +90,7 @@ class JenkinsController extends Controller
                 : collect();
             $lastBuild->change_sets = $changeSets;
 
-            // if job is running, calculate avarage duration
+            // if job is running, calculate average duration
             if ($lastBuild->status == 'IN_PROGRESS') {
                 $lastBuild->estimated_duration = $builds->avg('durationMillis');
             }
@@ -121,7 +121,7 @@ class JenkinsController extends Controller
         $jobResponse = $this->GetJobBuilds($request)->getData();
         $firstBuild = $jobResponse->jenkins_data[0];
 
-        // job exist but doesn't parameterized
+        // job exist but doesn't parameterized in Jenkins
         if ($firstBuild->number == 1 && empty($firstBuild->url))
         {
             Artisan::call("jenkins:default-trigger {$validated['id']}");
