@@ -19,7 +19,10 @@ class WorkspaceController extends Controller
 {
     public function Get() : Workspace
     {
-        return Auth::user()->workspace;
+        $workspace = Auth::user()->workspace;
+        $this->authorize('view', $workspace);
+
+        return $workspace;
     }
 
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : JsonResponse
@@ -27,6 +30,11 @@ class WorkspaceController extends Controller
         // check new user
         $currentWorkspace = Auth::user()->workspace;
         $isNewUser = $currentWorkspace->id === 1;
+
+        // gate
+        $method = $isNewUser ? 'create' : 'update';
+        $action = $isNewUser ? Workspace::class : $currentWorkspace;
+        $this->authorize($method, $action);
 
         //
         $targetWorkspace = ($isNewUser) ? new Workspace() : $currentWorkspace;
