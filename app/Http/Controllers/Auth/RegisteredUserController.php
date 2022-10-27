@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
         // find invite code
         $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
 
+        // workspace 1 default workspace for new users
         $user = User::create([
             'workspace_id' => ($inviteCode) ? $inviteCode->workspace_id : 1,
             'name' => $request->name,
