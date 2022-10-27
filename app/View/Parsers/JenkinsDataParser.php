@@ -117,6 +117,6 @@ class JenkinsDataParser
             $prettyCommits->push($prefix . nl2br($prettyText));
         });
 
-        return $prettyCommits->implode(',');
+        return $prettyCommits->implode('');
     }
 }
