@@ -51,7 +51,7 @@
                     GooglePlay
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/dashboard/create-bundle">Bundle ID</a>
+                        <a class="dropdown-item" href="https://play.google.com/console/">Console</a>
                     </div>
                 </li>
                 @endcan
