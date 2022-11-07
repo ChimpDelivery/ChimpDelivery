@@ -189,22 +189,6 @@ class DashboardController extends Controller
         return view('create-bundle-form');
     }
 
-    public function StoreBundleForm(StoreBundleRequest $request) : RedirectResponse
-    {
-        $response = app(AppStoreConnectController::class)->CreateBundle($request)->getData();
-        if (isset($response->status->errors))
-        {
-            $error = $response->status->errors[0];
-
-            return to_route('create_bundle')
-                ->withErrors([ 'bundle_id' => $error->detail . " (Status code: {$error->status})" ])
-                ->withInput();
-        }
-
-        session()->flash('success', 'Bundle: <b>' . config('appstore.bundle_prefix') . '.' . $request->validated('bundle_id') . '</b> created!');
-        return to_route('index');
-    }
-
     private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void
     {
         $app->git_url = 'https://github.com/' . Auth::user()->workspace->githubSetting->organization_name . '/' . $app->project_name;

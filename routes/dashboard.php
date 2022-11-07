@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
 
+use App\Actions\AppStoreConnect\StoreBundleIdAction;
+
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
     //// index route
@@ -57,5 +59,5 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 
-    Route::post('/dashboard/store-bundle', 'StoreBundleForm');
+    Route::post('/dashboard/store-bundle', StoreBundleIdAction::class);
 });
