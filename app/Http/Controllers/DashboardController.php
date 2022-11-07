@@ -9,9 +9,8 @@ use App\Http\Controllers\Api\JenkinsController;
 use App\Http\Controllers\Api\WorkspaceController;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
-use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
-use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;
@@ -105,25 +104,6 @@ class DashboardController extends Controller
             'github_auth_failed' => $isBadCredentials,
             'github_projects' => ($allGitProjects->status == Response::HTTP_UNAUTHORIZED) ? collect() : $allGitProjects->response
         ]);
-    }
-
-    public function StoreAppForm(StoreAppInfoRequest $request) : RedirectResponse
-    {
-        $createAppResponse = app(AppInfoController::class)->CreateApp($request)->getData();
-        $projectName = $createAppResponse->app->project_name;
-
-        Artisan::call("jenkins:scan-repo");
-
-        $flashMessage = match($createAppResponse->git->status)
-        {
-            Response::HTTP_OK => "Project: <b>{$projectName}</b> created as new Git Project.", // new git project
-            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: <b>{$projectName}</b> created.", // git project already exist
-            Response::HTTP_NOT_FOUND => "Error: Git project couldn't created! Make sure there is an valid template project on Github Organization.",
-            default => "Git Status: {$createAppResponse->git->status}",
-        };
-        session()->flash('success', $flashMessage);
-
-        return to_route('index');
     }
 
     public function SelectApp(GetAppInfoRequest $request) : View

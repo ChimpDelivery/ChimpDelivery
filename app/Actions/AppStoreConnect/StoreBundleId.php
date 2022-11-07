@@ -7,7 +7,7 @@ use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class StoreBundleIdAction
+class StoreBundleId
 {
     use AsAction;
 

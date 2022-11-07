@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
 
-use App\Actions\AppStoreConnect\StoreBundleIdAction;
+use App\Actions\Dashboard\StoreAppForm;
+use App\Actions\AppStoreConnect\StoreBundleId;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
@@ -33,7 +34,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('add_app_info')
         ->middleware('permission:create app');
 
-    Route::post('/dashboard/store-app-info', 'StoreAppForm')
+    Route::post('/dashboard/store-app-info', StoreAppForm::class)
         ->name('store_app_info')
         ->middleware('permission:update app');
 
@@ -59,5 +60,5 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 
-    Route::post('/dashboard/store-bundle', StoreBundleIdAction::class);
+    Route::post('/dashboard/store-bundle', StoreBundleId::class);
 });
