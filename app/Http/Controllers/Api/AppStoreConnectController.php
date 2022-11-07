@@ -42,8 +42,8 @@ class AppStoreConnectController extends Controller
         {
             return response()->json([
                 'appstore_token' => null,
-                'error' => 'Could not generate token', Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
+                'error' => 'Could not generate token'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return response()->json([ 'appstore_token' => $token ]);
