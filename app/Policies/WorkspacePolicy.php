@@ -26,6 +26,13 @@ class WorkspacePolicy
         return $user->can('create workspace') && $user->workspace->id === 1;
     }
 
+    public function join(User $user, Workspace $workspace)
+    {
+        return $user->can('join workspace')
+            && $user->workspace->id === 1
+            && $workspace->id !== 1;
+    }
+
     public function update(User $user, Workspace $workspace)
     {
         return $user->can('update workspace')

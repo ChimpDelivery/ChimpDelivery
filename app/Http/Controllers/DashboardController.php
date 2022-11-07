@@ -14,6 +14,7 @@ use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Jenkins\StopJobRequest;
+use App\Http\Requests\Workspace\JoinWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use App\Models\AppInfo;
@@ -78,6 +79,18 @@ class DashboardController extends Controller
             'workspace' => $workspace,
             'isNew' => false,
         ]);
+    }
+
+    public function GetJoinWorkspaceForm() : View
+    {
+        return view('workspace-join');
+    }
+
+    public function PostJoinWorkspaceForm(JoinWorkspaceRequest $request) : RedirectResponse
+    {
+        $workspace = app(WorkspaceController::class)->JoinWorkspace($request);
+
+        return to_route('index');
     }
 
     public function CreateAppForm() : View

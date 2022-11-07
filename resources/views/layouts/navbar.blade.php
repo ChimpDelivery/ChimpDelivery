@@ -21,8 +21,8 @@
                 </li>
                 @endcan
                 @can('join workspace')
-                <li class="nav-item {{ (request()->is('dashboard/join-workspace')) ? 'active' : '' }}">
-                    <a class="nav-link font-weight-bold" href="/dashboard/join-workspace">Join Workspace</a>
+                <li class="nav-item {{ (request()->is('dashboard/workspace-join')) ? 'active' : '' }}">
+                    <a class="nav-link font-weight-bold" href="/dashboard/workspace-join">Join Workspace</a>
                 </li>
                 @endcan
                 @can('view apps')

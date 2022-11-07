@@ -6,10 +6,11 @@ use App\Http\Controllers\DashboardController;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
-    // index route
+    //// index route
     Route::get('/dashboard', 'Index')->name('index');
 
-    // workspace routes
+    //// workspace routes
+    // create or update workspace
     Route::get('/dashboard/workspace-settings', 'GetWorkspaceForm')
         ->name('workspace_settings')
         ->middleware('permission:view workspace');
@@ -17,7 +18,15 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/workspace-settings', 'StoreWorkspaceForm')
         ->middleware('permission:create workspace|update workspace');
 
-    // app info routes
+    // join workspace
+    Route::get('/dashboard/workspace-join', 'GetJoinWorkspaceForm')
+        ->name('workspace_join')
+        ->middleware('permission:join workspace');
+
+    Route::post('/dashboard/workspace-join', 'PostJoinWorkspaceForm')
+        ->middleware('permission:join workspace');
+
+    //// app info routes
     Route::get('/dashboard/add-app-info', 'CreateAppForm')
         ->name('add_app_info')
         ->middleware('permission:create app');
@@ -38,12 +47,12 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('delete_app_info')
         ->middleware('permission:delete app');
 
-    // jenkins routes
+    //// jenkins routes
     Route::post('/dashboard/build-app', 'BuildApp')->middleware('permission:build job');
     Route::get('/dashboard/stop-job', 'StopJob')->middleware('permission:abort job');
     Route::get('/dashboard/scan-repo', 'ScanRepo')->middleware('permission:scan jobs');
 
-    // app store connect routes
+    //// app store connect routes
     Route::get('/dashboard/create-bundle', 'CreateBundleForm')
         ->name('create_bundle')
         ->middleware('permission:create bundle');

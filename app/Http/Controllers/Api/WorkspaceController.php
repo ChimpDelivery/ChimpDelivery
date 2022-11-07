@@ -6,10 +6,12 @@ use App\Events\WorkspaceChanged;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\Workspace\JoinWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use App\Models\Workspace;
 
+use App\Models\WorkspaceInviteCode;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -23,6 +25,16 @@ class WorkspaceController extends Controller
         $this->authorize('view', $workspace);
 
         return $workspace;
+    }
+
+    public function JoinWorkspace(JoinWorkspaceRequest $request) : JsonResponse
+    {
+        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
+
+        $this->authorize('join', Workspace::find($inviteCode->workspace_id));
+        return response()->json([
+            'status' => 200
+        ], Response::HTTP_ACCEPTED);
     }
 
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : JsonResponse
