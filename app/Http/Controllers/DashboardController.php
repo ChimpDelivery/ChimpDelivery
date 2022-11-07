@@ -13,7 +13,6 @@ use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;
-use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use App\Models\AppInfo;
 
@@ -58,15 +57,6 @@ class DashboardController extends Controller
         }
 
         return view('workspace-settings')->with([ 'isNew' => true ]);
-    }
-
-    public function StoreWorkspaceForm(StoreWorkspaceSettingsRequest $request) : RedirectResponse
-    {
-        $response = app(WorkspaceController::class)->StoreOrUpdate($request)->getData();
-        $flashMessage = "Workspace: <b>{$response->response->name}</b> " . (($response->wasRecentlyCreated) ? 'created.' : 'updated.');
-        session()->flash('success', $flashMessage);
-
-        return to_route('workspace_settings');
     }
 
     public function GetWorkspaceForm() : View
