@@ -12,7 +12,6 @@ use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 
 use App\Http\Requests\Jenkins\BuildRequest;
-use App\Http\Requests\Jenkins\StopJobRequest;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
@@ -137,22 +136,6 @@ class DashboardController extends Controller
         $this->authorize('build', AppInfo::find($request->validated('id')));
 
         session()->flash('success', app(JenkinsController::class)->BuildJob($request)->getData()->status);
-        return back();
-    }
-
-    public function StopJob(StopJobRequest $request) : RedirectResponse
-    {
-        $app = AppInfo::find($request->validated('id'));
-        $this->authorize('abort', $app);
-
-        $buildNumber = $request->validated('build_number');
-
-        $stopJobResponse = app(JenkinsController::class)->StopJob($request)->getData();
-        $flashMessage = ($stopJobResponse->status == Response::HTTP_OK)
-            ? "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> aborted!"
-            : "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> can not aborted!";
-        session()->flash('success', $flashMessage);
-
         return back();
     }
 

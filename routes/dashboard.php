@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
 use App\Actions\Dashboard\StoreAppForm;
+use App\Actions\Workspace\StoreWorkspaceForm;
 use App\Actions\AppStoreConnect\StoreBundleId;
+use App\Actions\Jenkins\StopJob;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
@@ -18,7 +20,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('workspace_settings')
         ->middleware('permission:view workspace');
 
-    Route::post('/dashboard/workspace-settings', 'StoreWorkspaceForm')
+    Route::post('/dashboard/workspace-settings', StoreWorkspaceForm::class)
         ->middleware('permission:create workspace|update workspace');
 
     // join workspace
@@ -52,7 +54,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
 
     //// jenkins routes
     Route::post('/dashboard/build-app', 'BuildApp')->middleware('permission:build job');
-    Route::get('/dashboard/stop-job', 'StopJob')->middleware('permission:abort job');
+    Route::get('/dashboard/stop-job', StopJob::class)->middleware('permission:abort job');
     Route::get('/dashboard/scan-repo', 'ScanRepo')->middleware('permission:scan jobs');
 
     //// app store connect routes

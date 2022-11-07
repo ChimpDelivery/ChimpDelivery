@@ -138,6 +138,8 @@ class JenkinsController extends Controller
     public function StopJob(StopJobRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
+        $this->authorize('abort', $app);
+
         $url = "/job/{$app->project_name}/job/master/{$request->validated('build_number')}/stop";
 
         return response()->json([
