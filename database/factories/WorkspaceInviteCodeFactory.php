@@ -13,8 +13,9 @@ class WorkspaceInviteCodeFactory extends Factory
 
     public function definition()
     {
+        // workspace_id === 1 is default workspace for new users, no invite codes for that workspace.
         return [
-            'workspace_id' => rand(1, 3),
+            'workspace_id' => rand(2, 3),
             'code' => Str::random(10),
         ];
     }
