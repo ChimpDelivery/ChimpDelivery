@@ -7,7 +7,11 @@ use App\Http\Controllers\DashboardController;
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreAppForm;
 use App\Actions\Dashboard\CreateAppForm;
+use App\Actions\Dashboard\UpdateApp;
+use App\Actions\Dashboard\SelectApp;
+use App\Actions\Dashboard\DeleteApp;
 
+use App\Actions\Workspace\GetWorkspaceForm;
 use App\Actions\Workspace\StoreWorkspaceForm;
 
 use App\Actions\AppStoreConnect\StoreBundleId;
@@ -21,7 +25,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
 
     //// workspace routes
     // create or update workspace
-    Route::get('/dashboard/workspace-settings', 'GetWorkspaceForm')
+    Route::get('/dashboard/workspace-settings', GetWorkspaceForm::class)
         ->name('workspace_settings')
         ->middleware('permission:view workspace');
 
@@ -45,15 +49,15 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('store_app_info')
         ->middleware('permission:update app');
 
-    Route::get('/dashboard/update-app-info', 'SelectApp')
+    Route::get('/dashboard/update-app-info', SelectApp::class)
         ->name('get_app_info')
         ->middleware('permission:update app');
 
-    Route::post('/dashboard/update-app-info', 'UpdateApp')
+    Route::post('/dashboard/update-app-info', UpdateApp::class)
         ->name('update_app_info')
         ->middleware('permission:update app');
 
-    Route::post('/dashboard/delete-app-info', 'DeleteApp')
+    Route::post('/dashboard/delete-app-info', DeleteApp::class)
         ->name('delete_app_info')
         ->middleware('permission:delete app');
 
