@@ -2,13 +2,14 @@
 
 namespace App\Actions\Dashboard;
 
-use App\Http\Controllers\Api\AppInfoController;
-use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
-use Lorisleiva\Actions\Concerns\AsAction;
+
+use App\Http\Controllers\Api\AppInfoController;
+use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 
 class StoreAppForm
 {

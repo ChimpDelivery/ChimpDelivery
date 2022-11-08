@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreAppForm;
+use App\Actions\Dashboard\CreateAppForm;
 
 use App\Actions\Workspace\StoreWorkspaceForm;
 
@@ -36,7 +37,7 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->middleware('permission:join workspace');
 
     //// app info routes
-    Route::get('/dashboard/add-app-info', 'CreateAppForm')
+    Route::get('/dashboard/add-app-info', CreateAppForm::class)
         ->name('add_app_info')
         ->middleware('permission:create app');
 
