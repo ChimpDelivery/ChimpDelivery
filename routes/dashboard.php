@@ -4,15 +4,19 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
 
+use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreAppForm;
+
 use App\Actions\Workspace\StoreWorkspaceForm;
+
 use App\Actions\AppStoreConnect\StoreBundleId;
+
 use App\Actions\Jenkins\StopJob;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
     //// index route
-    Route::get('/dashboard', 'Index')->name('index');
+    Route::get('/dashboard', GetIndexForm::class)->name('index');
 
     //// workspace routes
     // create or update workspace
