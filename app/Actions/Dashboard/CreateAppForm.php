@@ -24,7 +24,9 @@ class CreateAppForm
         return view('appinfo-form')->with([
             'all_appstore_apps' => $allAppInfos,
             'github_auth_failed' => $isBadCredentials,
-            'github_projects' => ($allGitProjects->status == Response::HTTP_UNAUTHORIZED) ? collect() : $allGitProjects->response
+            'github_projects' => ($isBadCredentials)
+                ? collect()
+                : $allGitProjects->response
         ]);
     }
 }
