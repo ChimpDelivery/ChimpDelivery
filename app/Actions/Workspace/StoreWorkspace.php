@@ -10,7 +10,7 @@ use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 use App\Http\Controllers\Api\WorkspaceController;
 
-class StoreWorkspaceForm
+class StoreWorkspace
 {
     use AsAction;
 

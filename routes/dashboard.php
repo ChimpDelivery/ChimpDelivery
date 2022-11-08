@@ -12,7 +12,9 @@ use App\Actions\Dashboard\UpdateAppForm;
 use App\Actions\Dashboard\DeleteApp;
 
 use App\Actions\Workspace\GetWorkspaceForm;
-use App\Actions\Workspace\StoreWorkspaceForm;
+use App\Actions\Workspace\StoreWorkspace;
+use App\Actions\Workspace\GetJoinWorkspaceForm;
+use App\Actions\Workspace\JoinWorkspace;
 
 use App\Actions\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\AppStoreConnect\StoreBundleId;
@@ -21,7 +23,7 @@ use App\Actions\Jenkins\StopJob;
 use App\Actions\Jenkins\BuildApp;
 use App\Actions\Jenkins\ScanOrganization;
 
-Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     //// index route
     Route::get('/dashboard', GetIndexForm::class)->name('index');
@@ -32,15 +34,15 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('workspace_settings')
         ->middleware('permission:view workspace');
 
-    Route::post('/dashboard/workspace-settings', StoreWorkspaceForm::class)
+    Route::post('/dashboard/workspace-settings', StoreWorkspace::class)
         ->middleware('permission:create workspace|update workspace');
 
     // join workspace
-    Route::get('/dashboard/workspace-join', 'GetJoinWorkspaceForm')
+    Route::get('/dashboard/workspace-join', GetJoinWorkspaceForm::class)
         ->name('workspace_join')
         ->middleware('permission:join workspace');
 
-    Route::post('/dashboard/workspace-join', 'PostJoinWorkspaceForm')
+    Route::post('/dashboard/workspace-join', JoinWorkspace::class)
         ->middleware('permission:join workspace');
 
     //// app info routes
