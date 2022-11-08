@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="bundle_id">Bundle ID</label>
-                    <input type="text" class="form-control shadow-sm" name="bundle_id" aria-describedby="basic-addon3" placeholder="id (com.companyname.appname)..." required="">
+                    <input type="text" id="bundle_id" name="bundle_id" class="form-control shadow-sm" placeholder="id (com.companyname.appname)..." required="">
                 </div>
                 <div class="form-group">
                     <label for="bundle_name">Bundle ID Name</label>
