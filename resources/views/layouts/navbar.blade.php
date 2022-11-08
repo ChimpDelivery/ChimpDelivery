@@ -72,6 +72,12 @@
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="#">
                                 <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ config('app.name') }}
                             </a>
+                            @hasrole('Admin_Super')
+                            <div class="dropdown-divider"></div>
+                            <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">
+                                <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
+                            </a>
+                            @endrole
                             <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
