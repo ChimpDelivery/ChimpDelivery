@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use App\Models\User;
+use App\Models\Workspace;
 
 class AppStoreConnectMiddleware
 {
@@ -23,15 +23,17 @@ class AppStoreConnectMiddleware
     {
         if (!$request->hasHeader('api-key'))
         {
-            return response()->json(['server_response' => 'Api Key required!'],
-                Response::HTTP_FORBIDDEN);
+            return response()->json([
+                'server_response' => 'Api Key required!'
+            ], Response::HTTP_FORBIDDEN);
         }
 
-        $token = User::where('api_token', $request->header('api-key'))->first();
+        $token = Workspace::where('api_key', $request->header('api-key'))->first();
         if (!$token)
         {
-            return response()->json(['server_response' => 'Api Key not found!'],
-                Response::HTTP_FORBIDDEN);
+            return response()->json([
+                'server_response' => 'Api Key not found!'
+            ], Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);
