@@ -47,20 +47,6 @@ class DashboardController extends Controller
         return to_route('index');
     }
 
-    public function CreateAppForm() : View
-    {
-        $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
-        $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
-
-        $isBadCredentials = $allGitProjects->status == Response::HTTP_UNAUTHORIZED;
-
-        return view('appinfo-form')->with([
-            'all_appstore_apps' => $allAppInfos,
-            'github_auth_failed' => $isBadCredentials,
-            'github_projects' => ($allGitProjects->status == Response::HTTP_UNAUTHORIZED) ? collect() : $allGitProjects->response
-        ]);
-    }
-
     public function SelectApp(GetAppInfoRequest $request) : View
     {
         $app = AppInfo::find($request->validated('id'));
