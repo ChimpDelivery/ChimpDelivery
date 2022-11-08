@@ -5,18 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
 use App\Actions\Dashboard\GetIndexForm;
-use App\Actions\Dashboard\StoreAppForm;
+use App\Actions\Dashboard\StoreApp;
 use App\Actions\Dashboard\CreateAppForm;
 use App\Actions\Dashboard\UpdateApp;
-use App\Actions\Dashboard\SelectApp;
+use App\Actions\Dashboard\UpdateAppForm;
 use App\Actions\Dashboard\DeleteApp;
 
 use App\Actions\Workspace\GetWorkspaceForm;
 use App\Actions\Workspace\StoreWorkspaceForm;
 
+use App\Actions\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\AppStoreConnect\StoreBundleId;
 
 use App\Actions\Jenkins\StopJob;
+use App\Actions\Jenkins\BuildApp;
+use App\Actions\Jenkins\ScanOrganization;
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
 
@@ -45,11 +48,11 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->name('add_app_info')
         ->middleware('permission:create app');
 
-    Route::post('/dashboard/store-app-info', StoreAppForm::class)
+    Route::post('/dashboard/store-app-info', StoreApp::class)
         ->name('store_app_info')
         ->middleware('permission:update app');
 
-    Route::get('/dashboard/update-app-info', SelectApp::class)
+    Route::get('/dashboard/update-app-info', UpdateAppForm::class)
         ->name('get_app_info')
         ->middleware('permission:update app');
 
@@ -62,12 +65,12 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
         ->middleware('permission:delete app');
 
     //// jenkins routes
-    Route::post('/dashboard/build-app', 'BuildApp')->middleware('permission:build job');
+    Route::post('/dashboard/build-app', BuildApp::class)->middleware('permission:build job');
     Route::get('/dashboard/stop-job', StopJob::class)->middleware('permission:abort job');
-    Route::get('/dashboard/scan-repo', 'ScanRepo')->middleware('permission:scan jobs');
+    Route::get('/dashboard/scan-repo', ScanOrganization::class)->middleware('permission:scan jobs');
 
     //// app store connect routes
-    Route::get('/dashboard/create-bundle', 'CreateBundleForm')
+    Route::get('/dashboard/create-bundle', CreateBundleIdForm::class)
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 

@@ -10,7 +10,7 @@ use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 use App\Models\AppInfo;
 
-class SelectApp
+class UpdateAppForm
 {
     use AsAction;
 

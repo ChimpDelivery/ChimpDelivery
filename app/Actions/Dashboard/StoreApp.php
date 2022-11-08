@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 
-class StoreAppForm
+class StoreApp
 {
     use AsAction;
 
