@@ -20,7 +20,7 @@ class ChangeWorkspaceSettings
         $targetWorkspace = $event->workspace;
         $validated = $event->request->safe();
 
-        $targetWorkspace->fill($validated->only([ 'name', 'api_key' ]));
+        $targetWorkspace->fill($validated->only([ 'name' ]));
         $targetWorkspace->save();
 
         if ($targetWorkspace->wasRecentlyCreated)

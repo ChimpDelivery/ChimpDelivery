@@ -27,8 +27,6 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 Rule::unique('workspaces')->ignore(Auth::user()->workspace->id, 'id')->whereNull('deleted_at'),
             ],
 
-            'api_key' => [ 'nullable', 'alpha_num' ],
-
             'private_key' => [ 'nullable', 'mimetypes:text/plain', 'max:1' ],
             'issuer_id' => [ 'nullable', 'alpha_dash' ],
             'kid' => [ 'nullable', 'alpha_dash' ],

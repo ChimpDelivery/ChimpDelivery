@@ -28,13 +28,22 @@
                         <label for="name">Workspace Name</label>
                         <input type="text" class="form-control shadow-sm" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                     </div>
+                    @if(!$isNew)
                     <div class="form-group">
                         <label for="api_key">Workspace API Key</label>
-                        <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->api_key }}">
-                        <small class="form-text text-muted">
-                            Using by Unity3D projects to fetch app information when building.
-                        </small>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->api_key }}">
+                                <small class="form-text text-muted">
+                                    Using by Unity3D projects to fetch app information when building.
+                                </small>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate</button>
+                            </div>
+                        </div>
                     </div>
+                    @endif
                 </div>
 
                 <p>
