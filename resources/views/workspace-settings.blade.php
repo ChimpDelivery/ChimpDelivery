@@ -33,7 +33,7 @@
                         <label for="api_key">Workspace API Key</label>
                         <div class="form-row">
                             <div class="col">
-                                <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->api_key }}">
+                                <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="**************" readonly>
                                 <small class="form-text text-muted">
                                     Using by Unity3D projects to fetch app information when building.
                                 </small>
