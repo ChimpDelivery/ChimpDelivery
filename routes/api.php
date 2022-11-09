@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('apps/get-app', 'GetApp');
-
-    Route::post('apps/create-app', 'CreateApp')->middleware('permission:create app');
-    Route::post('apps/update-app', 'UpdateApp')->middleware('permission:update app');
+    Route::post('apps/create-app', 'CreateApp');
+    Route::post('apps/update-app', 'UpdateApp');
 });
 
 // appstore connect

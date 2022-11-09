@@ -21,7 +21,7 @@ class AppInfoController extends Controller
 {
     public function GetApp(GetAppInfoRequest $request) : JsonResponse
     {
-        $response = AppInfo::find($request->validated('id'), [
+        $app = AppInfo::find($request->validated('id'), [
             'app_bundle',
             'app_name',
             'fb_app_id',
@@ -30,7 +30,9 @@ class AppInfoController extends Controller
             'ga_secret'
         ]);
 
-        return response()->json($response, Response::HTTP_OK);
+        $this->authorize('view', $app);
+
+        return response()->json($app, Response::HTTP_OK);
     }
 
     public function CreateApp(StoreAppInfoRequest $request) : JsonResponse
@@ -56,7 +58,9 @@ class AppInfoController extends Controller
     public function UpdateApp(UpdateAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
+
         $this->authorize('update', $app);
+
         $app->update($request->safe()->all());
 
         return response()->json($app, Response::HTTP_OK);
@@ -65,7 +69,9 @@ class AppInfoController extends Controller
     public function DeleteApp(GetAppInfoRequest $request) : JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
+
         $this->authorize('delete', $app);
+
         $app->delete();
 
         return response()->json(['message' => "Project: <b>{$app->project_name}</b> deleted."], Response::HTTP_OK);

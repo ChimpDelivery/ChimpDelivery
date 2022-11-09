@@ -37,7 +37,7 @@ class PackageSeeder extends Seeder
         Package::factory()->create([
             'url' => 'https://github.com/TalusStudio/TalusSettings-Package',
             'package_id' => 'com.talus.talussettings',
-            'hash' => '4',
+            'hash' => '5',
         ]);
 
         Package::factory(10)->create();
