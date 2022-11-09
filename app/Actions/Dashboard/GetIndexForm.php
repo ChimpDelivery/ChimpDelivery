@@ -26,7 +26,7 @@ class GetIndexForm
             ]);
         }
 
-        $wsApps = AppInfo::where('workspace_id', '=', Auth::user()->workspace->id);
+        $wsApps = Auth::user()->workspace->apps();
 
         $paginatedApps = $wsApps->orderBy('id', 'desc')
             ->paginate(5)
