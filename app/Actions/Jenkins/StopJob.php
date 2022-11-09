@@ -27,8 +27,7 @@ class StopJob
         $flashMessage = ($stopJobResponse->status == Response::HTTP_OK)
             ? "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> aborted!"
             : "Project: <b>{$app->project_name}</b> Build: <b>{$buildNumber}</b> can not aborted!";
-        session()->flash('success', $flashMessage);
 
-        return back();
+        return back()->with('success', $flashMessage);
     }
 }

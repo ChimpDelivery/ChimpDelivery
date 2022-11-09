@@ -15,8 +15,7 @@ class ScanOrganization
     public function ScanRepo() : RedirectResponse
     {
         Artisan::call("jenkins:scan-repo");
-        session()->flash('success', "Repository scanning begins...");
 
-        return back();
+        return back()->with('success', 'Repository scanning begins...');
     }
 }

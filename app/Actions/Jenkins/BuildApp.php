@@ -17,7 +17,7 @@ class BuildApp
     public function handle(BuildRequest $request) : RedirectResponse
     {
         $jenkinsController = app(JenkinsController::class);
-        session()->flash('success', $jenkinsController->BuildJob($request)->getData()->status);
-        return back();
+
+        return back()->with('success', $jenkinsController->BuildJob($request)->getData()->status);
     }
 }
