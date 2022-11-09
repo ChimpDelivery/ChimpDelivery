@@ -4,20 +4,22 @@ namespace App\Actions\Dashboard;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Contracts\View\View;
+
+use App\Actions\Api\Github\GetRepositories;
 
 use App\Http\Controllers\Api\AppStoreConnectController;
-use App\Http\Controllers\Api\GithubController;
 
 class CreateAppForm
 {
     use AsAction;
 
-    public function handle() : View
+    public function handle(Request $request) : View
     {
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
-        $allGitProjects = app(GithubController::class)->GetRepositories()->getData();
+        $allGitProjects = GetRepositories::run($request)->getData();
 
         $isBadCredentials = $allGitProjects->status == Response::HTTP_UNAUTHORIZED;
 

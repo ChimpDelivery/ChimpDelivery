@@ -1,8 +1,11 @@
 <?php
 
+use App\Actions\Api\Github\GetRepositories;
+use App\Actions\Api\Github\GetRepository;
+use App\Actions\Api\Github\CreateRepository;
+
 use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\AppStoreConnectController;
-use App\Http\Controllers\Api\GithubController;
 use App\Http\Controllers\Api\JenkinsController;
 use App\Http\Controllers\Api\PackageController;
 
@@ -40,12 +43,12 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
 });
 
 // github
-Route::controller(GithubController::class)->middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('github/get-repositories', 'GetRepositories');
-    Route::get('github/get-repository', 'GetRepository');
+    Route::get('github/get-repositories', GetRepositories::class);
+    Route::get('github/get-repository', GetRepository::class);
 
-    Route::post('github/create-repository', 'CreateRepository');
+    Route::post('github/create-repository', CreateRepository::class);
 });
 
 // package management
