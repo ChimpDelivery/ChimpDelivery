@@ -47,12 +47,7 @@ class AppInfoController extends Controller
         // populate model
         $this->RestoreOrCreate($appModel, $request);
 
-        $githubResponse = app(GithubController::class)->CreateRepository($request)->getData();
-
-        return response()->json([
-            'app' => $appModel,
-            'git' => $githubResponse
-        ], Response::HTTP_OK);
+        return response()->json([ 'app' => $appModel ], Response::HTTP_OK);
     }
 
     public function UpdateApp(UpdateAppInfoRequest $request) : JsonResponse

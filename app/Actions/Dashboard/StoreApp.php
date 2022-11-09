@@ -5,7 +5,6 @@ namespace App\Actions\Dashboard;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 
 use App\Http\Controllers\Api\AppInfoController;
@@ -22,16 +21,16 @@ class StoreApp
 
         Artisan::call("jenkins:scan-repo");
 
-        $flashMessage = match($createAppResponse->git->status)
-        {
-            Response::HTTP_OK => "Project: <b>{$projectName}</b> created as new Git Project.", // new git project
-            Response::HTTP_UNPROCESSABLE_ENTITY => "Project: <b>{$projectName}</b> created.", // git project already exist
-            Response::HTTP_NOT_FOUND => "Error: Git project couldn't created! Make sure there is an valid template project on Github Organization.",
-            default => "Git Status: {$createAppResponse->git->status}",
-        };
-        session()->flash('success', $flashMessage);
+        session()->flash('success', "Project: <b>{$projectName}</b> created.");
 
         return to_route('index');
     }
 
+    /*$flashMessage = match($createAppResponse->git->status)
+    {
+        Response::HTTP_OK => "Project: <b>{$projectName}</b> created as new Git Project.", // new git project
+        Response::HTTP_UNPROCESSABLE_ENTITY => "Project: <b>{$projectName}</b> created.", // git project already exist
+        Response::HTTP_NOT_FOUND => "Error: Git project couldn't created! Make sure there is an valid template project on Github Organization.",
+        default => "Git Status: {$createAppResponse->git->status}",
+    };*/
 }
