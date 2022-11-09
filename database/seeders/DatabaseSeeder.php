@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             WorkspaceUserSeeder::class,
             WorkspaceAdminSeeder::class,
             SuperAdminUserSeeder::class,
+            AccessTokenSeeder::class,
 
             // seed internal
             PackageSeeder::class,

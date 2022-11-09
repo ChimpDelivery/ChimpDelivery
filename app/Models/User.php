@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -14,6 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use HasApiTokens;
 
     protected $fillable = [
         'workspace_id',
@@ -38,5 +40,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
+    }
+
+    public function createApiToken()
+    {
+        $this->tokens()->delete();
+        return $this->createToken('api-key')->plainTextToken;
     }
 }

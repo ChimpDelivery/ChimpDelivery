@@ -4,10 +4,13 @@ use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
 use App\Actions\Api\Github\CreateRepository;
 
+use App\Actions\Api\Packages\GetPackage;
+use App\Actions\Api\Packages\GetPackages;
+use App\Actions\Api\Packages\UpdatePackage;
+
 use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\AppStoreConnectController;
 use App\Http\Controllers\Api\JenkinsController;
-use App\Http\Controllers\Api\PackageController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -47,15 +50,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
-
     Route::post('github/create-repository', CreateRepository::class);
 });
 
 // package management
-Route::controller(PackageController::class)->middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('packages/get-packages', 'GetPackages');
-    Route::get('packages/get-package', 'GetPackage');
-
-    Route::post('packages/update-package', 'UpdatePackage');
+    Route::get('packages/get-packages', GetPackages::class);
+    Route::get('packages/get-package', GetPackage::class);
+    Route::post('packages/update-package', UpdatePackage::class);
 });
