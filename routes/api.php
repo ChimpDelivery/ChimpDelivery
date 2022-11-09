@@ -4,7 +4,7 @@ use App\Actions\Api\AppStoreConnect\CreateToken;
 use App\Actions\Api\AppStoreConnect\GetFullAppInfo;
 use App\Actions\Api\AppStoreConnect\GetAppList;
 use App\Actions\Api\AppStoreConnect\GetBuildList;
-use App\Actions\Api\AppStoreConnect\CreateBundle;
+use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
 use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('appstoreconnect/get-app-list', GetAppList::class);
     Route::get('appstoreconnect/get-build-list', GetBuildList::class);
 
-    Route::post('appstoreconnect/create-bundle', CreateBundle::class);
+    Route::post('appstoreconnect/create-bundle', CreateBundleId::class);
 });
 
 ////////////////////

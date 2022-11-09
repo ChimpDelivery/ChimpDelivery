@@ -16,7 +16,7 @@ use App\Actions\Workspace\JoinWorkspace;
 use App\Actions\Workspace\CreateWorkspaceApiKey;
 
 use App\Actions\AppStoreConnect\CreateBundleIdForm;
-use App\Actions\AppStoreConnect\StoreBundleId;
+use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
 use App\Actions\Jenkins\StopJob;
 use App\Actions\Jenkins\BuildApp;
@@ -91,6 +91,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 
-    Route::post('/dashboard/store-bundle', StoreBundleId::class)
+    Route::post('/dashboard/store-bundle', CreateBundleId::class)
         ->middleware('permission:create bundle');
 });
