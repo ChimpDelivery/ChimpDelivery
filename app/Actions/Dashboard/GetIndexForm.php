@@ -18,7 +18,6 @@ class GetIndexForm
     public function handle() : View
     {
         $isWorkspaceUser = Auth::user()->workspace->id !== 1;
-
         if (!$isWorkspaceUser)
         {
             return view('workspace-settings')->with([
@@ -26,9 +25,9 @@ class GetIndexForm
             ]);
         }
 
-        $wsApps = Auth::user()->workspace->apps();
+        $workspaceApps = Auth::user()->workspace->apps();
 
-        $paginatedApps = $wsApps->orderBy('id', 'desc')
+        $paginatedApps = $workspaceApps->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
 
@@ -44,12 +43,11 @@ class GetIndexForm
             ->filter(fn($buildStatus) => $buildStatus == 'IN_PROGRESS');
 
         return view('list-app-info')->with([
-            'totalAppCount' => $wsApps->count(),
+            'totalAppCount' => $workspaceApps->count(),
             'appInfos' => $paginatedApps,
             'currentBuildCount' => $currentBuildCount->count()
         ]);
     }
-
 
     private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void
     {
