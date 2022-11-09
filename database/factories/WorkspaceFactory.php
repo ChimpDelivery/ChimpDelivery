@@ -15,7 +15,6 @@ class WorkspaceFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'api_key' => Str::random(10),
         ];
     }
 }

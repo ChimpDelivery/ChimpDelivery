@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('workspaces', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('api_key')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
