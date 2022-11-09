@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\AppStoreConnect;
 
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
@@ -57,5 +58,10 @@ class CreateBundleId
         }
 
         return to_route('index')->with('success', 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!');
+    }
+
+    public function authorize(StoreBundleRequest $request) : bool
+    {
+        return ($request->expectsJson() ? true : Auth::user()->can('create bundle'));
     }
 }
