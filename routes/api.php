@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\PackageController;
 use Illuminate\Support\Facades\Route;
 
 // dashboard apps
-Route::controller(AppInfoController::class)->middleware('appstore')->group(function () {
+Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('apps/get-app', 'GetApp');
 
@@ -50,7 +50,7 @@ Route::controller(GithubController::class)->middleware('auth:sanctum')->group(fu
 });
 
 // package management
-Route::controller(PackageController::class)->middleware('appstore')->group(function () {
+Route::controller(PackageController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('packages/get-packages', 'GetPackages');
     Route::get('packages/get-package', 'GetPackage');

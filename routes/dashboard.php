@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DashboardController;
-
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreApp;
 use App\Actions\Dashboard\CreateAppForm;
