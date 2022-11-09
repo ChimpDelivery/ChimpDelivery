@@ -66,6 +66,7 @@ class Workspace extends Model
 
     public function createApiToken()
     {
+        $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
     }
 }

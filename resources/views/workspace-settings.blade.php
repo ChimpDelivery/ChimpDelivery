@@ -39,7 +39,7 @@
                                 </small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate</button>
+                                <button type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;" onclick="createToken()">Generate</button>
                             </div>
                         </div>
                     </div>
@@ -145,6 +145,26 @@
 
 @section('scripts')
 <script type="text/javascript">
+    function createToken() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            url:'/dashboard/create-workspace-api-key',
+            data:'_token = <?php echo csrf_token() ?>',
+            success:function(data) {
+                alert("Api Key: " + data);
+            },
+            error:function (data) {
+                alert("Api Key could not created!");
+            }
+        });
+    }
+
     $('input[type="file"]').change(function(e) {
         let fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);

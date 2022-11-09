@@ -13,6 +13,7 @@ use App\Actions\Workspace\GetWorkspaceForm;
 use App\Actions\Workspace\StoreWorkspace;
 use App\Actions\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Workspace\JoinWorkspace;
+use App\Actions\Workspace\CreateWorkspaceApiKey;
 
 use App\Actions\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\AppStoreConnect\StoreBundleId;
@@ -34,6 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/dashboard/workspace-settings', StoreWorkspace::class)
         ->middleware('permission:create workspace|update workspace');
+
+    Route::post('/dashboard/create-workspace-api-key', CreateWorkspaceApiKey::class)
+        ->middleware('permission:update workspace');
 
     // join workspace
     Route::get('/dashboard/workspace-join', GetJoinWorkspaceForm::class)
