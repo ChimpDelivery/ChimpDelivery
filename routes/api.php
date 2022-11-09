@@ -14,7 +14,9 @@ use App\Http\Controllers\Api\JenkinsController;
 
 use Illuminate\Support\Facades\Route;
 
-// dashboard apps
+///////////////////////
+// apps
+//////////////////////
 Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('apps/get-app', 'GetApp');
@@ -22,7 +24,9 @@ Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(f
     Route::post('apps/update-app', 'UpdateApp');
 });
 
-// appstore connect
+/////////////////////////
+// appstore connect api
+////////////////////////
 Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('appstoreconnect/get-token', 'GetToken');
@@ -33,7 +37,9 @@ Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')-
     Route::post('appstoreconnect/create-bundle', 'CreateBundle');
 });
 
-// jenkins
+////////////////////
+// jenkins api
+////////////////////
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
 
     Route::get('jenkins/get-job', 'GetJob');
@@ -45,7 +51,9 @@ Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(f
     Route::post('jenkins/stop-job', 'StopJob');
 });
 
-// github
+////////////////////////
+// github api
+//////////////////////
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
@@ -53,7 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('github/create-repository', CreateRepository::class);
 });
 
-// package management
+//////////////////////////////
+// packages
+/////////////////////////////
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('packages/get-packages', GetPackages::class);
