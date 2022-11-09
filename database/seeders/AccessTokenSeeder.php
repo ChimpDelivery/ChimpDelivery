@@ -12,11 +12,14 @@ class AccessTokenSeeder extends Seeder
 {
     public function run()
     {
-        $output = new ConsoleOutput();
-
-        User::all()->each(function (User $user) use ($output) {
+        User::all()->each(function (User $user) {
             $userAccessToken = $user->createApiToken();
-            $output->writeln("Api Token for User {$user->name}: {$userAccessToken}");
+
+            if (app()->environment([ 'local', 'staging' ]))
+            {
+                $output = new ConsoleOutput();
+                $output->writeln("Api Token for User {$user->name}: {$userAccessToken}");
+            }
         });
     }
 }
