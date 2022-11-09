@@ -53,12 +53,10 @@ class CreateRepository extends BaseGithubAction
 
         try
         {
-            $gitSetting = $this->githubSetting;
-
             $response = GitHub::api('repo')->replaceTopics(
-                $gitSetting->organization_name,
+                $this->githubSetting->organization_name,
                 $request->validated('project_name'),
-                [ $gitSetting->topic_name ]
+                [ $this->githubSetting->topic_name ]
             );
         }
         catch (\Exception $exception)
