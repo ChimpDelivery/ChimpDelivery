@@ -17,7 +17,7 @@ class GetRepository extends BaseGithubAction
 
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $this->SetGithubSetting($request);
+        $this->ResolveGithubSetting($request);
         $this->SetConnectionToken();
 
         $response = [];

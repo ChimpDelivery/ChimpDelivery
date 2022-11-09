@@ -18,7 +18,7 @@ class GetRepositories extends BaseGithubAction
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle(Request $request) : JsonResponse
     {
-        $this->SetGithubSetting($request);
+        $this->ResolveGithubSetting($request);
         $this->SetConnectionToken();
 
         $response = collect();

@@ -12,7 +12,7 @@ abstract class BaseGithubAction
 {
     public GithubSetting $githubSetting;
 
-    public function SetGithubSetting(Request $request) : void
+    public function ResolveGithubSetting(Request $request) : void
     {
         $this->githubSetting = ($request->expectsJson())
             ? Auth::user()->githubSetting

@@ -19,7 +19,7 @@ class CreateRepository extends BaseGithubAction
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $this->SetGithubSetting($request);
+        $this->ResolveGithubSetting($request);
         $this->SetConnectionToken();
 
         $response = [];
