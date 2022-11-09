@@ -2,13 +2,12 @@
 
 namespace App\Actions\AppStoreConnect;
 
+use App\Actions\Api\AppStoreConnect\CreateBundle;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
-
-use App\Http\Controllers\Api\AppStoreConnectController;
 
 class StoreBundleId
 {
@@ -16,7 +15,7 @@ class StoreBundleId
 
     public function handle(StoreBundleRequest $request) : RedirectResponse
     {
-        $response = app(AppStoreConnectController::class)->CreateBundle($request)->getData();
+        $response = CreateBundle::run($request)->getData();
         if (isset($response->status->errors))
         {
             $error = $response->status->errors[0];
