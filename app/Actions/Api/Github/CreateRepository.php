@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\Github\GetRepositoryRequest;
 
@@ -54,7 +53,7 @@ class CreateRepository extends BaseGithubAction
 
         try
         {
-            $gitSetting = Auth::user()->workspace->githubSetting;
+            $gitSetting = $this->githubSetting;
 
             $response = GitHub::api('repo')->replaceTopics(
                 $gitSetting->organization_name,
