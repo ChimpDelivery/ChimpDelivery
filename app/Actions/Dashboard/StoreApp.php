@@ -21,9 +21,7 @@ class StoreApp
 
         Artisan::call("jenkins:scan-repo");
 
-        session()->flash('success', "Project: <b>{$projectName}</b> created.");
-
-        return to_route('index');
+        return to_route('index')->with('success', "Project: <b>{$projectName}</b> created.");
     }
 
     /*$flashMessage = match($createAppResponse->git->status)

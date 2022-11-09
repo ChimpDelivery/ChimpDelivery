@@ -17,7 +17,6 @@ class DeleteApp
     public function handle(GetAppInfoRequest $request) : RedirectResponse
     {
         $appInfoController = app(AppInfoController::class);
-        session()->flash('success', $appInfoController->DeleteApp($request)->getData()->message);
-        return to_route('index');
+        return to_route('index')->with('success', $appInfoController->DeleteApp($request)->getData()->message);
     }
 }

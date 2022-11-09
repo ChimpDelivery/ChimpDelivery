@@ -16,8 +16,7 @@ class UpdateApp
     public function handle(UpdateAppInfoRequest $request) : RedirectResponse
     {
         $response = app(AppInfoController::class)->UpdateApp($request);
-        session()->flash('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
 
-        return to_route('index');
+        return to_route('index')->with('success', "Project: <b>{$response->getData()->project_name}</b> updated.");
     }
 }
