@@ -2,6 +2,7 @@
 
 namespace App\Actions\Dashboard;
 
+use App\Actions\Api\AppStoreConnect\GetAppList;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Request;
@@ -10,21 +11,19 @@ use Illuminate\Contracts\View\View;
 
 use App\Actions\Api\Github\GetRepositories;
 
-use App\Http\Controllers\Api\AppStoreConnectController;
-
 class CreateAppForm
 {
     use AsAction;
 
     public function handle(Request $request) : View
     {
-        $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
+        $allAppInfos = GetAppList::run($request);
         $allGitProjects = GetRepositories::run($request);
 
         $isBadCredentials = $allGitProjects->status() == Response::HTTP_UNAUTHORIZED;
 
         return view('appinfo-form')->with([
-            'all_appstore_apps' => $allAppInfos,
+            'all_appstore_apps' => $allAppInfos->getData(),
             'github_auth_failed' => $isBadCredentials,
             'github_projects' => ($isBadCredentials)
                 ? collect()

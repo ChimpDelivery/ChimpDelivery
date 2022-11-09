@@ -1,5 +1,11 @@
 <?php
 
+use App\Actions\Api\AppStoreConnect\CreateToken;
+use App\Actions\Api\AppStoreConnect\GetFullAppInfo;
+use App\Actions\Api\AppStoreConnect\GetAppList;
+use App\Actions\Api\AppStoreConnect\GetBuildList;
+use App\Actions\Api\AppStoreConnect\CreateBundle;
+
 use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
 use App\Actions\Api\Github\CreateRepository;
@@ -9,7 +15,6 @@ use App\Actions\Api\Packages\GetPackages;
 use App\Actions\Api\Packages\UpdatePackage;
 
 use App\Http\Controllers\Api\AppInfoController;
-use App\Http\Controllers\Api\AppStoreConnectController;
 use App\Http\Controllers\Api\JenkinsController;
 
 use Illuminate\Support\Facades\Route;
@@ -27,14 +32,14 @@ Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(f
 /////////////////////////
 // appstore connect api
 ////////////////////////
-Route::controller(AppStoreConnectController::class)->middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('appstoreconnect/get-token', 'GetToken');
-    Route::get('appstoreconnect/get-full-info', 'GetFullAppInfo');
-    Route::get('appstoreconnect/get-app-list', 'GetAppList');
-    Route::get('appstoreconnect/get-build-list', 'GetBuildList');
+    Route::get('appstoreconnect/get-token', CreateToken::class);
+    Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
+    Route::get('appstoreconnect/get-app-list', GetAppList::class);
+    Route::get('appstoreconnect/get-build-list', GetBuildList::class);
 
-    Route::post('appstoreconnect/create-bundle', 'CreateBundle');
+    Route::post('appstoreconnect/create-bundle', CreateBundle::class);
 });
 
 ////////////////////
