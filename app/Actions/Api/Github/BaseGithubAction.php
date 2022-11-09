@@ -21,6 +21,6 @@ abstract class BaseGithubAction
 
     public function SetConnectionToken() : void
     {
-        Config::set('github.connections.main.token', $this->githubSetting->personal_access_token);
+        Config::set('github.connections.main.token', $this->githubSetting->personal_access_token ?? 'INVALID TOKEN');
     }
 }
