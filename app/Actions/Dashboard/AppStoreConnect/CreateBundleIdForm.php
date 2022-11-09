@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Actions\AppStoreConnect;
-
-use Lorisleiva\Actions\Concerns\AsAction;
+namespace App\Actions\Dashboard\AppStoreConnect;
 
 use Illuminate\Contracts\View\View;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class CreateBundleIdForm
 {
