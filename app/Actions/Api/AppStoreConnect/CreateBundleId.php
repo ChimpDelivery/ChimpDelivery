@@ -36,16 +36,17 @@ class CreateBundleId
             ->withBody(json_encode($data), 'application/json')
             ->post(AppStoreConnectService::$API_URL.'/bundleIds');
 
+        $createBundleResponse = $createBundle->json();
+
         // send json response
         if ($request->expectsJson())
         {
             return response()->json([
-                'status' => $createBundle->json()
+                'status' => $createBundleResponse
             ]);
         }
 
         // send web response
-        $createBundleResponse = $createBundle->json();
         if (isset($createBundleResponse['errors']))
         {
             $error = $createBundleResponse['errors'][0];
@@ -55,7 +56,6 @@ class CreateBundleId
                 ->withInput();
         }
 
-        session()->flash('success', 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!');
-        return to_route('index');
+        return to_route('index')->with('success', 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!');
     }
 }
