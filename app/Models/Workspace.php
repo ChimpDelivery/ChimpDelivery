@@ -63,4 +63,9 @@ class Workspace extends Model
     {
         return $this->hasOne(GithubSetting::class);
     }
+
+    public function createApiToken()
+    {
+        return $this->createToken('api-key')->plainTextToken;
+    }
 }
