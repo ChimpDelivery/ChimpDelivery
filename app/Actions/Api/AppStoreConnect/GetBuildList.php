@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Http;
 
 use App\Services\AppStoreConnectService;
 
+/// no use case
+/// not working correctly
 class GetBuildList
 {
     use AsAction;
