@@ -51,15 +51,9 @@ class GetRepositories extends BaseGithubAction
         }
         catch (\Exception $exception)
         {
-            return response()->json([
-                'status' => $exception->getCode(),
-                'response' => $response
-            ]);
+            return response()->json([ 'response' => $response ], $exception->getCode());
         }
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'response' => $response
-        ]);
+        return response()->json([ 'response' => $response ], Response::HTTP_OK);
     }
 }

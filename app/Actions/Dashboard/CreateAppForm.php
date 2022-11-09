@@ -19,16 +19,16 @@ class CreateAppForm
     public function handle(Request $request) : View
     {
         $allAppInfos = app(AppStoreConnectController::class)->GetAppList()->getData();
-        $allGitProjects = GetRepositories::run($request)->getData();
+        $allGitProjects = GetRepositories::run($request);
 
-        $isBadCredentials = $allGitProjects->status == Response::HTTP_UNAUTHORIZED;
+        $isBadCredentials = $allGitProjects->status() == Response::HTTP_UNAUTHORIZED;
 
         return view('appinfo-form')->with([
             'all_appstore_apps' => $allAppInfos,
             'github_auth_failed' => $isBadCredentials,
             'github_projects' => ($isBadCredentials)
                 ? collect()
-                : $allGitProjects->response
+                : $allGitProjects->getData()->response
         ]);
     }
 }

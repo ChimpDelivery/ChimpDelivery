@@ -42,16 +42,10 @@ class CreateRepository extends BaseGithubAction
         }
         catch (\Exception $exception)
         {
-            return response()->json([
-                'status' => $exception->getCode(),
-                'response' => $exception->getMessage()
-            ]);
+            return response()->json([ 'response' => $exception->getMessage()], $exception->getCode());
         }
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'response' => $response
-        ]);
+        return response()->json([ 'response' => $response ], Response::HTTP_OK);
     }
 
     public function UpdateRepoTopics(GetRepositoryRequest $request) : JsonResponse
@@ -70,15 +64,9 @@ class CreateRepository extends BaseGithubAction
         }
         catch (\Exception $exception)
         {
-            return response()->json([
-                'status' => $exception->getCode(),
-                'response' => $exception->getMessage()
-            ]);
+            return response()->json([ 'response' => $exception->getMessage() ], $exception->getCode());
         }
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'response' => $response
-        ]);
+        return response()->json([ 'response' => $response ], Response::HTTP_OK);
     }
 }
