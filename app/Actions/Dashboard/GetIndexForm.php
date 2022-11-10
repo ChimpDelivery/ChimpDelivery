@@ -2,14 +2,14 @@
 
 namespace App\Actions\Dashboard;
 
+use App\Actions\Api\Jenkins\GetJobLastBuild;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
-use App\Http\Controllers\Api\JenkinsController;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Models\AppInfo;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetIndexForm
 {
@@ -35,7 +35,7 @@ class GetIndexForm
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
 
-            $jenkinsResponse = app(JenkinsController::class)->GetJobLastBuild($request)->getData();
+            $jenkinsResponse = GetJobLastBuild::run($request)->getData();
             $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 

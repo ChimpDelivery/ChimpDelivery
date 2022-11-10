@@ -1,6 +1,9 @@
 <?php
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
+
+use App\Actions\Api\Jenkins\BuildJob;
+
 use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\CreateAppForm;
 use App\Actions\Dashboard\DeleteApp;
@@ -8,14 +11,16 @@ use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreApp;
 use App\Actions\Dashboard\UpdateApp;
 use App\Actions\Dashboard\UpdateAppForm;
-use App\Actions\Jenkins\BuildApp;
+
 use App\Actions\Jenkins\ScanOrganization;
 use App\Actions\Jenkins\StopJob;
+
 use App\Actions\Workspace\CreateWorkspaceApiKey;
 use App\Actions\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Workspace\GetWorkspaceForm;
 use App\Actions\Workspace\JoinWorkspace;
 use App\Actions\Workspace\StoreWorkspace;
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -71,7 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ////////////////////////////
     //// jenkins routes
     ///////////////////////////
-    Route::post('/dashboard/build-app', BuildApp::class)
+    Route::post('/dashboard/build-app', BuildJob::class)
         ->middleware('permission:build job');
 
     Route::get('/dashboard/stop-job', StopJob::class)

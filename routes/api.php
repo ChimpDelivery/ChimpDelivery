@@ -10,9 +10,15 @@ use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
 use App\Actions\Api\Github\CreateRepository;
 
+use App\Actions\Api\Jenkins\BuildJob;
 use App\Actions\Api\Packages\GetPackage;
 use App\Actions\Api\Packages\GetPackages;
 use App\Actions\Api\Packages\UpdatePackage;
+
+use App\Actions\Api\Jenkins\GetJobs;
+use App\Actions\Api\Jenkins\GetJob;
+use App\Actions\Api\Jenkins\GetJobBuilds;
+use App\Actions\Api\Jenkins\GetJobLastBuild;
 
 use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\JenkinsController;
@@ -47,12 +53,12 @@ Route::middleware('auth:sanctum')->group(function () {
 ////////////////////
 Route::controller(JenkinsController::class)->middleware('auth:sanctum')->group(function () {
 
-    Route::get('jenkins/get-job', 'GetJob');
-    Route::get('jenkins/get-job-list', 'GetJobList');
-    Route::get('jenkins/get-job-builds', 'GetJobBuilds');
-    Route::get('jenkins/get-job-lastbuild', 'GetJobLastBuild');
+    Route::get('jenkins/get-job', GetJob::class);
+    Route::get('jenkins/get-job-list', GetJobs::class);
+    Route::get('jenkins/get-job-builds', GetJobBuilds::class);
+    Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
 
-    Route::post('jenkins/build-job', 'BuildJob');
+    Route::post('jenkins/build-job', BuildJob::class);
     Route::post('jenkins/stop-job', 'StopJob');
 });
 
