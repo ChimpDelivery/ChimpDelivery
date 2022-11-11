@@ -5,16 +5,16 @@ namespace App\Actions\Api\Jenkins\Post;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Services\JenkinsService;
+use App\Traits\AsActionResponse;
 
 class ScanOrganization
 {
     use AsAction;
+    use AsActionResponse;
 
     public function handle(Request $request) : array
     {
@@ -30,21 +30,6 @@ class ScanOrganization
             'success' => $isResponseSucceed,
             'message' => $responseMessage,
         ];
-    }
-
-    public function htmlResponse(array $response) : RedirectResponse
-    {
-        if ($response['success'])
-        {
-            return back()->with('success', $response['message']);
-        }
-
-        return back()->withErrors($response['message']);
-    }
-
-    public function jsonResponse(array $response) : JsonResponse
-    {
-        return response()->json($response);
     }
 
     public function authorize(Request $request) : bool

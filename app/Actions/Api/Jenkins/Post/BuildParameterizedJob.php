@@ -5,16 +5,16 @@ namespace App\Actions\Api\Jenkins\Post;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
+use App\Traits\AsActionResponse;
 use App\Http\Requests\Jenkins\BuildRequest;
 
 class BuildParameterizedJob
 {
     use AsAction;
+    use AsActionResponse;
 
     private string $branch = "master";
 
@@ -49,20 +49,5 @@ class BuildParameterizedJob
             'success' => $isResponseSucceed,
             'message' => $responseMessage,
         ];
-    }
-
-    public function htmlResponse(array $response) : RedirectResponse
-    {
-        if ($response['success'])
-        {
-            return back()->with('success', $response['message']);
-        }
-
-        return back()->withErrors($response['message']);
-    }
-
-    public function jsonResponse(array $response) : JsonResponse
-    {
-        return response()->json($response);
     }
 }

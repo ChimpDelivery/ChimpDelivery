@@ -4,18 +4,18 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
+use App\Traits\AsActionResponse;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 
 class BuildJob
 {
     use AsAction;
+    use AsActionResponse;
 
     public function handle(BuildRequest $request) : array
     {
@@ -31,21 +31,6 @@ class BuildJob
         }
 
         return BuildParameterizedJob::run($request);
-    }
-
-    public function htmlResponse(array $response) : RedirectResponse
-    {
-        if ($response['success'])
-        {
-            return back()->with('success', $response['message']);
-        }
-
-        return back()->withErrors($response['message']);
-    }
-
-    public function jsonResponse(array $response) : JsonResponse
-    {
-        return response()->json($response);
     }
 
     public function authorize(BuildRequest $request) : bool
