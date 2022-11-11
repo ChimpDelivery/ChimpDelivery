@@ -16,6 +16,8 @@ class BuildParameterizedJob
 {
     use AsAction;
 
+    private string $branch = "master";
+
     public function handle(BuildRequest $request) : RedirectResponse|JsonResponse
     {
         $validated = $request->validated();
@@ -27,7 +29,7 @@ class BuildParameterizedJob
         $app = AppInfo::find($validated['id']);
 
         $service = new JenkinsService($request);
-        $url = "/job/{$app->project_name}/job/master/buildWithParameters"
+        $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
             ."&PLATFORM={$validated['platform']}"
             ."&APP_ID={$validated['id']}"

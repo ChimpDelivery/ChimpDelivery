@@ -25,7 +25,7 @@ class ParameterizeJob
         $service = new JenkinsService($request);
         $response = $service->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
-        $isResponseSucceed = $responseCode == Response::HTTP_OK;
+        $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
             ? "Project: {$app->project_name} is parameterizing... This build gonna be aborted by Jenkins!"
             : "Error Code: {$responseCode}";
