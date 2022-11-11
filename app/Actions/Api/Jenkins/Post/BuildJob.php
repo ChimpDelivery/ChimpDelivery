@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Actions\Api\Jenkins;
+namespace App\Actions\Api\Jenkins\Post;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
+use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
-use App\Actions\Api\Jenkins\Post\ParameterizeJob;
-use App\Actions\Api\Jenkins\Post\BuildParameterizedJob;
 
 class BuildJob
 {
