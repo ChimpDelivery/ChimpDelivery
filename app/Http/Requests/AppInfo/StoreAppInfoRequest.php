@@ -36,24 +36,32 @@ class StoreAppInfoRequest extends GetRepositoryRequest
 
             'app_name' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                Rule::unique('app_infos')
+                    ->where('workspace_id', $this->workspace_id)
+                    ->whereNull('deleted_at'),
             ],
 
             'project_name' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                Rule::unique('app_infos')
+                    ->where('workspace_id', $this->workspace_id)
+                    ->whereNull('deleted_at')
             ],
 
             'app_bundle' => [
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                Rule::unique('app_infos')
+                    ->where('workspace_id', $this->workspace_id)
+                    ->whereNull('deleted_at')
             ],
 
             'appstore_id' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at')
+                Rule::unique('app_infos')
+                    ->where('workspace_id', $this->workspace_id)
+                    ->whereNull('deleted_at')
             ],
 
             'fb_app_id' => [ 'nullable', 'numeric' ],
