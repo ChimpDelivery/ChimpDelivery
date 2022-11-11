@@ -46,12 +46,14 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->everyMinute();
 
-        // prune health checks
+        // pruning
         $schedule->command('model:prune', [
             '--model' => [
                 \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             ],
         ])->daily()->at('03:45')->withoutOverlapping();
+
+        $schedule->command('telescope:prune')->daily();
     }
 
     /**
