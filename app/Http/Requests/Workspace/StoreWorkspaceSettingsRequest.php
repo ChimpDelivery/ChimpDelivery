@@ -24,7 +24,9 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'name' => [
                 'required',
                 'alpha_num',
-                Rule::unique('workspaces')->ignore(Auth::user()->workspace->id, 'id')->whereNull('deleted_at'),
+                Rule::unique('workspaces')
+                    ->ignore(Auth::user()->workspace->id, 'id')
+                    ->whereNull('deleted_at'),
             ],
 
             'private_key' => [ 'nullable', 'mimetypes:text/plain', 'max:1' ],
@@ -34,12 +36,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'usermail' => [ 'nullable', 'email' ],
             'app_specific_pass' => [ 'nullable', 'string' ],
 
-            'organization_name' => [
-                'nullable',
-                new AlphaDashDot(),
-                Rule::unique('github_settings')->ignore(Auth::user()->workspace->id, 'workspace_id')->whereNull('deleted_at')
-            ],
-
+            'organization_name' => [ 'nullable', new AlphaDashDot() ],
             'personal_access_token' => [ 'nullable', 'alpha_dash' ],
             'template_name' => [ 'nullable', new AlphaDashDot() ],
             'topic_name' => [ 'nullable', new AlphaDashDot() ],
