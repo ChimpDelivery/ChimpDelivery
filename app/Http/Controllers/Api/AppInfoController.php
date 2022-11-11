@@ -4,18 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 use App\Http\Requests\AppInfo\UpdateAppInfoRequest;
 
 use App\Models\AppInfo;
-use App\Models\File;
-
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
-use Illuminate\Http\UploadedFile;
-
-use Illuminate\Support\Facades\Auth;
+use App\Actions\Files\UploadAppIcon;
 
 class AppInfoController extends Controller
 {
@@ -74,39 +72,19 @@ class AppInfoController extends Controller
 
     private function RestoreOrCreate(AppInfo $appModel, StoreAppInfoRequest $request)
     {
-        if ($appModel->trashed()) {
+        if ($appModel->trashed())
+        {
             $appModel->restore();
         }
 
         $appModel->fill([ 'workspace_id' => Auth::user()->workspace_id ]);
         $appModel->fill($request->safe()->all());
 
-        if ($request->hasFile('app_icon')) {
-            $appModel->app_icon = $this->GenerateHashAndUpload($request->safe()->app_icon);
+        if ($request->hasFile('app_icon'))
+        {
+            $appModel->app_icon = UploadAppIcon::run($request->safe()->app_icon);
         }
 
         $appModel->save();
-    }
-
-    // todo: move to service class
-    private function GenerateHashAndUpload(UploadedFile $iconImage) : string
-    {
-        // hash used for file path
-
-        $hash = hash_file('sha256', $iconImage);
-        $iconFileModel = File::firstOrNew([ 'hash' => $hash ]);
-
-        if (!$iconFileModel->exists)
-        {
-            $iconFileModel->fill([
-                'path' => $hash,
-                'hash' => $hash,
-            ])->save();
-
-            $iconImage->storePubliclyAs('app-icons', $hash);
-            return $iconFileModel->path;
-        }
-
-        return $hash;
     }
 }
