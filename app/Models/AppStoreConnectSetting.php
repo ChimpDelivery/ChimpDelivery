@@ -26,7 +26,9 @@ class AppStoreConnectSetting extends Model
     ];
 
     protected $casts = [
-        'private_key' => 'encrypted'
+        'private_key' => 'encrypted',
+        'issuer_id' => 'encrypted',
+        'kid' => 'encrypted',
     ];
 
     public function workspace()

@@ -23,7 +23,7 @@ class WorkspaceInviteCode extends Model
     ];
 
     protected $casts = [
-
+        'code' => 'encrypted',
     ];
 
     public function workspace()

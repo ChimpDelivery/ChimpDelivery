@@ -2,7 +2,6 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
