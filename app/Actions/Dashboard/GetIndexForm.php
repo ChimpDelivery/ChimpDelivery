@@ -2,7 +2,6 @@
 
 namespace App\Actions\Dashboard;
 
-use App\Actions\Api\Jenkins\GetJobLastBuild;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +9,7 @@ use Illuminate\Contracts\View\View;
 
 use App\Models\AppInfo;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
+use App\Actions\Api\Jenkins\GetJobLastBuild;
 
 class GetIndexForm
 {

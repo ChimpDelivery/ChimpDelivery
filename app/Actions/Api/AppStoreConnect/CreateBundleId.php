@@ -2,12 +2,12 @@
 
 namespace App\Actions\Api\AppStoreConnect;
 
-use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 

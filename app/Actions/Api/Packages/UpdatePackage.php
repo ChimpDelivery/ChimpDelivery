@@ -2,11 +2,11 @@
 
 namespace App\Actions\Api\Packages;
 
-use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\Package\UpdatePackageRequest;
 

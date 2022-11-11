@@ -6,8 +6,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Models\AppInfo;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 use App\Services\JenkinsService;
 
