@@ -7,12 +7,13 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
-class StopJob
+class AbortJob
 {
     use AsAction;
 
@@ -44,5 +45,10 @@ class StopJob
         }
 
         return back()->withErrors($flashMessage);
+    }
+
+    public function authorize(StopJobRequest $request) : bool
+    {
+        return ($request->expectsJson() ? true : Auth::user()->can('abort job'));
     }
 }

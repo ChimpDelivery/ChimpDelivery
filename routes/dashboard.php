@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
-use App\Actions\Api\Jenkins\Post\StopJob;
+use App\Actions\Api\Jenkins\Post\AbortJob;
 
 use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\CreateAppForm;
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/build-app', BuildJob::class)
         ->middleware('permission:build job');
 
-    Route::get('/dashboard/stop-job', StopJob::class)
+    Route::get('/dashboard/stop-job', AbortJob::class)
         ->middleware('permission:abort job');
 
     Route::get('/dashboard/workspace/scan-jobs', ScanOrganization::class)

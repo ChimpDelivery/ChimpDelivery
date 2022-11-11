@@ -19,7 +19,7 @@ use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
 use App\Actions\Api\Jenkins\GetJobs;
 use App\Actions\Api\Jenkins\Post\BuildJob;
-use App\Actions\Api\Jenkins\Post\StopJob;
+use App\Actions\Api\Jenkins\Post\AbortJob;
 
 use App\Actions\Api\Packages\GetPackage;
 use App\Actions\Api\Packages\GetPackages;
@@ -59,7 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
 
     Route::post('jenkins/build-job', BuildJob::class);
-    Route::post('jenkins/stop-job', StopJob::class);
+    Route::post('jenkins/stop-job', AbortJob::class);
 });
 
 ////////////////////////

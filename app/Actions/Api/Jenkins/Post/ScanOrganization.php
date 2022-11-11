@@ -4,6 +4,7 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,5 +39,10 @@ class ScanOrganization
         }
 
         return back()->withErrors($responseMessage);
+    }
+
+    public function authorize(Request $request) : bool
+    {
+        return ($request->expectsJson() ? true : Auth::user()->can('scan jobs'));
     }
 }

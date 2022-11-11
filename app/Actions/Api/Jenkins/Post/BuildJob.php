@@ -6,6 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
@@ -28,5 +29,10 @@ class BuildJob
         }
 
         return BuildParameterizedJob::run($request);
+    }
+
+    public function authorize(BuildRequest $request) : bool
+    {
+        return ($request->expectsJson() ? true : Auth::user()->can('build job'));
     }
 }
