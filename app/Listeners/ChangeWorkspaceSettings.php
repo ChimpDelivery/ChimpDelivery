@@ -51,7 +51,9 @@ class ChangeWorkspaceSettings
         // 3. github
         $githubSetting = GithubSetting::firstOrCreate([
             'workspace_id' => $targetWorkspace->id,
-            'organization_name' => $validated->organization_name,
+            'organization_name' => ($targetWorkspace->wasRecentlyCreated)
+                ? $validated->organization_name
+                : $targetWorkspace->githubSetting->organization_name,
         ]);
         $githubSetting->update($validated->only([
             'workspace_id',
