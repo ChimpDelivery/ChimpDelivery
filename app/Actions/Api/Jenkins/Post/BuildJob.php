@@ -39,7 +39,7 @@ class BuildJob
         $service = new JenkinsService($request);
 
         return $request->expectsJson()
-            ? $service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id
-            : Auth::user()->can('build job') && $service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id;
+            ? $service->GetTargetWorkspaceId() === AppInfo::find($request->validated('id'))->workspace_id
+            : Auth::user()->can('build job') && $service->GetTargetWorkspaceId() === AppInfo::find($request->validated('id'))->workspace_id;
     }
 }

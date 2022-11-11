@@ -17,21 +17,21 @@ class AbortJob
 {
     use AsAction;
 
+    private AppInfo $app;
     private JenkinsService $service;
 
     public function handle(StopJobRequest $request) : RedirectResponse|JsonResponse
     {
-        $app = AppInfo::find($request->validated('id'));
         $buildNumber = $request->validated('build_number');
 
-        $url = "/job/{$app->project_name}/job/master/{$buildNumber}/stop";
+        $url = "/job/{$this->app->project_name}/job/master/{$buildNumber}/stop";
         $response =  $this->service->PostResponse($url);
         $responseCode = $response->jenkins_status;
         $isResponseSucceed = $responseCode == Response::HTTP_OK;
 
         $flashMessage = ($isResponseSucceed)
-            ? "<b>{$app->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
-            : "{$app->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";
+            ? "<b>{$this->app->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
+            : "{$this->app->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";
 
         if ($request->expectsJson())
         {
@@ -51,9 +51,10 @@ class AbortJob
     public function authorize(StopJobRequest $request) : bool
     {
         $this->service = new JenkinsService($request);
+        $this->app = AppInfo::find($request->validated('id'));
 
         return $request->expectsJson()
-            ? $this->service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id
-            : Auth::user()->can('abort job') && $this->service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id;
+            ? $this->service->GetTargetWorkspaceId() === $this->app->workspace_id
+            : Auth::user()->can('abort job') && $this->service->GetTargetWorkspaceId() === $this->app->workspace_id;
     }
 }
