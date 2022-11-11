@@ -1,6 +1,5 @@
 <?php
 
-use App\Actions\Api\Jenkins\Post\ScanOrganization;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AppInfoController;
@@ -21,6 +20,7 @@ use App\Actions\Api\Jenkins\GetJobLastBuild;
 use App\Actions\Api\Jenkins\GetJobs;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\AbortJob;
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 use App\Actions\Api\Packages\GetPackage;
 use App\Actions\Api\Packages\GetPackages;
