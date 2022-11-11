@@ -6,10 +6,10 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Artisan;
 
-use App\Models\AppInfo;
 use App\Http\Requests\Jenkins\BuildRequest;
+use App\Actions\Api\Jenkins\Post\ParameterizeJob;
+use App\Actions\Api\Jenkins\Post\BuildParameterizedJob;
 
 class BuildJob
 {
@@ -17,48 +17,17 @@ class BuildJob
 
     public function handle(BuildRequest $request) : RedirectResponse|JsonResponse
     {
-        $validated = $request->validated();
+        $jobBuilds = GetJobBuilds::run($request)->getData();
+        $firstBuild = $jobBuilds->jenkins_data[0];
 
-        $app = AppInfo::find($validated['id']);
-
-        $jobResponse = GetJobBuilds::run($request)->getData();
-        $firstBuild = $jobResponse->jenkins_data[0];
-
-        // job exist but doesn't parameterized in Jenkins
+        // Job exist but there are no builds.
+        // Jenkins jobs created as non-parameterized by default.
+        // We need to handle this step with minimal build.
         if ($firstBuild->number == 1 && empty($firstBuild->url))
         {
-            Artisan::call("jenkins:default-trigger {$validated['id']}");
-            $responseMessage = "Project: {$app->project_name} building for first time. This build gonna be aborted by Jenkins!";
-
-            // api response
-            if ($request->expectsJson())
-            {
-                return response()->json([
-                    'status' => $responseMessage
-                ]);
-            }
-
-            // web response
-            return back()->with('success', $responseMessage);
+            return ParameterizeJob::run($request);
         }
 
-        $validated['store_custom_version'] ??= 'false';
-        $validated['store_build_number'] = ($validated['store_custom_version'] == 'true')
-            ? ($validated['store_build_number'] ?? 1)
-            : 0;
-
-        Artisan::call("jenkins:trigger {$validated['id']} master false {$validated['platform']} {$validated['store_version']} {$validated['store_custom_version']} {$validated['store_build_number']}");
-
-        // api response
-        $responseMessage = "Project: <b>{$app->project_name}</b> building for <b>{$validated['platform']}</b>...";
-        if ($request->expectsJson())
-        {
-            return response()->json([
-                'status' => $responseMessage
-            ]);
-        }
-
-        // web response
-        return back()->with('success', $responseMessage);
+        return BuildParameterizedJob::run($request);
     }
 }
