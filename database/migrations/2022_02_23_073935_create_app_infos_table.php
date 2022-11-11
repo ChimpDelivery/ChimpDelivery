@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('app_icon')->nullable();
             $table->string('app_name');
             $table->string('project_name');
-            $table->string('app_bundle')->unique();
-            $table->string('appstore_id')->unique();
+            $table->string('app_bundle');
+            $table->string('appstore_id');
             $table->string('fb_app_id')->nullable();
             $table->string('fb_client_token')->nullable();
             $table->string('ga_id')->nullable();
