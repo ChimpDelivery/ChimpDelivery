@@ -85,7 +85,7 @@
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
                         <i class="fa fa-github" aria-hidden="true"></i>
-                        <b>Github API</b>
+                        <b>GitHub API</b>
                     </a>
                 </p>
                 <div class="collapse" id="collapse_github_settings">
@@ -111,7 +111,7 @@
                         <label for="topic_name">Project Topic</label>
                         <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
                         <small class="form-text text-muted">
-                            Github Repository topic name to filter Github Projects in organization.
+                            GitHub Repository topic name to filter GitHub Projects in organization.
                         </small>
                     </div>
                 </div>

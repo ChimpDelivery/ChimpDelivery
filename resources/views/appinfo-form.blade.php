@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     @if (!isset($appInfo))
-                        @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select Github Project (' . count($github_projects) . ')')
+                        @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select GitHub Project (' . count($github_projects) . ')')
                         <select name="project_name"
                             class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
