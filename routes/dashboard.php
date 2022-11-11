@@ -1,9 +1,9 @@
 <?php
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
-
 use App\Actions\Api\Jenkins\BuildJob;
-
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\Jenkins\Post\StopJob;
 use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\CreateAppForm;
 use App\Actions\Dashboard\DeleteApp;
@@ -11,16 +11,11 @@ use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreApp;
 use App\Actions\Dashboard\UpdateApp;
 use App\Actions\Dashboard\UpdateAppForm;
-
-use App\Actions\Jenkins\ScanOrganization;
-use App\Actions\Jenkins\StopJob;
-
 use App\Actions\Workspace\CreateWorkspaceApiKey;
 use App\Actions\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Workspace\GetWorkspaceForm;
 use App\Actions\Workspace\JoinWorkspace;
 use App\Actions\Workspace\StoreWorkspace;
-
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -82,8 +77,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/stop-job', StopJob::class)
         ->middleware('permission:abort job');
 
-    Route::get('/dashboard/scan-repo', ScanOrganization::class)
-        ->middleware('permission:scan jobs');
+    Route::get('/dashboard/workspace/scan-jobs', ScanOrganization::class)
+        ->middleware('permission:scan jobs')
+        ->name('scan-workspace-jobs');
 
     //////////////////////////////////
     //// app store connect routes

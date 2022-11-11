@@ -120,6 +120,12 @@
                     <i class="fa {{ ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o' }}"></i>
                     {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}
                 </button>
+                @can('scan jobs')
+                    <a href="{{ route('scan-workspace-jobs') }}" type="button" class="btn btn-secondary font-weight-bold shadow pull-right">
+                        <i class="fa fa-refresh"></i>
+                        Scan Jenkins
+                    </a>
+                @endcan
             </form>
         </div>
         <div class="card-footer text-muted">

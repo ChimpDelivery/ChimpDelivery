@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\GithubSetting;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+
+use App\Models\GithubSetting;
 
 class JenkinsService
 {
@@ -27,16 +30,35 @@ class JenkinsService
 
     public function GetResponse(string $url) : mixed
     {
-        return $this->TryJenkinsRequest($url)->getData();
+        return $this->TryJenkinsRequest($url, 'get')->getData();
     }
 
-    private function TryJenkinsRequest(string $url) : JsonResponse
+    public function PostResponse(string $url) : mixed
+    {
+        return $this->TryJenkinsRequest($url, 'post')->getData();
+    }
+
+    private function TryJenkinsRequest(string $url, string $method) : JsonResponse
     {
         $jenkinsResponse = '';
 
         try
         {
-            $jenkinsResponse = $this->GetRequest($this->baseUrl . $url);
+            if (in_array($method, ['post', 'get']))
+            {
+                if ($method == 'get')
+                {
+                    $jenkinsResponse = $this->GetRequest($this->baseUrl . $url);
+                }
+                else
+                {
+                    $jenkinsResponse = $this->PostRequest($this->baseUrl . $url);
+                }
+            }
+            else
+            {
+                throw new \Exception('Request method not supported!');
+            }
         }
         catch (\Exception $exception)
         {
@@ -52,17 +74,31 @@ class JenkinsService
 
     private function GetRequest(string $url) : array
     {
-        $request = Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
-            ->timeout(20)
-            ->connectTimeout(8)
-            ->get($url);
+        $request = $this->GetJenkinsUser()->get($url);
+        return $this->GetJenkinsResponse($request);
+    }
 
+    private function PostRequest(string $url) : array
+    {
+        $request = $this->GetJenkinsUser()->post($url);
+        return $this->GetJenkinsResponse($request);
+    }
+
+    private function GetJenkinsResponse($request) : array
+    {
         $isTunnelOffline = $request->header('Ngrok-Error-Code');
 
         return [
             'jenkins_status' => ($isTunnelOffline) ? 3200 : $request->status(),
             'jenkins_data' => ($isTunnelOffline) ? null : json_decode($request),
         ];
+    }
+
+    private function GetJenkinsUser() : PendingRequest
+    {
+        return Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+            ->timeout(20)
+            ->connectTimeout(8);
     }
 }
 
