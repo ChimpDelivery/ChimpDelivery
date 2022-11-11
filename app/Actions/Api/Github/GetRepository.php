@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\Github;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -13,8 +11,6 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 
 class GetRepository extends BaseGithubAction
 {
-    use AsAction;
-
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
         $this->ResolveGithubSetting($request);

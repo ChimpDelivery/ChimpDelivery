@@ -2,6 +2,8 @@
 
 namespace App\Actions\Api\Github;
 
+use Lorisleiva\Actions\Concerns\AsAction;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -10,6 +12,8 @@ use App\Models\GithubSetting;
 
 abstract class BaseGithubAction
 {
+    use AsAction;
+
     public GithubSetting $githubSetting;
 
     public function ResolveGithubSetting(Request $request) : void

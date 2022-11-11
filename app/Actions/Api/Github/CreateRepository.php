@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\Github;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -13,8 +11,6 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 
 class CreateRepository extends BaseGithubAction
 {
-    use AsAction;
-
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {

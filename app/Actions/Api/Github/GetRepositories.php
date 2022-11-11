@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\Github;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Http\Request;
 
 use Illuminate\Http\JsonResponse;
@@ -13,8 +11,6 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 
 class GetRepositories extends BaseGithubAction
 {
-    use AsAction;
-
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle(Request $request) : JsonResponse
     {
