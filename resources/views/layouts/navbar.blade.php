@@ -78,7 +78,7 @@
                                 <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                             </a>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('telescope') }}">
-                                <i class="fa fa-medkit" aria-hidden="true"></i> Telescope
+                                <i class="fa fa-server" aria-hidden="true"></i> Telescope
                             </a>
                             @endrole
                             <div class="dropdown-divider"></div>
