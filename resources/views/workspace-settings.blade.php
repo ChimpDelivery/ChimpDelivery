@@ -98,9 +98,9 @@
                     </div>
                     <div class="form-group">
                         <label for="organization_name">Organization Name</label>
-                        <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}">
+                        <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}" @readonly(!$isNew)>
                         <small class="form-text text-muted">
-                            Github Organization name linked to the account where the access token was generated.
+                            The name of the GitHub Organization that contains the projects to build.
                         </small>
                     </div>
                     <div class="form-group">
@@ -111,7 +111,7 @@
                         <label for="topic_name">Project Topic</label>
                         <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
                         <small class="form-text text-muted">
-                            Github Repository topic name to filter Github Projects.
+                            Github Repository topic name to filter Github Projects in organization.
                         </small>
                     </div>
                 </div>
