@@ -18,9 +18,7 @@ class ParameterizeJob
 
     public function handle(BuildRequest $request) : array
     {
-        $validated = $request->validated();
-
-        $app = AppInfo::find($validated['id']);
+        $app = AppInfo::find($request->validated('id'));
 
         $service = new JenkinsService($request);
         $response = $service->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
