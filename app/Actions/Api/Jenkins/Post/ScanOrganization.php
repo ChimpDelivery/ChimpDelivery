@@ -16,35 +16,43 @@ class ScanOrganization
 {
     use AsAction;
 
-    public function handle(Request $request) : RedirectResponse|JsonResponse
+    private readonly bool $isResponseSucceed;
+    private string $responseMessage;
+
+    public function handle(Request $request) : Request
     {
         $service = new JenkinsService($request);
         $response = $service->PostResponse("/build?delay=0");
-        $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
 
-        $responseMessage = ($isResponseSucceed)
+        $this->isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
+        $this->responseMessage = ($this->isResponseSucceed)
             ? 'Repository scanning begins.'
             : "Repository scanning could not run! Error Code: {$response->jenkins_status}";
 
-        if ($request->expectsJson())
+        return $request;
+    }
+
+    public function htmlResponse(Request $request) : RedirectResponse
+    {
+        if ($this->isResponseSucceed)
         {
-            return response()->json([
-                'status' => $responseMessage
-            ]);
+            return back()->with('success', $this->responseMessage);
         }
 
-        if ($isResponseSucceed)
-        {
-            return back()->with('success', $responseMessage);
-        }
+        return back()->withErrors($this->responseMessage);
+    }
 
-        return back()->withErrors($responseMessage);
+    public function jsonResponse(Request $request) : JsonResponse
+    {
+        return response()->json([
+            'status' => $this->responseMessage
+        ]);
     }
 
     public function authorize(Request $request) : bool
     {
-        return ($request->expectsJson()
+        return $request->expectsJson()
             ? true
-            : Auth::user()->can('scan jobs'));
+            : Auth::user()->can('scan jobs');
     }
 }

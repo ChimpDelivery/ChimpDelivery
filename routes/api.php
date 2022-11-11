@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AppInfoController;
@@ -60,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('jenkins/build-job', BuildJob::class);
     Route::post('jenkins/stop-job', AbortJob::class);
+    Route::post('jenkins/scan-organization', ScanOrganization::class);
 });
 
 ////////////////////////
