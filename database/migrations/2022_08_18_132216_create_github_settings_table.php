@@ -20,7 +20,7 @@ return new class extends Migration
                 ->on('workspaces')
                 ->onDelete('cascade');
             $table->text('personal_access_token')->nullable();
-            $table->string('organization_name')->nullable()->unique();
+            $table->string('organization_name')->unique();
             $table->string('template_name')->nullable();
             $table->string('topic_name')->nullable();
             $table->timestamps();

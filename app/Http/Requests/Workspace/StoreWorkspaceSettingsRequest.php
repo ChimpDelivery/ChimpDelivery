@@ -37,7 +37,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'app_specific_pass' => [ 'nullable', 'string' ],
 
             'organization_name' => [
-                'nullable',
+                'required',
                 new AlphaDashDot(),
                 Rule::unique('github_settings')
                     ->ignore(Auth::user()->workspace->id, 'workspace_id')
@@ -52,7 +52,8 @@ class StoreWorkspaceSettingsRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'organization_name.unique' => 'Github Organization has already linked to another workspace.',
+            'organization_name.required' => 'Github API ➔ Organization Name field is required.',
+            'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another workspace.',
         ];
     }
 }

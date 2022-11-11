@@ -14,7 +14,7 @@ class GithubSettingSeeder extends Seeder
         GithubSetting::factory()->create([
             'workspace_id' => 1,
             'personal_access_token' => null,
-            'organization_name' => null,
+            'organization_name' => 'default-organization',
             'template_name' => null,
             'topic_name' => null,
         ]);
