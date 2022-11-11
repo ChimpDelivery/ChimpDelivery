@@ -4,20 +4,19 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
-
+use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
+use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
 class CreateBundleId
 {
     use AsAction;
+    use AsActionResponse;
 
-    public function handle(StoreBundleRequest $request) : JsonResponse|RedirectResponse
+    public function handle(StoreBundleRequest $request) : array
     {
         $storeService = new AppStoreConnectService($request);
         $generatedToken = $storeService->CreateToken()->getData()->appstore_token;
@@ -39,25 +38,18 @@ class CreateBundleId
 
         $createBundleResponse = $createBundle->json();
 
-        // send json response
-        if ($request->expectsJson())
-        {
-            return response()->json([
-                'status' => $createBundleResponse
-            ]);
-        }
-
-        // send web response
-        if (isset($createBundleResponse['errors']))
+        $responseMessage = 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!';
+        $responseHasError = isset($createBundleResponse['errors']);
+        if ($responseHasError)
         {
             $error = $createBundleResponse['errors'][0];
-
-            return to_route('create_bundle')
-                ->withErrors([ 'bundle_id' => $error['detail'] . " (Status code: {$error['status']})" ])
-                ->withInput();
+            $responseMessage = $error['detail'] . " (Status code: {$error['status']})";
         }
 
-        return to_route('index')->with('success', 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!');
+        return [
+            'success' => $responseHasError === false,
+            'message' => $responseMessage,
+        ];
     }
 
     public function authorize(StoreBundleRequest $request) : bool
