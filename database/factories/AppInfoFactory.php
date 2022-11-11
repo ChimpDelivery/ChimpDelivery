@@ -18,7 +18,7 @@ class AppInfoFactory extends Factory
             'app_icon' => '',
             'app_name' => $this->faker->name(),
             'project_name' => $this->faker->name(),
-            'app_bundle' => config('appstore.bundle_prefix') . '.Example' . Str::random(5),
+            'app_bundle' => 'com.Example' . Str::random(5),
             'appstore_id' => Str::random(10),
             'fb_app_id' => $this->faker->numberBetween(100000000, 999999999),
             'fb_client_token' => $this->faker->numberBetween(100000000, 999999999),
