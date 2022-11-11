@@ -130,7 +130,7 @@
         </div>
         <div class="card-footer text-muted">
             <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-            Fields can be changed later by Workspace Admin(s).
+            All fields can be changed later by "Workspace Admin" except "GitHub Organization" name.
         </div>
     </div>
 </div>
