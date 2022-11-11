@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Events\WorkspaceChanged;
 
 use App\Models\AppleSetting;
 use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
-
-use Illuminate\Support\Facades\Auth;
 
 class ChangeWorkspaceSettings
 {
@@ -49,11 +49,13 @@ class ChangeWorkspaceSettings
         ]));
 
         // 3. github
-        $githubSetting = GithubSetting::firstOrCreate([ 'workspace_id' => $targetWorkspace->id ]);
+        $githubSetting = GithubSetting::firstOrCreate([
+            'workspace_id' => $targetWorkspace->id,
+            'organization_name' => $validated->organization_name,
+        ]);
         $githubSetting->update($validated->only([
             'workspace_id',
             'personal_access_token',
-            'organization_name',
             'template_name',
             'topic_name',
         ]));
