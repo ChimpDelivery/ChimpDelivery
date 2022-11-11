@@ -77,6 +77,9 @@
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">
                                 <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                             </a>
+                            <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('telescope') }}">
+                                <i class="fa fa-medkit" aria-hidden="true"></i> Telescope
+                            </a>
                             @endrole
                             <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
