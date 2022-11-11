@@ -5,10 +5,10 @@ namespace App\Actions\Dashboard;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Artisan;
 
 use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 class StoreApp
 {
@@ -19,7 +19,7 @@ class StoreApp
         $createAppResponse = app(AppInfoController::class)->CreateApp($request)->getData();
         $projectName = $createAppResponse->app->project_name;
 
-        Artisan::call("jenkins:scan-repo");
+        ScanOrganization::run($request);
 
         return to_route('index')->with('success', "Project: <b>{$projectName}</b> created.");
     }

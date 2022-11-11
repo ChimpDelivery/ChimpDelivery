@@ -27,7 +27,7 @@ class ParameterizeJob
         $responseCode = $response->jenkins_status;
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
-            ? "Project: {$app->project_name} is parameterizing... This build gonna be aborted by Jenkins!"
+            ? "Project: {$app->project_name} is parameterizing. This build gonna be aborted by Jenkins!"
             : "Error Code: {$responseCode}";
 
         if ($request->expectsJson())

@@ -22,7 +22,7 @@ class ScanOrganization
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
 
         $responseMessage = ($isResponseSucceed)
-            ? 'Repository scanning begins...'
+            ? 'Repository scanning begins.'
             : "Repository scanning could not run! Error Code: {$response->jenkins_status}";
 
         if ($request->expectsJson())
