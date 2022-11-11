@@ -20,8 +20,8 @@ return new class extends Migration
                 ->on('workspaces')
                 ->onDelete('cascade');
             $table->text('private_key')->nullable();
-            $table->string('issuer_id')->nullable();
-            $table->string('kid')->nullable();
+            $table->text('issuer_id')->nullable();
+            $table->text('kid')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
