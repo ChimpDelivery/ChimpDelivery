@@ -17,7 +17,7 @@ class BuildJob
 {
     use AsAction;
 
-    public function handle(BuildRequest $request) : RedirectResponse|JsonResponse
+    public function handle(BuildRequest $request) : array
     {
         $jobBuilds = GetJobBuilds::run($request)->getData();
         $firstBuild = $jobBuilds->jenkins_data[0];
@@ -31,6 +31,21 @@ class BuildJob
         }
 
         return BuildParameterizedJob::run($request);
+    }
+
+    public function htmlResponse(array $response) : RedirectResponse
+    {
+        if ($response['success'])
+        {
+            return back()->with('success', $response['message']);
+        }
+
+        return back()->withErrors($response['message']);
+    }
+
+    public function jsonResponse(array $response) : JsonResponse
+    {
+        return response()->json($response);
     }
 
     public function authorize(BuildRequest $request) : bool

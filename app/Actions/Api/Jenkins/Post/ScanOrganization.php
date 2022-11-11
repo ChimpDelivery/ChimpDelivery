@@ -16,37 +16,35 @@ class ScanOrganization
 {
     use AsAction;
 
-    private readonly bool $isResponseSucceed;
-    private string $responseMessage;
-
-    public function handle(Request $request) : Request
+    public function handle(Request $request) : array
     {
         $service = new JenkinsService($request);
         $response = $service->PostResponse("/build?delay=0");
 
-        $this->isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
-        $this->responseMessage = ($this->isResponseSucceed)
+        $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
+        $responseMessage = ($isResponseSucceed)
             ? 'Repository scanning begins.'
             : "Repository scanning could not run! Error Code: {$response->jenkins_status}";
 
-        return $request;
+        return [
+            'success' => $isResponseSucceed,
+            'message' => $responseMessage,
+        ];
     }
 
-    public function htmlResponse(Request $request) : RedirectResponse
+    public function htmlResponse(array $response) : RedirectResponse
     {
-        if ($this->isResponseSucceed)
+        if ($response['success'])
         {
-            return back()->with('success', $this->responseMessage);
+            return back()->with('success', $response['message']);
         }
 
-        return back()->withErrors($this->responseMessage);
+        return back()->withErrors($response['message']);
     }
 
-    public function jsonResponse(Request $request) : JsonResponse
+    public function jsonResponse(array $response) : JsonResponse
     {
-        return response()->json([
-            'status' => $this->responseMessage
-        ]);
+        return response()->json($response);
     }
 
     public function authorize(Request $request) : bool

@@ -18,7 +18,7 @@ class BuildParameterizedJob
 
     private string $branch = "master";
 
-    public function handle(BuildRequest $request) : RedirectResponse|JsonResponse
+    public function handle(BuildRequest $request) : array
     {
         $validated = $request->validated();
         $validated['store_custom_version'] ??= 'false';
@@ -39,23 +39,30 @@ class BuildParameterizedJob
 
         $response = $service->PostResponse($url);
         $responseCode = $response->jenkins_status;
+
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
             ? "{$app->project_name}, building for {$validated['platform']}..."
             : "Error Code: {$responseCode}";
 
-        if ($request->expectsJson())
+        return [
+            'success' => $isResponseSucceed,
+            'message' => $responseMessage,
+        ];
+    }
+
+    public function htmlResponse(array $response) : RedirectResponse
+    {
+        if ($response['success'])
         {
-            return response()->json([
-                'status' => $responseMessage
-            ]);
+            return back()->with('success', $response['message']);
         }
 
-        if ($isResponseSucceed)
-        {
-            return back()->with('success', $responseMessage);
-        }
+        return back()->withErrors($response['message']);
+    }
 
-        return back()->withErrors($responseMessage);
+    public function jsonResponse(array $response) : JsonResponse
+    {
+        return response()->json($response);
     }
 }

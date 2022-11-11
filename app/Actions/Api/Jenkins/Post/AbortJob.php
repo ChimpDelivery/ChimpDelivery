@@ -20,32 +20,38 @@ class AbortJob
     private AppInfo $app;
     private JenkinsService $service;
 
-    public function handle(StopJobRequest $request) : RedirectResponse|JsonResponse
+    public function handle(StopJobRequest $request) : array
     {
         $buildNumber = $request->validated('build_number');
 
         $url = "/job/{$this->app->project_name}/job/master/{$buildNumber}/stop";
         $response =  $this->service->PostResponse($url);
         $responseCode = $response->jenkins_status;
-        $isResponseSucceed = $responseCode == Response::HTTP_OK;
 
-        $flashMessage = ($isResponseSucceed)
+        $isResponseSucceed = $responseCode == Response::HTTP_OK;
+        $responseMessage = ($isResponseSucceed)
             ? "<b>{$this->app->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
             : "{$this->app->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";
 
-        if ($request->expectsJson())
+        return [
+            'success' => $isResponseSucceed,
+            'message' => $responseMessage,
+        ];
+    }
+
+    public function htmlResponse(array $response) : RedirectResponse
+    {
+        if ($response['success'])
         {
-            return response()->json([
-                'status' => $responseCode
-            ]);
+            return back()->with('success', $response['message']);
         }
 
-        if ($isResponseSucceed)
-        {
-            return back()->with('success', $flashMessage);
-        }
+        return back()->withErrors($response['message']);
+    }
 
-        return back()->withErrors($flashMessage);
+    public function jsonResponse(array $response) : JsonResponse
+    {
+        return response()->json($response);
     }
 
     public function authorize(StopJobRequest $request) : bool
