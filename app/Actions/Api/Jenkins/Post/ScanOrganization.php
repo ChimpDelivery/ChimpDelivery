@@ -43,6 +43,8 @@ class ScanOrganization
 
     public function authorize(Request $request) : bool
     {
-        return ($request->expectsJson() ? true : Auth::user()->can('scan jobs'));
+        return ($request->expectsJson()
+            ? true
+            : Auth::user()->can('scan jobs'));
     }
 }

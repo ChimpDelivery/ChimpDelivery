@@ -17,14 +17,15 @@ class AbortJob
 {
     use AsAction;
 
+    private JenkinsService $service;
+
     public function handle(StopJobRequest $request) : RedirectResponse|JsonResponse
     {
         $app = AppInfo::find($request->validated('id'));
         $buildNumber = $request->validated('build_number');
 
-        $service = new JenkinsService($request);
         $url = "/job/{$app->project_name}/job/master/{$buildNumber}/stop";
-        $response =  $service->PostResponse($url);
+        $response =  $this->service->PostResponse($url);
         $responseCode = $response->jenkins_status;
         $isResponseSucceed = $responseCode == Response::HTTP_OK;
 
@@ -49,6 +50,10 @@ class AbortJob
 
     public function authorize(StopJobRequest $request) : bool
     {
-        return ($request->expectsJson() ? true : Auth::user()->can('abort job'));
+        $this->service = new JenkinsService($request);
+
+        return $request->expectsJson()
+            ? $this->service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id
+            : Auth::user()->can('abort job') && $this->service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id;
     }
 }

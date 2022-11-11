@@ -2,12 +2,15 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\AppInfo;
+use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 
@@ -33,6 +36,10 @@ class BuildJob
 
     public function authorize(BuildRequest $request) : bool
     {
-        return ($request->expectsJson() ? true : Auth::user()->can('build job'));
+        $service = new JenkinsService($request);
+
+        return $request->expectsJson()
+            ? $service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id
+            : Auth::user()->can('build job') && $service->GetTargetWorkspaceId() === AppInfo::find($request->id)->workspace_id;
     }
 }

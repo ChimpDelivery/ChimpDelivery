@@ -17,6 +17,12 @@ class JenkinsService
     // Job and organization names are unique.
     private GithubSetting $githubSetting;
 
+    // organization workspace
+    private string $baseUrl;
+
+    //
+    private int $targetWorkspaceId;
+
     public function __construct(Request $request)
     {
         $this->githubSetting = $request->expectsJson()
@@ -26,6 +32,15 @@ class JenkinsService
         $this->baseUrl = config('jenkins.host')
             .'/job/'
             .$this->githubSetting->organization_name;
+
+        $this->targetWorkspaceId = ($request)->expectsJson()
+            ? Auth::user()->id
+            : Auth::user()->workspace->id;
+    }
+
+    public function GetTargetWorkspaceId() : int
+    {
+        return $this->targetWorkspaceId;
     }
 
     public function GetResponse(string $url) : mixed
