@@ -46,4 +46,11 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'topic_name' => [ 'nullable', new AlphaDashDot() ],
         ];
     }
+
+    public function messages() : array
+    {
+        return [
+            'organization_name.unique' => 'Github Organization has already linked to another workspace.',
+        ];
+    }
 }
