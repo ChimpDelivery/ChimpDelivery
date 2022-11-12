@@ -7,9 +7,9 @@ use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppStoreConnectSetting;
-use Illuminate\Support\Facades\Auth;
 
 class AppStoreConnectService
 {
@@ -40,11 +40,11 @@ class AppStoreConnectService
                 $this->appStoreConnectSetting->kid,
             );
         }
-        catch (\Exception $e)
+        catch (\Exception $exception)
         {
             return response()->json([
                 'appstore_token' => null,
-                'error' => 'Could not generate token'
+                'error' => "Could not generate token! Exception Code: {$exception->getCode()}"
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
