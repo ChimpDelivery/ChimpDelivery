@@ -14,6 +14,8 @@ class Workspace extends Model
     use SoftDeletes;
     use HasApiTokens;
 
+    public static int $DEFAULT_WORKSPACE_ID = 1;
+
     protected $fillable = [
         'name',
     ];
