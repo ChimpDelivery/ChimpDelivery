@@ -2,20 +2,15 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Http\Response;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
-use App\Traits\AsActionResponse;
 use App\Http\Requests\Jenkins\BuildRequest;
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
-class BuildParameterizedJob
+class BuildParameterizedJob extends BaseJenkinsAction
 {
-    use AsAction;
-    use AsActionResponse;
-
     private string $branch = "master";
 
     public function handle(BuildRequest $request) : array

@@ -2,21 +2,16 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
-use App\Traits\AsActionResponse;
 use App\Http\Requests\Jenkins\StopJobRequest;
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
-class AbortJob
+class AbortJob extends BaseJenkinsAction
 {
-    use AsAction;
-    use AsActionResponse;
-
     private AppInfo $app;
     private JenkinsService $service;
 

@@ -2,21 +2,16 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
-use App\Traits\AsActionResponse;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
-class BuildJob
+class BuildJob extends BaseJenkinsAction
 {
-    use AsAction;
-    use AsActionResponse;
-
     public function handle(BuildRequest $request) : array
     {
         $jobBuilds = GetJobBuilds::run($request)->getData();

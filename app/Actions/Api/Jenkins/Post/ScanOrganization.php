@@ -2,20 +2,15 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Services\JenkinsService;
-use App\Traits\AsActionResponse;
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
-class ScanOrganization
+class ScanOrganization extends BaseJenkinsAction
 {
-    use AsAction;
-    use AsActionResponse;
-
     public function handle(Request $request) : array
     {
         $service = new JenkinsService($request);
