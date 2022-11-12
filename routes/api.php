@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AppInfoController;
 
+use App\Actions\Api\Apps\GetApp;
+
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 use App\Actions\Api\AppStoreConnect\CreateToken;
 use App\Actions\Api\AppStoreConnect\GetAppList;
@@ -31,7 +33,7 @@ use App\Actions\Api\Packages\UpdatePackage;
 //////////////////////
 Route::controller(AppInfoController::class)->middleware('auth:sanctum')->group(function () {
 
-    Route::get('apps/get-app', 'GetApp');
+    Route::get('apps/get-app', GetApp::class);
     Route::post('apps/create-app', 'CreateApp');
     Route::post('apps/update-app', 'UpdateApp');
 });

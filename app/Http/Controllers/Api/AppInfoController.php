@@ -17,22 +17,6 @@ use App\Actions\Files\UploadAppIcon;
 
 class AppInfoController extends Controller
 {
-    public function GetApp(GetAppInfoRequest $request) : JsonResponse
-    {
-        $app = AppInfo::find($request->validated('id'), [
-            'app_bundle',
-            'app_name',
-            'fb_app_id',
-            'fb_client_token',
-            'ga_id',
-            'ga_secret'
-        ]);
-
-        $this->authorize('view', $app);
-
-        return response()->json($app, Response::HTTP_OK);
-    }
-
     public function CreateApp(StoreAppInfoRequest $request) : JsonResponse
     {
         $this->authorize('create', AppInfo::class);
@@ -54,7 +38,7 @@ class AppInfoController extends Controller
 
         $this->authorize('update', $app);
 
-        $app->update($request->safe()->all());
+        $app->update($request->safe()->except([ 'id', 'project_name' ]));
 
         return response()->json($app, Response::HTTP_OK);
     }

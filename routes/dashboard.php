@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Actions\Api\Apps\GetApp;
+
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
+
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 use App\Actions\Api\Jenkins\Post\AbortJob;
@@ -13,7 +16,6 @@ use App\Actions\Dashboard\DeleteApp;
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\StoreApp;
 use App\Actions\Dashboard\UpdateApp;
-use App\Actions\Dashboard\UpdateAppForm;
 
 use App\Actions\Workspace\CreateWorkspaceApiKey;
 use App\Actions\Workspace\GetJoinWorkspaceForm;
@@ -59,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('store_app_info')
         ->middleware('permission:update app');
 
-    Route::get('/dashboard/update-app-info', UpdateAppForm::class)
+    Route::get('/dashboard/update-app-info', GetApp::class)
         ->name('get_app_info')
         ->middleware('permission:update app');
 
