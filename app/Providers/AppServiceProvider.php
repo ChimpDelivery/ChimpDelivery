@@ -31,8 +31,6 @@ class AppServiceProvider extends ServiceProvider
         // to fix: "huge paginator icons"
         Paginator::useBootstrap();
 
-        Model::preventLazyLoading(!$this->app->isProduction());
-        Model::preventSilentlyDiscardingAttributes(!$this->app->isProduction());
-        Model::preventAccessingMissingAttributes(!$this->app->isProduction());
+        Model::shouldBeStrict(!$this->app->isProduction());
     }
 }
