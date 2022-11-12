@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 
 use Illuminate\Support\ServiceProvider;
@@ -29,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // to fix: "huge paginator icons"
         Paginator::useBootstrap();
+
+        Model::preventLazyLoading(!$this->app->isProduction());
+        Model::preventSilentlyDiscardingAttributes(!$this->app->isProduction());
     }
 }
