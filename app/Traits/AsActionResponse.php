@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
