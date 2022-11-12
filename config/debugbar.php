@@ -163,7 +163,7 @@ return [
         'session'         => true,  // Display session data
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
-        'laravel'         => false, // Laravel version and environment
+        'laravel'         => true, // Laravel version and environment
         'events'          => true, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'logs'            => true, // Add the latest log messages
@@ -197,7 +197,7 @@ return [
                 'enabled' => false,
                 'types' => ['SELECT'],     // Deprecated setting, is always only SELECT
             ],
-            'hints'             => false,    // Show hints for common mistakes
+            'hints'             => true,    // Show hints for common mistakes
             'show_copy'         => false,    // Show copy button next to the query
         ],
         'mail' => [
