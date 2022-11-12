@@ -20,9 +20,10 @@ class GetAppInfo
     {
         return AppInfo::find($request->validated('id'), [
             'id',
+            'app_name',
             'project_name',
             'app_bundle',
-            'app_name',
+            'appstore_id',
             'fb_app_id',
             'fb_client_token',
             'ga_id',
@@ -37,7 +38,11 @@ class GetAppInfo
 
     public function jsonResponse(AppInfo $appInfo) : JsonResponse
     {
-        return response()->json($appInfo->makeHidden([ 'id', 'project_name' ]));
+        return response()->json($appInfo->makeHidden([
+            'id',
+            'project_name',
+            'appstore_id',
+        ]));
     }
 
     public function authorize(GetAppInfoRequest $request) : bool
