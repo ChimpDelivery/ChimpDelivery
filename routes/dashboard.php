@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Actions\Api\Apps\GetApp;
+use App\Actions\Api\Apps\GetAppInfo;
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('store_app_info')
         ->middleware('permission:update app');
 
-    Route::get('/dashboard/update-app-info', GetApp::class)
+    Route::get('/dashboard/update-app-info', GetAppInfo::class)
         ->name('get_app_info')
         ->middleware('permission:update app');
 

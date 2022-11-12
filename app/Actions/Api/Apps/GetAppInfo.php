@@ -12,7 +12,7 @@ use App\Models\AppInfo;
 use App\Models\Workspace;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
-class GetApp
+class GetAppInfo
 {
     use AsAction;
 
