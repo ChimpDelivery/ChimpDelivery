@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 use App\Services\AppStoreConnectService;
 
+// api reference: https://developer.apple.com/documentation/appstoreconnectapi/list_apps
 class GetFullAppInfo
 {
     use AsAction;
