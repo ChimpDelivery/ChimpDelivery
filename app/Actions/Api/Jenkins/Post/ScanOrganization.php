@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\Events\AppChanged;
 use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
@@ -25,6 +26,11 @@ class ScanOrganization extends BaseJenkinsAction
             'success' => $isResponseSucceed,
             'message' => $responseMessage,
         ];
+    }
+
+    public function asListener(AppChanged $event)
+    {
+        $this->handle($event->request);
     }
 
     public function authorize(Request $request) : bool

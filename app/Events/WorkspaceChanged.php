@@ -12,7 +12,9 @@ use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 class WorkspaceChanged
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public Workspace $workspace;
     public StoreWorkspaceSettingsRequest $request;

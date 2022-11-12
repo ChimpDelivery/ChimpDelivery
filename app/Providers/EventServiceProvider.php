@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use App\Events\WorkspaceChanged;
-
-use App\Listeners\ChangeWorkspaceSettings;
-
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+use App\Events\AppChanged;
+use App\Events\WorkspaceChanged;
+use App\Listeners\ChangeWorkspaceSettings;
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,11 @@ class EventServiceProvider extends ServiceProvider
 
         WorkspaceChanged::class => [
             ChangeWorkspaceSettings::class,
-        ]
+        ],
+
+        AppChanged::class => [
+            ScanOrganization::class,
+        ],
     ];
 
     /**

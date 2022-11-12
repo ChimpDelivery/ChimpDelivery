@@ -9,6 +9,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
+use App\Events\AppChanged;
 use App\Actions\Files\UploadAppIcon;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 
@@ -46,6 +47,8 @@ class StoreAppInfo
         }
 
         $appModel->save();
+
+        event(new AppChanged($appModel, $request));
 
         return $appModel;
     }
