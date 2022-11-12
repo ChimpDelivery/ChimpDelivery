@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
+use App\Models\Workspace;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetApp
@@ -29,15 +30,6 @@ class GetApp
         ]);
     }
 
-    public function authorize(GetAppInfoRequest $request) : bool
-    {
-        $workspaceId = ($request->expectsJson())
-            ? Auth::user()->id
-            : Auth::user()->workspace->id;
-
-        return AppInfo::find($request->validated('id'))->workspace_id === $workspaceId;
-    }
-
     public function htmlResponse(AppInfo $appInfo) : View
     {
         return view('appinfo-form')->with('appInfo', $appInfo);
@@ -46,5 +38,15 @@ class GetApp
     public function jsonResponse(AppInfo $appInfo) : JsonResponse
     {
         return response()->json($appInfo->makeHidden([ 'id', 'project_name' ]));
+    }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        $workspaceId = ($request->expectsJson())
+            ? Auth::user()->id
+            : Auth::user()->workspace->id;
+
+        return AppInfo::find($request->validated('id'))->workspace_id === $workspaceId
+            && $workspaceId !== Workspace::$DEFAULT_WORKSPACE_ID;
     }
 }
