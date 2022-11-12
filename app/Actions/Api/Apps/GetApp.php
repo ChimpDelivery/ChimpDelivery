@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Actions\Api\Apps;
+
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
