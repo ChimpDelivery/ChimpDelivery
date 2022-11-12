@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Api\Apps\StoreAppInfo;
 use Illuminate\Support\Facades\Route;
 
 use App\Actions\Api\Apps\GetAppInfo;
@@ -14,8 +15,6 @@ use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\CreateAppForm;
 use App\Actions\Dashboard\DeleteApp;
 use App\Actions\Dashboard\GetIndexForm;
-use App\Actions\Dashboard\StoreApp;
-use App\Actions\Dashboard\UpdateApp;
 
 use App\Actions\Workspace\CreateWorkspaceApiKey;
 use App\Actions\Workspace\GetJoinWorkspaceForm;
@@ -57,7 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('add_app_info')
         ->middleware('permission:create app');
 
-    Route::post('/dashboard/store-app-info', StoreApp::class)
+    Route::post('/dashboard/store-app-info', StoreAppInfo::class)
         ->name('store_app_info')
         ->middleware('permission:update app');
 
@@ -65,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('get_app_info')
         ->middleware('permission:update app');
 
-    Route::post('/dashboard/update-app-info', UpdateApp::class)
+    Route::post('/dashboard/update-app-info', StoreAppInfo::class)
         ->name('update_app_info')
         ->middleware('permission:update app');
 

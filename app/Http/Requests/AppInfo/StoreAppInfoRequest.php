@@ -29,7 +29,8 @@ class StoreAppInfoRequest extends GetRepositoryRequest
     {
         return [
             'workspace_id' => [
-                Rule::exists('workspaces', 'id')->whereNull('deleted_at')
+                Rule::exists('workspaces', 'id')
+                    ->whereNull('deleted_at')
             ],
 
             'app_icon' => 'image|mimes:png|max:5120',
@@ -37,6 +38,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'app_name' => [
                 'required',
                 Rule::unique('app_infos')
+                    ->ignore($this->id)
                     ->whereNull('deleted_at'),
             ],
 
@@ -44,6 +46,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'required',
                 'alpha_dash',
                 Rule::unique('app_infos')
+                    ->ignore($this->id)
                     ->whereNull('deleted_at')
             ],
 
@@ -51,12 +54,14 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
                 Rule::unique('app_infos')
+                    ->ignore($this->id)
                     ->whereNull('deleted_at')
             ],
 
             'appstore_id' => [
                 'required',
                 Rule::unique('app_infos')
+                    ->ignore($this->id)
                     ->whereNull('deleted_at')
             ],
 
