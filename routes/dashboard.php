@@ -1,9 +1,10 @@
 <?php
 
-use App\Actions\Api\Apps\StoreAppInfo;
 use Illuminate\Support\Facades\Route;
 
 use App\Actions\Api\Apps\GetAppInfo;
+use App\Actions\Api\Apps\StoreAppInfo;
+use App\Actions\Api\Apps\DeleteAppInfo;
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
@@ -13,7 +14,6 @@ use App\Actions\Api\Jenkins\Post\AbortJob;
 
 use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\CreateAppForm;
-use App\Actions\Dashboard\DeleteApp;
 use App\Actions\Dashboard\GetIndexForm;
 
 use App\Actions\Workspace\CreateWorkspaceApiKey;
@@ -68,7 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('update_app_info')
         ->middleware('permission:update app');
 
-    Route::post('/dashboard/delete-app-info', DeleteApp::class)
+    Route::post('/dashboard/delete-app-info', DeleteAppInfo::class)
         ->name('delete_app_info')
         ->middleware('permission:delete app');
 
