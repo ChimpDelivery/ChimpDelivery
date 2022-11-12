@@ -57,6 +57,12 @@ class Kernel extends ConsoleKernel
         //////////////////
         // pruning
         /////////////////
+        $schedule->command('sanctum:prune-expired --hours=24')
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('03.30')
+            ->withoutOverlapping();
+
         $schedule->command('model:prune', ['--model' => [ HealthCheckResultHistoryItem::class ]])
             ->timezone('Europe/Istanbul')
             ->daily()
