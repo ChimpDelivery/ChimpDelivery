@@ -176,12 +176,22 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        /*
+         * Monitoring related providers...
+         */
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\HealthServiceProvider::class,
 
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        /*
+         * Core providers...
+         */
 
-        Spatie\Permission\PermissionServiceProvider::class,
+        App\Providers\AppStoreConnectServiceProvider::class,
+        App\Providers\JenkinsServiceProvider::class,
+        App\Providers\GitHubServiceProvider::class,
     ],
 
     /*
