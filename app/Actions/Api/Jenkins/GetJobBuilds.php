@@ -7,9 +7,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\JsonResponse;
 
 use App\Models\AppInfo;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
-
 use App\Services\JenkinsService;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetJobBuilds
 {
@@ -17,10 +16,9 @@ class GetJobBuilds
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        $service = new JenkinsService();
         $app = AppInfo::find($request->validated('id'));
 
-        $jobResponse = $service->GetResponse("/job/{$app->project_name}/job/master/api/json");
+        $jobResponse = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/api/json");
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.

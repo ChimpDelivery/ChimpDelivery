@@ -23,7 +23,6 @@ class BuildParameterizedJob extends BaseJenkinsAction
 
         $app = AppInfo::find($validated['id']);
 
-        $service = new JenkinsService();
         $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
             ."&PLATFORM={$validated['platform']}"
@@ -32,7 +31,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
             ."&STORE_CUSTOM_BUNDLE_VERSION={$validated['store_custom_version']}"
             ."&STORE_BUNDLE_VERSION={$validated['store_build_number']}";
 
-        $response = $service->PostResponse($url);
+        $response = app(JenkinsService::class)->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;

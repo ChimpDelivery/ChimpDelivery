@@ -13,14 +13,13 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 class AbortJob extends BaseJenkinsAction
 {
     private AppInfo $app;
-    private JenkinsService $service;
 
     public function handle(StopJobRequest $request) : array
     {
         $buildNumber = $request->validated('build_number');
 
         $url = "/job/{$this->app->project_name}/job/master/{$buildNumber}/stop";
-        $response =  $this->service->PostResponse($url);
+        $response =  app(JenkinsService::class)->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode == Response::HTTP_OK;
@@ -36,11 +35,12 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        $this->service = new JenkinsService();
         $this->app = AppInfo::find($request->validated('id'));
 
+        $workspaceId = app(JenkinsService::class)->GetTargetWorkspaceId();
+
         return $request->expectsJson()
-            ? $this->service->GetTargetWorkspaceId() === $this->app->workspace_id
-            : Auth::user()->can('abort job') && $this->service->GetTargetWorkspaceId() === $this->app->workspace_id;
+            ? $workspaceId === $this->app->workspace_id
+            : Auth::user()->can('abort job') && $workspaceId === $this->app->workspace_id;
     }
 }

@@ -7,9 +7,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\JsonResponse;
 
 use App\Models\AppInfo;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
-
 use App\Services\JenkinsService;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetJobLastBuild
 {
@@ -17,16 +16,15 @@ class GetJobLastBuild
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        $service = new JenkinsService();
         $app = AppInfo::find($request->id);
 
-        $jobResponse = $service->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
+        $jobResponse = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
 
         if ($lastBuild)
         {
-            $lastBuildDetails = $service->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
+            $lastBuildDetails = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
 
             // app platform
             $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);

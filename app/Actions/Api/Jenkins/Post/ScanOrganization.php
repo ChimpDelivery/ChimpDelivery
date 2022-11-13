@@ -2,9 +2,9 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 use App\Events\AppChanged;
 use App\Services\JenkinsService;
@@ -14,8 +14,7 @@ class ScanOrganization extends BaseJenkinsAction
 {
     public function handle(Request $request) : array
     {
-        $service = new JenkinsService();
-        $response = $service->PostResponse("/build?delay=0");
+        $response = app(JenkinsService::class)->PostResponse("/build?delay=0");
 
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)

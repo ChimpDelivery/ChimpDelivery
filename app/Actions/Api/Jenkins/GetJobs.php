@@ -15,8 +15,7 @@ class GetJobs
 
     public function handle(Request $request) : JsonResponse
     {
-        $service = new JenkinsService();
-        $jobResponse = $service->GetResponse('/api/json');
+        $jobResponse = app(JenkinsService::class)->GetResponse('/api/json');
         $jobResponse->jenkins_data = collect($jobResponse->jenkins_data?->jobs)->pluck('name');
 
         return response()->json($jobResponse);

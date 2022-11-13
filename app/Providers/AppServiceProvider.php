@@ -4,8 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
-
 use Illuminate\Support\ServiceProvider;
+
+use App\Services\JenkinsService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment([ 'local', 'staging' ])) {
             $this->app->register('Barryvdh\Debugbar\ServiceProvider');
         }
+
+        $this->app->bind(JenkinsService::class, function($app) {
+            return new JenkinsService();
+        });
     }
 
     /**
