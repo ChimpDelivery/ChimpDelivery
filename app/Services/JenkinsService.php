@@ -17,7 +17,7 @@ class JenkinsService
     private readonly GithubSetting $githubSetting;
 
     // organization workspace
-    private string $baseUrl;
+    private readonly string $baseUrl;
 
     //
     private int $targetWorkspaceId;
