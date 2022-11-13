@@ -20,7 +20,7 @@ class JenkinsService
     private readonly string $baseUrl;
 
     //
-    private int $targetWorkspaceId;
+    private readonly int $targetWorkspaceId;
 
     public function __construct()
     {
@@ -39,7 +39,7 @@ class JenkinsService
             : Auth::user()->id;
     }
 
-    public function GetTargetWorkspaceId() : int
+    public function GetWorkspaceId() : int
     {
         return $this->targetWorkspaceId;
     }

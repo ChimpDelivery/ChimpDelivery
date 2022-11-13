@@ -37,7 +37,7 @@ class AbortJob extends BaseJenkinsAction
     {
         $this->app = AppInfo::find($request->validated('id'));
 
-        $workspaceId = app(JenkinsService::class)->GetTargetWorkspaceId();
+        $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
 
         return $request->expectsJson()
             ? $workspaceId === $this->app->workspace_id
