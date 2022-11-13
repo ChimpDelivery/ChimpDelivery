@@ -2,7 +2,6 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +11,7 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ScanOrganization extends BaseJenkinsAction
 {
-    public function handle(Request $request) : array
+    public function handle() : array
     {
         $response = app(JenkinsService::class)->PostResponse("/build?delay=0");
 
@@ -29,13 +28,13 @@ class ScanOrganization extends BaseJenkinsAction
 
     public function asListener(AppChanged $event)
     {
-        $this->handle($event->request);
+        $this->handle();
     }
 
-    public function authorize(Request $request) : bool
+    public function authorize() : bool
     {
-        return $request->expectsJson()
-            ? true
-            : Auth::user()->can('scan jobs');
+        return Auth::guard('web')->check()
+            ? Auth::user()->can('scan jobs')
+            : true;
     }
 }
