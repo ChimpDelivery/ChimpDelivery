@@ -35,8 +35,8 @@ class JenkinsService
             .$this->githubSetting->organization_name;
 
         $this->targetWorkspaceId = $isWebUser
-            ? Auth::user()->id
-            : Auth::user()->workspace->id;
+            ? Auth::user()->workspace->id
+            : Auth::user()->id;
     }
 
     public function GetTargetWorkspaceId() : int
