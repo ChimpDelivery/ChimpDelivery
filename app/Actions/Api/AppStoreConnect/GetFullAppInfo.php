@@ -17,8 +17,11 @@ class GetFullAppInfo
 
     public function handle(Request $request) : JsonResponse
     {
-        $storeService = new AppStoreConnectService();
-        $generatedToken = $storeService->CreateToken()->getData()->appstore_token;
+        $generatedToken = app(AppStoreConnectService::class)
+            ->CreateToken()
+            ->getData()
+            ->appstore_token;
+
         $appstoreApps = Http::withToken($generatedToken)->get(AppStoreConnectService::$API_URL
             .'/apps?fields[apps]=name,bundleId&limit='
             .config('appstore.item_limit')

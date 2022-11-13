@@ -15,10 +15,11 @@ class CreateToken
 
     public function handle(Request $request) : JsonResponse
     {
-        $appStoreConnectService = new AppStoreConnectService();
-
         return response()->json([
-            'appstore_token' => $appStoreConnectService->CreateToken()->getData()->appstore_token
+            'appstore_token' => app(AppStoreConnectService::class)
+                ->CreateToken()
+                ->getData()
+                ->appstore_token
         ]);
     }
 }

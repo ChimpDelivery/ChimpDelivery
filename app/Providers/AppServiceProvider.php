@@ -7,6 +7,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 use App\Services\JenkinsService;
+use App\Services\AppStoreConnectService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(JenkinsService::class, function($app) {
             return new JenkinsService();
+        });
+
+        $this->app->bind(AppStoreConnectService::class, function($app) {
+            return new AppStoreConnectService();
         });
     }
 
