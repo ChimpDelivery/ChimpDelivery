@@ -4,16 +4,15 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class GetAppList
 {
     use AsAction;
 
-    public function handle(Request $request) : JsonResponse
+    public function handle() : JsonResponse
     {
-        $appList = GetFullAppInfo::run($request);
+        $appList = GetFullAppInfo::run();
         $data = $appList->getData()->app_list;
 
         $apps = [];

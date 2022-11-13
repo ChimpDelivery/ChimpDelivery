@@ -4,7 +4,6 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
@@ -15,7 +14,7 @@ class GetFullAppInfo
 {
     use AsAction;
 
-    public function handle(Request $request) : JsonResponse
+    public function handle() : JsonResponse
     {
         $generatedToken = app(AppStoreConnectService::class)
             ->CreateToken()

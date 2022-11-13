@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
 
@@ -16,10 +15,10 @@ class CreateAppForm
 {
     use AsAction;
 
-    public function handle(Request $request) : View
+    public function handle() : View
     {
-        $allAppInfos = GetAppList::run($request);
-        $allGitProjects = GetRepositories::run($request);
+        $allAppInfos = GetAppList::run();
+        $allGitProjects = GetRepositories::run();
 
         $isBadCredentials = $allGitProjects->status() == Response::HTTP_UNAUTHORIZED;
 

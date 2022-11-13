@@ -6,8 +6,6 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Request;
-
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -18,7 +16,7 @@ class GetRepositories
     use AsAction;
 
     // http://developer.github.com/v3/repos/#list-organization-repositories
-    public function handle(Request $request) : JsonResponse
+    public function handle() : JsonResponse
     {
         $response = collect();
 
