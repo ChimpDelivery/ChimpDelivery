@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register('Barryvdh\Debugbar\ServiceProvider');
         }
 
+        ////////////////////////////////////
+        /// register core services
+        ////////////////////////////////////
         $this->app->bind(JenkinsService::class, function($app) {
             return new JenkinsService();
         });
