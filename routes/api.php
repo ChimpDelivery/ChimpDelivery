@@ -80,7 +80,7 @@ Route::middleware('auth:workspace-api')->group(function () {
 //////////////////////////////
 // packages
 /////////////////////////////
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:admin-api')->group(function () {
 
     Route::get('packages/get-packages', GetPackages::class);
     Route::get('packages/get-package', GetPackage::class);

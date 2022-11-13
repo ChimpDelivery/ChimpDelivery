@@ -43,7 +43,12 @@ return [
         'workspace-api' => [
             'driver' => 'sanctum',
             'provider' => 'workspaces',
-        ]
+        ],
+
+        'admin-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
     ],
 
     /*
