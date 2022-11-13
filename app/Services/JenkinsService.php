@@ -14,7 +14,7 @@ class JenkinsService
 {
     // Note: Jenkins workspace name specified by connected organization name on Github.
     // Job and organization names are unique.
-    private GithubSetting $githubSetting;
+    private readonly GithubSetting $githubSetting;
 
     // organization workspace
     private string $baseUrl;
@@ -26,7 +26,7 @@ class JenkinsService
     {
         $isWebUser = Auth::guard('web')->check();
 
-        $this->githubSetting = $isWebUser
+        $this->githubSetting = ($isWebUser)
             ? Auth::user()->workspace->githubSetting
             : Auth::user()->githubSetting;
 
@@ -34,7 +34,7 @@ class JenkinsService
             .'/job/'
             .$this->githubSetting->organization_name;
 
-        $this->targetWorkspaceId = $isWebUser
+        $this->targetWorkspaceId = ($isWebUser)
             ? Auth::user()->workspace->id
             : Auth::user()->id;
     }

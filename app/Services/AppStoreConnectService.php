@@ -14,13 +14,13 @@ class AppStoreConnectService
 {
     public static string $API_URL = 'https://api.appstoreconnect.apple.com/v1';
 
-    private AppStoreConnectSetting $appStoreConnectSetting;
+    private readonly AppStoreConnectSetting $appStoreConnectSetting;
 
     public function __construct()
     {
         $isWebUser = Auth::guard('web')->check();
 
-        $this->appStoreConnectSetting = $isWebUser
+        $this->appStoreConnectSetting = ($isWebUser)
             ? Auth::user()->workspace->appStoreConnectSetting
             : Auth::user()->appStoreConnectSetting;
     }
