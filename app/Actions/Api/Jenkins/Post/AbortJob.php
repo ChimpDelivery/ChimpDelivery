@@ -36,7 +36,7 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        $this->service = new JenkinsService($request);
+        $this->service = new JenkinsService();
         $this->app = AppInfo::find($request->validated('id'));
 
         return $request->expectsJson()

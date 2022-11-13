@@ -19,7 +19,7 @@ class GetBuildList
 
     public function handle(Request $request) : JsonResponse
     {
-        $storeService = new AppStoreConnectService($request);
+        $storeService = new AppStoreConnectService();
         $generatedToken = $storeService->CreateToken()->getData()->appstore_token;
 
         $appList = Http::withToken($generatedToken)->get(AppStoreConnectService::$API_URL.'/builds');

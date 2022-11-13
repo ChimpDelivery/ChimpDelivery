@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -23,17 +22,19 @@ class JenkinsService
     //
     private int $targetWorkspaceId;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->githubSetting = $request->expectsJson()
-            ? Auth::user()->githubSetting
-            : Auth::user()->workspace->githubSetting;
+        $isWebUser = Auth::guard('web')->check();
+
+        $this->githubSetting = $isWebUser
+            ? Auth::user()->workspace->githubSetting
+            : Auth::user()->githubSetting;
 
         $this->baseUrl = config('jenkins.host')
             .'/job/'
             .$this->githubSetting->organization_name;
 
-        $this->targetWorkspaceId = ($request)->expectsJson()
+        $this->targetWorkspaceId = $isWebUser
             ? Auth::user()->id
             : Auth::user()->workspace->id;
     }

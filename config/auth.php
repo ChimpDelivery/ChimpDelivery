@@ -39,6 +39,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'workspace-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'workspaces',
+        ]
     ],
 
     /*
@@ -63,6 +68,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+        'workspaces' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Workspace::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

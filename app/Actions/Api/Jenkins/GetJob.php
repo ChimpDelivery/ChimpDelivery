@@ -19,7 +19,7 @@ class GetJob
     {
         $app = AppInfo::find($request->validated('id'));
 
-        $service = new JenkinsService($request);
+        $service = new JenkinsService();
 
         $jobResponse = $service->GetResponse("/job/{$app->project_name}/api/json");
         $jobResponse->jenkins_data = collect($jobResponse->jenkins_data)->only(['name', 'url']);

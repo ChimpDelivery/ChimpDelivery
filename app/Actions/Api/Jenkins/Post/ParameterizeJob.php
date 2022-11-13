@@ -15,7 +15,7 @@ class ParameterizeJob extends BaseJenkinsAction
     {
         $app = AppInfo::find($request->validated('id'));
 
-        $service = new JenkinsService($request);
+        $service = new JenkinsService();
         $response = $service->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
 

@@ -23,7 +23,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
 
         $app = AppInfo::find($validated['id']);
 
-        $service = new JenkinsService($request);
+        $service = new JenkinsService();
         $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
             ."&PLATFORM={$validated['platform']}"

@@ -5,7 +5,6 @@ namespace App\Services;
 use Firebase\JWT\JWT;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,11 +16,13 @@ class AppStoreConnectService
 
     private AppStoreConnectSetting $appStoreConnectSetting;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->appStoreConnectSetting = $request->expectsJson()
-            ? Auth::user()->appStoreConnectSetting
-            : Auth::user()->workspace->appStoreConnectSetting;
+        $isWebUser = Auth::guard('web')->check();
+
+        $this->appStoreConnectSetting = $isWebUser
+            ? Auth::user()->workspace->appStoreConnectSetting
+            : Auth::user()->appStoreConnectSetting;
     }
 
     public function CreateToken() : JsonResponse

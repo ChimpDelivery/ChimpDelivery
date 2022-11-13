@@ -18,7 +18,7 @@ class CreateBundleId
 
     public function handle(StoreBundleRequest $request) : array
     {
-        $storeService = new AppStoreConnectService($request);
+        $storeService = new AppStoreConnectService();
         $generatedToken = $storeService->CreateToken()->getData()->appstore_token;
 
         $data = [

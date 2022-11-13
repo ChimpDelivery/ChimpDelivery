@@ -14,7 +14,7 @@ class ScanOrganization extends BaseJenkinsAction
 {
     public function handle(Request $request) : array
     {
-        $service = new JenkinsService($request);
+        $service = new JenkinsService();
         $response = $service->PostResponse("/build?delay=0");
 
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;

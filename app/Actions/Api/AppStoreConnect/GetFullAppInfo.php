@@ -17,7 +17,7 @@ class GetFullAppInfo
 
     public function handle(Request $request) : JsonResponse
     {
-        $storeService = new AppStoreConnectService($request);
+        $storeService = new AppStoreConnectService();
         $generatedToken = $storeService->CreateToken()->getData()->appstore_token;
         $appstoreApps = Http::withToken($generatedToken)->get(AppStoreConnectService::$API_URL
             .'/apps?fields[apps]=name,bundleId&limit='

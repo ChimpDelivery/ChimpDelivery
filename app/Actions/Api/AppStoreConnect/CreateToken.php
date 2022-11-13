@@ -15,7 +15,7 @@ class CreateToken
 
     public function handle(Request $request) : JsonResponse
     {
-        $appStoreConnectService = new AppStoreConnectService($request);
+        $appStoreConnectService = new AppStoreConnectService();
 
         return response()->json([
             'appstore_token' => $appStoreConnectService->CreateToken()->getData()->appstore_token
