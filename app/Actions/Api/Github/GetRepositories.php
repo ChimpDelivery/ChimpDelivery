@@ -2,26 +2,31 @@
 
 namespace App\Actions\Api\Github;
 
+use GrahamCampbell\GitHub\Facades\GitHub;
+
+use Lorisleiva\Actions\Concerns\AsAction;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
-use GrahamCampbell\GitHub\Facades\GitHub;
+use App\Services\GitHubService;
 
-class GetRepositories extends BaseGithubAction
+class GetRepositories
 {
+    use AsAction;
+
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle(Request $request) : JsonResponse
     {
-        $this->ResolveGithubSetting($request);
-        $this->SetConnectionToken();
-
         $response = collect();
 
         try
         {
-            $organizationProjects = collect(GitHub::api('repo')->org($this->githubSetting->organization_name, [
+            $githubSetting = app(GitHubService::class)->GetSettings();
+
+            $organizationProjects = collect(GitHub::api('repo')->org($githubSetting->organization_name, [
                 'per_page' => config('github.item_limit'),
                 'sort' => 'updated',
                 'type' => 'private'
@@ -30,10 +35,10 @@ class GetRepositories extends BaseGithubAction
             // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
             // maybe extra organization is useful when filtering projects.
 
-            if (!is_null($this->githubSetting->topic_name))
+            if (!is_null($githubSetting->topic_name))
             {
-                $organizationProjects = $organizationProjects->filter(function ($value) {
-                    return in_array($this->githubSetting->topic_name, $value['topics']);
+                $organizationProjects = $organizationProjects->filter(function ($value) use ($githubSetting) {
+                    return in_array($githubSetting->topic_name, $value['topics']);
                 });
             }
 

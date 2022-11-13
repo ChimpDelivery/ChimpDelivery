@@ -2,26 +2,30 @@
 
 namespace App\Actions\Api\Github;
 
+use GrahamCampbell\GitHub\Facades\GitHub;
+
+use Lorisleiva\Actions\Concerns\AsAction;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+use App\Services\GitHubService;
 use App\Http\Requests\Github\GetRepositoryRequest;
 
-use GrahamCampbell\GitHub\Facades\GitHub;
-
-class GetRepository extends BaseGithubAction
+class GetRepository
 {
+    use AsAction;
+
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $this->ResolveGithubSetting($request);
-        $this->SetConnectionToken();
-
         $response = [];
 
         try
         {
+            $githubSetting = app(GitHubService::class)->GetSettings();
+
             $response = GitHub::api('repo')->show(
-                $this->githubSetting->organization_name,
+                $githubSetting->organization_name,
                 $request->validated('project_name')
             );
         }

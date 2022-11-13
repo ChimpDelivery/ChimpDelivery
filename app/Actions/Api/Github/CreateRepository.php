@@ -2,32 +2,36 @@
 
 namespace App\Actions\Api\Github;
 
+use GrahamCampbell\GitHub\Facades\GitHub;
+
+use Lorisleiva\Actions\Concerns\AsAction;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+use App\Services\GitHubService;
 use App\Http\Requests\Github\GetRepositoryRequest;
 
-use GrahamCampbell\GitHub\Facades\GitHub;
-
-class CreateRepository extends BaseGithubAction
+class CreateRepository
 {
+    use AsAction;
+
     // https://docs.github.com/en/rest/repos/repos#create-a-repository-using-a-template
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $this->ResolveGithubSetting($request);
-        $this->SetConnectionToken();
-
         $response = [];
 
         try
         {
+            $githubSetting = app(GitHubService::class)->GetSettings();
+
             $response = GitHub::api('repo')->createFromTemplate(
-                $this->githubSetting->organization_name,
-                $this->githubSetting->template_name,
+                $githubSetting->organization_name,
+                $githubSetting->template_name,
                 [
                     'name' => $request->validated('project_name'),
                     'description' => '',
-                    'owner' => $this->githubSetting->organization_name,
+                    'owner' => $githubSetting->organization_name,
                     'include_all_branches' => false,
                     'private' => true
                 ]
@@ -49,10 +53,12 @@ class CreateRepository extends BaseGithubAction
 
         try
         {
+            $githubSetting = app(GitHubService::class)->GetSettings();
+
             $response = GitHub::api('repo')->replaceTopics(
-                $this->githubSetting->organization_name,
+                $githubSetting->organization_name,
                 $request->validated('project_name'),
-                [ $this->githubSetting->topic_name ]
+                [ $githubSetting->topic_name ]
             );
         }
         catch (\Exception $exception)

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
+use App\Services\GitHubService;
 use App\Services\JenkinsService;
 use App\Services\AppStoreConnectService;
 
@@ -28,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(AppStoreConnectService::class, function($app) {
             return new AppStoreConnectService();
+        });
+
+        // Note: GitHub Service must be resolved before using GitHub api!
+        $this->app->bind(GitHubService::class, function($app) {
+            return new GitHubService();
         });
     }
 
