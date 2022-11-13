@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Workspace;
+namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
