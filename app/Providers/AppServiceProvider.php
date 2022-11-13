@@ -27,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
         /// register core services
         ////////////////////////////////////
         $this->app->bind(JenkinsService::class, function($app) {
-            return new JenkinsService();
+            return new JenkinsService(
+                config('jenkins.host'),
+                config('jenkins.user'),
+                config('jenkins.token')
+            );
         });
 
         $this->app->bind(AppStoreConnectService::class, function($app) {

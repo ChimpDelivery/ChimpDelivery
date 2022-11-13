@@ -12,36 +12,43 @@ use App\Models\GithubSetting;
 
 class JenkinsService
 {
+    // credentials
+    private readonly string $jenkinsWorkspaceUrl;
+    private readonly string $jenkinsUser;
+    private readonly string $jenkinsToken;
+
+    // current workspace-id
+    private readonly int $workspaceId;
+
     // Note: Jenkins workspace name specified by connected organization name on Github.
     // Job and organization names are unique.
     private readonly GithubSetting $githubSetting;
 
-    // organization workspace
-    private readonly string $baseUrl;
-
-    //
-    private readonly int $targetWorkspaceId;
-
-    public function __construct()
+    public function __construct(string $url, string $user, string $token)
     {
         $isWebUser = Auth::guard('web')->check();
+
+        $this->workspaceId = ($isWebUser)
+            ? Auth::user()->workspace->id
+            : Auth::user()->id;
 
         $this->githubSetting = ($isWebUser)
             ? Auth::user()->workspace->githubSetting
             : Auth::user()->githubSetting;
 
-        $this->baseUrl = config('jenkins.host')
-            .'/job/'
-            .$this->githubSetting->organization_name;
+        $this->jenkinsWorkspaceUrl = implode('/', [
+            $url,
+            'job',
+            $this->githubSetting->organization_name
+        ]);
 
-        $this->targetWorkspaceId = ($isWebUser)
-            ? Auth::user()->workspace->id
-            : Auth::user()->id;
+        $this->jenkinsUser = $user;
+        $this->jenkinsToken = $token;
     }
 
     public function GetWorkspaceId() : int
     {
-        return $this->targetWorkspaceId;
+        return $this->workspaceId;
     }
 
     public function GetResponse(string $url) : mixed
@@ -64,11 +71,11 @@ class JenkinsService
             {
                 if ($method == 'get')
                 {
-                    $jenkinsResponse = $this->GetRequest($this->baseUrl . $url);
+                    $jenkinsResponse = $this->GetRequest($this->jenkinsWorkspaceUrl . $url);
                 }
                 else
                 {
-                    $jenkinsResponse = $this->PostRequest($this->baseUrl . $url);
+                    $jenkinsResponse = $this->PostRequest($this->jenkinsWorkspaceUrl . $url);
                 }
             }
             else
@@ -112,7 +119,7 @@ class JenkinsService
 
     private function GetJenkinsUser() : PendingRequest
     {
-        return Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))
+        return Http::withBasicAuth($this->jenkinsUser, $this->jenkinsToken)
             ->timeout(20)
             ->connectTimeout(8);
     }
