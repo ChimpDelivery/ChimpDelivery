@@ -22,6 +22,8 @@ use App\Actions\Workspace\CreateWorkspaceApiKey;
 use App\Actions\Workspace\JoinWorkspace;
 use App\Actions\Workspace\StoreWorkspace;
 
+use App\Actions\Api\Ftp\CreateGooglePrivacy;
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     //////////////////////////
@@ -94,4 +96,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/dashboard/store-bundle', CreateBundleId::class)
         ->middleware('permission:create bundle');
+
+
+    ///////////////////////////
+    /// ftp related
+    //////////////////////////
+    Route::post('/dashboard/create-privacy', CreateGooglePrivacy::class)
+        ->name('create_privacy')
+        ->middleware('permission:update app');
 });

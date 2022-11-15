@@ -102,6 +102,7 @@
                     <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i>
                     {{ $title }}
                 </button>
+                @includeIf('layouts.appinfo.create-privacy', [ isset($appInfo) => true ])
             </form>
         </div>
         <div class="card-footer text-muted">
