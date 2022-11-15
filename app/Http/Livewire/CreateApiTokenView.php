@@ -8,7 +8,7 @@ use App\Actions\Workspace\CreateWorkspaceApiKey;
 
 class CreateApiTokenView extends Component
 {
-    public string $createdToken = "**************";
+    private string $createdToken = "**************";
 
     public function createToken()
     {
