@@ -28,6 +28,8 @@ use App\Actions\Api\Packages\GetPackage;
 use App\Actions\Api\Packages\GetPackages;
 use App\Actions\Api\Packages\UpdatePackage;
 
+use App\Actions\Api\Ftp\CreateGooglePrivacy;
+
 ///////////////////////
 // apps
 //////////////////////
@@ -85,4 +87,9 @@ Route::middleware('auth:admin-api')->group(function () {
     Route::get('packages/get-packages', GetPackages::class);
     Route::get('packages/get-package', GetPackage::class);
     Route::post('packages/update-package', UpdatePackage::class);
+});
+
+Route::middleware('auth:admin-api')->group(function () {
+
+    Route::post('ftp/create-privacy', CreateGooglePrivacy::class);
 });
