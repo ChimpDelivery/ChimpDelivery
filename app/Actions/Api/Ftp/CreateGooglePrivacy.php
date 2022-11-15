@@ -2,12 +2,12 @@
 
 namespace App\Actions\Api\Ftp;
 
-use App\Traits\AsActionResponse;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppInfo;
+use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class CreateGooglePrivacy
@@ -41,7 +41,6 @@ class CreateGooglePrivacy
 
         $updatedContent = str_replace($this->search, $appInfo->app_name, $privacy);
         $uploadedFile = Storage::disk('ftp')->put($newFilePath, $updatedContent);
-
 
         return [
             'success' => $uploadedFile,
