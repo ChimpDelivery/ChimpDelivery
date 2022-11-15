@@ -15,21 +15,27 @@ class CreateGooglePrivacy
     use AsAction;
     use AsActionResponse;
 
+    private const PrivacyFileName = 'privacy.html';
+
     private string $search = "___APP___";
+
+    private string $privacyHolderUrl = 'http://www.talusstudio.com';
+    private string $privacyTemplatePath = 'privacy_template/' . self::PrivacyFileName;
 
     public function handle(GetAppInfoRequest $request) : array
     {
-        $privacy = Storage::disk('ftp')->get('privacy_template/privacy.html');
+        $privacy = Storage::disk('ftp')->get($this->privacyTemplatePath);
         if (!$privacy) {
             return [
                 'success' => false,
-                'message' => 'Template Privacy file could not found!',
+                'message' => "Template Privacy file could not found!
+                    Expected path: {$this->privacyHolderUrl}/{$this->privacyTemplatePath}",
             ];
         }
 
         $appInfo = AppInfo::find($request->validated('id'));
-        $newFilePath = "{$appInfo->app_name}/privacy.html";
-        $privacyLink = "http://www.talusstudio.com/{$newFilePath}";
+        $newFilePath = $appInfo->app_name . '/' . self::PrivacyFileName;
+        $privacyLink = "{$this->privacyHolderUrl}/{$newFilePath}";
 
         if (Storage::disk('ftp')->exists($newFilePath))
         {
