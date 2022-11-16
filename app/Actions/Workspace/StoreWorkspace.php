@@ -5,10 +5,11 @@ namespace App\Actions\Workspace;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\Workspace;
+use App\Events\WorkspaceChanged;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
-
-use App\Http\Controllers\Api\WorkspaceController;
 
 class StoreWorkspace
 {
@@ -16,10 +17,33 @@ class StoreWorkspace
 
     public function handle(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        $response = app(WorkspaceController::class)->StoreOrUpdate($request)->getData();
-        $flashMessage = "Workspace: <b>{$response->response->name}</b> " . (($response->wasRecentlyCreated) ? 'created.' : 'updated.');
-        session()->flash('success', $flashMessage);
+        $response = $this->StoreOrUpdate($request);
+        $workspaceName = $response['response']->name;
 
-        return to_route('workspace_settings');
+        $flashMessageDetail = $response['wasRecentlyCreated'] === true ? 'created.' : 'updated.';
+        $flashMessage = "Workspace: <b>{$workspaceName}</b> {$flashMessageDetail}";
+
+        return to_route('workspace_settings')->with('success', $flashMessage);
+    }
+
+    public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : array
+    {
+        // check new user
+        $currentWorkspace = Auth::user()->workspace;
+        $isNewUser = $currentWorkspace->id === Workspace::$DEFAULT_WORKSPACE_ID;
+
+        // gate
+        $method = $isNewUser ? 'create' : 'update';
+        $action = $isNewUser ? Workspace::class : $currentWorkspace;
+
+        //
+        $targetWorkspace = ($isNewUser) ? new Workspace() : $currentWorkspace;
+
+        event(new WorkspaceChanged($targetWorkspace, $request));
+
+        return [
+            'response' => $targetWorkspace,
+            'wasRecentlyCreated' => $isNewUser,
+        ];
     }
 }
