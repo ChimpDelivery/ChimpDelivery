@@ -66,4 +66,9 @@ class StoreAppInfo
     {
         return response()->json($appInfo);
     }
+
+    public function authorize()
+    {
+        return Auth::user()->can('create app');
+    }
 }
