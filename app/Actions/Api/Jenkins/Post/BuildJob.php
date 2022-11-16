@@ -36,7 +36,7 @@ class BuildJob extends BaseJenkinsAction
         $userWorkspaceId = Auth::user()->workspace->id;
         $appWorkspaceId = $app->workspace->id;
 
-        return $appWorkspaceId == $userWorkspaceId
+        return $appWorkspaceId === $userWorkspaceId
             && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
             && Auth::user()->can('build job');
     }
