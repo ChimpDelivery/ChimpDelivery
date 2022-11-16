@@ -13,7 +13,7 @@
                 {{ Auth::user()->name }} Profile
             </div>
             <div class="card-body">
-                <form name="user-profile-form" id="user-profile-form" method="post" action="{{ url('dashboard/profile') }}">
+                <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
                     @csrf
                     <p>
                         <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_base_settings" role="button" aria-expanded="true" aria-controls="collapse_base_settings">
