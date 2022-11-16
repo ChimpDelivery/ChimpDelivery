@@ -4,8 +4,9 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use App\Services\UserActionResolverService;
+
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Auth;
 
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
@@ -56,8 +57,7 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return Auth::guard('web')->check()
-            ? Auth::user()->can('create bundle')
-            : Auth::guard('workspace-api')->check();
+        $userResolver = new UserActionResolverService('create bundle');
+        return $userResolver->isAllowed;
     }
 }
