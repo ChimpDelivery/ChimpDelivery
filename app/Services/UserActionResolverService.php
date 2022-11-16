@@ -13,8 +13,6 @@ class UserActionResolverService
     public function __construct(string $permission)
     {
         $isWebUser = Auth::guard('web')->check();
-        $isApiUser = Auth::guard('workspace-api')->check();
-
         if ($isWebUser)
         {
             $this->userType = ActionUserType::Web;
@@ -23,6 +21,7 @@ class UserActionResolverService
             return;
         }
 
+        $isApiUser = Auth::guard('workspace-api')->check();
         $this->userType = ActionUserType::Api;
         $this->workspaceId = Auth::user()->id;
         $this->isAllowed = $isApiUser;
