@@ -63,7 +63,7 @@ Route::middleware('auth:workspace-api')->group(function () {
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
 
     Route::post('jenkins/build-job', BuildJob::class);
-    Route::post('jenkins/stop-job', AbortJob::class);
+    Route::post('jenkins/abort-job', AbortJob::class);
     Route::post('jenkins/scan-organization', ScanOrganization::class);
 });
 

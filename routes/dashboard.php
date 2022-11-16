@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/build-app', BuildJob::class)
         ->middleware('permission:build job');
 
-    Route::get('/dashboard/stop-job', AbortJob::class)
+    Route::get('/dashboard/abort-job', AbortJob::class)
         ->middleware('permission:abort job');
 
     Route::get('/dashboard/workspace/scan-jobs', ScanOrganization::class)
