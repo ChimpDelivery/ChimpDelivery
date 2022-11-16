@@ -56,8 +56,8 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return $request->expectsJson()
-            ? true
-            : Auth::user()->can('create bundle');
+        return Auth::guard('web')->check()
+            ? Auth::user()->can('create bundle')
+            : Auth::guard('workspace-api')->check();
     }
 }
