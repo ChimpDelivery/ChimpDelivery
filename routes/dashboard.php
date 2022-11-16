@@ -29,12 +29,14 @@ use App\Actions\Api\Ftp\CreateGooglePrivacy;
 Route::middleware(['auth', 'verified'])->group(function () {
 
     //////////////////////////
-    //// index route
+    //// main routes
     //////////////////////////
-    Route::get('/dashboard', GetIndexForm::class)->name('index');
-    Route::get('/dashboard/profile', function() {
-        return view('user-profile')->with(['isNew' => true]);
-    })->name('dashboard.profile');
+    Route::get('/dashboard', GetIndexForm::class)
+        ->name('index');
+
+    Route::get('/dashboard/profile', fn() => view('user-profile'))
+        ->name('dashboard.profile');
+
     Route::post('/dashboard/profile', UpdateProfile::class);
 
     ////////////////////////////////
