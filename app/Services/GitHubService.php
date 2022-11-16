@@ -13,11 +13,7 @@ class GitHubService
 
     public function __construct()
     {
-        $isWebUser = Auth::guard('web')->check();
-
-        $this->githubSetting = ($isWebUser)
-            ? Auth::user()->workspace->githubSetting
-            : Auth::user()->githubSetting;
+        $this->githubSetting = Auth::user()->workspace->githubSetting;
 
         Config::set('github.connections.main.token', $this->githubSetting->personal_access_token ?? 'INVALID TOKEN');
     }

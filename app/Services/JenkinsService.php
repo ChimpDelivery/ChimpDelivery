@@ -17,24 +17,13 @@ class JenkinsService
     private readonly string $jenkinsUser;
     private readonly string $jenkinsToken;
 
-    // current workspace-id
-    private readonly int $workspaceId;
-
     // Note: Jenkins workspace name specified by connected organization name on Github.
     // Job and organization names are unique.
     private readonly GithubSetting $githubSetting;
 
     public function __construct(string $url, string $user, string $token)
     {
-        $isWebUser = Auth::guard('web')->check();
-
-        $this->workspaceId = ($isWebUser)
-            ? Auth::user()->workspace->id
-            : Auth::user()->id;
-
-        $this->githubSetting = ($isWebUser)
-            ? Auth::user()->workspace->githubSetting
-            : Auth::user()->githubSetting;
+        $this->githubSetting = Auth::user()->workspace->githubSetting;
 
         $this->jenkinsWorkspaceUrl = implode('/', [
             $url,
@@ -44,11 +33,6 @@ class JenkinsService
 
         $this->jenkinsUser = $user;
         $this->jenkinsToken = $token;
-    }
-
-    public function GetWorkspaceId() : int
-    {
-        return $this->workspaceId;
     }
 
     public function GetResponse(string $url) : mixed

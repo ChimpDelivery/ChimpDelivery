@@ -6,10 +6,10 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Models\Workspace;
-use App\Services\UserActionResolverService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetAppInfo
@@ -47,12 +47,11 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $userResolver = new UserActionResolverService('view apps');
-        $workspaceId = $userResolver->workspaceId;
         $appWorkspaceId = AppInfo::find($request->validated('id'))->workspace->id;
+        $userWorkspaceId = Auth::user()->workspace->id;
 
-        return $userResolver->isAllowed
-            && $appWorkspaceId === $workspaceId
-            && $workspaceId !== Workspace::$DEFAULT_WORKSPACE_ID;
+        return $appWorkspaceId === $userWorkspaceId
+            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && Auth::user()->can('view apps');
     }
 }

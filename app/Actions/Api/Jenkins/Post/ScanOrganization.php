@@ -33,8 +33,6 @@ class ScanOrganization extends BaseJenkinsAction
 
     public function authorize() : bool
     {
-        return Auth::guard('web')->check()
-            ? Auth::user()->can('scan jobs')
-            : Auth::guard('workspace-api')->check();
+        return Auth::user()->can('scan jobs');
     }
 }

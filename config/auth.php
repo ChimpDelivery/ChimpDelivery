@@ -40,14 +40,14 @@ return [
             'provider' => 'users',
         ],
 
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+
         'workspace-api' => [
             'driver' => 'sanctum',
             'provider' => 'workspaces',
-        ],
-
-        'admin-api' => [
-            'driver' => 'sanctum',
-            'provider' => 'users',
         ],
     ],
 

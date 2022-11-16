@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\Apps;
 
-use App\Services\ActionUserType;
-use App\Services\UserActionResolverService;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
@@ -36,12 +34,11 @@ class DeleteAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $userResolver = new UserActionResolverService('delete app');
-        $workspaceId = $userResolver->workspaceId;
         $appWorkspaceId = AppInfo::find($request->validated('id'))->workspace->id;
+        $userWorkspaceId = Auth::user()->workspace->id;
 
-        return $userResolver->isAllowed
-            && $appWorkspaceId === $workspaceId
-            && $workspaceId !== Workspace::$DEFAULT_WORKSPACE_ID;
+        return $appWorkspaceId === $userWorkspaceId
+            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && Auth::user()->can('delete app');
     }
 }

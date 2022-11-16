@@ -18,11 +18,7 @@ class AppStoreConnectService
 
     public function __construct()
     {
-        $isWebUser = Auth::guard('web')->check();
-
-        $this->appStoreConnectSetting = ($isWebUser)
-            ? Auth::user()->workspace->appStoreConnectSetting
-            : Auth::user()->appStoreConnectSetting;
+        $this->appStoreConnectSetting = Auth::user()->workspace->appStoreConnectSetting;
     }
 
     public function CreateToken() : JsonResponse

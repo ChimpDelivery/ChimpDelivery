@@ -31,7 +31,7 @@ use App\Actions\Api\Packages\UpdatePackage;
 ///////////////////////
 // apps
 //////////////////////
-Route::middleware('auth:workspace-api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::get('apps/get-app', GetAppInfo::class);
     Route::post('apps/create-app', StoreAppInfo::class);
@@ -42,7 +42,7 @@ Route::middleware('auth:workspace-api')->group(function () {
 /////////////////////////
 // appstore connect api
 ////////////////////////
-Route::middleware('auth:workspace-api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::get('appstoreconnect/get-token', CreateToken::class);
     Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
@@ -55,7 +55,7 @@ Route::middleware('auth:workspace-api')->group(function () {
 ////////////////////
 // jenkins api
 ////////////////////
-Route::middleware('auth:workspace-api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::get('jenkins/get-job', GetJob::class);
     Route::get('jenkins/get-job-list', GetJobs::class);
@@ -70,7 +70,7 @@ Route::middleware('auth:workspace-api')->group(function () {
 ////////////////////////
 // github api
 //////////////////////
-Route::middleware('auth:workspace-api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
@@ -80,7 +80,7 @@ Route::middleware('auth:workspace-api')->group(function () {
 //////////////////////////////
 // packages
 /////////////////////////////
-Route::middleware('auth:admin-api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::get('packages/get-packages', GetPackages::class);
     Route::get('packages/get-package', GetPackage::class);

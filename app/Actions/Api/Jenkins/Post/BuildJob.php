@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
@@ -30,11 +31,13 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
         $app = AppInfo::find($request->validated('id'));
 
-        return Auth::guard('web')->check()
-            ? Auth::user()->can('build job') && $workspaceId === $app->workspace_id
-            : Auth::guard('workspace-api')->check() && $workspaceId === $app->workspace_id;
+        $userWorkspaceId = Auth::user()->workspace->id;
+        $appWorkspaceId = $app->workspace->id;
+
+        return $appWorkspaceId == $userWorkspaceId
+            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && Auth::user()->can('build job');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use App\Models\Workspace;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,11 +36,13 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
         $this->app = AppInfo::find($request->validated('id'));
 
-        return Auth::guard('web')->check()
-            ? Auth::user()->can('abort job') && $workspaceId === $this->app->workspace_id
-            : Auth::guard('workspace-api')->check() && $workspaceId === $this->app->workspace_id;
+        $userWorkspaceId = Auth::user()->workspace->id;
+        $appWorkspaceId = $this->app->workspace->id;
+
+        return $appWorkspaceId == $userWorkspaceId
+            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && Auth::user()->can('delete app');
     }
 }
