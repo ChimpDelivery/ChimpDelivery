@@ -32,8 +32,8 @@ class BuildJob extends BaseJenkinsAction
     {
         $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
 
-        return $request->expectsJson()
-            ? $workspaceId === AppInfo::find($request->validated('id'))->workspace_id
-            : Auth::user()->can('build job') && $workspaceId === AppInfo::find($request->validated('id'))->workspace_id;
+        return Auth::guard('web')->check()
+            ? Auth::user()->can('build job') && $workspaceId === AppInfo::find($request->validated('id'))->workspace_id
+            : $workspaceId === AppInfo::find($request->validated('id'))->workspace_id;
     }
 }

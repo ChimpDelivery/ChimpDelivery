@@ -39,8 +39,8 @@ class AbortJob extends BaseJenkinsAction
 
         $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
 
-        return $request->expectsJson()
-            ? $workspaceId === $this->app->workspace_id
-            : Auth::user()->can('abort job') && $workspaceId === $this->app->workspace_id;
+        return Auth::guard('web')->check()
+            ? Auth::user()->can('abort job') && $workspaceId === $this->app->workspace_id
+            : $workspaceId === $this->app->workspace_id;
     }
 }
