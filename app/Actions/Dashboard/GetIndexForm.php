@@ -61,7 +61,7 @@ class GetIndexForm
         $app->jenkins_status = $jenkinsResponse->jenkins_status;
         $app->jenkins_data = $jenkinsResponse->jenkins_data;
 
-        if ($app?->jenkins_data?->status == 'IN_PROGRESS') {
+        if ($app->jenkins_data?->status == 'IN_PROGRESS') {
             $app->jenkins_data->estimated_time = $this->GetBuildFinish(
                 $app->jenkins_data->startTimeMillis,
                 $app->jenkins_data->estimated_duration

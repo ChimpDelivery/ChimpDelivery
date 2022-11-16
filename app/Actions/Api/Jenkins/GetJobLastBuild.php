@@ -16,7 +16,7 @@ class GetJobLastBuild
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        $app = AppInfo::find($request->id);
+        $app = AppInfo::find($request->validated('id'));
 
         $jobResponse = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
         $builds = collect($jobResponse->jenkins_data);
