@@ -6,12 +6,6 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use Illuminate\Support\Facades\Gate;
 
-use App\Models\Workspace;
-use App\Models\AppInfo;
-
-use App\Policies\AppInfoPolicy;
-use App\Policies\WorkspacePolicy;
-
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -20,8 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Workspace::class => WorkspacePolicy::class,
-        AppInfo::class => AppInfoPolicy::class,
+
     ];
 
     /**
