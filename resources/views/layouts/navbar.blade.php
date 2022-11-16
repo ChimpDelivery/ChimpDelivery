@@ -72,6 +72,10 @@
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="#">
                                 <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ config('app.name') }}
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('dashboard.profile') }}">
+                                <i class="fa fa-user" aria-hidden="true"></i> Profile
+                            </a>
                             @hasrole('Admin_Super')
                             <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">

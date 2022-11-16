@@ -2,8 +2,9 @@
 
 namespace App\Actions\Workspace;
 
-use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
+
+use Illuminate\Support\Facades\Auth;
 
 class CreateWorkspaceApiKey
 {
@@ -11,6 +12,6 @@ class CreateWorkspaceApiKey
 
     public function handle() : string
     {
-        return Auth::user()->workspace->createApiToken();
+        return Auth::user()->createApiToken();
     }
 }

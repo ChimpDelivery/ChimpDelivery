@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Actions\Dashboard\User\UpdateProfile;
+
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
@@ -30,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //// index route
     //////////////////////////
     Route::get('/dashboard', GetIndexForm::class)->name('index');
+    Route::get('/dashboard/profile', function() {
+        return view('user-profile')->with(['isNew' => true]);
+    })->name('dashboard.profile');
+    Route::post('/dashboard/profile', UpdateProfile::class);
 
     ////////////////////////////////
     //// workspace routes
