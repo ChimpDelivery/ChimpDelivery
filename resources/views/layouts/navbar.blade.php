@@ -74,7 +74,7 @@
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                <i class="fa fa-user fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                             <div class="dropdown-divider"></div>
@@ -85,7 +85,6 @@
                                 <i class="fa fa-server" aria-hidden="true"></i> Telescope
                             </a>
                             @endrole
-                            <div class="dropdown-divider"></div>
                             <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
                             </a>
