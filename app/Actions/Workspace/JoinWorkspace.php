@@ -6,9 +6,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 
+use App\Models\WorkspaceInviteCode;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;
-
-use App\Http\Controllers\Api\WorkspaceController;
 
 class JoinWorkspace
 {
@@ -16,7 +15,7 @@ class JoinWorkspace
 
     public function handle(JoinWorkspaceRequest $request) : RedirectResponse
     {
-        $workspace = app(WorkspaceController::class)->JoinWorkspace($request);
+        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
 
         return to_route('index');
     }
