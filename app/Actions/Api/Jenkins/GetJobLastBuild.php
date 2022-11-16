@@ -26,19 +26,26 @@ class GetJobLastBuild
         {
             $lastBuildDetails = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
 
-            // app platform
+            // platform
             $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);
-            $buildPlatform = ($jobHasParameters) ? $lastBuildDetails->jenkins_data->actions[0]?->parameters[1]?->value : 'Appstore';
+            $buildPlatform = ($jobHasParameters)
+                ? $lastBuildDetails->jenkins_data->actions[0]?->parameters[1]?->value
+                : 'Appstore';
             $lastBuild->build_platform = $buildPlatform;
 
             // add commit history
             $changeSets = isset($lastBuildDetails->jenkins_data->changeSets[0])
-                ? collect($lastBuildDetails->jenkins_data->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+                ? collect($lastBuildDetails->jenkins_data->changeSets[0]->items)
+                    ->pluck('msg')
+                    ->reverse()
+                    ->take(5)
+                    ->values()
                 : collect();
             $lastBuild->change_sets = $changeSets;
 
             // if job is running, calculate average duration
-            if ($lastBuild->status == 'IN_PROGRESS') {
+            if ($lastBuild->status == 'IN_PROGRESS')
+            {
                 $lastBuild->estimated_duration = $builds->avg('durationMillis');
             }
 
