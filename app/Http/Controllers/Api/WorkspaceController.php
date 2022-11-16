@@ -19,13 +19,6 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkspaceController extends Controller
 {
-    public function Get() : Workspace
-    {
-        $workspace = Auth::user()->workspace;
-
-        return $workspace;
-    }
-
     public function JoinWorkspace(JoinWorkspaceRequest $request) : JsonResponse
     {
         $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();

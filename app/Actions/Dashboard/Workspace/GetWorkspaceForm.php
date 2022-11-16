@@ -5,8 +5,7 @@ namespace App\Actions\Dashboard\Workspace;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Contracts\View\View;
-
-use App\Http\Controllers\Api\WorkspaceController;
+use Illuminate\Support\Facades\Auth;
 
 class GetWorkspaceForm
 {
@@ -14,10 +13,8 @@ class GetWorkspaceForm
 
     public function handle() : View
     {
-        $workspace = app(WorkspaceController::class)->Get();
-
         return view('workspace-settings')->with([
-            'workspace' => $workspace,
+            'workspace' => Auth::user()->workspace,
             'isNew' => false,
         ]);
     }
