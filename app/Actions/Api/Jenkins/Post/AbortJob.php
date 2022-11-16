@@ -35,12 +35,11 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        $this->app = AppInfo::find($request->validated('id'));
-
         $workspaceId = app(JenkinsService::class)->GetWorkspaceId();
+        $this->app = AppInfo::find($request->validated('id'));
 
         return Auth::guard('web')->check()
             ? Auth::user()->can('abort job') && $workspaceId === $this->app->workspace_id
-            : $workspaceId === $this->app->workspace_id;
+            : Auth::guard('workspace-api')->check() && $workspaceId === $this->app->workspace_id;
     }
 }
