@@ -8,8 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-use App\Models\GithubSetting;
-
 class JenkinsService
 {
     // credentials
@@ -17,18 +15,12 @@ class JenkinsService
     private readonly string $jenkinsUser;
     private readonly string $jenkinsToken;
 
-    // Note: Jenkins workspace name specified by connected organization name on Github.
-    // Job and organization names are unique.
-    private readonly GithubSetting $githubSetting;
-
     public function __construct(string $url, string $user, string $token)
     {
-        $this->githubSetting = Auth::user()->workspace->githubSetting;
-
         $this->jenkinsWorkspaceUrl = implode('/', [
             $url,
             'job',
-            $this->githubSetting->organization_name
+            Auth::user()->workspace->githubSetting->organization_name
         ]);
 
         $this->jenkinsUser = $user;
