@@ -26,11 +26,16 @@ class UpdatePackageRequest extends GetPackageRequest
         return [
             'package_id' => [
                 'required',
+                'max:255',
                 'regex:/^[A-Za-z0-9._-]+$/',
-                Rule::exists('packages', 'package_id')
+                Rule::exists('packages', 'package_id'),
             ],
 
-            'hash' => [ 'required', 'alpha_num' ]
+            'hash' => [
+                'required',
+                'max:255',
+                'alpha_num',
+            ]
         ];
     }
 

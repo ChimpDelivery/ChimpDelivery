@@ -26,7 +26,11 @@ class GetRepositoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => [ 'required', new AlphaDashDot() ]
+            'project_name' => [
+                'required',
+                new AlphaDashDot(),
+                'max:255',
+            ]
         ];
     }
 }

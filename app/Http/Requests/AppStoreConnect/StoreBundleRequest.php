@@ -27,8 +27,17 @@ class StoreBundleRequest extends FormRequest
     public function rules()
     {
         return [
-            'bundle_id' => [ 'required', new AlphaDashDot() ],
-            'bundle_name' => [ 'required', 'regex:/^[a-zA-Z0-9\s]+$/' ],
+            'bundle_id' => [
+                'required',
+                new AlphaDashDot(),
+                'max:255',
+            ],
+
+            'bundle_name' => [
+                'required',
+                'regex:/^[a-zA-Z0-9\s]+$/',
+                'max:255',
+            ],
         ];
     }
 

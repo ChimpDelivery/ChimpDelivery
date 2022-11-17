@@ -19,6 +19,7 @@ class JoinWorkspaceRequest extends FormRequest
             'invite_code' => [
                 'required',
                 'alpha_num',
+                'max:255',
                 Rule::exists('workspace_invite_codes', 'code'),
             ]
         ];

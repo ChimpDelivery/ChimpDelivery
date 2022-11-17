@@ -37,6 +37,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
 
             'app_name' => [
                 'required',
+                'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->whereNull('deleted_at'),
@@ -45,6 +46,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'project_name' => [
                 'required',
                 'alpha_dash',
+                'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->whereNull('deleted_at')
@@ -53,6 +55,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'app_bundle' => [
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
+                'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->whereNull('deleted_at')
@@ -65,11 +68,29 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                     ->whereNull('deleted_at')
             ],
 
-            'fb_app_id' => [ 'nullable', 'numeric' ],
-            'fb_client_token' => [ 'nullable', 'alpha_num' ],
+            'fb_app_id' => [
+                'nullable',
+                'numeric',
+                'max:255',
+            ],
 
-            'ga_id' => [ 'nullable', 'alpha_num' ],
-            'ga_secret' => [ 'nullable', 'alpha_num' ]
+            'fb_client_token' => [
+                'nullable',
+                'alpha_num',
+                'max:255',
+            ],
+
+            'ga_id' => [
+                'nullable',
+                'alpha_num',
+                'max:255',
+            ],
+
+            'ga_secret' => [
+                'nullable',
+                'alpha_num',
+                'max:255',
+            ]
         ];
     }
 
