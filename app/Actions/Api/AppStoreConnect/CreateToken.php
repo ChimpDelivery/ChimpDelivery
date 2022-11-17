@@ -7,8 +7,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Workspace;
-
 use App\Services\AppStoreConnectService;
 
 class CreateToken
@@ -27,6 +25,6 @@ class CreateToken
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
+        return !Auth::user()->isNew();
     }
 }

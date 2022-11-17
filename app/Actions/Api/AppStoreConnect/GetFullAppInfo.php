@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-use App\Models\Workspace;
 use App\Services\AppStoreConnectService;
 
 // api reference: https://developer.apple.com/documentation/appstoreconnectapi/list_apps
@@ -37,6 +36,6 @@ class GetFullAppInfo
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
+        return !Auth::user()->isNew();
     }
 }

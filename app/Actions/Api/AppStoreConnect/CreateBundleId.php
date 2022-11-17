@@ -7,7 +7,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Workspace;
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
@@ -57,6 +56,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID && Auth::user()->can('create bundle');
+        return !Auth::user()->isNew() && Auth::user()->can('create bundle');
     }
 }

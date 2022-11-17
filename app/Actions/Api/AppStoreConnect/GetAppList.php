@@ -5,9 +5,6 @@ namespace App\Actions\Api\AppStoreConnect;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\Workspace;
-
 use Illuminate\Http\JsonResponse;
 
 class GetAppList
@@ -34,6 +31,6 @@ class GetAppList
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
+        return !Auth::user()->isNew();
     }
 }

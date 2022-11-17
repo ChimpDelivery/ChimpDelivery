@@ -47,4 +47,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
     }
+
+    public function isNew() : bool
+    {
+        return $this->workspace_id === 1;
+    }
 }

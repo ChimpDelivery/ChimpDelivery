@@ -44,7 +44,7 @@ class StoreWorkspace
 
     public function authorize() : bool
     {
-        $this->isNewUser = Auth::user()->workspace->id === Workspace::$DEFAULT_WS_ID;
+        $this->isNewUser = Auth::user()->isNew();
 
         return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
     }

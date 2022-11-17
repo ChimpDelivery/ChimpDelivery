@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Workspace;
 use App\Services\AppStoreConnectService;
 
 /// no use case
@@ -34,6 +33,6 @@ class GetBuildList
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
+        return !Auth::user()->isNew();
     }
 }

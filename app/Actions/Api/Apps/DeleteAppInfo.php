@@ -7,7 +7,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
-use App\Models\Workspace;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -35,8 +34,7 @@ class DeleteAppInfo
     public function authorize(GetAppInfoRequest $request) : bool
     {
         $app = Auth::user()->workspace->apps()->find($request->validated('id'));
-        $userWsId = Auth::user()->workspace->id;
 
-        return $app && $userWsId !== Workspace::$DEFAULT_WS_ID && Auth::user()->can('delete app');
+        return $app && !Auth::user()->isNew() && Auth::user()->can('delete app');
     }
 }
