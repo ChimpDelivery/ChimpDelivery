@@ -27,18 +27,6 @@ class GetJobLastBuildLog
         return $response->jenkins_data;
     }
 
-    public function authorize(GetAppInfoRequest $request) : bool
-    {
-        $this->app = AppInfo::find($request->validated('id'));
-
-        $userWorkspaceId = Auth::user()->workspace->id;
-        $appWorkspaceId = $this->app->workspace->id;
-
-        return $appWorkspaceId === $userWorkspaceId
-            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
-            && Auth::user()->can('view job log');
-    }
-
     public function htmlResponse(string $response) : View
     {
         return view('build-log')->with([
@@ -50,5 +38,17 @@ class GetJobLastBuildLog
     public function jsonResponse(string $response) : JsonResponse
     {
         return response()->json($response);
+    }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        $this->app = AppInfo::find($request->validated('id'));
+
+        $userWorkspaceId = Auth::user()->workspace->id;
+        $appWorkspaceId = $this->app->workspace->id;
+
+        return $appWorkspaceId === $userWorkspaceId
+            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && Auth::user()->can('view job log');
     }
 }
