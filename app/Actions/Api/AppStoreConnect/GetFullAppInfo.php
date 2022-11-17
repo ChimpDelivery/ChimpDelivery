@@ -5,8 +5,10 @@ namespace App\Actions\Api\AppStoreConnect;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+use App\Models\Workspace;
 use App\Services\AppStoreConnectService;
 
 // api reference: https://developer.apple.com/documentation/appstoreconnectapi/list_apps
@@ -31,5 +33,10 @@ class GetFullAppInfo
         $sortedAppList = $sortedAppCollection->sortByDesc('id');
 
         return response()->json([ 'app_list' => $sortedAppList ]);
+    }
+
+    public function authorize() : bool
+    {
+        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WORKSPACE_ID;
     }
 }

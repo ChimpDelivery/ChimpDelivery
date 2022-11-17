@@ -4,11 +4,11 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\Workspace;
 use App\Services\AppStoreConnectService;
 
 /// no use case
@@ -30,5 +30,10 @@ class GetBuildList
         return response()->json([
             'builds' => $builds->pluck('attributes.uploadedDate', 'attributes.version')->sortKeys()
         ]);
+    }
+
+    public function authorize() : bool
+    {
+        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WORKSPACE_ID;
     }
 }
