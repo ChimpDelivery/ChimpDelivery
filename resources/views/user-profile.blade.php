@@ -24,9 +24,12 @@
                     <div class="collapse show" id="collapse_base_settings">
                         <div class="form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" class="form-control shadow-sm" name="name" aria-describedby="basic-addon3" value="{{ Auth::user()->name }}" required />
+                            <input type="text" class="form-control shadow-sm" id="name" name="name" aria-describedby="basic-addon3" value="{{ Auth::user()->name }}" required />
                         </div>
-
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control shadow-sm" id="email" name="email" aria-describedby="basic-addon3" value="{{ Auth::user()->email }}" readonly />
+                        </div>
                         @livewire('create-api-token-view')
                     </div>
 
