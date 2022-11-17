@@ -34,6 +34,6 @@ class GetAppList
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WORKSPACE_ID;
+        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
     }
 }

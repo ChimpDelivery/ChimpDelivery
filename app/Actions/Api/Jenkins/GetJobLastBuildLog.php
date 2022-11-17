@@ -48,7 +48,7 @@ class GetJobLastBuildLog
         $appWorkspaceId = $this->app->workspace->id;
 
         return $appWorkspaceId === $userWorkspaceId
-            && $userWorkspaceId !== Workspace::$DEFAULT_WORKSPACE_ID
+            && $userWorkspaceId !== Workspace::$DEFAULT_WS_ID
             && Auth::user()->can('view job log');
     }
 }

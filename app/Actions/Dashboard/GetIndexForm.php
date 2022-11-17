@@ -18,7 +18,7 @@ class GetIndexForm
 
     public function handle() : View
     {
-        $isWorkspaceUser = Auth::user()->workspace->id !== Workspace::$DEFAULT_WORKSPACE_ID;
+        $isWorkspaceUser = Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
         if (!$isWorkspaceUser)
         {
             return view('workspace-settings')->with([

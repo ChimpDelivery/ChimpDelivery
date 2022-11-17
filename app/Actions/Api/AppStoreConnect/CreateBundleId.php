@@ -57,6 +57,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WORKSPACE_ID && Auth::user()->can('create bundle');
+        return Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID && Auth::user()->can('create bundle');
     }
 }
