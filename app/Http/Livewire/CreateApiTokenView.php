@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-use App\Actions\Workspace\CreateWorkspaceApiKey;
+use App\Actions\Workspace\CreateUserApiKey;
 
 class CreateApiTokenView extends Component
 {
@@ -12,7 +12,7 @@ class CreateApiTokenView extends Component
 
     public function createToken()
     {
-        $this->createdToken = CreateWorkspaceApiKey::run();
+        $this->createdToken = CreateUserApiKey::run();
     }
 
     public function render()

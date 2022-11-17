@@ -6,7 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 
-class CreateWorkspaceApiKey
+class CreateUserApiKey
 {
     use AsAction;
 
