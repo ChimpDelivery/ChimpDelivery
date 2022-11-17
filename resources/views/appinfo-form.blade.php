@@ -35,7 +35,7 @@
                         <select name="app_name" id="app_name"
                             class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                            title="• Select App ({{ count($all_appstore_apps) }})">
+                            title="• Select App ({{ count($all_appstore_apps) }})" required>
 
                             @each('layouts.appstore.app', $all_appstore_apps, 'appstore_app')
                         </select>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="form-group">
                     <label for="appstore_id"><i class="fa fa-apple" aria-hidden="true"></i> Appstore ID</label>
-                    <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> App Bundle</label>
-                    <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" required="" placeholder="Select app from list..." readonly>
+                    <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     @if (!isset($appInfo))
@@ -58,7 +58,7 @@
                         <select name="project_name"
                             class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                            title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed)>
+                            title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
                             @each('layouts.github.project', $github_projects, 'github_project')
                         </select>

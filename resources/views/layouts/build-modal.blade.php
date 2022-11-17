@@ -15,7 +15,7 @@
                         <select name="platform" id="platform"
                             class="shadow-sm form-control selectpicker show-tick"
                             data-style="btn-primary" data-live-search="false" data-dropup-auto="false" data-size="10"
-                            title="Select platform...">
+                            title="Select platform..." required>
 
                             <option data-icon="fa fa-apple" value="Appstore">App Store</option>
                             <option data-icon="fa fa-google" value="GooglePlay">Google Play</option>
