@@ -8,7 +8,7 @@
             <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-user fa-stack-1x" aria-hidden="true"></i>
+                <i class="fa fa-eye fa-stack-1x" aria-hidden="true"></i>
             </span>
                 {{ $app->project_name }} Build Log
             </div>
