@@ -2,7 +2,6 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
@@ -36,7 +35,7 @@ class BuildJob extends BaseJenkinsAction
         $appWorkspaceId = $app->workspace->id;
 
         return $appWorkspaceId === $userWorkspaceId
-            && $userWorkspaceId !== Workspace::$DEFAULT_WS_ID
+            && !Auth::user()->isNew()
             && Auth::user()->can('build job');
     }
 }

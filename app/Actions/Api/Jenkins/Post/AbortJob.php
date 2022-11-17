@@ -2,7 +2,6 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use App\Models\Workspace;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +41,7 @@ class AbortJob extends BaseJenkinsAction
         $appWorkspaceId = $this->app->workspace->id;
 
         return $appWorkspaceId === $userWorkspaceId
-            && $userWorkspaceId !== Workspace::$DEFAULT_WS_ID
+            && !Auth::user()->isNew()
             && Auth::user()->can('delete app');
     }
 }
