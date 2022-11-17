@@ -2,9 +2,9 @@
 
 namespace App\Actions\Dashboard\User;
 
-use Illuminate\Http\RedirectResponse;
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\User\UpdateUserProfileRequest;
