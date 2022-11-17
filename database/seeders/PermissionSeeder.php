@@ -31,6 +31,7 @@ class PermissionSeeder extends Seeder
             'scan jobs',
             'build job',
             'abort job',
+            'view job log',
         ];
 
         foreach ($permissions as $permission) {

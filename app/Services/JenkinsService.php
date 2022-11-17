@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
 
 class JenkinsService
 {
@@ -27,17 +28,17 @@ class JenkinsService
         $this->jenkinsToken = $token;
     }
 
-    public function GetResponse(string $url) : mixed
+    public function GetResponse(string $url, bool $isHtml = false) : mixed
     {
-        return $this->TryJenkinsRequest($url, 'get')->getData();
+        return $this->TryJenkinsRequest($url, 'get', $isHtml)->getData();
     }
 
-    public function PostResponse(string $url) : mixed
+    public function PostResponse(string $url, bool $isHtml = false) : mixed
     {
-        return $this->TryJenkinsRequest($url, 'post')->getData();
+        return $this->TryJenkinsRequest($url, 'post', $isHtml)->getData();
     }
 
-    private function TryJenkinsRequest(string $url, string $method) : JsonResponse
+    private function TryJenkinsRequest(string $url, string $method, bool $isHtml) : JsonResponse
     {
         $jenkinsResponse = '';
 
@@ -45,7 +46,7 @@ class JenkinsService
         {
             if (in_array($method, ['post', 'get']))
             {
-                $jenkinsResponse = $this->$method($this->jenkinsWorkspaceUrl . $url);
+                $jenkinsResponse = $this->$method($this->jenkinsWorkspaceUrl . $url, $isHtml);
             }
             else
             {
@@ -64,25 +65,30 @@ class JenkinsService
         return response()->json($jenkinsResponse);
     }
 
-    private function get(string $url) : array
+    private function get(string $url, bool $isHtml) : array
     {
         $request = $this->GetJenkinsUser()->get($url);
-        return $this->GetJenkinsResponse($request);
+        return $this->GetJenkinsResponse($request, $isHtml);
     }
 
-    private function post(string $url) : array
+    private function post(string $url, bool $isHtml) : array
     {
         $request = $this->GetJenkinsUser()->post($url);
-        return $this->GetJenkinsResponse($request);
+        return $this->GetJenkinsResponse($request, $isHtml);
     }
 
-    private function GetJenkinsResponse($request) : array
+    private function GetJenkinsResponse(Response $request, bool $isHtml) : array
     {
         $isTunnelOffline = $request->header('Ngrok-Error-Code');
 
         return [
-            'jenkins_status' => ($isTunnelOffline) ? 3200 : $request->status(),
-            'jenkins_data' => ($isTunnelOffline) ? null : json_decode($request),
+            'jenkins_status' => ($isTunnelOffline)
+                ? 3200
+                : $request->status(),
+
+            'jenkins_data' => ($isTunnelOffline)
+                ? null
+                : ($isHtml ? $request->body() : json_decode($request)),
         ];
     }
 

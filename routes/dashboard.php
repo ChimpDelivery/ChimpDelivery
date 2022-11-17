@@ -12,6 +12,7 @@ use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
+use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 use App\Actions\Dashboard\CreateAppForm;
@@ -84,6 +85,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ///////////////////////////
     Route::post('/dashboard/build-app', BuildJob::class)
         ->middleware('permission:build job');
+
+    Route::get('/dashboard/build-log', GetJobLastBuildLog::class)
+        ->middleware('permission:view job log');
 
     Route::get('/dashboard/abort-job', AbortJob::class)
         ->middleware('permission:abort job');

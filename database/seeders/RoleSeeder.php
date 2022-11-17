@@ -26,6 +26,7 @@ class RoleSeeder extends Seeder
             'scan jobs',
             'build job',
             'abort job',
+            'view job log',
         ];
         $workspaceUserRole->syncPermissions($workSpaceUserPermissions);
 
@@ -41,6 +42,7 @@ class RoleSeeder extends Seeder
             'scan jobs',
             'build job',
             'abort job',
+            'view job log',
         ];
         $workspaceAdminRole->syncPermissions($workspaceAdminPermissions);
 

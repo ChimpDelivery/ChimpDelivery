@@ -1,5 +1,5 @@
 @php
-    $parser = new App\View\Parsers\JenkinsDataParser($appInfo->project_name, $appInfo->jenkins_data);
+    $parser = new App\View\Parsers\JenkinsDataParser($appInfo, $appInfo->jenkins_data);
     $buttonData = $parser->GetButtonData();
 @endphp
 

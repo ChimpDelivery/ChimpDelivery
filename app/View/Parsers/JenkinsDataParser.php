@@ -3,24 +3,25 @@
 namespace App\View\Parsers;
 
 use Illuminate\Support\Str;
-
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\AppInfo;
 
 class JenkinsDataParser
 {
-    private $projectName;
+    private AppInfo $app;
     private $jenkinsData;
 
-    public function __construct($projectName, mixed $jenkinsData)
+    public function __construct(AppInfo $app, mixed $jenkinsData)
     {
-        $this->projectName = $projectName;
+        $this->app = $app;
         $this->jenkinsData = $jenkinsData;
     }
 
     public function GetButtonImage()
     {
         $ws = Auth::user()->workspace->githubSetting->organization_name;
-        $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->projectName}%2Fmaster";
+        $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->app->project_name}%2Fmaster";
         return '<img alt="..." src="'.$url.'">';
     }
 
@@ -91,7 +92,7 @@ class JenkinsDataParser
         return "<span class='badge bg-warning text-white'>
                     <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
                 </span>
-                {$detail}
+                <a href=/dashboard/build-log?id={$this->app->id}>{$detail}</a>
                 <hr class='my-2'>";
     }
 
