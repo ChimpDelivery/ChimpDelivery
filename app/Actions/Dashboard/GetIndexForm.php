@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
 use App\Models\AppInfo;
-use App\Models\Workspace;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
 
@@ -18,8 +17,7 @@ class GetIndexForm
 
     public function handle() : View
     {
-        $isWorkspaceUser = Auth::user()->workspace->id !== Workspace::$DEFAULT_WS_ID;
-        if (!$isWorkspaceUser)
+        if (Auth::user()->isNew())
         {
             return view('workspace-settings')->with([
                 'isNew' => true
