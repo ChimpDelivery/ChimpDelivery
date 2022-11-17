@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-success font-weight-bold shadow">
+                <button type="submit" class="btn btn-success font-weight-bold shadow" @if(!$isNew) onclick="return confirm('Are you sure?')" @endif>
                     <i class="fa {{ ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o' }}"></i>
                     {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}
                 </button>
