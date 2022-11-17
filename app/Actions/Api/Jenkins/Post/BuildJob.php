@@ -4,7 +4,6 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\AppInfo;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
@@ -29,13 +28,6 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        $app = AppInfo::find($request->validated('id'));
-
-        $userWorkspaceId = Auth::user()->workspace->id;
-        $appWorkspaceId = $app->workspace->id;
-
-        return $appWorkspaceId === $userWorkspaceId
-            && !Auth::user()->isNew()
-            && Auth::user()->can('build job');
+        return !Auth::user()->isNew() && Auth::user()->can('build job');
     }
 }
