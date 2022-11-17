@@ -12,17 +12,15 @@
             </span>
                 {{ $app->project_name }} Build Log
             </div>
-            <div class="card-body">
+            <div class="card-body overflow-auto" style="max-height: 70vh;">
                 <code>
                     {!! nl2br(e($full_log)) !!}
                 </code>
             </div>
-            <!--
             <div class="card-footer text-muted">
                 <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                Add Footer
+                {{ round(strlen($full_log) / 1024 / 1024, 2) }} MB
             </div>
-            !-->
         </div>
     </div>
 @endsection
