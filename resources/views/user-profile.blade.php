@@ -18,7 +18,7 @@
                     <p>
                         <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_base_settings" role="button" aria-expanded="true" aria-controls="collapse_base_settings">
                             <i class="fa fa-cog" aria-hidden="true"></i>
-                            <b>Base Settings</b>
+                            <b>Personal Settings</b>
                         </a>
                     </p>
                     <div class="collapse show" id="collapse_base_settings">
@@ -30,9 +30,11 @@
                             <label for="email">Email</label>
                             <input type="text" class="form-control shadow-sm" id="email" name="email" aria-describedby="basic-addon3" value="{{ Auth::user()->email }}" readonly />
                         </div>
-                        @livewire('create-api-token-view')
+                        @if(!$isNewUser)
+                            @livewire('create-api-token-view')
+                        @endif
                     </div>
-
+                    <br />
                     <button type="submit" class="btn btn-success font-weight-bold shadow">
                         <i class="fa fa-pencil-square-o"></i>
                         Update Profile
@@ -45,5 +47,7 @@
             </div>
         </div>
     </div>
-    @livewireScripts
+    @if (!$isNewUser)
+        @livewireScripts
+    @endif
 @endsection

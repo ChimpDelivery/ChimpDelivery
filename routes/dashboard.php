@@ -33,8 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', GetIndexForm::class)
         ->name('index');
 
-    Route::get('/dashboard/profile', fn() => view('user-profile'))
-        ->name('dashboard.profile');
+    Route::get('/dashboard/profile', fn() => view('user-profile')->with([
+        'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::$DEFAULT_WORKSPACE_ID
+    ]))->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateProfile::class);
 

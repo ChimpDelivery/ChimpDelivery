@@ -19,7 +19,7 @@
                         <label for="invite_code">Invite Code</label>
                         <input type="text" id="invite_code" name="invite_code" class="form-control shadow-sm">
                     </div>
-
+                    <br />
                     <button type="submit" class="btn btn-success font-weight-bold shadow">
                         <i class="fa fa-plus-square"></i>
                         Join
