@@ -6,7 +6,6 @@ use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
-use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
