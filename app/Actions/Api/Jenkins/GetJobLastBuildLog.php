@@ -18,16 +18,13 @@ class GetJobLastBuildLog
     use AsAction;
 
     private AppInfo $app;
-    private string $lastBuildFullLog;
 
-    public function handle(GetAppInfoRequest $request) : mixed
+    public function handle(GetAppInfoRequest $request) : string
     {
         $response = app(JenkinsService::class)
             ->GetResponse("/job/{$this->app->project_name}/job/master/lastBuild/consoleText", true);
 
-        $this->lastBuildFullLog = $response->jenkins_data;
-
-        return $response;
+        return $response->jenkins_data;
     }
 
     public function authorize(GetAppInfoRequest $request) : bool
@@ -42,16 +39,16 @@ class GetJobLastBuildLog
             && Auth::user()->can('view job log');
     }
 
-    public function htmlResponse(mixed $response) : View
+    public function htmlResponse(string $response) : View
     {
         return view('build-log')->with([
             'app' => $this->app,
-            'full_log' => $this->lastBuildFullLog,
+            'full_log' => $response,
         ]);
     }
 
-    public function jsonResponse(mixed $response) : JsonResponse
+    public function jsonResponse(string $response) : JsonResponse
     {
-        return response()->json($response->jenkins_data);
+        return response()->json($response);
     }
 }
