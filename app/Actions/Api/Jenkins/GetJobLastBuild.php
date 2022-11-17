@@ -5,6 +5,7 @@ namespace App\Actions\Api\Jenkins;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
@@ -14,18 +15,20 @@ class GetJobLastBuild
 {
     use AsAction;
 
+    private AppInfo $app;
+
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        // bug: $request->validated('id') null
-        $app = AppInfo::find($request->id);
+        $jobResponse = app(JenkinsService::class)
+            ->GetResponse("/job/{$this->app->project_name}/job/master/wfapi/runs");
 
-        $jobResponse = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
 
         if ($lastBuild)
         {
-            $lastBuildDetails = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
+            $lastBuildDetails = app(JenkinsService::class)
+                ->GetResponse("/job/{$this->app->project_name}/job/master/{$lastBuild->id}/api/json");
 
             // platform
             $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);
@@ -65,5 +68,12 @@ class GetJobLastBuild
         $jobResponse->jenkins_data = $lastBuild;
 
         return response()->json($jobResponse);
+    }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+
+        return !Auth::user()->isNew();
     }
 }
