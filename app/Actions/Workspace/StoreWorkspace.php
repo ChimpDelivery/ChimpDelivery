@@ -15,6 +15,8 @@ class StoreWorkspace
 {
     use AsAction;
 
+    private bool $isNewUser;
+
     public function handle(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
         $response = $this->StoreOrUpdate($request);
@@ -30,25 +32,22 @@ class StoreWorkspace
     {
         // check new user
         $currentWorkspace = Auth::user()->workspace;
-        $isNewUser = $currentWorkspace->id === Workspace::$DEFAULT_WORKSPACE_ID;
-
-        // gate
-        $method = $isNewUser ? 'create' : 'update';
-        $action = $isNewUser ? Workspace::class : $currentWorkspace;
 
         //
-        $targetWorkspace = ($isNewUser) ? new Workspace() : $currentWorkspace;
+        $targetWorkspace = ($this->isNewUser) ? new Workspace() : $currentWorkspace;
 
         event(new WorkspaceChanged($targetWorkspace, $request));
 
         return [
             'response' => $targetWorkspace,
-            'wasRecentlyCreated' => $isNewUser,
+            'wasRecentlyCreated' => $this->isNewUser,
         ];
     }
 
     public function authorize() : bool
     {
-        return Auth::user()->can('update workspace');
+        $this->isNewUser = Auth::user()->workspace->id === Workspace::$DEFAULT_WORKSPACE_ID;
+
+        return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
     }
 }
