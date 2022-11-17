@@ -36,7 +36,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
 
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
-            ? "{$app->project_name}, building for {$validated['platform']}..."
+            ? "<b>{$app->project_name}</b>, building for <b>{$validated['platform']}</b>..."
             : "Error Code: {$responseCode}";
 
         return [
