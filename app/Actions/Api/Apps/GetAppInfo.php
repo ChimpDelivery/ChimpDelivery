@@ -47,9 +47,9 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $isAppExist = Auth::user()->workspace->apps()->find($request->validated('id'));
+        $app = Auth::user()->workspace->apps()->find($request->validated('id'));
         $userWsId = Auth::user()->workspace->id;
 
-        return ($isAppExist) && ($userWsId !== Workspace::$DEFAULT_WS_ID) && (Auth::user()->can('view apps'));
+        return $app && $userWsId !== Workspace::$DEFAULT_WS_ID && Auth::user()->can('view apps');
     }
 }
