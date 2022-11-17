@@ -32,7 +32,7 @@
 
                     <button type="submit" class="btn btn-success font-weight-bold shadow">
                         <i class="fa fa-pencil-square-o"></i>
-                        Update
+                        Update Profile
                     </button>
                 </form>
             </div>
