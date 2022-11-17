@@ -28,9 +28,6 @@
                         <label for="name">Workspace Name</label>
                         <input type="text" class="form-control shadow-sm" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                     </div>
-                    @if(!$isNew)
-                        @livewire('create-api-token-view')
-                    @endif
                 </div>
 
                 <p>
