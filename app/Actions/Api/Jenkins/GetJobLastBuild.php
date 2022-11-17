@@ -15,12 +15,12 @@ class GetJobLastBuild
 {
     use AsAction;
 
-    private AppInfo $app;
-
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
+        $app = Auth::user()->workspace->apps()->findOrFail($request->id);
+
         $jobResponse = app(JenkinsService::class)
-            ->GetResponse("/job/{$this->app->project_name}/job/master/wfapi/runs");
+            ->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
 
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
@@ -28,7 +28,7 @@ class GetJobLastBuild
         if ($lastBuild)
         {
             $lastBuildDetails = app(JenkinsService::class)
-                ->GetResponse("/job/{$this->app->project_name}/job/master/{$lastBuild->id}/api/json");
+                ->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
 
             // platform
             $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);
@@ -72,8 +72,6 @@ class GetJobLastBuild
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-
         return !Auth::user()->isNew();
     }
 }
