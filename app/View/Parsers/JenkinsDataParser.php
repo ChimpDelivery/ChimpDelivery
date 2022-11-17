@@ -10,12 +10,12 @@ use App\Models\AppInfo;
 class JenkinsDataParser
 {
     private AppInfo $app;
-    private $jenkinsData;
+    private mixed $jenkinsData;
 
-    public function __construct(AppInfo $app, mixed $jenkinsData)
+    public function __construct(AppInfo $app)
     {
         $this->app = $app;
-        $this->jenkinsData = $jenkinsData;
+        $this->jenkinsData = $app->jenkins_data;
     }
 
     public function GetButtonImage()
