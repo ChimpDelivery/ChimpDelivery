@@ -26,7 +26,7 @@
                 <div class="collapse show" id="collapse_workspace_settings">
                     <div class="form-group">
                         <label for="name">Workspace Name</label>
-                        <input type="text" class="form-control shadow-sm" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
+                        <input type="text" class="form-control shadow-sm" id="name" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                     </div>
                 </div>
 
