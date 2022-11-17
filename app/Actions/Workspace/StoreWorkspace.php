@@ -30,11 +30,9 @@ class StoreWorkspace
 
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : array
     {
-        // check new user
-        $currentWorkspace = Auth::user()->workspace;
-
-        //
-        $targetWorkspace = ($this->isNewUser) ? new Workspace() : $currentWorkspace;
+        $targetWorkspace = ($this->isNewUser)
+            ? new Workspace()
+            : Auth::user()->workspace;
 
         event(new WorkspaceChanged($targetWorkspace, $request));
 
