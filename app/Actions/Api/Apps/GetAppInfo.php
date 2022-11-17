@@ -15,19 +15,11 @@ class GetAppInfo
 {
     use AsAction;
 
+    private AppInfo $app;
+
     public function handle(GetAppInfoRequest $request) : AppInfo
     {
-        return AppInfo::find($request->validated('id'), [
-            'id',
-            'app_name',
-            'project_name',
-            'app_bundle',
-            'appstore_id',
-            'fb_app_id',
-            'fb_client_token',
-            'ga_id',
-            'ga_secret',
-        ]);
+        return $this->app;
     }
 
     public function htmlResponse(AppInfo $appInfo) : View
@@ -39,6 +31,8 @@ class GetAppInfo
     {
         return response()->json($appInfo->makeHidden([
             'id',
+            'workspace_id',
+            'app_icon',
             'project_name',
             'appstore_id',
         ]));
@@ -46,8 +40,8 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $app = Auth::user()->workspace->apps()->find($request->validated('id'));
+        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return $app && !Auth::user()->isNew() && Auth::user()->can('view apps');
+        return !Auth::user()->isNew() && Auth::user()->can('view apps');
     }
 }
