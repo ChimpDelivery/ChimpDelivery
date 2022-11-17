@@ -20,6 +20,8 @@ use App\Actions\Api\Jenkins\GetJob;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
 use App\Actions\Api\Jenkins\GetJobs;
+use App\Actions\Api\Jenkins\GetJobLastBuildLog;
+
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
@@ -61,6 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('jenkins/get-job-list', GetJobs::class);
     Route::get('jenkins/get-job-builds', GetJobBuilds::class);
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
+    Route::get('jenkins/get-job-lastbuild-log', GetJobLastBuildLog::class);
 
     Route::post('jenkins/build-job', BuildJob::class);
     Route::post('jenkins/abort-job', AbortJob::class);

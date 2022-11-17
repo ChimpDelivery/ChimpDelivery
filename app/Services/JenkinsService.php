@@ -53,14 +53,7 @@ class JenkinsService
         {
             if (in_array($method, ['post', 'get']))
             {
-                if ($method == 'get')
-                {
-                    $jenkinsResponse = $this->GetRequest($this->jenkinsWorkspaceUrl . $url);
-                }
-                else
-                {
-                    $jenkinsResponse = $this->PostRequest($this->jenkinsWorkspaceUrl . $url);
-                }
+                $jenkinsResponse = $this->$method($this->jenkinsWorkspaceUrl . $url);
             }
             else
             {
@@ -79,13 +72,13 @@ class JenkinsService
         return response()->json($jenkinsResponse);
     }
 
-    private function GetRequest(string $url) : array
+    private function get(string $url) : array
     {
         $request = $this->GetJenkinsUser()->get($url);
         return $this->GetJenkinsResponse($request);
     }
 
-    private function PostRequest(string $url) : array
+    private function post(string $url) : array
     {
         $request = $this->GetJenkinsUser()->post($url);
         return $this->GetJenkinsResponse($request);
