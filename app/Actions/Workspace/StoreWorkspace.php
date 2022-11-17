@@ -46,4 +46,9 @@ class StoreWorkspace
             'wasRecentlyCreated' => $isNewUser,
         ];
     }
+
+    public function authorize() : bool
+    {
+        return Auth::user()->can('update workspace');
+    }
 }
