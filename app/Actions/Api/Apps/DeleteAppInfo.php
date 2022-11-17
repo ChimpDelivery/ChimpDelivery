@@ -15,14 +15,15 @@ class DeleteAppInfo
     use AsAction;
     use AsActionResponse;
 
+    private AppInfo $app;
+
     public function handle(GetAppInfoRequest $request) : array
     {
-        $app = AppInfo::find($request->validated('id'));
-        $isAppDeleted = $app->delete();
+        $isAppDeleted = $this->app->delete();
 
         $message = $isAppDeleted
-            ? "Project: <b>{$app->project_name}</b> deleted."
-            : "Project: <b>{$app->project_name}</b> could not deleted!";
+            ? "Project: <b>{$this->app->project_name}</b> deleted."
+            : "Project: <b>{$this->app->project_name}</b> could not deleted!";
 
         return [
             'success' => $isAppDeleted,
@@ -33,8 +34,8 @@ class DeleteAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $app = Auth::user()->workspace->apps()->find($request->validated('id'));
+        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return $app && !Auth::user()->isNew() && Auth::user()->can('delete app');
+        return !Auth::user()->isNew() && Auth::user()->can('delete app');
     }
 }
