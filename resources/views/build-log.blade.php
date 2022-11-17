@@ -13,12 +13,16 @@
                 {{ $app->project_name }} Build Log
             </div>
             <div class="card-body">
-                {!! nl2br(e($full_log)) !!}
+                <code>
+                    {!! nl2br(e($full_log)) !!}
+                </code>
             </div>
+            <!--
             <div class="card-footer text-muted">
                 <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                API Keys can be disabled by Workspace Admins.
+                Add Footer
             </div>
+            !-->
         </div>
     </div>
 @endsection
