@@ -9,7 +9,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
-use App\Models\Workspace;
 use App\Services\JenkinsService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -42,13 +41,8 @@ class GetJobLastBuildLog
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $this->app = AppInfo::find($request->validated('id'));
+        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        $userWorkspaceId = Auth::user()->workspace->id;
-        $appWorkspaceId = $this->app->workspace->id;
-
-        return $appWorkspaceId === $userWorkspaceId
-            && !Auth::user()->isNew()
-            && Auth::user()->can('view job log');
+        return !Auth::user()->isNew() && Auth::user()->can('view job log');
     }
 }
