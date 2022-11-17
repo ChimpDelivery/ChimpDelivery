@@ -13,11 +13,16 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'email' => 'user1@example.com',
             'name' => 'User1',
-        ])->syncRoles([ 'User' ]);
+        ])->syncRoles(['User']);
 
         User::factory()->create([
             'email' => 'user2@example.com',
-            'name' => 'User2'
-        ])->syncRoles([ 'User' ]);
+            'name' => 'User2',
+        ])->syncRoles(['User']);
+
+        User::factory()->create([
+            'email' => 'user3@example.com',
+            'name' => 'User3',
+        ])->syncRoles(['User']);
     }
 }

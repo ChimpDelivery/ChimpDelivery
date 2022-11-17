@@ -22,7 +22,7 @@ class StoreWorkspace
         $response = $this->StoreOrUpdate($request);
         $workspaceName = $response['response']->name;
 
-        $flashMessageDetail = $response['wasRecentlyCreated'] === true ? 'created.' : 'updated.';
+        $flashMessageDetail = ($response['wasRecentlyCreated'] === true) ? 'created.' : 'updated.';
         $flashMessage = "Workspace: <b>{$workspaceName}</b> {$flashMessageDetail}";
 
         return to_route('workspace_settings')->with('success', $flashMessage);
