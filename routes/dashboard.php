@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Actions\Dashboard\User\UpdateProfile;
-
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
@@ -17,6 +15,7 @@ use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 use App\Actions\Dashboard\CreateAppForm;
 use App\Actions\Dashboard\GetIndexForm;
+use App\Actions\Dashboard\User\UpdateUserProfile;
 use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
 use App\Actions\Dashboard\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
@@ -38,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::DEFAULT_WS_ID
     ]))->name('dashboard.profile');
 
-    Route::post('/dashboard/profile', UpdateProfile::class);
+    Route::post('/dashboard/profile', UpdateUserProfile::class);
 
     ////////////////////////////////
     //// workspace routes
