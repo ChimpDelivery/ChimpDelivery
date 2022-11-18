@@ -103,11 +103,11 @@
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked(!$isNew && $workspace->githubSetting->public_repo) />
-                            <label class="custom-control-label" for="public_repo">Collect Public Repository</label>
+                            <label class="custom-control-label" for="public_repo">Public Repository Access</label>
                         </div>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
-                            <label class="custom-control-label" for="private_repo">Collect Private Repository</label>
+                            <label class="custom-control-label" for="private_repo">Private Repository Access</label>
                             <span class="badge alert-warning badge-pill">Subscription Required</span>
                         </div>
                     </div>
