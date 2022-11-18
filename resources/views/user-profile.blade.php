@@ -43,7 +43,17 @@
             </div>
             <div class="card-footer text-muted">
                 <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                API Keys can be disabled by Workspace Admins.
+                @if(Auth::user()->isNew())
+                    You are not in any workspace.
+                    <span class="pull-right">
+                        User ID: {{ Auth::user()->id }}
+                    </span>
+                @else
+                    API Keys can be disabled by Workspace Admins.
+                    <span class="pull-right">
+                        User ID: {{ Auth::user()->id }}
+                    </span>
+                @endif
             </div>
         </div>
     </div>
