@@ -19,7 +19,15 @@ class GithubSettingSeeder extends Seeder
             'topic_name' => null,
         ]);
 
-        foreach (range(2, 5) as $id)
+        // internal workspace
+        GithubSetting::factory()->create([
+            'workspace_id' => 2,
+            'organization_name' => 'talusstudio',
+            'template_name' => 'Unity3D-Template',
+            'topic_name' => 'prototype',
+        ]);
+
+        foreach (range(3, 5) as $id)
         {
             GithubSetting::factory()->create([
                 'workspace_id' => $id,
