@@ -7,7 +7,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\AppInfo;
 use App\Models\Workspace;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
