@@ -11,6 +11,7 @@
                 <i class="fa fa-user fa-stack-1x" aria-hidden="true"></i>
             </span>
                 {{ Auth::user()->name }} Profile
+                <pre class="text-muted pull-right my-2">ID: {{ Auth::user()->id }}</pre>
             </div>
             <div class="card-body">
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
@@ -45,14 +46,8 @@
                 <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
                 @if(Auth::user()->isNew())
                     You are not in any workspace.
-                    <span class="pull-right">
-                        User ID: {{ Auth::user()->id }}
-                    </span>
                 @else
                     API Keys can be disabled by Workspace Admins.
-                    <span class="pull-right">
-                        User ID: {{ Auth::user()->id }}
-                    </span>
                 @endif
             </div>
         </div>
