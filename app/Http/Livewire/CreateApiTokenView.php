@@ -24,7 +24,7 @@ class CreateApiTokenView extends Component
                     <div class="col">
                         <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
                         <small class="form-text text-muted">
-                            Using by Unity3D projects to fetch app information when building. API Token Generating revokes all existing tokens of user.
+                            Workspace API Tokens are used by <span class="badge badge-secondary">Unity3D</span> projects to fetch app information when building. Be Careful! Generating new API Token revokes all existing tokens of user.
                         </small>
                     </div>
                     <div class="col">
