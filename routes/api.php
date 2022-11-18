@@ -38,7 +38,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('apps/get-app', GetAppInfo::class);
     Route::post('apps/create-app', StoreAppInfo::class);
     Route::post('apps/update-app', StoreAppInfo::class);
-    Route::post('apps/delete-app', DeleteAppInfo::class);
+
+    // Route::post('apps/delete-app', DeleteAppInfo::class);
 });
 
 /////////////////////////
