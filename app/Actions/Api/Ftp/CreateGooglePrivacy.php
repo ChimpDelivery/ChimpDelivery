@@ -36,7 +36,7 @@ class CreateGooglePrivacy
             ];
         }
 
-        $appInfo = AppInfo::find($request->validated('id'));
+        $appInfo = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
         $newFilePath = $appInfo->app_name . '/' . self::PrivacyFileName;
         $privacyLink = "{$this->privacyHolderUrl}/{$newFilePath}";
 
