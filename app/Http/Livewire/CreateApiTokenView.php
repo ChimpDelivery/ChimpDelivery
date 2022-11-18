@@ -19,7 +19,7 @@ class CreateApiTokenView extends Component
     {
         return <<<'HTML'
             <div class="form-group">
-                <label for="api_key">Workspace API Key</label>
+                <label for="api_key">Workspace API Token</label>
                 <div class="form-row">
                     <div class="col">
                         <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
@@ -28,7 +28,7 @@ class CreateApiTokenView extends Component
                         </small>
                     </div>
                     <div class="col">
-                        <button wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate Key</button>
+                        <button wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate Token</button>
                     </div>
                 </div>
             </div>
