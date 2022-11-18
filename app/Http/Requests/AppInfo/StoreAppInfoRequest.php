@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\AppInfo;
 
-use App\Http\Requests\Github\GetRepositoryRequest;
-
 use Illuminate\Validation\Rule;
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Github\GetRepositoryRequest;
 
 class StoreAppInfoRequest extends GetRepositoryRequest
 {
@@ -17,7 +15,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
      */
     public function authorize() : bool
     {
-        return Auth::check();
+        return true;
     }
 
     /**

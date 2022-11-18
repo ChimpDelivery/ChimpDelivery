@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\AppStoreConnect;
 
-use App\Rules\AlphaDashDot;
 use Illuminate\Foundation\Http\FormRequest;
 
-use Illuminate\Support\Facades\Auth;
+use App\Rules\AlphaDashDot;
 
 class StoreBundleRequest extends FormRequest
 {
@@ -16,7 +15,7 @@ class StoreBundleRequest extends FormRequest
      */
     public function authorize() : bool
     {
-        return Auth::check();
+        return true;
     }
 
     /**
