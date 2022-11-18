@@ -2,8 +2,9 @@
 
 namespace App\Actions\Dashboard\User;
 
-use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
+
+use Illuminate\Support\Facades\Auth;
 
 class CreateUserApiKey
 {
@@ -12,5 +13,10 @@ class CreateUserApiKey
     public function handle() : string
     {
         return Auth::user()->createApiToken();
+    }
+
+    public function authorize() : bool
+    {
+        return !Auth::user()->isNew() && Auth::user()->can('create api token');
     }
 }

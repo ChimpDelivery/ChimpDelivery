@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
             'build job',
             'abort job',
             'view job log',
+            'create api token',
         ];
         $workspaceUserRole->syncPermissions($workSpaceUserPermissions);
 
@@ -43,6 +44,7 @@ class RoleSeeder extends Seeder
             'build job',
             'abort job',
             'view job log',
+            'create api token',
         ];
         $workspaceAdminRole->syncPermissions($workspaceAdminPermissions);
 

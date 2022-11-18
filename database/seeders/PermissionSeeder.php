@@ -32,6 +32,8 @@ class PermissionSeeder extends Seeder
             'build job',
             'abort job',
             'view job log',
+
+            'create api token',
         ];
 
         foreach ($permissions as $permission) {
