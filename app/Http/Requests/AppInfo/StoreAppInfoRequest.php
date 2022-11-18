@@ -68,7 +68,8 @@ class StoreAppInfoRequest extends GetRepositoryRequest
 
             'fb_app_id' => [
                 'nullable',
-                'numeric',
+                'alpha_num',
+                'max:255',
             ],
 
             'fb_client_token' => [
@@ -99,7 +100,6 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.CompanyName.AppName)',
             'appstore_id.required' => 'appstore_id is required!',
-            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only numbers)'
         ];
     }
 }
