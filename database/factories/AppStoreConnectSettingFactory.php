@@ -15,9 +15,9 @@ class AppStoreConnectSettingFactory extends Factory
     {
         return [
             'workspace_id' => 1,
-            'private_key' => Str::random(10),
-            'issuer_id' => Str::random(10),
-            'kid' => Str::random(10),
+            'private_key' => null,
+            'issuer_id' => null,
+            'kid' => null,
         ];
     }
 }

@@ -15,10 +15,10 @@ class GithubSettingFactory extends Factory
     {
         return [
             'workspace_id' => 1,
-            'personal_access_token' => Str::random(10),
+            'personal_access_token' => null,
             'organization_name' => Str::random(10),
-            'template_name' => 'Unity3D-Template',
-            'topic_name' => 'prototype',
+            'template_name' => null,
+            'topic_name' => null,
         ];
     }
 }

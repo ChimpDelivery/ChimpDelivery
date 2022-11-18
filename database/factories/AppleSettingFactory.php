@@ -15,8 +15,6 @@ class AppleSettingFactory extends Factory
     {
         return [
             'workspace_id' => 1,
-            'usermail' => $this->faker->unique()->safeEmail(),
-            'app_specific_pass' => Str::random(10),
         ];
     }
 }

@@ -11,13 +11,18 @@ class WorkspaceSeeder extends Seeder
     public function run()
     {
         // seed default Workspace for new Users
-        Workspace::factory(1)->create([ 'name' => 'Default' ]);
+        Workspace::factory(1)->create([
+            'id' => 1,
+            'name' => 'Default'
+        ]);
+
+        // seed internal Workspace
+        Workspace::factory(1)->create([
+            'id' => 2,
+            'name' => 'TalusStudio'
+        ]);
 
         // seed demo Workspaces
-        Workspace::factory(2)->create();
-
-        Workspace::find(1)->createToken('api-key');
-        Workspace::find(2)->createToken('api-key');
-        Workspace::find(3)->createToken('api-key');
+        Workspace::factory(3)->create();
     }
 }

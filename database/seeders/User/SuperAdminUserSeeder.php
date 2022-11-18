@@ -12,7 +12,7 @@ class SuperAdminUserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@example.com',
+            'email' => 'superadmin@talusstudio.com',
         ])->syncRoles([ 'Admin_Super' ]);
     }
 }

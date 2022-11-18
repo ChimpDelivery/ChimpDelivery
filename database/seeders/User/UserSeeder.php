@@ -10,19 +10,12 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->create([
-            'email' => 'user1@example.com',
-            'name' => 'User1',
-        ])->syncRoles(['User']);
-
-        User::factory()->create([
-            'email' => 'user2@example.com',
-            'name' => 'User2',
-        ])->syncRoles(['User']);
-
-        User::factory()->create([
-            'email' => 'user3@example.com',
-            'name' => 'User3',
-        ])->syncRoles(['User']);
+        foreach (range(1, 3) as $id)
+        {
+            User::factory()->create([
+                'email' => "user{$id}@talusstudio.com",
+                'name' => "User{$id}",
+            ])->syncRoles(['User']);
+        }
     }
 }

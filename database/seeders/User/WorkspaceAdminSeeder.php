@@ -12,8 +12,14 @@ class WorkspaceAdminSeeder extends Seeder
     {
         User::factory()->create([
             'workspace_id' => 2,
-            'name' => 'Workspace Admin',
-            'email' => 'workspaceadmin@example.com',
-        ])->syncRoles([ 'Admin_Workspace' ]);
+            'name' => 'Talus CI',
+            'email' => 'talusci@talusstudio.com',
+        ])->syncRoles(['Admin_Workspace']);
+
+        User::factory()->create([
+            'workspace_id' => 3,
+            'name' => 'Example Admin',
+            'email' => 'exampleadmin@talusstudio.com',
+        ])->syncRoles(['Admin_Workspace']);
     }
 }

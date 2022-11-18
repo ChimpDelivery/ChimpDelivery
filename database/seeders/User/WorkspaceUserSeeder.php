@@ -11,9 +11,9 @@ class WorkspaceUserSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
-            'workspace_id' => 2,
-            'name' => 'Workspace User',
-            'email' => 'workspaceuser@example.com',
-        ])->syncRoles([ 'User_Workspace' ]);
+            'workspace_id' => 3,
+            'name' => 'Example User',
+            'email' => 'exampleuser@talusstudio.com',
+        ])->syncRoles(['User_Workspace']);
     }
 }

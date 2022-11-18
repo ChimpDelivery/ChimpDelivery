@@ -19,12 +19,11 @@ class GithubSettingSeeder extends Seeder
             'topic_name' => null,
         ]);
 
-        GithubSetting::factory()->create([
-            'workspace_id' => 2,
-        ]);
-
-        GithubSetting::factory()->create([
-            'workspace_id' => 3,
-        ]);
+        foreach (range(2, 5) as $id)
+        {
+            GithubSetting::factory()->create([
+                'workspace_id' => $id,
+            ]);
+        }
     }
 }

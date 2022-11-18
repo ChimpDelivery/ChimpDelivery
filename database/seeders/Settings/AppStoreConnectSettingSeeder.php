@@ -10,20 +10,11 @@ class AppStoreConnectSettingSeeder extends Seeder
 {
     public function run()
     {
-        // related to default workspace
-        AppStoreConnectSetting::factory()->create([
-            'workspace_id' => 1,
-            'private_key' => null,
-            'issuer_id' => null,
-            'kid' => null,
-        ]);
-
-        AppStoreConnectSetting::factory()->create([
-            'workspace_id' => 2,
-        ]);
-
-        AppStoreConnectSetting::factory()->create([
-            'workspace_id' => 3,
-        ]);
+        foreach (range(1, 5) as $id)
+        {
+            AppStoreConnectSetting::factory()->create([
+                'workspace_id' => $id,
+            ]);
+        }
     }
 }
