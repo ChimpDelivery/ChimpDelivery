@@ -76,26 +76,26 @@
                 </p>
                 <div class="collapse" id="collapse_keys">
                     <div class="form-group row">
-                        <label for="fb_app_id" class="col-md-2 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB App ID</label>
-                        <div class="col-md-10">
+                        <label for="fb_app_id" class="col-md-3 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB App ID</label>
+                        <div class="col-md-9">
                             <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="fb_client_token" class="col-md-2 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB Client Token</label>
-                        <div class="col-md-10">
+                        <label for="fb_client_token" class="col-md-3 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB Client Token</label>
+                        <div class="col-md-9">
                             <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ga_id" class="col-md-2 col-form-label">GA ID</label>
-                        <div class="col-md-10">
+                        <label for="ga_id" class="col-md-3 col-form-label">GA ID</label>
+                        <div class="col-md-9">
                             <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ga_secret" class="col-md-2 col-form-label">GA Secret</label>
-                        <div class="col-md-10">
+                        <label for="ga_secret" class="col-md-3 col-form-label">GA Secret</label>
+                        <div class="col-md-9">
                             <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
                         </div>
                     </div>
