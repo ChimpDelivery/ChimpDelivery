@@ -102,7 +102,7 @@
                     <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i>
                     {{ $title }}
                 </button>
-                @includeWhen((isset($appInfo) && Auth::user()->workspace->name === 'talusstudio'), 'layouts.appinfo.create-privacy')
+                @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
             </form>
         </div>
         <div class="card-footer text-muted">

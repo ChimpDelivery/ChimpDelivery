@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppInfo;
+use App\Models\Workspace;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -58,6 +59,6 @@ class CreateGooglePrivacy
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        return Auth::user()->workspace->name === 'talusstudio';
+        return Auth::user()->workspace->id === Workspace::INTERNAL_WS_ID;
     }
 }
