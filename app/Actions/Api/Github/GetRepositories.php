@@ -73,17 +73,17 @@ class GetRepositories
             return 'none';
         }
 
-        $type = 'public';
         if ($includePublicRepos && $includePrivateRepos)
         {
-            $type = 'all';
-        }
-        else if ($includePrivateRepos)
-        {
-            $type = 'private';
+            return 'all';
         }
 
-        return $type;
+        if ($includePrivateRepos)
+        {
+            return 'private';
+        }
+
+        return 'public';
     }
 
     public function authorize() : bool
