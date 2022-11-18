@@ -66,11 +66,7 @@
                         <label for="project_name"><i class="fa fa-github" aria-hidden="true"></i> Git Project</label>
                         <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
                     @endif
-                    @if(isset($github_auth_failed) && $github_auth_failed)
-                        <a class="badge badge-danger text-wrap">
-                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERROR: Github API Auth failed!
-                        </a>
-                    @endif
+                    @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'layouts.github.auth-failed')
                 </div>
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
