@@ -61,18 +61,19 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03.30')
-            ->withoutOverlapping();
+            ->emailOutputOnFailure(config('mail.from.address'));
 
         $schedule->command('model:prune', ['--model' => [ HealthCheckResultHistoryItem::class ]])
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03:45')
-            ->withoutOverlapping();
+            ->emailOutputOnFailure(config('mail.from.address'));
 
         $schedule->command('telescope:prune')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('04.00');
+            ->at('04.00')
+            ->emailOutputOnFailure(config('mail.from.address'));
     }
 
     /**
