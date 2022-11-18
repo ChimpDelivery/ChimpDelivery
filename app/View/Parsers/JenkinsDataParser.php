@@ -55,7 +55,7 @@ class JenkinsDataParser
 
     private function GetLogLink()
     {
-        return "<a class='pull-right text-dark' data-toggle='tooltip' data-placement='top' title='Build Log' href=/dashboard/build-log?id={$this->app->id}><i class='fa fa-external-link' aria-hidden='true'></i></a>";
+        return "<a class='pull-right text-secondary' data-toggle='tooltip' data-placement='top' title='Build Log' href=/dashboard/build-log?id={$this->app->id}><i class='fa fa-external-link' aria-hidden='true'></i></a>";
     }
 
     private function GetJobPlatform()
