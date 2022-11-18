@@ -28,7 +28,7 @@ class CreateApiTokenView extends Component
                         </small>
                     </div>
                     <div class="col">
-                        <button wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate Token</button>
+                        <button onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate Token</button>
                     </div>
                 </div>
             </div>
