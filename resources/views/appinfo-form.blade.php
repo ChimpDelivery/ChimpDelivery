@@ -33,7 +33,7 @@
                 <div class="form-group">
                     @if (!isset($appInfo))
                         <select name="app_name" id="app_name"
-                            class="form-control selectpicker show-tick shadow"
+                            class="form-control selectpicker show-tick shadow border border-dark"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="• Select App ({{ count($all_appstore_apps) }})" required>
 
@@ -56,7 +56,7 @@
                     @if (!isset($appInfo))
                         @php ($githubTitle = isset($appInfo) ? $appInfo->project_name : '• Select GitHub Project (' . count($github_projects) . ')')
                         <select name="project_name"
-                            class="form-control selectpicker show-tick shadow"
+                            class="form-control selectpicker show-tick shadow border border-dark"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
@@ -72,22 +72,37 @@
                         </a>
                     @endif
                 </div>
-
-                <div class="form-group">
-                    <label for="fb_app_id"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook App ID</label>
-                    <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
-                </div>
-                <div class="form-group">
-                    <label for="fb_client_token"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Client Token</label>
-                    <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
-                </div>
-                <div class="form-group">
-                    <label for="ga_id">GA ID</label>
-                    <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
-                </div>
-                <div class="form-group">
-                    <label for="ga_secret">GA Secret</label>
-                    <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
+                <p>
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                        <b>SDK Keys</b>
+                    </a>
+                </p>
+                <div class="collapse" id="collapse_keys">
+                    <div class="form-group row">
+                        <label for="fb_app_id" class="col-md-2 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB App ID</label>
+                        <div class="col-md-10">
+                            <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fb_client_token" class="col-md-2 col-form-label"><i class="fa fa-facebook-square" aria-hidden="true"></i> FB Client Token</label>
+                        <div class="col-md-10">
+                            <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ga_id" class="col-md-2 col-form-label">GA ID</label>
+                        <div class="col-md-10">
+                            <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ga_secret" class="col-md-2 col-form-label">GA Secret</label>
+                        <div class="col-md-10">
+                            <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
+                        </div>
+                    </div>
                 </div>
                 <br/>
                 @can('delete app')
