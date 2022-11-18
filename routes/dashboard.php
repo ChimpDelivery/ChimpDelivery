@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('index');
 
     Route::get('/dashboard/profile', fn() => view('user-profile')->with([
-        'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::$DEFAULT_WS_ID
+        'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::DEFAULT_WS_ID
     ]))->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateProfile::class);
@@ -108,7 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     ///////////////////////////
-    /// ftp related
+    /// talus specific
     //////////////////////////
     Route::post('/dashboard/create-privacy', CreateGooglePrivacy::class)
         ->name('create_privacy')

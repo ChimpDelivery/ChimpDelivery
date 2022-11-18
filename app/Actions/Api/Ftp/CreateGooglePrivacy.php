@@ -4,12 +4,14 @@ namespace App\Actions\Api\Ftp;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppInfo;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
+/// talus specific action
 class CreateGooglePrivacy
 {
     use AsAction;
@@ -52,5 +54,10 @@ class CreateGooglePrivacy
             'success' => $uploadedFile,
             'message' => "Privacy created! <b>Link:</b> <a href='".$privacyLink."'>$privacyLink</a>",
         ];
+    }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        return Auth::user()->workspace->name === 'talusstudio';
     }
 }

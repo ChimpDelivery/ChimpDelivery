@@ -15,7 +15,7 @@ class Workspace extends Model
     use HasApiTokens;
 
     // new users associated with that workspace
-    public static int $DEFAULT_WS_ID = 1;
+    public const DEFAULT_WS_ID = 1;
 
     protected $fillable = [
         'name',
