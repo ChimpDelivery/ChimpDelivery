@@ -28,7 +28,7 @@ class JenkinsDataParser
     public function GetButtonData()
     {
         // prepare button header(title)
-        $buttonTitle = "<a href=/dashboard/build-log?id={$this->app->id}>{$this->GetStage()}</a>";
+        $buttonTitle = $this->GetStage();
 
         // there is no build
         if ($this->jenkinsData == null)
@@ -40,6 +40,7 @@ class JenkinsDataParser
         }
 
         $buttonTitle .= $this->GetJobPlatform();
+        $buttonTitle .= $this->GetLogLink();
 
         // prepare button body
         $buttonData = $this->GetStageDetail();
@@ -50,6 +51,11 @@ class JenkinsDataParser
             'header' => $buttonTitle,
             'body' => $buttonData
         ];
+    }
+
+    private function GetLogLink()
+    {
+        return "<a class='pull-right text-dark' data-toggle='tooltip' data-placement='top' title='Build Log' href=/dashboard/build-log?id={$this->app->id}><i class='fa fa-external-link' aria-hidden='true'></i></a>";
     }
 
     private function GetJobPlatform()
