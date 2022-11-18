@@ -11,7 +11,8 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            
+            @honeypot
+
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Full Name')" />
