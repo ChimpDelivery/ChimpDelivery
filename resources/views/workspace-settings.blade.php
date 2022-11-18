@@ -100,27 +100,41 @@
                             The name of the GitHub Organization that contains the projects to build.
                         </small>
                     </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked(!$isNew && $workspace->githubSetting->public_repo) />
-                            <label class="custom-control-label" for="public_repo">Public Repository Access</label>
+                    <div class="card my-2">
+                        <div class="card-header alert-primary font-weight-bold">
+                            <i class="fa fa-cubes" aria-hidden="true"></i> Repository Types
                         </div>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
-                            <label class="custom-control-label" for="private_repo">Private Repository Access</label>
-                            <span class="badge alert-warning badge-pill">Subscription Required</span>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked(!$isNew && $workspace->githubSetting->public_repo) />
+                                    <label class="custom-control-label" for="public_repo">Public Repository</label>
+                                </div>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
+                                    <label class="custom-control-label" for="private_repo">Private Repository</label>
+                                    <span class="badge alert-warning badge-pill">Subscription Required</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="template_name">Template Project</label>
-                        <input type="text" id="template_name" name="template_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="topic_name">Project Topic</label>
-                        <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
-                        <small class="form-text text-muted">
-                            GitHub Repository topic name to filter GitHub Projects in organization.
-                        </small>
+                    <div class="card my-2">
+                        <div class="card-header alert-primary font-weight-bold">
+                            <i class="fa fa-filter" aria-hidden="true"></i> Repository Filters
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="template_name">Template Project</label>
+                                <input type="text" id="template_name" name="template_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="topic_name">Project Topic</label>
+                                <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
+                                <small class="form-text text-muted">
+                                    GitHub Repository topic name to filter GitHub Projects in organization.
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br/>
