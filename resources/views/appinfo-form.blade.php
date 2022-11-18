@@ -16,7 +16,7 @@
             {{ $title }}
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ url('dashboard/store-app-info') }}" enctype="multipart/form-data">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction }}" enctype="multipart/form-data">
                 @csrf
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -108,7 +108,7 @@
                         </button>
                     @endisset
                 @endcan
-                <button type="submit" class="btn btn-success font-weight-bold shadow" formaction="{{ $formAction }}">
+                <button type="submit" class="btn btn-success font-weight-bold shadow">
                     <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i>
                     {{ $title }}
                 </button>
