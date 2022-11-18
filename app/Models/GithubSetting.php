@@ -23,6 +23,8 @@ class GithubSetting extends Model
 
     protected $hidden = [
         'personal_access_token',
+        'public_repo',
+        'private_repo',
         'created_at',
         'updated_at',
         'deleted_at',
