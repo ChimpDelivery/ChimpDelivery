@@ -29,7 +29,6 @@
                         <input type="text" class="form-control shadow-sm" id="name" name="name" aria-describedby="basic-addon3" value="{{ ($isNew) ? '' : $workspace->name }}" required="">
                     </div>
                 </div>
-
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_app_store_connect_settings" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
@@ -58,7 +57,6 @@
                         <input type="text" id="issuer_id" name="issuer_id" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
                     </div>
                 </div>
-
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
@@ -78,7 +76,6 @@
                         <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appleSetting->app_specific_pass }}">
                     </div>
                 </div>
-
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
                         <i class="fa fa-github" aria-hidden="true"></i>
@@ -99,6 +96,16 @@
                         <small class="form-text text-muted">
                             The name of the GitHub Organization that contains the projects to build.
                         </small>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked(!$isNew && $workspace->githubSetting->public_repo) />
+                            <label class="custom-control-label" for="public_repo">Collect Public Repository</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
+                            <label class="custom-control-label" for="private_repo">Collect Private Repository</label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="template_name">Template Project</label>

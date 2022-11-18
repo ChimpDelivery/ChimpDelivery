@@ -19,6 +19,8 @@ class GithubSettingFactory extends Factory
             'organization_name' => Str::random(10),
             'template_name' => null,
             'topic_name' => null,
+            'public_repo' => true,
+            'private_repo' => false,
         ];
     }
 }

@@ -17,6 +17,8 @@ class GithubSettingSeeder extends Seeder
             'organization_name' => 'default-organization',
             'template_name' => null,
             'topic_name' => null,
+            'public_repo' => false,
+            'private_repo' => false,
         ]);
 
         // internal workspace
@@ -25,12 +27,16 @@ class GithubSettingSeeder extends Seeder
             'organization_name' => 'talusstudio',
             'template_name' => 'Unity3D-Template',
             'topic_name' => 'prototype',
+            'public_repo' => false,
+            'private_repo' => true,
         ]);
 
         foreach (range(3, 5) as $id)
         {
             GithubSetting::factory()->create([
                 'workspace_id' => $id,
+                'public_repo' => true,
+                'private_repo' => true,
             ]);
         }
     }

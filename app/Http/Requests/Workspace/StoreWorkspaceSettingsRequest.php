@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreWorkspaceSettingsRequest extends FormRequest
 {
+    protected function prepareForValidation()
+    {
+        $this->merge(['public_repo' => $this->has('public_repo')]);
+        $this->merge(['private_repo' => $this->has('private_repo')]);
+    }
+
     public function authorize()
     {
         return true;
@@ -30,35 +36,11 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                     ->whereNull('deleted_at'),
             ],
 
-            'private_key' => [
-                'nullable',
-                'mimetypes:text/plain',
-                'max:1'
-            ],
-
-            'issuer_id' => [
-                'nullable',
-                'alpha_dash',
-                'max:255',
-            ],
-
-            'kid' => [
-                'nullable',
-                'alpha_dash',
-                'max:255',
-            ],
-
-            'usermail' => [
-                'nullable',
-                'email',
-                'max:255',
-            ],
-
-            'app_specific_pass' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
+            'private_key' => [ 'nullable', 'mimetypes:text/plain', 'max:1', ],
+            'issuer_id' => [ 'nullable', 'alpha_dash', 'max:255', ],
+            'kid' => [ 'nullable', 'alpha_dash', 'max:255', ],
+            'usermail' => [ 'nullable', 'email', 'max:255', ],
+            'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
 
             'organization_name' => [
                 'required',
@@ -69,23 +51,11 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                     ->whereNull('deleted_at')
             ],
 
-            'personal_access_token' => [
-                'nullable',
-                'alpha_dash',
-                'max:255',
-            ],
-
-            'template_name' => [
-                'nullable',
-                new AlphaDashDot(),
-                'max:255',
-            ],
-
-            'topic_name' => [
-                'nullable',
-                new AlphaDashDot(),
-                'max:255',
-            ],
+            'personal_access_token' => [ 'nullable', 'alpha_dash', 'max:255', ],
+            'template_name' => [ 'nullable', new AlphaDashDot(), 'max:255', ],
+            'topic_name' => [ 'nullable', new AlphaDashDot(), 'max:255', ],
+            'public_repo' => [ 'required', 'boolean', ],
+            'private_repo' => [ 'required', 'boolean', ]
         ];
     }
 

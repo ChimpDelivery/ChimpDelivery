@@ -60,6 +60,8 @@ class ChangeWorkspaceSettings
             'personal_access_token',
             'template_name',
             'topic_name',
+            'public_repo',
+            'private_repo',
         ]));
     }
 }

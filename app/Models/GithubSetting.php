@@ -17,6 +17,8 @@ class GithubSetting extends Model
         'organization_name',
         'template_name',
         'topic_name',
+        'public_repo',
+        'private_repo',
     ];
 
     protected $hidden = [
@@ -27,7 +29,9 @@ class GithubSetting extends Model
     ];
 
     protected $casts = [
-        'personal_access_token' => 'encrypted'
+        'personal_access_token' => 'encrypted',
+        'public_repo' => 'boolean',
+        'private_repo' => 'boolean',
     ];
 
     public function workspace()

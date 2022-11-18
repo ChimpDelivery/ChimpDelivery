@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('organization_name')->unique();
             $table->string('template_name')->nullable();
             $table->string('topic_name')->nullable();
+            $table->boolean('public_repo')->default(true);
+            $table->boolean('private_repo')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
