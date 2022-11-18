@@ -69,7 +69,6 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'fb_app_id' => [
                 'nullable',
                 'numeric',
-                'max:255',
             ],
 
             'fb_client_token' => [
