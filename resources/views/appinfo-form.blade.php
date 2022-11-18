@@ -40,16 +40,16 @@
                             @each('layouts.appstore.app', $all_appstore_apps, 'appstore_app')
                         </select>
                     @else
-                        <label for="app_name"><i class="fa fa-apple" aria-hidden="true"></i> App Store Name</label>
+                        <label for="app_name"><i class="fa fa-apple" aria-hidden="true"></i> AppStore Name</label>
                         <input type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" class="form-control shadow-sm" required="" readonly>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="appstore_id"><i class="fa fa-apple" aria-hidden="true"></i> Appstore ID</label>
+                    <label for="appstore_id"><i class="fa fa-apple" aria-hidden="true"></i> AppStore ID</label>
                     <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> App Bundle</label>
+                    <label for="app_bundle"><i class="fa fa-apple" aria-hidden="true"></i> AppStore Bundle ID</label>
                     <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
@@ -110,7 +110,7 @@
             @if (!isset($appInfo))
                 If you don't see the app in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
             @else
-                Privacy2 file is required by Google Play Console.
+                AppStore and GitHub related settings can not be changed.
             @endif
         </div>
     </div>
