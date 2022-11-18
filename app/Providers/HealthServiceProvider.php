@@ -18,6 +18,7 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 use Encodia\Health\Checks\EnvVars;
 
@@ -64,7 +65,8 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_WEBHOOK_URL',
                 'DISCORD_BOT_NAME',
             ]),
-            OptimizedAppCheck::new()->checkConfig()->checkRoutes()
+            OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
+            SecurityAdvisoriesCheck::new(),
         ]);
     }
 
