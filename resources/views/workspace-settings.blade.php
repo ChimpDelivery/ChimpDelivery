@@ -13,6 +13,9 @@
                 <i class="fa fa-users fa-stack-1x" aria-hidden="true"></i>
             </span>
             {{ $title }}
+            @if(!$isNew)
+                <pre class="text-muted pull-right my-2">ID: {{ $workspace->id }}</pre>
+            @endif
         </div>
         <div class="card-body">
             <form name="create-workspace-form" id="create-workspace-form" method="post" action="{{ url('dashboard/workspace-settings') }}" enctype="multipart/form-data">
