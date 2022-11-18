@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-use App\Actions\Workspace\CreateUserApiKey;
+use App\Actions\Dashboard\User\CreateUserApiKey;
 
 class CreateApiTokenView extends Component
 {

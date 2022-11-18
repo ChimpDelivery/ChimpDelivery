@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Actions\Workspace;
-
-use Lorisleiva\Actions\Concerns\AsAction;
+namespace App\Actions\Dashboard\User;
 
 use Illuminate\Support\Facades\Auth;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class CreateUserApiKey
 {
