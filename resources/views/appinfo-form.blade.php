@@ -104,7 +104,7 @@
                 @can('delete app')
                     @isset($appInfo)
                         <button class="btn btn-danger float-right font-weight-bold shadow" type="submit" onclick="return confirm('The app will be deleted, are you sure?')" formaction="{{ route('delete_app_info', ['id' => $appInfo->id ]) }}" formmethod="post">
-                            <i class="fa fa-trash fa-lg"></i>
+                            <i class="fa fa-trash-o fa-lg"></i>
                         </button>
                     @endisset
                 @endcan
