@@ -6,8 +6,9 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Services\GitHubService;
 
@@ -54,5 +55,10 @@ class GetRepositories
         }
 
         return response()->json([ 'response' => $response ], Response::HTTP_OK);
+    }
+
+    public function authorize() : bool
+    {
+        return !Auth::user()->isNew();
     }
 }
