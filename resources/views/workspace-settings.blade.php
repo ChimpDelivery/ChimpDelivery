@@ -105,6 +105,7 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
                             <label class="custom-control-label" for="private_repo">Collect Private Repository</label>
+                            <span class="badge alert-warning badge-pill">Subscription Required</span>
                         </div>
                     </div>
                     <div class="form-group">
