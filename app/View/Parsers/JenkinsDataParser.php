@@ -28,7 +28,7 @@ class JenkinsDataParser
     public function GetButtonData()
     {
         // prepare button header(title)
-        $buttonTitle = $this->GetStage();
+        $buttonTitle = "<a href=/dashboard/build-log?id={$this->app->id}>{$this->GetStage()}</a>";
 
         // there is no build
         if ($this->jenkinsData == null)
@@ -92,7 +92,7 @@ class JenkinsDataParser
         return "<span class='badge bg-warning text-white'>
                     <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
                 </span>
-                <a href=/dashboard/build-log?id={$this->app->id}>{$detail}</a>
+                {$detail}
                 <hr class='my-2'>";
     }
 
