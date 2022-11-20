@@ -29,8 +29,7 @@ jobs:
         run: npm run production
         
       - name: Deploy
-        uses: deployphp/action@v1
+        uses: deployphp/action@v2
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy
-          test-key: ${{ secrets.TEST_KEY }}
