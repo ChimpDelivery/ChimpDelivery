@@ -8,8 +8,8 @@ config:
 
 hosts:
   staging:
-    remote_user: ubuntu
     hostname: '52.30.195.144'
+    remote_user: ubuntu
     deploy_path: '/var/www/html/{{application}}'
     branch: dev
 
