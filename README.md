@@ -27,8 +27,9 @@ POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={b
 ```
 GET    |   api/jenkins/get-job?id={id}
 GET    |   api/jenkins/get-job-list
-GET    |   api/jenkins/get-build-list?id={id}
-GET    |   api/jenkins/get-latest-build-info?id={id}
+GET    |   api/jenkins/get-job-builds?id={id}
+GET    |   api/jenkins/get-job-lastbuild?id={id}
+GET    |   api/jenkins/get-job-lastbuild-log?id={id}
 POST   |   api/jenkins/abort-job?id={id}&build_number={buildNumber}
 POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={storeVersion}
 ```
