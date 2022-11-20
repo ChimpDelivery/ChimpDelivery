@@ -3,12 +3,6 @@ name: deploy
 on:
   push:
     branches: [dev]
-  workflow_dispatch:
-    inputs:
-      deploy_env:
-          description: 'Deploy Environment'
-          required: true
-          default: 'stag'
 
 concurrency: production_environment
 
