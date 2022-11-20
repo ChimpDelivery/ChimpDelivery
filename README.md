@@ -5,7 +5,7 @@
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
 # 🌩️ Deployment
-vendor/bin/dep deploy
+- vendor/bin/dep deploy
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
