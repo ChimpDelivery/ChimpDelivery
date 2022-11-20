@@ -7,13 +7,16 @@ require 'recipe/laravel.php';
 
 // Config
 
+set('application', 'TalusWebBackend');
+
 set('repository', 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend');
 
 add('shared_files', []);
 add('shared_dirs', []);
-add('writable_dirs', ['/var/www/html']);
+add('writable_dirs', []);
 
 // Hosts
+
 
 host('52.30.195.144')
     ->setRemoteUser('ubuntu')
