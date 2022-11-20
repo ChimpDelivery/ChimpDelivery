@@ -29,7 +29,7 @@ GET    |   api/jenkins/get-job?id={id}
 GET    |   api/jenkins/get-job-list
 GET    |   api/jenkins/get-build-list?id={id}
 GET    |   api/jenkins/get-latest-build-info?id={id}
-POST   |   api/jenkins/stop-job?id={id}&build_number={buildNumber}
+POST   |   api/jenkins/abort-job?id={id}&build_number={buildNumber}
 POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={storeVersion}
 ```
 
