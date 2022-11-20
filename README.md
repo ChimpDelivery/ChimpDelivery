@@ -1,6 +1,6 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
 [![deploy-staging](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml/badge.svg?branch=dev)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml)
-- Provides Web Dashboard and Backend APIs to work with ***CI/CD Pipeline***.
+- Provides Web Dashboard and Backend APIs to work with ***Unity3D CI/CD Pipeline***.
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
