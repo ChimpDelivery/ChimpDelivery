@@ -17,10 +17,11 @@ add('writable_dirs', []);
 
 // Hosts
 
-
+// staging server
 host('52.30.195.144')
     ->setRemoteUser('ubuntu')
     ->setDeployPath('/var/www/html/TalusWebBackend')
-    ->setIdentityFile('~/.ssh/DashboardSSH.pem');
+    ->setIdentityFile('~/.ssh/DashboardSSH.pem')
+    ->set('branch', 'dev');
 
 after('deploy:failed', 'deploy:unlock');
