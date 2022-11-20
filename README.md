@@ -4,6 +4,9 @@
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
+# 🌩️ Deployment
+vendor/bin/dep deploy
+
 # 🔑 Apps API
 - Optional parameters marked with `?`
 
