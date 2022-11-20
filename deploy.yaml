@@ -1,0 +1,19 @@
+import:
+  - recipe/laravel.php
+
+config:
+  repository: 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend'
+  identity_file: '~/.ssh/DashboardSSH.pem'
+  keep_releases: 3
+
+hosts:
+  52.30.195.144:
+    remote_user: ubuntu
+    deploy_path: '/var/www/html/TalusWebBackend'
+
+tasks:
+  build:
+    - run: uptime
+
+after:
+  deploy:failed: deploy:unlock
