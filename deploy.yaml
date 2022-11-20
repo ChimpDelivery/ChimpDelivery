@@ -24,5 +24,4 @@ before:
   deploy: discord:notify
 
 after:
-  deploy:success: discord:notify:success
   deploy:failed: deploy:unlock
