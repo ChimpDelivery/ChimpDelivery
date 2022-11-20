@@ -21,5 +21,6 @@ jobs:
       - name: Deploy
         uses: deployphp/action@v1
         with:
+          node-version: 16.x
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy
