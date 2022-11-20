@@ -79,6 +79,7 @@ return [
         'web',
         'auth',
         'verified',
+        Authorize::class,
     ],
 
     /*
