@@ -1,13 +1,10 @@
 import:
   - recipe/laravel.php
-  - contrib/discord.php
 
 config:
   application: 'TalusWebBackend'
   repository: 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend'
   keep_releases: 3
-  discord_channel: '985202970624938014'
-  discord_token: 'xWonHj5kVUs-mB6UCM8Uarrq-GRM-WHDCflZ1rOm6el8SoKwla_GVdbeQuMVELlPsYxV'
 
 hosts:
   staging:
@@ -19,9 +16,6 @@ hosts:
 tasks:
   build:
     - run: uptime
-
-before:
-  deploy: discord:notify
 
 after:
   deploy:failed: deploy:unlock
