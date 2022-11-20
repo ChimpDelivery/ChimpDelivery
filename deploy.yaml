@@ -1,21 +1,28 @@
 import:
   - recipe/laravel.php
+  - contrib/discord.php
 
 config:
   application: 'TalusWebBackend'
   repository: 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend'
-  identity_file: '~/.ssh/DashboardSSH.pem'
   keep_releases: 3
+  discord_channel: '985202970624938014'
+  discord_token: 'xWonHj5kVUs-mB6UCM8Uarrq-GRM-WHDCflZ1rOm6el8SoKwla_GVdbeQuMVELlPsYxV'
 
 hosts:
   staging:
     remote_user: ubuntu
     hostname: '52.30.195.144'
     deploy_path: '/var/www/html/{{application}}'
+    branch: dev
 
 tasks:
   build:
     - run: uptime
 
+before:
+  deploy: discord:notify
+
 after:
+  deploy:success: discord:notify:success
   deploy:failed: deploy:unlock
