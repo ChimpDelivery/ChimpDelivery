@@ -33,3 +33,4 @@ jobs:
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy
+          test-key: ${{ secrets.TEST_KEY }}
