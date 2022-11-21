@@ -4,6 +4,6 @@
             formaction="{{ route('create_privacy', ['id' => $appInfo->id]) }}"
             formmethod="post">
         <i class="fa fa-user-secret"></i>
-        Create Privacy
+        Privacy2
     </button>
 @endif
