@@ -37,4 +37,4 @@ jobs:
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy
+          dep: deploy -vvv
