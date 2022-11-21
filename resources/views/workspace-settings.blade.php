@@ -140,7 +140,7 @@
                 <br/>
                 <button type="submit" class="btn btn-success font-weight-bold shadow" @if(!$isNew) onclick="return confirm('Workspace settings will be updated, are you sure?')" @endif>
                     <i class="fa {{ ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o' }}"></i>
-                    {{ ($isNew) ? 'Create Workspace' : 'Update Workspace' }}
+                    {{ ($isNew) ? 'Create Workspace' : 'Update' }}
                 </button>
                 @can('scan jobs')
                     <a href="{{ route('scan-workspace-jobs') }}" type="button" class="btn btn-secondary font-weight-bold shadow pull-right">
