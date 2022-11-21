@@ -1,10 +1,13 @@
 import:
   - recipe/laravel.php
+  - contrib/php-fpm.php
+  - contrib/npm.php
 
 config:
   application: 'TalusWebBackend'
   repository: 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend'
   keep_releases: 3
+  php_fpm_version: 8.1
 
 hosts:
   staging:
@@ -14,8 +17,19 @@ hosts:
     branch: dev
 
 tasks:
-  build:
-    - run: uptime
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - artisan:storage:link
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:migrate
+    - npm:install
+    - npm:run:prod
+    - deploy:publish
+    - php-fpm:reload
+  npm:run:prod:
+    - run: 'cd {{release_or_current_path}} && npm run prod'
 
 after:
   deploy:failed: deploy:unlock
