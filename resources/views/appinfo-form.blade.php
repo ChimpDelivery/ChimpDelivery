@@ -1,9 +1,9 @@
-@php ($title = isset($appInfo) ? 'Update App' : 'Create App')
+@php ($title = isset($appInfo) ? 'Update' : 'Create')
 @php ($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('store_app_info'))
 
 @extends('master')
 
-@section('title', 'Create App')
+@section('title', $title . " App")
 
 @section('content')
 <div class="container py-2">
@@ -13,7 +13,7 @@
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-database fa-stack-1x" aria-hidden="true"></i>
             </span>
-            {{ $title }}
+            {{ $title }} App
         </div>
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction }}" enctype="multipart/form-data">
