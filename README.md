@@ -6,7 +6,7 @@
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
 # Information
-- Deployment configurations: ```deploy.yml```
+- Deployment configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
