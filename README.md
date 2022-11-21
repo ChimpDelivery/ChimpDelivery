@@ -35,6 +35,7 @@ GET    |   api/jenkins/get-job-lastbuild?id={id}
 GET    |   api/jenkins/get-job-lastbuild-log?id={id}
 POST   |   api/jenkins/abort-job?id={id}&build_number={buildNumber}
 POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={storeVersion}
+POST   |   api/jenkins/scan-organization
 ```
 
 # 🔑 GitHub API
