@@ -10,8 +10,6 @@ config:
   ssh_multiplexing: true
   forward_agent: true
   git_tty: true
-  shared_files:
-    - .env
   http_user: false
   use_relative_symlink: false
 
@@ -35,7 +33,11 @@ tasks:
     - artisan:optimize
     - artisan:migrate
     - php-fpm:reload
+    - server:permission
     - deploy:publish
+  server:permission:
+      - cd: "{{release_path}}"
+      - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
 
 after:
   deploy:failed: deploy:unlock
