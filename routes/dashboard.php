@@ -91,7 +91,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/abort-job', AbortJob::class)
         ->middleware('permission:abort job');
 
-    Route::get('/dashboard/workspace/scan-jobs', ScanOrganization::class)
+    Route::post('/dashboard/workspace/scan-jobs', ScanOrganization::class)
         ->middleware('permission:scan jobs')
         ->name('scan-workspace-jobs');
 
