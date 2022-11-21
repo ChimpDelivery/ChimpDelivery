@@ -46,7 +46,8 @@ class RegisteredUserController extends Controller
                 'nullable',
                 'alpha_num',
                 Rule::exists('workspace_invite_codes', 'code')->whereNull('deleted_at')
-            ]
+            ],
+            recaptchaFieldName() => recaptchaRuleName()
         ]);
 
         // find invite code
