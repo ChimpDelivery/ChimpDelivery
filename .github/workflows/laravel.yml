@@ -19,6 +19,11 @@ jobs:
           php-version: "8.1"
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
           
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 5
+        
       - name: Install Dependencies
         run: composer install --no-ansi --no-interaction --no-progress
 
