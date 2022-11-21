@@ -11,7 +11,7 @@
                 <i class="fa fa-user fa-stack-1x" aria-hidden="true"></i>
             </span>
                 {{ Auth::user()->name }} Profile
-                <pre class="text-muted pull-right my-3">ID: {{ Auth::user()->id }}</pre>
+                <pre class="text-muted pull-right">ID: {{ Auth::user()->id }}</pre>
             </div>
             <div class="card-body">
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
