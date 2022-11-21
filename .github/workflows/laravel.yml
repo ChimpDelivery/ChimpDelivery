@@ -25,7 +25,7 @@ jobs:
           redis-version: 5
         
       - name: Install Dependencies
-        run: composer install --no-ansi --no-interaction --no-progress
+        run: composer install --no-ansi --no-interaction --no-progress --no-scripts
 
       - name: Install NPM Dependencies
         run: npm install
