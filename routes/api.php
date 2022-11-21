@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
-use App\Actions\Api\Apps\DeleteAppInfo;
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 use App\Actions\Api\AppStoreConnect\CreateToken;

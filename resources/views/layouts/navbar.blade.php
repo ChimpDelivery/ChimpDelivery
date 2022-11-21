@@ -66,27 +66,23 @@
                     <a class="nav-link dropdown-toggle font-weight-bold font-italic text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Hi, {{ Auth::user()->name }}
                     </a>
-                    <div class="dropdown-menu bg-primary dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="#">
-                                <img src="{{ asset('Talus_icon.ico') }}" alt="..." width=24 height=24 /> {{ config('app.name') }}
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('dashboard.profile') }}">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('dashboard.profile') }}">
                                 <i class="fa fa-user fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                             <div class="dropdown-divider"></div>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="/health">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="/health">
                                 <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                             </a>
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('telescope') }}">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('telescope') }}">
                                 <i class="fa fa-server" aria-hidden="true"></i> Telescope
                             </a>
                             @endrole
-                            <a class="active text-left dropdown-item text-white font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                <i class="fa fa-sign-out fa-lg text-white"></i> {{ __('Log Out') }}
+                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
                             </a>
                         </form>
                     </div>
