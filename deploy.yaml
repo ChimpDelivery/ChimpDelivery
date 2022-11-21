@@ -5,7 +5,7 @@ import:
 
 config:
   application: 'TalusWebBackend'
-  repository: 'https://emrekovanci@github.com/TalusStudio/TalusWebBackend'
+  repository: 'https://emrekovanci@github.com/TalusStudio/{{application}}'
   keep_releases: 2
   php_fpm_version: 8.1
 
