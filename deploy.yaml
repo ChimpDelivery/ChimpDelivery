@@ -1,7 +1,6 @@
 import:
   - recipe/laravel.php
   - contrib/php-fpm.php
-  - contrib/npm.php
 
 config:
   application: 'TalusWebBackend'
@@ -24,8 +23,6 @@ tasks:
     - deploy:prepare
     - deploy:vendors
     - artisan:storage:link
-    - npm:install
-    - npm:run:prod
     - artisan:view:clear
     - artisan:view:cache
     - artisan:config:cache
@@ -34,8 +31,6 @@ tasks:
     - artisan:migrate
     - php-fpm:reload
     - deploy:publish
-  npm:run:prod:
-    - run: 'cd {{release_or_current_path}} && npm cache verify && npm run prod'
 
 after:
   deploy:failed: deploy:unlock
