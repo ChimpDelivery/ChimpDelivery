@@ -8,6 +8,9 @@ config:
   repository: 'https://emrekovanci@github.com/TalusStudio/{{application}}'
   keep_releases: 2
   php_fpm_version: 8.1
+  ssh_multiplexing: true
+  forward_agent: true
+  git_tty: true
 
 hosts:
   staging:
@@ -21,15 +24,18 @@ tasks:
     - deploy:prepare
     - deploy:vendors
     - artisan:storage:link
-    - artisan:view:cache
-    - artisan:config:cache
-    - artisan:migrate
     - npm:install
     - npm:run:prod
-    - deploy:publish
+    - artisan:view:clear
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:route:cache
+    - artisan:optimize
+    - artisan:migrate
     - php-fpm:reload
+    - deploy:publish
   npm:run:prod:
-    - run: 'cd {{release_or_current_path}} && npm run prod'
+    - run: 'cd {{release_or_current_path}} && npm cache verify && npm run prod'
 
 after:
   deploy:failed: deploy:unlock
