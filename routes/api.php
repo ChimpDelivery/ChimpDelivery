@@ -11,7 +11,7 @@ use App\Actions\Api\AppStoreConnect\GetAppList;
 use App\Actions\Api\AppStoreConnect\GetBuildList;
 use App\Actions\Api\AppStoreConnect\GetFullAppInfo;
 
-use App\Actions\Api\Github\CreateRepository;
+// use App\Actions\Api\Github\CreateRepository;
 use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
 
@@ -77,7 +77,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
-    Route::post('github/create-repository', CreateRepository::class);
+    // Route::post('github/create-repository', CreateRepository::class);
 });
 
 //////////////////////////////
