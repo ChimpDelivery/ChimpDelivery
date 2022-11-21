@@ -10,6 +10,10 @@ config:
   ssh_multiplexing: true
   forward_agent: true
   git_tty: true
+  shared_files:
+    - .env
+  http_user: false
+  use_relative_symlink: false
 
 hosts:
   staging:
@@ -17,6 +21,7 @@ hosts:
     remote_user: ubuntu
     deploy_path: '/var/www/html/{{application}}'
     branch: dev
+    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
 
 tasks:
   deploy:
