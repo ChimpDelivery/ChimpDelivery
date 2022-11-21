@@ -4,6 +4,7 @@ namespace App\Actions\Api\Ftp;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,33 +12,46 @@ use App\Models\Workspace;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
-/// talus specific action
+/// TalusStudio specific action.
+/// Creates Privacy2 File that required by Google Play Console for app review.
 class CreateGooglePrivacy
 {
     use AsAction;
     use AsActionResponse;
 
+    private const PrivacyContainerFolder = 'hc';
+    private const PrivacyTemplateFile = 'privacy_template/privacy.html';
     private const PrivacyFileName = 'privacy.html';
 
     private string $search = "___APP___";
 
-    private string $privacyHolderUrl = 'http://www.talusstudio.com';
-    private string $privacyTemplatePath = 'privacy_template/' . self::PrivacyFileName;
-
     public function handle(GetAppInfoRequest $request) : array
     {
-        $privacy = Storage::disk('ftp')->get($this->privacyTemplatePath);
-        if (!$privacy) {
+        // parse ftp url for future changes
+        $ftpDomain = Str::of(config('filesystems.disks.ftp.host'))
+            ->explode('.')
+            ->slice(1)
+            ->prepend('http://www')
+            ->implode('.');
+
+        $privacy = Storage::disk('ftp')->get(self::PrivacyTemplateFile);
+
+        if (!$privacy)
+        {
             return [
                 'success' => false,
                 'message' => "Template Privacy file could not found!
-                    Expected path: {$this->privacyHolderUrl}/{$this->privacyTemplatePath}",
+                    Expected path: {$ftpDomain}/" . self::PrivacyTemplateFile,
             ];
         }
 
         $appInfo = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-        $newFilePath = $appInfo->app_name . '/' . self::PrivacyFileName;
-        $privacyLink = "{$this->privacyHolderUrl}/{$newFilePath}";
+        $newFilePath = implode('/', [
+            self::PrivacyContainerFolder,
+            $appInfo->app_name,
+            self::PrivacyFileName
+        ]);
+        $privacyLink = "{$ftpDomain}/{$newFilePath}";
 
         if (Storage::disk('ftp')->exists($newFilePath))
         {
