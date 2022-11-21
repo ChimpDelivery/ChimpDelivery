@@ -3,13 +3,17 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\DeferrableProvider;
 
 use App\Services\JenkinsService;
 
-class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvider
+class JenkinsServiceProvider extends ServiceProvider
 {
     public function register()
+    {
+
+    }
+
+    public function boot()
     {
         $this->app->bind(JenkinsService::class, function($app) {
             return new JenkinsService(
@@ -18,10 +22,5 @@ class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvid
                 config('jenkins.token')
             );
         });
-    }
-
-    public function provides()
-    {
-        return [JenkinsService::class];
     }
 }
