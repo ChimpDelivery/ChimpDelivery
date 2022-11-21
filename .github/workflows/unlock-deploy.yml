@@ -1,14 +1,14 @@
 name: unlock-deploy
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: 'Log level'
         required: true
         default: 'warning'
       tags:
-        description: 'Test scenario tags'  
+        description: 'Test scenario tags'
 
 concurrency: production_environment
 
@@ -25,17 +25,17 @@ jobs:
         with:
           php-version: "8.1"
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
-        
+
       - name: Setup Redis
         uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: 5
-        
+
       - name: Install Dependencies
         run: composer install --no-ansi --no-interaction --no-progress --no-scripts
-        
+
       - name: Unlock
         uses: deployphp/action@v1.0.17
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: unlock
+          dep: deploy:unlock
