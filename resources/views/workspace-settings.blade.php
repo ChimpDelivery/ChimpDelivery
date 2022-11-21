@@ -14,7 +14,7 @@
             </span>
             {{ $title }}
             @if(!$isNew)
-                <pre class="text-muted pull-right my-2">ID: {{ $workspace->id }}</pre>
+                <pre class="text-muted pull-right my-3">ID: {{ $workspace->id }}</pre>
             @endif
         </div>
         <div class="card-body">
