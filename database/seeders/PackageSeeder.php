@@ -10,29 +10,39 @@ class PackageSeeder extends Seeder
 {
     private $packages = [
         [
-            'https://github.com/TalusStudio/TalusFramework-Package',
+            'https://github.com/TalusStudio/TalusFramework-Package.git',
             'com.talus.talusframework',
             'hash-1',
         ],
         [
-            'https://github.com/TalusStudio/TalusKit-Package',
+            'https://github.com/TalusStudio/TalusKit-Package.git',
             'com.talus.taluskit',
             'hash-2',
         ],
         [
-            'https://github.com/TalusStudio/TalusBackendData-Package',
+            'https://github.com/TalusStudio/TalusBackendData-Package.git',
             'com.talus.talusbackenddata',
             'hash-3',
         ],
         [
-            'https://github.com/TalusStudio/TalusCI-Package',
+            'https://github.com/TalusStudio/TalusCI-Package.git',
             'com.talus.talusci',
             'hash-4',
         ],
         [
-            'https://github.com/TalusStudio/TalusSettings-Package',
+            'https://github.com/TalusStudio/TalusSettings-Package.git',
             'com.talus.talussettings',
             'hash-5',
+        ],
+        [
+            'https://github.com/TalusStudio-Packages/TalusLevelManagement-Package.git',
+            'com.talus.taluslevelmanagement',
+            'hash-6',
+        ],
+        [
+            'https://github.com/TalusStudio-Packages/TalusGameSystems-Package.git',
+            'com.talus.talusgamesystems',
+            'hash-7',
         ],
     ];
 
