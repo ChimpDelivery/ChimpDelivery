@@ -38,4 +38,4 @@ jobs:
         uses: deployphp/action@v1.0.17
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy -vvv
+          dep: deploy env=staging -vvv

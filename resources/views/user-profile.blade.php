@@ -31,7 +31,7 @@
                             <label for="email">Email</label>
                             <input type="text" class="form-control shadow-sm" id="email" name="email" aria-describedby="basic-addon3" value="{{ Auth::user()->email }}" readonly />
                         </div>
-                        @if(!$isNewUser && Auth::user()->can('create api token'))
+                        @if ((!$isNewUser && Auth::user()->can('create api token')) || Auth::user()->hasRole('Admin_Super'))
                             @livewire('create-api-token-view')
                         @endif
                     </div>
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    @if (!$isNewUser && Auth::user()->can('create api token'))
+    @if ((!$isNewUser && Auth::user()->can('create api token')) || Auth::user()->hasRole('Admin_Super'))
         @livewireScripts
     @endif
 @endsection
