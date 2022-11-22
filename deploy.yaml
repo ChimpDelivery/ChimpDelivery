@@ -21,6 +21,13 @@ hosts:
     branch: dev
     composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
 
+  production:
+    hostname: '34.252.141.173'
+    remote_user: ubuntu
+    deploy_path: '/var/www/html/{{application}}'
+    branch: master
+    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
+
 tasks:
   deploy:
     - deploy:prepare
