@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<br />
+<div class="container">
     @if($errors->any())
-    <br />
-    <div class="alert alert-danger">
+    <div class="alert alert-danger shadow">
         <ul>
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>

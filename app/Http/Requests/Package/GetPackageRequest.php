@@ -29,6 +29,7 @@ class GetPackageRequest extends FormRequest
             'package_id' => [
                 'required',
                 'regex:/^[A-Za-z0-9._-]+$/',
+                'max:255',
                 Rule::exists('packages', 'package_id')
             ]
         ];

@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 return [
 
-    'organization_name' => env('GIT_ORGANIZATION_NAME', ''),
     'item_limit' => env('GIT_ITEM_LIMIT', 50),
-    'template_project' => env('GIT_TEMPLATE_PROJECT', 'Unity3D-Template'),
-    'prototype_topic' => env('GIT_PROTOTYPE_TOPIC', ''),
 
     /*
     |--------------------------------------------------------------------------

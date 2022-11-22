@@ -11,6 +11,7 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
+            @honeypot
 
             <!-- Name -->
             <div>
@@ -33,7 +34,7 @@
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="new-password" />
+                                required autocomplete="off" />
             </div>
 
             <!-- Confirm Password -->
@@ -52,13 +53,7 @@
                 <x-input id="invite_code" class="block mt-1 w-full"
                                 type="text"
                                 name="invite_code"
-                                required />
-            </div>
-
-            <div class="block mt-4">
-                <div class="captcha">
-                    <span>{!! app('captcha')->display() !!}</span>
-                </div>
+                                placeholder="if you don't have, leave it blank." />
             </div>
 
             <div class="flex items-center justify-end mt-4">

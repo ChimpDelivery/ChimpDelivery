@@ -1,0 +1,43 @@
+import:
+  - recipe/laravel.php
+  - contrib/php-fpm.php
+
+config:
+  application: 'TalusWebBackend'
+  repository: 'https://emrekovanci@github.com/TalusStudio/{{application}}'
+  keep_releases: 2
+  php_fpm_version: 8.1
+  ssh_multiplexing: true
+  forward_agent: true
+  git_tty: true
+  http_user: false
+  use_relative_symlink: false
+
+hosts:
+  staging:
+    hostname: '52.30.195.144'
+    remote_user: ubuntu
+    deploy_path: '/var/www/html/{{application}}'
+    branch: dev
+    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
+
+tasks:
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - artisan:storage:link
+    - artisan:view:clear
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:route:cache
+    - artisan:optimize
+    - artisan:migrate
+    - php-fpm:reload
+    - server:permission
+    - deploy:publish
+  server:permission:
+      - cd: "{{release_path}}"
+      - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+
+after:
+  deploy:failed: deploy:unlock

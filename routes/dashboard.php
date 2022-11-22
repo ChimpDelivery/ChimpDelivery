@@ -2,30 +2,114 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DashboardController;
+use App\Actions\Api\Apps\DeleteAppInfo;
+use App\Actions\Api\Apps\GetAppInfo;
+use App\Actions\Api\Apps\StoreAppInfo;
 
-Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function () {
+use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
-    // main route.
-    Route::get('/dashboard', 'Index')->name('get_app_list');
+use App\Actions\Api\Jenkins\Post\AbortJob;
+use App\Actions\Api\Jenkins\Post\BuildJob;
+use App\Actions\Api\Jenkins\GetJobLastBuildLog;
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-    // get and post routes to create app info data.
-    Route::get('/dashboard/add-app-info', 'CreateAppForm')->name('add_app_info');
-    Route::post('/dashboard/store-app-info', 'StoreAppForm');
+use App\Actions\Dashboard\CreateAppForm;
+use App\Actions\Dashboard\GetIndexForm;
+use App\Actions\Dashboard\User\UpdateUserProfile;
+use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
+use App\Actions\Dashboard\Workspace\GetJoinWorkspaceForm;
+use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 
-    // get and post routes to update app info data.
-    Route::get('/dashboard/update-app-info', 'SelectApp')->name('get_app_info');
-    Route::post('/dashboard/update-app-info', 'UpdateApp')->name('update_app_info');
+use App\Actions\Workspace\JoinWorkspace;
+use App\Actions\Workspace\StoreWorkspace;
 
-    // post route to delete app info data.
-    Route::post('/dashboard/delete-app-info', 'DeleteApp')->name('delete_app_info');
+use App\Actions\Api\Ftp\CreateGooglePrivacy;
 
-    // jenkins bridge.
-    Route::get('/dashboard/build-app', 'BuildApp');
-    Route::get('/dashboard/stop-job', 'StopJob');
-    Route::get('/dashboard/scan-repo', 'ScanRepo');
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    //
-    Route::get('/dashboard/create-bundle', 'CreateBundleForm')->name('create_bundle');
-    Route::post('/dashboard/store-bundle', 'StoreBundleForm');
+    //////////////////////////
+    //// main routes
+    //////////////////////////
+    Route::get('/dashboard', GetIndexForm::class)
+        ->name('index');
+
+    Route::get('/dashboard/profile', fn() => view('user-profile')->with([
+        'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::DEFAULT_WS_ID
+    ]))->name('dashboard.profile');
+
+    Route::post('/dashboard/profile', UpdateUserProfile::class);
+
+    ////////////////////////////////
+    //// workspace routes
+    ////////////////////////////////
+    Route::get('/dashboard/workspace-settings', GetWorkspaceForm::class)
+        ->name('workspace_settings')
+        ->middleware('permission:view workspace');
+
+    Route::post('/dashboard/workspace-settings', StoreWorkspace::class)
+        ->middleware('permission:create workspace|update workspace');
+
+    Route::get('/dashboard/workspace-join', GetJoinWorkspaceForm::class)
+        ->name('workspace_join')
+        ->middleware('permission:join workspace');
+
+    Route::post('/dashboard/workspace-join', JoinWorkspace::class)
+        ->middleware('permission:join workspace');
+
+    //////////////////////////////
+    //// app info routes
+    //////////////////////////////
+    Route::get('/dashboard/add-app-info', CreateAppForm::class)
+        ->name('add_app_info')
+        ->middleware('permission:create app');
+
+    Route::post('/dashboard/store-app-info', StoreAppInfo::class)
+        ->name('store_app_info')
+        ->middleware('permission:update app');
+
+    Route::get('/dashboard/update-app-info', GetAppInfo::class)
+        ->name('get_app_info')
+        ->middleware('permission:update app');
+
+    Route::post('/dashboard/update-app-info', StoreAppInfo::class)
+        ->name('update_app_info')
+        ->middleware('permission:update app');
+
+    Route::post('/dashboard/delete-app-info', DeleteAppInfo::class)
+        ->name('delete_app_info')
+        ->middleware('permission:delete app');
+
+    ////////////////////////////
+    //// jenkins routes
+    ///////////////////////////
+    Route::post('/dashboard/build-app', BuildJob::class)
+        ->middleware('permission:build job');
+
+    Route::get('/dashboard/build-log', GetJobLastBuildLog::class)
+        ->middleware('permission:view job log');
+
+    Route::get('/dashboard/abort-job', AbortJob::class)
+        ->middleware('permission:abort job');
+
+    Route::post('/dashboard/workspace/scan-jobs', ScanOrganization::class)
+        ->middleware('permission:scan jobs')
+        ->name('scan-workspace-jobs');
+
+    //////////////////////////////////
+    //// app store connect routes
+    /////////////////////////////////
+    Route::get('/dashboard/create-bundle', CreateBundleIdForm::class)
+        ->name('create_bundle')
+        ->middleware('permission:create bundle');
+
+    Route::post('/dashboard/store-bundle', CreateBundleId::class)
+        ->middleware('permission:create bundle');
+
+
+    ///////////////////////////
+    /// talus specific
+    //////////////////////////
+    Route::post('/dashboard/create-privacy', CreateGooglePrivacy::class)
+        ->name('create_privacy')
+        ->middleware('permission:update app');
 });

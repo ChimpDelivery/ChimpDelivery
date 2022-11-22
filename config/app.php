@@ -176,7 +176,22 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\HealthServiceProvider::class
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        /*
+         * Monitoring related providers...
+         */
+        App\Providers\TelescopeServiceProvider::class,
+        App\Providers\HealthServiceProvider::class,
+
+        /*
+         * Core providers...
+         */
+
+        App\Providers\AppStoreConnectServiceProvider::class,
+        App\Providers\JenkinsServiceProvider::class,
+        App\Providers\GitHubServiceProvider::class,
     ],
 
     /*
@@ -191,6 +206,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
     ])->toArray(),
 
 ];

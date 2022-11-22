@@ -1,48 +1,12 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
-- Provides Web Dashboard and Backend APIs to work with ***CI/CD Pipeline***.
+[![deploy-staging](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml/badge.svg?branch=dev)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml)
+- Provides Web Dashboard and Backend APIs to work with ***Unity3D CI/CD Pipeline***.
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
-
-# 💿 Production Environment Setup
-- Required OS >= ***Ubuntu 20.04***
-
-1. Run Script
-```
-sh init_server.sh
-```
-2. ***Crontab*** Settings (`crontab -e`)
-```
-* * * * * cd /var/www/html/TalusWebBackend && /usr/bin/php8.1 artisan schedule:run >> /dev/null 2>&1
-```
-
-3. ***MySQL*** Root Password Settings
-```
-sudo mysql --user=root mysql
-mysql> UPDATE mysql.user SET authentication_string=null WHERE User='root';
-mysql> flush privileges;
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password_here';
-mysql> flush privileges;
-mysql> create database laravel;
-mysql> exit;
-```
-
-4. ***Apache*** Settings (`/etc/apache2/apache2.conf`)
-```php
-  <Directory /var/www/>
-      Options Indexes FollowSymLinks
-      AllowOverride all
-      Require all granted
-  </Directory>
-```
-5. Set `DocumentRoot` path in `/etc/apache2/sites-enabled/000-default.conf` with `/var/www/html/TalusWebBackend/public`
-6. Restart Apache `sudo service apache2 restart`
-7. Populate `.env` file on project root
-8. Run Script
-```
-sh init_project.sh
-```
+# Information
+- Deployment configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
@@ -66,10 +30,12 @@ POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={b
 ```
 GET    |   api/jenkins/get-job?id={id}
 GET    |   api/jenkins/get-job-list
-GET    |   api/jenkins/get-build-list?id={id}
-GET    |   api/jenkins/get-latest-build-info?id={id}
-POST   |   api/jenkins/stop-job?id={id}&build_number={buildNumber}
+GET    |   api/jenkins/get-job-builds?id={id}
+GET    |   api/jenkins/get-job-lastbuild?id={id}
+GET    |   api/jenkins/get-job-lastbuild-log?id={id}
+POST   |   api/jenkins/abort-job?id={id}&build_number={buildNumber}
 POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={storeVersion}
+POST   |   api/jenkins/scan-organization
 ```
 
 # 🔑 GitHub API

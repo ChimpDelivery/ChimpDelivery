@@ -4,6 +4,8 @@ namespace App\Http\Requests\AppStoreConnect;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Rules\AlphaDashDot;
+
 class StoreBundleRequest extends FormRequest
 {
     /**
@@ -26,12 +28,14 @@ class StoreBundleRequest extends FormRequest
         return [
             'bundle_id' => [
                 'required',
-                'alpha_num'
+                new AlphaDashDot(),
+                'max:255',
             ],
 
             'bundle_name' => [
                 'required',
-                'regex:/^[a-zA-Z0-9\s]+$/'
+                'regex:/^[a-zA-Z0-9\s]+$/',
+                'max:255',
             ],
         ];
     }
@@ -39,8 +43,7 @@ class StoreBundleRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'bundle_id.alpha_num' => 'bundle_id can only contains alpha-numeric characters!',
-            'bundle_name.regex' => 'bundle_name can only contains alpha-numeric characters and space!'
+            'bundle_name.regex' => 'bundle_name can only contains alpha-numeric characters and space!',
         ];
     }
 }

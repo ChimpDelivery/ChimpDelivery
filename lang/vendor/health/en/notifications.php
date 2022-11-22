@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'laravel_health' => 'Pipeline Health',
+    'laravel_health' => 'Health',
 
     'check_failed_mail_subject' => 'Some of the health checks on :application_name have failed',
 

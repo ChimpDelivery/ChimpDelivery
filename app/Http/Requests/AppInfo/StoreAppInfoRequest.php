@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\AppInfo;
 
-use App\Http\Requests\Github\GetRepositoryRequest;
-
 use Illuminate\Validation\Rule;
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Github\GetRepositoryRequest;
 
 class StoreAppInfoRequest extends GetRepositoryRequest
 {
@@ -17,7 +15,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
      */
     public function authorize() : bool
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -28,43 +26,68 @@ class StoreAppInfoRequest extends GetRepositoryRequest
     public function rules() : array
     {
         return [
+            'workspace_id' => [
+                Rule::exists('workspaces', 'id')
+                    ->whereNull('deleted_at')
+            ],
+
             'app_icon' => 'image|mimes:png|max:5120',
 
             'app_name' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                'max:255',
+                Rule::unique('app_infos')
+                    ->ignore($this->id)
+                    ->whereNull('deleted_at'),
             ],
 
             'project_name' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                'max:255',
+                Rule::unique('app_infos')
+                    ->ignore($this->id)
+                    ->whereNull('deleted_at')
             ],
 
             'app_bundle' => [
                 'required',
                 'regex:/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                'max:255',
+                Rule::unique('app_infos')
+                    ->ignore($this->id)
+                    ->whereNull('deleted_at')
             ],
 
             'appstore_id' => [
                 'required',
-                Rule::unique('app_infos')->whereNull('deleted_at'),
+                Rule::unique('app_infos')
+                    ->ignore($this->id)
+                    ->whereNull('deleted_at')
             ],
 
             'fb_app_id' => [
                 'nullable',
-                'numeric',
+                'alpha_num',
+                'max:255',
+            ],
+
+            'fb_client_token' => [
+                'nullable',
+                'alpha_num',
+                'max:255',
             ],
 
             'ga_id' => [
                 'nullable',
                 'alpha_num',
+                'max:255',
             ],
 
             'ga_secret' => [
                 'nullable',
                 'alpha_num',
+                'max:255',
             ]
         ];
     }
@@ -77,7 +100,6 @@ class StoreAppInfoRequest extends GetRepositoryRequest
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.CompanyName.AppName)',
             'appstore_id.required' => 'appstore_id is required!',
-            'fb_app_id.numeric' => 'fb_app_id is incorrect! (facebook app id contains only numbers)'
         ];
     }
 }

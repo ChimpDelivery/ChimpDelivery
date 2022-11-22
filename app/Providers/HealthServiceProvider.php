@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
 
+use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
+
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
@@ -16,6 +18,7 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 use Encodia\Health\Checks\EnvVars;
 
@@ -28,6 +31,9 @@ class HealthServiceProvider extends ServiceProvider
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
 
         Health::checks([
+            CpuLoadCheck::new()
+                ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
+                ->failWhenLoadIsHigherInTheLast15Minutes(1.5),
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
@@ -42,37 +48,29 @@ class HealthServiceProvider extends ServiceProvider
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
                 'RESPONSE_CACHE_DRIVER',
                 'RESPONSE_CACHE_ENABLED',
-                'CAPTCHA_SECRET',
-                'CAPTCHA_SITEKEY',
+                'RECAPTCHA_SITE_KEY',
+                'RECAPTCHA_SECRET_KEY',
                 'REDIS_CLIENT',
                 'AWS_ACCESS_KEY_ID',
                 'AWS_SECRET_ACCESS_KEY',
                 'AWS_DEFAULT_REGION',
                 'AWS_BUCKET',
                 'AWS_USE_PATH_STYLE_ENDPOINT',
-                'APPSTORECONNECT_PRIVATE_KEY',
-                'APPSTORECONNECT_ISSUER_ID',
-                'APPSTORECONNECT_KID',
                 'APPSTORECONNECT_CACHE_DURATION',
                 'APPSTORECONNECT_ITEM_LIMIT',
-                'APPSTORECONNECT_COMPANY_NAME',
-                'APPSTORECONNECT_BUNDLE_PREFIX',
-                'APPSTORECONNECT_USER_EMAIL',
-                'APPSTORECONNECT_USER_PASS',
-                'JENKINS_WS',
                 'JENKINS_HOST',
                 'JENKINS_USER',
                 'JENKINS_TOKEN',
-                'GIT_ORGANIZATION_NAME',
-                'GIT_ACCESS_TOKEN',
                 'GIT_ITEM_LIMIT',
-                'GIT_TEMPLATE_PROJECT',
-                'GIT_PROTOTYPE_TOPIC',
+                'FTP_HOST',
+                'FTP_USERNAME',
+                'FTP_PASSWORD',
+                'FTP_ROOT',
                 'DISCORD_WEBHOOK_URL',
                 'DISCORD_BOT_NAME',
-                'AUTH_INVITE_CODE'
             ]),
-            OptimizedAppCheck::new()->checkConfig()->checkRoutes()
+            OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
+            SecurityAdvisoriesCheck::new(),
         ]);
     }
 

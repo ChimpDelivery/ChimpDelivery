@@ -1,0 +1,41 @@
+name: deploy-staging
+
+on:
+  push:
+    branches: [dev]
+
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
+        
+      - name: Setup Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 5
+        
+      - name: Install Dependencies
+        run: composer install --no-ansi --no-interaction --no-progress --no-scripts
+
+      - name: Install NPM Dependencies
+        run: npm ci
+        
+      - name: Compile Assets
+        run: npm run production
+        
+      - name: Deploy
+        uses: deployphp/action@v1.0.17
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy -vvv

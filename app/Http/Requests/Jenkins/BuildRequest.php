@@ -26,11 +26,21 @@ class BuildRequest extends GetAppInfoRequest
     public function rules()
     {
         return [
-            'id' => array('required', 'numeric', Rule::exists('app_infos', 'id')->whereNull('deleted_at')),
-            'platform' => array('required', 'string', Rule::in(['Appstore', 'GooglePlay'])),
-            'storeVersion' => array('required', 'numeric'),
-            'storeCustomVersion' => array('nullable', 'string', Rule::in(['true', 'false'])),
-            'storeBuildNumber' => array('nullable', 'numeric')
+            'id' => [
+                'required',
+                'numeric',
+                Rule::exists('app_infos', 'id')->whereNull('deleted_at')
+            ],
+
+            'platform' => [
+                'required',
+                'string',
+                Rule::in([ 'Appstore', 'GooglePlay' ])
+            ],
+
+            'store_version' => [ 'required', 'numeric' ],
+            'store_custom_version' => [ 'nullable', 'string', Rule::in(['true', 'false']) ],
+            'store_build_number' => [ 'nullable', 'numeric' ],
         ];
     }
 }

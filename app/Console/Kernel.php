@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 
@@ -18,26 +19,33 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        /////////////////
         // backups
+        ////////////////
         $schedule->command('backup:clean')
+            ->timezone('Europe/Istanbul')
             ->daily()
             ->at('01:00')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('mail.from.address'));
 
         $schedule->command('backup:run')
+            ->timezone('Europe/Istanbul')
             ->daily()
             ->at('01:30')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('mail.from.address'));
 
         $schedule->command('backup:monitor')
+            ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03:00')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('mail.from.address'));
 
+        /////////////////////////
         // health checks
+        ////////////////////////
         $schedule->command(RunHealthChecksCommand::class)
             ->timezone('Europe/Istanbul')
             ->everyMinute();
@@ -46,12 +54,26 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->everyMinute();
 
-        // prune health checks
-        $schedule->command('model:prune', [
-            '--model' => [
-                \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
-            ],
-        ])->daily()->at('03:45')->withoutOverlapping();
+        //////////////////
+        // pruning
+        /////////////////
+        $schedule->command('sanctum:prune-expired --hours=24')
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('03.30')
+            ->emailOutputOnFailure(config('mail.from.address'));
+
+        $schedule->command('model:prune', ['--model' => [ HealthCheckResultHistoryItem::class ]])
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('03:45')
+            ->emailOutputOnFailure(config('mail.from.address'));
+
+        $schedule->command('telescope:prune')
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('04.00')
+            ->emailOutputOnFailure(config('mail.from.address'));
     }
 
     /**

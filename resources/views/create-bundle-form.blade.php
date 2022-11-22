@@ -1,10 +1,10 @@
-@extends('layouts.master')
+@extends('master')
 
 @section('title', 'Create Bundle')
 
 @section('content')
 <div class="container py-2">
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header bg-dark text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
@@ -17,20 +17,15 @@
                 @csrf
                 <div class="form-group">
                     <label for="bundle_id">Bundle ID</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold bg-primary text-white font-italic" id="basic-addon3">{{ config('appstore.bundle_prefix') }}.</span>
-                        </div>
-                        <input type="text" class="form-control" name="bundle_id" aria-describedby="basic-addon3" placeholder="id..." required="">
-                    </div>
-
+                    <input type="text" id="bundle_id" name="bundle_id" class="form-control shadow-sm" placeholder="id (com.companyname.appname)..." required="">
                 </div>
                 <div class="form-group">
                     <label for="bundle_name">Bundle ID Name</label>
-                    <input type="text" id="bundle_name" name="bundle_name" class="form-control" placeholder="bundle id name..." required="">
+                    <input type="text" id="bundle_name" name="bundle_name" class="form-control shadow-sm" placeholder="bundle id name..." required="">
                 </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i> Create</button>
-                <button type="reset" class="btn btn-secondary"><i class="fa fa-refresh"></i> Reset</button>
+                <br />
+                <button type="submit" class="btn btn-success shadow font-weight-bold"><i class="fa fa-plus-square"></i> Create</button>
+                <button type="reset" class="btn btn-secondary shadow font-weight-bold"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
         <div class="card-footer text-muted">
