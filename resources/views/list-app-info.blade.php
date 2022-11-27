@@ -17,18 +17,18 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-borderless table-hover">
                         <thead>
-                        <tr class="text-dark text-light">
-                            <th scope="col" class="text-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top" title="ID">
-                            </th>
-                            <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="App">
-                            </th>
-                            <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Build Status">
-                            </th>
-                            <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Build App">
-                            </th>
-                            <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update App">
-                            </th>
-                        </tr>
+                            <tr class="text-dark text-light">
+                                <th scope="col" class="text-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top">
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                </th>
+                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
                             @include('layouts.app-info-list')
