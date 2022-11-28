@@ -1,5 +1,6 @@
 # 🌐 [Talus Web Backend](http://34.252.141.173)
-[![deploy-staging](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml/badge.svg?branch=dev)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/laravel.yml)
+[![deploy-staging](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-staging.yml/badge.svg?branch=dev)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-staging.yml)
+[![deploy-prod](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-prod.yml)
 - Provides Web Dashboard and Backend APIs to work with ***Unity3D CI/CD Pipeline***.
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
