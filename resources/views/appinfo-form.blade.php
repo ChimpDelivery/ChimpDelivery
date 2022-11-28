@@ -116,7 +116,9 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+            <span class="badge badge-primary">
+                <i class="fa fa-bell text-white" aria-hidden="true"></i>
+            </span>
             @if (!isset($appInfo))
                 If app isn't available in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
             @else

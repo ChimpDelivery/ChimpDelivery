@@ -29,7 +29,9 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+            <span class="badge badge-primary">
+                <i class="fa fa-bell text-white" aria-hidden="true"></i>
+            </span>
             After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
         </div>
     </div>
