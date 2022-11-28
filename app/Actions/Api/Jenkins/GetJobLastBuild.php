@@ -27,8 +27,8 @@ class GetJobLastBuild
 
         if ($lastBuild)
         {
-            $lastBuildDetails = app(JenkinsService::class)
-                ->GetResponse("/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json");
+            $lastBuildApiUrl = "/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json?tree=actions,changeSets[*[id,msg,authorEmail]]";
+            $lastBuildDetails = app(JenkinsService::class)->GetResponse($lastBuildApiUrl);
 
             // platform
             $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);
