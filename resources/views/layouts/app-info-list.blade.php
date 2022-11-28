@@ -1,7 +1,9 @@
 @foreach($appInfos as $appInfo)
 <tr>
     <th scope="row" class="text-center font-weight-normal text-muted align-middle d-none d-sm-table-cell">
-        #{{ $appInfo->id }}
+        <span class="badge alert-primary">
+            # {{ $appInfo->id }}
+        </span>
     </th>
     <td class="text-center align-middle">
         @include('layouts.app-info')

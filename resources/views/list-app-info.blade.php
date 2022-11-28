@@ -20,9 +20,9 @@
                             <tr class="text-dark text-light">
                                 <th scope="col" class="text-center col-sm-2 d-none d-sm-table-cell" data-bs-toggle="tooltip" data-bs-placement="top">
                                 </th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <th scope="col" class="text-center col-sm-3" data-bs-toggle="tooltip" data-bs-placement="top">
                                 </th>
-                                <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <th scope="col" class="text-center col-sm-3" data-bs-toggle="tooltip" data-bs-placement="top">
                                 </th>
                                 <th scope="col" class="text-center col-sm-2" data-bs-toggle="tooltip" data-bs-placement="top">
                                 </th>
