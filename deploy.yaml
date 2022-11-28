@@ -28,7 +28,7 @@ hosts:
     remote_user: ubuntu
     deploy_path: '/var/www/html/{{application}}'
     branch: master
-    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
+    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --no-dev --optimize-autoloader'
     labels:
       env: production
 
