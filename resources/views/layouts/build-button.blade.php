@@ -3,14 +3,14 @@
 @else
     @if($appInfo->jenkins_status == 200)
         @if($appInfo?->jenkins_data?->status != 'IN_PROGRESS')
-            <button id="build_button" type="button" class="btn text-white bg-transparent" data-toggle="modal"
+            <button id="build_button" type="button" class="btn" data-toggle="modal"
                     data-target="#buildModal" data-title="{{ $appInfo->id }}" data-project="{{ $appInfo->project_name }}">
                 <i class="fa fa-cloud-upload text-primary" aria-hidden="true" style="font-size:2em;"></i>
             </button>
         @else
             <a onclick="return confirm('Are you sure?')" href="dashboard/abort-job?id={{ $appInfo->id }}&build_number={{ $appInfo->jenkins_data->id }}">
-                <button type="button" class="btn text-white bg-transparent">
-                    <i style="font-size:2em;" class="fa fa-ban text-danger"></i>
+                <button type="button" class="btn alert-danger">
+                    <i style="font-size:2em;" class="fa fa-ban"></i>
                 </button>
             </a>
         @endif
