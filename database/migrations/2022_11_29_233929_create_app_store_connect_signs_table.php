@@ -19,9 +19,10 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->text('cert')->nullable();
-            $table->text('provision_profile')->nullable();
+            $table->string('cert')->nullable();
+            $table->string('provision_profile')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

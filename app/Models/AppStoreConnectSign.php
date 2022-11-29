@@ -24,8 +24,6 @@ class AppStoreConnectSign extends Model
     ];
 
     protected $casts = [
-        'cert' => 'encrypted',
-        'provision_profile' => 'encrypted',
     ];
 
     public function workspace()

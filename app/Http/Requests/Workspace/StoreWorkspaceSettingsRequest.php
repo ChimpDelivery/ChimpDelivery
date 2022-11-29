@@ -39,6 +39,10 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'private_key' => [ 'nullable', 'mimetypes:text/plain', 'max:1', ],
             'issuer_id' => [ 'nullable', 'alpha_dash', 'max:255', ],
             'kid' => [ 'nullable', 'alpha_dash', 'max:255', ],
+
+            'cert' => [ 'nullable', ],
+            'provision_profile' => [ 'nullable', ],
+
             'usermail' => [ 'nullable', 'email', 'max:255', ],
             'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
 
