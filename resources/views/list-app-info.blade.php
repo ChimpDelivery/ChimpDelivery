@@ -46,6 +46,7 @@
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="popover"]').popover()
+            $('[data-toggle="tooltip"]').tooltip()
         })
 
         $('.popover-dismiss').popover({
