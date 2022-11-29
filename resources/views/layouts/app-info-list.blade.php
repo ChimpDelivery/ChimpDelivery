@@ -1,13 +1,8 @@
 @foreach($appInfos as $appInfo)
 <tr>
-    <th scope="row" class="text-center font-weight-normal text-muted align-middle d-none d-sm-table-cell">
-        <span class="badge alert-primary">
-            # {{ $appInfo->id }}
-        </span>
-    </th>
-    <td class="text-center align-middle">
+    <th scope="row" class="text-center font-weight-normal text-muted align-middle">
         @include('layouts.app-info')
-    </td>
+    </th>
     <td class="text-center align-middle">
         @if($appInfo->jenkins_status == 3200)
             @include('errors.jenkins.jenkins-down')
