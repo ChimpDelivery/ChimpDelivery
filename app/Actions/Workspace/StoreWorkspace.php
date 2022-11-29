@@ -6,6 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 
 use App\Models\Workspace;
 use App\Events\WorkspaceChanged;
@@ -40,6 +41,18 @@ class StoreWorkspace
             'response' => $targetWorkspace,
             'wasRecentlyCreated' => $this->isNewUser,
         ];
+    }
+
+    public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
+    {
+        $validator->after(function (Validator $validator) use ($request) {
+            if ($request->file('cert')->getClientMimeType() !== 'application/x-pkcs12') {
+                $validator->errors()->add(
+                    'cert',
+                    'Invalid certificate type! Only .p12 certificates allowed.'
+                );
+            }
+        });
     }
 
     public function authorize() : bool

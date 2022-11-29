@@ -2,13 +2,11 @@
 
 namespace App\Http\Requests\Workspace;
 
-use App\Rules\AlphaDashDot;
-
-use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
-
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+
+use App\Rules\AlphaDashDot;
 
 class StoreWorkspaceSettingsRequest extends FormRequest
 {
@@ -40,8 +38,8 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'issuer_id' => [ 'nullable', 'alpha_dash', 'max:255', ],
             'kid' => [ 'nullable', 'alpha_dash', 'max:255', ],
 
-            'cert' => [ 'nullable', ],
-            'provision_profile' => [ 'nullable', ],
+            'cert' => [ 'nullable', 'max:64' ],
+            'provision_profile' => [ 'nullable', 'max:64' ],
 
             'usermail' => [ 'nullable', 'email', 'max:255', ],
             'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
