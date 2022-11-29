@@ -73,6 +73,11 @@ class Workspace extends Model
         return $this->hasOne(GithubSetting::class);
     }
 
+    public function appStoreConnectSigns()
+    {
+        return $this->hasMacro(AppStoreConnectSign::class);
+    }
+
     public function createApiToken()
     {
         $this->tokens()->delete();

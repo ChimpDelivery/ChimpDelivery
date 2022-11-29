@@ -61,6 +61,35 @@
                     </div>
                 </div>
                 <p>
+                    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_app_store_signing" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
+                        <i class="fa fa-apple" aria-hidden="true"></i>
+                        <b>AppStore Signing</b>
+                    </a>
+                </p>
+                <div class="collapse" id="collapse_app_store_signing">
+                    <div class="form-group">
+                        <a class="badge badge-success" href="https://appstoreconnect.apple.com/access/api" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Files</a>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Certificate</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="cert" name="cert" accept=".p12">
+                            <label class="custom-file-label" for="cert">Choose...</label>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Provisioning Profile</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
+                            <label class="custom-file-label" for="provision_profile">Choose...</label>
+                        </div>
+                    </div>
+                </div>
+                <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
                         <b>TestFlight API</b>
@@ -162,9 +191,9 @@
 
 @section('scripts')
 <script type="text/javascript">
-    $('input[type="file"]').change(function(e) {
-        let fileName = e.target.files[0].name;
-        $('.custom-file-label').html(fileName);
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
     });
 </script>
 @endsection
