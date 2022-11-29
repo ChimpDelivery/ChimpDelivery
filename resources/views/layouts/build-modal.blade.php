@@ -7,9 +7,11 @@
                     <h5 class="modal-title" id="build-modal-label">
                         Build Project
                     </h5>
-                    <button id="project-button" type="button" class="btn badge alert-primary" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5>
+                        <button id="project-button" type="button" class="btn badge badge-pill alert-primary shadow-sm" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -58,7 +60,7 @@
     $('#buildModal').on('shown.bs.modal', function () {
         let projectName = getCookie('target_project_name');
         let prettyProjectName = projectName.slice(0, 14) + (projectName.length > 14 ? '...' : '');
-        document.getElementById('project-button').innerHTML = '# ' + prettyProjectName;
+        document.getElementById('project-button').innerHTML = prettyProjectName;
     });
 
     $('#store_build_number_collapse').on('shown.bs.collapse', function () {
