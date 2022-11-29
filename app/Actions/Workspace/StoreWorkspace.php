@@ -47,29 +47,8 @@ class StoreWorkspace
     public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
     {
         $validator->after(function (Validator $validator) use ($request) {
-            if ($request->hasFile('cert')
-                && $request->file('cert')->getClientMimeType() !== 'application/x-pkcs12')
-            {
-                $validator->errors()->add(
-                    'cert',
-                    'Invalid certificate type! Only .p12 certificates allowed.'
-                );
-            }
-
-            if ($request->hasFile('provision_profile'))
-            {
-                $provisionFile = $request->validated('provision_profile');
-                $isValidProvisionFile = $provisionFile->getClientMimeType() === 'application/octet-stream'
-                    && Str::of($provisionFile->getClientOriginalName())->endsWith('.mobileprovision');
-
-                if (!$isValidProvisionFile)
-                {
-                    $validator->errors()->add(
-                        'provision_profile',
-                        'Invalid provision profile type!'
-                    );
-                }
-            }
+            $this->ValidateCertificate($validator, $request);
+            $this->ValidateProvision($validator, $request);
         });
     }
 
@@ -78,5 +57,41 @@ class StoreWorkspace
         $this->isNewUser = Auth::user()->isNew();
 
         return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
+    }
+
+    // mimetypes not working in rules when client upload file, we need to use getClientMimeType()
+    private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
+    {
+        if ($request->hasFile('cert'))
+        {
+            $certFile = $request->validated('cert');
+            $isValidCertFile = $certFile->getClientMimeType() === 'application/x-pkcs12';
+
+            if (!$isValidCertFile)
+            {
+                $validator->errors()->add(
+                    'cert',
+                    'Invalid certificate type! Only ".p12" files allowed.'
+                );
+            }
+        }
+    }
+
+    private function ValidateProvision(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
+    {
+        if ($request->hasFile('provision_profile'))
+        {
+            $provisionFile = $request->validated('provision_profile');
+            $isValidProvisionFile = $provisionFile->getClientMimeType() === 'application/octet-stream'
+                && Str::of($provisionFile->getClientOriginalName())->endsWith('.mobileprovision');
+
+            if (!$isValidProvisionFile)
+            {
+                $validator->errors()->add(
+                    'provision_profile',
+                    'Invalid provision profile file! Only ".mobileprovision" files allowed.'
+                );
+            }
+        }
     }
 }
