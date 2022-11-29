@@ -38,7 +38,7 @@
         .filter-option-inner-inner { color: white; font-weight: bold; }
 
         .img-notify-item { position:relative; padding-top:1rem; display:inline-block; }
-        .img-notify-badge { position: absolute; right:0; top:2.9rem; padding-left: 5px; padding-right: 5px; background: #2a7048; color:white; font-size:12px; font-weight: bold; }
+        .img-notify-badge { position: absolute; right:0; top:3rem; padding-left: 5px; padding-right: 5px; background: #2a7048; color:white; font-size:12px; font-weight: bold; }
     </style>
 </head>
 
