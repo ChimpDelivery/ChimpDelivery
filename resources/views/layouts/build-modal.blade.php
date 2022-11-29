@@ -3,11 +3,12 @@
     <div class="modal fade" id="buildModal" tabindex="-1" role="dialog" aria-labelledby="build-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header justify-content-between align-items-center">
                     <h5 class="modal-title" id="build-modal-label">
                         Build Project
                     </h5>
-                    <button id="project-button" type="button" class="close" data-dismiss="modal" aria-label="Project Name">
+                    <button id="project-button" type="button" class="btn badge alert-primary" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -57,7 +58,7 @@
     $('#buildModal').on('shown.bs.modal', function () {
         let projectName = getCookie('target_project_name');
         let prettyProjectName = projectName.slice(0, 14) + (projectName.length > 14 ? '...' : '');
-        document.getElementById('project-button').innerHTML = prettyProjectName;
+        document.getElementById('project-button').innerHTML = '# ' + prettyProjectName;
     });
 
     $('#store_build_number_collapse').on('shown.bs.collapse', function () {
