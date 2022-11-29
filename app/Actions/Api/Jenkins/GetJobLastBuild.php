@@ -5,9 +5,9 @@ namespace App\Actions\Api\Jenkins;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -19,8 +19,9 @@ class GetJobLastBuild
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->id);
 
-        $jobResponse = app(JenkinsService::class)
-            ->GetResponse("/job/{$app->project_name}/job/master/wfapi/runs");
+        // find last build of job
+        $jobApiUrl = "/job/{$app->project_name}/job/master/wfapi/runs";
+        $jobResponse = app(JenkinsService::class)->GetResponse($jobApiUrl);
 
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
@@ -30,39 +31,15 @@ class GetJobLastBuild
             $lastBuildApiUrl = "/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json?tree=actions,changeSets[*[id,msg,authorEmail]]";
             $lastBuildDetails = app(JenkinsService::class)->GetResponse($lastBuildApiUrl);
 
-            // platform
-            $jobHasParameters = isset($lastBuildDetails->jenkins_data->actions[0]->parameters);
-            $buildPlatform = ($jobHasParameters)
-                ? $lastBuildDetails->jenkins_data->actions[0]?->parameters[1]?->value
-                : 'Appstore';
-            $lastBuild->build_platform = $buildPlatform;
-
-            // add commit history
-            $changeSets = isset($lastBuildDetails->jenkins_data->changeSets[0])
-                ? collect($lastBuildDetails->jenkins_data->changeSets[0]->items)
-                    ->pluck('msg')
-                    ->reverse()
-                    ->take(5)
-                    ->values()
-                : collect();
-            $lastBuild->change_sets = $changeSets;
+            $lastBuild->build_platform = $this->GetBuildPlatform($lastBuildDetails->jenkins_data);
+            $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data);
+            $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
 
             // if job is running, calculate average duration
             if ($lastBuild->status == 'IN_PROGRESS')
             {
                 $lastBuild->estimated_duration = $builds->avg('durationMillis');
             }
-
-            // add job build detail
-            $jobStages = collect($lastBuild->stages);
-
-            $jobStage = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? $jobStages->last()?->name;
-            $jobStageDetail = $jobStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
-
-            $lastBuild->stop_details =  collect([
-                'stage' => $jobStage,
-                'output' => $jobStageDetail
-            ]);
         }
 
         $jobResponse->jenkins_data = $lastBuild;
@@ -73,5 +50,31 @@ class GetJobLastBuild
     public function authorize(GetAppInfoRequest $request) : bool
     {
         return !Auth::user()->isNew();
+    }
+
+    private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
+    {
+        return isset($rawJenkinsResponse->actions[0]->parameters)
+            ? $rawJenkinsResponse->actions[0]?->parameters[1]?->value
+            : 'Appstore';
+    }
+
+    private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
+    {
+        return isset($rawJenkinsResponse->changeSets[0])
+            ? collect($rawJenkinsResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+            : collect();
+    }
+
+    private function GetStopDetail(mixed $lastBuild) : Collection
+    {
+        $buildStages = collect($lastBuild->stages);
+        $buildStopStage = $buildStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? $buildStages->last()?->name;
+        $buildStopStageDetail = $buildStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
+
+        return collect([
+            'stage' => $buildStopStage,
+            'output' => $buildStopStageDetail,
+        ]);
     }
 }
