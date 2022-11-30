@@ -71,9 +71,21 @@
                 </p>
                 <div class="collapse" id="collapse_app_store_signing">
                     <div class="form-group">
-                        <a class="badge badge-success" href="https://appstoreconnect.apple.com/access/api" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Files</a>
+                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/certificates/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Cert</a>
+                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Provision</a>
                     </div>
                     <div class="input-group mb-3">
+                        <div class="input-group my-2">
+                            <div class="alert alert-warning w-100  alert-dismissible fade show">
+                                <span class="badge badge-warning">
+                                    <i class="fa fa-bell text-white" aria-hidden="true"></i>
+                                </span>
+                                Only WildCard Provisioning Profiles supported.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Certificate</span>
                         </div>
@@ -87,8 +99,8 @@
                             <span class="input-group-text">Provisioning Profile</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
                             <label class="custom-file-label" for="provision_profile">{{ $provision_label }}</label>
+                            <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
                         </div>
                     </div>
                 </div>
