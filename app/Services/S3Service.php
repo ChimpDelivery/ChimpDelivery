@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
-    // to indicate custom request header for responses that contains file (provision or cert)
+    // indicates custom request header for responses that contains file (provision or cert)
     private const FILE_RESPONSE_KEY = 'Dashboard-File-Name';
 
     // s3 service root path
