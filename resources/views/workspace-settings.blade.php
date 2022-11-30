@@ -3,16 +3,6 @@
     : $workspace->name . ' Workspace'
 )
 
-@php ($cert = (!$isNew)
-    ? Str::of($workspace->appstoreConnectSign->cert)->explode('/')->last()
-    : 'Choose...'
-)
-
-@php ($provisionFile = (!$isNew)
-    ? Str::of($workspace->appstoreConnectSign->provision_profile)->explode('/')->last()
-    : 'Choose...'
-)
-
 @extends('master')
 
 @section('title', $title)
@@ -89,7 +79,7 @@
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="cert" name="cert" accept=".p12">
-                            <label class="custom-file-label" for="cert">{{ $cert }}</label>
+                            <label class="custom-file-label" for="cert">{{ $cert_label }}</label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -98,7 +88,7 @@
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
-                            <label class="custom-file-label" for="provision_profile">{{ $provisionFile }}</label>
+                            <label class="custom-file-label" for="provision_profile">{{ $provision_label }}</label>
                         </div>
                     </div>
                 </div>

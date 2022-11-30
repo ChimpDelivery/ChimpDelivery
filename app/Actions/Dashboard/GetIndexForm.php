@@ -20,7 +20,9 @@ class GetIndexForm
         if (Auth::user()->isNew())
         {
             return view('workspace-settings')->with([
-                'isNew' => true
+                'isNew' => true,
+                'cert_label' => 'Choose...',
+                'provision_label' => 'Choose...',
             ]);
         }
 
