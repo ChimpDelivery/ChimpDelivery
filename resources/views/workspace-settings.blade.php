@@ -4,12 +4,12 @@
 )
 
 @php ($cert = (!$isNew)
-    ? Str::of(Auth::user()->workspace->appstoreConnectSign->cert)->explode('/')->last()
+    ? Str::of($workspace->appstoreConnectSign->cert)->explode('/')->last()
     : 'Choose...'
 )
 
 @php ($provisionFile = (!$isNew)
-    ? Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)->explode('/')->last()
+    ? Str::of($workspace->appstoreConnectSign->provision_profile)->explode('/')->last()
     : 'Choose...'
 )
 
