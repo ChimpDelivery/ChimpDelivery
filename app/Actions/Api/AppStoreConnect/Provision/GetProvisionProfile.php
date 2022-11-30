@@ -6,6 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 use App\Services\S3Service;
@@ -14,6 +15,23 @@ class GetProvisionProfile
 {
     // stores provision uuid data in header
     private const UUID_KEY = 'Dashboard-Provision-Profile-UUID';
+
+    // stores team id data in header
+    private const TEAM_ID_KEY = 'Dashboard-Team-ID';
+
+    // resolved real provision profile data index
+    /*
+     * preg_match_all returns explodes tags from binary file,
+     * example response included below
+     * array:5 [
+            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
+            1 => "<string>"
+            2 => "string"
+            3 => "uuid-uuid-uuid-uuid-uuid"
+            4 => "</string>"
+        ]
+     */
+    private const REAL_DATA_INDEX = 3;
 
     use AsAction;
 
@@ -36,33 +54,47 @@ class GetProvisionProfile
 
         $response = $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
         $response->headers->set(self::UUID_KEY, $this->GetProfileUUID($response));
+        $response->headers->set(self::TEAM_ID_KEY, $this->GetTeamID($response));
 
         return $response;
     }
 
-    /*
-     * preg_match_all returns explodes tags from binary file,
-     * example response included below
-     * array:5 [
-            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
-            1 => "<string>"
-            2 => "string"
-            3 => "uuid-uuid-uuid-uuid-uuid"
-            4 => "</string>"
-        ]
-     */
+    // find uuid section in binary file,
+    // real uuid value exist below that section
     public function GetProfileUUID(Response $response)
     {
-        $file = $response->getContent();
-        preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/", $file,$matches,PREG_SET_ORDER);
-        $tags = collect($matches);
+        $tags = $this->GetFileTags($response);
 
-        // find uuid section in binary file,
-        // real uuid value exist below that section
-        $uuidPositionReference = $tags->filter(function ($item) {
-            return Str::of($item[0])->contains('UUID');
+        $uuidPositionReference = $tags->filter(function ($tag) {
+            return Str::of($tag[0])->contains('UUID');
         });
+        $uuidPositionIndex = $uuidPositionReference->keys()->first();
 
-        return $tags->get($uuidPositionReference->keys()->first() + 1)[3];
+        return $tags->get($uuidPositionIndex + 1)[self::REAL_DATA_INDEX];
+    }
+
+    // find team id section in binary file,
+    // real team id value exist below that section
+    public function GetTeamID(Response $response)
+    {
+        $tags = $this->GetFileTags($response);
+
+        $teamIdPositionReference = $tags->filter(function ($tag) {
+            return Str::of($tag[0])->contains('TeamIdentifier');
+        });
+        $teamIdPositionIndex = $teamIdPositionReference->keys()->first();
+
+        return $tags->get($teamIdPositionIndex + 1)[self::REAL_DATA_INDEX];
+    }
+
+    private function GetFileTags(Response $response) : Collection
+    {
+        preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",
+            $response->getContent(),
+            $matches,
+            PREG_SET_ORDER
+        );
+
+        return collect($matches);
     }
 }
