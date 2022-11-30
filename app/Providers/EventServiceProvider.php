@@ -8,10 +8,11 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
-use App\Listeners\ChangeWorkspaceSettings;
-use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-use App\Actions\Api\AppStoreConnect\Provision\UploadAppStoreConnectSign;
+use App\Listeners\ChangeWorkspaceSettings;
+
+use App\Actions\Api\AppStoreConnect\Provision\Post\UploadAppStoreConnectSign;
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
