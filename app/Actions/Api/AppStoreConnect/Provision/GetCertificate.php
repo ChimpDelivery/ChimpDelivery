@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Api\AppStoreConnect\Provision\Get;
+namespace App\Actions\Api\AppStoreConnect\Provision;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Services\S3Service;
 
-class GetSign
+class GetCertificate
 {
     use AsAction;
 
