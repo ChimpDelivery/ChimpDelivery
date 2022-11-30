@@ -7,16 +7,18 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Auth;
 
 use App\Services\S3Service;
+use App\Traits\AsActionResponse;
 use App\Events\WorkspaceChanged;
 use App\Models\AppStoreConnectSign;
 
 class UploadAppStoreConnectSign
 {
     use AsAction;
+    use AsActionResponse;
 
     private const BUCKET_ROOT_FOLDER = "Workspace";
 
-    public function handle(WorkspaceChanged $event) : void
+    public function handle(WorkspaceChanged $event) : array
     {
         $appStoreConnectSign = AppStoreConnectSign::firstOrCreate([
             'workspace_id' => $event->workspace->id
@@ -44,7 +46,10 @@ class UploadAppStoreConnectSign
             ]);
         }
 
-        $appStoreConnectSign->save();
+        return [
+            'success' => true,
+            'message' => 'AppStoreConnect App Signing updated. ',
+        ];
     }
 
     public function authorize() : bool

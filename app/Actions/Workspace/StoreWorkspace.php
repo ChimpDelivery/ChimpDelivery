@@ -44,6 +44,8 @@ class StoreWorkspace
         ];
     }
 
+    // MimeTypes not working in rules(calls getMimeType()) when uploading cert
+    // Use custom getClientMimeType() validation
     public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
     {
         $validator->after(function (Validator $validator) use ($request) {
@@ -59,7 +61,6 @@ class StoreWorkspace
         return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
     }
 
-    // mimetypes not working in rules when client upload file, we need to use getClientMimeType()
     private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
     {
         if ($request->hasFile('cert'))
