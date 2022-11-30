@@ -14,6 +14,7 @@ use Database\Seeders\Workspace\WorkspaceSeeder;
 
 use Database\Seeders\Settings\AppleSettingSeeder;
 use Database\Seeders\Settings\AppStoreConnectSettingSeeder;
+use Database\Seeders\Settings\AppStoreConnectSignSeeder;
 use Database\Seeders\Settings\GithubSettingSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             WorkspaceInviteCodeSeeder::class,
             AppleSettingSeeder::class,
             AppStoreConnectSettingSeeder::class,
+            AppStoreConnectSignSeeder::class,
             GithubSettingSeeder::class,
 
             // seed roles

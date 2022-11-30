@@ -29,6 +29,7 @@ class Workspace extends Model
         'updated_at',
         'deleted_at',
         'AppStoreConnectSetting',
+        'AppStoreConnectSign',
         'AppleSetting',
         'GithubSetting',
     ];
@@ -39,6 +40,7 @@ class Workspace extends Model
 
     protected $with = [
         'AppStoreConnectSetting',
+        'AppStoreConnectSign',
         'AppleSetting',
         'GithubSetting',
     ];
@@ -71,6 +73,11 @@ class Workspace extends Model
     public function githubSetting()
     {
         return $this->hasOne(GithubSetting::class);
+    }
+
+    public function appStoreConnectSign()
+    {
+        return $this->hasOne(AppStoreConnectSign::class);
     }
 
     public function createApiToken()
