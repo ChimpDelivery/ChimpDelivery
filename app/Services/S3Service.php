@@ -9,7 +9,7 @@ class S3Service
 {
     private const BASE_PATH = 'TalusDashboard_Root';
 
-    private string $workspaceFolder;
+    private readonly string $workspaceFolder;
 
     public function __construct()
     {
@@ -31,18 +31,26 @@ class S3Service
         return Storage::disk('s3')->url($path);
     }
 
-    public function UploadProvision($provisionName, $provision) : false|string
+    public function UploadProvision(string $provisionName, $provision) : false|string
     {
-        return $this->UploadFile($provisionName, $provision, $this->GetWorkspaceFolder() . "/provisions");
+        return $this->UploadFile(
+            $provisionName,
+            $provision,
+            "{$this->GetWorkspaceFolder()}/provisions"
+        );
     }
 
-    public function UploadCert($certName, $cert) : false|string
+    public function UploadCert(string $certName, $cert) : false|string
     {
-        return $this->UploadFile($certName, $cert, $this->GetWorkspaceFolder() . "/certs");
+        return $this->UploadFile(
+            $certName,
+            $cert,
+            "{$this->GetWorkspaceFolder()}/certs"
+        );
     }
 
-    private function UploadFile($fileName, $file, $path) : false|string
+    private function UploadFile(string $fileName, $file, string $path) : false|string
     {
-        return Storage::disk('s3')->putFileAs($path, $file, $fileName,);
+        return Storage::disk('s3')->putFileAs($path, $file, $fileName);
     }
 }
