@@ -192,6 +192,7 @@ return [
         App\Providers\AppStoreConnectServiceProvider::class,
         App\Providers\JenkinsServiceProvider::class,
         App\Providers\GitHubServiceProvider::class,
+        App\Providers\S3ServiceProvider::class,
     ],
 
     /*
