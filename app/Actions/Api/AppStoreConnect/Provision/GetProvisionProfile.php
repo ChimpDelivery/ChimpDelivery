@@ -59,8 +59,7 @@ class GetProvisionProfile
         return $response;
     }
 
-    // find uuid section in binary file,
-    // real uuid value exist below that section
+    // find uuid section, then read value below that section
     public function GetProfileUUID(Response $response)
     {
         $tags = $this->GetFileTags($response);
@@ -73,8 +72,7 @@ class GetProvisionProfile
         return $tags->get($uuidPositionIndex + 1)[self::REAL_DATA_INDEX];
     }
 
-    // find team id section in binary file,
-    // real team id value exist below that section
+    // find team id section, then read value below that section
     public function GetTeamID(Response $response)
     {
         $tags = $this->GetFileTags($response);
