@@ -75,16 +75,16 @@
                         <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Profile</a>
                     </div>
                     <div class="input-group mb-3">
-                        <div class="input-group my-2">
-                            <div class="alert alert-warning w-100  alert-dismissible fade show">
-                                <span class="badge badge-warning">
-                                    <i class="fa fa-bell text-white" aria-hidden="true"></i>
-                                </span>
-                                Only WildCard Provisioning Profiles supported.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-warning w-100  alert-dismissible fade show">
+                            <span class="badge badge-warning">
+                                <i class="fa fa-bell text-white" aria-hidden="true"></i>
+                            </span>
+                            <span>
+                                Only '<a class="font-weight-bold" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a>' supported.
+                            </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Certificate</span>
