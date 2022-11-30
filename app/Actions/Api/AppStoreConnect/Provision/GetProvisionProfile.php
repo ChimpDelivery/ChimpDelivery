@@ -13,6 +13,8 @@ use App\Services\S3Service;
 
 class GetProvisionProfile
 {
+    use AsAction;
+
     // stores provision uuid data in header
     private const UUID_KEY = 'Dashboard-Provision-Profile-UUID';
 
@@ -32,8 +34,6 @@ class GetProvisionProfile
         ]
      */
     private const REAL_DATA_INDEX = 3;
-
-    use AsAction;
 
     public function handle() : Response
     {
