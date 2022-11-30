@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,6 +30,20 @@ class S3Service
     public function GetFile(string $path)
     {
         return Storage::disk('s3')->get($path);
+    }
+
+    public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
+    {
+        $file = $this->GetFile($path);
+
+        $headers = [
+            'Cache-Control' => 'public',
+            'Content-Type' => $mimeType,
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => "attachment; filename={$fileName}",
+        ];
+
+        return \Response::make($file, 200, $headers);
     }
 
     public function GetFileLink(string $path) : string

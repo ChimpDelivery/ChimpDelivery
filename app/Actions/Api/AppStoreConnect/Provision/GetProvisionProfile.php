@@ -27,18 +27,10 @@ class GetProvisionProfile
     public function DownloadAsset($path) : Response
     {
         $s3Service = app(S3Service::class);
-        $file = $s3Service->GetFile($path);
         $fileName = Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
             ->explode('/')
             ->last();
 
-        $headers = [
-            'Cache-Control' => 'public',
-            'Content-Type' => 'application/octet-stream',
-            'Content-Description' => 'File Transfer',
-            'Content-Disposition' => "attachment; filename={$fileName}",
-        ];
-
-        return \Response::make($file, 200, $headers);
+        return $s3Service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
 }

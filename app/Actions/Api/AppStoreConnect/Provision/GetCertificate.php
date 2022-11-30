@@ -27,18 +27,10 @@ class GetCertificate
     public function DownloadAsset($path) : Response
     {
         $s3Service = app(S3Service::class);
-        $file = $s3Service->GetFile($path);
         $fileName = Str::of(Auth::user()->workspace->appstoreConnectSign->cert)
             ->explode('/')
             ->last();
 
-        $headers = [
-            'Cache-Control' => 'public',
-            'Content-Type' => 'application/x-pkcs12',
-            'Content-Description' => 'File Transfer',
-            'Content-Disposition' => "attachment; filename={$fileName}",
-        ];
-
-        return \Response::make($file, 200, $headers);
+        return $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
     }
 }
