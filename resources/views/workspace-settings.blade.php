@@ -66,13 +66,13 @@
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_app_store_signing" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
                         <i class="fa fa-apple" aria-hidden="true"></i>
-                        <b>AppStore Signing</b>
+                        <b>AppStore App Signing</b>
                     </a>
                 </p>
                 <div class="collapse" id="collapse_app_store_signing">
                     <div class="form-group">
-                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/certificates/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Cert</a>
-                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Provision</a>
+                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/certificates/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Certificate</a>
+                        <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Profile</a>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group my-2">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Provisioning Profile</span>
+                            <span class="input-group-text">Profile</span>
                         </div>
                         <div class="custom-file">
                             <label class="custom-file-label" for="provision_profile">{{ $provision_label }}</label>
