@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
-    private const BASE_PATH = 'Workspace';
+    private const BASE_PATH = 'Workspace/';
 
     private string $workspaceFolder;
 
     public function __construct()
     {
         $this->workspaceFolder = implode('/', [
+            'TalusDashboard_Root',
+            config('app.env'),
             self::BASE_PATH,
             Auth::user()->workspace->id,
         ]);
