@@ -31,6 +31,6 @@ class GetCertificate
             ->explode('/')
             ->last();
 
-        return $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
+        return $s3Service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
 }

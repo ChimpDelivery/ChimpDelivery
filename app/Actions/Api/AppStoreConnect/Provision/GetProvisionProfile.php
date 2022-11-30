@@ -31,6 +31,6 @@ class GetProvisionProfile
             ->explode('/')
             ->last();
 
-        return $s3Service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
+        return $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
     }
 }
