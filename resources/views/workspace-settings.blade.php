@@ -1,4 +1,4 @@
-@php ($title = (!$isNew)
+@php ($title = ($isNew)
     ? 'Create Workspace'
     : $workspace->name . ' Workspace'
 )
