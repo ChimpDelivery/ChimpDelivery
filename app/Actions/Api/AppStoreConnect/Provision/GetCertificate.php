@@ -24,7 +24,7 @@ class GetCertificate
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset($path) : Response
+    public function DownloadAsset(string $path) : Response
     {
         $s3Service = app(S3Service::class);
         $fileName = Str::of(Auth::user()->workspace->appstoreConnectSign->cert)

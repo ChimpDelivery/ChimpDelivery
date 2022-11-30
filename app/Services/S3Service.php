@@ -32,6 +32,11 @@ class S3Service
         return Storage::disk('s3')->get($path);
     }
 
+    public function GetFileLink(string $path) : string
+    {
+        return Storage::disk('s3')->url($path);
+    }
+
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
     {
         $file = $this->GetFile($path);
@@ -44,11 +49,6 @@ class S3Service
         ];
 
         return \Response::make($file, 200, $headers);
-    }
-
-    public function GetFileLink(string $path) : string
-    {
-        return Storage::disk('s3')->url($path);
     }
 
     public function UploadProvision(string $provisionName, $provision) : false|string
