@@ -8,8 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
+    // to indicate custom request header for responses that contains file (provision or cert)
+    private const FILE_RESPONSE_KEY = 'Dashboard-File-Name';
+
+    // s3 service root path
     private const BASE_PATH = 'TalusDashboard_Root';
 
+    // every workspace has own folder on bucket to store required assets
     private readonly string $workspaceFolder;
 
     public function __construct()
@@ -46,6 +51,7 @@ class S3Service
             'Content-Type' => $mimeType,
             'Content-Description' => 'File Transfer',
             'Content-Disposition' => "attachment; filename={$fileName}",
+            self::FILE_RESPONSE_KEY => $fileName,
         ];
 
         return \Response::make($file, 200, $headers);
