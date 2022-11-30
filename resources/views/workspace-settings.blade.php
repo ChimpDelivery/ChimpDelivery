@@ -75,17 +75,6 @@
                         <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Get Profile</a>
                     </div>
                     <div class="input-group mb-3">
-                        <div class="alert alert-warning w-100  alert-dismissible fade show">
-                            <span class="badge badge-warning">
-                                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                Only '<a class="font-weight-bold" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a>' supported temporarily.
-                            </span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Certificate</span>
                         </div>
@@ -102,6 +91,17 @@
                             <label class="custom-file-label" for="provision_profile">{{ $provision_label }}</label>
                             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
                         </div>
+                    </div>
+                    <div class="alert alert-warning w-100  alert-dismissible fade show">
+                            <span class="badge badge-warning">
+                                <i class="fa fa-bell text-white" aria-hidden="true"></i>
+                            </span>
+                        <small>
+                            Only '<a class="font-weight-bold" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a>' supported for now.
+                        </small>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 </div>
                 <p>
