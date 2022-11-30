@@ -1,4 +1,17 @@
-@php ($title = ($isNew === true) ? 'Create Workspace' : $workspace->name . ' Workspace')
+@php ($title = (!$isNew)
+    ? 'Create Workspace'
+    : $workspace->name . ' Workspace'
+)
+
+@php ($cert = (!$isNew)
+    ? Str::of(Auth::user()->workspace->appstoreConnectSign->cert)->explode('/')->last()
+    : 'Choose...'
+)
+
+@php ($provisionFile = (!$isNew)
+    ? Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)->explode('/')->last()
+    : 'Choose...'
+)
 
 @extends('master')
 
@@ -76,7 +89,7 @@
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="cert" name="cert" accept=".p12">
-                            <label class="custom-file-label" for="cert">Choose...</label>
+                            <label class="custom-file-label" for="cert">{{ $cert }}</label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -85,7 +98,7 @@
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
-                            <label class="custom-file-label" for="provision_profile">Choose...</label>
+                            <label class="custom-file-label" for="provision_profile">{{ $provisionFile }}</label>
                         </div>
                     </div>
                 </div>
