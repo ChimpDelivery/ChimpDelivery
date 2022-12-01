@@ -10,6 +10,8 @@ use App\Actions\Api\AppStoreConnect\CreateToken;
 use App\Actions\Api\AppStoreConnect\GetAppList;
 use App\Actions\Api\AppStoreConnect\GetBuildList;
 use App\Actions\Api\AppStoreConnect\GetFullAppInfo;
+use App\Actions\Api\AppStoreConnect\Provision\GetCertificate;
+use App\Actions\Api\AppStoreConnect\Provision\GetProvisionProfile;
 
 // use App\Actions\Api\Github\CreateRepository;
 use App\Actions\Api\Github\GetRepositories;
@@ -50,6 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
     Route::get('appstoreconnect/get-app-list', GetAppList::class);
     Route::get('appstoreconnect/get-build-list', GetBuildList::class);
+    Route::get('appstoreconnect/get-cert', GetCertificate::class);
+    Route::get('appstoreconnect/get-provision-profile', GetProvisionProfile::class);
 
     Route::post('appstoreconnect/create-bundle', CreateBundleId::class);
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Api\AppStoreConnect\Provision;
+namespace App\Actions\Api\AppStoreConnect\Provision\Post;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -32,7 +32,7 @@ class UploadAppStoreConnectSign
             $uploadedPath = $s3Service->UploadProvision($provisionFile->getClientOriginalName(), $provisionFile);
 
             $appStoreConnectSign->update([
-                'provision_profile' => $s3Service->GetFileLink($uploadedPath),
+                'provision_profile' => $uploadedPath,
             ]);
         }
 
@@ -42,7 +42,7 @@ class UploadAppStoreConnectSign
             $uploadedPath = $s3Service->UploadCert($certFile->getClientOriginalName(), $certFile);
 
             $appStoreConnectSign->update([
-                'cert' => $s3Service->GetFileLink($uploadedPath),
+                'cert' => $uploadedPath,
             ]);
         }
 

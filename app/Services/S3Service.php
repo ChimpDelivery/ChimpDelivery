@@ -2,13 +2,19 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
+    // indicates custom request header for responses that contains file (provision or cert)
+    private const FILE_RESPONSE_KEY = 'Dashboard-File-Name';
+
+    // s3 service root path
     private const BASE_PATH = 'TalusDashboard_Root';
 
+    // every workspace has own folder on bucket to store required assets
     private readonly string $workspaceFolder;
 
     public function __construct()
@@ -26,9 +32,29 @@ class S3Service
         return $this->workspaceFolder;
     }
 
+    public function GetFile(string $path)
+    {
+        return Storage::disk('s3')->get($path);
+    }
+
     public function GetFileLink(string $path) : string
     {
         return Storage::disk('s3')->url($path);
+    }
+
+    public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
+    {
+        $file = $this->GetFile($path);
+
+        $headers = [
+            'Cache-Control' => 'public',
+            'Content-Type' => $mimeType,
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => "attachment; filename={$fileName}",
+            self::FILE_RESPONSE_KEY => $fileName,
+        ];
+
+        return \Response::make($file, 200, $headers);
     }
 
     public function UploadProvision(string $provisionName, $provision) : false|string
