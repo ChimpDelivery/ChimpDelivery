@@ -34,9 +34,11 @@ class BuildParameterizedJob extends BaseJenkinsAction
             $provisionProfileUuid = $profileFile->headers->get('Dashboard-Provision-Profile-UUID');
         }
 
-        $provisionFileName = Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
-                        ->explode('/')
-                        ->last();
+        $provisionFileName = Str::of(
+            Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
+                ->explode('/')
+                ->last()
+            )->explode('.mobileprovision')->first();
 
         $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
