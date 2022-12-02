@@ -3,11 +3,14 @@
 namespace App\Actions\Api\Jenkins\Post;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+use App\Actions\Api\AppStoreConnect\Provision\GetProvisionProfile;
 
 class BuildParameterizedJob extends BaseJenkinsAction
 {
@@ -23,13 +26,27 @@ class BuildParameterizedJob extends BaseJenkinsAction
 
         $app = AppInfo::find($validated['id']);
 
+        $provisionProfileUuid = '';
+
+        if ($validated['platform'] === 'Appstore')
+        {
+            $profileFile = GetProvisionProfile::run();
+            $provisionProfileUuid = $profileFile->headers->get('Dashboard-Provision-Profile-UUID');
+        }
+
+        $provisionFileName = Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
+                        ->explode('/')
+                        ->last();
+
         $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
             ."&PLATFORM={$validated['platform']}"
             ."&APP_ID={$validated['id']}"
             ."&STORE_BUILD_VERSION={$validated['store_version']}"
             ."&STORE_CUSTOM_BUNDLE_VERSION={$validated['store_custom_version']}"
-            ."&STORE_BUNDLE_VERSION={$validated['store_build_number']}";
+            ."&STORE_BUNDLE_VERSION={$validated['store_build_number']}"
+            ."&DASHBOARD_PROFILE_NAME={$provisionFileName}"
+            ."&DASHBOARD_PROFILE_UUID={$provisionProfileUuid}";
 
         $response = app(JenkinsService::class)->PostResponse($url);
         $responseCode = $response->jenkins_status;
