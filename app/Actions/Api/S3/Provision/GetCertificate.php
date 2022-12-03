@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Actions\Api\AppStoreConnect\Provision;
+namespace App\Actions\Api\S3\Provision;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Services\S3Service;
 

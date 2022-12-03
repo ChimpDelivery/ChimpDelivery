@@ -2,15 +2,15 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
-use App\Actions\Api\AppStoreConnect\Provision\GetProvisionProfile;
+use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
 class BuildParameterizedJob extends BaseJenkinsAction
 {

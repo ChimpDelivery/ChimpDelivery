@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Api\AppStoreConnect\Provision;
+namespace App\Actions\Api\S3\Provision;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
