@@ -18,19 +18,17 @@ class CreateApiTokenView extends Component
     public function render()
     {
         return <<<'HTML'
-            <div class="form-group">
-                <label for="api_key">Workspace API Token</label>
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
-                        <small class="form-text text-muted">
-                            Workspace API Tokens are used by <span class="badge badge-secondary">Unity3D</span> projects to fetch app information when building. Be Careful! Generating new API Token revokes all existing tokens of user.
-                        </small>
-                    </div>
-                    <div class="col">
-                        <button onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate Token</button>
+            <div class="input-group mb-3">
+                <label for="api_key">Workspace Api Token</label>
+                <div class="input-group">
+                    <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
+                    <div class="input-group-append">
+                        <button onclick="confirm('Are you sure? Generating new API Token revokes all existing tokens of user.') || event.stopImmediatePropagation()" wire:click="createToken()" type="button" class="btn btn-success border border-dark font-weight-bold shadow" style="width:100%;">Generate</button>
                     </div>
                 </div>
+                <small class="form-text text-muted">
+                    Workspace API Tokens are used by <span class="badge badge-secondary">Unity3D</span> projects to fetch app information when building.
+                </small>
             </div>
         HTML;
     }
