@@ -4,15 +4,17 @@
         @include('layouts.app-info')
     </th>
     <td class="text-center align-middle">
-        @if($appInfo->jenkins_status == 3200)
-            @include('errors.jenkins.jenkins-down')
-        @else
-            @if($appInfo->jenkins_status == 200)
+        @switch($appInfo->jenkins_status)
+            @case(3200)
+                @include('errors.jenkins.jenkins-down')
+            @break
+            @case(200)
                 @include('layouts.build-details-button')
-            @else
+            @break
+            @default
                 @include('errors.jenkins.jenkins-file-notfound')
-            @endif
-        @endif
+            @break
+        @endswitch
     </td>
     <td class="text-center align-middle">
         @include('layouts.build-button')
