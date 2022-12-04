@@ -9,29 +9,20 @@ trait AsActionResponse
 {
     public function htmlResponse(array $response) : RedirectResponse
     {
-        $isResponseSucceed = $response['success'];
         $message = $response['message'];
         $hasRedirect = isset($response['redirect']);
-        $redirectRouteName = $hasRedirect && !empty($response['redirect'])
-            ? $response['redirect']
-            : 'index';
+        $redirect = ($hasRedirect && !empty($response['redirect'])) ? $response['redirect'] : 'index';
 
-        if ($isResponseSucceed)
+        if ($response['success'])
         {
-            if ($hasRedirect)
-            {
-                return to_route($redirectRouteName)->with('success', $message);
-            }
-
-            return back()->with('success', $message);
+            return ($hasRedirect)
+                ? to_route($redirect)->with('success', $message)
+                : back()->with('success', $message);
         }
 
-        if ($hasRedirect)
-        {
-            return to_route($redirectRouteName)->withErrors($message);
-        }
-
-        return back()->withErrors($message);
+        return ($hasRedirect)
+            ? to_route($redirect)->withErrors($message)
+            : back()->withErrors($message);
     }
 
     public function jsonResponse(array $response) : JsonResponse
