@@ -39,6 +39,9 @@ class BuildParameterizedJob extends BaseJenkinsAction
         $provisionProfileUuid = ($isIosProject) ? $profileFile->headers->get('Dashboard-Provision-Profile-UUID') : '';
         $provisionTeamId = ($isIosProject) ? $profileFile->headers->get('Dashboard-Team-ID') : '';
 
+        // backend packages
+        $installBackend = isset($validated['install_backend']) ? 'true' : 'false';
+
         $url = "/job/{$app->project_name}/job/{$this->branch}/buildWithParameters"
             ."?INVOKE_PARAMETERS=false"
             ."&PLATFORM={$validated['platform']}"
@@ -48,7 +51,8 @@ class BuildParameterizedJob extends BaseJenkinsAction
             ."&STORE_BUNDLE_VERSION={$validated['store_build_number']}"
             ."&DASHBOARD_PROFILE_NAME={$provisionFileName}"
             ."&DASHBOARD_PROFILE_UUID={$provisionProfileUuid}"
-            ."&DASHBOARD_TEAM_ID={$provisionTeamId}";
+            ."&DASHBOARD_TEAM_ID={$provisionTeamId}"
+            ."&INSTALL_SDK={$installBackend}";
 
         $response = app(JenkinsService::class)->PostResponse($url);
         $responseCode = $response->jenkins_status;

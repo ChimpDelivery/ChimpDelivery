@@ -42,6 +42,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="install_backend" name="install_backend" />
+                            <label class="custom-control-label" for="install_backend">Install Backend</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="submit" class="btn btn-success font-weight-bold shadow">
