@@ -29,9 +29,12 @@ class UploadAppStoreConnectSign
         if ($event->request->hasFile('provision_profile'))
         {
             $provisionFile = $event->request->validated('provision_profile');
-            $uploadedPath = $s3Service->UploadProvision($provisionFile->getClientOriginalName(), $provisionFile);
+            $uploadedPath = $s3Service->UploadProvision(
+                $provisionFile->getClientOriginalName(),
+                $provisionFile
+            );
 
-            $appStoreConnectSign->update([
+            $appStoreConnectSign->fill([
                 'provision_profile' => $uploadedPath,
             ]);
         }
@@ -41,10 +44,12 @@ class UploadAppStoreConnectSign
             $certFile = $event->request->validated('cert');
             $uploadedPath = $s3Service->UploadCert($certFile->getClientOriginalName(), $certFile);
 
-            $appStoreConnectSign->update([
+            $appStoreConnectSign->fill([
                 'cert' => $uploadedPath,
             ]);
         }
+
+        $appStoreConnectSign->save();
 
         return [
             'success' => true,
