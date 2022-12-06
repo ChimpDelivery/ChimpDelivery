@@ -24,4 +24,9 @@ class GetWorkspaceForm
             'provision_label' => Str::of($wsSign->provision_profile ?? 'Choose...')->explode('/')->last(),
         ]);
     }
+
+    public function authorize() : bool
+    {
+        return !Auth::user()->isNew() || Auth::user()->hasRole('Admin_Super');
+    }
 }
