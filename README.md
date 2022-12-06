@@ -24,6 +24,8 @@ GET    |   api/appstoreconnect/get-token
 GET    |   api/appstoreconnect/get-full-info
 GET    |   api/appstoreconnect/get-app-list
 GET    |   api/appstoreconnect/get-build-list
+GET    |   api/appstoreconnect/get-cert
+GET    |   api/appstoreconnect/get-provision-profile
 POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
