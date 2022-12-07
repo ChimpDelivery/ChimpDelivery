@@ -36,6 +36,7 @@ class AppStoreConnectSign extends Model
         'provision_name',
     ];
 
+    // example cert field: TalusDashboard_Root/local/Workspaces/6/certs/Cert.p12
     protected function certName() : Attribute
     {
         return new Attribute(get: fn() => Str::of($this->cert)
@@ -44,6 +45,7 @@ class AppStoreConnectSign extends Model
         );
     }
 
+    // example provision field: TalusDashboard_Root/local/Workspaces/6/provisions/iOSProfile.mobileprovision
     protected function provisionName() : Attribute
     {
         return new Attribute(get: fn() => Str::of($this->provision_profile)
