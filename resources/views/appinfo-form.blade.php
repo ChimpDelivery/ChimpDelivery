@@ -66,7 +66,7 @@
                         <label for="project_name"><i class="fa fa-github" aria-hidden="true"></i> Git Project</label>
                         <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
                     @endif
-                    @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'layouts.github.auth-failed')
+                    @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
                 </div>
                 <p>
                     <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
