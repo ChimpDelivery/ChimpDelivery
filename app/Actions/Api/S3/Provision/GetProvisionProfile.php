@@ -48,9 +48,7 @@ class GetProvisionProfile
     public function DownloadAsset(string $path) : Response
     {
         $s3Service = app(S3Service::class);
-        $fileName = Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
-            ->explode('/')
-            ->last();
+        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
 
         $response = $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
         $response->headers->set(self::UUID_KEY, $this->GetProfileUUID($response));
