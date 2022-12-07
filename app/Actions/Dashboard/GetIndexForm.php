@@ -44,12 +44,6 @@ class GetIndexForm
 
     private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void
     {
-        $app->git_url = implode('/', [
-            'https://github.com',
-            Auth::user()->workspace->githubSetting->organization_name,
-            $app->project_name
-        ]);
-
         $app->jenkins_status = $jenkinsResponse->jenkins_status;
         $app->jenkins_data = $jenkinsResponse->jenkins_data;
 
