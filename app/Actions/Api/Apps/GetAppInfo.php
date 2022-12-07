@@ -15,11 +15,9 @@ class GetAppInfo
 {
     use AsAction;
 
-    private AppInfo $app;
-
     public function handle(GetAppInfoRequest $request) : AppInfo
     {
-        return $this->app;
+        return Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
     }
 
     public function htmlResponse(AppInfo $appInfo) : View
@@ -40,8 +38,6 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-
         return !Auth::user()->isNew() && Auth::user()->can('view apps');
     }
 }
