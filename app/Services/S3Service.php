@@ -75,7 +75,7 @@ class S3Service
         );
     }
 
-    private function UploadFile(string $fileName, $file, string $path) : false|string
+    public function UploadFile(string $fileName, $file, string $path) : false|string
     {
         return Storage::disk('s3')->putFileAs($path, $file, $fileName);
     }
