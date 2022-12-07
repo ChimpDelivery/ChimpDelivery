@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Illuminate\Support\Facades\Auth;
 
 class AppInfo extends Model
 {
@@ -28,10 +31,26 @@ class AppInfo extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'git_url',
     ];
 
     protected $casts = [
     ];
+
+    protected $appends = [
+        'git_url',
+    ];
+
+    protected function gitUrl() : Attribute
+    {
+        return new Attribute(
+            get: fn () => implode('/', [
+                'https://github.com',
+                Auth::user()->workspace->githubSetting->organization_name,
+                $this->project_name
+            ])
+        );
+    }
 
     public function workspace()
     {
