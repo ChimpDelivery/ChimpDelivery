@@ -5,7 +5,6 @@ namespace App\Actions\Dashboard;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 class GetNewUserIndex
 {
@@ -18,10 +17,5 @@ class GetNewUserIndex
             'cert_label' => 'Choose...',
             'provision_label' => 'Choose...',
         ]);
-    }
-
-    public function authorize() : bool
-    {
-        return Auth::user()->isNew();
     }
 }
