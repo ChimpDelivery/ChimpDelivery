@@ -19,7 +19,7 @@ class GetPackage
     {
         $response = Package::where('package_id', '=', $request->validated('package_id'))
             ->select(['package_id', 'url', 'hash'])
-            ->firstOrNew();
+            ->first();
 
         return response()->json($response, Response::HTTP_ACCEPTED);
     }
