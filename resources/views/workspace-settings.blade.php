@@ -1,7 +1,4 @@
-@php ($title = ($isNew)
-    ? 'Create Workspace'
-    : $workspace->name . ' Workspace'
-)
+@php ($title = ($isNew) ? 'Create Workspace' : "{$workspace->name} Workspace")
 
 @extends('master')
 
