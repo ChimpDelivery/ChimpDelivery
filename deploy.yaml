@@ -45,9 +45,9 @@ tasks:
     - artisan:down
     - artisan:migrate
     - artisan:up
-    - php-fpm:reload
     - server:permission
     - deploy:publish
+    - php-fpm:reload
   server:permission:
       - cd: "{{release_path}}"
       - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
