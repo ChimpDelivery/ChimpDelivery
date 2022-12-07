@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 use App\Services\S3Service;
 
@@ -27,9 +26,7 @@ class GetCertificate
     public function DownloadAsset(string $path) : Response
     {
         $s3Service = app(S3Service::class);
-        $fileName = Str::of(Auth::user()->workspace->appstoreConnectSign->cert)
-            ->explode('/')
-            ->last();
+        $fileName = Auth::user()->workspace->appstoreConnectSign->cert_name;
 
         return $s3Service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
