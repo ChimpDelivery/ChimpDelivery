@@ -8,6 +8,10 @@
 
 # Information
 - Deployment configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
+- App Store Connect API Support
+- Test Flight API Support
+- GitHub API Support
+
 
 # 🔑 Apps API
 - Optional parameters marked with `?`

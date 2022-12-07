@@ -42,7 +42,9 @@ tasks:
     - artisan:config:cache
     - artisan:route:cache
     - artisan:optimize
+    - artisan:down
     - artisan:migrate
+    - artisan:up
     - php-fpm:reload
     - server:permission
     - deploy:publish
