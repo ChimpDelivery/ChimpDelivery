@@ -5,6 +5,7 @@ namespace App\Http\Requests\AppInfo;
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class GetAppInfoRequest extends FormRequest
 {
@@ -29,7 +30,9 @@ class GetAppInfoRequest extends FormRequest
             'id' => [
                 'required',
                 'numeric',
-                Rule::exists('app_infos', 'id')->whereNull('deleted_at'),
+                Rule::exists('app_infos', 'id')
+                    ->where('workspace_id', Auth::user()->workspace->id)
+                    ->whereNull('deleted_at'),
             ]
         ];
     }
