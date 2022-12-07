@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
 use App\Models\AppInfo;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetIndexForm
 {
@@ -19,15 +19,11 @@ class GetIndexForm
     {
         if (Auth::user()->isNew())
         {
-            return view('workspace-settings')->with([
-                'isNew' => true,
-                'cert_label' => 'Choose...',
-                'provision_label' => 'Choose...',
-            ]);
+            return GetNewUserIndex::run();
         }
 
+        // populate ws apps
         $workspaceApps = Auth::user()->workspace->apps();
-
         $paginatedApps = $workspaceApps->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
@@ -40,13 +36,9 @@ class GetIndexForm
             $this->PopulateBuildDetails($app, $jenkinsResponse);
         });
 
-        $currentBuildCount = $paginatedApps->pluck('build_status.status')
-            ->filter(fn($buildStatus) => $buildStatus == 'IN_PROGRESS');
-
         return view('list-app-info')->with([
             'totalAppCount' => $workspaceApps->count(),
             'appInfos' => $paginatedApps,
-            'currentBuildCount' => $currentBuildCount->count()
         ]);
     }
 
@@ -61,7 +53,8 @@ class GetIndexForm
         $app->jenkins_status = $jenkinsResponse->jenkins_status;
         $app->jenkins_data = $jenkinsResponse->jenkins_data;
 
-        if ($app->jenkins_data?->status == 'IN_PROGRESS') {
+        if ($app->jenkins_data?->status == 'IN_PROGRESS')
+        {
             $app->jenkins_data->estimated_time = $this->GetBuildFinish(
                 $app->jenkins_data->startTimeMillis,
                 $app->jenkins_data->estimated_duration
