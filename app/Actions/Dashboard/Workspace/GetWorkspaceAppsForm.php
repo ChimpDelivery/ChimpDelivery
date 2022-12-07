@@ -25,9 +25,10 @@ class GetWorkspaceAppsForm
             ->onEachSide(1);
 
         $paginatedApps->each(function (AppInfo $app) {
-            $request = GetAppInfoRequest::createFromGlobals();
-            $request = $request->merge(['id' => $app->id]);
-            $this->PopulateBuildDetails($app, GetJobLastBuild::run($request));
+            $this->InjectJenkinsDetails(
+                $app,
+                GetJobLastBuild::run(null, $app)
+            );
         });
 
         return view('list-app-info')->with([
@@ -36,7 +37,7 @@ class GetWorkspaceAppsForm
         ]);
     }
 
-    private function PopulateBuildDetails(AppInfo $app, JsonResponse $jenkinsResponse) : void
+    private function InjectJenkinsDetails(AppInfo $app, JsonResponse $jenkinsResponse) : void
     {
         $response = $jenkinsResponse->getData();
 

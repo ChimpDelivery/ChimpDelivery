@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -15,9 +16,9 @@ class GetJobLastBuild
 {
     use AsAction;
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
-        $app = Auth::user()->workspace->apps()->findOrFail($request->id);
+        $app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
         // find last build of job
         $jobApiUrl = "/job/{$app->project_name}/job/master/wfapi/runs";
