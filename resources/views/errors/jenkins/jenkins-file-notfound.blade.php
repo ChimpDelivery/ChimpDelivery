@@ -1,5 +1,5 @@
 <div class="container">
-    <h6 class="text-danger font-weight-bold">
+    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" title="Jenkinsfile could not found!">
         MISSING
-    </h6>
+    </span>
 </div>
