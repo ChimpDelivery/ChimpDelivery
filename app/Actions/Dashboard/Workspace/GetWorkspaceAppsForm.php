@@ -4,6 +4,7 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,9 +27,7 @@ class GetWorkspaceAppsForm
         $paginatedApps->each(function (AppInfo $app) {
             $request = GetAppInfoRequest::createFromGlobals();
             $request = $request->merge(['id' => $app->id]);
-
-            $jenkinsResponse = GetJobLastBuild::run($request)->getData();
-            $this->PopulateBuildDetails($app, $jenkinsResponse);
+            $this->PopulateBuildDetails($app, GetJobLastBuild::run($request));
         });
 
         return view('list-app-info')->with([
@@ -37,18 +36,23 @@ class GetWorkspaceAppsForm
         ]);
     }
 
-    private function PopulateBuildDetails(AppInfo $app, mixed $jenkinsResponse) : void
+    private function PopulateBuildDetails(AppInfo $app, JsonResponse $jenkinsResponse) : void
     {
-        $app->jenkins_status = $jenkinsResponse->jenkins_status;
-        $app->jenkins_data = $jenkinsResponse->jenkins_data;
+        $response = $jenkinsResponse->getData();
 
-        if ($app->jenkins_data?->status == 'IN_PROGRESS')
+        //
+        $jenkinsData = $response->jenkins_data;
+        if ($jenkinsData?->status == 'IN_PROGRESS')
         {
-            $app->jenkins_data->estimated_time = $this->GetBuildFinish(
-                $app->jenkins_data->startTimeMillis,
-                $app->jenkins_data->estimated_duration
+            $jenkinsData->estimated_time = $this->GetBuildFinish(
+                $jenkinsData->startTimeMillis,
+                $jenkinsData->estimated_duration
             );
         }
+
+        //
+        $app->jenkins_status = $response->jenkins_status;
+        $app->jenkins_data = $jenkinsData;
     }
 
     private function GetBuildFinish($timestamp, $estimatedDuration) : string
