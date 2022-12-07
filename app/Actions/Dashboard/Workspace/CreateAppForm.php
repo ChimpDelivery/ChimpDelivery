@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Actions\Dashboard;
+namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
 
-use App\Actions\Api\AppStoreConnect\GetAppList;
-
 use App\Actions\Api\Github\GetRepositories;
+use App\Actions\Api\AppStoreConnect\GetAppList;
 
 class CreateAppForm
 {

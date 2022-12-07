@@ -36,7 +36,6 @@
                     <i class="fa fa-bell text-white" aria-hidden="true"></i>
                 </span>
                 <span>Total app count: {{ $totalAppCount }}</span>
-                <span class="float-right">Current builds: {{ $currentBuildCount }} </span>
             </div>
         </div>
     </div>

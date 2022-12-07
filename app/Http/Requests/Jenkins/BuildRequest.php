@@ -5,6 +5,7 @@ namespace App\Http\Requests\Jenkins;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class BuildRequest extends GetAppInfoRequest
 {
@@ -29,7 +30,9 @@ class BuildRequest extends GetAppInfoRequest
             'id' => [
                 'required',
                 'numeric',
-                Rule::exists('app_infos', 'id')->whereNull('deleted_at')
+                Rule::exists('app_infos', 'id')
+                    ->where('workspace_id', Auth::user()->workspace->id)
+                    ->whereNull('deleted_at')
             ],
 
             'platform' => [
