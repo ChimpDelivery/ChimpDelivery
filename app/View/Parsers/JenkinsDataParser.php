@@ -9,6 +9,11 @@ use App\Models\AppInfo;
 
 class JenkinsDataParser
 {
+    // text limits
+    public const STOP_STAGE_LENGTH = 14;
+    public const STOP_MSG_LENGTH = 29;
+    public const COMMIT_LENGTH = 27;
+
     private AppInfo $app;
     private mixed $jenkinsData;
 
@@ -55,14 +60,23 @@ class JenkinsDataParser
 
     private function GetLogLink()
     {
-        return "<a class='pull-right text-secondary' data-toggle='tooltip' data-placement='top' title='Build Log' href=/dashboard/build-log?id={$this->app->id}><i class='fa fa-external-link' aria-hidden='true'></i></a>";
+        return "<a class='pull-right text-secondary'
+                    data-toggle='tooltip'
+                    data-placement='top'
+                    title='Build Log'
+                    href=/dashboard/build-log?id={$this->app->id}>
+                        <i class='fa fa-external-link' aria-hidden='true'></i>
+                </a>";
     }
 
     private function GetJobPlatform()
     {
         if (!isset($this->jenkinsData->build_platform)) { return ''; }
 
-        $iconType = ($this->jenkinsData->build_platform == 'GooglePlay') ? 'fa fa-google' : 'fa fa-apple';
+        $iconType = ($this->jenkinsData->build_platform == 'GooglePlay')
+            ? 'fa fa-google'
+            : 'fa fa-apple';
+
         return '<i class="pull-right ' . $iconType . ' aria-hidden="true"></i>';
     }
 
@@ -77,12 +91,13 @@ class JenkinsDataParser
 
         // todo: failing at prepare stage - text color
 
+        $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
         return match($this->jenkinsData->status)
         {
             'SUCCESS' => '<span class="text-success font-weight-bold"><i class="fa fa-check-circle-o" aria-hidden="true"></i> SUCCESS</span>',
-            'ABORTED' => '<span class="text-secondary font-weight-bold">STAGE: ' . Str::limit($this->jenkinsData->stop_details->stage, 14) . '</span>',
-            'FAILED' => '<span class="text-danger font-weight-bold">STAGE: ' . Str::limit($this->jenkinsData->stop_details->stage, 14) . '</span>',
-            'IN_PROGRESS' => '<span class="text-primary font-weight-bold">STAGE: ' . Str::limit($this->jenkinsData->stop_details->stage, 14) . '</span>',
+            'ABORTED' => '<span class="text-secondary font-weight-bold">STAGE: ' . $stageName . '</span>',
+            'FAILED' => '<span class="text-danger font-weight-bold">STAGE: ' . $stageName . '</span>',
+            'IN_PROGRESS' => '<span class="text-primary font-weight-bold">STAGE: ' . $stageName . '</span>',
             'NOT_EXECUTED' => '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
             default => 'NOT_IMPLEMENTED'
         };
@@ -93,7 +108,7 @@ class JenkinsDataParser
         if (!isset($this->jenkinsData->stop_details)) { return ''; }
         if (empty($this->jenkinsData->stop_details->output)) { return ''; }
 
-        $detail = Str::limit($this->jenkinsData->stop_details->output, 29);
+        $detail = Str::limit($this->jenkinsData->stop_details->output, self::STOP_MSG_LENGTH);
 
         return "<span class='badge bg-warning text-white'>
                     <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
@@ -120,7 +135,7 @@ class JenkinsDataParser
         // add pretty commit history to build details view.
         $buildCommits->each(function ($commitText, $order) use (&$prettyCommits) {
             $prefix = ($order + 1) . '. ';
-            $prettyText = Str::of(Str::limit(trim($commitText), 27))->newLine();
+            $prettyText = Str::of(Str::limit(trim($commitText), self::COMMIT_LENGTH))->newLine();
             $prettyCommits->push($prefix . nl2br($prettyText));
         });
 
