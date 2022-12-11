@@ -42,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Workspace::class);
     }
 
-    public function createApiToken()
+    public function createApiToken() : string
     {
         $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
@@ -50,6 +50,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isNew() : bool
     {
-        return $this->workspace_id === 1;
+        return $this->workspace_id === Workspace::DEFAULT_WS_ID;
     }
 }

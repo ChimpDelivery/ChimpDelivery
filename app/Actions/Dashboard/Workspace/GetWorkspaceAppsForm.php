@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetWorkspaceAppsForm
 {

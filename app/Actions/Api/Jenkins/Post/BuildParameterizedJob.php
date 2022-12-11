@@ -12,6 +12,7 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
+
 class BuildParameterizedJob extends BaseJenkinsAction
 {
     private string $branch = "master";
@@ -31,11 +32,9 @@ class BuildParameterizedJob extends BaseJenkinsAction
         // ios app provisioning
         $isIosProject = $validated['platform'] === 'Appstore';
         $profileFile = ($isIosProject) ? GetProvisionProfile::run() : '';
-        $provisionFileName = Str::of(
+        $provisionFileName =
             Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
-                ->explode('/')
-                ->last()
-            )->explode('.mobileprovision')->first();
+                ->explode('.mobileprovision')->first();
         $provisionProfileUuid = ($isIosProject) ? $profileFile->headers->get('Dashboard-Provision-Profile-UUID') : '';
         $provisionTeamId = ($isIosProject) ? $profileFile->headers->get('Dashboard-Team-ID') : '';
 

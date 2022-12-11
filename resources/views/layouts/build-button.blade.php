@@ -1,8 +1,10 @@
+@php use App\Actions\Api\Jenkins\JobStatus; @endphp
+
 @if($appInfo->jenkins_status == 3200)
     @include('errors.jenkins.jenkins-down')
 @else
     @if($appInfo->jenkins_status == 200)
-        @if($appInfo?->jenkins_data?->status != 'IN_PROGRESS')
+        @if($appInfo?->jenkins_data?->status != JobStatus::IN_PROGRESS->value)
             <button id="build_button" type="button" class="btn" data-toggle="modal"
                     data-target="#buildModal" data-title="{{ $appInfo->id }}" data-project="{{ $appInfo->project_name }}">
                 <i class="fa fa-cloud-upload text-primary" aria-hidden="true" style="font-size:2em;"></i>

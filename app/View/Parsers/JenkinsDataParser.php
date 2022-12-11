@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
+use App\Actions\Api\Jenkins\JobStatus;
 
 class JenkinsDataParser
 {
@@ -94,12 +95,25 @@ class JenkinsDataParser
         $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
         return match($this->jenkinsData->status)
         {
-            'SUCCESS' => '<span class="text-success font-weight-bold"><i class="fa fa-check-circle-o" aria-hidden="true"></i> SUCCESS</span>',
-            'ABORTED' => '<span class="text-secondary font-weight-bold">STAGE: ' . $stageName . '</span>',
-            'FAILED' => '<span class="text-danger font-weight-bold">STAGE: ' . $stageName . '</span>',
-            'IN_PROGRESS' => '<span class="text-primary font-weight-bold">STAGE: ' . $stageName . '</span>',
-            'NOT_EXECUTED' => '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
-            default => 'NOT_IMPLEMENTED'
+            JobStatus::SUCCESS->value =>
+                '<span class="text-success font-weight-bold">
+                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                    SUCCESS
+                </span>',
+
+            JobStatus::ABORTED->value =>
+                '<span class="text-secondary font-weight-bold">STAGE: ' . $stageName . '</span>',
+
+            JobStatus::FAILED->value =>
+                '<span class="text-danger font-weight-bold">STAGE: ' . $stageName . '</span>',
+
+            JobStatus::IN_PROGRESS->value =>
+                '<span class="text-primary font-weight-bold">STAGE: ' . $stageName . '</span>',
+
+            JobStatus::NOT_EXECUTED->value =>
+                '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
+
+            default => JobStatus::NOT_IMPLEMENTED->value
         };
     }
 

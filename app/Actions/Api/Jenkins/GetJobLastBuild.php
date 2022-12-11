@@ -37,7 +37,7 @@ class GetJobLastBuild
             $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
 
             // if job is running, calculate average duration
-            if ($lastBuild->status == 'IN_PROGRESS')
+            if ($lastBuild->status == JobStatus::IN_PROGRESS->value)
             {
                 $lastBuild->estimated_duration = $builds->avg('durationMillis');
             }
@@ -55,9 +55,7 @@ class GetJobLastBuild
 
     private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
     {
-        return isset($rawJenkinsResponse->actions[0]->parameters)
-            ? $rawJenkinsResponse->actions[0]?->parameters[1]?->value
-            : 'Appstore';
+        return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? 'Appstore';
     }
 
     private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
@@ -70,8 +68,18 @@ class GetJobLastBuild
     private function GetStopDetail(mixed $lastBuild) : Collection
     {
         $buildStages = collect($lastBuild->stages);
-        $buildStopStage = $buildStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->name ?? $buildStages->last()?->name;
-        $buildStopStageDetail = $buildStages->whereIn('status', ['FAILED', 'ABORTED'])?->first()?->error?->message ?? '';
+
+        // find stopped stage
+        $buildStopStage = $buildStages->whereIn('status', [
+            JobStatus::FAILED->value,
+            JobStatus::ABORTED->value,
+        ])?->first()?->name ?? $buildStages->last()?->name;
+
+        // find stage error msg
+        $buildStopStageDetail = $buildStages->whereIn('status', [
+            JobStatus::FAILED->value,
+            JobStatus::ABORTED->value,
+        ])?->first()?->error?->message ?? '';
 
         return collect([
             'stage' => $buildStopStage,

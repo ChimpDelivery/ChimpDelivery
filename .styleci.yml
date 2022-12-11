@@ -3,6 +3,9 @@ php:
   version: 8
   disabled:
     - no_unused_imports
+    - no_trailing_whitespace
+    - blank_line_after_namespace
+    - clean_namespace
   finder:
     not-name:
       - index.php

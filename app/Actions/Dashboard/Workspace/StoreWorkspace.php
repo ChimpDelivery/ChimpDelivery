@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Actions\Workspace;
+namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
+use Illuminate\Http\RedirectResponse;
 
 use App\Models\Workspace;
 use App\Events\WorkspaceChanged;

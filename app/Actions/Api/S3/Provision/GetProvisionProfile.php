@@ -11,20 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Services\S3Service;
 
+/// Reads Provision Profile(App Store Connect) file and exports uuid and team-identifier.
 class GetProvisionProfile
 {
     use AsAction;
 
-    // stores provision uuid data in header
-    private const UUID_KEY = 'Dashboard-Provision-Profile-UUID';
+    // search_tag_in_file, response_header_key_on_web
+    private array $configs = [
+        'uuid' => [
+            'file' => 'UUID',
+            'web' => 'Dashboard-Provision-Profile-UUID',
+        ],
 
-    // stores team id data in header
-    private const TEAM_ID_KEY = 'Dashboard-Team-ID';
+        'team-id' => [
+            'file' => 'TeamIdentifier',
+            'web' => 'Dashboard-Team-ID',
+        ],
+    ];
 
-    // resolved real provision profile data index
     /*
-     * preg_match_all returns explodes tags from binary file,
-     * example response included below
+     * preg_match_all returns explodes tags from binary file
      * array:5 [
             0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
             1 => "<string>"
@@ -37,7 +43,10 @@ class GetProvisionProfile
 
     public function handle() : Response
     {
-        return $this->DownloadAsset(Auth::user()->workspace->appstoreConnectSign->provision_profile);
+        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
+        $filePath = "/provisions/{$fileName}";
+
+        return $this->DownloadAsset($filePath, $fileName);
     }
 
     public function authorize() : bool
@@ -45,14 +54,18 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset(string $path) : Response
+    public function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
     {
         $s3Service = app(S3Service::class);
-        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
 
-        $response = $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
-        $response->headers->set(self::UUID_KEY, $this->GetProfileUUID($response));
-        $response->headers->set(self::TEAM_ID_KEY, $this->GetTeamID($response));
+        $response = $s3Service->GetFileResponse(
+            $sourceFilePath,
+            $destinationFileName,
+            'application/octet-stream'
+        );
+
+        $response->headers->set($this->configs['uuid']['web'], $this->GetProfileUUID($response));
+        $response->headers->set($this->configs['team-id']['web'], $this->GetTeamID($response));
 
         return $response;
     }
@@ -63,7 +76,7 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $uuidPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains('UUID');
+            return Str::of($tag[0])->contains($this->configs['uuid']['file']);
         });
         $uuidPositionIndex = $uuidPositionReference->keys()->first();
 
@@ -76,7 +89,7 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $teamIdPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains('TeamIdentifier');
+            return Str::of($tag[0])->contains($this->configs['team-id']['file']);
         });
         $teamIdPositionIndex = $teamIdPositionReference->keys()->first();
 
