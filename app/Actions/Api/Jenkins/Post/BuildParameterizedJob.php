@@ -2,9 +2,7 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
