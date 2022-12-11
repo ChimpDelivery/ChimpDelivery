@@ -10,8 +10,8 @@ trait AsActionResponse
     public function htmlResponse(array $response) : RedirectResponse
     {
         $message = $response['message'];
-        $hasRedirect = isset($response['redirect']);
-        $redirect = !empty($response['redirect']) ? $response['redirect'] : 'index';
+        $hasRedirect = !empty($response['redirect']);
+        $redirect = $hasRedirect ? $response['redirect'] : 'index';
 
         if ($response['success'])
         {
