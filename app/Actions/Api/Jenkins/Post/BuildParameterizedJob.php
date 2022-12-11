@@ -33,7 +33,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
         $isIosProject = $validated['platform'] === 'Appstore';
         $profileFile = ($isIosProject) ? GetProvisionProfile::run() : '';
         $provisionFileName =
-            Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
+            Str::of(Auth::user()->workspace->appstoreConnectSign->provision_name)
                 ->explode('.mobileprovision')->first();
         $provisionProfileUuid = ($isIosProject) ? $profileFile->headers->get('Dashboard-Provision-Profile-UUID') : '';
         $provisionTeamId = ($isIosProject) ? $profileFile->headers->get('Dashboard-Team-ID') : '';
