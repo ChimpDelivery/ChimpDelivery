@@ -34,7 +34,7 @@ return [
      */
     'storage' => [
         'enabled'    => true,
-        'driver'     => 'file', // redis, file, pdo, socket, custom
+        'driver'     => 'redis', // redis, file, pdo, socket, custom
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
         'provider'   => '', // Instance of StorageInterface for custom driver
