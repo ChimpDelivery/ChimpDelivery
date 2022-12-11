@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Services\S3Service;
 
+/// Reads Provision Profile(App Store Connect) file and exports uuid and team-identifier.
 class GetProvisionProfile
 {
     use AsAction;
@@ -42,7 +43,10 @@ class GetProvisionProfile
 
     public function handle() : Response
     {
-        return $this->DownloadAsset(Auth::user()->workspace->appstoreConnectSign->provision_profile);
+        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
+        $filePath = "/provisions/{$fileName}";
+
+        return $this->DownloadAsset($filePath, $fileName);
     }
 
     public function authorize() : bool
@@ -50,13 +54,13 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset(string $fileName, string $fileType = 'mobileprovision') : Response
+    public function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
     {
         $s3Service = app(S3Service::class);
 
         $response = $s3Service->GetFileResponse(
-            "/provisions/{$fileName}.{$fileType}",
-            $fileName,
+            $sourceFilePath,
+            $destinationFileName,
             'application/octet-stream'
         );
 
