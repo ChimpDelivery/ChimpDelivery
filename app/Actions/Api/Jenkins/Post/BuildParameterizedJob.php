@@ -31,11 +31,6 @@ class BuildParameterizedJob extends BaseJenkinsAction
         // ios app provisioning
         $isIosProject = $validated['platform'] === 'Appstore';
         $profileFile = ($isIosProject) ? GetProvisionProfile::run() : '';
-        $provisionFileName = Str::of(
-            Str::of(Auth::user()->workspace->appstoreConnectSign->provision_profile)
-                ->explode('/')
-                ->last()
-            )->explode('.mobileprovision')->first();
         $provisionProfileUuid = ($isIosProject) ? $profileFile->headers->get('Dashboard-Provision-Profile-UUID') : '';
         $provisionTeamId = ($isIosProject) ? $profileFile->headers->get('Dashboard-Team-ID') : '';
 
@@ -49,7 +44,6 @@ class BuildParameterizedJob extends BaseJenkinsAction
             ."&STORE_BUILD_VERSION={$validated['store_version']}"
             ."&STORE_CUSTOM_BUNDLE_VERSION={$validated['store_custom_version']}"
             ."&STORE_BUNDLE_VERSION={$validated['store_build_number']}"
-            ."&DASHBOARD_PROFILE_NAME={$provisionFileName}"
             ."&DASHBOARD_PROFILE_UUID={$provisionProfileUuid}"
             ."&DASHBOARD_TEAM_ID={$provisionTeamId}"
             ."&INSTALL_SDK={$installBackend}";
