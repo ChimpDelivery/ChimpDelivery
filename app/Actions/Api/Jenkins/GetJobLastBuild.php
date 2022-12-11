@@ -68,11 +68,14 @@ class GetJobLastBuild
     private function GetStopDetail(mixed $lastBuild) : Collection
     {
         $buildStages = collect($lastBuild->stages);
+
+        // find stopped stage
         $buildStopStage = $buildStages->whereIn('status', [
             JobStatus::FAILED->value,
             JobStatus::ABORTED->value,
         ])?->first()?->name ?? $buildStages->last()?->name;
 
+        // find stage error msg
         $buildStopStageDetail = $buildStages->whereIn('status', [
             JobStatus::FAILED->value,
             JobStatus::ABORTED->value,
