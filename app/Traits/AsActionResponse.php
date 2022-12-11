@@ -11,7 +11,7 @@ trait AsActionResponse
     {
         $message = $response['message'];
         $hasRedirect = isset($response['redirect']);
-        $redirect = ($hasRedirect && !empty($response['redirect'])) ? $response['redirect'] : 'index';
+        $redirect = !empty($response['redirect']) ? $response['redirect'] : 'index';
 
         if ($response['success'])
         {
