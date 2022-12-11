@@ -15,18 +15,21 @@ class GetProvisionProfile
 {
     use AsAction;
 
-    private array $headers = [
-        // stores provision uuid data in header
-        'uuid' => 'Dashboard-Provision-Profile-UUID',
+    // search_tag_in_file, response_header_key_on_web
+    private array $configs = [
+        'uuid' => [
+            'file' => 'UUID',
+            'web' => 'Dashboard-Provision-Profile-UUID',
+        ],
 
-        // stores team id data in header
-        'team-id' => 'Dashboard-Team-ID',
+        'team-id' => [
+            'file' => 'TeamIdentifier',
+            'web' => 'Dashboard-Team-ID',
+        ],
     ];
 
-    // resolved real provision profile data index
     /*
-     * preg_match_all returns explodes tags from binary file,
-     * example response included below
+     * preg_match_all returns explodes tags from binary file
      * array:5 [
             0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
             1 => "<string>"
@@ -57,8 +60,8 @@ class GetProvisionProfile
             'application/octet-stream'
         );
 
-        $response->headers->set($this->headers['uuid'], $this->GetProfileUUID($response));
-        $response->headers->set($this->headers['team-id'], $this->GetTeamID($response));
+        $response->headers->set($this->configs['uuid']['web'], $this->GetProfileUUID($response));
+        $response->headers->set($this->configs['team-id']['web'], $this->GetTeamID($response));
 
         return $response;
     }
@@ -69,7 +72,7 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $uuidPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains('UUID');
+            return Str::of($tag[0])->contains($this->configs['uuid']['file']);
         });
         $uuidPositionIndex = $uuidPositionReference->keys()->first();
 
@@ -82,7 +85,7 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $teamIdPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains('TeamIdentifier');
+            return Str::of($tag[0])->contains($this->configs['team-id']['file']);
         });
         $teamIdPositionIndex = $teamIdPositionReference->keys()->first();
 
