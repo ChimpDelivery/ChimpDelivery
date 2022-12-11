@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
