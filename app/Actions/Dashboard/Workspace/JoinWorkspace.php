@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions\Workspace;
+namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\WorkspaceInviteCode;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;

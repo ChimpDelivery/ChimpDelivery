@@ -5,25 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
-
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
-
 use App\Actions\Api\Ftp\CreateGooglePrivacy;
-
 use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\User\UpdateUserProfile;
+use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
-
-use App\Actions\Workspace\JoinWorkspace;
-use App\Actions\Workspace\StoreWorkspace;
+use App\Actions\Dashboard\Workspace\JoinWorkspace;
+use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
