@@ -2,9 +2,10 @@
 
 namespace App\Actions\Api\Apps;
 
+use Lorisleiva\Actions\Concerns\AsAction;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +22,7 @@ class StoreAppInfo
 
     public function handle(StoreAppInfoRequest $request) : AppInfo
     {
-        $workspace = $request->expectsJson()
-            ? Auth::user()
-            : Auth::user()->workspace;
-
-        $appModel = $workspace->apps()
+        $appModel = Auth::user()->workspace->apps()
             ->withTrashed()
             ->where('app_bundle', '=', $request->validated('app_bundle'))
             ->firstOrNew();
