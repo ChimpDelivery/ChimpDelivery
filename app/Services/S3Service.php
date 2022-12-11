@@ -34,7 +34,7 @@ class S3Service
 
     public function GetFile(string $path)
     {
-        return Storage::disk('s3')->get($path);
+        return Storage::disk('s3')->get($this->workspaceFolder . $path);
     }
 
     public function GetFileLink(string $path) : string

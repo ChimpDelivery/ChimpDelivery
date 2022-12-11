@@ -15,11 +15,13 @@ class GetProvisionProfile
 {
     use AsAction;
 
-    // stores provision uuid data in header
-    private const UUID_KEY = 'Dashboard-Provision-Profile-UUID';
+    private array $headers = [
+        // stores provision uuid data in header
+        'uuid' => 'Dashboard-Provision-Profile-UUID',
 
-    // stores team id data in header
-    private const TEAM_ID_KEY = 'Dashboard-Team-ID';
+        // stores team id data in header
+        'team-id' => 'Dashboard-Team-ID',
+    ];
 
     // resolved real provision profile data index
     /*
@@ -45,14 +47,18 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset(string $path) : Response
+    public function DownloadAsset(string $fileName, string $fileType = 'mobileprovision') : Response
     {
         $s3Service = app(S3Service::class);
-        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
 
-        $response = $s3Service->GetFileResponse($path, $fileName, 'application/octet-stream');
-        $response->headers->set(self::UUID_KEY, $this->GetProfileUUID($response));
-        $response->headers->set(self::TEAM_ID_KEY, $this->GetTeamID($response));
+        $response = $s3Service->GetFileResponse(
+            "/provisions/{$fileName}.{$fileType}",
+            $fileName,
+            'application/octet-stream'
+        );
+
+        $response->headers->set($this->headers['uuid'], $this->GetProfileUUID($response));
+        $response->headers->set($this->headers['team-id'], $this->GetTeamID($response));
 
         return $response;
     }
