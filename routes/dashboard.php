@@ -14,9 +14,7 @@ use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 use App\Actions\Dashboard\GetIndexForm;
 use App\Actions\Dashboard\User\UpdateUserProfile;
-use App\Actions\Dashboard\AppStoreConnect\CreateBundleIdForm;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
-use App\Actions\Dashboard\Workspace\GetJoinWorkspaceForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
 use App\Actions\Dashboard\Workspace\JoinWorkspace;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
@@ -45,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/workspace-settings', StoreWorkspace::class)
         ->middleware('permission:create workspace|update workspace');
 
-    Route::get('/dashboard/workspace-join', GetJoinWorkspaceForm::class)
+    Route::get('/dashboard/workspace-join', fn() => view('workspace-join'))
         ->name('workspace_join')
         ->middleware('permission:join workspace');
 
@@ -94,7 +92,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //////////////////////////////////
     //// app store connect routes
     /////////////////////////////////
-    Route::get('/dashboard/create-bundle', CreateBundleIdForm::class)
+    Route::get('/dashboard/create-bundle', fn() => view('create-bundle-form'))
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 
