@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +19,8 @@ class GetWorkspaceForm
         return view('workspace-settings')->with([
             'isNew' => false,
             'workspace' => $workspace,
-            'cert_label' => Str::of($wsSign->cert ?? 'Choose...')
-                ->explode('/')
-                ->last(),
-            'provision_label' => Str::of($wsSign->provision_profile ?? 'Choose...')
-                ->explode('/')
-                ->last(),
+            'cert_label' => $wsSign->cert_name ?: 'Choose...',
+            'provision_label' => $wsSign->provision_name ?: 'Choose...'
         ]);
     }
 }

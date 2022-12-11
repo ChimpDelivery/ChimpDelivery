@@ -27,7 +27,7 @@ class CreateApiTokenView extends Component
                     </div>
                 </div>
                 <small class="form-text text-muted">
-                    Workspace API Tokens are used by <span class="badge badge-secondary">Unity3D</span> projects to fetch app information when building.
+                    Workspace API Tokens are used by <span class="badge badge-primary">Unity3D</span> projects to fetch app information when building.
                 </small>
             </div>
         HTML;

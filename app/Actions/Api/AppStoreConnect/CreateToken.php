@@ -15,12 +15,7 @@ class CreateToken
 
     public function handle() : JsonResponse
     {
-        return response()->json([
-            'appstore_token' => app(AppStoreConnectService::class)
-                ->CreateToken()
-                ->getData()
-                ->appstore_token
-        ]);
+        return app(AppStoreConnectService::class)->CreateToken();
     }
 
     public function authorize() : bool

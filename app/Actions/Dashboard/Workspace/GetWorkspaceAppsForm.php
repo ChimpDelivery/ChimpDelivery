@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
+use App\Actions\Api\Jenkins\JobStatus;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
 
 class GetWorkspaceAppsForm
@@ -42,7 +43,7 @@ class GetWorkspaceAppsForm
 
         //
         $jenkinsData = $response->jenkins_data;
-        if ($jenkinsData?->status == 'IN_PROGRESS')
+        if ($jenkinsData?->status == JobStatus::IN_PROGRESS->value)
         {
             $jenkinsData->estimated_time = $this->GetBuildFinish(
                 $jenkinsData->startTimeMillis,
