@@ -20,12 +20,8 @@ class GetWorkspaceForm
         return view('workspace-settings')->with([
             'isNew' => false,
             'workspace' => $workspace,
-            'cert_label' => Str::of($wsSign->cert ?? 'Choose...')
-                ->explode('/')
-                ->last(),
-            'provision_label' => Str::of($wsSign->provision_profile ?? 'Choose...')
-                ->explode('/')
-                ->last(),
+            'cert_label' => Str::of($wsSign->cert_name ?? 'Choose...'),
+            'provision_label' => Str::of($wsSign->provision_name ?? 'Choose...')
         ]);
     }
 }
