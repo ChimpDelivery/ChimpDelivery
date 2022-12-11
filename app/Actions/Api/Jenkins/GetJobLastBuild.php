@@ -55,9 +55,7 @@ class GetJobLastBuild
 
     private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
     {
-        return isset($rawJenkinsResponse->actions[0]->parameters)
-            ? $rawJenkinsResponse->actions[0]?->parameters[1]?->value
-            : 'Appstore';
+        return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? 'Appstore';
     }
 
     private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
