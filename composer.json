@@ -17,7 +17,7 @@
         "guzzlehttp/guzzle": "^7.4",
         "http-interop/http-factory-guzzle": "^1.0",
         "laravel/framework": "^9.0",
-        "laravel/sanctum": "^2.14",
+        "laravel/sanctum": "^3.0",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.0",
