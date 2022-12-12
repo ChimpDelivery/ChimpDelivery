@@ -11,4 +11,14 @@ enum JobStatus : string
     case SUCCESS = 'SUCCESS';
 
     case NOT_IMPLEMENTED = 'NOT_IMPLEMENTED';
+
+    public function PrettyName() : string
+    {
+        return match($this)
+        {
+            self::NOT_EXECUTED => 'NOT EXECUTED',
+            self::IN_PROGRESS => 'IN PROGRESS',
+            default => $this->value,
+        };
+    }
 }
