@@ -2,6 +2,7 @@
 
 namespace App\View\Parsers;
 
+use App\Actions\Api\Jenkins\JobPlatform;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,7 +75,7 @@ class JenkinsDataParser
     {
         if (!isset($this->jenkinsData->build_platform)) { return ''; }
 
-        $iconType = ($this->jenkinsData->build_platform == 'GooglePlay')
+        $iconType = ($this->jenkinsData->build_platform == JobPlatform::GooglePlay->value)
             ? 'fa fa-google'
             : 'fa fa-apple';
 

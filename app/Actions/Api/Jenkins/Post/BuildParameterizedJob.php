@@ -2,16 +2,14 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
+use App\Actions\Api\Jenkins\JobPlatform;
 use App\Http\Requests\Jenkins\BuildRequest;
-use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
-
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class BuildParameterizedJob extends BaseJenkinsAction
 {
@@ -30,7 +28,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
         $app = AppInfo::find($validated['id']);
 
         // ios app provisioning
-        $isIosProject = $validated['platform'] === 'Appstore';
+        $isIosProject = $validated['platform'] === JobPlatform::Appstore->value;
         $profileFile = ($isIosProject) ? GetProvisionProfile::run() : '';
         $provisionProfileUuid = ($isIosProject) ? $profileFile->headers->get('Dashboard-Provision-Profile-UUID') : '';
         $provisionTeamId = ($isIosProject) ? $profileFile->headers->get('Dashboard-Team-ID') : '';
