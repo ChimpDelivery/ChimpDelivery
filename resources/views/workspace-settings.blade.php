@@ -78,8 +78,12 @@
                             <span class="input-group-text">Certificate</span>
                         </div>
                         <div class="custom-file shadow-sm">
+                            <label class="custom-file-label text-truncate" for="cert">
+                                <span class="d-inline-block text-truncate" style="max-width: 7rem;">
+                                    {{ $cert_label }}
+                                </span>
+                            </label>
                             <input type="file" class="custom-file-input" id="cert" name="cert" accept=".p12">
-                            <label class="custom-file-label" for="cert">{{ $cert_label }}</label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -87,7 +91,11 @@
                             <span class="input-group-text">Profile</span>
                         </div>
                         <div class="custom-file shadow-sm">
-                            <label class="custom-file-label" for="provision_profile">{{ $provision_label }}</label>
+                            <label class="custom-file-label" for="provision_profile">
+                                <span class="d-inline-block text-truncate" style="max-width: 7rem;">
+                                    {{ $provision_label }}
+                                </span>
+                            </label>
                             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
                         </div>
                     </div>
