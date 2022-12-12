@@ -34,7 +34,15 @@ class S3Service
 
     public function GetFile(string $path)
     {
-        return Storage::disk('s3')->get($this->workspaceFolder . $path);
+        $fullPath = $this->workspaceFolder . $path;
+
+        abort_if(
+            !Storage::disk('s3')->exists($fullPath),
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            "File could not found in S3 registry!"
+        );
+
+        return Storage::disk('s3')->get($fullPath);
     }
 
     public function GetFileLink(string $path) : string
