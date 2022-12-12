@@ -41,12 +41,12 @@ class GetProvisionProfile
      */
     private const REAL_DATA_INDEX = 3;
 
-    public function handle() : Response
+    public function handle(S3Service $service) : Response
     {
         $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
         $filePath = "/provisions/{$fileName}";
 
-        return $this->DownloadAsset($filePath, $fileName);
+        return $this->DownloadAsset($service, $filePath, $fileName);
     }
 
     public function authorize() : bool
@@ -54,11 +54,12 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
+    private function DownloadAsset(
+        S3Service $service,
+        string $sourceFilePath,
+        string $destinationFileName) : Response
     {
-        $s3Service = app(S3Service::class);
-
-        $response = $s3Service->GetFileResponse(
+        $response = $service->GetFileResponse(
             $sourceFilePath,
             $destinationFileName,
             'application/octet-stream'
@@ -78,7 +79,7 @@ class GetProvisionProfile
     }
 
     // find uuid section, then read value below that section
-    public function GetProfileUUID(Response $response)
+    private function GetProfileUUID(Response $response)
     {
         $tags = $this->GetFileTags($response);
 
@@ -91,7 +92,7 @@ class GetProvisionProfile
     }
 
     // find team id section, then read value below that section
-    public function GetTeamID(Response $response)
+    private function GetTeamID(Response $response)
     {
         $tags = $this->GetFileTags($response);
 

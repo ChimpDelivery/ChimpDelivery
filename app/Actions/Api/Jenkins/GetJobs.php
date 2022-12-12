@@ -13,9 +13,9 @@ class GetJobs
 {
     use AsAction;
 
-    public function handle() : JsonResponse
+    public function handle(JenkinsService $service) : JsonResponse
     {
-        $jobResponse = app(JenkinsService::class)->GetResponse('/api/json');
+        $jobResponse = $service->GetResponse('/api/json');
         $jobResponse->jenkins_data = collect($jobResponse->jenkins_data?->jobs)->pluck('name');
 
         return response()->json($jobResponse);

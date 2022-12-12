@@ -11,11 +11,11 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ParameterizeJob extends BaseJenkinsAction
 {
-    public function handle(BuildRequest $request) : array
+    public function handle(BuildRequest $request, JenkinsService $service) : array
     {
         $app = AppInfo::find($request->validated('id'));
 
-        $response = app(JenkinsService::class)->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
+        $response = $service->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;

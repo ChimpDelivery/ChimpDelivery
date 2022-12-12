@@ -14,11 +14,11 @@ class GetJob
 {
     use AsAction;
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(GetAppInfoRequest $request, JenkinsService $service) : JsonResponse
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        $response = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/api/json");
+        $response = $service->GetResponse("/job/{$app->project_name}/api/json");
         $response->jenkins_data = collect($response->jenkins_data)->only(['name', 'url']);
 
         return response()->json($response);

@@ -13,9 +13,9 @@ class CreateToken
 {
     use AsAction;
 
-    public function handle() : JsonResponse
+    public function handle(AppStoreConnectService $service) : JsonResponse
     {
-        return app(AppStoreConnectService::class)->CreateToken();
+        return $service->CreateToken();
     }
 
     public function authorize() : bool

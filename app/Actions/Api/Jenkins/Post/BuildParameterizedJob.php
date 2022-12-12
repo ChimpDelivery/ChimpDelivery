@@ -13,9 +13,9 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class BuildParameterizedJob extends BaseJenkinsAction
 {
-    private string $branch = "master";
+    private string $branch = 'master';
 
-    public function handle(BuildRequest $request) : array
+    public function handle(BuildRequest $request, JenkinsService $service) : array
     {
         $validated = $request->validated();
 
@@ -47,7 +47,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
             ."&DASHBOARD_TEAM_ID={$provisionTeamId}"
             ."&INSTALL_SDK={$installBackend}";
 
-        $response = app(JenkinsService::class)->PostResponse($url);
+        $response = $service->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;

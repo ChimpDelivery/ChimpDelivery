@@ -15,10 +15,8 @@ class CreateBundleId
     use AsAction;
     use AsActionResponse;
 
-    public function handle(StoreBundleRequest $request) : array
+    public function handle(StoreBundleRequest $request, AppStoreConnectService $service) : array
     {
-        $service = app(AppStoreConnectService::class);
-
         $data = [
             'data' => [
                 'attributes' => [
