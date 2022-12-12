@@ -9,7 +9,7 @@
                     </h5>
                     <h5>
                         <button id="project-button" type="button" class="btn badge badge-pill alert-primary shadow-sm" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span id="project-button-inner" aria-hidden="true">&times;</span>
                         </button>
                     </h5>
                 </div>
@@ -63,17 +63,14 @@
 </form>
 
 <script type="text/javascript">
-    $('#buildModal').on('shown.bs.modal', function () {
-        let projectName = getCookie('target_project_name');
-        let prettyProjectName = projectName.slice(0, 14) + (projectName.length > 14 ? '...' : '');
-        document.getElementById('project-button').innerHTML = prettyProjectName;
-    });
-
-    $('#store_build_number_collapse').on('shown.bs.collapse', function () {
+    let buildCollapse = $('#store_build_number_collapse');
+    buildCollapse.on('shown.bs.collapse', function ()
+    {
         document.getElementById('store_custom_version').value = 'true';
     });
 
-    $('#store_build_number_collapse').on('hidden.bs.collapse', function () {
+    buildCollapse.on('hidden.bs.collapse', function ()
+    {
         document.getElementById('store_custom_version').value = 'false';
     });
 </script>

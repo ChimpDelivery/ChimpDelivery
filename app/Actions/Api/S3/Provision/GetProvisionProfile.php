@@ -41,12 +41,12 @@ class GetProvisionProfile
      */
     private const REAL_DATA_INDEX = 3;
 
-    public function handle(S3Service $service) : Response
+    public function handle() : Response
     {
         $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
         $filePath = "/provisions/{$fileName}";
 
-        return $this->DownloadAsset($service, $filePath, $fileName);
+        return $this->DownloadAsset($filePath, $fileName);
     }
 
     public function authorize() : bool
@@ -54,11 +54,10 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    private function DownloadAsset(
-        S3Service $service,
-        string $sourceFilePath,
-        string $destinationFileName) : Response
+    private function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
     {
+        $service = app(S3Service::class);
+
         $response = $service->GetFileResponse(
             $sourceFilePath,
             $destinationFileName,
