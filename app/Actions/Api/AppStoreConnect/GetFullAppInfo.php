@@ -18,7 +18,7 @@ class GetFullAppInfo
     {
         $service = app(AppStoreConnectService::class);
 
-        $appstoreApps = $service->GetClient()->get(AppStoreConnectService::$API_URL
+        $appstoreApps = $service->GetClient()->get(AppStoreConnectService::API_URL
             .'/apps?fields[apps]=name,bundleId&limit='
             .config('appstore.item_limit')
             .'&filter[appStoreVersions.platform]=IOS&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION'

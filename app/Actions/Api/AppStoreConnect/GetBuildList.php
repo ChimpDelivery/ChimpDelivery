@@ -19,7 +19,7 @@ class GetBuildList
     {
         $service = app(AppStoreConnectService::class);
 
-        $appList = $service->GetClient()->get(AppStoreConnectService::$API_URL.'/builds');
+        $appList = $service->GetClient()->get(AppStoreConnectService::API_URL.'/builds');
         $builds = collect(json_decode($appList)->data);
 
         return response()->json([

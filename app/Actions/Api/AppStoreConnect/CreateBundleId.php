@@ -32,7 +32,7 @@ class CreateBundleId
 
         $createBundle = $service->GetClient()
             ->withBody(json_encode($data), 'application/json')
-            ->post(AppStoreConnectService::$API_URL.'/bundleIds');
+            ->post(AppStoreConnectService::API_URL.'/bundleIds');
 
         $createBundleResponse = $createBundle->json();
 
