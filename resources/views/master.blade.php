@@ -43,7 +43,7 @@
 </head>
 
 <body>
-    @include('layouts.navbar')
+    @include('layouts.dashboard.navbar')
 
     @include('layouts.error')
 
