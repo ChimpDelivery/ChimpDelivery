@@ -14,11 +14,11 @@ class GetJobBuilds
 {
     use AsAction;
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(GetAppInfoRequest $request, JenkinsService $service) : JsonResponse
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        $jobResponse = app(JenkinsService::class)->GetResponse("/job/{$app->project_name}/job/master/api/json");
+        $jobResponse = $service->GetResponse("/job/{$app->project_name}/job/master/api/json");
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.

@@ -11,9 +11,9 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ScanOrganization extends BaseJenkinsAction
 {
-    public function handle() : array
+    public function handle(JenkinsService $service) : array
     {
-        $response = app(JenkinsService::class)->PostResponse("/build?delay=0");
+        $response = $service->PostResponse("/build?delay=0");
 
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)
