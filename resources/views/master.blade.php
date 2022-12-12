@@ -55,5 +55,15 @@
 </body>
 
 <section class="scripts">
+
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('[data-toggle="popover"]').popover()
+            $('[data-toggle="tooltip"]').tooltip()
+            $('.popover-dismiss').popover({ trigger: 'focus' })
+        })
+    </script>
+
     @yield('scripts')
 </section>

@@ -40,15 +40,6 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
-        $('.popover-dismiss').popover({
-            trigger: 'focus'
-        })
-
         $(document).ready(function () {
             $('#buildModal').on('show.bs.modal', function (event) {
 
