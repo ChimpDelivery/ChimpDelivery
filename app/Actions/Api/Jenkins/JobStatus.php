@@ -21,4 +21,12 @@ enum JobStatus : string
             default => $this->value,
         };
     }
+
+    public static function GetErrorStages() : array
+    {
+        return [
+            self::ABORTED->value,
+            self::FAILED->value,
+        ];
+    }
 }
