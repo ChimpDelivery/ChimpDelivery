@@ -148,10 +148,17 @@ class JenkinsDataParser
         $prettyCommits = collect();
 
         // add pretty commit history to build details view.
-        $buildCommits->each(function ($commitText, $order) use (&$prettyCommits) {
-            $prefix = ($order + 1) . '. ';
-            $prettyText = Str::of(Str::limit(trim($commitText), self::COMMIT_LENGTH))->newLine();
-            $prettyCommits->push($prefix . nl2br($prettyText));
+        $buildCommits->each(function ($commit, $order) use (&$prettyCommits)
+        {
+            $prettyText = Str::of(Str::limit(trim($commit->msg), self::COMMIT_LENGTH))->newLine();
+
+            $orgName = Auth::user()->workspace->githubSetting->organization_name;
+            $commitUrl = "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
+
+            $prettyCommitMsg = "<span class='badge alert-primary'>" . Str::substr($commit->id, 0, 5) . '</span> ' . nl2br($prettyText);
+            $commitLink = "<a href='{$commitUrl}' target='_blank'>{$prettyCommitMsg}</a>";
+
+            $prettyCommits->push($commitLink);
         });
 
         return $prettyCommits->implode('');

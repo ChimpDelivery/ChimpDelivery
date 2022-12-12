@@ -80,7 +80,10 @@ class GetJobLastBuild
     private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
     {
         return isset($rawJenkinsResponse->changeSets[0])
-            ? collect($rawJenkinsResponse->changeSets[0]->items)->pluck('msg')->reverse()->values()
+            ? collect($rawJenkinsResponse->changeSets[0]->items)
+                ->map(function ($item) { return [ 'id' => $item->id, 'msg' => $item->msg ]; })
+                ->reverse()
+                ->values()
             : collect();
     }
 
