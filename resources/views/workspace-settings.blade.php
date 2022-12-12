@@ -203,12 +203,9 @@
                 @endcan
             </form>
         </div>
-        <div class="card-footer text-muted">
-            <span class="badge badge-primary">
-                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-            </span>
-            All fields can be changed later by "Workspace Admin" except "GitHub Organization" name.
-        </div>
+        @include('layouts.dashboard.card-footer', [
+            'text' => 'All fields can be changed later by "Workspace Admin" except "GitHub Organization" name.'
+        ])
     </div>
 </div>
 @endsection

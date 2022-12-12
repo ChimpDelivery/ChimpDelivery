@@ -42,16 +42,11 @@
                     </button>
                 </form>
             </div>
-            <div class="card-footer text-muted">
-                <span class="badge badge-primary">
-                    <i class="fa fa-bell text-white" aria-hidden="true"></i>
-                </span>
-                @if(Auth::user()->isNew())
-                    You are not in any workspace.
-                @else
-                    API Keys can be disabled by Workspace Admins.
-                @endif
-            </div>
+            @include('layouts.dashboard.card-footer', [
+                'text' => Auth::user()->isNew()
+                    ? 'You are not in any workspace.'
+                    : 'API Keys can be disabled by Workspace Admins.'
+            ])
         </div>
     </div>
     @if ((!$isNewUser && Auth::user()->can('create api token')) || Auth::user()->hasRole('Admin_Super'))

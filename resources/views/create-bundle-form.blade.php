@@ -28,12 +28,9 @@
                 <button type="reset" class="btn btn-secondary shadow font-weight-bold"><i class="fa fa-refresh"></i> Reset</button>
             </form>
         </div>
-        <div class="card-footer text-muted">
-            <span class="badge badge-primary">
-                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-            </span>
-            After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.
-        </div>
+        @include('layouts.dashboard.card-footer', [
+            'text' => 'After creating the bundle id, create an app using that bundle id via <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>.'
+        ])
     </div>
 </div>
 @endsection

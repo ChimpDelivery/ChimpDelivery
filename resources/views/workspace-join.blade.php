@@ -26,10 +26,9 @@
                     </button>
                 </form>
             </div>
-            <div class="card-footer text-muted">
-                <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                You can only be in 1 workspace at a time. This action cannot be undone.
-            </div>
+            @include('layouts.dashboard.card-footer', [
+                'text' => 'You can only be in 1 workspace at a time. This action cannot be undone.'
+            ])
         </div>
     </div>
 @endsection

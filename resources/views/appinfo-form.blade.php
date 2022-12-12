@@ -115,16 +115,10 @@
                 @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
             </form>
         </div>
-        <div class="card-footer text-muted">
-            <span class="badge badge-primary">
-                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-            </span>
-            @if (!isset($appInfo))
-                If app isn't available in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
-            @else
-                AppStore and GitHub related settings can not be changed.
-            @endif
-        </div>
+        @php ($footerText = !isset($appInfo)
+            ? "If app isn't available in the list, make sure there is an app on <a href='https://appstoreconnect.apple.com/apps'>App Store Connect</a>. (And at least one version that is in the 'Prepare For Submission')"
+            : "AppStore and GitHub related settings can not be changed.")
+        @include('layouts.dashboard.card-footer', ['text' => $footerText ])
     </div>
 </div>
 @endsection
