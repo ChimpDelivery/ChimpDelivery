@@ -34,7 +34,15 @@ class S3Service
 
     public function GetFile(string $path)
     {
-        return Storage::disk('s3')->get($this->workspaceFolder . $path);
+        $fullPath = $this->workspaceFolder . $path;
+
+        abort_if(
+            !Storage::disk('s3')->exists($fullPath),
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            "File could not found in S3 registry!"
+        );
+
+        return Storage::disk('s3')->get($fullPath);
     }
 
     public function GetFileLink(string $path) : string
@@ -44,8 +52,6 @@ class S3Service
 
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
     {
-        $file = $this->GetFile($path);
-
         $headers = [
             'Cache-Control' => 'public',
             'Content-Type' => $mimeType,
@@ -54,7 +60,7 @@ class S3Service
             self::FILE_RESPONSE_KEY => $fileName,
         ];
 
-        return \Response::make($file, 200, $headers);
+        return \Response::make($this->GetFile($path), Response::HTTP_OK, $headers);
     }
 
     public function UploadProvision(string $provisionName, $provision) : false|string
