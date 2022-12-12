@@ -15,6 +15,7 @@ class JenkinsDataParser
     public const STOP_STAGE_LENGTH = 14;
     public const STOP_MSG_LENGTH = 29;
     public const COMMIT_LENGTH = 27;
+    public const COMMIT_HASH_LENGTH = 7;
 
     private AppInfo $app;
     private mixed $jenkinsData;
@@ -155,7 +156,10 @@ class JenkinsDataParser
             $orgName = Auth::user()->workspace->githubSetting->organization_name;
             $commitUrl = "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
 
-            $prettyCommitMsg = "<span class='badge alert-primary'>" . Str::substr($commit->id, 0, 5) . '</span> ' . nl2br($prettyText);
+            $prettyCommitMsg = "<span class='badge alert-primary'>"
+                . Str::substr($commit->id, 0, self::COMMIT_HASH_LENGTH)
+                . '</span> ' . nl2br($prettyText);
+
             $commitLink = "<a href='{$commitUrl}' target='_blank'>{$prettyCommitMsg}</a>";
 
             $prettyCommits->push($commitLink);
