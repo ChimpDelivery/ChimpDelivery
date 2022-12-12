@@ -13,9 +13,9 @@ class GetCertificate
 {
     use AsAction;
 
-    public function handle() : Response
+    public function handle(S3Service $service) : Response
     {
-        return $this->DownloadAsset(Auth::user()->workspace->appstoreConnectSign->cert);
+        return $this->DownloadAsset($service, Auth::user()->workspace->appstoreConnectSign->cert);
     }
 
     public function authorize() : bool
@@ -23,11 +23,10 @@ class GetCertificate
         return !Auth::user()->isNew();
     }
 
-    public function DownloadAsset(string $path) : Response
+    private function DownloadAsset(S3Service $service, string $path) : Response
     {
-        $s3Service = app(S3Service::class);
         $fileName = Auth::user()->workspace->appstoreConnectSign->cert_name;
 
-        return $s3Service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
+        return $service->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
 }
