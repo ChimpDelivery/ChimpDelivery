@@ -6,7 +6,9 @@
     @if($appInfo->jenkins_status == 200)
         @if($appInfo?->jenkins_data?->status != JobStatus::IN_PROGRESS->value)
             <button id="build_button" type="button" class="btn" data-toggle="modal"
-                    data-target="#buildModal" data-title="{{ $appInfo->id }}" data-project="{{ $appInfo->project_name }}">
+                    data-target="#buildModal"
+                    data-project="{{ $appInfo->project_name }}"
+                    data-build-url="{{ route('build-app', [ 'id' => $appInfo->id ]) }}">
                 <i class="fa fa-cloud-upload text-primary" aria-hidden="true" style="font-size:2em;"></i>
             </button>
         @else

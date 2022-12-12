@@ -47,12 +47,12 @@
                 let button = $(event.relatedTarget);
 
                 // Extract value from the custom data-* attribute
-                let appId = button.data('title');
                 let projectName = button.data('project');
+                let buildUrl = button.data('build-url');
 
                 setCookie('target_project_name', projectName, 1);
 
-                document.getElementById('build-app').action = '/dashboard/build-app?id=' + appId;
+                document.getElementById('build-app').action = buildUrl;
             });
         });
     </script>

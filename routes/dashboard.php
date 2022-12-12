@@ -77,7 +77,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //// jenkins routes
     ///////////////////////////
     Route::post('/dashboard/build-app', BuildJob::class)
-        ->middleware('permission:build job');
+        ->middleware('permission:build job')
+        ->name('build-app');
 
     Route::get('/dashboard/build-log', GetJobLastBuildLog::class)
         ->middleware('permission:view job log');
