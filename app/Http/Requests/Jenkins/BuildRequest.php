@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests\Jenkins;
 
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
-
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+
+use App\Actions\Api\Jenkins\JobPlatform;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class BuildRequest extends GetAppInfoRequest
 {
@@ -38,7 +39,10 @@ class BuildRequest extends GetAppInfoRequest
             'platform' => [
                 'required',
                 'string',
-                Rule::in([ 'Appstore', 'GooglePlay' ])
+                Rule::in([
+                    JobPlatform::Appstore->value,
+                    JobPlatform::GooglePlay->value,
+                ])
             ],
 
             'store_version' => [ 'required', 'numeric' ],
