@@ -41,17 +41,17 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#buildModal').on('show.bs.modal', function (event) {
-
+            $('#buildModal').on('show.bs.modal', function (event)
+            {
                 // Get the button that triggered the modal
                 let button = $(event.relatedTarget);
 
                 // Extract value from the custom data-* attribute
                 let projectName = button.data('project');
+                let prettyProjectName = projectName.slice(0, 17) + (projectName.length > 17 ? '...' : '');
                 let buildUrl = button.data('build-url');
 
-                setCookie('target_project_name', projectName, 1);
-
+                document.getElementById('project-button-inner').innerHTML = prettyProjectName;
                 document.getElementById('build-app').action = buildUrl;
             });
         });
