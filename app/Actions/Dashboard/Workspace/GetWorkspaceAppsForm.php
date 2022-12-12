@@ -18,8 +18,11 @@ class GetWorkspaceAppsForm
 
     public function handle() : View
     {
-        // populate ws apps
         $workspaceApps = Auth::user()->workspace->apps();
+
+        // count must be initialized here (before actions in collection)
+        $workspaceAppsCount = $workspaceApps->count();
+
         $paginatedApps = $workspaceApps->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
@@ -32,7 +35,7 @@ class GetWorkspaceAppsForm
         });
 
         return view('list-app-info')->with([
-            'totalAppCount' => $workspaceApps->count(),
+            'totalAppCount' => $workspaceAppsCount,
             'appInfos' => $paginatedApps,
         ]);
     }
