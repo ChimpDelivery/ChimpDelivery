@@ -17,7 +17,7 @@
         @endswitch
     </td>
     <td class="text-center align-middle">
-        @include('layouts.build-button')
+        @include('layouts.job-button')
     </td>
     <td class="text-center align-middle">
         @include('layouts.update-button')
