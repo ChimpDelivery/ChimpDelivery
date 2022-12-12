@@ -1,4 +1,4 @@
-# 🌐 [Talus Web Backend](http://34.252.141.173)
+# 🌐 Talus Dashboard
 [![deploy-staging](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-staging.yml/badge.svg?branch=dev)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-staging.yml)
 [![deploy-prod](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/TalusStudio/TalusWebBackend/actions/workflows/deploy-prod.yml)
 - Provides Web Dashboard and Backend APIs to work with ***Unity3D CI/CD Pipeline***.

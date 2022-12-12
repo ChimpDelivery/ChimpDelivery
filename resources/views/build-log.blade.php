@@ -17,10 +17,9 @@
                     {!! nl2br(e($full_log)) !!}
                 </code>
             </div>
-            <div class="card-footer text-muted">
-                <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
-                {{ round(strlen($full_log) / 1024 / 1024, 2) }} MB
-            </div>
+            @include('layouts.dashboard.card-footer', [
+                'text' => round(strlen($full_log) / 1024 / 1024, 2) . ' MB'
+            ])
         </div>
     </div>
 @endsection

@@ -31,12 +31,9 @@
                     <div class="d-flex justify-content-center">{{ $appInfos->links() }}</div>
                 </div>
             </div>
-            <div class="card-footer text-muted">
-                <span class="badge badge-primary">
-                    <i class="fa fa-bell text-white" aria-hidden="true"></i>
-                </span>
-                <span>Total app count: {{ $totalAppCount }}</span>
-            </div>
+            @include('layouts.dashboard.card-footer', [
+                'text' => "Total app count: {$totalAppCount}"
+            ])
         </div>
     </div>
 @endsection

@@ -1,5 +1,4 @@
 @php ($title = isset($appInfo) ? 'Update' : 'Create')
-@php ($formAction = isset($appInfo) ? route('update_app_info', [ 'id' => $appInfo->id ]) : route('store_app_info'))
 
 @extends('master')
 
@@ -16,7 +15,7 @@
             {{ $title }} App
         </div>
         <div class="card-body">
-            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction }}" enctype="multipart/form-data">
+            <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction ?? route('store_app_info') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -115,16 +114,10 @@
                 @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
             </form>
         </div>
-        <div class="card-footer text-muted">
-            <span class="badge badge-primary">
-                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-            </span>
-            @if (!isset($appInfo))
-                If app isn't available in the list, make sure there is an app on <a href="https://appstoreconnect.apple.com/apps">App Store Connect</a>. (And at least one version that is in the "Prepare For Submission")
-            @else
-                AppStore and GitHub related settings can not be changed.
-            @endif
-        </div>
+        @php ($footerText = !isset($appInfo)
+            ? "If app isn't available in the list, make sure there is an app on <a href='https://appstoreconnect.apple.com/apps'>App Store Connect</a>. (And at least one version that is in the 'Prepare For Submission')"
+            : "AppStore and GitHub related settings can not be changed.")
+        @include('layouts.dashboard.card-footer', ['text' => $footerText ])
     </div>
 </div>
 @endsection

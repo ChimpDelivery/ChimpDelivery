@@ -22,7 +22,9 @@ class GetAppInfo
 
     public function htmlResponse(AppInfo $appInfo) : View
     {
-        return view('appinfo-form')->with('appInfo', $appInfo);
+        return view('appinfo-form')
+            ->with('appInfo', $appInfo)
+            ->with('formAction', route('update_app_info', [ 'id' => $appInfo->id ]));
     }
 
     public function jsonResponse(AppInfo $appInfo) : JsonResponse

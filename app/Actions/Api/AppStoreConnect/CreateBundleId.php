@@ -4,7 +4,6 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 use App\Traits\AsActionResponse;
@@ -18,7 +17,7 @@ class CreateBundleId
 
     public function handle(StoreBundleRequest $request) : array
     {
-        $generatedToken = CreateToken::run()->getData()->appstore_token;
+        $service = app(AppStoreConnectService::class);
 
         $data = [
             'data' => [
@@ -31,9 +30,9 @@ class CreateBundleId
             ]
         ];
 
-        $createBundle = Http::withToken($generatedToken)
+        $createBundle = $service->GetClient()
             ->withBody(json_encode($data), 'application/json')
-            ->post(AppStoreConnectService::$API_URL.'/bundleIds');
+            ->post(AppStoreConnectService::API_URL.'/bundleIds');
 
         $createBundleResponse = $createBundle->json();
 

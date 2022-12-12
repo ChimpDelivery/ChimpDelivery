@@ -4,21 +4,28 @@ namespace App\Services;
 
 use Firebase\JWT\JWT;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppStoreConnectSetting;
 
 class AppStoreConnectService
 {
-    public static string $API_URL = 'https://api.appstoreconnect.apple.com/v1';
+    public const API_URL = 'https://api.appstoreconnect.apple.com/v1';
 
     private readonly AppStoreConnectSetting $appStoreConnectSetting;
 
     public function __construct()
     {
         $this->appStoreConnectSetting = Auth::user()->workspace->appStoreConnectSetting;
+    }
+
+    public function GetClient() : PendingRequest
+    {
+        return Http::withToken($this->CreateToken()->getData()->appstore_token);
     }
 
     public function CreateToken() : JsonResponse
