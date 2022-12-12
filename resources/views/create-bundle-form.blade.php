@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Create Bundle')
+@section('title', 'Create Bundle ID')
 
 @section('content')
 <div class="container py-2">
