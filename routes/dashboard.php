@@ -27,11 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //////////////////////////
     Route::get('/dashboard',
         fn() => Auth::user()->isNew()
-            ? view('workspace-settings')->with([
-                'isNew' => true,
-                'cert_label' => 'Choose...',
-                'provision_label' => 'Choose...',
-            ])
+            ? view('workspace-settings')->with([ 'isNew' => true ])
             : GetWorkspaceIndex::run()
     )->name('index');
 
