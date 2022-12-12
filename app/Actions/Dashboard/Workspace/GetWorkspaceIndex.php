@@ -12,7 +12,7 @@ use App\Models\AppInfo;
 use App\Actions\Api\Jenkins\JobStatus;
 use App\Actions\Api\Jenkins\GetJobLastBuild;
 
-class GetWorkspaceAppsForm
+class GetWorkspaceIndex
 {
     use AsAction;
 
