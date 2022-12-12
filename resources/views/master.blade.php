@@ -6,6 +6,7 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- favicon_generator: https://favicon.io --}}
     {{-- favicon_begin --}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
@@ -21,15 +22,15 @@
     <script src="{{ asset('bootstrap/bootstrap.min.js') }}"></script>
     {{-- bootstrap_end --}}
 
-    {{-- custom_js_start --}}
-    <script src="{{ asset('js/cookie.js') }}"></script>
-    <script src="{{ asset('js/master.js') }}"></script>
-    {{-- custom_js_end --}}
-
     {{-- selectpicker_begin --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     {{-- selectpicker_end --}}
+
+    {{-- custom_js_start --}}
+    <script src="{{ asset('js/cookie.js') }}"></script>
+    <script src="{{ asset('js/master.js') }}"></script>
+    {{-- custom_js_end --}}
 
     {{-- custom_css_start --}}
     <link rel="stylesheet" href="{{ asset('css/master.css') }}">
