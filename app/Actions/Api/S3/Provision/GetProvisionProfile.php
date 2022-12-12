@@ -64,8 +64,15 @@ class GetProvisionProfile
             'application/octet-stream'
         );
 
-        $response->headers->set($this->configs['uuid']['web'], $this->GetProfileUUID($response));
-        $response->headers->set($this->configs['team-id']['web'], $this->GetTeamID($response));
+        $response->headers->set(
+            key: $this->configs['uuid']['web'],
+            values: $response->isOk() ? $this->GetProfileUUID($response) : ''
+        );
+
+        $response->headers->set(
+            key: $this->configs['team-id']['web'],
+            values: $response->isOk() ? $this->GetTeamID($response) : ''
+        );
 
         return $response;
     }

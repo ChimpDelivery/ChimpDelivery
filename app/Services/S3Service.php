@@ -36,12 +36,6 @@ class S3Service
     {
         $fullPath = $this->workspaceFolder . $path;
 
-        abort_if(
-            !Storage::disk('s3')->exists($fullPath),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            "File could not found in S3 registry!"
-        );
-
         return Storage::disk('s3')->get($fullPath);
     }
 
@@ -60,7 +54,13 @@ class S3Service
             self::FILE_RESPONSE_KEY => $fileName,
         ];
 
-        return \Response::make($this->GetFile($path), Response::HTTP_OK, $headers);
+        $file = $this->GetFile($path);
+
+        return \Response::make(
+            content: $file,
+            status: $file ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY,
+            headers: $headers
+        );
     }
 
     public function UploadProvision(string $provisionName, $provision) : false|string
