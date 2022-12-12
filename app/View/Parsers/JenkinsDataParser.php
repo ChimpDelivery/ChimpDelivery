@@ -14,7 +14,8 @@ class JenkinsDataParser
     // text limits
     public const STOP_STAGE_LENGTH = 14;
     public const STOP_MSG_LENGTH = 29;
-    public const COMMIT_LENGTH = 27;
+    public const COMMIT_LENGTH = 24;
+    public const COMMIT_HASH_LENGTH = 7;
 
     private AppInfo $app;
     private mixed $jenkinsData;
@@ -150,17 +151,24 @@ class JenkinsDataParser
         // add pretty commit history to build details view.
         $buildCommits->each(function ($commit, $order) use (&$prettyCommits)
         {
-            $prettyText = Str::of(Str::limit(trim($commit->msg), self::COMMIT_LENGTH))->newLine();
+            $prettyText = Str::of(Str::limit(trim($commit->msg), self::COMMIT_LENGTH));
 
             $orgName = Auth::user()->workspace->githubSetting->organization_name;
             $commitUrl = "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
 
-            $prettyCommitMsg = "<span class='badge alert-primary'>" . Str::substr($commit->id, 0, 5) . '</span> ' . nl2br($prettyText);
-            $commitLink = "<a href='{$commitUrl}' target='_blank'>{$prettyCommitMsg}</a>";
+            $commitId = Str::substr($commit->id, 0, self::COMMIT_HASH_LENGTH);
+            $prettyCommitMsg = "<span class='badge alert-primary'>{$commitId}</span>"
+                . "<span class='pull-right'>{$prettyText}</span>";
 
-            $prettyCommits->push($commitLink);
+            // is internal or client commit
+            // git commit history includes jenkins shared library updates
+            $commitLink = ($commit->authorEmail === 'noreply@github.com')
+                ? "<a href='#'>{$prettyCommitMsg}</a>"
+                : "<a href='{$commitUrl}' target='_blank'>{$prettyCommitMsg}</a>";
+
+            $prettyCommits->push($commitLink . "<br />");
         });
 
-        return $prettyCommits->implode('');
+        return nl2br($prettyCommits->implode(''));
     }
 }

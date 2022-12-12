@@ -81,7 +81,13 @@ class GetJobLastBuild
     {
         return isset($rawJenkinsResponse->changeSets[0])
             ? collect($rawJenkinsResponse->changeSets[0]->items)
-                ->map(function ($item) { return [ 'id' => $item->id, 'msg' => $item->msg ]; })
+                ->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'msg' => $item->msg,
+                        'authorEmail'=> $item->authorEmail
+                    ];
+                })
                 ->reverse()
                 ->values()
             : collect();
