@@ -82,7 +82,7 @@
                         <div class="custom-file shadow-sm">
                             <label class="custom-file-label" for="cert">
                                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                                    {{ $cert_label }}
+                                    {{ $cert_label ?? 'Choose...' }}
                                 </span>
                             </label>
                             <input type="file" class="custom-file-input" id="cert" name="cert" accept=".p12">
@@ -95,7 +95,7 @@
                         <div class="custom-file shadow-sm">
                             <label class="custom-file-label" for="provision_profile">
                                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                                    {{ $provision_label }}
+                                    {{ $provision_label ?? 'Choose...' }}
                                 </span>
                             </label>
                             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
