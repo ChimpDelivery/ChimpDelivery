@@ -45,13 +45,13 @@
 <body>
     @include('layouts.dashboard.navbar')
 
-    @include('layouts.error')
+    @include('layouts.dashboard.error')
 
     <section class="page-content">
         @yield('content')
     </section>
 
-    @include('layouts.toast-container')
+    @include('layouts.dashboard.toast-container')
 </body>
 
 <section class="scripts">
