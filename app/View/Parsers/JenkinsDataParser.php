@@ -26,13 +26,6 @@ class JenkinsDataParser
         $this->jenkinsData = $app->jenkins_data;
     }
 
-    public function GetButtonImage()
-    {
-        $ws = Auth::user()->workspace->githubSetting->organization_name;
-        $url = config('jenkins.host') . "/buildStatus/icon?subject={$this->jenkinsData?->id}&job={$ws}%2F{$this->app->project_name}%2Fmaster";
-        return '<img alt="..." src="'.$url.'">';
-    }
-
     public function GetButtonData()
     {
         // prepare button header(title)
