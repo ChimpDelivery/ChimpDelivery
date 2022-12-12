@@ -16,6 +16,9 @@ class GetJobLastBuild
 {
     use AsAction;
 
+    // number of commits count that fetched by Jenkins
+    private const COMMIT_LIMIT = 5;
+
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
         $app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
@@ -29,7 +32,16 @@ class GetJobLastBuild
 
         if ($lastBuild)
         {
-            $lastBuildApiUrl = "/job/{$app->project_name}/job/master/{$lastBuild->id}/api/json?tree=actions[*[name,value]]{0},changeSets[*[id,msg,authorEmail]]";
+            $commitLimit = self::COMMIT_LIMIT;
+
+            // actions[0] contains job parameters
+            $lastBuildApiUrl = implode('/', [
+                "/job/{$app->project_name}/job",
+                'master',
+                $lastBuild->id,
+                'api',
+                "json?tree=actions[*[name,value]]{0},changeSets[*[id,msg,authorEmail]{0,{$commitLimit}}]",
+            ]);
             $lastBuildDetails = app(JenkinsService::class)->GetResponse($lastBuildApiUrl);
 
             $lastBuild->build_platform = $this->GetBuildPlatform($lastBuildDetails->jenkins_data);
@@ -55,13 +67,15 @@ class GetJobLastBuild
 
     private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
     {
+        // parameters[1] === Platform parameter in Jenkinsfile
+        // todo: refactor
         return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? 'Appstore';
     }
 
     private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
     {
         return isset($rawJenkinsResponse->changeSets[0])
-            ? collect($rawJenkinsResponse->changeSets[0]->items)->pluck('msg')->reverse()->take(5)->values()
+            ? collect($rawJenkinsResponse->changeSets[0]->items)->pluck('msg')->reverse()->values()
             : collect();
     }
 
