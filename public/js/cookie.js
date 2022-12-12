@@ -1,3 +1,9 @@
+// @user: toast-container.blade.php
+function setToastCookie()
+{
+    setCookie('daily-toast-cookie', 1, 1);
+}
+
 function setCookie(name, value, days)
 {
     let expires = "";
