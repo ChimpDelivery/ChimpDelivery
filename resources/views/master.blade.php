@@ -23,6 +23,7 @@
 
     {{-- custom_js_start --}}
     <script src="{{ asset('js/cookie.js') }}"></script>
+    <script src="{{ asset('js/master.js') }}"></script>
     {{-- custom_js_end --}}
 
     {{-- selectpicker_begin --}}
@@ -30,16 +31,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     {{-- selectpicker_end --}}
 
-    <style>
-        .toast-container { position: fixed; right: 20px; top: 20px; }
-        .toast:not(.showing):not(.show) { display: none !important; }
-        .popover-inner { width: 250px !important; max-width: 250px !important; }
-        .popover { width: 250px !important; max-width: 250px !important; }
-        .filter-option-inner-inner { color: white; font-weight: bold; }
-
-        .img-notify-item { position:relative; padding-top:1rem; display:inline-block; }
-        .img-notify-badge { position: absolute; right:0; top:3rem; padding-left: 5px; padding-right: 5px; background: #2a7048; color:white; font-size:12px; font-weight: bold; }
-    </style>
+    {{-- custom_css_start --}}
+    <link rel="stylesheet" href="{{ asset('css/master.css') }}">
+    {{-- custom_css_end --}}
 </head>
 
 <body>
@@ -55,25 +49,5 @@
 </body>
 
 <section class="scripts">
-
-    <script type="text/javascript">
-        $(document).ready(function ()
-        {
-            // init popover
-            $('[data-toggle="popover"]').popover()
-            $('.popover-dismiss').popover({ trigger: 'focus' })
-
-            // init bootstrap tooltips
-            $('[data-toggle="tooltip"]').tooltip()
-
-            // init toasts
-            $('#toast-flash').toast('show');
-            if (!getCookie('daily-toast-cookie'))
-            {
-                $('#toast-talus').toast('show');
-            }
-        })
-    </script>
-
     @yield('scripts')
 </section>
