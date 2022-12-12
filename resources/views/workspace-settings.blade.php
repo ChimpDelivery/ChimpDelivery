@@ -47,10 +47,12 @@
                             <span class="input-group-text">Private Key</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
                             <label class="custom-file-label" for="private_key">
-                                {{ ($isNew) ? '' : Str::limit($workspace->appStoreConnectSetting->private_key, 10) }}
+                                <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
+                                    {{ ($isNew) ? '' : Str::limit($workspace->appStoreConnectSetting->private_key, 128) }}
+                                </span>
                             </label>
+                            <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,8 +80,8 @@
                             <span class="input-group-text">Certificate</span>
                         </div>
                         <div class="custom-file shadow-sm">
-                            <label class="custom-file-label text-truncate" for="cert">
-                                <span class="d-inline-block text-truncate" style="max-width: 7rem;">
+                            <label class="custom-file-label" for="cert">
+                                <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
                                     {{ $cert_label }}
                                 </span>
                             </label>
@@ -92,7 +94,7 @@
                         </div>
                         <div class="custom-file shadow-sm">
                             <label class="custom-file-label" for="provision_profile">
-                                <span class="d-inline-block text-truncate" style="max-width: 7rem;">
+                                <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
                                     {{ $provision_label }}
                                 </span>
                             </label>
@@ -100,9 +102,9 @@
                         </div>
                     </div>
                     <div class="alert alert-warning w-100  alert-dismissible fade show">
-                            <span class="badge badge-warning">
-                                <i class="fa fa-bell text-white" aria-hidden="true"></i>
-                            </span>
+                        <span class="badge badge-warning">
+                            <i class="fa fa-bell text-white" aria-hidden="true"></i>
+                        </span>
                         <small>
                             Only '<a class="font-weight-bold" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a>' supported for now.
                         </small>
