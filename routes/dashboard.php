@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
@@ -12,8 +13,9 @@ use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-use App\Actions\Dashboard\GetIndexForm;
+use App\Actions\Dashboard\GetNewUserIndex;
 use App\Actions\Dashboard\User\UpdateUserProfile;
+use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
 use App\Actions\Dashboard\Workspace\JoinWorkspace;
@@ -24,8 +26,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //////////////////////////
     //// main routes
     //////////////////////////
-    Route::get('/dashboard', GetIndexForm::class)
-        ->name('index');
+    Route::get('/dashboard',
+        fn() => Auth::user()->isNew()
+            ? GetNewUserIndex::run()
+            : GetWorkspaceIndex::run()
+    )->name('index');
 
     Route::get('/dashboard/profile', fn() => view('user-profile')->with([
         'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::DEFAULT_WS_ID
