@@ -49,7 +49,7 @@
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
                             <label class="custom-file-label" for="private_key">
-                                {{ ($isNew) ? '' : Str::substr($workspace->appStoreConnectSetting->private_key, 0, 10) }}...
+                                {{ ($isNew) ? '' : Str::limit($workspace->appStoreConnectSetting->private_key, 10) }}
                             </label>
                         </div>
                     </div>
