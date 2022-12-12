@@ -16,8 +16,6 @@ class UploadAppStoreConnectSign
     use AsAction;
     use AsActionResponse;
 
-    private const BUCKET_ROOT_FOLDER = "Workspace";
-
     public function handle(WorkspaceChanged $event) : array
     {
         $appStoreConnectSign = AppStoreConnectSign::firstOrCreate([
