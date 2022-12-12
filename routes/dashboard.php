@@ -13,7 +13,6 @@ use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-use App\Actions\Dashboard\GetNewUserIndex;
 use App\Actions\Dashboard\User\UpdateUserProfile;
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
@@ -28,7 +27,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //////////////////////////
     Route::get('/dashboard',
         fn() => Auth::user()->isNew()
-            ? GetNewUserIndex::run()
+            ? view('workspace-settings')->with([
+                'isNew' => true,
+                'cert_label' => 'Choose...',
+                'provision_label' => 'Choose...',
+            ])
             : GetWorkspaceIndex::run()
     )->name('index');
 
