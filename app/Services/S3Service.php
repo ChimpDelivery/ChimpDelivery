@@ -44,8 +44,6 @@ class S3Service
 
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
     {
-        $file = $this->GetFile($path);
-
         $headers = [
             'Cache-Control' => 'public',
             'Content-Type' => $mimeType,
@@ -54,7 +52,7 @@ class S3Service
             self::FILE_RESPONSE_KEY => $fileName,
         ];
 
-        return \Response::make($file, 200, $headers);
+        return \Response::make($this->GetFile($path), Response::HTTP_OK, $headers);
     }
 
     public function UploadProvision(string $provisionName, $provision) : false|string
