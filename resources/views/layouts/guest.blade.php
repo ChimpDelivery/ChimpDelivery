@@ -16,26 +16,30 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
+        @env('local')
         <script type="text/javascript">
-            function callbackThen(response){
-                // read HTTP status
+            function callbackThen(response)
+            {
                 console.log(response.status);
-                    
-                // read Promise object
-                response.json().then(function(data){
+                response.json().then(function(data)
+                {
                     console.log(data);
                 });
             }
-            
-            function callbackCatch(error){
-                console.error('Error:', error)
-            }   
-        </script>    
 
+            function callbackCatch(error)
+            {
+                console.error('Error:', error)
+            }
+        </script>
+        @endenv
+
+        @env('local')
         {!! htmlScriptTagJsApi([
             'callback_then' => 'callbackThen',
             'callback_catch' => 'callbackCatch'
         ]) !!}
+        @endenv
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
