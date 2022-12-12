@@ -12,7 +12,7 @@
         "encodia/laravel-health-env-vars": "^1.2",
         "fakerphp/faker": "^1.9.1",
         "firebase/php-jwt": "^6.0",
-        "fruitcake/laravel-cors": "^2.0.5",
+        "fruitcake/laravel-cors": "^3.0",
         "graham-campbell/github": "^11.0",
         "guzzlehttp/guzzle": "^7.4",
         "http-interop/http-factory-guzzle": "^1.0",
