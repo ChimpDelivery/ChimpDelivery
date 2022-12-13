@@ -54,13 +54,13 @@ class GetProvisionProfile
     }
 
     // find tag section, then read value below that section
-    private function GetTag(string $tag, Response $fileResponse)
+    private function GetTag(string $searchedTag, Response $fileResponse)
     {
         $tags = $this->GetFileTags($fileResponse);
 
-        $tagPositionReference = $tags->filter(function($fileTag) use ($tag) {
-            return str($fileTag[0])->contains("<key>$tag</key>");
-        });
+        $tagPositionReference = $tags->filter(
+            fn($tag) => str($tag[0])->contains("<key>{$searchedTag}</key>")
+        );
         $tagPositionIndex = $tagPositionReference->keys()->first() + 1;
 
         return $tags->get($tagPositionIndex)[config('appstore-sign.provision.data-index')];
