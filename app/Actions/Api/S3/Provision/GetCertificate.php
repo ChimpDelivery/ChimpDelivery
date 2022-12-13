@@ -20,7 +20,11 @@ class GetCertificate
 
         return empty($sign->cert)
             ? response()->noContent()
-            : $this->DownloadFromS3($sign->cert, $sign->cert_name, config('appstore-sign.certificate.mime'));
+            : $this->DownloadFromS3(
+                $sign->cert,
+                $sign->cert_name,
+                config('appstore-sign.certificate.mime')
+            );
     }
 
     public function authorize() : bool
