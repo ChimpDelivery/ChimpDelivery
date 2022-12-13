@@ -8,15 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
-    private array $configs =
-    [
-        // s3 bucket root
-        'base_path' => 'TalusDashboard_Root',
-
-        // indicates custom-header contains filename
-        'filename-header-key' => 'Dashboard-File-Name'
-    ];
-
     // workspaces have their own folders on s3 bucket to store required assets
     // workspace folder contains sub-folders by file-types
     private readonly string $workspaceFolder;
@@ -24,9 +15,7 @@ class S3Service
     public function __construct()
     {
         $this->workspaceFolder = implode('/', [
-            $this->configs['base_path'],
-            config('app.env'),
-            'Workspaces',
+            config('aws.s3.ws_path'),
             Auth::user()->workspace->id,
         ]);
     }
@@ -49,7 +38,7 @@ class S3Service
             'Content-Type' => $mimeType,
             'Content-Description' => 'File Transfer',
             'Content-Disposition' => "attachment; filename={$fileName}",
-            $this->configs['filename-header-key'] => $fileName,
+            config('aws.s3.filename-header-key') => $fileName,
         ];
 
         $file = $this->GetFile($path);
