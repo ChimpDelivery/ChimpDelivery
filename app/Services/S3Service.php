@@ -66,13 +66,13 @@ class S3Service
     {
         // full path on s3
         // @example: S3Bucket/TalusDashboard_Root/{DashboardAppEnv}/Workspaces/{Id}/bin/example.bin
-        Storage::disk('s3')->putFileAs(
+        $uploadedFile = Storage::disk('s3')->putFileAs(
             path: "{$this->workspaceFolder}/{$file->extension()}",
             file: $file,
             name: $file->hashName()
         );
 
         // return trimmed path
-        return "{$file->extension()}/{$file->hashName()}";
+        return (!$uploadedFile) ? false : "{$file->extension()}/{$file->hashName()}";
     }
 }

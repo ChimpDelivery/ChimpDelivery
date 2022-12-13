@@ -7,12 +7,12 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-use App\Traits\AsS3Downloader;
+use App\Traits\AsS3Client;
 
 class GetCertificate
 {
     use AsAction;
-    use AsS3Downloader;
+    use AsS3Client;
 
     private array $configs =
     [

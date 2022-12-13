@@ -6,7 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Client;
 use App\Traits\AsActionResponse;
 use App\Events\WorkspaceChanged;
 use App\Models\AppStoreConnectSign;
@@ -15,6 +15,7 @@ class UploadAppStoreConnectSign
 {
     use AsAction;
     use AsActionResponse;
+    use AsS3Client;
 
     public function handle(WorkspaceChanged $event) : void
     {
@@ -22,24 +23,22 @@ class UploadAppStoreConnectSign
             'workspace_id' => $event->workspace->id
         ]);
 
-        $s3Service = app(S3Service::class);
-
         if ($event->request->hasFile('provision_profile'))
         {
-            $appStoreConnectSign->fill([
-                'provision_profile' => $s3Service->UploadFile(
-                    $event->request->validated('provision_profile')
-                )
-            ]);
+            $uploadedProfile = $this->UploadToS3($event->request->validated('provision_profile'));
+            if ($uploadedProfile)
+            {
+                $appStoreConnectSign->fill([ 'provision_profile' => $uploadedProfile ]);
+            }
         }
 
         if ($event->request->hasFile('cert'))
         {
-            $appStoreConnectSign->fill([
-                'cert' => $s3Service->UploadFile(
-                    $event->request->validated('cert')
-                )
-            ]);
+            $uploadedCert = $this->UploadToS3($event->request->validated('cert'));
+            if ($uploadedCert)
+            {
+                $appStoreConnectSign->fill([ 'cert' => $uploadedCert ]);
+            }
         }
 
         $appStoreConnectSign->save();
