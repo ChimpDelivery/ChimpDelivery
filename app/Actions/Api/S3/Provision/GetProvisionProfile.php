@@ -17,36 +17,6 @@ class GetProvisionProfile
     use AsAction;
     use AsS3Client;
 
-    private array $configs =
-    [
-        // .mobileprovision mime-type
-        'mime' => 'application/octet-stream',
-
-        // required data for App Store app-signing on Jenkins Sign Stage.
-        'required_tags' =>
-        [
-            [
-                'file' => 'Name',
-                'web' => 'Dashboard-Provision-Profile-Name',
-            ],
-            [
-                'file' => 'UUID',
-                'web' => 'Dashboard-Provision-Profile-UUID',
-            ],
-            [
-                'file' => 'TeamIdentifier',
-                'web' => 'Dashboard-Team-ID',
-            ],
-            [
-                'file' => 'ExpirationDate',
-                'web' => 'Dashboard-Provision-Profile-Expire',
-            ],
-        ],
-
-        // check GetFileTags function
-        'data-index' => 3,
-    ];
-
     public function handle() : Response
     {
         $sign = Auth::user()->workspace->appstoreConnectSign;
@@ -57,7 +27,7 @@ class GetProvisionProfile
                 $this->DownloadFromS3(
                     $sign->provision_profile,
                     $sign->provision_name,
-                    $this->configs['mime']
+                    config('appstore-sign.provision.mime')
                 )
             );
     }
@@ -70,7 +40,7 @@ class GetProvisionProfile
     // set required file headers for Provision Profile and return file
     private function SetHeaders(Response $fileResponse) : Response
     {
-        foreach ($this->configs['required_tags'] as $tag)
+        foreach (config('appstore-sign.provision.required_tags') as $tag)
         {
             $fileResponse->headers->set(
                 key: $tag['web'],
@@ -93,7 +63,7 @@ class GetProvisionProfile
         });
         $tagPositionIndex = $tagPositionReference->keys()->first() + 1;
 
-        return $tags->get($tagPositionIndex)[$this->configs['data-index']];
+        return $tags->get($tagPositionIndex)[config('appstore-sign.provision.data-index')];
     }
 
     // example response: https://gist.github.com/emrekovanci/b68e92d49c98e48d818c9083a8ba19c6
