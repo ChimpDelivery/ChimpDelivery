@@ -7,28 +7,29 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Downloader;
 
 class GetCertificate
 {
     use AsAction;
+    use AsS3Downloader;
+
+    private array $configs =
+    [
+        'mime' => 'application/x-pkcs12',
+    ];
 
     public function handle() : Response
     {
-        $filePath = Auth::user()->workspace->appstoreConnectSign->cert;
+        $sign = Auth::user()->workspace->appstoreConnectSign;
 
-        return $this->DownloadAsset($filePath);
+        return empty($sign->cert)
+            ? response()->noContent()
+            : $this->DownloadFromS3($sign->cert, $sign->cert_name, $this->configs['mime']);
     }
 
     public function authorize() : bool
     {
         return !Auth::user()->isNew();
-    }
-
-    private function DownloadAsset(string $path) : Response
-    {
-        $fileName = Auth::user()->workspace->appstoreConnectSign->cert_name;
-
-        return app(S3Service::class)->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
 }

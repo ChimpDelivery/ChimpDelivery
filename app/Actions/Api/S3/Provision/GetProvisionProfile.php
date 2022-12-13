@@ -8,31 +8,39 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Downloader;
 
-/// Reads Provision Profile(App Store Connect) file and exports uuid and team-identifier.
+/// Reads Provision Profile(.mobileprovision) file
+/// exports UUID, Team-Identifier, Expiration Date etc...
 class GetProvisionProfile
 {
     use AsAction;
+    use AsS3Downloader;
 
-    // search_tag_in_file, response_header_key
     private array $configs =
     [
         // .mobileprovision mime-type
         'mime' => 'application/octet-stream',
 
-        // Provision Profile contains UUID (required for App Store app-signing)
-        'uuid' =>
+        // required data for App Store app-signing on Jenkins Sign Stage.
+        'required_tags' =>
         [
-            'file' => 'UUID',
-            'web' => 'Dashboard-Provision-Profile-UUID',
-        ],
-
-        // Provision Profile contains Team ID (required for App Store app-signing)
-        'team-id' =>
-        [
-            'file' => 'TeamIdentifier',
-            'web' => 'Dashboard-Team-ID',
+            [
+                'file' => 'Name',
+                'web' => 'Dashboard-Provision-Profile-Name',
+            ],
+            [
+                'file' => 'UUID',
+                'web' => 'Dashboard-Provision-Profile-UUID',
+            ],
+            [
+                'file' => 'TeamIdentifier',
+                'web' => 'Dashboard-Team-ID',
+            ],
+            [
+                'file' => 'ExpirationDate',
+                'web' => 'Dashboard-Provision-Profile-Expire',
+            ],
         ],
 
         // check GetFileTags function
@@ -45,7 +53,13 @@ class GetProvisionProfile
 
         return empty($sign->provision_profile)
             ? response()->noContent()
-            : $this->DownloadFile($sign->provision_profile, $sign->provision_name);
+            : $this->SetHeaders(
+                $this->DownloadFromS3(
+                    $sign->provision_profile,
+                    $sign->provision_name,
+                    $this->configs['mime']
+                )
+            );
     }
 
     public function authorize() : bool
@@ -53,68 +67,36 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    private function DownloadFile(string $sourceFilePath, string $destinationFileName) : Response
+    // set required file headers for Provision Profile and return file
+    private function SetHeaders(Response $fileResponse) : Response
     {
-        $response = app(S3Service::class)->GetFileResponse(
-            $sourceFilePath,
-            $destinationFileName,
-            $this->configs['mime']
-        );
-
-        return $this->SetProvisionFileHeaders($response);
-    }
-
-    private function SetProvisionFileHeaders(Response $fileResponse) : Response
-    {
-        $fileResponse->headers->set(
-            key: $this->configs['uuid']['web'],
-            values: $fileResponse->isOk() ? $this->GetProfileUUID($fileResponse) : ''
-        );
-
-        $fileResponse->headers->set(
-            key: $this->configs['team-id']['web'],
-            values: $fileResponse->isOk() ? $this->GetTeamID($fileResponse) : ''
-        );
+        foreach ($this->configs['required_tags'] as $tag)
+        {
+            $fileResponse->headers->set(
+                key: $tag['web'],
+                values: $fileResponse->isOk()
+                    ? $this->GetTag($tag['file'], $fileResponse)
+                    : ''
+            );
+        }
 
         return $fileResponse;
     }
 
-    // find uuid section, then read value below that section
-    private function GetProfileUUID(Response $response)
+    // find tag section, then read value below that section
+    private function GetTag(string $tag, Response $fileResponse)
     {
-        $tags = $this->GetFileTags($response);
+        $tags = $this->GetFileTags($fileResponse);
 
-        $uuidPositionReference = $tags->filter(function ($tag) {
-            return str($tag[0])->contains($this->configs['uuid']['file']);
+        $tagPositionReference = $tags->filter(function($fileTag) use ($tag) {
+            return str($fileTag[0])->contains("<key>$tag</key>");
         });
-        $uuidPositionIndex = $uuidPositionReference->keys()->first() + 1;
+        $tagPositionIndex = $tagPositionReference->keys()->first() + 1;
 
-        return $tags->get($uuidPositionIndex)[$this->configs['data-index']];
+        return $tags->get($tagPositionIndex)[$this->configs['data-index']];
     }
 
-    // find team id section, then read value below that section
-    private function GetTeamID(Response $response)
-    {
-        $tags = $this->GetFileTags($response);
-
-        $teamIdPositionReference = $tags->filter(function ($tag) {
-            return str($tag[0])->contains($this->configs['team-id']['file']);
-        });
-        $teamIdPositionIndex = $teamIdPositionReference->keys()->first() + 1;
-
-        return $tags->get($teamIdPositionIndex)[$this->configs['data-index']];
-    }
-
-    /*
-     * preg_match_all returns explodes tags from .mobileprovision file
-     * array:5 [
-            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
-            1 => "<string>"
-            2 => "string"
-            3 => "uuid-uuid-uuid-uuid-uuid"
-            4 => "</string>"
-        ]
-     */
+    // example response: https://gist.github.com/emrekovanci/b68e92d49c98e48d818c9083a8ba19c6
     private function GetFileTags(Response $response) : Collection
     {
         preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",
