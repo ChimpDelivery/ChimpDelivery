@@ -4,7 +4,6 @@ namespace App\Actions\Api\S3\Provision;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -16,37 +15,36 @@ class GetProvisionProfile
 {
     use AsAction;
 
-    // search_tag_in_file, response_header_key_on_web
-    private array $configs = [
-        'uuid' => [
+    // search_tag_in_file, response_header_key
+    private array $configs =
+    [
+        // .mobileprovision mime-type
+        'mime' => 'application/octet-stream',
+
+        // check GetFileTags function
+        'data-index' => 3,
+
+        'uuid' =>
+        [
             'file' => 'UUID',
             'web' => 'Dashboard-Provision-Profile-UUID',
         ],
 
-        'team-id' => [
+        'team-id' =>
+        [
             'file' => 'TeamIdentifier',
             'web' => 'Dashboard-Team-ID',
         ],
     ];
 
-    /*
-     * preg_match_all returns explodes tags from binary file
-     * array:5 [
-            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
-            1 => "<string>"
-            2 => "string"
-            3 => "uuid-uuid-uuid-uuid-uuid"
-            4 => "</string>"
-        ]
-     */
-    private const REAL_DATA_INDEX = 3;
-
     public function handle() : Response
     {
-        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
-        $filePath = "/provisions/{$fileName}";
+        $sign = Auth::user()->workspace->appstoreConnectSign;
 
-        return $this->DownloadAsset($filePath, $fileName);
+        $filePath = $sign->provision_profile;
+        $fileName = $sign->provision_name;
+
+        return $this->DownloadFile($filePath, $fileName);
     }
 
     public function authorize() : bool
@@ -54,27 +52,32 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    private function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
+    private function DownloadFile(string $sourceFilePath, string $destinationFileName) : Response
     {
         $service = app(S3Service::class);
 
         $response = $service->GetFileResponse(
             $sourceFilePath,
             $destinationFileName,
-            'application/octet-stream'
+            $this->configs['mime']
         );
 
-        $response->headers->set(
+        return $this->SetProvisionFileHeaders($response);
+    }
+
+    private function SetProvisionFileHeaders(Response $fileResponse) : Response
+    {
+        $fileResponse->headers->set(
             key: $this->configs['uuid']['web'],
-            values: $response->isOk() ? $this->GetProfileUUID($response) : ''
+            values: $fileResponse->isOk() ? $this->GetProfileUUID($fileResponse) : ''
         );
 
-        $response->headers->set(
+        $fileResponse->headers->set(
             key: $this->configs['team-id']['web'],
-            values: $response->isOk() ? $this->GetTeamID($response) : ''
+            values: $fileResponse->isOk() ? $this->GetTeamID($fileResponse) : ''
         );
 
-        return $response;
+        return $fileResponse;
     }
 
     // find uuid section, then read value below that section
@@ -83,11 +86,11 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $uuidPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains($this->configs['uuid']['file']);
+            return str($tag[0])->contains($this->configs['uuid']['file']);
         });
-        $uuidPositionIndex = $uuidPositionReference->keys()->first();
+        $uuidPositionIndex = $uuidPositionReference->keys()->first() + 1;
 
-        return $tags->get($uuidPositionIndex + 1)[self::REAL_DATA_INDEX];
+        return $tags->get($uuidPositionIndex)[$this->configs['data-index']];
     }
 
     // find team id section, then read value below that section
@@ -96,13 +99,23 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($response);
 
         $teamIdPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains($this->configs['team-id']['file']);
+            return str($tag[0])->contains($this->configs['team-id']['file']);
         });
-        $teamIdPositionIndex = $teamIdPositionReference->keys()->first();
+        $teamIdPositionIndex = $teamIdPositionReference->keys()->first() + 1;
 
-        return $tags->get($teamIdPositionIndex + 1)[self::REAL_DATA_INDEX];
+        return $tags->get($teamIdPositionIndex)[$this->configs['data-index']];
     }
 
+    /*
+     * preg_match_all returns explodes tags from .mobileprovision file
+     * array:5 [
+            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
+            1 => "<string>"
+            2 => "string"
+            3 => "uuid-uuid-uuid-uuid-uuid"
+            4 => "</string>"
+        ]
+     */
     private function GetFileTags(Response $response) : Collection
     {
         preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",

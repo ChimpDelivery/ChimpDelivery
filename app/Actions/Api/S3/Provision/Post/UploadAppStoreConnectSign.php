@@ -16,7 +16,7 @@ class UploadAppStoreConnectSign
     use AsAction;
     use AsActionResponse;
 
-    public function handle(WorkspaceChanged $event) : array
+    public function handle(WorkspaceChanged $event) : void
     {
         $appStoreConnectSign = AppStoreConnectSign::firstOrCreate([
             'workspace_id' => $event->workspace->id
@@ -26,33 +26,23 @@ class UploadAppStoreConnectSign
 
         if ($event->request->hasFile('provision_profile'))
         {
-            $provisionFile = $event->request->validated('provision_profile');
-            $uploadedPath = $s3Service->UploadProvision(
-                $provisionFile->getClientOriginalName(),
-                $provisionFile
-            );
-
             $appStoreConnectSign->fill([
-                'provision_profile' => $uploadedPath,
+                'provision_profile' => $s3Service->UploadFile(
+                    $event->request->validated('provision_profile')
+                )
             ]);
         }
 
         if ($event->request->hasFile('cert'))
         {
-            $certFile = $event->request->validated('cert');
-            $uploadedPath = $s3Service->UploadCert($certFile->getClientOriginalName(), $certFile);
-
             $appStoreConnectSign->fill([
-                'cert' => $uploadedPath,
+                'cert' => $s3Service->UploadFile(
+                    $event->request->validated('cert')
+                )
             ]);
         }
 
         $appStoreConnectSign->save();
-
-        return [
-            'success' => true,
-            'message' => 'AppStoreConnect App Signing updated. ',
-        ];
     }
 
     public function authorize() : bool

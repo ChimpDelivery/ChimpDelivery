@@ -15,7 +15,9 @@ class GetCertificate
 
     public function handle() : Response
     {
-        return $this->DownloadAsset(Auth::user()->workspace->appstoreConnectSign->cert);
+        $filePath = Auth::user()->workspace->appstoreConnectSign->cert;
+
+        return $this->DownloadAsset($filePath);
     }
 
     public function authorize() : bool
