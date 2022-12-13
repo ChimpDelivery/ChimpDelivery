@@ -21,20 +21,22 @@ class GetProvisionProfile
         // .mobileprovision mime-type
         'mime' => 'application/octet-stream',
 
-        // check GetFileTags function
-        'data-index' => 3,
-
+        // Provision Profile contains UUID (required for App Store app-signing)
         'uuid' =>
         [
             'file' => 'UUID',
             'web' => 'Dashboard-Provision-Profile-UUID',
         ],
 
+        // Provision Profile contains Team ID (required for App Store app-signing)
         'team-id' =>
         [
             'file' => 'TeamIdentifier',
             'web' => 'Dashboard-Team-ID',
         ],
+
+        // check GetFileTags function
+        'data-index' => 3,
     ];
 
     public function handle() : Response
