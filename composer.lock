@@ -5640,16 +5640,16 @@
         },
         {
             "name": "spatie/cpu-load-health-check",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/cpu-load-health-check.git",
-                "reference": "219db03ee927dc5be0aa711609a5e7adcd1c2c34"
+                "reference": "162e132f4ffffbbd0f015f9d9c1b7b8bf742958b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/cpu-load-health-check/zipball/219db03ee927dc5be0aa711609a5e7adcd1c2c34",
-                "reference": "219db03ee927dc5be0aa711609a5e7adcd1c2c34",
+                "url": "https://api.github.com/repos/spatie/cpu-load-health-check/zipball/162e132f4ffffbbd0f015f9d9c1b7b8bf742958b",
+                "reference": "162e132f4ffffbbd0f015f9d9c1b7b8bf742958b",
                 "shasum": ""
             },
             "require": {
@@ -5693,7 +5693,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/cpu-load-health-check/issues",
-                "source": "https://github.com/spatie/cpu-load-health-check/tree/1.0.2"
+                "source": "https://github.com/spatie/cpu-load-health-check/tree/1.0.3"
             },
             "funding": [
                 {
@@ -5701,7 +5701,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-13T10:56:04+00:00"
+            "time": "2022-12-12T13:45:25+00:00"
         },
         {
             "name": "spatie/db-dumper",
