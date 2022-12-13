@@ -2,7 +2,6 @@
 
 return [
     'provision' => [
-
         // required headers for App Store app-signing on Jenkins Sign Stage.
         // tags gonna fetched from .mobileprovision file
         'required_tags' => [
@@ -29,5 +28,10 @@ return [
 
         // check GetFileTags() in "GetProvisionProfile.php"
         'data-index' => 3,
+    ],
+
+    'certificate' => [
+        // .p12 mime-type
+        'mime' => 'application/x-pkcs12',
     ],
 ];
