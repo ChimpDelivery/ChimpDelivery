@@ -31,6 +31,7 @@ class S3Service
         ]);
     }
 
+    // get files from only related workspace
     public function GetFile(string $path)
     {
         return Storage::disk('s3')->get(path: "{$this->workspaceFolder}/{$path}");

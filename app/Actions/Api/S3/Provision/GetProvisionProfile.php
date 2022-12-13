@@ -41,10 +41,9 @@ class GetProvisionProfile
     {
         $sign = Auth::user()->workspace->appstoreConnectSign;
 
-        $filePath = $sign->provision_profile;
-        $fileName = $sign->provision_name;
-
-        return $this->DownloadFile($filePath, $fileName);
+        return empty($sign->provision_profile)
+            ? response()->noContent()
+            : $this->DownloadFile($sign->provision_profile, $sign->provision_name);
     }
 
     public function authorize() : bool
@@ -54,9 +53,7 @@ class GetProvisionProfile
 
     private function DownloadFile(string $sourceFilePath, string $destinationFileName) : Response
     {
-        $service = app(S3Service::class);
-
-        $response = $service->GetFileResponse(
+        $response = app(S3Service::class)->GetFileResponse(
             $sourceFilePath,
             $destinationFileName,
             $this->configs['mime']
