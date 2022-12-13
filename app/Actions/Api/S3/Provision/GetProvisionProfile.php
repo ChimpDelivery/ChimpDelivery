@@ -22,7 +22,7 @@ class GetProvisionProfile
         $sign = Auth::user()->workspace->appstoreConnectSign;
 
         return empty($sign->provision_profile)
-            ? response()->noContent()
+            ? response('Error: Provision Profile could not found in database!', Response::HTTP_FORBIDDEN)
             : $this->SetHeaders(
                 $this->DownloadFromS3(
                     $sign->provision_profile,

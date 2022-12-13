@@ -19,7 +19,7 @@ class GetCertificate
         $sign = Auth::user()->workspace->appstoreConnectSign;
 
         return empty($sign->cert)
-            ? response()->noContent()
+            ? response('Error: Certificate could not found in database!', Response::HTTP_FORBIDDEN)
             : $this->DownloadFromS3(
                 $sign->cert,
                 $sign->cert_name,
