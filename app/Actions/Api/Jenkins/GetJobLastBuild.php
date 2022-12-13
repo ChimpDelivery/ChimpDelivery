@@ -28,9 +28,7 @@ class GetJobLastBuild
         $jenkinsService = app(JenkinsService::class);
 
         // find last build of job
-        $jobApiUrl = "/job/{$app->project_name}/job/master/wfapi/runs";
-        $jobResponse = $jenkinsService->GetResponse($jobApiUrl);
-
+        $jobResponse = $jenkinsService->GetResponse($this->CreateJobUrl($app->project_name));
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
 
@@ -70,6 +68,15 @@ class GetJobLastBuild
         ]);
     }
 
+    private function CreateJobUrl(string $projectName) : string
+    {
+        return implode('/', [
+            "/job/{$projectName}/job",
+            'master',
+            'wfapi/runs'
+        ]);
+    }
+
     private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
     {
         // parameters[1] === Platform parameter in Jenkinsfile
@@ -79,18 +86,14 @@ class GetJobLastBuild
 
     private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
     {
-        return isset($rawJenkinsResponse->changeSets[0])
-            ? collect($rawJenkinsResponse->changeSets[0]->items)
+        return collect($rawJenkinsResponse->changeSets[0]->items ?? [])
                 ->map(function ($item) {
                     return [
                         'id' => $item->id,
                         'msg' => $item->msg,
                         'authorEmail'=> $item->authorEmail
                     ];
-                })
-                ->reverse()
-                ->values()
-            : collect();
+                })->reverse()->values();
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection
