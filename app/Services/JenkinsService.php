@@ -11,21 +11,19 @@ use Illuminate\Http\Client\Response;
 
 class JenkinsService
 {
-    // credentials
+    // {tunnel_url}/job/{organization_folder}
     private readonly string $jenkinsWorkspaceUrl;
-    private readonly string $jenkinsUser;
-    private readonly string $jenkinsToken;
 
-    public function __construct(string $url, string $user, string $token)
+    public function __construct(
+        string $tunnelUrl,
+        readonly string $jenkinsUser,
+        readonly string $jenkinsToken)
     {
         $this->jenkinsWorkspaceUrl = implode('/', [
-            $url,
+            $tunnelUrl,
             'job',
-            Auth::user()->workspace->githubSetting->organization_name
+            Auth::user()->orgName(),
         ]);
-
-        $this->jenkinsUser = $user;
-        $this->jenkinsToken = $token;
     }
 
     public function GetResponse(string $url, bool $isHtml = false) : mixed
@@ -99,4 +97,3 @@ class JenkinsService
             ->connectTimeout(8);
     }
 }
-

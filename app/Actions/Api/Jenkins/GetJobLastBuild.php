@@ -98,11 +98,11 @@ class GetJobLastBuild
                 })->reverse()->values();
     }
 
-    private function GetCommitLink($commit, AppInfo $app) : bool
+    private function GetCommitLink($commit, AppInfo $app) : string
     {
         $isInternalCommit = $commit->authorEmail === 'noreply@github.com';
 
-        $orgName = Auth::user()->workspace->githubSetting->organization_name;
+        $orgName = Auth::user()->orgName();
 
         return $isInternalCommit
             ? '#'
