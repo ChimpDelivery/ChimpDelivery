@@ -26,11 +26,14 @@ return [
     'allowed_headers' => ['*'],
 
     'exposed_headers' => [
-        'Dashboard-Provision-Profile-UUID',
+        config('aws.s3.filename-header-key'),
+
+        collect(config('appstore-sign.provision.required_tags'))
+            ->map(fn($item) => $item['web'])
+            ->implode(',')
     ],
 
     'max_age' => 0,
 
     'supports_credentials' => false,
-
 ];
