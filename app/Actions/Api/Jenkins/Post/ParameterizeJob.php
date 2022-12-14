@@ -20,7 +20,7 @@ class ParameterizeJob extends BaseJenkinsAction
 
         $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
-            ? "Project: {$app->project_name} is parameterizing. This build gonna be <b>aborted</b> by Jenkins!"
+            ? "Project: <b>{$app->project_name}</b> is parameterizing. This build gonna be <b>aborted</b> by Jenkins!"
             : "Error Code: {$responseCode}";
 
         return [
