@@ -28,19 +28,17 @@ class GetJobLastBuild
         $jenkinsService = app(JenkinsService::class);
 
         // find last build of job
-        $jobApiUrl = "/job/{$app->project_name}/job/master/wfapi/runs";
-        $jobResponse = $jenkinsService->GetResponse($jobApiUrl);
-
+        $jobResponse = $jenkinsService->GetResponse($this->CreateJobUrl($app));
         $builds = collect($jobResponse->jenkins_data);
         $lastBuild = $builds->first();
 
         if ($lastBuild)
         {
-            $lastBuildApiUrl = $this->CreateLastBuildUrl($app->project_name, $lastBuild->id);
+            $lastBuildApiUrl = $this->CreateLastBuildUrl($app, $lastBuild->id);
             $lastBuildDetails = $jenkinsService->GetResponse($lastBuildApiUrl);
 
             $lastBuild->build_platform = $this->GetBuildPlatform($lastBuildDetails->jenkins_data);
-            $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data);
+            $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data, $app);
             $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
 
             // if job is running, calculate average duration
@@ -60,13 +58,22 @@ class GetJobLastBuild
         return !Auth::user()->isNew();
     }
 
-    private function CreateLastBuildUrl(string $projectName, int $lastBuildId) : string
+    private function CreateLastBuildUrl(AppInfo $app, int $lastBuildId) : string
     {
         return implode('/', [
-            "/job/{$projectName}/job",
+            "/job/{$app->project_name}/job",
             'master',
             $lastBuildId,
             "api/json?tree={$this->filters['job_parameters']},{$this->filters['job_changesets']}",
+        ]);
+    }
+
+    private function CreateJobUrl(AppInfo $app) : string
+    {
+        return implode('/', [
+            "/job/{$app->project_name}/job",
+            'master',
+            'wfapi/runs'
         ]);
     }
 
@@ -77,20 +84,29 @@ class GetJobLastBuild
         return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? 'Appstore';
     }
 
-    private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
+    private function GetCommitHistory(mixed $rawJenkinsResponse, AppInfo $app) : Collection
     {
-        return isset($rawJenkinsResponse->changeSets[0])
-            ? collect($rawJenkinsResponse->changeSets[0]->items)
-                ->map(function ($item) {
+        return collect($rawJenkinsResponse->changeSets[0]->items ?? [])
+                ->map(function ($commit) use ($app)
+                {
                     return [
-                        'id' => $item->id,
-                        'msg' => $item->msg,
-                        'authorEmail'=> $item->authorEmail
+                        'id' => $commit->id,
+                        'url' => $this->GetCommitLink($commit, $app),
+                        'msg' => $commit->msg,
+                        'authorEmail'=> $commit->authorEmail
                     ];
-                })
-                ->reverse()
-                ->values()
-            : collect();
+                })->reverse()->values();
+    }
+
+    private function GetCommitLink($commit, AppInfo $app) : string
+    {
+        $isInternalCommit = $commit->authorEmail === 'noreply@github.com';
+
+        $orgName = Auth::user()->orgName();
+
+        return $isInternalCommit
+            ? '#'
+            : "https://github.com/{$orgName}/{$app->project_name}/commit/{$commit->id}";
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection

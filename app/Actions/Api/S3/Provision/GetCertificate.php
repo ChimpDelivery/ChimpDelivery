@@ -7,26 +7,28 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Client;
 
 class GetCertificate
 {
     use AsAction;
+    use AsS3Client;
 
     public function handle() : Response
     {
-        return $this->DownloadAsset(Auth::user()->workspace->appstoreConnectSign->cert);
+        $sign = Auth::user()->workspace->appstoreConnectSign;
+
+        return empty($sign->cert)
+            ? response('Error: Certificate could not found in database!', Response::HTTP_UNPROCESSABLE_ENTITY)
+            : $this->DownloadFromS3(
+                $sign->cert,
+                $sign->cert_name,
+                config('appstore-sign.certificate.mime')
+            );
     }
 
     public function authorize() : bool
     {
         return !Auth::user()->isNew();
-    }
-
-    private function DownloadAsset(string $path) : Response
-    {
-        $fileName = Auth::user()->workspace->appstoreConnectSign->cert_name;
-
-        return app(S3Service::class)->GetFileResponse($path, $fileName, 'application/x-pkcs12');
     }
 }

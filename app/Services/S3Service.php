@@ -8,42 +8,27 @@ use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
-    private array $configs = [
-        // s3 bucket root
-        'base_path' => 'TalusDashboard_Root',
-
-        // indicates custom-header contains filename
-        'filename-header-key' => 'Dashboard-File-Name'
-    ];
-
-    // every workspace has own folder on bucket to store required assets
+    // workspaces have their own folders on s3 bucket to store required assets
+    // workspace folder contains sub-folders by file-types
     private readonly string $workspaceFolder;
 
     public function __construct()
     {
         $this->workspaceFolder = implode('/', [
-            $this->configs['base_path'],
-            config('app.env'),
-            'Workspaces',
+            config('aws.s3.ws_path'),
             Auth::user()->workspace->id,
         ]);
     }
 
-    public function GetWorkspaceFolder() : string
+    // get files from only related workspace
+    public function GetFile(string $path) : ?string
     {
-        return $this->workspaceFolder;
-    }
-
-    public function GetFile(string $path)
-    {
-        $fullPath = $this->workspaceFolder . $path;
-
-        return Storage::disk('s3')->get($fullPath);
+        return Storage::disk('s3')->get($this->CreateScopedPath($path));
     }
 
     public function GetFileLink(string $path) : string
     {
-        return Storage::disk('s3')->url($path);
+        return Storage::disk('s3')->url($this->CreateScopedPath($path));
     }
 
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
@@ -53,38 +38,35 @@ class S3Service
             'Content-Type' => $mimeType,
             'Content-Description' => 'File Transfer',
             'Content-Disposition' => "attachment; filename={$fileName}",
-            $this->configs['filename-header-key'] => $fileName,
+            config('aws.s3.filename-header-key') => $fileName,
         ];
 
         $file = $this->GetFile($path);
 
         return \Response::make(
-            content: $file,
+            content: $file ?? 'Error: File exist in database but could not found in S3 Bucket!',
             status: $file ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY,
             headers: $headers
         );
     }
 
-    public function UploadProvision(string $provisionName, $provision) : false|string
+    // The files are stored according to their file types
+    public function UploadFile($file) : false|string
     {
-        return $this->UploadFile(
-            $provisionName,
-            $provision,
-            "{$this->GetWorkspaceFolder()}/provisions"
+        // full path on s3
+        // @example: S3Bucket/TalusDashboard_Root/{DashboardAppEnv}/Workspaces/{Id}/bin/example.bin
+        $uploadedFile = Storage::disk('s3')->putFileAs(
+            path: $this->CreateScopedPath($file->extension()),
+            file: $file,
+            name: $file->hashName()
         );
+
+        // return trimmed path
+        return (!$uploadedFile) ? false : "{$file->extension()}/{$file->hashName()}";
     }
 
-    public function UploadCert(string $certName, $cert) : false|string
+    private function CreateScopedPath(string $path) : string
     {
-        return $this->UploadFile(
-            $certName,
-            $cert,
-            "{$this->GetWorkspaceFolder()}/certs"
-        );
-    }
-
-    public function UploadFile(string $fileName, $file, string $path) : false|string
-    {
-        return Storage::disk('s3')->putFileAs($path, $file, $fileName);
+        return "{$this->workspaceFolder}/{$path}";
     }
 }

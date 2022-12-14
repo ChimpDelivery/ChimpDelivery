@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use Illuminate\Support\Str;
-
 class AppStoreConnectSign extends Model
 {
     use HasFactory;
@@ -32,26 +30,19 @@ class AppStoreConnectSign extends Model
     ];
 
     protected $appends = [
+        // file references stored as a path in db, lets make pretty
         'cert_name',
         'provision_name',
     ];
 
-    // example cert field: TalusDashboard_Root/local/Workspaces/6/certs/Cert.p12
     protected function certName() : Attribute
     {
-        return new Attribute(get: fn() => Str::of($this->cert)
-            ->explode('/')
-            ->last()
-        );
+        return new Attribute(fn() => str($this->cert)->explode('/')->last());
     }
 
-    // example provision field: TalusDashboard_Root/local/Workspaces/6/provisions/iOSProfile.mobileprovision
     protected function provisionName() : Attribute
     {
-        return new Attribute(get: fn() => Str::of($this->provision_profile)
-            ->explode('/')
-            ->last()
-        );
+        return new Attribute(fn() => str($this->provision_profile)->explode('/')->last());
     }
 
     public function workspace()

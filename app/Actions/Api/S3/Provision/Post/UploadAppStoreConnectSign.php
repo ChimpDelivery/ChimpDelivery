@@ -6,7 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Client;
 use App\Traits\AsActionResponse;
 use App\Events\WorkspaceChanged;
 use App\Models\AppStoreConnectSign;
@@ -15,44 +15,33 @@ class UploadAppStoreConnectSign
 {
     use AsAction;
     use AsActionResponse;
+    use AsS3Client;
 
-    public function handle(WorkspaceChanged $event) : array
+    public function handle(WorkspaceChanged $event) : void
     {
         $appStoreConnectSign = AppStoreConnectSign::firstOrCreate([
             'workspace_id' => $event->workspace->id
         ]);
 
-        $s3Service = app(S3Service::class);
-
         if ($event->request->hasFile('provision_profile'))
         {
-            $provisionFile = $event->request->validated('provision_profile');
-            $uploadedPath = $s3Service->UploadProvision(
-                $provisionFile->getClientOriginalName(),
-                $provisionFile
-            );
-
-            $appStoreConnectSign->fill([
-                'provision_profile' => $uploadedPath,
-            ]);
+            $uploadedProfile = $this->UploadToS3($event->request->validated('provision_profile'));
+            if ($uploadedProfile)
+            {
+                $appStoreConnectSign->fill([ 'provision_profile' => $uploadedProfile ]);
+            }
         }
 
         if ($event->request->hasFile('cert'))
         {
-            $certFile = $event->request->validated('cert');
-            $uploadedPath = $s3Service->UploadCert($certFile->getClientOriginalName(), $certFile);
-
-            $appStoreConnectSign->fill([
-                'cert' => $uploadedPath,
-            ]);
+            $uploadedCert = $this->UploadToS3($event->request->validated('cert'));
+            if ($uploadedCert)
+            {
+                $appStoreConnectSign->fill([ 'cert' => $uploadedCert ]);
+            }
         }
 
         $appStoreConnectSign->save();
-
-        return [
-            'success' => true,
-            'message' => 'AppStoreConnect App Signing updated. ',
-        ];
     }
 
     public function authorize() : bool

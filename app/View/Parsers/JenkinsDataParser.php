@@ -146,19 +146,11 @@ class JenkinsDataParser
         {
             $prettyText = Str::of(Str::limit(trim($commit->msg), self::COMMIT_LENGTH));
 
-            $orgName = Auth::user()->workspace->githubSetting->organization_name;
-            $commitUrl = "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
-
             $commitId = Str::substr($commit->id, 0, self::COMMIT_HASH_LENGTH);
             $prettyCommitMsg = "<span class='badge alert-primary'>{$commitId}</span>"
                 . "<span class='pull-right'>{$prettyText}</span>";
 
-            // is internal or client commit
-            // git commit history includes jenkins shared library updates
-            $commitLink = ($commit->authorEmail === 'noreply@github.com')
-                ? "<a href='#'>{$prettyCommitMsg}</a>"
-                : "<a href='{$commitUrl}' target='_blank'>{$prettyCommitMsg}</a>";
-
+            $commitLink = "<a href='{$commit->url}' target='_blank'>{$prettyCommitMsg}</a>";
             $prettyCommits->push($commitLink . "<br />");
         });
 

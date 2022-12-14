@@ -4,49 +4,32 @@ namespace App\Actions\Api\S3\Provision;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\S3Service;
+use App\Traits\AsS3Client;
 
-/// Reads Provision Profile(App Store Connect) file and exports uuid and team-identifier.
+/// Reads Provision Profile(.mobileprovision) file
+/// exports UUID, Team-Identifier, Expiration Date etc...
 class GetProvisionProfile
 {
     use AsAction;
-
-    // search_tag_in_file, response_header_key_on_web
-    private array $configs = [
-        'uuid' => [
-            'file' => 'UUID',
-            'web' => 'Dashboard-Provision-Profile-UUID',
-        ],
-
-        'team-id' => [
-            'file' => 'TeamIdentifier',
-            'web' => 'Dashboard-Team-ID',
-        ],
-    ];
-
-    /*
-     * preg_match_all returns explodes tags from binary file
-     * array:5 [
-            0 => "<string>uuid-uuid-uuid-uuid-uuid</string>"
-            1 => "<string>"
-            2 => "string"
-            3 => "uuid-uuid-uuid-uuid-uuid"
-            4 => "</string>"
-        ]
-     */
-    private const REAL_DATA_INDEX = 3;
+    use AsS3Client;
 
     public function handle() : Response
     {
-        $fileName = Auth::user()->workspace->appstoreConnectSign->provision_name;
-        $filePath = "/provisions/{$fileName}";
+        $sign = Auth::user()->workspace->appstoreConnectSign;
 
-        return $this->DownloadAsset($filePath, $fileName);
+        return empty($sign->provision_profile)
+            ? response('Error: Provision Profile could not found in database!', Response::HTTP_UNPROCESSABLE_ENTITY)
+            : $this->SetHeaders(
+                $this->DownloadFromS3(
+                    $sign->provision_profile,
+                    $sign->provision_name,
+                    config('appstore-sign.provision.mime')
+                )
+            );
     }
 
     public function authorize() : bool
@@ -54,55 +37,36 @@ class GetProvisionProfile
         return !Auth::user()->isNew();
     }
 
-    private function DownloadAsset(string $sourceFilePath, string $destinationFileName) : Response
+    // set required file headers for Provision Profile and return file
+    private function SetHeaders(Response $fileResponse) : Response
     {
-        $service = app(S3Service::class);
+        foreach (config('appstore-sign.provision.required_tags') as $tag)
+        {
+            $fileResponse->headers->set(
+                key: $tag['web'],
+                values: $fileResponse->isOk()
+                    ? $this->GetTag($tag['file'], $fileResponse)
+                    : ''
+            );
+        }
 
-        $response = $service->GetFileResponse(
-            $sourceFilePath,
-            $destinationFileName,
-            'application/octet-stream'
-        );
-
-        $response->headers->set(
-            key: $this->configs['uuid']['web'],
-            values: $response->isOk() ? $this->GetProfileUUID($response) : ''
-        );
-
-        $response->headers->set(
-            key: $this->configs['team-id']['web'],
-            values: $response->isOk() ? $this->GetTeamID($response) : ''
-        );
-
-        return $response;
+        return $fileResponse;
     }
 
-    // find uuid section, then read value below that section
-    private function GetProfileUUID(Response $response)
+    // find tag section, then read value below that section
+    private function GetTag(string $searchedTag, Response $fileResponse)
     {
-        $tags = $this->GetFileTags($response);
+        $tags = $this->GetFileTags($fileResponse);
 
-        $uuidPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains($this->configs['uuid']['file']);
-        });
-        $uuidPositionIndex = $uuidPositionReference->keys()->first();
+        $tagPositionReference = $tags->filter(
+            fn($tag) => str($tag[0])->contains("<key>{$searchedTag}</key>")
+        );
+        $tagPositionIndex = $tagPositionReference->keys()->first() + 1;
 
-        return $tags->get($uuidPositionIndex + 1)[self::REAL_DATA_INDEX];
+        return $tags->get($tagPositionIndex)[config('appstore-sign.provision.data-index')];
     }
 
-    // find team id section, then read value below that section
-    private function GetTeamID(Response $response)
-    {
-        $tags = $this->GetFileTags($response);
-
-        $teamIdPositionReference = $tags->filter(function ($tag) {
-            return Str::of($tag[0])->contains($this->configs['team-id']['file']);
-        });
-        $teamIdPositionIndex = $teamIdPositionReference->keys()->first();
-
-        return $tags->get($teamIdPositionIndex + 1)[self::REAL_DATA_INDEX];
-    }
-
+    // example response: https://gist.github.com/emrekovanci/b68e92d49c98e48d818c9083a8ba19c6
     private function GetFileTags(Response $response) : Collection
     {
         preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",
