@@ -25,7 +25,9 @@ return [
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    'exposed_headers' => [
+        'Dashboard-Provision-Profile-UUID',
+    ],
 
     'max_age' => 0,
 
