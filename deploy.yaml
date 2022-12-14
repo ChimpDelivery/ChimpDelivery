@@ -45,10 +45,7 @@ tasks:
     - deploy:prepare
     - deploy:vendors
     - artisan:storage:link
-    - artisan:view:clear
-    - artisan:view:cache
-    - artisan:config:cache
-    - artisan:route:cache
+    - artisan:optimize:clear
     - artisan:optimize
     - artisan:down
     - artisan:migrate
