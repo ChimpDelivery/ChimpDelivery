@@ -14,7 +14,7 @@ class JenkinsDataParser
     // text limits
     public const STOP_STAGE_LENGTH = 14;
     public const STOP_MSG_LENGTH = 29;
-    public const COMMIT_LENGTH = 24;
+    public const COMMIT_LENGTH = 20;
     public const COMMIT_HASH_LENGTH = 7;
 
     private AppInfo $app;
