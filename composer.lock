@@ -6463,20 +6463,20 @@
         },
         {
             "name": "spatie/security-advisories-health-check",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/security-advisories-health-check.git",
-                "reference": "3bc9ffa01bda029cb524d694ba125dc6ab95ca5c"
+                "reference": "6189261d5e485d643532cc60bc549853c450fd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/3bc9ffa01bda029cb524d694ba125dc6ab95ca5c",
-                "reference": "3bc9ffa01bda029cb524d694ba125dc6ab95ca5c",
+                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/6189261d5e485d643532cc60bc549853c450fd18",
+                "reference": "6189261d5e485d643532cc60bc549853c450fd18",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1",
+                "php": "^8.0",
                 "spatie/packagist-api": "^2.1"
             },
             "require-dev": {
@@ -6513,7 +6513,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.0.0"
+                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.0.1"
             },
             "funding": [
                 {
@@ -6521,7 +6521,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-04T20:25:45+00:00"
+            "time": "2022-12-13T16:02:29+00:00"
         },
         {
             "name": "spatie/temporary-directory",
