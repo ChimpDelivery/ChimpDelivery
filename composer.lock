@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.252.6",
+            "version": "3.253.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "92b929f7552c2ed65d52875dbf1c5ce9833d567d"
+                "reference": "96611780bfc4d71248a3b1b147da420b811c8e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/92b929f7552c2ed65d52875dbf1c5ce9833d567d",
-                "reference": "92b929f7552c2ed65d52875dbf1c5ce9833d567d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96611780bfc4d71248a3b1b147da420b811c8e37",
+                "reference": "96611780bfc4d71248a3b1b147da420b811c8e37",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.252.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.253.1"
             },
-            "time": "2022-12-09T19:21:09+00:00"
+            "time": "2022-12-13T19:29:11+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1299,20 +1299,20 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.20.0",
+            "version": "v1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "37f751c67a5372d4e26353bd9384bc03744ec77b"
+                "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/37f751c67a5372d4e26353bd9384bc03744ec77b",
-                "reference": "37f751c67a5372d4e26353bd9384bc03744ec77b",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/92efad6a967f0b79c499705c69b662f738cc9e4d",
+                "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "psr/container": "^1.0 || ^2.0",
                 "symfony/deprecation-contracts": "^2.2 || ^3.0"
             },
@@ -1323,7 +1323,8 @@
                 "bamarni/composer-bin-plugin": "^1.4.1",
                 "doctrine/persistence": "^1.3 || ^2.0",
                 "ext-intl": "*",
-                "symfony/phpunit-bridge": "^4.4 || ^5.2"
+                "phpunit/phpunit": "^9.5.26",
+                "symfony/phpunit-bridge": "^5.4.16"
             },
             "suggest": {
                 "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
@@ -1335,7 +1336,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "v1.20-dev"
+                    "dev-main": "v1.21-dev"
                 }
             },
             "autoload": {
@@ -1360,9 +1361,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.20.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.21.0"
             },
-            "time": "2022-07-20T13:12:54+00:00"
+            "time": "2022-12-13T13:54:32+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -6463,20 +6464,20 @@
         },
         {
             "name": "spatie/security-advisories-health-check",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/security-advisories-health-check.git",
-                "reference": "3bc9ffa01bda029cb524d694ba125dc6ab95ca5c"
+                "reference": "6189261d5e485d643532cc60bc549853c450fd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/3bc9ffa01bda029cb524d694ba125dc6ab95ca5c",
-                "reference": "3bc9ffa01bda029cb524d694ba125dc6ab95ca5c",
+                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/6189261d5e485d643532cc60bc549853c450fd18",
+                "reference": "6189261d5e485d643532cc60bc549853c450fd18",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1",
+                "php": "^8.0",
                 "spatie/packagist-api": "^2.1"
             },
             "require-dev": {
@@ -6513,7 +6514,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.0.0"
+                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.0.1"
             },
             "funding": [
                 {
@@ -6521,7 +6522,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-04T20:25:45+00:00"
+            "time": "2022-12-13T16:02:29+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -9790,16 +9791,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.16.3",
+            "version": "v1.16.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "0dbee8802e17911afbe29a8506316343829b056e"
+                "reference": "72412b14d6f4e73b71b5f3068bdb064184fbb001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/0dbee8802e17911afbe29a8506316343829b056e",
-                "reference": "0dbee8802e17911afbe29a8506316343829b056e",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/72412b14d6f4e73b71b5f3068bdb064184fbb001",
+                "reference": "72412b14d6f4e73b71b5f3068bdb064184fbb001",
                 "shasum": ""
             },
             "require": {
@@ -9846,7 +9847,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2022-11-21T16:19:18+00:00"
+            "time": "2022-12-12T16:47:37+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -10180,16 +10181,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.19",
+            "version": "9.2.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559"
+                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c77b56b63e3d2031bd8997fcec43c1925ae46559",
-                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/af7463c955007de36db0c5e26d03e2f933c2e980",
+                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980",
                 "shasum": ""
             },
             "require": {
@@ -10245,7 +10246,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.19"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.20"
             },
             "funding": [
                 {
@@ -10253,7 +10254,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-18T07:47:47+00:00"
+            "time": "2022-12-13T07:49:28+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
