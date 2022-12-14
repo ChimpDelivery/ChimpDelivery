@@ -4,7 +4,7 @@
     <div class="alert alert-danger shadow alert-dismissible fade show">
         <ul>
             @foreach ($errors->all() as $error)
-            <li class="text-wrap">{{ $error }}</li>
+            <li class="text-wrap">{!! $error !!}</li>
             @endforeach
         </ul>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
