@@ -19,12 +19,6 @@ class CreateGooglePrivacy
     use AsAction;
     use AsActionResponse;
 
-    private const PrivacyContainerFolder = 'hc';
-    private const PrivacyTemplateFile = 'privacy_template/privacy.html';
-    private const PrivacyFileName = 'privacy.html';
-
-    private string $search = "___APP___";
-
     public function handle(GetAppInfoRequest $request) : array
     {
         // parse ftp url for future changes
@@ -34,24 +28,25 @@ class CreateGooglePrivacy
             ->prepend('http://www')
             ->implode('.');
 
-        $privacy = Storage::disk('ftp')->get(self::PrivacyTemplateFile);
+        $privacy = Storage::disk('ftp')->get(config('googleplay.privacy.template_file'));
 
         if (!$privacy)
         {
             return [
                 'success' => false,
                 'message' => "Template Privacy file could not found!
-                    Expected path: {$ftpDomain}/" . self::PrivacyTemplateFile,
+                    Expected path: {$ftpDomain}/" . config('googleplay.privacy.template_file'),
             ];
         }
 
         $appInfo = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
         $newFilePath = implode('/', [
-            self::PrivacyContainerFolder,
-            $appInfo->app_name,
-            self::PrivacyFileName
+            config('googleplay.privacy.container_folder'),
+            Str::slug($appInfo->app_name),
+            config('googleplay.privacy.file_name')
         ]);
-        $privacyLink = "{$ftpDomain}/{$newFilePath}";
+        $privacyUrl = "{$ftpDomain}/{$newFilePath}";
+        $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";
 
         if (Storage::disk('ftp')->exists($newFilePath))
         {
@@ -61,12 +56,12 @@ class CreateGooglePrivacy
             ];
         }
 
-        $updatedContent = str_replace($this->search, $appInfo->app_name, $privacy);
+        $updatedContent = str_replace(config('googleplay.privacy.search'), $appInfo->app_name, $privacy);
         $uploadedFile = Storage::disk('ftp')->put($newFilePath, $updatedContent);
 
         return [
             'success' => $uploadedFile,
-            'message' => "Privacy created! <b>Link:</b> <a href='".$privacyLink."'>$privacyLink</a>",
+            'message' => "Privacy created! <b>Link:</b> {$privacyLink}",
         ];
     }
 
