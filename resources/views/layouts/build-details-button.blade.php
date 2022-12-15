@@ -13,6 +13,6 @@
         data-placement="bottom"
         title="{{ $buttonData['header'] }}"
         data-content="{{ $buttonData['body'] }}">
-        @include('layouts.jenkins.build-status')
+        @include('layouts.jenkins.build-status-img')
     </a>
 </div>
