@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\AsS3Client;
 
 /// Reads Provision Profile(.mobileprovision) file
-/// exports UUID, Team-Identifier, Expiration Date etc...
+/// exports UUID, Team-Identifier, Expiration Date etc. as a request header
 class GetProvisionProfile
 {
     use AsAction;

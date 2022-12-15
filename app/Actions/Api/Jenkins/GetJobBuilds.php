@@ -7,6 +7,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -14,11 +15,16 @@ class GetJobBuilds
 {
     use AsAction;
 
+    // jenkins api filters
+    private array $filters = [
+        'job_parameters' => 'url,nextBuildNumber,builds[url,number]{0,3}',
+    ];
+
     public function handle(GetAppInfoRequest $request, JenkinsService $service) : JsonResponse
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        $jobResponse = $service->GetResponse("/job/{$app->project_name}/job/master/api/json");
+        $jobResponse = $service->GetResponse($this->CreateUrl($app));
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.
@@ -36,6 +42,15 @@ class GetJobBuilds
         $jobResponse->jenkins_data = $builds;
 
         return response()->json($jobResponse);
+    }
+
+    private function CreateUrl(AppInfo $app) : string
+    {
+        return implode('/', [
+            "/job/{$app->project_name}/job",
+            'master',
+            "api/json?tree={$this->filters['job_parameters']}"
+        ]);
     }
 
     public function authorize(GetAppInfoRequest $request) : bool
