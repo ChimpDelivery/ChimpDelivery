@@ -86,34 +86,34 @@ class JenkinsDataParser
         }
 
         // todo: failing at prepare stage - text color
-        $job = $this->jenkinsData;
-        $stageName = Str::limit($job->stop_details->stage, self::STOP_STAGE_LENGTH);
+        $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
 
-        return match($job->status)
+        return match(JobStatus::tryFrom($this->jenkinsData->status))
         {
-            JobStatus::SUCCESS->value =>
+            JobStatus::SUCCESS =>
                 '<span class="text-success font-weight-bold">
                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                     SUCCESS
                 </span>',
 
-            JobStatus::ABORTED->value =>
+            JobStatus::ABORTED =>
                 '<span class="text-secondary font-weight-bold">STAGE: ' . $stageName . '</span>',
 
-            JobStatus::FAILED->value =>
+            JobStatus::FAILED =>
                 '<span class="text-danger font-weight-bold">STAGE: ' . $stageName . '</span>',
 
-            JobStatus::IN_PROGRESS->value =>
+            JobStatus::IN_PROGRESS =>
                 '<span class="text-primary font-weight-bold">STAGE: ' . $stageName . '</span>',
 
-            JobStatus::NOT_EXECUTED->value =>
+            JobStatus::NOT_EXECUTED =>
                 '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
 
-            JobStatus::QUEUED->value =>
+            JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>
                     <i class='fa fa-clock-o' aria-hidden='true'></i>
-                    In Queue...
+                    IN QUEUE...
                 </span>",
+
             default => JobStatus::NOT_IMPLEMENTED->value
         };
     }

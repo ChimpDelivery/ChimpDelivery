@@ -6,11 +6,11 @@ enum JobStatus : string
 {
     case NOT_EXECUTED = 'NOT_EXECUTED';
     case IN_PROGRESS = 'IN_PROGRESS';
+    case IN_QUEUE = 'IN_QUEUE';
+
     case ABORTED = 'ABORTED';
     case FAILED = 'FAILED';
     case SUCCESS = 'SUCCESS';
-
-    case QUEUED = 'QUEUED';
 
     case NOT_IMPLEMENTED = 'NOT_IMPLEMENTED';
 
@@ -20,7 +20,7 @@ enum JobStatus : string
         {
             self::NOT_EXECUTED => 'NOT EXECUTED',
             self::IN_PROGRESS => 'IN PROGRESS',
-            self::QUEUED => 'In Queue...',
+            self::IN_QUEUE => 'IN QUEUE...',
             default => $this->value,
         };
     }
@@ -36,7 +36,7 @@ enum JobStatus : string
     public static function GetRunningStages() : array
     {
         return [
-            self::QUEUED->value,
+            self::IN_QUEUE->value,
             self::IN_PROGRESS->value,
         ];
     }

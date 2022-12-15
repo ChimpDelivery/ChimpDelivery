@@ -34,28 +34,20 @@ class GetJobLastBuild
 
         if ($lastBuild)
         {
+            $lastBuild->status = $this->GetStatus($lastBuild);
+
+            // if job is running, calculate average duration
+            if ($lastBuild->status == JobStatus::IN_PROGRESS)
+            {
+                $lastBuild->estimated_duration = $builds->avg('durationMillis');
+            }
+
             $lastBuildApiUrl = $this->CreateLastBuildUrl($app, $lastBuild->id);
             $lastBuildDetails = $jenkinsService->GetResponse($lastBuildApiUrl);
 
             $lastBuild->build_platform = $this->GetBuildPlatform($lastBuildDetails->jenkins_data);
             $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data, $app);
             $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
-
-            $buildStatus = JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
-
-            // check job in queue
-            $buildInQueue = JobStatus::IN_PROGRESS && count(collect($lastBuild->stages)) == 0;
-            if ($buildInQueue)
-            {
-                $buildStatus = JobStatus::QUEUED;
-                $lastBuild->status = JobStatus::QUEUED->value;
-            }
-
-            // if job is running, calculate average duration
-            if ($buildStatus == JobStatus::IN_PROGRESS)
-            {
-                $lastBuild->estimated_duration = $builds->avg('durationMillis');
-            }
         }
 
         $jobResponse->jenkins_data = $lastBuild;
@@ -131,5 +123,20 @@ class GetJobLastBuild
             'stage' => $stopStage,
             'output' => $stopStageDetail,
         ]);
+    }
+
+    private function GetStatus($lastBuild) : JobStatus
+    {
+        $inProgress = $lastBuild->status === JobStatus::IN_PROGRESS->value;
+        $stageCount = count(collect($lastBuild->stages));
+
+        // queued and running jobs have same status (IN_PROGRESS)
+        // lets make the distinction
+        if ($inProgress && $stageCount == 0)
+        {
+            return JobStatus::IN_QUEUE;
+        }
+
+        return JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
     }
 }
