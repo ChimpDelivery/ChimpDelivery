@@ -87,8 +87,19 @@ class JenkinsDataParser
 
         // todo: failing at prepare stage - text color
 
-        $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
-        return match($this->jenkinsData->status)
+        $job = $this->jenkinsData;
+
+        $isQueued = $job->status == JobStatus::IN_PROGRESS->value && count($job->stages) == 0;
+        if ($isQueued)
+        {
+            $job->status = JobStatus::QUEUED->value;
+        }
+
+        $stageName = $isQueued
+            ? JobStatus::QUEUED->value
+            : Str::limit($job->stop_details->stage, self::STOP_STAGE_LENGTH);
+
+        return match($job->status)
         {
             JobStatus::SUCCESS->value =>
                 '<span class="text-success font-weight-bold">
@@ -108,6 +119,11 @@ class JenkinsDataParser
             JobStatus::NOT_EXECUTED->value =>
                 '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
 
+            JobStatus::QUEUED->value =>
+                '<span class="alert-warning bg-transparent font-weight-bold">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    In Queue...
+                </span>',
             default => JobStatus::NOT_IMPLEMENTED->value
         };
     }
