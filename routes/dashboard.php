@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Workspace;
-
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
@@ -34,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     )->name('index');
 
     Route::get('/dashboard/profile', fn() => view('user-profile')->with([
-        'isNewUser' => Auth::user()->workspace->id === Workspace::DEFAULT_WS_ID
+        'isNewUser' => Auth::user()->isNew()
     ]))->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateUserProfile::class);
