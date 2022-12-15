@@ -4,10 +4,11 @@
     @include('errors.jenkins.jenkins-down')
 @else
     @if($appInfo->jenkins_status == 200)
-        @if($appInfo?->jenkins_data?->status != JobStatus::IN_PROGRESS->value)
-            @include('layouts.build-button')
-        @else
+        @php($buildStatus = $appInfo?->jenkins_data?->status)
+        @if(in_array($buildStatus, JobStatus::GetRunningStages()))
             @include('layouts.abort-button')
+        @else
+            @include('layouts.build-button')
         @endif
     @else
         @include('errors.jenkins.jenkins-file-notfound')
