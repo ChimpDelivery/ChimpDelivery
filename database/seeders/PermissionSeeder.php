@@ -36,7 +36,8 @@ class PermissionSeeder extends Seeder
             'create api token',
         ];
 
-        foreach ($permissions as $permission) {
+        foreach ($permissions as $permission)
+        {
             Permission::create([ 'name' => $permission ]);
         }
     }

@@ -3,23 +3,27 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 use App\Models\User;
-
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 class AccessTokenSeeder extends Seeder
 {
     public function run()
     {
-        User::all()->each(function (User $user) {
+        $output = new ConsoleOutput();
+
+        if (!app()->isLocal())
+        {
+            $output->writeln("Access Token seeder is not gonna run! Only local env allowed!");
+            return;
+        }
+
+        User::all()->each(function (User $user) use ($output) {
+
             $userAccessToken = $user->createApiToken();
 
-            if (app()->environment([ 'local', 'staging' ]))
-            {
-                $output = new ConsoleOutput();
-                $output->writeln("Api Token for User {$user->name}: {$userAccessToken}");
-            }
+            $output->writeln("Api Token for User {$user->name}: {$userAccessToken}");
         });
     }
 }
