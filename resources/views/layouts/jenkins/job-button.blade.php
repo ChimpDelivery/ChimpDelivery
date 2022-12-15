@@ -1,5 +1,3 @@
-@php use App\Actions\Api\Jenkins\JobStatus; @endphp
-
 @if($appInfo->jenkins_status == 3200)
     @include('errors.jenkins.jenkins-down')
 @else
