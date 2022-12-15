@@ -9,7 +9,7 @@
                 @include('errors.jenkins.jenkins-down')
             @break
             @case(200)
-                @include('layouts.last-build-button')
+                @include('layouts.jenkins.build-status-button')
             @break
             @default
                 @include('errors.jenkins.jenkins-file-notfound')
