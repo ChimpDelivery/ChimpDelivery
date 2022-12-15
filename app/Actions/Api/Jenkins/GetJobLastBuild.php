@@ -22,43 +22,38 @@ class GetJobLastBuild
         'job_changesets' => 'changeSets[*[id,authorEmail,comment]{0,5}]',
     ];
 
+    private AppInfo $app;
+
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
-        $app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $this->app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
         $jenkinsService = app(JenkinsService::class);
 
         // find last build of job
-        $jobResponse = $jenkinsService->GetResponse($this->CreateJobUrl($app));
+        $jobResponse = $jenkinsService->GetResponse($this->CreateJobUrl());
         $builds = collect($jobResponse->jenkins_data);
-        $lastBuild = $builds->first();
 
-        if ($lastBuild)
+        // last build returned as a first item in collection from jenkins api
+        $build = $builds->first();
+
+        if ($build)
         {
-            $lastBuildApiUrl = $this->CreateLastBuildUrl($app, $lastBuild->id);
-            $lastBuildDetails = $jenkinsService->GetResponse($lastBuildApiUrl);
-
-            $lastBuild->build_platform = $this->GetBuildPlatform($lastBuildDetails->jenkins_data);
-            $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data, $app);
-            $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
-
-            $buildStatus = JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
-
-            // check job in queue
-            $buildInQueue = JobStatus::IN_PROGRESS && count(collect($lastBuild->stages)) == 0;
-            if ($buildInQueue)
-            {
-                $buildStatus = JobStatus::QUEUED;
-                $lastBuild->status = JobStatus::QUEUED->value;
-            }
+            $build->status = $this->GetStatus($build);
 
             // if job is running, calculate average duration
-            if ($buildStatus == JobStatus::IN_PROGRESS)
+            if ($build->status == JobStatus::IN_PROGRESS)
             {
-                $lastBuild->estimated_duration = $builds->avg('durationMillis');
+                $build->estimated_duration = $builds->avg('durationMillis');
             }
+
+            // populate build details with another request
+            $buildDetails = $jenkinsService->GetResponse($this->CreateLastBuildUrl($build->id));
+            $build->build_platform = $this->GetBuildPlatform($buildDetails->jenkins_data);
+            $build->change_sets = $this->GetCommitHistory($buildDetails->jenkins_data);
+            $build->stop_details = $this->GetStopDetail($build);
         }
 
-        $jobResponse->jenkins_data = $lastBuild;
+        $jobResponse->jenkins_data = $build;
 
         return response()->json($jobResponse);
     }
@@ -68,20 +63,20 @@ class GetJobLastBuild
         return !Auth::user()->isNew();
     }
 
-    private function CreateLastBuildUrl(AppInfo $app, int $lastBuildId) : string
+    private function CreateLastBuildUrl(int $lastBuildId) : string
     {
         return implode('/', [
-            "/job/{$app->project_name}/job",
+            "/job/{$this->app->project_name}/job",
             'master',
             $lastBuildId,
             "api/json?tree={$this->filters['job_parameters']},{$this->filters['job_changesets']}",
         ]);
     }
 
-    private function CreateJobUrl(AppInfo $app) : string
+    private function CreateJobUrl() : string
     {
         return implode('/', [
-            "/job/{$app->project_name}/job",
+            "/job/{$this->app->project_name}/job",
             'master',
             'wfapi/runs'
         ]);
@@ -91,24 +86,23 @@ class GetJobLastBuild
     {
         // parameters[1] === Platform parameter in Jenkinsfile
         // todo: refactor
-        return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? 'Appstore';
+        return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? JobPlatform::Appstore->value;
     }
 
-    private function GetCommitHistory(mixed $rawJenkinsResponse, AppInfo $app) : Collection
+    private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
     {
         return collect($rawJenkinsResponse->changeSets[0]->items ?? [])
-                ->map(function ($commit) use ($app)
-                {
+                ->map(function ($commit) {
                     return [
                         'id' => $commit->id,
-                        'url' => $this->GetCommitLink($commit, $app),
+                        'url' => $this->GetCommitLink($commit),
                         'comment' => $commit->comment,
                         'authorEmail'=> $commit->authorEmail
                     ];
                 })->reverse()->values();
     }
 
-    private function GetCommitLink($commit, AppInfo $app) : string
+    private function GetCommitLink($commit) : string
     {
         $isInternalCommit = $commit->authorEmail === 'noreply@github.com';
 
@@ -116,7 +110,7 @@ class GetJobLastBuild
 
         return $isInternalCommit
             ? '#'
-            : "https://github.com/{$orgName}/{$app->project_name}/commit/{$commit->id}";
+            : "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection
@@ -131,5 +125,20 @@ class GetJobLastBuild
             'stage' => $stopStage,
             'output' => $stopStageDetail,
         ]);
+    }
+
+    private function GetStatus($lastBuild) : JobStatus
+    {
+        $inProgress = $lastBuild->status === JobStatus::IN_PROGRESS->value;
+        $stageCount = count(collect($lastBuild->stages));
+
+        // queued and running jobs have same status (IN_PROGRESS)
+        // lets make the distinction
+        if ($inProgress && $stageCount == 0)
+        {
+            return JobStatus::IN_QUEUE;
+        }
+
+        return JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
     }
 }
