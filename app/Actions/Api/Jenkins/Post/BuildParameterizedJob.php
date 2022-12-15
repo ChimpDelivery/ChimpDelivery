@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\JobPlatform;
 use App\Http\Requests\Jenkins\BuildRequest;
@@ -19,32 +20,29 @@ class BuildParameterizedJob extends BaseJenkinsAction
     public function handle(BuildRequest $request, JenkinsService $service) : array
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-        $buildUrl = $this->CreateJobUrl($app->project_name, $this->GetParamsAsUrl($request));
 
-        $response = $service->PostResponse($buildUrl);
-        $responseCode = $response->jenkins_status;
-
-        $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
-        $responseMessage = ($isResponseSucceed)
-            ? "<b>{$app->project_name}</b>, building for <b>{$request->validated('platform')}</b>..."
-            : "Error Code: {$responseCode}";
+        // send request
+        $response = $service->PostResponse($this->CreateUrl($app, $request));
+        $isResponseSucceed = $response->jenkins_status == Response::HTTP_CREATED;
 
         return [
             'success' => $isResponseSucceed,
-            'message' => $responseMessage,
+            'message' => $isResponseSucceed
+                ? "<b>{$app->project_name}</b>, building for <b>{$request->validated('platform')}</b>..."
+                : "Error Code: {$response->jenkins_status}"
         ];
     }
 
-    private function CreateJobUrl($projectName, $parametersAsUrl) : string
+    private function CreateUrl(AppInfo $app, BuildRequest $request) : string
     {
         return implode('/', [
-            "/job/{$projectName}/job",
+            "/job/{$app->project_name}/job",
             $this->branch,
-            "buildWithParameters?{$parametersAsUrl}",
+            "buildWithParameters?{$this->GetParamsAsString($request)}",
         ]);
     }
 
-    private function GetParamsAsUrl(BuildRequest $request) : string
+    private function GetParamsAsString(BuildRequest $request) : string
     {
         return $this->GetParams($request)->implode('&');
     }
@@ -64,11 +62,13 @@ class BuildParameterizedJob extends BaseJenkinsAction
             ->values();
     }
 
-    private function GetPlatformParams($platform) : Collection
+    private function GetPlatformParams(string $platformName) : Collection
     {
-        if ($platform === JobPlatform::Appstore->value)
+        $platform = JobPlatform::tryFrom($platformName) ?? JobPlatform::Appstore->value;
+        if ($platform === JobPlatform::Appstore)
         {
             $profile = GetProvisionProfile::run()->headers;
+
             return collect([
                 'DASHBOARD_PROFILE_UUID' => $profile->get('Dashboard-Provision-Profile-UUID'),
                 'DASHBOARD_TEAM_ID' => $profile->get('Dashboard-Team-ID'),
