@@ -10,6 +10,8 @@ enum JobStatus : string
     case FAILED = 'FAILED';
     case SUCCESS = 'SUCCESS';
 
+    case QUEUED = 'QUEUED';
+
     case NOT_IMPLEMENTED = 'NOT_IMPLEMENTED';
 
     public function PrettyName() : string
@@ -18,6 +20,7 @@ enum JobStatus : string
         {
             self::NOT_EXECUTED => 'NOT EXECUTED',
             self::IN_PROGRESS => 'IN PROGRESS',
+            self::QUEUED => 'In Queue...',
             default => $this->value,
         };
     }
