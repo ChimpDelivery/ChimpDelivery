@@ -43,13 +43,11 @@ class AppInfo extends Model
 
     protected function gitUrl() : Attribute
     {
-        return new Attribute(
-            get: fn () => implode('/', [
-                'https://github.com',
-                Auth::user()->workspace->githubSetting->organization_name,
-                $this->project_name
-            ])
-        );
+        return new Attribute(fn () => implode('/', [
+            'https://github.com',
+            Auth::user()->orgName(),
+            $this->project_name
+        ]));
     }
 
     public function workspace()

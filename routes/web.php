@@ -3,12 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn() => view('welcome'));
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('health', HealthCheckResultsController::class)->middleware('role:Admin_Super');
+Route::middleware(['auth', 'verified', 'role:Admin_Super'])->group(function () {
+    Route::get('health', HealthCheckResultsController::class);
 });
 
 require __DIR__.'/auth.php';

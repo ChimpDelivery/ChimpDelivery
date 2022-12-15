@@ -44,6 +44,11 @@ class PackageSeeder extends Seeder
             'com.talus.talusgamesystems',
             'hash-7',
         ],
+        [
+            'https://github.com/TalusStudio-Packages/TalusHaptic-Package.git',
+            'com.talus.talushaptic',
+            'hash-8',
+        ],
     ];
 
     public function run()

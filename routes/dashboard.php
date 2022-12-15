@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     )->name('index');
 
     Route::get('/dashboard/profile', fn() => view('user-profile')->with([
-        'isNewUser' => Auth::user()->workspace->id === \App\Models\Workspace::DEFAULT_WS_ID
+        'isNewUser' => Auth::user()->isNew()
     ]))->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateUserProfile::class);

@@ -30,8 +30,6 @@ use App\Actions\Api\Packages\UpdatePackage;
 use App\Actions\Api\S3\Provision\GetCertificate;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
-// use App\Actions\Api\Github\CreateRepository;
-
 ///////////////////////
 // apps
 //////////////////////
@@ -53,6 +51,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
     Route::get('appstoreconnect/get-app-list', GetAppList::class);
     Route::get('appstoreconnect/get-build-list', GetBuildList::class);
+
+    // s3 related
     Route::get('appstoreconnect/get-cert', GetCertificate::class);
     Route::get('appstoreconnect/get-provision-profile', GetProvisionProfile::class);
 
@@ -65,7 +65,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('jenkins/get-job', GetJob::class);
-    Route::get('jenkins/get-job-list', GetJobs::class);
+    Route::get('jenkins/get-jobs', GetJobs::class);
     Route::get('jenkins/get-job-builds', GetJobBuilds::class);
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
     Route::get('jenkins/get-job-lastbuild-log', GetJobLastBuildLog::class);
@@ -82,7 +82,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
-    // Route::post('github/create-repository', CreateRepository::class);
 });
 
 //////////////////////////////
