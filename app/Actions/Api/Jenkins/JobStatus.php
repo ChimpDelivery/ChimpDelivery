@@ -32,4 +32,12 @@ enum JobStatus : string
             self::FAILED->value,
         ];
     }
+
+    public static function GetRunningStages() : array
+    {
+        return [
+            self::QUEUED->value,
+            self::IN_PROGRESS->value,
+        ];
+    }
 }

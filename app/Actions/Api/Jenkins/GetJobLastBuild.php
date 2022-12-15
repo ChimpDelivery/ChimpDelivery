@@ -41,8 +41,18 @@ class GetJobLastBuild
             $lastBuild->change_sets = $this->GetCommitHistory($lastBuildDetails->jenkins_data, $app);
             $lastBuild->stop_details = $this->GetStopDetail($lastBuild);
 
+            $buildStatus = JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
+
+            // check job in queue
+            $buildInQueue = JobStatus::IN_PROGRESS && count(collect($lastBuild->stages)) == 0;
+            if ($buildInQueue)
+            {
+                $buildStatus = JobStatus::QUEUED;
+                $lastBuild->status = JobStatus::QUEUED->value;
+            }
+
             // if job is running, calculate average duration
-            if ($lastBuild->status == JobStatus::IN_PROGRESS->value)
+            if ($buildStatus == JobStatus::IN_PROGRESS)
             {
                 $lastBuild->estimated_duration = $builds->avg('durationMillis');
             }
