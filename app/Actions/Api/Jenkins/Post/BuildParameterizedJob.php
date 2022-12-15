@@ -13,6 +13,7 @@ use App\Http\Requests\Jenkins\BuildRequest;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
+// Populates Jenkinsfile parameters and build job
 class BuildParameterizedJob extends BaseJenkinsAction
 {
     private string $branch = 'master';
