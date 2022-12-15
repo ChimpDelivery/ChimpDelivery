@@ -4,9 +4,7 @@
 @endphp
 
 <div class="container">
-    <a tabindex="0"
-        class="btn btn-sm"
-        role="button"
+    <a tabindex="0" class="btn btn-sm" role="button"
         data-trigger="focus"
         data-toggle="popover"
         data-html="true"
