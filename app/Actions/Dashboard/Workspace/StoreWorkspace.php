@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
@@ -44,8 +43,6 @@ class StoreWorkspace
         ];
     }
 
-    // MimeTypes not working in rules(calls getMimeType()) when uploading cert
-    // Use custom getClientMimeType() validation
     public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
     {
         $validator->after(function (Validator $validator) use ($request) {
@@ -65,10 +62,14 @@ class StoreWorkspace
     {
         if ($request->hasFile('cert'))
         {
-            $certFile = $request->validated('cert');
-            $isValidCertFile = $certFile->getClientMimeType() === 'application/x-pkcs12';
+            $isValidCert = $this->IsValidFile(
+                file: $request->validated('cert'),
+                serverMime: 'application/octet-stream',
+                clientMime: 'application/x-pkcs12',
+                clientExt: '.p12'
+            );
 
-            if (!$isValidCertFile)
+            if (!$isValidCert)
             {
                 $validator->errors()->add(
                     'cert',
@@ -82,11 +83,14 @@ class StoreWorkspace
     {
         if ($request->hasFile('provision_profile'))
         {
-            $provisionFile = $request->validated('provision_profile');
-            $isValidProvisionFile = $provisionFile->getClientMimeType() === 'application/octet-stream'
-                && Str::of($provisionFile->getClientOriginalName())->endsWith('.mobileprovision');
+            $isValidProvision = $this->IsValidFile(
+                file: $request->validated('provision_profile'),
+                serverMime: 'application/octet-stream',
+                clientMime: 'application/octet-stream',
+                clientExt: '.mobileprovision'
+            );
 
-            if (!$isValidProvisionFile)
+            if (!$isValidProvision)
             {
                 $validator->errors()->add(
                     'provision_profile',
@@ -94,5 +98,17 @@ class StoreWorkspace
                 );
             }
         }
+    }
+
+    private function IsValidFile($file, $serverMime, $clientMime, $clientExt) : bool
+    {
+        return $file->getMimeType() === $serverMime
+            && $file->getClientMimeType() === $clientMime
+            && $this->IsValidExtension($file, $clientExt);
+    }
+
+    private function IsValidExtension($file, $extension) : bool
+    {
+        return str($file->getClientOriginalName())->endsWith($extension);
     }
 }
