@@ -17,7 +17,7 @@
         @endswitch
     </td>
     <td class="text-center align-middle">
-        @include('layouts.job-button')
+        @include('layouts.jenkins.job-button')
     </td>
     <td class="text-center align-middle">
         @include('layouts.appinfo.update-button')

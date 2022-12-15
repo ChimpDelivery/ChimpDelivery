@@ -5,9 +5,9 @@
 @else
     @if($appInfo->jenkins_status == 200)
         @if(in_array($appInfo?->jenkins_data?->status, JobStatus::GetRunningStages()))
-            @include('layouts.abort-button')
+            @include('layouts.jenkins.abort-button')
         @else
-            @include('layouts.build-button')
+            @include('layouts.jenkins.build-button')
         @endif
     @else
         @include('errors.jenkins.jenkins-file-notfound')
