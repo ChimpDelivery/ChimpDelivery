@@ -19,7 +19,7 @@ class GetJobLastBuild
     // jenkins api filters
     private array $filters = [
         'job_parameters' => 'actions[*[name,value]]{0}',
-        'job_changesets' => 'changeSets[*[id,msg,authorEmail]{0,5}]',
+        'job_changesets' => 'changeSets[*[id,authorEmail,comment]{0,5}]',
     ];
 
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
@@ -92,7 +92,7 @@ class GetJobLastBuild
                     return [
                         'id' => $commit->id,
                         'url' => $this->GetCommitLink($commit, $app),
-                        'msg' => $commit->msg,
+                        'comment' => $commit->comment,
                         'authorEmail'=> $commit->authorEmail
                     ];
                 })->reverse()->values();
