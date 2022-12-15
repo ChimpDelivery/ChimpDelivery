@@ -144,7 +144,7 @@ class JenkinsDataParser
         // add pretty commit history to build details view.
         $buildCommits->each(function ($commit, $order) use (&$prettyCommits)
         {
-            $prettyText = Str::of(Str::limit(trim($commit->msg), self::COMMIT_LENGTH));
+            $prettyText = str(Str::limit(trim($commit->comment), self::COMMIT_LENGTH));
 
             $commitId = Str::substr($commit->id, 0, self::COMMIT_HASH_LENGTH);
             $prettyCommitMsg = "<span class='badge alert-primary'>{$commitId}</span>"
