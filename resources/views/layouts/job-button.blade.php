@@ -4,8 +4,7 @@
     @include('errors.jenkins.jenkins-down')
 @else
     @if($appInfo->jenkins_status == 200)
-        @php($buildStatus = $appInfo?->jenkins_data?->status)
-        @if(in_array($buildStatus, JobStatus::GetRunningStages()))
+        @if(in_array($appInfo?->jenkins_data?->status, JobStatus::GetRunningStages()))
             @include('layouts.abort-button')
         @else
             @include('layouts.build-button')
