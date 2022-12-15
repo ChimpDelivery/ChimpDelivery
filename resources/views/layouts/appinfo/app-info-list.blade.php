@@ -20,7 +20,7 @@
         @include('layouts.job-button')
     </td>
     <td class="text-center align-middle">
-        @include('layouts.update-button')
+        @include('layouts.appinfo.update-button')
     </td>
 </tr>
 @endforeach
