@@ -21,16 +21,6 @@ class BuildParameterizedJob extends BaseJenkinsAction
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
         $buildUrl = $this->CreateJobUrl($app->project_name, $this->GetParamsAsUrl($request));
 
-        // todo:extract platform-specific parameters
-        if ($request->validated('platform') === JobPlatform::Appstore->value)
-        {
-            $profileFile = GetProvisionProfile::run();
-            $provisionProfileUuid = $profileFile->headers->get('Dashboard-Provision-Profile-UUID');
-            $provisionTeamId = $profileFile->headers->get('Dashboard-Team-ID');
-            $buildUrl .= "&DASHBOARD_PROFILE_UUID={$provisionProfileUuid}";
-            $buildUrl .= "&DASHBOARD_TEAM_ID={$provisionTeamId}";
-        }
-
         $response = $service->PostResponse($buildUrl);
         $responseCode = $response->jenkins_status;
 
@@ -69,6 +59,22 @@ class BuildParameterizedJob extends BaseJenkinsAction
             'STORE_CUSTOM_BUNDLE_VERSION' => $request->validated('store_custom_version') ?: 'false',
             'STORE_BUNDLE_VERSION' => $request->validated('store_build_number') ?: 1,
             'INSTALL_SDK' => !empty($request->validated('install_backend')) ? 'true' : 'false',
-        ])->map(fn ($val, $key) => "{$key}={$val}")->values();
+        ])->merge($this->GetPlatformParams($request->validated('platform')))
+            ->map(fn ($val, $key) => "{$key}={$val}")
+            ->values();
+    }
+
+    private function GetPlatformParams($platform) : Collection
+    {
+        if ($platform === JobPlatform::Appstore->value)
+        {
+            $profile = GetProvisionProfile::run()->headers;
+            return collect([
+                'DASHBOARD_PROFILE_UUID' => $profile->get('Dashboard-Provision-Profile-UUID'),
+                'DASHBOARD_TEAM_ID' => $profile->get('Dashboard-Team-ID'),
+            ]);
+        }
+
+        return collect();
     }
 }
