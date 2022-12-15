@@ -36,7 +36,7 @@
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="• Select App ({{ count($all_appstore_apps) }})" required>
 
-                            @each('layouts.appstore.app', $all_appstore_apps, 'appstore_app')
+                            @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
                         </select>
                     @else
                         <label for="app_name"><i class="fa fa-apple" aria-hidden="true"></i> AppStore Name</label>
@@ -59,7 +59,7 @@
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
-                            @each('layouts.github.project', $github_projects, 'github_project')
+                            @each('layouts.github.option-project', $github_projects, 'github_project')
                         </select>
                     @else
                         <label for="project_name"><i class="fa fa-github" aria-hidden="true"></i> Git Project</label>
