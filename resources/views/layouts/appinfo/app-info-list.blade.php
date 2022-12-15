@@ -1,7 +1,7 @@
 @foreach($appInfos as $appInfo)
 <tr>
     <th scope="row" class="text-center font-weight-normal text-muted align-middle">
-        @include('layouts.app-info')
+        @include('layouts.appinfo.app-info')
     </th>
     <td class="text-center align-middle">
         @switch($appInfo->jenkins_status)

@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @include('layouts.app-info-list')
+                            @include('layouts.appinfo.app-info-list')
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">{{ $appInfos->links() }}</div>
