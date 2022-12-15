@@ -87,32 +87,41 @@ class JenkinsDataParser
 
         // todo: failing at prepare stage - text color
         $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
+        $prettyName = JobStatus::tryFrom($this->jenkinsData->status)->PrettyName();
 
         return match(JobStatus::tryFrom($this->jenkinsData->status))
         {
-            JobStatus::SUCCESS =>
-                '<span class="text-success font-weight-bold">
-                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                    SUCCESS
-                </span>',
-
-            JobStatus::ABORTED =>
-                '<span class="text-secondary font-weight-bold">STAGE: ' . $stageName . '</span>',
-
-            JobStatus::FAILED =>
-                '<span class="text-danger font-weight-bold">STAGE: ' . $stageName . '</span>',
-
-            JobStatus::IN_PROGRESS =>
-                '<span class="text-primary font-weight-bold">STAGE: ' . $stageName . '</span>',
-
-            JobStatus::NOT_EXECUTED =>
-                '<span class="text-secondary font-weight-bold">NOT EXECUTED</span>',
-
             JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>
                     <i class='fa fa-clock-o' aria-hidden='true'></i>
-                    IN QUEUE...
+                    {$prettyName}
                 </span>",
+
+            JobStatus::NOT_EXECUTED =>
+                "<span class='text-secondary font-weight-bold'>
+                    {$prettyName}
+                </span>",
+
+            JobStatus::SUCCESS =>
+                "<span class='text-success font-weight-bold'>
+                    <i class='fa fa-check-circle-o' aria-hidden='true'></i>
+                    {$prettyName}
+                </span>",
+
+            JobStatus::ABORTED =>
+                '<span class="text-secondary font-weight-bold">
+                    STAGE: ' . $stageName .
+                '</span>',
+
+            JobStatus::FAILED =>
+                '<span class="text-danger font-weight-bold">
+                    STAGE: ' . $stageName .
+                '</span>',
+
+            JobStatus::IN_PROGRESS =>
+                '<span class="text-primary font-weight-bold">
+                    STAGE: ' . $stageName .
+                '</span>',
 
             default => JobStatus::NOT_IMPLEMENTED->value
         };
