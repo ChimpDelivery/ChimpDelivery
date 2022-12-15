@@ -65,7 +65,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('jenkins/get-job', GetJob::class);
-    Route::get('jenkins/get-job-list', GetJobs::class);
+    Route::get('jenkins/get-jobs', GetJobs::class);
     Route::get('jenkins/get-job-builds', GetJobBuilds::class);
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
     Route::get('jenkins/get-job-lastbuild-log', GetJobLastBuildLog::class);

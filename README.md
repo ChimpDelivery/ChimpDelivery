@@ -35,8 +35,8 @@ POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={b
 
 # 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
+GET    |   api/jenkins/get-jobs
 GET    |   api/jenkins/get-job?id={id}
-GET    |   api/jenkins/get-job-list
 GET    |   api/jenkins/get-job-builds?id={id}
 GET    |   api/jenkins/get-job-lastbuild?id={id}
 GET    |   api/jenkins/get-job-lastbuild-log?id={id}
