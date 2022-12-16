@@ -15,6 +15,7 @@
         <div class="card-body">
             <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{ url('dashboard/store-bundle') }}">
                 @csrf
+                @honeypot
                 <div class="form-group">
                     <label for="bundle_id">Bundle ID</label>
                     <input type="text" id="bundle_id" name="bundle_id" class="form-control shadow-sm" placeholder="id (com.companyname.appname)..." required="">

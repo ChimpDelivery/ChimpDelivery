@@ -46,11 +46,13 @@
             <i class="fa fa-filter" aria-hidden="true"></i> Repository Filters
         </div>
         <div class="card-body">
+            <!-- DISABLED_FOR_LATER
             <div class="form-group">
                 <label for="template_name">Template Project</label>
                 <input type="text" id="template_name" name="template_name" class="form-control shadow-sm"
                         value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
             </div>
+            !-->
             <div class="form-group">
                 <label for="topic_name">Project Topic</label>
                 <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm"
