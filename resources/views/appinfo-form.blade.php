@@ -17,6 +17,7 @@
         <div class="card-body">
             <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction ?? route('store_app_info') }}" enctype="multipart/form-data">
                 @csrf
+                @honeypot
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Icon</span>

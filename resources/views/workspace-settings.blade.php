@@ -20,6 +20,7 @@
         <div class="card-body">
             <form action="{{ url('dashboard/workspace-settings') }}" name="create-workspace-form" id="create-workspace-form" method="post" enctype="multipart/form-data">
                 @csrf
+                @honeypot
                 @include('workspace.board-settings')
                 @include('workspace.appstore-api-settings')
                 @include('workspace.appstore-sign-settings')
