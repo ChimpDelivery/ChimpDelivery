@@ -6,7 +6,7 @@
 </p>
 <div class="collapse" id="collapse_app_store_connect_settings">
     <div class="form-group">
-        <a class="badge badge-success" href="https://appstoreconnect.apple.com/access/api" target="_blank">
+        <a class="badge bg-success text-white" href="https://appstoreconnect.apple.com/access/api" target="_blank">
             <i class="fa fa-external-link" aria-hidden="true"></i> Get Keys
         </a>
     </div>

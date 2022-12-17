@@ -6,10 +6,10 @@
 </p>
 <div class="collapse" id="collapse_app_store_signing">
     <div class="form-group">
-        <a class="badge badge-success" href="https://developer.apple.com/account/resources/certificates/list" target="_blank">
+        <a class="badge bg-success text-white" href="https://developer.apple.com/account/resources/certificates/list" target="_blank">
             <i class="fa fa-external-link" aria-hidden="true"></i> Get Certificate
         </a>
-        <a class="badge badge-success" href="https://developer.apple.com/account/resources/profiles/list" target="_blank">
+        <a class="badge bg-success text-white" href="https://developer.apple.com/account/resources/profiles/list" target="_blank">
             <i class="fa fa-external-link" aria-hidden="true"></i> Get Profile
         </a>
     </div>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="alert alert-warning w-100  alert-dismissible fade show">
-        <span class="badge badge-warning">
+        <span class="badge bg-warning">
             <i class="fa fa-bell text-white" aria-hidden="true"></i>
         </span>
         <small>
