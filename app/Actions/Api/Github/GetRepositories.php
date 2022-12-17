@@ -64,26 +64,13 @@ class GetRepositories
 
     private function getRepositoryType() : string
     {
-        $includePublicRepos = $this->githubSetting->public_repo === true;
-        $includePrivateRepos = $this->githubSetting->private_repo === true;
+        $git = $this->githubSetting;
 
-        $dontList = !$includePublicRepos && !$includePrivateRepos;
-        if ($dontList)
-        {
-            return 'none';
-        }
+        if ($git->public_repo === true && $git->private_repo === true) { return 'all'; }
+        if ($git->public_repo === true) { return 'public'; }
+        if ($git->private_repo === true) { return 'private'; }
 
-        if ($includePublicRepos && $includePrivateRepos)
-        {
-            return 'all';
-        }
-
-        if ($includePrivateRepos)
-        {
-            return 'private';
-        }
-
-        return 'public';
+        return 'none';
     }
 
     public function authorize() : bool

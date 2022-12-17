@@ -6,7 +6,7 @@
 </p>
 <div class="collapse" id="collapse_github_settings">
     <div class="form-group">
-        <a class="badge badge-success" href="https://github.com/settings/tokens" target="_blank">
+        <a class="badge bg-success text-white" href="https://github.com/settings/tokens" target="_blank">
             <i class="fa fa-external-link" aria-hidden="true"></i> Get Token
         </a>
     </div>
