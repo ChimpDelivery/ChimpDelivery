@@ -45,7 +45,7 @@
             @include('layouts.dashboard.card-footer', [
                 'text' => Auth::user()->isNew()
                     ? 'You are not in any workspace.'
-                    : 'API Keys can be disabled by Workspace Admins.'
+                    : 'Workspace API Tokens can be disabled by Workspace Admins.'
             ])
         </div>
     </div>
