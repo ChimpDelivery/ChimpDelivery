@@ -108,10 +108,10 @@
                         </button>
                     @endisset
                 @endcan
-                <button type="submit" class="btn btn-success font-weight-bold shadow">
-                    <i class="fa {{ isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square' }}"></i>
-                    {{ $title }}
-                </button>
+                @include('layouts.dashboard.button-success', [
+                    'icon' => isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square',
+                    'name' => $title
+                ])
                 @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
             </form>
         </div>
