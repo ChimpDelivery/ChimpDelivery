@@ -44,7 +44,7 @@
             <i class="fa fa-bell text-white" aria-hidden="true"></i>
         </span>
         <small>
-            Only '<a class="font-weight-bold" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a>' supported for now.
+            Only <a class="font-weight-bold alert-warning" href="https://developer.apple.com/library/archive/qa/qa1713/_index.html">WildCard Profiles</a> supported for now!
         </small>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
