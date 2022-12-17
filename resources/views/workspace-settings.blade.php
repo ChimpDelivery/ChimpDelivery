@@ -27,10 +27,10 @@
                 @include('workspace.testflight-api-settings')
                 @include('workspace.github-api-settings')
                 <br/>
-                <button type="submit" class="btn btn-success font-weight-bold shadow" @if(!$isNew) onclick="return confirm('Workspace settings will be updated, are you sure?')" @endif>
-                    <i class="fa {{ ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o' }}"></i>
-                    {{ ($isNew) ? 'Create Workspace' : 'Update' }}
-                </button>
+                @include('layouts.dashboard.button-success', [
+                    'icon' => ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o',
+                    'name' => ($isNew) ? 'Create Workspace' : 'Update'
+                ])
                 @can('scan jobs')
                     @include('workspace.scan-jenkins-button')
                 @endcan

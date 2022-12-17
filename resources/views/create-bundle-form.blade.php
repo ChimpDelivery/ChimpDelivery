@@ -25,8 +25,13 @@
                     <input type="text" id="bundle_name" name="bundle_name" class="form-control shadow-sm" placeholder="bundle id name..." required="">
                 </div>
                 <br />
-                <button type="submit" class="btn btn-success shadow font-weight-bold"><i class="fa fa-plus-square"></i> Create</button>
-                <button type="reset" class="btn btn-secondary shadow font-weight-bold"><i class="fa fa-refresh"></i> Reset</button>
+                @include('layouts.dashboard.button-success', [
+                    'icon' => 'fa-plus-square',
+                    'name' => 'Create'
+                ])
+                <button type="reset" class="btn btn-secondary shadow font-weight-bold">
+                    <i class="fa fa-refresh"></i> Reset
+                </button>
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [

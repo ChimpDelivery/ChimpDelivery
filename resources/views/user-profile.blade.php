@@ -36,10 +36,10 @@
                         @endif
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-success font-weight-bold shadow">
-                        <i class="fa fa-pencil-square-o"></i>
-                        Update Profile
-                    </button>
+                    @include('layouts.dashboard.button-success', [
+                        'icon' => 'fa-pencil-square-o',
+                        'name' => 'Update Profile'
+                    ])
                 </form>
             </div>
             @include('layouts.dashboard.card-footer', [
