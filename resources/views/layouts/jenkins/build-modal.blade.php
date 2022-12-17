@@ -50,9 +50,10 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-success font-weight-bold shadow">
-                        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Build
-                    </button>
+                    @include('layouts.dashboard.button-success', [
+                        'icon' => 'fa fa-cloud-upload',
+                        'name' => 'Build'
+                    ])
                     <button type="button" class="btn btn-secondary font-weight-bold shadow" data-dismiss="modal">
                         <i class="fa fa-window-close" aria-hidden="true"></i> Close
                     </button>
