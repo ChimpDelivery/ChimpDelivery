@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Events\AppChanged;
-use App\Actions\Files\UploadAppIcon;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 
 class StoreAppInfo
@@ -37,11 +36,6 @@ class StoreAppInfo
             'workspace_id',
             'app_icon',
         ]));
-
-        if ($request->hasFile('app_icon'))
-        {
-            $appModel->app_icon = UploadAppIcon::run($request->safe()->app_icon);
-        }
 
         $appModel->save();
 
