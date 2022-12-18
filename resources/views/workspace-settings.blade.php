@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="container py-2">
-    <div class="card shadow">
-        <div class="card-header bg-dark text-white font-weight-bold">
+    <div class="card shadow bg-dark">
+        <div class="card-header text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-users fa-stack-1x" aria-hidden="true"></i>
@@ -17,7 +17,7 @@
                 <pre class="text-muted pull-right">ID: {{ $workspace->id }}</pre>
             @endif
         </div>
-        <div class="card-body">
+        <div class="card-body shadow-sm">
             <form action="{{ url('dashboard/workspace-settings') }}" name="create-workspace-form" id="create-workspace-form" method="post" enctype="multipart/form-data">
                 @csrf
                 @honeypot
@@ -37,7 +37,7 @@
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
-            'text' => 'All fields can be changed later by "Workspace Admin" except "GitHub Organization" name.'
+            'text' => 'All fields can be changed later by <b>Workspace Admin</b> except <b>GitHub Organization</b> name.'
         ])
     </div>
 </div>

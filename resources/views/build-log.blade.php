@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container py-2">
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white font-weight-bold">
+        <div class="card shadow bg-dark">
+            <div class="card-header text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-eye fa-stack-1x" aria-hidden="true"></i>
@@ -13,7 +13,7 @@
                 {{ $app->project_name }} Build Log
             </div>
             <div class="card-body overflow-auto" style="max-height: 70vh;">
-                <code>
+                <code class="text-white">
                     {!! nl2br(e($full_log)) !!}
                 </code>
             </div>

@@ -5,7 +5,7 @@
     $url = implode('/', [
         config('jenkins.host'),
         'buildStatus',
-        "icon?subject={$buildNumber}&job={$ws}%2F{$appInfo->project_name}%2Fmaster"
+        "icon?style=plastic&subject={$buildNumber}&job={$ws}%2F{$appInfo->project_name}%2Fmaster"
     ]);
 @endphp
 
