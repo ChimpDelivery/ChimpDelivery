@@ -2,5 +2,8 @@
         data-target="#buildModal"
         data-project="{{ $appInfo->project_name }}"
         data-build-url="{{ route('build-app', [ 'id' => $appInfo->id ]) }}">
-    <i class="fa fa-cloud-upload" aria-hidden="true" style="font-size:2em; color: lightskyblue;"></i>
+    <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-cloud-upload fa-stack-1x text-white"></i>
+    </span>
 </button>

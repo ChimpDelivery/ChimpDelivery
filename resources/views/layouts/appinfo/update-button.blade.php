@@ -1,3 +1,6 @@
 <a class="btn" href="dashboard/update-app-info?id={{ $appInfo->id }}">
-    <i class="fa fa-cog text-white" aria-hidden="true" style="font-size:2em;"></i>
+    <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-cog fa-stack-1x" style="color: white;"></i>
+    </span>
 </a>
