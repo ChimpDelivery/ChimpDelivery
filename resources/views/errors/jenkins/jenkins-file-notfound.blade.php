@@ -1,5 +1,8 @@
 <div class="container">
-    <span class="badge text-white" data-toggle="tooltip" data-placement="bottom" title="Jenkinsfile could not found!">
-        <i style="font-size: 2rem;" class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+    <span data-toggle="tooltip" data-placement="bottom" title="Jenkinsfile could not found!">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-square fa-stack-2x"></i>
+            <i class="fa fa-exclamation-triangle text-warning fa-stack-1x"></i>
+        </span>
     </span>
 </div>
