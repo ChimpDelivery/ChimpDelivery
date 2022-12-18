@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <select name="platform" id="platform"
                             class="shadow-sm form-control selectpicker show-tick"
-                            data-style="btn-primary" data-live-search="false" data-dropup-auto="false" data-size="10"
+                            data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                             title="Select platform..." required>
 
                             <option data-icon="fa fa-apple" value="Appstore">App Store</option>
@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <input type="text" id="store_custom_version" name="store_custom_version" class="form-control" value="false" hidden>
                         <p>
-                            <button class="btn btn-block btn-primary font-weight-bold shadow-sm" type="button" data-toggle="collapse" data-target="#store_build_number_collapse" aria-expanded="false" aria-controls="store_build_number_collapse">
+                            <button class="btn btn-block btn-secondary font-weight-bold shadow-sm" type="button" data-toggle="collapse" data-target="#store_build_number_collapse" aria-expanded="false" aria-controls="store_build_number_collapse">
                                 Custom Build Number
                             </button>
                         </p>
@@ -50,9 +50,10 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-success font-weight-bold shadow">
-                        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Build
-                    </button>
+                    @include('layouts.dashboard.button-success', [
+                        'icon' => 'fa fa-cloud-upload',
+                        'name' => 'Build'
+                    ])
                     <button type="button" class="btn btn-secondary font-weight-bold shadow" data-dismiss="modal">
                         <i class="fa fa-window-close" aria-hidden="true"></i> Close
                     </button>

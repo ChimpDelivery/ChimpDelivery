@@ -37,7 +37,7 @@
     {{-- custom_css_end --}}
 </head>
 
-<body>
+<body class="bg-dark">
     @include('layouts.dashboard.navbar')
 
     @include('layouts.dashboard.error')

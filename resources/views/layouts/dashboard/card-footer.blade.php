@@ -1,8 +1,8 @@
-<div class="card-footer text-muted">
+<div class="card-footer rounded-bottom shadow">
     <span class="badge badge-primary">
-        <i class="fa fa-bell text-white" aria-hidden="true"></i>
+        <i class="fa fa-bell" aria-hidden="true"></i>
     </span>
-    <span>
+    <span class="text-white">
         {!! $text !!}
     </span>
 </div>

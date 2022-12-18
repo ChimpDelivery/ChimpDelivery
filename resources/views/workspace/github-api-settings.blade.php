@@ -1,5 +1,5 @@
 <p>
-    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
+    <a class="btn btn-secondary btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
         <i class="fa fa-github" aria-hidden="true"></i>
         <b>GitHub API</b>
     </a>
@@ -11,20 +11,24 @@
         </a>
     </div>
     <div class="form-group">
-        <label for="personal_access_token">Personal Access Token</label>
+        <label for="personal_access_token" class="text-white font-weight-bold">
+            • Personal Access Token
+        </label>
         <input type="text" id="personal_access_token" name="personal_access_token" class="form-control shadow-sm"
                 value="{{ ($isNew) ? '' : $workspace->githubSetting->personal_access_token }}">
     </div>
     <div class="form-group">
-        <label for="organization_name">Organization Name</label>
+        <label for="organization_name" class="text-white font-weight-bold">
+            • Organization Name
+        </label>
         <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm"
                 value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}" @readonly(!$isNew)>
         <small class="form-text text-muted">
-            The name of the GitHub Organization that contains the projects to build.
+            The name of the <b>GitHub Organization</b> that contains the projects to build.
         </small>
     </div>
     <div class="card my-2">
-        <div class="card-header alert-primary font-weight-bold">
+        <div class="card-header alert-dark font-weight-bold text-dark">
             <i class="fa fa-cubes" aria-hidden="true"></i> Repository Types
         </div>
         <div class="card-body">
@@ -42,7 +46,7 @@
         </div>
     </div>
     <div class="card my-2">
-        <div class="card-header alert-primary font-weight-bold">
+        <div class="card-header alert-dark font-weight-bold text-dark">
             <i class="fa fa-filter" aria-hidden="true"></i> Repository Filters
         </div>
         <div class="card-body">
