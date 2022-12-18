@@ -64,13 +64,13 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold font-italic text-white" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Hi, {{ Auth::user()->name }}
+                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user fa-lg" aria-hidden="true"></i> Profile
+                                <i class="fa fa-user-secret fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                             <div class="dropdown-divider"></div>
