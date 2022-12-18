@@ -4,11 +4,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header justify-content-between align-items-center">
-                    <h5 class="modal-title" id="build-modal-label">
-                        Build Project
+                    <h5>
+                        <span class="modal-title text-dark font-weight-bold" id="build-modal-label">
+                            <i class="fa fa-cube" aria-hidden="true"></i> Build Settings
+                        </span>
                     </h5>
                     <h5>
-                        <button id="project-button" type="button" class="btn badge badge-pill alert-primary shadow-sm" data-dismiss="modal" aria-label="Close">
+                        <button id="project-button" type="button" class="btn badge badge-pill bg-primary shadow-sm text-white font-weight-bold" data-dismiss="modal" aria-label="Close">
                             <span id="project-button-inner" aria-hidden="true">&times;</span>
                         </button>
                     </h5>
