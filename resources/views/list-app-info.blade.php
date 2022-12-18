@@ -17,11 +17,11 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-borderless table-hover">
                         <thead>
-                            <tr class="shadow-sm">
-                                <th style="width: 25%;" scope="col"></th>
-                                <th style="width: 25%;" scope="col"></th>
-                                <th style="width: 25%;" scope="col"></th>
-                                <th style="width: 25%;" scope="col"></th>
+                            <tr class="shadow-sm text-white text-center">
+                                <th style="width: 25%;" scope="col">App</th>
+                                <th style="width: 25%;" scope="col">Status</th>
+                                <th style="width: 25%;" scope="col">Build</th>
+                                <th style="width: 25%;" scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
