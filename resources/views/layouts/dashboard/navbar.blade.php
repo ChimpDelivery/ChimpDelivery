@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm shadow navbar-dark rounded-bottom">
+<nav class="navbar navbar-expand-sm shadow navbar-dark rounded-bottom border-bottom border-dark">
     <a class="navbar-brand font-weight-bold" href="/dashboard">
         <img src="{{ asset('Talus_icon.ico') }}" alt="" width="30" height="30"/>
         @hasrole('User')
