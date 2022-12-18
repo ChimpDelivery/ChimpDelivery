@@ -35,7 +35,7 @@
                         <select name="app_name" id="app_name"
                             class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                            title="• Select App ({{ count($all_appstore_apps) }})" required>
+                            title="➤ Select App ({{ count($all_appstore_apps) }})" required>
 
                             @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
                         </select>
@@ -48,19 +48,19 @@
                 </div>
                 <div class="form-group">
                     <label for="appstore_id" class="text-white font-weight-bold">
-                        <i class="fa fa-apple" aria-hidden="true"></i> AppStore ID
+                        <i class="fa fa-apple" aria-hidden="true"></i> App ID
                     </label>
                     <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="app_bundle" class="text-white font-weight-bold">
-                        <i class="fa fa-apple" aria-hidden="true"></i> AppStore Bundle ID
+                        <i class="fa fa-apple" aria-hidden="true"></i> App Bundle ID
                     </label>
                     <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
                 </div>
                 <div class="form-group">
                     @if (!isset($appInfo))
-                        @php ($githubTitle = '• Select GitHub Project (' . count($github_projects) . ')')
+                        @php ($githubTitle = '➤ Select GitHub Project (' . count($github_projects) . ')')
                         <select name="project_name"
                             class="form-control selectpicker show-tick shadow"
                             data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
