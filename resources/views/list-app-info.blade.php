@@ -48,7 +48,7 @@
 
                 // Extract value from the custom data-* attribute
                 let projectName = button.data('project');
-                let prettyProjectName = projectName.slice(0, 17) + (projectName.length > 17 ? '...' : '');
+                let prettyProjectName = projectName.slice(0, 15) + (projectName.length > 15 ? '...' : '');
                 let buildUrl = button.data('build-url');
 
                 document.getElementById('project-button-inner').innerHTML = prettyProjectName;
