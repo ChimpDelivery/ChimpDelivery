@@ -30,7 +30,7 @@ class CreateApiTokenView extends Component
                         </button>
                     </div>
                 </div>
-                <small class="form-text text-muted">
+                <small class="form-text text-info">
                     Workspace API Tokens are used by <b>Unity3D</b> projects to fetch app information.
                 </small>
             </div>
