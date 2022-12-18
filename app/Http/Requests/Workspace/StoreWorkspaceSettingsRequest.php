@@ -64,6 +64,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
     public function messages() : array
     {
         return [
+            'name.alpha_num' => 'Workspace Name must only contain letters and numbers.',
             'organization_name.required' => 'Github API ➔ Organization Name field is required.',
             'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another workspace.',
         ];

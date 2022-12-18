@@ -97,6 +97,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
         return [
             'app_name.required' => 'app_name is required!',
             'project_name.required' => 'github_project is required!',
+            'project_name.unique' => 'The github project has already been taken.',
             'app_bundle.required' => 'app_bundle is required!',
             'app_bundle.regex' => 'app_bundle is incorrect! (e.g com.CompanyName.AppName)',
             'appstore_id.required' => 'appstore_id is required!',
