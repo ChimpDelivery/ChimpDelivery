@@ -1,5 +1,5 @@
 <p>
-    <a class="btn btn-primary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_app_store_connect_settings" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
+    <a class="btn btn-secondary btn-block text-left shadow" data-toggle="collapse" href="#collapse_app_store_connect_settings" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
         <i class="fa fa-apple" aria-hidden="true"></i>
         <b>AppStore API</b>
     </a>
@@ -24,11 +24,15 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="kid">Key ID</label>
+        <label for="kid" class="text-white font-weight-bold">
+            • Key ID
+        </label>
         <input type="text" id="kid" name="kid" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
     </div>
     <div class="form-group">
-        <label for="issuer_id">Issuer ID</label>
+        <label for="issuer_id" class="text-white font-weight-bold">
+            • Issuer ID
+        </label>
         <input type="text" id="issuer_id" name="issuer_id" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
     </div>
 </div>

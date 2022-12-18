@@ -1,11 +1,11 @@
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-sm navbar-dark shadow">
         <a class="navbar-brand font-weight-bold" href="/dashboard">
             <img src="{{ asset('Talus_icon.ico') }}" alt="" width="30" height="30" />
             @hasrole('User')
                 {{ config('app.name') }}
             @else
-                <span class="text-capitalize font-weight-bold text-dark">{{ Auth::user()->workspace->name }}</span>
+                <span class="text-capitalize font-weight-bold">{{ Auth::user()->workspace->name }}</span>
             @endrole
         </a>
 
@@ -16,22 +16,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto nav-pills">
                 @can('create workspace')
-                <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
+                <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard">Create Workspace</a>
                 </li>
                 @endcan
                 @can('join workspace')
-                <li class="nav-item {{ (request()->is('dashboard/workspace-join')) ? 'active' : '' }}">
+                <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-join">Join Workspace</a>
                 </li>
                 @endcan
                 @can('view apps')
-                <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard">Apps</a>
                 </li>
                 @endcan
                 @can('create app')
-                <li class="nav-item {{ (request()->is('dashboard/add-app-info')) ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('dashboard/add-app-info') ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
                 </li>
                 @endcan
@@ -56,32 +56,32 @@
                 </li>
                 @endcan
                 @can('view workspace')
-                <li class="nav-item {{ (request()->is('dashboard/ws-settings')) ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('dashboard/workspace-settings') ? 'active' : '' }}">
                     <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
                 </li>
                 @endcan
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle font-weight-bold font-italic text-muted" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle font-weight-bold font-italic text-white" href="#" role="button" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Hi, {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('dashboard.profile') }}">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="{{ route('dashboard.profile') }}">
                                 <i class="fa fa-user fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                             <div class="dropdown-divider"></div>
-                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="/health">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="/health">
                                 <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                             </a>
-                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('telescope') }}">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="{{ route('telescope') }}">
                                 <i class="fa fa-server" aria-hidden="true"></i> Telescope
                             </a>
                             @endrole
-                            <a class="text-left dropdown-item text-secondary font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
                             </a>
                         </form>
