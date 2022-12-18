@@ -41,7 +41,7 @@
                         </select>
                     @else
                         <label for="app_name" class="text-white font-weight-bold">
-                            <i class="fa fa-apple" aria-hidden="true"></i> AppStore Name
+                            <i class="fa fa-apple" aria-hidden="true"></i> App Name
                         </label>
                         <input type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" class="form-control shadow-sm" required="" readonly>
                     @endif

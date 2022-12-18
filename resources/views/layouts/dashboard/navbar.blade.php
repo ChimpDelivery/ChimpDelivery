@@ -76,7 +76,7 @@
                         @csrf
                         <a class="text-left dropdown-item text-secondary font-weight-bold bg-white"
                            href="{{ route('dashboard.profile') }}">
-                            <i class="fa fa-user-secret fa-lg" aria-hidden="true"></i> Profile
+                            <i class="fa fa-address-book-o fa-lg" aria-hidden="true"></i> Profile
                         </a>
                         @hasrole('Admin_Super')
                         <div class="dropdown-divider"></div>
