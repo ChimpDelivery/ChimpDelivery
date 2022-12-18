@@ -34,7 +34,7 @@
                     @if (!isset($appInfo))
                         <select name="app_name" id="app_name"
                             class="form-control selectpicker show-tick shadow"
-                            data-style="btn-secondary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="• Select App ({{ count($all_appstore_apps) }})" required>
 
                             @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
@@ -63,7 +63,7 @@
                         @php ($githubTitle = '• Select GitHub Project (' . count($github_projects) . ')')
                         <select name="project_name"
                             class="form-control selectpicker show-tick shadow"
-                            data-style="btn-secondary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
                             @each('layouts.github.option-project', $github_projects, 'github_project')
@@ -77,7 +77,7 @@
                     @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
                 </div>
                 <p>
-                    <a class="btn btn-secondary btn-block text-left shadow" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
+                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
                         <i class="fa fa-key" aria-hidden="true"></i>
                         <b>SDK Keys</b>
                     </a>

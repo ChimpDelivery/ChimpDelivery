@@ -6,6 +6,8 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
     {{-- favicon_generator: https://favicon.io --}}
     {{-- favicon_begin --}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
@@ -37,7 +39,7 @@
     {{-- custom_css_end --}}
 </head>
 
-<body class="bg-dark">
+<body class="bg-dark font-sans">
     @include('layouts.dashboard.navbar')
 
     @include('layouts.dashboard.error')

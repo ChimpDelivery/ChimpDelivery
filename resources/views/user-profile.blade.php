@@ -17,7 +17,7 @@
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
                     @csrf
                     <p>
-                        <a class="btn btn-secondary btn-block text-left shadow border border-dark" data-toggle="collapse" href="#collapse_base_settings" role="button" aria-expanded="true" aria-controls="collapse_base_settings">
+                        <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_base_settings" role="button" aria-expanded="true" aria-controls="collapse_base_settings">
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             <b>Personal Settings</b>
                         </a>
