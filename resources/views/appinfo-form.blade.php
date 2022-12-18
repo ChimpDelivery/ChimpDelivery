@@ -130,7 +130,7 @@
             </form>
         </div>
         @php ($footerText = !isset($appInfo)
-            ? "Make sure there is an app on <a href='https://appstoreconnect.apple.com/apps'>App Store Connect</a> in <b>Prepare For Submission</b> state."
+            ? "Make sure there is an app on <a href='https://appstoreconnect.apple.com/apps'>App Store Connect</a> with <b>Prepare For Submission</b> state."
             : "<b>AppStore</b> and <b>GitHub</b> related settings can not be changed.")
         @include('layouts.dashboard.card-footer', ['text' => $footerText ])
     </div>
