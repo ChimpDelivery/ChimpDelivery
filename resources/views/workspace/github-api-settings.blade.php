@@ -1,5 +1,5 @@
 <p>
-    <a class="btn btn-secondary btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
+    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
         <i class="fa fa-github" aria-hidden="true"></i>
         <b>GitHub API</b>
     </a>

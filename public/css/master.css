@@ -11,4 +11,6 @@
 .btn-secondary { color: white !important; background-color: #454d55 !important; }
 .font-sans { font-family:Nunito,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji }
 
+.navbar-dark { background-color: #161b22 !important; }
+
 .text-info { color: #FED049 !important; }

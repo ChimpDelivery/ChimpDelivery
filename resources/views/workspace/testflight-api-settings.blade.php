@@ -1,5 +1,5 @@
 <p>
-    <a class="btn btn-secondary btn-block text-left shadow" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
+    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_apple_settings" role="button" aria-expanded="false" aria-controls="collapse_apple_settings">
         <i class="fa fa-apple" aria-hidden="true"></i>
         <b>TestFlight API</b>
     </a>
