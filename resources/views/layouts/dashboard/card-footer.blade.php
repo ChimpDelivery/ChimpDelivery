@@ -1,8 +1,6 @@
-<div class="card-footer rounded-bottom shadow">
+<div class="card-footer rounded-bottom shadow navbar-dark text-white">
     <span class="badge badge-primary">
         <i class="fa fa-bell" aria-hidden="true"></i>
     </span>
-    <span class="text-white">
-        {!! $text !!}
-    </span>
+    <span>{!! $text !!}</span>
 </div>
