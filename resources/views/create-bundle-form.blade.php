@@ -5,7 +5,7 @@
 @section('content')
 <div class="container py-2">
     <div class="card shadow bg-dark">
-        <div class="card-header navbar-dark text-white font-weight-bold">
+        <div class="card-header text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-apple fa-stack-1x" aria-hidden="true"></i>
@@ -30,16 +30,16 @@
                 </div>
                 <br />
                 @include('layouts.dashboard.button-success', [
-                    'icon' => 'fa-plus-square',
+                    'icon' => 'fa-check-square-o',
                     'name' => 'Create'
                 ])
-                <button type="reset" class="mx-2 btn btn-secondary shadow font-weight-bold border border-white">
+                <button type="reset" class="mx-2 btn btn-dark shadow font-weight-bold">
                     <i class="fa fa-refresh"></i> Reset
                 </button>
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
-            'text' => 'After creating the bundle id, create an app using that bundle id via <u><a class="text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">App Store Connect.</a></u>'
+            'text' => 'After creating the bundle id, create an app using that bundle id via <a class="font-weight-bold" href="https://appstoreconnect.apple.com/apps">App Store Connect.</a>'
         ])
     </div>
 </div>

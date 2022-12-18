@@ -7,7 +7,7 @@
 @section('content')
 <div class="container py-2">
     <div class="card shadow bg-dark">
-        <div class="card-header navbar-dark text-white font-weight-bold">
+        <div class="card-header text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-users fa-stack-1x" aria-hidden="true"></i>
@@ -28,7 +28,7 @@
                 @include('workspace.github-api-settings')
                 <br/>
                 @include('layouts.dashboard.button-success', [
-                    'icon' => ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o',
+                    'icon' => 'fa-check-square-o',
                     'name' => ($isNew) ? 'Create Workspace' : 'Update'
                 ])
                 @can('scan jobs')

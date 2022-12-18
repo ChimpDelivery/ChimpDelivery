@@ -6,18 +6,18 @@
     <div class="container py-2">
         @include('layouts.jenkins.build-modal')
         <div class="card shadow bg-dark">
-            <div class="card-header navbar-dark text-white font-weight-bold">
+            <div class="card-header text-white font-weight-bold">
                 <span class="fa-stack fa-lg">
                     <i class="fa fa-square-o fa-stack-2x"></i>
                     <i class="fa fa-database fa-stack-1x"></i>
                 </span>
                 Apps
             </div>
-            <div class="card-body shadow-sm">
+            <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-borderless table-hover">
+                    <table class="table table-striped table-borderless table-hover">
                         <thead>
-                            <tr>
+                            <tr class="shadow-sm">
                                 <th style="width: 25%;" scope="col"></th>
                                 <th style="width: 25%;" scope="col"></th>
                                 <th style="width: 25%;" scope="col"></th>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             @include('layouts.dashboard.card-footer', [
-                'text' => 'Runner Limit: <b>2</b>' . "<b class='pull-right'>{$totalAppCount} apps</b>"
+                'text' => '<b>Runner Limit: 2</b>' . "<b class='pull-right'>{$totalAppCount} apps</b>"
             ])
         </div>
     </div>

@@ -25,7 +25,7 @@ class CreateApiTokenView extends Component
                 <div class="input-group">
                     <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
                     <div class="input-group-append">
-                        <button onclick="confirm('Are you sure? Generating new API Token revokes all existing tokens of user.') || event.stopImmediatePropagation()" wire:click="createToken()" type="button" class="btn btn-primary font-weight-bold shadow" style="width:100%;">
+                        <button onclick="confirm('Are you sure? Generating new API Token revokes all existing tokens of user.') || event.stopImmediatePropagation()" wire:click="createToken()" type="button" class="btn btn-success font-weight-bold shadow" style="width:100%;">
                             Generate
                         </button>
                     </div>

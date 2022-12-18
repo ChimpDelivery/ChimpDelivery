@@ -54,9 +54,6 @@
                         'icon' => 'fa fa-cloud-upload',
                         'name' => 'Build'
                     ])
-                    <button type="button" class="btn btn-secondary font-weight-bold shadow" data-dismiss="modal">
-                        <i class="fa fa-window-close" aria-hidden="true"></i> Close
-                    </button>
                 </div>
             </div>
         </div>

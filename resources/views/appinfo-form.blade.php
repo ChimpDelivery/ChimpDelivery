@@ -7,7 +7,7 @@
 @section('content')
 <div class="container py-2">
     <div class="card shadow bg-dark">
-        <div class="card-header navbar-dark text-white font-weight-bold">
+        <div class="card-header text-white font-weight-bold">
             <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-database fa-stack-1x" aria-hidden="true"></i>
@@ -34,7 +34,7 @@
                     @if (!isset($appInfo))
                         <select name="app_name" id="app_name"
                             class="form-control selectpicker show-tick shadow"
-                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            data-style="btn-dark" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="➤ Select App ({{ count($all_appstore_apps) }})" required>
 
                             @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
@@ -63,7 +63,7 @@
                         @php ($githubTitle = '➤ Select GitHub Project (' . count($github_projects) . ')')
                         <select name="project_name"
                             class="form-control selectpicker show-tick shadow"
-                            data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                            data-style="btn-dark" data-live-search="true" data-dropup-auto="false" data-size="10"
                             title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
                             @each('layouts.github.option-project', $github_projects, 'github_project')
@@ -77,7 +77,7 @@
                     @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
                 </div>
                 <p>
-                    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
+                    <a class="btn btn-dark btn-block text-left shadow" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
                         <i class="fa fa-key" aria-hidden="true"></i>
                         <b>SDK Keys</b>
                     </a>
@@ -123,14 +123,14 @@
                     @endisset
                 @endcan
                 @include('layouts.dashboard.button-success', [
-                    'icon' => isset($appInfo) ? 'fa-pencil-square-o' : 'fa-plus-square',
+                    'icon' => isset($appInfo) ? 'fa-pencil-square-o' : 'fa-check-square-o',
                     'name' => $title
                 ])
                 @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
             </form>
         </div>
         @php ($footerText = !isset($appInfo)
-            ? "Make sure there is an app on <u><a href='https://appstoreconnect.apple.com/apps' class='text-white'>App Store Connect</a></u>. (And at least one version that is in the <u>Prepare For Submission</u>)"
+            ? "Make sure there is an app on <a href='https://appstoreconnect.apple.com/apps'>App Store Connect</a>. (And at least one version that is in the <b>Prepare For Submission</b>)"
             : "<b>AppStore</b> and <b>GitHub</b> related settings can not be changed.")
         @include('layouts.dashboard.card-footer', ['text' => $footerText ])
     </div>

@@ -1,5 +1,5 @@
 @foreach($appInfos as $appInfo)
-<tr>
+<tr class="shadow-sm">
     <th scope="row" class="text-center font-weight-normal text-muted align-middle">
         @include('layouts.appinfo.app-info')
     </th>
