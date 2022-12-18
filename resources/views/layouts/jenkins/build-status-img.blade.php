@@ -9,4 +9,4 @@
     ]);
 @endphp
 
-<img alt="..." src="{{ $url }}" />
+<img class="shadow" alt="..." src="{{ $url }}" height="22" />

@@ -39,7 +39,7 @@
     {{-- custom_css_end --}}
 </head>
 
-<body class="bg-dark font-sans">
+<body class="font-sans">
     @include('layouts.dashboard.navbar')
 
     @include('layouts.dashboard.error')
