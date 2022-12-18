@@ -38,23 +38,27 @@
             @endcan
             @can('create bundle')
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle font-weight-bold bg-transparent" href="#" id="navbarDropdown"
-                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         AppStore
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/dashboard/create-bundle">Bundle ID</a>
+                        <a class="dropdown-item bg-transparent text-dark" href="/dashboard/create-bundle">
+                            <i class="fa fa-apple" aria-hidden="true"></i> Bundle ID
+                        </a>
                     </div>
                 </li>
             @endcan
             @can('create bundle')
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle font-weight-bold bg-transparent" href="#" id="navbarDropdown"
-                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         GooglePlay
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="https://play.google.com/console/" target="_blank">Console</a>
+                        <a class="dropdown-item bg-transparent text-dark" href="https://play.google.com/console/" target="_blank">
+                            <i class="fa fa-google" aria-hidden="true"></i> Console
+                        </a>
                     </div>
                 </li>
             @endcan
