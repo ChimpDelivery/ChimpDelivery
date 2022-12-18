@@ -1,5 +1,5 @@
 <p>
-    <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
+    <a class="btn btn-dark btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
         <i class="fa fa-github" aria-hidden="true"></i>
         <b>GitHub API</b>
     </a>
@@ -28,7 +28,7 @@
         </small>
     </div>
     <div class="card my-2 bg-dark">
-        <div class="card-header btn-primary font-weight-bold">
+        <div class="card-header font-weight-bold">
             <i class="fa fa-cubes" aria-hidden="true"></i> Repository Types
         </div>
         <div class="card-body">
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="card my-2 bg-dark">
-        <div class="card-header btn-primary font-weight-bold">
+        <div class="card-header font-weight-bold">
             <i class="fa fa-filter" aria-hidden="true"></i> Repository Filters
         </div>
         <div class="card-body">

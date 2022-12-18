@@ -28,7 +28,7 @@
                 @include('workspace.github-api-settings')
                 <br/>
                 @include('layouts.dashboard.button-success', [
-                    'icon' => ($isNew) ? 'fa-plus-square' : 'fa-pencil-square-o',
+                    'icon' => 'fa-check-square-o',
                     'name' => ($isNew) ? 'Create Workspace' : 'Update'
                 ])
                 @can('scan jobs')

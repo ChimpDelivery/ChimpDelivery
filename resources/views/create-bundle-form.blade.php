@@ -30,16 +30,16 @@
                 </div>
                 <br />
                 @include('layouts.dashboard.button-success', [
-                    'icon' => 'fa-plus-square',
+                    'icon' => 'fa-check-square-o',
                     'name' => 'Create'
                 ])
-                <button type="reset" class="mx-2 btn btn-secondary shadow font-weight-bold border border-white">
+                <button type="reset" class="mx-2 btn btn-dark shadow font-weight-bold">
                     <i class="fa fa-refresh"></i> Reset
                 </button>
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
-            'text' => 'After creating the bundle id, create an app using that bundle id via <u><a class="text-white font-weight-bold" href="https://appstoreconnect.apple.com/apps">App Store Connect.</a></u>'
+            'text' => 'After creating the bundle id, create an app using that bundle id via <a class="font-weight-bold" href="https://appstoreconnect.apple.com/apps">App Store Connect.</a>'
         ])
     </div>
 </div>
