@@ -33,7 +33,7 @@
                     'icon' => 'fa-plus-square',
                     'name' => 'Create'
                 ])
-                <button type="reset" class="btn btn-secondary shadow font-weight-bold">
+                <button type="reset" class="mx-2 btn btn-secondary shadow font-weight-bold border border-white">
                     <i class="fa fa-refresh"></i> Reset
                 </button>
             </form>

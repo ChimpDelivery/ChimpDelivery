@@ -39,7 +39,7 @@
             <input type="file" class="custom-file-input" id="provision_profile" name="provision_profile" accept=".mobileprovision">
         </div>
     </div>
-    <div class="alert alert-warning w-100  alert-dismissible fade show">
+    <div class="alert alert-warning w-100 alert-dismissible fade show border border-warning">
         <span class="badge bg-warning">
             <i class="fa fa-bell text-white" aria-hidden="true"></i>
         </span>
