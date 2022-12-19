@@ -16,7 +16,7 @@ class GetAppIcon
         $s3 = app(S3Service::class);
 
         return empty($app->app_icon) || !$s3->IsFileExists($app->app_icon)
-            ? asset('Talus_icon.ico')
+            ? asset('default-app-icon.png')
             : $s3->GetFileLink($app->app_icon);
     }
 
