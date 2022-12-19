@@ -15,7 +15,6 @@ class GetWorkspaceForm
     public function handle() : View
     {
         $workspace = Auth::user()->workspace;
-        $wsSign = $workspace->appstoreConnectSign;
 
         $provisionExpire = GetProvisionProfile::run()
             ->headers
@@ -24,7 +23,7 @@ class GetWorkspaceForm
         return view('workspace-settings')->with([
             'isNew' => false,
             'workspace' => $workspace,
-            'cert_label' => $wsSign->cert_name ?: 'Choose...',
+            'cert_label' => $workspace->appstoreConnectSign->cert_name ?: 'Choose...',
             'provision_label' => "Expire Date: {$provisionExpire}" ?: 'Choose...'
         ]);
     }
