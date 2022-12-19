@@ -48,10 +48,10 @@
 
                 // Extract value from the custom data-* attribute
                 let projectName = button.data('project');
-                let prettyProjectName = projectName.slice(0, 15) + (projectName.length > 15 ? '...' : '');
+                let prettyProjectName = projectName.slice(0, 13) + (projectName.length > 13 ? '...' : '');
                 let buildUrl = button.data('build-url');
 
-                document.getElementById('project-button-inner').innerHTML = prettyProjectName;
+                document.getElementById('project-button-inner').innerHTML = prettyProjectName + ' X';
                 document.getElementById('build-app').action = buildUrl;
             });
         });
