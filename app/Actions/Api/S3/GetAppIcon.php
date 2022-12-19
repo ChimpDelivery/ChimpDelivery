@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\S3;
 
-use Symfony\Component\HttpFoundation\Response;
-
 use App\Models\AppInfo;
 use App\Services\S3Service;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +11,7 @@ class GetAppIcon
 {
     use AsAction;
 
-    public function handle(AppInfo $app)
+    public function handle(AppInfo $app) : string
     {
         return empty($app->app_icon)
             ? asset('Talus_icon.ico')
