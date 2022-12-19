@@ -34,7 +34,7 @@ class GetWorkspaceIndex
             );
         });
 
-        return view('list-app-info')->with([
+        return view('list-workspace-apps')->with([
             'totalAppCount' => $workspaceAppsCount,
             'appInfos' => $paginatedApps,
         ]);
