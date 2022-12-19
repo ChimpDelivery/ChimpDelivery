@@ -28,7 +28,10 @@ class S3Service
 
     public function GetFileLink(string $path) : string
     {
-        return Storage::disk('s3')->url($this->CreateScopedPath($path));
+        return Storage::disk('s3')->temporaryUrl(
+            $this->CreateScopedPath($path),
+            now()->addMinutes(2)
+        );
     }
 
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
