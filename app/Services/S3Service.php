@@ -22,7 +22,7 @@ class S3Service
 
     public function IsFileExists($path) : bool
     {
-        return Storage::disk('s3')->exists($path);
+        return Storage::disk('s3')->exists($this->CreateScopedPath($path));
     }
 
     // get files from only related workspace
