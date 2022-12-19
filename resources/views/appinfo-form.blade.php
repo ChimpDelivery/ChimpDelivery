@@ -24,7 +24,7 @@
                     </div>
                     <div class="custom-file">
                         <input type="file" onchange="preview()" class="custom-file-input" id="app_icon" name="app_icon" accept="image/png">
-                        <label class="custom-file-label" for="app_icon">Choose Icon...</label>
+                        <label class="custom-file-label" for="app_icon">{{ $appInfo->icon_name ?? 'Choose Icon...' }}</label>
                     </div>
                 </div>
                 <div class="form-group">
