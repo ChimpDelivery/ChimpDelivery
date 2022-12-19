@@ -40,7 +40,6 @@ class AppInfo extends Model
 
     protected $appends = [
         'git_url',
-        'icon_name',
     ];
 
     protected function gitUrl() : Attribute
@@ -50,11 +49,6 @@ class AppInfo extends Model
             Auth::user()->orgName(),
             $this->project_name
         ]));
-    }
-
-    protected function iconName() : Attribute
-    {
-        return new Attribute(fn() => str($this->app_icon)->explode('/')->last());
     }
 
     public function workspace()
