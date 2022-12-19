@@ -10,6 +10,7 @@ use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
 use App\Listeners\ChangeWorkspaceSettings;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\S3\Provision\Post\UploadAppIcon;
 use App\Actions\Api\S3\Provision\Post\UploadAppStoreConnectSign;
 
 class EventServiceProvider extends ServiceProvider
@@ -31,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         AppChanged::class => [
+            UploadAppIcon::class,
             ScanOrganization::class,
         ],
     ];
