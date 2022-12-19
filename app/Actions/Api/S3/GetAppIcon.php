@@ -13,9 +13,11 @@ class GetAppIcon
 
     public function handle(AppInfo $app) : string
     {
-        return empty($app->app_icon)
+        $s3 = app(S3Service::class);
+
+        return empty($app->app_icon) || !$s3->IsFileExists($app->app_icon)
             ? asset('Talus_icon.ico')
-            : app(S3Service::class)->GetFileLink($app->app_icon);
+            : $s3->GetFileLink($app->app_icon);
     }
 
     public function authorize() : bool

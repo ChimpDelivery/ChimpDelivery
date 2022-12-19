@@ -20,12 +20,18 @@ class S3Service
         ]);
     }
 
+    public function IsFileExists($path) : bool
+    {
+        return Storage::disk('s3')->exists($path);
+    }
+
     // get files from only related workspace
     public function GetFile(string $path) : ?string
     {
         return Storage::disk('s3')->get($this->CreateScopedPath($path));
     }
 
+    // warning: this function return temporary url when file doesn't exist
     public function GetFileLink(string $path) : string
     {
         return Storage::disk('s3')->temporaryUrl(
