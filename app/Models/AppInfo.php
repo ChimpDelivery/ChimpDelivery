@@ -32,6 +32,7 @@ class AppInfo extends Model
         'updated_at',
         'deleted_at',
         'git_url',
+        'icon_name',
     ];
 
     protected $casts = [
