@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
+use App\Actions\Api\S3\GetAppIcon;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetAppInfo
@@ -29,10 +30,11 @@ class GetAppInfo
 
     public function jsonResponse(AppInfo $appInfo) : JsonResponse
     {
+        $appInfo->app_icon = GetAppIcon::run($appInfo);
+
         return response()->json($appInfo->makeHidden([
             'id',
             'workspace_id',
-            'app_icon',
             'project_name',
             'appstore_id',
         ]));
