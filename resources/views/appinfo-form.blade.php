@@ -23,8 +23,12 @@
                         <span class="input-group-text">Icon</span>
                     </div>
                     <div class="custom-file">
+                        <label class="custom-file-label" for="app_icon">
+                            <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
+                                {{ $appInfo->app_icon ?? 'Choose Icon...' }}
+                            </span>
+                        </label>
                         <input type="file" onchange="preview()" class="custom-file-input" id="app_icon" name="app_icon" accept="image/png">
-                        <label class="custom-file-label text-truncate" for="app_icon">{{ $appInfo->app_icon ?? 'Choose Icon...' }}</label>
                     </div>
                 </div>
                 <div class="form-group">
