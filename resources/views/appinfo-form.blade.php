@@ -24,7 +24,7 @@
                     </div>
                     <div class="custom-file">
                         <label class="custom-file-label" for="app_icon">
-                            <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
+                            <span class="col-8 d-inline-block text-truncate text-secondary font-weight-bold">
                                 {{ $appInfo->app_icon ?? 'Choose Icon...' }}
                             </span>
                         </label>
