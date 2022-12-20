@@ -6,14 +6,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
+
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
+
 use App\Actions\Api\Ftp\CreateGooglePrivacy;
+use App\Actions\Api\Ftp\CreateFBAppAds;
+
 use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
 use App\Actions\Dashboard\User\UpdateUserProfile;
+
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
@@ -112,5 +117,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //////////////////////////
     Route::post('/dashboard/create-privacy', CreateGooglePrivacy::class)
         ->name('create_privacy')
+        ->middleware('permission:update app');
+
+    Route::post('/dashboard/fb-app-ads', CreateFBAppAds::class)
+        ->name('fb_app_ads')
         ->middleware('permission:update app');
 });
