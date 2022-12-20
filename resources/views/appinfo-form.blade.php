@@ -91,8 +91,9 @@
                         <label for="fb_app_id" class="col-md-3 col-form-label text-white font-weight-bold">
                             <i class="fa fa-facebook-square" aria-hidden="true"></i> FB App ID
                         </label>
-                        <div class="col-md-9">
+                        <div class="input-group col-md-9">
                             <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
+                            @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.fb-app-ads-button')
                         </div>
                     </div>
                     <div class="form-group row">
