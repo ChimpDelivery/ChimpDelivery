@@ -63,7 +63,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/dashboard/store-app-info', StoreAppInfo::class)
         ->name('store_app_info')
-        ->middleware('permission:update app');
+        ->middleware('permission:update app')
+        ->middleware('optimizeImages');
 
     Route::get('/dashboard/update-app-info', GetAppInfo::class)
         ->name('get_app_info')
@@ -71,7 +72,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/dashboard/update-app-info', StoreAppInfo::class)
         ->name('update_app_info')
-        ->middleware('permission:update app');
+        ->middleware('permission:update app')
+        ->middleware('optimizeImages');
 
     Route::post('/dashboard/delete-app-info', DeleteAppInfo::class)
         ->name('delete_app_info')
