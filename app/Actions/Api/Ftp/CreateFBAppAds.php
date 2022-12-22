@@ -20,17 +20,15 @@ class CreateFBAppAds
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request) : array
+    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
     {
-        $ftpDomain = app(FtpService::class)->GetDomain();
-
         $appAds = Storage::disk('ftp')->get(config('facebook.app-ads.file'));
         if (!$appAds)
         {
             return [
                 'success' => false,
                 'message' => "app-ads.txt could not found!
-                    Expected path: {$ftpDomain}/" . config('facebook.app-ads.file'),
+                    Expected path: {$ftpService->GetDomain()}/" . config('facebook.app-ads.file'),
             ];
         }
 

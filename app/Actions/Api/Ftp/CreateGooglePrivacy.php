@@ -20,10 +20,8 @@ class CreateGooglePrivacy
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request) : array
+    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
     {
-        $ftpDomain = app(FtpService::class)->GetDomain();
-
         $privacy = Storage::disk('ftp')->get(config('googleplay.privacy.template_file'));
 
         if (!$privacy)
@@ -31,7 +29,7 @@ class CreateGooglePrivacy
             return [
                 'success' => false,
                 'message' => "Template Privacy file could not found!
-                    Expected path: {$ftpDomain}/" . config('googleplay.privacy.template_file'),
+                    Expected path: {$ftpService->GetDomain()}/" . config('googleplay.privacy.template_file'),
             ];
         }
 
@@ -41,7 +39,7 @@ class CreateGooglePrivacy
             Str::slug($appInfo->app_name),
             config('googleplay.privacy.file_name')
         ]);
-        $privacyUrl = "{$ftpDomain}/{$newFilePath}";
+        $privacyUrl = "{$ftpService->GetDomain()}/{$newFilePath}";
         $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";
 
         if (Storage::disk('ftp')->exists($newFilePath))
