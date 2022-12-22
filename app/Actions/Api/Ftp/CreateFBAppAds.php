@@ -22,6 +22,14 @@ class CreateFBAppAds
 
     public function handle(AppInfo $app) : array
     {
+        if (empty($app->fb_app_id))
+        {
+            return [
+                'success' => false,
+                'message' => 'FB App ID is <b>empty</b>!'
+            ];
+        }
+
         $ftpService = app(FtpService::class);
 
         $appAds = Storage::disk('ftp')->get(config('facebook.app-ads.file'));
