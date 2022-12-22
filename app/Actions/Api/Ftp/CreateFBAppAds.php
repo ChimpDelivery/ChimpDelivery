@@ -60,7 +60,7 @@ class CreateFBAppAds
 
         return [
             'success' => $uploadedFile,
-            'message' => "FB App ID initialized in app-ads.txt!",
+            'message' => "<b>FB App ID</b> initialized in <b>app-ads.txt</b>.",
         ];
     }
 
