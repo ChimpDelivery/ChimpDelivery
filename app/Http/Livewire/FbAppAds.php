@@ -29,7 +29,8 @@ class FbAppAds extends Component
     {
         return <<<'HTML'
             <div class="input-group-append">
-                <button wire:click="integrate()"
+                <button wire:loading.remove
+                        wire:click="integrate"
                         class="btn alert-primary font-weight-bold"
                         type="button"
                         onclick="return confirm('FB App ID gonna be added in app-ads.txt, are you sure?') || event.stopImmediatePropagation()"
@@ -38,6 +39,9 @@ class FbAppAds extends Component
                         title="App-Ads.txt integration">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
+                <div wire:loading class="btn alert-warning font-weight-bold">
+                    Wait...
+                </div>
             </div>
         HTML;
     }
