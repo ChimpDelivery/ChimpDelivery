@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Workspace;
 use App\Services\FtpService;
 use App\Traits\AsActionResponse;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 /// TalusStudio specific action.
 /// Add FB ID to app-ads.txt in talusstudio.com/app-ads.txt
@@ -21,7 +20,7 @@ class CreateFBAppAds
     use AsAction;
     use AsActionResponse;
 
-    public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : array
+    public function handle(AppInfo $app) : array
     {
         $ftpService = app(FtpService::class);
 
@@ -36,8 +35,6 @@ class CreateFBAppAds
         }
 
         //
-        $app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-
         if (str_contains($appAds, $app->fb_app_id))
         {
             return [
@@ -64,7 +61,7 @@ class CreateFBAppAds
         ];
     }
 
-    public function authorize(GetAppInfoRequest $request) : bool
+    public function authorize() : bool
     {
         return Auth::user()->workspace->id === Workspace::INTERNAL_WS_ID;
     }
