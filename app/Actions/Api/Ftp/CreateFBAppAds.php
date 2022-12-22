@@ -42,7 +42,7 @@ class CreateFBAppAds
         {
             return [
                 'success' => false,
-                'message' => "FB App ID: <b>{$app->fb_app_id}</b> already in <b>app-ads.txt</b> list!"
+                'message' => "FB App ID: <b>{$app->fb_app_id}</b> already in <b>app-ads.txt</b> file!"
             ];
         }
         //
@@ -60,7 +60,7 @@ class CreateFBAppAds
 
         return [
             'success' => $uploadedFile,
-            'message' => "FB App ID: <b>{$app->fb_app_id}</b> initialized in <b>app-ads.txt</b>.",
+            'message' => "FB App ID: <b>{$app->fb_app_id}</b> initialized in <b>app-ads.txt</b> file.",
         ];
     }
 
