@@ -1,11 +1,18 @@
 $(document).ready(function ()
 {
     // init popover
-    $('[data-toggle="popover"]').popover()
-    $('.popover-dismiss').popover({ trigger: 'focus' })
+    $('[data-toggle="popover"]').popover();
+    $('.popover-dismiss').popover({ trigger: 'focus' });
+
+    // hide copied-text info
+    $('[data-trigger="click"]').on('shown.bs.tooltip', function (event) {
+        setTimeout(function() {
+            $(event.target).tooltip('hide');
+        }, 1500);
+    });
 
     // init bootstrap tooltips
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 
     // init toasts
     $('#toast-flash').toast('show');
@@ -29,6 +36,5 @@ function copyToClip(inputId)
     // Copy the text inside the text field
     navigator.clipboard.writeText(copyText.value);
 
-    // Alert the copied text
-    alert("Copied: " + copyText.value);
+    copyText.tooltip('show')
 }
