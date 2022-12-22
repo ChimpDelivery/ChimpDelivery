@@ -19,6 +19,7 @@ class FbAppAds extends Component
     {
         if (empty($this->appInfo->fb_app_id))
         {
+            $this->alert('error', 'FB App ID is <b>empty</b>!');
             return;
         }
 
