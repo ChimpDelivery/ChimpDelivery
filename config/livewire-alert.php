@@ -10,8 +10,9 @@ return [
         'timer' => null,
         'toast' => true,
         'text' => null,
-        'showCancelButton' => false,
-        'showConfirmButton' => false
+        'showCancelButton' => true,
+        'showConfirmButton' => false,
+        'cancelButtonText' => 'Close',
     ],
     'confirm' => [
         'icon' => 'warning',
