@@ -196,6 +196,7 @@ return [
         App\Providers\JenkinsServiceProvider::class,
         App\Providers\GitHubServiceProvider::class,
         App\Providers\S3ServiceProvider::class,
+        App\Providers\FtpServiceProvider::class,
     ],
 
     /*
