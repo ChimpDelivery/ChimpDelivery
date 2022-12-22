@@ -29,6 +29,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     {{-- selectpicker_end --}}
 
+    {{-- clipboard_js_start --}}
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+    {{-- clipboard_js_end  --}}
+
     {{-- custom_js_start --}}
     <script src="{{ asset('js/cookie.js') }}"></script>
     <script src="{{ asset('js/master.js') }}"></script>
