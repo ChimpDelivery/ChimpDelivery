@@ -1,7 +1,8 @@
 <div class="input-group-append">
-    <button class="btn alert-primary"
+    <button class="btn alert-primary btn-copy"
             type="button"
-            onclick="copyToClip('{{ $input }}')"
+            data-clipboard-action="copy"
+            data-clipboard-target="#{{ $input }}"
             data-trigger="click"
             data-toggle="tooltip"
             data-html="true"
