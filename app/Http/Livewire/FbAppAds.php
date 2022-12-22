@@ -22,7 +22,7 @@ class FbAppAds extends Component
         $this->response = CreateFBAppAds::run(null, $this->appInfo);
 
         $this->alert(
-            $this->response['success'] ? 'success' : 'warning',
+            $this->response['success'] ? 'success' : 'error',
             $this->response['message']
         );
     }
