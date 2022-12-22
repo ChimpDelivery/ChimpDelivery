@@ -42,6 +42,8 @@
     <script src="{{ asset('js/master.js') }}"></script>
     {{-- custom_js_end --}}
 
+    @livewireStyles
+
     {{-- custom_css_start --}}
     <link rel="stylesheet" href="{{ asset('css/master.css') }}">
     {{-- custom_css_end --}}
@@ -57,6 +59,10 @@
     </section>
 
     @include('layouts.dashboard.toast-container')
+
+    @livewireScripts
+
+    <x-livewire-alert::scripts />
 </body>
 
 <section class="scripts">
