@@ -4,11 +4,11 @@ namespace App\Actions\Api\Ftp;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Workspace;
+use App\Services\FtpService;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -20,22 +20,15 @@ class CreateFBAppAds
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request) : array
+    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
     {
-        // parse ftp url for future changes
-        $ftpDomain = Str::of(config('filesystems.disks.ftp.host'))
-            ->explode('.')
-            ->slice(1)
-            ->prepend('http://www')
-            ->implode('.');
-
         $appAds = Storage::disk('ftp')->get(config('facebook.app-ads.file'));
         if (!$appAds)
         {
             return [
                 'success' => false,
                 'message' => "app-ads.txt could not found!
-                    Expected path: {$ftpDomain}/" . config('facebook.app-ads.file'),
+                    Expected path: {$ftpService->GetDomain()}/" . config('facebook.app-ads.file'),
             ];
         }
 

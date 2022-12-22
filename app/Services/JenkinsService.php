@@ -15,9 +15,9 @@ class JenkinsService
     private readonly string $jenkinsWorkspaceUrl;
 
     public function __construct(
-        string $tunnelUrl,
-        readonly string $jenkinsUser,
-        readonly string $jenkinsToken)
+        private string $tunnelUrl,
+        private readonly string $jenkinsUser,
+        private readonly string $jenkinsToken)
     {
         $this->jenkinsWorkspaceUrl = implode('/', [
             $tunnelUrl,

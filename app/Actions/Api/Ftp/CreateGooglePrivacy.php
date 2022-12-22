@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Workspace;
+use App\Services\FtpService;
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -19,15 +20,8 @@ class CreateGooglePrivacy
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request) : array
+    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
     {
-        // parse ftp url for future changes
-        $ftpDomain = Str::of(config('filesystems.disks.ftp.host'))
-            ->explode('.')
-            ->slice(1)
-            ->prepend('http://www')
-            ->implode('.');
-
         $privacy = Storage::disk('ftp')->get(config('googleplay.privacy.template_file'));
 
         if (!$privacy)
@@ -35,7 +29,7 @@ class CreateGooglePrivacy
             return [
                 'success' => false,
                 'message' => "Template Privacy file could not found!
-                    Expected path: {$ftpDomain}/" . config('googleplay.privacy.template_file'),
+                    Expected path: {$ftpService->GetDomain()}/" . config('googleplay.privacy.template_file'),
             ];
         }
 
@@ -45,7 +39,7 @@ class CreateGooglePrivacy
             Str::slug($appInfo->app_name),
             config('googleplay.privacy.file_name')
         ]);
-        $privacyUrl = "{$ftpDomain}/{$newFilePath}";
+        $privacyUrl = "{$ftpService->GetDomain()}/{$newFilePath}";
         $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";
 
         if (Storage::disk('ftp')->exists($newFilePath))
