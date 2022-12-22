@@ -17,13 +17,7 @@ class FbAppAds extends Component
 
     public function integrate()
     {
-        if (empty($this->appInfo->fb_app_id))
-        {
-            $this->alert('error', 'FB App ID is <b>empty</b>!');
-            return;
-        }
-
-        $response = CreateFBAppAds::run(null, $this->appInfo);
+        $response = CreateFBAppAds::run($this->appInfo);
 
         $this->alert(
             $response['success'] ? 'success' : 'error',
