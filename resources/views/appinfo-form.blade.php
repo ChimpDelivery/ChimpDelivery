@@ -93,7 +93,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
-                                @if((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID))
+                                @if(isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID && !empty($appInfo->fb_app_id))
                                     @livewire('fb-app-ads', [ 'appInfo' => $appInfo ])
                                 @endif
                                 @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
@@ -146,7 +146,7 @@
             @include('layouts.dashboard.card-footer', ['text' => $footerText ])
         </div>
     </div>
-    @if((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID))
+    @if(isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID && !empty($appInfo->fb_app_id))
         @livewireScripts
         <x-livewire-alert::scripts />
     @endif
