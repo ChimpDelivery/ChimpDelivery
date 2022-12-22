@@ -146,10 +146,6 @@
             @include('layouts.dashboard.card-footer', ['text' => $footerText ])
         </div>
     </div>
-    @if(isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID && !empty($appInfo->fb_app_id))
-        @livewireScripts
-        <x-livewire-alert::scripts />
-    @endif
 @endsection
 
 @section('scripts')

@@ -53,7 +53,4 @@
             ])
         </div>
     </div>
-    @if ((!$isNewUser && Auth::user()->can('create api token')) || Auth::user()->hasRole('Admin_Super'))
-        @livewireScripts
-    @endif
 @endsection
