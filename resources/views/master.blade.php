@@ -33,6 +33,10 @@
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
     {{-- clipboard_js_end  --}}
 
+    {{-- sweet_alert_for_livewire --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- sweet_alert_for_livewire --}}
+
     {{-- custom_js_start --}}
     <script src="{{ asset('js/cookie.js') }}"></script>
     <script src="{{ asset('js/master.js') }}"></script>

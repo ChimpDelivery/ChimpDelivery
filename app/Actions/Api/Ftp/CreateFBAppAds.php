@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\Ftp;
 
+use App\Models\AppInfo;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,10 @@ class CreateFBAppAds
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
+    public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : array
     {
+        $ftpService = app(FtpService::class);
+
         $appAds = Storage::disk('ftp')->get(config('facebook.app-ads.file'));
         if (!$appAds)
         {
@@ -33,12 +36,13 @@ class CreateFBAppAds
         }
 
         //
-        $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+
         if (str_contains($appAds, $app->fb_app_id))
         {
             return [
                 'success' => false,
-                'message' => 'FB App ID already in list!'
+                'message' => "FB App ID: <b>{$app->fb_app_id}</b> already in <b>app-ads.txt</b> list!"
             ];
         }
         //
