@@ -15,15 +15,13 @@ class FbAppAds extends Component
 
     public AppInfo $appInfo;
 
-    private array $response;
-
     public function integrate()
     {
-        $this->response = CreateFBAppAds::run(null, $this->appInfo);
+        $response = CreateFBAppAds::run(null, $this->appInfo);
 
         $this->alert(
-            $this->response['success'] ? 'success' : 'error',
-            $this->response['message']
+            $response['success'] ? 'success' : 'error',
+            $response['message']
         );
     }
 
