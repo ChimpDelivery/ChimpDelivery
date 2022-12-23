@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //// main routes
     //////////////////////////
     Route::get('/dashboard',
-        fn() => Auth::user()->isNew()
+        fn() => Auth::user()->isNew() && Auth::user()->hasRole('User')
             ? view('workspace-settings')->with([ 'isNew' => true ])
             : GetWorkspaceIndex::run()
     )->name('index');
