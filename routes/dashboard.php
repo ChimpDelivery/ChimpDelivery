@@ -9,9 +9,6 @@ use App\Actions\Api\Apps\StoreAppInfo;
 
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
 
-use App\Actions\Api\Ftp\CreateGooglePrivacy;
-use App\Actions\Api\Ftp\CreateFBAppAds;
-
 use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
@@ -110,16 +107,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/dashboard/store-bundle', CreateBundleId::class)
         ->middleware('permission:create bundle');
-
-
-    ///////////////////////////
-    /// talus specific
-    //////////////////////////
-    Route::post('/dashboard/create-privacy', CreateGooglePrivacy::class)
-        ->name('create_privacy')
-        ->middleware('permission:update app');
-
-    Route::post('/dashboard/fb-app-ads', CreateFBAppAds::class)
-        ->name('fb_app_ads')
-        ->middleware('permission:update app');
 });

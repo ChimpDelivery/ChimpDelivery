@@ -52,7 +52,7 @@
                             <div class="input-group col-md-9">
                                 <input class="form-control shadow-sm"  type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" required="" readonly>
                                 @if (Auth::user()->isInternal())
-                                    @livewire('google-play-privacy', ['appInfo' => $appInfo])
+                                    @livewire('app-privacy-creator', ['appInfo' => $appInfo])
                                 @endif
                             </div>
                         @endif
