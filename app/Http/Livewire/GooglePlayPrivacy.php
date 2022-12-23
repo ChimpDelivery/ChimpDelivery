@@ -36,7 +36,7 @@ class GooglePlayPrivacy extends Component
                     onclick="return confirm('Privacy2 file will be created in talusstudio.com, are you sure?') || event.stopImmediatePropagation()"
                     data-toggle="tooltip"
                     data-placement="bottom"
-                    title="GooglePlay Privacy2">
+                    title="Create Privacy2">
                     <i class="fa fa-user-secret"></i>
                 </button>
                 <div wire:loading class="btn alert-warning font-weight-bold">
