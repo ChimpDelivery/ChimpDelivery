@@ -92,7 +92,7 @@
                                 <i class="fa fa-code-fork" aria-hidden="true"></i> Project Source
                             </label>
                             <div class="input-group col-md-9">
-                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
+                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
                                 @include('layouts.dashboard.copy-clipboard-button', ['input' => 'project_name'])
                             </div>
                         @endif
