@@ -5,13 +5,10 @@
 @section('content')
     <div class="container py-2">
         <div class="card bg-dark shadow">
-            <div class="card-header bg-dark text-white font-weight-bold">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-users fa-stack-1x" aria-hidden="true"></i>
-            </span>
-                Join Workspace
-            </div>
+            @include('layouts.dashboard.card-header', [
+                'text' => 'Join Workspace',
+                'icon' => 'fa-users'
+            ])
             <div class="card-body">
                 <form name="join-workspace-form" id="join-workspace-form" method="post" action="{{ url('dashboard/workspace-join') }}" enctype="multipart/form-data">
                     @csrf

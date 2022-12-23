@@ -50,7 +50,7 @@
 </head>
 
 <body class="font-sans">
-    @include('layouts.dashboard.navbar')
+    @include('layouts.dashboard.navbar.navbar')
 
     @include('layouts.dashboard.error')
 

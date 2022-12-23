@@ -28,14 +28,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //// main routes
     //////////////////////////
     Route::get('/dashboard',
-        fn() => Auth::user()->isNew()
+        fn() => Auth::user()->isNew() && Auth::user()->hasRole('User')
             ? view('workspace-settings')->with([ 'isNew' => true ])
             : GetWorkspaceIndex::run()
     )->name('index');
 
-    Route::get('/dashboard/profile', fn() => view('user-profile')->with([
-        'isNewUser' => Auth::user()->isNew()
-    ]))->name('dashboard.profile');
+    Route::get('/dashboard/profile', fn() => view('user-profile', ['user' => Auth::user()]))
+        ->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateUserProfile::class);
 

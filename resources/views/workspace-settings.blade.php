@@ -7,16 +7,11 @@
 @section('content')
 <div class="container py-2">
     <div class="card shadow bg-dark">
-        <div class="card-header text-white font-weight-bold">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-users fa-stack-1x" aria-hidden="true"></i>
-            </span>
-            {{ $title }}
-            @if(!$isNew)
-                <span class="my-2 text-muted pull-right">ID: {{ $workspace->id }}</span>
-            @endif
-        </div>
+        @include('layouts.dashboard.card-header', [
+            'text' => $title,
+            'icon' => 'fa-users',
+            'additional' => (!$isNew) ? "ID: {$workspace->id}" : ""
+        ])
         <div class="card-body shadow-sm">
             <form action="{{ url('dashboard/workspace-settings') }}" name="create-workspace-form" id="create-workspace-form" method="post" enctype="multipart/form-data">
                 @csrf
