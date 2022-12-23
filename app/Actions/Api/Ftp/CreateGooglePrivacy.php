@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\Ftp;
 
+use App\Models\AppInfo;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Workspace;
 use App\Services\FtpService;
 use App\Traits\AsActionResponse;
-use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 /// TalusStudio specific action.
 /// Creates Privacy2 File that required by Google Play Console for app review.
@@ -20,8 +20,9 @@ class CreateGooglePrivacy
     use AsAction;
     use AsActionResponse;
 
-    public function handle(GetAppInfoRequest $request, FtpService $ftpService) : array
+    public function handle(AppInfo $appInfo) : array
     {
+        $ftpService = app(FtpService::class);
         $privacy = Storage::disk('ftp')->get(config('googleplay.privacy.template_file'));
 
         if (!$privacy)
@@ -33,7 +34,6 @@ class CreateGooglePrivacy
             ];
         }
 
-        $appInfo = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
         $newFilePath = implode('/', [
             config('googleplay.privacy.container_folder'),
             Str::slug($appInfo->app_name),
@@ -59,7 +59,7 @@ class CreateGooglePrivacy
         ];
     }
 
-    public function authorize(GetAppInfoRequest $request) : bool
+    public function authorize() : bool
     {
         return Auth::user()->workspace->id === Workspace::INTERNAL_WS_ID;
     }
