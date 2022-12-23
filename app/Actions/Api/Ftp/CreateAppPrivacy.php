@@ -15,7 +15,7 @@ use App\Traits\AsActionResponse;
 
 /// TalusStudio specific action.
 /// Creates Privacy2 File that required by Google Play Console for app review.
-class CreateGooglePrivacy
+class CreateAppPrivacy
 {
     use AsAction;
     use AsActionResponse;

@@ -52,7 +52,7 @@
                             <div class="input-group col-md-9">
                                 <input class="form-control shadow-sm"  type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" required="" readonly>
                                 @if (Auth::user()->isInternal())
-                                    @livewire('google-play-privacy', ['appInfo' => $appInfo])
+                                    @livewire('app-privacy-creator', ['appInfo' => $appInfo])
                                 @endif
                             </div>
                         @endif
@@ -90,7 +90,7 @@
                                 <i class="fa fa-github" aria-hidden="true"></i> Git Project
                             </label>
                             <div class="input-group col-md-9">
-                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
+                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
                             </div>
                         @endif
                         @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
