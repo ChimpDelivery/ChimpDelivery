@@ -34,7 +34,6 @@ class StoreAppInfo
 
         $appModel->fill($request->safe()->except([
             'workspace_id',
-            'app_icon',
         ]));
 
         $appModel->save();
