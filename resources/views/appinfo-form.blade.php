@@ -7,13 +7,10 @@
 @section('content')
     <div class="container py-2">
         <div class="card shadow bg-dark">
-            <div class="card-header text-white font-weight-bold">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-database fa-stack-1x" aria-hidden="true"></i>
-            </span>
-                {{ $title }} App
-            </div>
+            @include('layouts.dashboard.card-header', [
+                'text' => "{$title} App",
+                'icon' => 'fa-database'
+            ])
             <div class="card-body shadow-sm">
                 <form name="add-add-info-form" id="add-app-info-form" method="post" action="{{ $formAction ?? route('store_app_info') }}" enctype="multipart/form-data">
                     @csrf

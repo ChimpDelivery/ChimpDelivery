@@ -5,13 +5,10 @@
 @section('content')
     <div class="container py-2">
         <div class="card shadow bg-dark">
-            <div class="card-header text-white font-weight-bold">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-eye fa-stack-1x" aria-hidden="true"></i>
-            </span>
-                {{ $app->project_name }} Build Log
-            </div>
+            @include('layouts.dashboard.card-header', [
+                'text' => "{$app->project_name} Build Log",
+                'icon' => 'fa-eye'
+            ])
             <div class="card-body overflow-auto" style="max-height: 70vh;">
                 <code class="text-white">
                     {!! nl2br(e($full_log)) !!}

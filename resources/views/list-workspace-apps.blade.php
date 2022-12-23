@@ -6,13 +6,10 @@
     <div class="container py-2">
         @include('layouts.jenkins.build-modal')
         <div class="card shadow bg-dark">
-            <div class="card-header text-white font-weight-bold">
-                <span class="fa-stack fa-lg">
-                    <i class="fa fa-square-o fa-stack-2x"></i>
-                    <i class="fa fa-database fa-stack-1x"></i>
-                </span>
-                Apps
-            </div>
+            @include('layouts.dashboard.card-header', [
+                'text' => 'Apps',
+                'icon' => 'fa-database'
+            ])
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-borderless table-hover">
