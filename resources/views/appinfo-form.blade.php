@@ -90,7 +90,7 @@
                                 <i class="fa fa-github" aria-hidden="true"></i> Git Project
                             </label>
                             <div class="input-group col-md-9">
-                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
+                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
                             </div>
                         @endif
                         @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
