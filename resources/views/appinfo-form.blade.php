@@ -63,7 +63,7 @@
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
-                            @include('layouts.dashboard.copy-clipboard-button', ['input' => 'appstore_id'])
+                            @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'appstore_id'])
                         </div>
                     </div>
                     <div class="form-group row">
@@ -72,12 +72,12 @@
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
-                            @include('layouts.dashboard.copy-clipboard-button', ['input' => 'app_bundle'])
+                            @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'app_bundle'])
                         </div>
                     </div>
                     <div class="form-group row">
                         @if (!isset($appInfo))
-                            @php ($githubTitle = '➤ Select GitHub Project (' . count($github_projects) . ')')
+                            @php ($githubTitle = '➤ Select Project Source (' . count($github_projects) . ')')
                             <div class="input-group col-md-12">
                                 <select name="project_name"
                                         class="form-control selectpicker show-tick shadow"
@@ -89,7 +89,7 @@
                             </div>
                         @else
                             <label for="project_name" class="col-md-3 col-form-label text-white font-weight-bold">
-                                <i class="fa fa-github" aria-hidden="true"></i> Git Project
+                                <i class="fa fa-code-fork" aria-hidden="true"></i> Project Source
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
@@ -114,7 +114,7 @@
                                 @if(isset($appInfo) && Auth::user()->isInternal() && !empty($appInfo->fb_app_id))
                                     @livewire('fb-app-ads', [ 'appInfo' => $appInfo ])
                                 @endif
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
                             </div>
                         </div>
                         <div class="form-group row">
@@ -123,7 +123,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_client_token'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'fb_client_token'])
                             </div>
                         </div>
                         <div class="form-group row">
@@ -132,14 +132,14 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'ga_id'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'ga_id'])
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="ga_secret" class="col-md-3 col-form-label text-white font-weight-bold">GA Secret</label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'ga_secret'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'ga_secret'])
                             </div>
                         </div>
                     </div>
