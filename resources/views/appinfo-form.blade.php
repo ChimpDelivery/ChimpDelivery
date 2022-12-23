@@ -34,49 +34,64 @@
                     <div class="form-group">
                         <img id="app_icon_preview" src="" width="100px" height="100px" alt="..." class="img-thumbnail" hidden />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         @if (!isset($appInfo))
-                            <select name="app_name" id="app_name"
-                                    class="form-control selectpicker show-tick shadow"
-                                    data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                                    title="➤ Select App ({{ count($all_appstore_apps) }})" required>
+                            <div class="input-group col-md-12">
+                                <select name="app_name" id="app_name"
+                                        class="form-control selectpicker show-tick shadow"
+                                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                                        title="➤ Select App ({{ count($all_appstore_apps) }})" required>
 
-                                @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
-                            </select>
+                                    @each('layouts.appstore.option-app', $all_appstore_apps, 'appstore_app')
+                                </select>
+                            </div>
                         @else
-                            <label for="app_name" class="text-white font-weight-bold">
+                            <label for="app_name" class="col-md-3 col-form-label text-white font-weight-bold">
                                 <i class="fa fa-apple" aria-hidden="true"></i> App Name
                             </label>
-                            <input type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" class="form-control shadow-sm" required="" readonly>
+                            <div class="input-group col-md-9">
+                                <input class="form-control shadow-sm"  type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" required="" readonly>
+                                @if (Auth::user()->isInternal())
+                                    @livewire('google-play-privacy', ['appInfo' => $appInfo])
+                                @endif
+                            </div>
                         @endif
                     </div>
-                    <div class="form-group">
-                        <label for="appstore_id" class="text-white font-weight-bold">
+                    <div class="form-group row">
+                        <label for="appstore_id" class="col-md-3 col-form-label text-white font-weight-bold">
                             <i class="fa fa-apple" aria-hidden="true"></i> App ID
                         </label>
-                        <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                        <div class="input-group col-md-9">
+                            <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="app_bundle" class="text-white font-weight-bold">
+                    <div class="form-group row">
+                        <label for="app_bundle" class="col-md-3 col-form-label text-white font-weight-bold">
                             <i class="fa fa-apple" aria-hidden="true"></i> App Bundle ID
                         </label>
-                        <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                        <div class="input-group col-md-9">
+                            <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         @if (!isset($appInfo))
                             @php ($githubTitle = '➤ Select GitHub Project (' . count($github_projects) . ')')
-                            <select name="project_name"
-                                    class="form-control selectpicker show-tick shadow"
-                                    data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
-                                    title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
+                            <div class="input-group col-md-12">
+                                <select name="project_name"
+                                        class="form-control selectpicker show-tick shadow"
+                                        data-style="btn-primary" data-live-search="true" data-dropup-auto="false" data-size="10"
+                                        title="{{ $githubTitle }}" @disabled(isset($github_auth_failed) && $github_auth_failed) required>
 
-                                @each('layouts.github.option-project', $github_projects, 'github_project')
-                            </select>
+                                    @each('layouts.github.option-project', $github_projects, 'github_project')
+                                </select>
+                            </div>
                         @else
-                            <label class="text-white font-weight-bold" for="project_name">
+                            <label for="project_name" class="col-md-3 col-form-label text-white font-weight-bold">
                                 <i class="fa fa-github" aria-hidden="true"></i> Git Project
                             </label>
-                            <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
+                            <div class="input-group col-md-9">
+                                <input type="text" id="project_name" name="project_name" value="{{ $appInfo->project_name }}" class="form-control shadow-sm" required="" readonly>
+                            </div>
                         @endif
                         @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
                     </div>
@@ -93,7 +108,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
-                                @if(isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID && !empty($appInfo->fb_app_id))
+                                @if(isset($appInfo) && Auth::user()->isInternal() && !empty($appInfo->fb_app_id))
                                     @livewire('fb-app-ads', [ 'appInfo' => $appInfo ])
                                 @endif
                                 @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
@@ -137,7 +152,6 @@
                         'icon' => isset($appInfo) ? 'fa-pencil-square-o' : 'fa-check-square-o',
                         'name' => $title
                     ])
-                    @includeWhen((isset($appInfo) && Auth::user()->workspace->id === \App\Models\Workspace::INTERNAL_WS_ID), 'layouts.appinfo.create-privacy')
                 </form>
             </div>
             @php ($footerText = !isset($appInfo)
