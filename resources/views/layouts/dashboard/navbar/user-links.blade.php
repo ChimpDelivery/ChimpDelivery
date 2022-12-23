@@ -1,12 +1,16 @@
 @hasrole('User')
     @can('create workspace')
         <li class="nav-item">
-            <a class="nav-link font-weight-bold" href="/dashboard">Create Workspace</a>
+            <x-nav-link :href="route('index')">
+                Create Workspace
+            </x-nav-link>
         </li>
     @endcan
     @can('join workspace')
         <li class="nav-item">
-            <a class="nav-link font-weight-bold" href="/dashboard/workspace-join">Join Workspace</a>
+            <x-nav-link :href="route('workspace_join')">
+                Join Workspace
+            </x-nav-link>
         </li>
     @endcan
 @endhasrole

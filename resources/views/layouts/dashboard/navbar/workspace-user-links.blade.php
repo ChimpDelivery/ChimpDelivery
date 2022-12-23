@@ -1,12 +1,16 @@
 @hasanyrole('User_Workspace|Admin_Workspace')
     @can('view apps')
-        <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
-            <a class="nav-link font-weight-bold" href="/dashboard">Apps</a>
+        <li class="nav-item">
+            <x-nav-link :href="route('index')">
+                Apps
+            </x-nav-link>
         </li>
     @endcan
     @can('create app')
-        <li class="nav-item {{ request()->is('dashboard/add-app-info') ? 'active' : '' }}">
-            <a class="nav-link font-weight-bold" href="/dashboard/add-app-info">Create App</a>
+        <li class="nav-item">
+            <x-nav-link :href="route('add_app_info')">
+                Create App
+            </x-nav-link>
         </li>
     @endcan
     @can('create bundle')
@@ -36,8 +40,10 @@
         </li>
     @endcan
     @can('view workspace')
-        <li class="nav-item {{ request()->is('dashboard/workspace-settings') ? 'active' : '' }}">
-            <a class="nav-link font-weight-bold" href="/dashboard/workspace-settings">Workspace Settings</a>
+        <li class="nav-item">
+            <x-nav-link :href="route('workspace_settings')">
+                Workspace Settings
+            </x-nav-link>
         </li>
     @endcan
 @endhasanyrole
