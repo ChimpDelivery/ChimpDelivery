@@ -77,7 +77,7 @@
                     </div>
                     <div class="form-group row">
                         @if (!isset($appInfo))
-                            @php ($githubTitle = '➤ Select GitHub Project (' . count($github_projects) . ')')
+                            @php ($githubTitle = '➤ Select Project Source (' . count($github_projects) . ')')
                             <div class="input-group col-md-12">
                                 <select name="project_name"
                                         class="form-control selectpicker show-tick shadow"
@@ -89,7 +89,7 @@
                             </div>
                         @else
                             <label for="project_name" class="col-md-3 col-form-label text-white font-weight-bold">
-                                <i class="fa fa-github" aria-hidden="true"></i> Git Project
+                                <i class="fa fa-code-fork" aria-hidden="true"></i> Project Source
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
