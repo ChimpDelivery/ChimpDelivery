@@ -5,14 +5,11 @@
 @section('content')
     <div class="container py-2">
         <div class="card bg-dark shadow">
-            <div class="card-header text-white font-weight-bold">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-user fa-stack-1x" aria-hidden="true"></i>
-            </span>
-                <span>{{ Auth::user()->name }} Profile</span>
-                <span class="my-2 text-muted pull-right">ID: {{ Auth::user()->id }}</span>
-            </div>
+            @include('layouts.dashboard.card-header', [
+                'text' => Auth::user()->name . " Profile",
+                'icon' => 'fa-user',
+                'additional' => "ID: " . Auth::user()->id
+            ])
             <div class="card-body shadow-sm">
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
                     @csrf

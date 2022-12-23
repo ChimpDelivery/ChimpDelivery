@@ -4,4 +4,7 @@
         <i class="fa {{ $icon }} fa-stack-1x"></i>
     </span>
     <span>{{ $text }}</span>
+    @isset($additional)
+        <span class="my-2 text-muted pull-right">{{ $additional }}</span>
+    @endisset
 </div>
