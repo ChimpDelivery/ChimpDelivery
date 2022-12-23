@@ -31,7 +31,7 @@ class FbAppAds extends Component
             <div class="input-group-append">
                 <button wire:loading.remove
                         wire:click="integrate"
-                        class="btn alert-primary font-weight-bold"
+                        class="btn btn-success"
                         type="button"
                         onclick="return confirm('FB App ID gonna be added in app-ads.txt, are you sure?') || event.stopImmediatePropagation()"
                         data-toggle="tooltip"

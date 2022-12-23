@@ -63,6 +63,7 @@
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                            @include('layouts.dashboard.copy-clipboard-button', ['input' => 'appstore_id'])
                         </div>
                     </div>
                     <div class="form-group row">
@@ -71,6 +72,7 @@
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
+                            @include('layouts.dashboard.copy-clipboard-button', ['input' => 'app_bundle'])
                         </div>
                     </div>
                     <div class="form-group row">
@@ -91,6 +93,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="project_name" name="project_name" value="{{ $appInfo->git_url }}" class="form-control shadow-sm" required="" readonly>
+                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'project_name'])
                             </div>
                         @endif
                         @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
