@@ -114,7 +114,7 @@
                                 @if(isset($appInfo) && Auth::user()->isInternal() && !empty($appInfo->fb_app_id))
                                     @livewire('fb-app-ads', [ 'appInfo' => $appInfo ])
                                 @endif
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
                             </div>
                         </div>
                         <div class="form-group row">
@@ -123,7 +123,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'fb_client_token'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'fb_client_token'])
                             </div>
                         </div>
                         <div class="form-group row">
@@ -132,14 +132,14 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="ga_id" name="ga_id" value="{{ $appInfo->ga_id ?? '' }}" class="form-control shadow-sm" placeholder="game analytics id...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'ga_id'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'ga_id'])
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="ga_secret" class="col-md-3 col-form-label text-white font-weight-bold">GA Secret</label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="ga_secret" name="ga_secret" value="{{ $appInfo->ga_secret ?? '' }}" class="form-control shadow-sm" placeholder="game analytics secret...">
-                                @include('layouts.dashboard.copy-clipboard-button', ['input' => 'ga_secret'])
+                                @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'ga_secret'])
                             </div>
                         </div>
                     </div>
