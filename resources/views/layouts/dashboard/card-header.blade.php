@@ -3,5 +3,5 @@
         <i class="fa fa-square-o fa-stack-2x"></i>
         <i class="fa {{ $icon }} fa-stack-1x"></i>
     </span>
-    {{ $text }}
+    <span>{{ $text }}</span>
 </div>
