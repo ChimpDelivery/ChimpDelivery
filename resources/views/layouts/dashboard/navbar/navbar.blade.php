@@ -21,6 +21,13 @@
             @include('layouts.dashboard.navbar.superadmin-links')
         </ul>
         <ul class="navbar-nav ms-auto">
+            @can('view workspace')
+                <li class="nav-item">
+                    <x-nav-link :href="route('workspace_settings')">
+                        <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                    </x-nav-link>
+                </li>
+            @endcan
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle font-weight-bold font-italic text-white"
                     href="#" role="button" id="dropdownMenuLink"
