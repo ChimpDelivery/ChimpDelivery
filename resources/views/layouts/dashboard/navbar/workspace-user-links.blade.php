@@ -6,18 +6,11 @@
             </x-nav-link>
         </li>
     @endcan
-    @can('create app')
-        <li class="nav-item">
-            <x-nav-link :href="route('add_app_info')">
-                Create App
-            </x-nav-link>
-        </li>
-    @endcan
     @can('create bundle')
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                AppStore
+                Apple
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="/dashboard/create-bundle">
@@ -30,7 +23,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                GooglePlay
+                Google
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="https://play.google.com/console/" target="_blank">

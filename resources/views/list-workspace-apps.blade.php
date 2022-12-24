@@ -8,7 +8,10 @@
         <div class="card shadow bg-dark">
             @include('layouts.dashboard.card-header', [
                 'text' => 'Apps',
-                'icon' => 'fa-database'
+                'icon' => 'fa-database',
+                'additional' => "<a href='" . route('add_app_info') . "' class='h6 font-weight-bold text-white'>
+                                    <i class='fa fa-plus-square' aria-hidden='true'></i> Create
+                                </a>"
             ])
             <div class="card-body">
                 <div class="table-responsive">
