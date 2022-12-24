@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
         'workspace',
+        'gravatar',
     ];
 
     protected $casts = [
@@ -36,6 +38,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $with = [
         'workspace',
+    ];
+
+    protected $appends = [
+        'gravatar'
     ];
 
     public function workspace()
@@ -62,5 +68,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
+    }
+
+    protected function gravatar() : Attribute
+    {
+        return new Attribute(function () {
+            $hash = md5(strtolower(trim($this->attributes['email'])));
+            return "https://www.gravatar.com/avatar/{$hash}";
+        });
     }
 }

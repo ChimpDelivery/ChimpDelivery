@@ -13,6 +13,7 @@
             <div class="card-body shadow-sm">
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
                     @csrf
+                    @honeypot
                     <p>
                         <a class="btn btn-primary btn-block text-left shadow"
                             role="button" data-toggle="collapse" href="#collapse_base_settings"
@@ -22,6 +23,9 @@
                         </a>
                     </p>
                     <div class="collapse show" id="collapse_base_settings">
+                        <div class="form-group">
+                            <img class="img-thumbnail" alt="" width="75" height="75" src="{{ $user->gravatar }}" />
+                        </div>
                         <div class="form-group">
                             <label for="name" class="text-white font-weight-bold">
                                 Full Name
