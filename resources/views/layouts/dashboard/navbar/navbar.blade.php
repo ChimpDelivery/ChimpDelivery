@@ -14,6 +14,7 @@
                     <x-nav-link :href="route('workspace_settings')">
                         <span tabindex="0" data-toggle="tooltip" title="Workspace Settings">
                             <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                            <span class="d-sm-none">Workspace Settings</span>
                         </span>
                     </x-nav-link>
                 </li>
@@ -23,6 +24,7 @@
                     href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                    <span class="d-sm-none">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     <form method="POST" action="{{ route('logout') }}">
