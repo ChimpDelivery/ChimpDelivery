@@ -15,7 +15,7 @@
     @endcan
     @can('create bundle')
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown"
+            <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 AppStore
             </a>
@@ -28,7 +28,7 @@
     @endcan
     @can('create bundle')
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown"
+            <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 GooglePlay
             </a>

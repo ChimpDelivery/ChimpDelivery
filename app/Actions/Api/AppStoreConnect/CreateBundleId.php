@@ -10,6 +10,7 @@ use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
 
+// api reference: https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id
 class CreateBundleId
 {
     use AsAction;
