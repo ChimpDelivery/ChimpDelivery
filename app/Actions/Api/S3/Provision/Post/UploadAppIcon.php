@@ -5,6 +5,7 @@ namespace App\Actions\Api\S3\Provision\Post;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 use App\Events\AppChanged;
 use App\Traits\AsS3Client;
@@ -23,6 +24,8 @@ class UploadAppIcon
             $uploadedIcon = $this->UploadToS3($event->request->validated('app_icon'));
             if ($uploadedIcon)
             {
+                Cache::forget($event->appInfo->app_icon);
+
                 $event->appInfo->fill([ 'app_icon' => $uploadedIcon ]);
                 $event->appInfo->save();
             }
