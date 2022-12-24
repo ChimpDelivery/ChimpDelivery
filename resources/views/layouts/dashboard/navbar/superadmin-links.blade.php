@@ -1,5 +1,11 @@
 @hasrole('Admin_Super')
-    <li class="nav-item {{ request()->is('dashboard/settings') ? 'active' : '' }}">
-        <a class="nav-link font-weight-bold" href="/dashboard/settings">Dashboard Settings</a>
-    </li>
+    <x-nav-link :href="route('index')">
+        General
+    </x-nav-link>
+    <x-nav-link :href="route('health')">
+        {{ __('health::notifications.laravel_health') }}
+    </x-nav-link>
+    <x-nav-link :href="route('telescope')">
+        Telescope
+    </x-nav-link>
 @endhasrole

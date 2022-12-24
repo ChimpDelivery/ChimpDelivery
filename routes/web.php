@@ -6,7 +6,7 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 Route::get('/', fn() => view('welcome'));
 
 Route::middleware(['auth', 'verified', 'role:Admin_Super'])->group(function () {
-    Route::get('health', HealthCheckResultsController::class);
+    Route::get('health', HealthCheckResultsController::class)->name('health');
 });
 
 require __DIR__.'/auth.php';

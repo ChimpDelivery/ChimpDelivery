@@ -15,7 +15,9 @@
                         <x-nav-link :href="route('workspace_settings')">
                             <span tabindex="0" data-toggle="tooltip" title="Workspace Settings">
                                 <i class="fa fa-users fa-lg" aria-hidden="true"></i>
-                                <span class="d-sm-none">Workspace Settings</span>
+                                <span class="d-sm-none">
+                                    {{ Auth::user()->workspace->name }}
+                                </span>
                             </span>
                         </x-nav-link>
                     </li>
@@ -24,26 +26,18 @@
                     <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
-                        <span class="d-sm-none">{{ Auth::user()->name }}</span>
+                        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+                        <span class="d-sm-none">
+                            {{ Auth::user()->name }}
+                        </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user-o fa-lg" aria-hidden="true"></i> Profile
+                                <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Profile
                             </a>
-                            @hasrole('Admin_Super')
-                                <div class="dropdown-divider"></div>
-                                <a class="text-left dropdown-item" href="/health">
-                                    <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
-                                </a>
-                                <a class="text-left dropdown-item" href="{{ route('telescope') }}">
-                                    <i class="fa fa-server" aria-hidden="true"></i> Telescope
-                                </a>
-                            @endrole
-                            <a class="text-left dropdown-item "
-                                href="{{ route('logout') }}"
+                            <a class="text-left dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
                             </a>
