@@ -1,15 +1,18 @@
-# 🌐 Talus Dashboard
+# Talus Dashboard
 - Provides Web Dashboard and Backend APIs to work with Jenkins.
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
-# Information
-- Deployment configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
-- App Store Connect API Support
-- Test Flight API Support
-- GitHub API Support
+# Deployment
+- Configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 
+# Features
+- App Store Connect API Support
+- GitHub API Support
+- Daily Backups (S3)
+- Dashboard Monitoring (Health, Telescope)
+- Workspaces & Roles & Permissions
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
