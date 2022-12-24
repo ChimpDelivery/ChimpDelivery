@@ -37,15 +37,6 @@
                             <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
                                 <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Profile
                             </a>
-                            @hasrole('Admin_Super')
-                                <div class="dropdown-divider"></div>
-                                <a class="text-left dropdown-item" href="/health">
-                                    <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
-                                </a>
-                                <a class="text-left dropdown-item" href="{{ route('telescope') }}">
-                                    <i class="fa fa-server" aria-hidden="true"></i> Telescope
-                                </a>
-                            @endrole
                             <a class="text-left dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
