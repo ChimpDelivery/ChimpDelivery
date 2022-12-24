@@ -1,18 +1,6 @@
 <nav class="navbar navbar-expand-sm shadow navbar-dark rounded-bottom border-bottom border-dark">
-    <a class="navbar-brand font-weight-bold" href="/dashboard">
-        <img src="{{ asset('Talus_icon.ico') }}" alt="" width="30" height="30"/>
-        @hasrole('User')
-            {{ config('app.name') }}
-        @else
-            <span class="text-capitalize font-weight-bold">{{ Auth::user()->workspace->name }}</span>
-        @endrole
-    </a>
-
-    <button class="navbar-toggler border-0" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    @include('layouts.dashboard.navbar.navbar-brand')
+    @include('layouts.dashboard.navbar.navbar-toggler')
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto nav-pills">
