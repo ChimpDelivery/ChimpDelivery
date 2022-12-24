@@ -93,7 +93,7 @@
                                 @include('layouts.dashboard.copy-clipboard-button', ['input' => 'project_name'])
                             </div>
                         @endif
-                        @includeWhen(isset($github_auth_failed) && $github_auth_failed, 'errors.github.auth-failed')
+                        @includeWhen($github_auth_failed, 'errors.github.auth-failed')
                     </div>
                     <p>
                         <a class="btn btn-primary btn-block text-left shadow" data-toggle="collapse" href="#collapse_keys" role="button" aria-expanded="true" aria-controls="collapse_keys">
