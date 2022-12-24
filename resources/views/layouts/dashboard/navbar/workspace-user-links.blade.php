@@ -39,11 +39,4 @@
             </div>
         </li>
     @endcan
-    @can('view workspace')
-        <li class="nav-item">
-            <x-nav-link :href="route('workspace_settings')">
-                Workspace Settings
-            </x-nav-link>
-        </li>
-    @endcan
 @endhasanyrole

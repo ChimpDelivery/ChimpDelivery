@@ -46,8 +46,6 @@ class HealthServiceProvider extends ServiceProvider
             DebugModeCheck::new(),
             EnvironmentCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
-                'RESPONSE_CACHE_DRIVER',
-                'RESPONSE_CACHE_ENABLED',
                 'RECAPTCHA_SITE_KEY',
                 'RECAPTCHA_SECRET_KEY',
                 'REDIS_CLIENT',
