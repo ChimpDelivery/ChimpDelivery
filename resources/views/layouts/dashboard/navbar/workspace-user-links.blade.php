@@ -17,7 +17,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                AppStore
+                Apple
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="/dashboard/create-bundle">
@@ -30,7 +30,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                GooglePlay
+                Google
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="https://play.google.com/console/" target="_blank">
