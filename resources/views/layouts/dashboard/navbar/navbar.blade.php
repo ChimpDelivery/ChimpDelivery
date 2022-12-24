@@ -26,7 +26,7 @@
                     <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
                         <span class="d-sm-none">
                             {{ Auth::user()->name }}
                         </span>
@@ -35,7 +35,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user-o fa-lg" aria-hidden="true"></i> Profile
+                                <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                                 <div class="dropdown-divider"></div>
@@ -46,8 +46,7 @@
                                     <i class="fa fa-server" aria-hidden="true"></i> Telescope
                                 </a>
                             @endrole
-                            <a class="text-left dropdown-item "
-                                href="{{ route('logout') }}"
+                            <a class="text-left dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
                             </a>
