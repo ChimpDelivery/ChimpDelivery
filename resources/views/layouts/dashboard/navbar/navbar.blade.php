@@ -12,7 +12,9 @@
             @can('view workspace')
                 <li class="nav-item">
                     <x-nav-link :href="route('workspace_settings')">
-                        <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                        <span tabindex="0" data-toggle="tooltip" title="Workspace Settings">
+                            <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                        </span>
                     </x-nav-link>
                 </li>
             @endcan
