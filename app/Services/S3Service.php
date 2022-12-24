@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class S3Service
@@ -34,10 +35,12 @@ class S3Service
     // warning: this function return temporary url when file doesn't exist
     public function GetFileLink(string $path) : string
     {
-        return Storage::disk('s3')->temporaryUrl(
-            $this->CreateScopedPath($path),
-            now()->addMinutes(2)
-        );
+        return Cache::remember($path, 120, function () use ($path) {
+            return Storage::disk('s3')->temporaryUrl(
+                $this->CreateScopedPath($path),
+                now()->addSeconds(240)
+            );
+        });
     }
 
     public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
