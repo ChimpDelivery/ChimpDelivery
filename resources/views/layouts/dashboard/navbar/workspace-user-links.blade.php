@@ -6,13 +6,6 @@
             </x-nav-link>
         </li>
     @endcan
-    @can('create app')
-        <li class="nav-item">
-            <x-nav-link :href="route('add_app_info')">
-                Create App
-            </x-nav-link>
-        </li>
-    @endcan
     @can('create bundle')
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
