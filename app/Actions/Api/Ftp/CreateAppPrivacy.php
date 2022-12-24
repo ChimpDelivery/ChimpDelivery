@@ -61,6 +61,6 @@ class CreateAppPrivacy
 
     public function authorize() : bool
     {
-        return Auth::user()->workspace->id === Workspace::INTERNAL_WS_ID;
+        return Auth::user()->isInternal();
     }
 }
