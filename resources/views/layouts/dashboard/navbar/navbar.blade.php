@@ -21,7 +21,7 @@
                     </li>
                 @endcan
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle font-weight-bold font-italic text-white"
+                    <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
@@ -30,20 +30,19 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white"
-                                href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-address-book-o fa-lg" aria-hidden="true"></i> Profile
+                            <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
+                                <i class="fa fa-user-o fa-lg" aria-hidden="true"></i> Profile
                             </a>
                             @hasrole('Admin_Super')
                                 <div class="dropdown-divider"></div>
-                                <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="/health">
+                                <a class="text-left dropdown-item" href="/health">
                                     <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
                                 </a>
-                                <a class="text-left dropdown-item text-secondary font-weight-bold bg-white" href="{{ route('telescope') }}">
+                                <a class="text-left dropdown-item" href="{{ route('telescope') }}">
                                     <i class="fa fa-server" aria-hidden="true"></i> Telescope
                                 </a>
                             @endrole
-                            <a class="text-left dropdown-item text-secondary font-weight-bold bg-white"
+                            <a class="text-left dropdown-item "
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
