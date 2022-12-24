@@ -27,7 +27,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
 
             'name' => [
                 'required',
-                'max:255',
+                'max:12',
                 'alpha_num',
                 Rule::unique('workspaces')
                     ->ignore(Auth::user()->workspace->id, 'id')
@@ -65,6 +65,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
     {
         return [
             'name.alpha_num' => 'Workspace Name must only contain letters and numbers.',
+            'name.max' => 'Workspace Name must not be greater than 12 characters.',
             'organization_name.required' => 'Github API ➔ Organization Name field is required.',
             'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another workspace.',
         ];
