@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use Spatie\Honeypot\ProtectAgainstSpam;
+
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
@@ -22,8 +24,7 @@ use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
 use App\Actions\Dashboard\Workspace\JoinWorkspace;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-
+Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(function () {
     //////////////////////////
     //// main routes
     //////////////////////////
