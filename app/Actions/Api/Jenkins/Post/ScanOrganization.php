@@ -11,7 +11,7 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ScanOrganization extends BaseJenkinsAction
 {
-    public function handle() : array
+    public function handle(AppChanged $event) : array
     {
         $service = app(JenkinsService::class);
 
@@ -26,11 +26,6 @@ class ScanOrganization extends BaseJenkinsAction
             'success' => $isResponseSucceed,
             'message' => $responseMessage,
         ];
-    }
-
-    public function asListener(AppChanged $event)
-    {
-        $this->handle();
     }
 
     public function authorize() : bool
