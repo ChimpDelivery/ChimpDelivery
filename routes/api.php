@@ -23,10 +23,6 @@ use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
 
-use App\Actions\Api\Packages\GetPackage;
-use App\Actions\Api\Packages\GetPackages;
-use App\Actions\Api\Packages\UpdatePackage;
-
 use App\Actions\Api\S3\Provision\GetCertificate;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
@@ -82,14 +78,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
-});
-
-//////////////////////////////
-// packages
-/////////////////////////////
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
-    Route::get('packages/get-packages', GetPackages::class);
-    Route::get('packages/get-package', GetPackage::class);
-    Route::post('packages/update-package', UpdatePackage::class);
 });
