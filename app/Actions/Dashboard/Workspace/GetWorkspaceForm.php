@@ -23,8 +23,10 @@ class GetWorkspaceForm
         return view('workspace-settings')->with([
             'isNew' => false,
             'workspace' => $workspace,
-            'cert_label' => $workspace->appstoreConnectSign->cert_name ?: 'Choose...',
-            'provision_label' => "Expire Date: {$provisionExpire}" ?: 'Choose...'
+            'cert_label' => $workspace?->appstoreConnectSign?->cert_name ?: 'Choose...',
+            'provision_label' => !empty($provisionExpire)
+                ? "Expire Date: {$provisionExpire}"
+                : 'Choose...'
         ]);
     }
 }
