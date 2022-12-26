@@ -30,7 +30,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 'max:12',
                 'alpha_num',
                 Rule::unique('workspaces')
-                    ->ignore(Auth::user()->workspace->id, 'id')
+                    ->ignore(Auth::user()->workspace->id)
                     ->whereNull('deleted_at'),
             ],
 
