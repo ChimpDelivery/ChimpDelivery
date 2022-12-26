@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isNew() : bool
     {
-        return $this->workspace_id === Workspace::DEFAULT_WS_ID;
+        return $this->workspace_id === Workspace::DEFAULT_WS_ID && $this->hasRole('User');
     }
 
     public function isInternal() : bool

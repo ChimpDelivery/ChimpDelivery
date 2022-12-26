@@ -3,7 +3,6 @@
 namespace Database\Seeders\Settings;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 
 use App\Models\AppStoreConnectSign;
 
@@ -17,12 +16,10 @@ class AppStoreConnectSignSeeder extends Seeder
             'provision_profile' => null,
         ]);
 
-        $env = App::environment();
-
         AppStoreConnectSign::factory()->create([
             'workspace_id' => 2,
-            'cert' => 'Cert.p12',
-            'provision_profile' => "TalusDashboard_Root/{$env}/Workspaces/2/provisions/iOSProfile.mobileprovision",
+            'cert' => 'bin/test-cert.bin',
+            'provision_profile' => "bin/test-provision-profile.bin",
         ]);
 
         foreach (range(3, 5) as $id)
