@@ -8,6 +8,7 @@
 - Configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 
 # Features
+- Jenkins API Support
 - App Store Connect API Support
 - GitHub API Support
 - Daily Backups (S3)
