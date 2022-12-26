@@ -53,10 +53,3 @@ GET    |   api/github/get-repositories
 GET    |   api/github/get-repository?project_name={projectName}
 POST   |   api/github/create-repository?project_name={projectName}
 ```
-
-# 🔑 Packages API
-```
-GET   |   api/get-package?package_id={id}
-GET   |   api/get-packages
-POST  |   api/update-package?package_id={id}&hash={hash}
-```
