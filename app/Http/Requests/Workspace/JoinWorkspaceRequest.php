@@ -4,8 +4,6 @@ namespace App\Http\Requests\Workspace;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use Illuminate\Validation\Rule;
-
 class JoinWorkspaceRequest extends FormRequest
 {
     public function authorize()
@@ -19,8 +17,7 @@ class JoinWorkspaceRequest extends FormRequest
             'invite_code' => [
                 'required',
                 'alpha_num',
-                'max:255',
-                Rule::exists('workspace_invite_codes', 'code'),
+                'max:64',
             ]
         ];
     }

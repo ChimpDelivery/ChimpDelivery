@@ -12,4 +12,7 @@
         <input type="text" class="form-control shadow-sm" id="name" name="name" aria-describedby="basic-addon3"
                 value="{{ $isNew ? '' : $workspace->name }}" required="">
     </div>
+    @if (!$isNew)
+        @livewire('create-invite-code-view')
+    @endif
 </div>

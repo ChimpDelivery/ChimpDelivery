@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Support\Str;
+
 use Laravel\Sanctum\HasApiTokens;
 
 class Workspace extends Model
@@ -84,5 +86,17 @@ class Workspace extends Model
     {
         $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
+    }
+
+    public function createInviteCode() : string
+    {
+        $code = str(Str::random(12))->upper()->toString();
+
+        $this->inviteCodes()->delete();
+        $this->inviteCodes()->create([
+            'code' => $code
+        ]);
+
+        return $code;
     }
 }

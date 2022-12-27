@@ -66,8 +66,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function createApiToken() : string
     {
-        $this->tokens()->delete();
-        return $this->createToken('api-key')->plainTextToken;
+        if (!$this->isNew() && $this->can('create api token'))
+        {
+            $this->tokens()->delete();
+            return $this->createToken('api-key')->plainTextToken;
+        }
+
+        return '';
     }
 
     protected function gravatar() : Attribute

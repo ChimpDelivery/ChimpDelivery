@@ -16,12 +16,17 @@ class JoinWorkspace
 
     public function handle(JoinWorkspaceRequest $request) : RedirectResponse
     {
-        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
+        $code = WorkspaceInviteCode::whereBlind('code', 'code', $request->validated('invite_code'))->first();
+
+        if (!$code)
+        {
+            return to_route('workspace_join')->withErrors('Invite Code is invalid!');
+        }
 
         return to_route('index');
     }
 
-    public function authorize(JoinWorkspaceRequest $request) : bool
+    public function authorize() : bool
     {
         return Auth::user()->can('join workspace');
     }
