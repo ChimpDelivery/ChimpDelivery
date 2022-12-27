@@ -3,9 +3,13 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+
+use Throwable;
+
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
+
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +36,7 @@ class Handler extends ExceptionHandler
         'kid',
         'app_specific_pass',
         'personal_access_token',
+        'invite_code',
     ];
 
     /**
@@ -44,8 +49,19 @@ class Handler extends ExceptionHandler
         $this->renderable(function (NotFoundHttpException $exception, $request) {
             if ($request->expectsJson())
             {
-                return response()->json(['message' => 'Object not found!'], Response::HTTP_NOT_FOUND);
+                return response()->json([
+                    'message' => 'Object not found!'
+                ], Response::HTTP_NOT_FOUND);
             }
         });
+
+        /*$this->renderable(function (UnauthorizedException $e, $request) {
+            if ($request->expectsJson())
+            {
+                return response()->json([
+                    'message' => 'You do not have the required authorization.',
+                ], Response::HTTP_FORBIDDEN);
+            }
+        });*/
     }
 }

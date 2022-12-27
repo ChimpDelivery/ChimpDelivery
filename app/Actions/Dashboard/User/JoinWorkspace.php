@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Actions\Dashboard\Workspace;
+namespace App\Actions\Dashboard\User;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\WorkspaceInviteCode;
 use App\Http\Requests\Workspace\JoinWorkspaceRequest;
@@ -23,11 +22,22 @@ class JoinWorkspace
             return to_route('workspace_join')->withErrors('Invite Code is invalid!');
         }
 
-        return to_route('index');
+        $user = auth()->user();
+        if (!$user->update([ 'workspace_id' => $code->workspace_id ]))
+        {
+            return to_route('index')->withErrors('User Workspace can not be changed at that time, wait...');
+        }
+
+        $user->syncRoles([ 'User_Workspace' ]);
+
+        return to_route('index')->with(
+            'success',
+            "You have joined the <b>{$code->workspace->name} Workspace</b>, congratulations!"
+        );
     }
 
     public function authorize() : bool
     {
-        return Auth::user()->can('join workspace');
+        return auth()->user()->can('join workspace');
     }
 }
