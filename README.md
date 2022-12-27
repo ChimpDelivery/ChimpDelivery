@@ -2,20 +2,27 @@
 - Provides Web Dashboard and Backend APIs to work with Jenkins.
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
-- [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 
 # Deployment
 - Configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
-- CipherSweet Key Generation Required: [Click for Docs](https://github.com/spatie/laravel-ciphersweet)
+- [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
+- [CipherSweet Key Generation](https://github.com/spatie/laravel-ciphersweet)
     - ```php artisan ciphersweet:generate-key```
     - ```.env``` File Key ```CIPHERSWEET_KEY=<YOUR-KEY>```
+- [S3 Bucket Key Generation](https://github.com)
+
 # Features
 - Jenkins API Support
 - App Store Connect API Support
 - GitHub API Support
-- Daily Backups (S3)
-- Dashboard Monitoring (Health, Telescope)
 - Workspaces & Roles & Permissions
+- Daily Backups (S3)
+- Dashboard Monitoring as Super Admin (Health, Telescope)
+
+# Security
+- Honeypot
+- ReCaptcha(v3)
+- Encryption of Sensitive Data ([CipherSweet](https://github.com/spatie/laravel-ciphersweet) includes Key Rotation and Blind Indexes)
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
