@@ -16,7 +16,7 @@
                         <label for="invite_code" class="text-white font-weight-bold">
                             Invite Code
                         </label>
-                        <input type="text" id="invite_code" name="invite_code" class="form-control shadow-sm">
+                        <input type="text" id="invite_code" name="invite_code" class="form-control shadow-sm" required>
                     </div>
                     <br />
                     <button type="submit" class="btn btn-success font-weight-bold shadow">

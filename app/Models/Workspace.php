@@ -90,7 +90,7 @@ class Workspace extends Model
 
     public function createInviteCode() : string
     {
-        $code = str(Str::random(10))->upper();
+        $code = str(Str::random(10))->upper()->toString();
 
         $this->inviteCodes()->delete();
         $this->inviteCodes()->create([

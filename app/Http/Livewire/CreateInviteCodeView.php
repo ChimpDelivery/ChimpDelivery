@@ -10,7 +10,7 @@ class CreateInviteCodeView extends Component
 
     public function mount()
     {
-        $this->createdCode = auth()->user()->workspace->inviteCodes()->first()->code;
+        $this->createdCode = auth()->user()->workspace->inviteCodes()->first()->code ?? '';
     }
 
     public function createInviteCode()
