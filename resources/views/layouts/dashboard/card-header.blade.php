@@ -5,8 +5,10 @@
     </span>
     <span>{{ $text }}</span>
     @isset($additional)
-        <btn class="badge bg-success my-2 text-white pull-right font-weight-bold">
-            {!! $additional !!}
-        </btn>
+        @if(!empty($additional))
+            <btn class="badge bg-success my-2 text-white pull-right font-weight-bold">
+                {!! $additional !!}
+            </btn>
+        @endif
     @endisset
 </div>

@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\Rule;
 
 use App\Models\User;
 use App\Models\Workspace;
@@ -39,19 +38,15 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'invite_code' => [
-                'nullable',
-                'alpha_num',
-                Rule::exists('workspace_invite_codes', 'code')->whereNull('deleted_at')
-            ],
+            'name' => [ 'required', 'string', 'max:255' ],
+            'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users' ],
+            'password' => [ 'required', 'confirmed', Rules\Password::defaults() ],
+            'invite_code' => [ 'nullable', 'alpha_num' ],
             recaptchaFieldName() => recaptchaRuleName()
         ]);
 
         // find invite code
-        $inviteCode = WorkspaceInviteCode::where('code', '=', $request->invite_code)->first();
+        $inviteCode = WorkspaceInviteCode::whereBlind('code', 'code', $request->invite_code)->first();
 
         // workspace 1 default workspace for new users
         $user = User::create([
@@ -61,14 +56,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-
-        $user->syncRoles([
-            ($inviteCode) ? 'User_Workspace' : 'User'
-        ]);
-
-        // expires invite code
-        $inviteCode?->delete();
+        ])->syncRoles([ ($inviteCode) ? 'User_Workspace' : 'User' ]);
 
         event(new Registered($user));
 
