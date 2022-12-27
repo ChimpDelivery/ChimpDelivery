@@ -4,13 +4,13 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class CreateApiTokenView extends Component
+class CreateInviteCodeView extends Component
 {
-    private string $createdToken = '**************';
+    private string $createdCode = '**************';
 
-    public function createToken()
+    public function createInviteCode()
     {
-        $this->createdToken = auth()->user()->createApiToken();
+        $this->createdCode = 'test';
     }
 
     public function render()
@@ -18,22 +18,20 @@ class CreateApiTokenView extends Component
         return <<<'HTML'
             <div class="input-group mb-3">
                 <label for="api_key" class="text-white font-weight-bold">
-                    Workspace API Token
+                    Invite Code
                 </label>
                 <div class="input-group">
-                    <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdToken }}" readonly>
+                    <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdCode }}" readonly>
                     <div class="input-group-append">
-                        <button wire:click="createToken" type="button"
+                        <button wire:click="createInviteCode"
                                 onclick="confirm('Are you sure? Generating new API Token revokes all existing tokens of user.') || event.stopImmediatePropagation()"
+                                type="button"
                                 class="btn btn-success font-weight-bold shadow"
                                 style="width:100%;">
                             Generate
                         </button>
                     </div>
                 </div>
-                <small class="form-text text-info">
-                    Workspace API Tokens are used by <b>Unity3D</b> projects to fetch app information.
-                </small>
             </div>
         HTML;
     }
