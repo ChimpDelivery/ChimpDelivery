@@ -8,6 +8,11 @@ class CreateInviteCodeView extends Component
 {
     private string $createdCode = '**************';
 
+    public function mount()
+    {
+        $this->createdCode = auth()->user()->workspace->inviteCodes()->first()->code;
+    }
+
     public function createInviteCode()
     {
         $this->createdCode = auth()->user()->workspace->createInviteCode();
@@ -24,7 +29,7 @@ class CreateInviteCodeView extends Component
                     <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdCode }}" readonly>
                     <div class="input-group-append">
                         <button wire:click="createInviteCode"
-                                onclick="confirm('Are you sure? Generating new API Token revokes all existing tokens of user.') || event.stopImmediatePropagation()"
+                                onclick="confirm('Are you sure?\nGenerating new Invite code revokes all existing codes of Workspace.') || event.stopImmediatePropagation()"
                                 type="button"
                                 class="btn btn-success font-weight-bold shadow"
                                 style="width:100%;">
