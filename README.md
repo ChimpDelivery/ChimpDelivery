@@ -6,7 +6,9 @@
 
 # Deployment
 - Configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
-
+- CipherSweet Key Generation Required: [Click for Docs](https://github.com/spatie/laravel-ciphersweet)
+    - ```php artisan ciphersweet:generate-key```
+    - ```.env``` File Key ```CIPHERSWEET_KEY=<YOUR-KEY>```
 # Features
 - Jenkins API Support
 - App Store Connect API Support
