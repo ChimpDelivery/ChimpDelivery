@@ -10,7 +10,7 @@ class CreateInviteCodeView extends Component
 
     public function createInviteCode()
     {
-        $this->createdCode = 'test';
+        $this->createdCode = auth()->user()->workspace->createInviteCode();
     }
 
     public function render()

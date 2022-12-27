@@ -85,4 +85,9 @@ class Workspace extends Model
         $this->tokens()->delete();
         return $this->createToken('api-key')->plainTextToken;
     }
+
+    public function createInviteCode() : string
+    {
+        return 'test2';
+    }
 }
