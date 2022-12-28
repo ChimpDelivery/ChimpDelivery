@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use Spatie\Honeypot\ProtectAgainstSpam;
@@ -27,12 +26,12 @@ Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(func
     //// main routes
     //////////////////////////
     Route::get('/dashboard',
-        fn() => Auth::user()->isNew()
+        fn() => auth()->user()->isNew()
             ? view('workspace-settings')->with([ 'isNew' => true ])
             : GetWorkspaceIndex::run()
     )->name('index');
 
-    Route::get('/dashboard/profile', fn() => view('user-profile', ['user' => Auth::user()]))
+    Route::get('/dashboard/profile', fn() => view('user-profile', [ 'user' => auth()->user() ]))
         ->name('dashboard.profile');
 
     Route::post('/dashboard/profile', UpdateUserProfile::class);

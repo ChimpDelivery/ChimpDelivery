@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'workspace_id' => ($inviteCode)
                 ? $inviteCode->workspace_id
-                : Workspace::DEFAULT_WS_ID,
+                : config('workspaces.DEFAULT_WS_ID'),
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

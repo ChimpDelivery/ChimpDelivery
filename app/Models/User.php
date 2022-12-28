@@ -58,12 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isNew() : bool
     {
-        return $this->workspace_id === Workspace::DEFAULT_WS_ID && $this->hasRole('User');
+        return $this->workspace_id === config('workspaces.default_ws_id') && $this->hasRole('User');
     }
 
     public function isInternal() : bool
     {
-        return $this->workspace_id === Workspace::INTERNAL_WS_ID;
+        return $this->workspace_id === config('workspaces.internal_ws_id');
     }
 
     public function createApiToken() : string
