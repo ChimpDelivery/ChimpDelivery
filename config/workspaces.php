@@ -6,4 +6,7 @@ return [
 
     // internal talus workspace
     'internal_ws_id' => 2,
+
+    //
+    'superadmin_email' => 'superadmin@talusstudio.com',
 ];

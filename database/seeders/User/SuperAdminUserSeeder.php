@@ -12,7 +12,7 @@ class SuperAdminUserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@talusstudio.com',
+            'email' => config('workspaces.superadmin_email'),
         ])->syncRoles([ 'Admin_Super' ]);
     }
 }
