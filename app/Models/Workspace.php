@@ -16,12 +16,6 @@ class Workspace extends Model
     use SoftDeletes;
     use HasApiTokens;
 
-    // new users associated with that workspace
-    public const DEFAULT_WS_ID = 1;
-
-    // internal talus workspace
-    public const INTERNAL_WS_ID = 2;
-
     protected $fillable = [
         'name',
     ];
