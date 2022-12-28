@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Str;
@@ -41,17 +42,26 @@ class Workspace extends Model
         'GithubSetting',
     ];
 
-    public function users()
+    /**
+     * @return HasMany<User>
+     */
+    public function users() : HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    public function apps()
+    /**
+     * @return HasMany<AppInfo>
+     */
+    public function apps() : HasMany
     {
         return $this->hasMany(AppInfo::class);
     }
 
-    public function inviteCodes()
+    /**
+     * @return HasMany<WorkspaceInviteCode>
+     */
+    public function inviteCodes() : HasMany
     {
         return $this->hasMany(WorkspaceInviteCode::class);
     }

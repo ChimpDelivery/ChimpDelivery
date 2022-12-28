@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Response;
+use Illuminate\Http\Response as ResponseAlias;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class S3Service
 {
@@ -43,7 +45,7 @@ class S3Service
         });
     }
 
-    public function GetFileResponse(string $path, string $fileName, string $mimeType) : Response
+    public function GetFileResponse(string $path, string $fileName, string $mimeType) : ResponseAlias
     {
         $headers = [
             'Cache-Control' => 'public',
@@ -55,9 +57,9 @@ class S3Service
 
         $file = $this->GetFile($path);
 
-        return \Response::make(
+        return Response::make(
             content: $file ?? 'Error: File exist in database but could not found in S3 Bucket!',
-            status: $file ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY,
+            status: $file ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
             headers: $headers
         );
     }
