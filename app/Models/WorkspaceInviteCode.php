@@ -34,7 +34,7 @@ class WorkspaceInviteCode extends Model implements CipherSweetEncrypted
         return $this->belongsTo(Workspace::class);
     }
 
-    public static function configureCipherSweet(EncryptedRow $encryptedRow): void
+    public static function configureCipherSweet(EncryptedRow $encryptedRow) : void
     {
         $encryptedRow
             ->addField('code')
