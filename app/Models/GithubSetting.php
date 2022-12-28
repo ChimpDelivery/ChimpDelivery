@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GithubSetting extends Model
+// cipher sweet ns
+use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
+use Spatie\LaravelCipherSweet\Contracts\CipherSweetEncrypted;
+
+use App\Traits\UsesCipherSweetConfigs;
+
+class GithubSetting extends Model implements CipherSweetEncrypted
 {
     use HasFactory;
     use SoftDeletes;
+    use UsesCipherSweet;
+    use UsesCipherSweetConfigs;
 
     protected $fillable = [
         'workspace_id',
@@ -31,9 +39,12 @@ class GithubSetting extends Model
     ];
 
     protected $casts = [
-        'personal_access_token' => 'encrypted',
         'public_repo' => 'boolean',
         'private_repo' => 'boolean',
+    ];
+
+    protected static array $encryptedColumns = [
+        'personal_access_token',
     ];
 
     public function workspace()
