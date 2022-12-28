@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 // cipher sweet ns
 use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
 use Spatie\LaravelCipherSweet\Contracts\CipherSweetEncrypted;
-use ParagonIE\CipherSweet\BlindIndex;
-use ParagonIE\CipherSweet\EncryptedRow;
+
+use App\Traits\UsesCipherSweetConfigs;
 
 class WorkspaceInviteCode extends Model implements CipherSweetEncrypted
 {
     use HasFactory;
     use SoftDeletes;
     use UsesCipherSweet;
+    use UsesCipherSweetConfigs;
 
     protected $fillable = [
         'workspace_id',
@@ -29,15 +30,12 @@ class WorkspaceInviteCode extends Model implements CipherSweetEncrypted
         'deleted_at',
     ];
 
+    protected static array $encryptedColumns = [
+        'code',
+    ];
+
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
-    }
-
-    public static function configureCipherSweet(EncryptedRow $encryptedRow): void
-    {
-        $encryptedRow
-            ->addField('code')
-            ->addBlindIndex('code', new BlindIndex('code'));
     }
 }

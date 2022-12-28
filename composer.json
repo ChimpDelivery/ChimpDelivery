@@ -72,7 +72,8 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline"
+        "static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline",
+        "deploy-unlock": "php vendor/bin/dep deploy:unlock"
     },
     "extra": {
         "laravel": {

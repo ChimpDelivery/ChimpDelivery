@@ -17,7 +17,7 @@
         <div class="custom-file">
             <label class="custom-file-label" for="private_key">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ ($isNew) ? '' : Str::limit($workspace->appStoreConnectSetting->private_key, 128) }}
+                    {{ Str::limit($workspace->appStoreConnectSetting->private_key, 128) }}
                 </span>
             </label>
             <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
@@ -27,12 +27,12 @@
         <label for="kid" class="text-white font-weight-bold">
             Key ID
         </label>
-        <input type="text" id="kid" name="kid" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->kid }}">
+        <input type="text" id="kid" name="kid" class="form-control shadow-sm" value="{{ $workspace->appStoreConnectSetting->kid }}">
     </div>
     <div class="form-group">
         <label for="issuer_id" class="text-white font-weight-bold">
             Issuer ID
         </label>
-        <input type="text" id="issuer_id" name="issuer_id" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appStoreConnectSetting->issuer_id }}">
+        <input type="text" id="issuer_id" name="issuer_id" class="form-control shadow-sm" value="{{ $workspace->appStoreConnectSetting->issuer_id }}">
     </div>
 </div>
