@@ -15,7 +15,7 @@ class JenkinsService
     private readonly string $jenkinsWorkspaceUrl;
 
     public function __construct(
-        private string $tunnelUrl,
+        private readonly string $tunnelUrl,
         private readonly string $jenkinsUser,
         private readonly string $jenkinsToken)
     {
