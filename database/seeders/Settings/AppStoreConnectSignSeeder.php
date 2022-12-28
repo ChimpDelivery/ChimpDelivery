@@ -12,14 +12,10 @@ class AppStoreConnectSignSeeder extends Seeder
     {
         AppStoreConnectSign::factory()->create([
             'workspace_id' => 1,
-            'cert' => null,
-            'provision_profile' => null,
         ]);
 
         AppStoreConnectSign::factory()->create([
             'workspace_id' => 2,
-            'cert' => 'bin/test-cert.bin',
-            'provision_profile' => "bin/test-provision-profile.bin",
         ]);
 
         foreach (range(3, 5) as $id)

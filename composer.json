@@ -73,7 +73,9 @@
             "@php artisan key:generate --ansi"
         ],
         "static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline",
-        "deploy-unlock": "php vendor/bin/dep deploy:unlock"
+        "deploy-unlock": "php vendor/bin/dep deploy:unlock",
+        "dashboard-down": "php artisan down --secret=\"262626\"",
+        "dashboard-up": "php artisan up"
     },
     "extra": {
         "laravel": {
