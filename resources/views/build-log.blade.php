@@ -10,7 +10,7 @@
                 'icon' => 'fa-eye'
             ])
             <div class="card-body overflow-auto" style="max-height: 70vh;">
-                <code class="text-white">
+                <code style="color: #dcdbd4;">
                     {!! nl2br(e($full_log)) !!}
                 </code>
             </div>
