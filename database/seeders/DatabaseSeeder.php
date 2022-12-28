@@ -43,9 +43,6 @@ class DatabaseSeeder extends Seeder
 
             // seed user tokens
             AccessTokenSeeder::class,
-
-            // seed internal
-            PackageSeeder::class,
         ]);
     }
 }
