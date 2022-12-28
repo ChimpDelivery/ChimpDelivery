@@ -1,6 +1,9 @@
 # Basics:
 - Workspace Invite Codes and other sensitive-data stored as Encrypted in DB.
-- Usage: Workspace Admin(s) creates Invite Codes for their workspaces.
+- Example Scenario: 
+  - Workspace Admin(s) creates Invite Codes for their workspaces.
+  - User going to register with provided Invite Code.
+  - After register request, we have to use db query for find related Workspace with this provided code.
 
 ### Problem in DB Queries: There is no functionality like that!
 1. Encrypt User Input
