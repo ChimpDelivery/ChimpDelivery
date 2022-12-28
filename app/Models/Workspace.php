@@ -80,7 +80,9 @@ class Workspace extends Model
 
     public function githubSetting()
     {
-        return $this->hasOne(GithubSetting::class)->withDefault();
+        return $this->hasOne(GithubSetting::class)->withDefault([
+            'organization_name' => '',
+        ]);
     }
 
     public function appStoreConnectSign()

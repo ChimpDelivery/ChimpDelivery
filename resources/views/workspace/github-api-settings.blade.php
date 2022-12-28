@@ -15,14 +15,14 @@
             Personal Access Token
         </label>
         <input type="text" id="personal_access_token" name="personal_access_token" class="form-control shadow-sm"
-                value="{{ ($isNew) ? '' : $workspace->githubSetting->personal_access_token }}">
+                value="{{ $workspace->githubSetting->personal_access_token }}">
     </div>
     <div class="form-group">
         <label for="organization_name" class="text-white font-weight-bold">
             Organization Name
         </label>
         <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm"
-                value="{{ ($isNew) ? '' : $workspace->githubSetting->organization_name }}" @readonly(!$isNew)>
+                value="{{ $workspace->githubSetting->organization_name }}" @readonly(!$isNew)>
         <small class="form-text text-info">
             The name of the <b>GitHub Organization</b> that contains the projects to build.
         </small>
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label for="template_name">Template Project</label>
                 <input type="text" id="template_name" name="template_name" class="form-control shadow-sm"
-                        value="{{ ($isNew) ? '' : $workspace->githubSetting->template_name }}">
+                        value="{{ $workspace->githubSetting->template_name }}">
             </div>
             !-->
             <div class="form-group">
@@ -66,7 +66,7 @@
                     Project Topic
                 </label>
                 <input type="text" id="topic_name" name="topic_name" class="form-control shadow-sm"
-                        value="{{ ($isNew) ? '' : $workspace->githubSetting->topic_name }}">
+                        value="{{ $workspace->githubSetting->topic_name }}">
                 <small class="form-text text-info">
                     GitHub Repository <b>topic name</b> to filter GitHub Projects on connected account.
                 </small>

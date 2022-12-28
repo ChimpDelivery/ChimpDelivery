@@ -16,7 +16,6 @@ use App\Actions\Api\Jenkins\Post\ScanOrganization;
 use App\Actions\Dashboard\User\JoinWorkspace;
 use App\Actions\Dashboard\User\UpdateUserProfile;
 use App\Actions\Dashboard\Workspace\CreateAppForm;
-use App\Actions\Dashboard\Workspace\GetWorkspaceForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
@@ -27,7 +26,7 @@ Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(func
     //////////////////////////
     Route::get('/dashboard',
         fn() => auth()->user()->isNew()
-            ? view('workspace-settings')->with([ 'isNew' => true ])
+            ? view('workspace-settings')->with([ 'isNew' => true, 'workspace' => auth()->user()->workspace ])
             : GetWorkspaceIndex::run()
     )->name('index');
 
@@ -39,8 +38,12 @@ Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(func
     ////////////////////////////////
     //// workspace routes
     ////////////////////////////////
-    Route::get('/dashboard/workspace-settings', GetWorkspaceForm::class)
-        ->name('workspace_settings')
+    Route::get('/dashboard/workspace-settings',
+        fn() => view('workspace-settings', [
+            'isNew' => false,
+            'workspace' => auth()->user()->workspace,
+        ])
+    )->name('workspace_settings')
         ->middleware('permission:view workspace');
 
     Route::post('/dashboard/workspace-settings', StoreWorkspace::class)

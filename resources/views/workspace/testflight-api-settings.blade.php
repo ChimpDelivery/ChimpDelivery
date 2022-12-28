@@ -14,12 +14,12 @@
         <label for="usermail" class="text-white font-weight-bold">
             User Mail
         </label>
-        <input type="text" id="usermail" name="usermail" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appleSetting->usermail }}">
+        <input type="text" id="usermail" name="usermail" class="form-control shadow-sm" value="{{ $workspace->appleSetting->usermail }}">
     </div>
     <div class="form-group">
         <label for="app_specific_pass" class="text-white font-weight-bold">
             App Specific Password
         </label>
-        <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control shadow-sm" value="{{ ($isNew) ? '' : $workspace->appleSetting->app_specific_pass }}">
+        <input type="text" id="app_specific_pass" name="app_specific_pass" class="form-control shadow-sm" value="{{ $workspace->appleSetting->app_specific_pass }}">
     </div>
 </div>
