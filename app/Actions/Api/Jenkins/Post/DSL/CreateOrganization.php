@@ -14,6 +14,12 @@ class CreateOrganization
 
     public function handle(WorkspaceChanged $event) : void
     {
+        ///
+        if (!app()->isLocal())
+        {
+            return;
+        }
+
         if (!$event->workspace->wasRecentlyCreated)
         {
             return;
