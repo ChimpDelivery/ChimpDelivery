@@ -2,30 +2,34 @@
 
 namespace App\Actions\Api\Jenkins\Post\DSL;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+use Lorisleiva\Actions\Concerns\AsAction;
 
-use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+use App\Events\WorkspaceChanged;
+use App\Services\JenkinsService;
 
-class CreateOrganization extends BaseJenkinsAction
+/// Creates Workspace Folder in Jenkins when Dashboard Workspace created
+class CreateOrganization
 {
-    public function handle(Request $request)
-    {
-        $url = config('jenkins.host').
-            "/job".
-            "/Seed".
-            "/buildWithParameters?".
-            "&GIT_USERNAME={$request->git_username}".
-            "&GIT_ACCESS_TOKEN={$request->git_acess_token}".
-            "&GITHUB_TOPIC={$request->github_topic}".
-            "&REPO_OWNER={$request->git_organization}";
+    use AsAction;
 
-        return Http::withBasicAuth(config('jenkins.user'), config('jenkins.token'))->post($url);
-    }
-
-    public function authorize(Request $request) : bool
+    public function handle(WorkspaceChanged $event) : void
     {
-        return Auth::user()->hasRole('Admin_Super');
+        if (!$event->workspace->wasRecentlyCreated)
+        {
+            return;
+        }
+
+        $validated = $event->request->safe();
+
+        // Job url that contains Jenkins-DSL Plugin Action
+        $url = config('jenkins.host') . '/job/Seed/buildWithParameters';
+        $url .= implode('&', [
+            "?GIT_USERNAME={$validated->organization_name}",
+            "GIT_ACCESS_TOKEN={$validated->personal_access_token}",
+            "GITHUB_TOPIC={$validated->topic_name}",
+            "REPO_OWNER={$validated->organization_name}"
+        ]);
+
+        app(JenkinsService::class)->GetJenkinsUser()->post($url);
     }
 }

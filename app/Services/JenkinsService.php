@@ -26,6 +26,13 @@ class JenkinsService
         ]);
     }
 
+    public function GetJenkinsUser() : PendingRequest
+    {
+        return Http::withBasicAuth($this->jenkinsUser, $this->jenkinsToken)
+            ->timeout(20)
+            ->connectTimeout(8);
+    }
+
     public function GetResponse(string $url, bool $isHtml = false) : mixed
     {
         return $this->TryJenkinsRequest($url, 'get', $isHtml)->getData();
@@ -88,12 +95,5 @@ class JenkinsService
                 ? null
                 : ($isHtml ? $request->body() : json_decode($request)),
         ];
-    }
-
-    private function GetJenkinsUser() : PendingRequest
-    {
-        return Http::withBasicAuth($this->jenkinsUser, $this->jenkinsToken)
-            ->timeout(20)
-            ->connectTimeout(8);
     }
 }
