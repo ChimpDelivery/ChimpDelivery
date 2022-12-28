@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function createApiToken() : string
     {
-        if (!$this->isNew() && $this->can('create api token'))
+        if (!$this->isNew() && $this->with('permissions')->get()->has('create api token'))
         {
             $this->tokens()->delete();
             return $this->createToken('api-key')->plainTextToken;
