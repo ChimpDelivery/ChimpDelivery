@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
         'workspace',
+        'permissions',
         'gravatar',
     ];
 
@@ -38,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $with = [
         'workspace',
+        'permissions',
     ];
 
     protected $appends = [
@@ -66,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function createApiToken() : string
     {
-        if (!$this->isNew() && $this->with('permissions')->get()->has('create api token'))
+        if (!$this->isNew() && $this->permissions->has('create api token'))
         {
             $this->tokens()->delete();
             return $this->createToken('api-key')->plainTextToken;
