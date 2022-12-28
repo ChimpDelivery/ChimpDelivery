@@ -48,6 +48,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 'required',
                 new AlphaDashDot(),
                 'max:255',
+                Rule::notIn([ config('workspaces.default_org_name') ]),
                 Rule::unique('github_settings')
                     ->ignore(Auth::user()->workspace->id, 'workspace_id')
                     ->whereNull('deleted_at')
