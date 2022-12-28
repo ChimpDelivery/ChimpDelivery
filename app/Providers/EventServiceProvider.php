@@ -10,6 +10,7 @@ use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
 use App\Listeners\ChangeWorkspaceSettings;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\Jenkins\Post\DSL\CreateOrganization;
 use App\Actions\Api\S3\Provision\Post\UploadAppIcon;
 use App\Actions\Api\S3\Provision\Post\UploadAppStoreConnectSign;
 
@@ -29,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
         WorkspaceChanged::class => [
             ChangeWorkspaceSettings::class,
             UploadAppStoreConnectSign::class,
+            CreateOrganization::class,
         ],
 
         AppChanged::class => [
