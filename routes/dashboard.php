@@ -27,7 +27,7 @@ Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(func
     //// main routes
     //////////////////////////
     Route::get('/dashboard',
-        fn() => Auth::user()->isNew() && Auth::user()->hasRole('User')
+        fn() => Auth::user()->isNew()
             ? view('workspace-settings')->with([ 'isNew' => true ])
             : GetWorkspaceIndex::run()
     )->name('index');
