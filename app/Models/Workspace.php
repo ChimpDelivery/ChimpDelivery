@@ -68,22 +68,27 @@ class Workspace extends Model
 
     public function appStoreConnectSetting()
     {
-        return $this->hasOne(AppStoreConnectSetting::class);
+        return $this->hasOne(AppStoreConnectSetting::class)->withDefault([
+            'private_key' => 'Choose...',
+        ]);
     }
 
     public function appleSetting()
     {
-        return $this->hasOne(AppleSetting::class);
+        return $this->hasOne(AppleSetting::class)->withDefault();
     }
 
     public function githubSetting()
     {
-        return $this->hasOne(GithubSetting::class);
+        return $this->hasOne(GithubSetting::class)->withDefault();
     }
 
     public function appStoreConnectSign()
     {
-        return $this->hasOne(AppStoreConnectSign::class);
+        return $this->hasOne(AppStoreConnectSign::class)->withDefault([
+            'cert' => 'Choose...',
+            'provision_profile' => 'Choose...',
+        ]);
     }
 
     public function createApiToken()
