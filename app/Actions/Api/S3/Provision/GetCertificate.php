@@ -26,9 +26,4 @@ class GetCertificate
                 config('appstore-sign.certificate.mime')
             );
     }
-
-    public function authorize() : bool
-    {
-        return !Auth::user()->isNew();
-    }
 }

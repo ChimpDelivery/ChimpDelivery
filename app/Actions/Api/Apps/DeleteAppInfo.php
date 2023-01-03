@@ -33,6 +33,6 @@ class DeleteAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        return !Auth::user()->isNew() && Auth::user()->can('delete app');
+        return Auth::user()->can('delete app');
     }
 }

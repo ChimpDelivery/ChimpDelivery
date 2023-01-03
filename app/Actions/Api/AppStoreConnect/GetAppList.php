@@ -4,7 +4,6 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 
 class GetAppList
@@ -27,10 +26,5 @@ class GetAppList
         }
 
         return response()->json($apps);
-    }
-
-    public function authorize() : bool
-    {
-        return !Auth::user()->isNew();
     }
 }

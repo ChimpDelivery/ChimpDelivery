@@ -8,7 +8,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\GithubSetting;
 use App\Services\GitHubService;
@@ -71,10 +70,5 @@ class GetRepositories
         if ($git->private_repo === true) { return 'private'; }
 
         return 'none';
-    }
-
-    public function authorize() : bool
-    {
-        return !Auth::user()->isNew();
     }
 }

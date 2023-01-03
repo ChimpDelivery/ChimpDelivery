@@ -32,11 +32,6 @@ class GetProvisionProfile
             );
     }
 
-    public function authorize() : bool
-    {
-        return !Auth::user()->isNew();
-    }
-
     // set required file headers for Provision Profile and return file
     private function SetHeaders(Response $fileResponse) : Response
     {

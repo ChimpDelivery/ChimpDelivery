@@ -42,6 +42,6 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        return !Auth::user()->isNew() && Auth::user()->can('view apps');
+        return Auth::user()->can('view apps');
     }
 }

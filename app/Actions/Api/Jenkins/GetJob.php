@@ -23,9 +23,4 @@ class GetJob
 
         return response()->json($response);
     }
-
-    public function authorize(GetAppInfoRequest $request) : bool
-    {
-        return !Auth::user()->isNew();
-    }
 }

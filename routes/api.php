@@ -29,7 +29,7 @@ use App\Actions\Api\S3\Provision\GetProvisionProfile;
 ///////////////////////
 // apps
 //////////////////////
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'ensureUserNotNew'])->group(function () {
 
     Route::get('apps/get-app', GetAppInfo::class);
     Route::post('apps/create-app', StoreAppInfo::class);
@@ -41,7 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 /////////////////////////
 // appstore connect api
 ////////////////////////
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'ensureUserNotNew'])->group(function () {
 
     Route::get('appstoreconnect/get-token', CreateToken::class);
     Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
@@ -58,7 +58,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 ////////////////////
 // jenkins api
 ////////////////////
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'ensureUserNotNew'])->group(function () {
 
     Route::get('jenkins/get-job', GetJob::class);
     Route::get('jenkins/get-jobs', GetJobs::class);
@@ -74,7 +74,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 ////////////////////////
 // github api
 //////////////////////
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'ensureUserNotNew'])->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);

@@ -42,6 +42,6 @@ class GetJobLastBuildLog
     {
         $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return !Auth::user()->isNew() && Auth::user()->can('view job log');
+        return Auth::user()->can('view job log');
     }
 }

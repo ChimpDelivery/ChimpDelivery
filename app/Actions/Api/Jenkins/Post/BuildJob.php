@@ -29,6 +29,6 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        return !Auth::user()->isNew() && Auth::user()->can('build job');
+        return Auth::user()->can('build job');
     }
 }
