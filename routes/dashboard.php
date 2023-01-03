@@ -19,42 +19,47 @@ use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
-
-Route::middleware([ 'auth', 'verified', ProtectAgainstSpam::class ])->group(function () {
+Route::middleware([ 'auth', 'verified', 'ensureUserNotNew', ProtectAgainstSpam::class ])->group(function () {
     //////////////////////////
     //// main routes
     //////////////////////////
-    Route::get('/dashboard',
-        fn() => auth()->user()->isNew()
-            ? view('workspace-settings')->with([ 'isNew' => true, 'workspace' => auth()->user()->workspace ])
-            : GetWorkspaceIndex::run()
-    )->name('index');
+    Route::get('/dashboard', fn() => auth()->user()->isNew()
+        ? to_route('workspace_settings')
+        : GetWorkspaceIndex::run()
+    )->name('index')
+     ->withoutMiddleware('ensureUserNotNew');
 
     Route::get('/dashboard/profile', fn() => view('user-profile', [ 'user' => auth()->user() ]))
-        ->name('dashboard.profile');
+        ->name('dashboard.profile')
+        ->withoutMiddleware('ensureUserNotNew');
 
-    Route::post('/dashboard/profile', UpdateUserProfile::class);
+    Route::post('/dashboard/profile', UpdateUserProfile::class)
+        ->withoutMiddleware('ensureUserNotNew');
+
+    Route::get('/dashboard/workspace-join', fn() => view('workspace-join'))
+        ->name('workspace_join')
+        ->middleware('permission:join workspace')
+        ->withoutMiddleware('ensureUserNotNew');
+
+    Route::post('/dashboard/workspace-join', JoinWorkspace::class)
+        ->middleware('permission:join workspace')
+        ->withoutMiddleware('ensureUserNotNew');
 
     ////////////////////////////////
     //// workspace routes
     ////////////////////////////////
     Route::get('/dashboard/workspace-settings',
         fn() => view('workspace-settings', [
-            'isNew' => false,
+            'isNew' => auth()->user()->isNew(),
             'workspace' => auth()->user()->workspace,
         ])
     )->name('workspace_settings')
-        ->middleware('permission:view workspace');
+     ->middleware('permission:create workspace|view workspace|update workspace')
+     ->withoutMiddleware('ensureUserNotNew');
 
     Route::post('/dashboard/workspace-settings', StoreWorkspace::class)
-        ->middleware('permission:create workspace|update workspace');
-
-    Route::get('/dashboard/workspace-join', fn() => view('workspace-join'))
-        ->name('workspace_join')
-        ->middleware('permission:join workspace');
-
-    Route::post('/dashboard/workspace-join', JoinWorkspace::class)
-        ->middleware('permission:join workspace');
+        ->middleware('permission:create workspace|update workspace')
+        ->withoutMiddleware('ensureUserNotNew');
 
     //////////////////////////////
     //// app info routes

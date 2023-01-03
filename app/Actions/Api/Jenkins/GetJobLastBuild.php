@@ -58,11 +58,6 @@ class GetJobLastBuild
         return response()->json($jobResponse);
     }
 
-    public function authorize(GetAppInfoRequest $request) : bool
-    {
-        return !Auth::user()->isNew();
-    }
-
     private function CreateLastBuildUrl(int $lastBuildId) : string
     {
         return implode('/', [

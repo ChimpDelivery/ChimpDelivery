@@ -46,6 +46,6 @@ class UploadAppStoreConnectSign
 
     public function authorize() : bool
     {
-        return !Auth::user()->isNew() && Auth::user()->hasRole('Admin_Workspace');
+        return Auth::user()->hasRole('Admin_Workspace');
     }
 }

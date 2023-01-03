@@ -51,6 +51,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return !Auth::user()->isNew() && Auth::user()->can('create bundle');
+        return Auth::user()->can('create bundle');
     }
 }

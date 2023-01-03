@@ -8,7 +8,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 use App\Services\GitHubService;
 use App\Http\Requests\Github\GetRepositoryRequest;
@@ -69,11 +68,6 @@ class CreateRepository
         }
 
         return response()->json([ 'response' => $response ], Response::HTTP_OK);
-    }
-
-    public function authorize(GetRepositoryRequest $request) : bool
-    {
-        return !Auth::user()->isNew();
     }
 
     /* Responses

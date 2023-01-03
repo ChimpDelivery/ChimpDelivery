@@ -37,6 +37,6 @@ class AbortJob extends BaseJenkinsAction
     {
         $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return !Auth::user()->isNew() && Auth::user()->can('abort job');
+        return Auth::user()->can('abort job');
     }
 }
