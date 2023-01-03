@@ -27,21 +27,24 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01:00')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(config('mail.from.address'))
+            ->environments([ 'production' ]);
 
         $schedule->command('backup:run')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('01:30')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(config('mail.from.address'))
+            ->environments([ 'production' ]);
 
         $schedule->command('backup:monitor')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03:00')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(config('mail.from.address'))
+            ->environments([ 'production' ]);
 
         /////////////////////////
         // health checks

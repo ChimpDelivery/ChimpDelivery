@@ -13,6 +13,10 @@ config:
   git_tty: true
   http_user: false
   use_relative_symlink: false
+  crontab:jobs: [
+    '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
+    '0 8 * * * journalctl --vacuum-size=100M'
+  ]
 
 hosts:
   staging:
@@ -23,9 +27,6 @@ hosts:
     deploy_path: '/var/www/html/{{application}}'
     branch: dev
     composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
-    crontab:jobs: [
-      '0 8 * * * journalctl --vacuum-size=100M'
-    ]
 
   production:
     labels:
@@ -35,10 +36,6 @@ hosts:
     deploy_path: '/var/www/html/{{application}}'
     branch: master
     composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --no-dev --optimize-autoloader'
-    crontab:jobs: [
-      '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
-      '0 8 * * * journalctl --vacuum-size=100M'
-    ]
 
 tasks:
   deploy:
