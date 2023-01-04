@@ -19,9 +19,7 @@ class UploadAppStoreConnectSign
 
     public function handle(WorkspaceChanged $event) : void
     {
-        $appStoreConnectSign = AppStoreConnectSign::firstOrCreate([
-            'workspace_id' => $event->workspace->id
-        ]);
+        $appStoreConnectSign = Auth::user()->workspace->appStoreConnectSign()->firstOrCreate();
 
         if ($event->request->hasFile('provision_profile'))
         {

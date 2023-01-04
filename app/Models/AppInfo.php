@@ -15,7 +15,6 @@ class AppInfo extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'workspace_id',
         'app_icon',
         'app_name',
         'project_name',

@@ -20,7 +20,6 @@ class WorkspaceInviteCode extends Model implements CipherSweetEncrypted
     use UsesCipherSweetConfigs;
 
     protected $fillable = [
-        'workspace_id',
         'code',
     ];
 

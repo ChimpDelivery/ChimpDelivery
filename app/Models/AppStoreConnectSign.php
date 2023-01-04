@@ -15,7 +15,6 @@ class AppStoreConnectSign extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'workspace_id',
         'cert',
         'provision_profile',
     ];
