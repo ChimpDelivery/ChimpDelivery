@@ -20,7 +20,6 @@ class AppStoreConnectSetting extends Model implements CipherSweetEncrypted
     use UsesCipherSweetConfigs;
 
     protected $fillable = [
-        'workspace_id',
         'private_key',
         'issuer_id',
         'kid',

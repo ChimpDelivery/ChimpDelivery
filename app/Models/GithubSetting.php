@@ -20,7 +20,6 @@ class GithubSetting extends Model implements CipherSweetEncrypted
     use UsesCipherSweetConfigs;
 
     protected $fillable = [
-        'workspace_id',
         'personal_access_token',
         'organization_name',
         'template_name',

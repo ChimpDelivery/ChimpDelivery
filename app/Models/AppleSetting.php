@@ -20,7 +20,6 @@ class AppleSetting extends Model implements CipherSweetEncrypted
     use UsesCipherSweetConfigs;
 
     protected $fillable = [
-        'workspace_id',
         'usermail',
         'app_specific_pass',
     ];
