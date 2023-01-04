@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 use App\Models\User;
-use App\Models\Workspace;
 use App\Models\WorkspaceInviteCode;
 
 class RegisteredUserController extends Controller
@@ -52,7 +51,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'workspace_id' => ($inviteCode)
                 ? $inviteCode->workspace_id
-                : config('workspaces.DEFAULT_WS_ID'),
+                : config('workspaces.default_ws_id'),
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
