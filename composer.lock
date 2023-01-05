@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.255.8",
+            "version": "3.255.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6cfc9c8b63105bafb537964dd94d1f4070be172c"
+                "reference": "5d598491cc62da506082aec8661475d40af24b16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6cfc9c8b63105bafb537964dd94d1f4070be172c",
-                "reference": "6cfc9c8b63105bafb537964dd94d1f4070be172c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5d598491cc62da506082aec8661475d40af24b16",
+                "reference": "5d598491cc62da506082aec8661475d40af24b16",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.255.8"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.255.10"
             },
-            "time": "2023-01-03T19:21:55+00:00"
+            "time": "2023-01-05T19:20:51+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -11007,16 +11007,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.6",
+            "version": "1.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ef38a25950e5d0e6c95eedf49d8a784272f8dc5e"
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ef38a25950e5d0e6c95eedf49d8a784272f8dc5e",
-                "reference": "ef38a25950e5d0e6c95eedf49d8a784272f8dc5e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0501435cd342eac7664bd62155b1ef907fc60b6f",
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f",
                 "shasum": ""
             },
             "require": {
@@ -11046,7 +11046,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.6"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.7"
             },
             "funding": [
                 {
@@ -11062,7 +11062,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-03T13:40:32+00:00"
+            "time": "2023-01-04T21:59:57+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
