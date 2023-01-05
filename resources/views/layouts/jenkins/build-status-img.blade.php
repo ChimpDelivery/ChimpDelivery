@@ -1,5 +1,5 @@
 @php
-    $ws = Auth::user()->workspace->githubSetting->organization_name;
+    $ws = auth()->user()->orgName();
     $buildNumber = $appInfo->jenkins_data?->id;
 
     $url = implode('/', [

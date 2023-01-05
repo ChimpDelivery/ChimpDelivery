@@ -48,7 +48,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input class="form-control shadow-sm"  type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" required="" readonly>
-                                @if (Auth::user()->isInternal())
+                                @if (auth()->user()->isInternal())
                                     @livewire('app-privacy-creator', ['appInfo' => $appInfo])
                                 @endif
                             </div>
@@ -108,7 +108,7 @@
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
-                                @if(isset($appInfo) && Auth::user()->isInternal() && !empty($appInfo->fb_app_id))
+                                @if(isset($appInfo) && auth()->user()->isInternal() && !empty($appInfo->fb_app_id))
                                     @livewire('fb-app-ads', [ 'appInfo' => $appInfo ])
                                 @endif
                                 @includeWhen(isset($appInfo), 'layouts.dashboard.copy-clipboard-button', ['input' => 'fb_app_id'])
