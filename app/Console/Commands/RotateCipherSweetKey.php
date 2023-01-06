@@ -11,7 +11,7 @@ use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
 use App\Models\WorkspaceInviteCode;
 
-class ReEncryptCipherSweetKey extends Command
+class RotateCipherSweetKey extends Command
 {
     protected $signature = 'dashboard:rotate-key';
     protected $description = 'Create new Cipher Key and Re-Encrypt related Models';
