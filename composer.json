@@ -73,10 +73,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline",
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
         "dashboard-down": "php artisan down --secret=\"262626\"",
-        "dashboard-up": "php artisan up"
+        "dashboard-up": "php artisan up",
+        "dashboard-security-check": "php artisan enlightn",
+        "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline"
     },
     "extra": {
         "laravel": {
