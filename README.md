@@ -3,13 +3,14 @@
 - [Build Mac - Environment Setup](https://github.com/TalusStudio-Packages/Build-Mac-Environment)
 - [Build Mac - Jenkins Setup](https://github.com/TalusStudio-Packages/Jenkins-Docs)
 
-# Deployment
+# Pre-Deployment
 - Configurations: [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [CipherSweet Key Generation](https://github.com/spatie/laravel-ciphersweet)
     - ```php artisan ciphersweet:generate-key```
     - ```.env``` File Key ```CIPHERSWEET_KEY=<YOUR-KEY>```
 - [S3 Bucket Key Generation](https://github.com)
+- Code Quality Check: ```composer dashboard-static-analysis``` [[PHPStan](https://phpstan.org)]
 
 # Features
 - Jenkins API Support
@@ -23,6 +24,7 @@
 - Honeypot
 - ReCaptcha(v3)
 - Encryption of Sensitive Data ([CipherSweet](https://github.com/spatie/laravel-ciphersweet) includes Key Rotation and Blind Indexes)
+- Pre-Deployment Security Checks via ```composer dashboard-security-check``` [[Enlightn](https://www.laravel-enlightn.com)]
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
