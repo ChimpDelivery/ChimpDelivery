@@ -6,16 +6,21 @@ use Illuminate\Console\Command;
 
 use ParagonIE\ConstantTime\Hex;
 
+use App\Models\AppleSetting;
+use App\Models\AppStoreConnectSetting;
+use App\Models\GithubSetting;
+use App\Models\WorkspaceInviteCode;
+
 class ReEncryptCipherSweetKey extends Command
 {
     protected $signature = 'dashboard:rotate-key';
     protected $description = 'Create new Cipher Key and Re-Encrypt related Models';
 
     protected array $encryptedModels = [
-        'App\Models\AppleSetting',
-        'App\Models\AppStoreConnectSetting',
-        'App\Models\GithubSetting',
-        'App\Models\WorkspaceInviteCode',
+        AppleSetting::class,
+        AppStoreConnectSetting::class,
+        GithubSetting::class,
+        WorkspaceInviteCode::class,
     ];
 
     public function handle() : int
