@@ -25,6 +25,7 @@ class RotateCipherSweetKey extends Command
 
     public function handle() : int
     {
+        // logic must be same in ciphersweet:generate-key command
         $encryptionKey = Hex::encode(random_bytes(32));
 
         $this->info("Key rotation is working...");
