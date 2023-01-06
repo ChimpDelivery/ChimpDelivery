@@ -1,7 +1,7 @@
 # Rotating Encryption Keys
 
 ### Problem
-- Should you suspect that somebody got a hold of your encryption keys? 
+- You suspect that somebody got a hold of your encryption keys? 
 
 ### Analysis
 - There are ```2 Encryption Keys``` available in the app. We must be generate new keys and re-encrypt related models with new key.
