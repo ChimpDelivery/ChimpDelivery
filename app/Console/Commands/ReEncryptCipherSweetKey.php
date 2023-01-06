@@ -8,8 +8,8 @@ use ParagonIE\ConstantTime\Hex;
 
 class ReEncryptCipherSweetKey extends Command
 {
-    protected $signature = 'security:rotate_key';
-    protected $description = 'Rotates CipherKey and Re-Encrypt Models';
+    protected $signature = 'dashboard:rotate-key';
+    protected $description = 'Create new Cipher Key and Re-Encrypt related Models';
 
     protected array $encryptedModels = [
         'App\Models\AppleSetting',
