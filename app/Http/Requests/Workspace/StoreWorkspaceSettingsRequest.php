@@ -68,7 +68,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'name.alpha_num' => 'Workspace Name must only contain letters and numbers.',
             'name.max' => 'Workspace Name must not be greater than 12 characters.',
             'organization_name.required' => 'Github API ➔ Organization Name field is required.',
-            'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another workspace.',
+            'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another Workspace.',
         ];
     }
 }
