@@ -14,29 +14,7 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $permissions = [
-            'create workspace',
-            'join workspace',
-            'delete workspace',
-            'view workspace',
-            'update workspace',
-
-            'create app',
-            'view apps',
-            'update app',
-            'delete app',
-
-            'create bundle',
-
-            'scan jobs',
-            'build job',
-            'abort job',
-            'view job log',
-
-            'create api token',
-        ];
-
-        foreach ($permissions as $permission)
+        foreach (config('permission-setup.permissions') as $permission)
         {
             Permission::create([ 'name' => $permission ]);
         }
