@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class CreateApiTokenView extends Component
 {
@@ -12,7 +13,7 @@ class CreateApiTokenView extends Component
 
     public function createToken()
     {
-        $this->createdToken = auth()->user()->createApiToken();
+        $this->createdToken = Auth::user()->createApiToken();
     }
 
     public function render() : View
