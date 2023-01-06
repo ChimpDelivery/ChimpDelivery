@@ -1,8 +1,33 @@
 <?php
 
-// note: sync permission and roles seeders
-
 return [
+
+    // all permissions in app
+    'permissions' => [
+
+        // newly registered user related
+        'create workspace',
+        'join workspace',
+
+        // workspace admins related
+        'view workspace',
+        'update workspace',
+        'delete app',
+        'scan jobs',
+
+        // workspace users related
+        'create app',
+        'view apps',
+        'update app',
+        'create bundle',
+        'build job',
+        'abort job',
+        'view job log',
+        'create api token',
+
+        // note: no use-case currently
+        'delete workspace',
+    ],
 
     // all roles in app with permissions
     'roles' => [
@@ -19,18 +44,26 @@ return [
             'create app',
             'update app',
             'create bundle',
-            'scan jobs',
             'build job',
             'abort job',
             'view job log',
             'create api token',
         ],
 
-        // workspace admins inherits workspace user permissions
+        // all permissions for workspace admins
         'Admin_Workspace' => [
-            'delete app',
             'view workspace',
             'update workspace',
+            'delete app',
+            'scan jobs',
+            'view apps',
+            'create app',
+            'update app',
+            'create bundle',
+            'build job',
+            'abort job',
+            'view job log',
+            'create api token',
         ],
 
         'Admin_Super' => [
