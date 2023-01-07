@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
 
     protected $fillable = [
+        // careful! foreign_key is fillable, don't use mass assignments...
         'workspace_id',
         'name',
         'email',
@@ -81,6 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return '';
     }
 
+    // api reference: https://en.gravatar.com/site/implement/images/php/
     protected function gravatar() : Attribute
     {
         return new Attribute(function () {
