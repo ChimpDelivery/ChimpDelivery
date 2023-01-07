@@ -16,7 +16,7 @@ $(document).ready(function ()
 
     // init toasts
     $('#toast-flash').toast('show');
-    if (!getCookie('daily-toast-cookie'))
+    if (!getCookie('dashboard_cookie_daily_toast'))
     {
         $('#toast-talus').toast('show');
     }
