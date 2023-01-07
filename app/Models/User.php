@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        'gravatar'
+        'gravatar',
     ];
 
     /**
@@ -78,6 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if (!$this->isNew() && $this->can('create api token'))
         {
+            // Extend: Users can only have 1 api token...
             $this->tokens()->delete();
             return $this->createToken('api-key')->plainTextToken;
         }

@@ -103,6 +103,7 @@ class Workspace extends Model
     {
         $code = str(Str::random(12))->upper()->toString();
 
+        // Extend: Workspaces can only have 1 invite code...
         $this->inviteCodes()->delete();
         $this->inviteCodes()->create([
             'code' => $code
