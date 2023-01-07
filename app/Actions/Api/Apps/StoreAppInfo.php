@@ -21,8 +21,7 @@ class StoreAppInfo
 
     public function handle(StoreAppInfoRequest $request) : AppInfo
     {
-        $appModel = Auth::user()->workspace->apps()
-            ->withTrashed()
+        $appModel = Auth::user()->workspace->apps()->withTrashed()
             ->where('app_bundle', '=', $request->validated('app_bundle'))
             ->firstOrNew();
 
@@ -32,10 +31,7 @@ class StoreAppInfo
             $appModel->restore();
         }
 
-        $appModel->fill($request->safe()->except([
-            'workspace_id',
-        ]));
-
+        $appModel->fill($request->safe()->all());
         $appModel->save();
 
         event(new AppChanged($appModel, $request));

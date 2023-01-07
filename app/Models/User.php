@@ -26,6 +26,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
+    protected $guarded = [
+        'workspace_id',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -44,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        'gravatar'
+        'gravatar',
     ];
 
     /**
@@ -74,6 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if (!$this->isNew() && $this->can('create api token'))
         {
+            // Extend: Users can only have 1 api token...
             $this->tokens()->delete();
             return $this->createToken('api-key')->plainTextToken;
         }
@@ -81,6 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return '';
     }
 
+    // api reference: https://en.gravatar.com/site/implement/images/php/
     protected function gravatar() : Attribute
     {
         return new Attribute(function () {

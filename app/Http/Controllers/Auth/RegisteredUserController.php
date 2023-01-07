@@ -44,17 +44,24 @@ class RegisteredUserController extends Controller
             recaptchaFieldName() => recaptchaRuleName()
         ]);
 
-        // find invite code
-        $inviteCode = WorkspaceInviteCode::whereBlind('code', 'code', $request->invite_code)->first();
+        $defaultWs = config('workspaces.default_ws_id');
+        $userWs = $defaultWs;
+
+        if ($request->filled('invite_code'))
+        {
+            $inviteCode = WorkspaceInviteCode::whereBlind('code', 'code', $request->invite_code)->first();
+            if ($inviteCode)
+            {
+                $userWs = $inviteCode->workspace_id;
+            }
+        }
 
         $user = User::create([
-            'workspace_id' => ($inviteCode)
-                ? $inviteCode->workspace_id
-                : config('workspaces.default_ws_id'),
+            'workspace_id' => $userWs,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ])->syncRoles([ ($inviteCode) ? 'User_Workspace' : 'User' ]);
+        ])->syncRoles([ ($userWs != $defaultWs) ? 'User_Workspace' : 'User' ]);
 
         event(new Registered($user));
 
