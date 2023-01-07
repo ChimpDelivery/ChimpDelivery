@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,9 +18,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // to fix: "huge paginator icons"
         Paginator::useBootstrap();
 
         Model::shouldBeStrict(!$this->app->isProduction());
+
+        Password::defaults(function () {
+            return Password::min(8)->mixedCase()->uncompromised()->symbols();
+        });
     }
 }
