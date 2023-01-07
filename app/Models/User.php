@@ -20,11 +20,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
 
     protected $fillable = [
-        // careful! foreign_key is fillable, don't use mass assignments...
         'workspace_id',
         'name',
         'email',
         'password',
+    ];
+
+    protected $guarded = [
+        'workspace_id',
     ];
 
     protected $hidden = [
