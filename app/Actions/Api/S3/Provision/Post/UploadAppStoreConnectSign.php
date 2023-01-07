@@ -44,6 +44,6 @@ class UploadAppStoreConnectSign
 
     public function authorize() : bool
     {
-        return Auth::user()->hasRole('Admin_Workspace');
+        return Auth::user()->can('update workspace');
     }
 }

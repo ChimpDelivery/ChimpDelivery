@@ -34,6 +34,6 @@ class UploadAppIcon
 
     public function authorize() : bool
     {
-        return Auth::user()->can('create-app');
+        return Auth::user()->can('create app');
     }
 }
