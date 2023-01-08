@@ -47,6 +47,7 @@ class HealthServiceProvider extends ServiceProvider
             DebugModeCheck::new(),
             EnvironmentCheck::new(),
             EnvVars::new()->label('Environment Variables')->requireVarsForEnvironment('local', [
+                'CIPHERSWEET_KEY',
                 'RECAPTCHA_SITE_KEY',
                 'RECAPTCHA_SECRET_KEY',
                 'REDIS_CLIENT',
