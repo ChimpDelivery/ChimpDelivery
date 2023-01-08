@@ -55,6 +55,12 @@ class Handler extends ExceptionHandler
             }
         });
 
+        $this->reportable(function (Throwable $e) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
+
         /*$this->renderable(function (UnauthorizedException $e, $request) {
             if ($request->expectsJson())
             {
