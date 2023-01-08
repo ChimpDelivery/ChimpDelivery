@@ -23,7 +23,7 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
-use Spatie\Health\Checks\Checks\QueueCheck;
+use Spatie\Health\Checks\Checks\HorizonCheck;
 
 class HealthServiceProvider extends ServiceProvider
 {
@@ -73,7 +73,7 @@ class HealthServiceProvider extends ServiceProvider
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
             SecurityAdvisoriesCheck::new(),
-            QueueCheck::new(),
+            HorizonCheck::new(),
         ]);
     }
 
