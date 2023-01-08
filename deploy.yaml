@@ -47,6 +47,7 @@ tasks:
     - artisan:down
     - artisan:migrate
     - artisan:up
+    - artisan:queue:restart
     - server:permission
     - deploy:publish
   server:permission:
