@@ -8,4 +8,7 @@
     <x-nav-link :href="route('telescope')">
         Telescope
     </x-nav-link>
+    <x-nav-link :href="route('horizon.index')">
+        Horizon
+    </x-nav-link>
 @endhasrole
