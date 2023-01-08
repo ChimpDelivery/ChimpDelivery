@@ -8,7 +8,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Workspace;
 use App\Services\FtpService;
 use App\Traits\AsActionResponse;
 
