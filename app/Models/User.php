@@ -12,6 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Notifications\VerifyEmailQueued;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
@@ -93,5 +95,10 @@ class User extends Authenticatable implements MustVerifyEmail
             $hash = md5(strtolower(trim($this->attributes['email'])));
             return "https://www.gravatar.com/avatar/{$hash}";
         });
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailQueued);
     }
 }
