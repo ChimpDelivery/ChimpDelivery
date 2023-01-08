@@ -12,7 +12,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot() : void
     {
         parent::boot();
 
@@ -28,7 +28,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      *
      * This gate determines who can access Horizon in non-local environments.
      */
-    protected function gate(): void
+    protected function gate() : void
     {
         Gate::define('viewHorizon', function ($user) {
             return App::isLocal() || $user->email === config('workspaces.superadmin_email');
