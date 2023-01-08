@@ -21,6 +21,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         /////////////////
+        // queue, horizon
+        ////////////////
+        $schedule->command('horizon:snapshot')
+            ->timezone('Europe/Istanbul')
+            ->everyFiveMinutes();
+
+        /////////////////
         // backups
         ////////////////
         $schedule->command('backup:clean')
