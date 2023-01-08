@@ -1,14 +1,21 @@
 @hasrole('Admin_Super')
-    <x-nav-link :href="route('index')">
-        General
-    </x-nav-link>
-    <x-nav-link :href="route('health')">
-        {{ __('health::notifications.laravel_health') }}
-    </x-nav-link>
-    <x-nav-link :href="route('telescope')">
-        Telescope
-    </x-nav-link>
-    <x-nav-link :href="route('horizon.index')">
-        Horizon
-    </x-nav-link>
+<x-nav-link :href="route('index')">
+    General
+</x-nav-link>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle bg-transparent font-weight-bold" href="#" id="navbarDropdown"
+        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Monitoring
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item bg-transparent text-dark" href="{{ route('health') }}">
+            <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
+        </a>
+        <a class="dropdown-item bg-transparent text-dark" href="{{ route('horizon.index') }}">
+            <i class="fa fa-eercast" aria-hidden="true"></i> Horizon
+        </a>
+        <a class="dropdown-item bg-transparent text-dark" href="{{ route('telescope') }}">
+            <i class="fa fa-star" aria-hidden="true"></i> Telescope
+        </a>
+    </div>
 @endhasrole
