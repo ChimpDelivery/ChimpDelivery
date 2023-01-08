@@ -8,6 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
+use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -54,6 +55,10 @@ class Kernel extends ConsoleKernel
             ->everyMinute();
 
         $schedule->command(ScheduleCheckHeartbeatCommand::class)
+            ->timezone('Europe/Istanbul')
+            ->everyMinute();
+
+        $schedule->command(DispatchQueueCheckJobsCommand::class)
             ->timezone('Europe/Istanbul')
             ->everyMinute();
 

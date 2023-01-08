@@ -6,7 +6,12 @@ use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
 
+use Spatie\Health\ResultStores\EloquentHealthResultStore;
+
+use Encodia\Health\Checks\EnvVars;
+
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
+use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
@@ -18,11 +23,7 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
-use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
-
-use Encodia\Health\Checks\EnvVars;
-
-use Spatie\Health\ResultStores\EloquentHealthResultStore;
+use Spatie\Health\Checks\Checks\QueueCheck;
 
 class HealthServiceProvider extends ServiceProvider
 {
@@ -66,9 +67,12 @@ class HealthServiceProvider extends ServiceProvider
                 'FTP_ROOT',
                 'DISCORD_WEBHOOK_URL',
                 'DISCORD_BOT_NAME',
+                'SENTRY_LARAVEL_DSN',
+                'SENTRY_TRACES_SAMPLE_RATE',
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
             SecurityAdvisoriesCheck::new(),
+            QueueCheck::new(),
         ]);
     }
 
