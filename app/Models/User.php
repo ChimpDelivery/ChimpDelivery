@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-use App\Notifications\VerifyEmailQueued;
+use App\Notifications\Auth\VerifyEmailQueued;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
