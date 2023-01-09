@@ -2,6 +2,7 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
+  - contrib/sentry.php
 
 config:
   application: 'TalusWebBackend'
@@ -59,6 +60,8 @@ tasks:
 after:
   deploy:failed:
     - deploy:unlock
+    - deploy:sentry
   deploy:success:
     - php-fpm:reload
     - crontab:sync
+    - deploy:sentry
