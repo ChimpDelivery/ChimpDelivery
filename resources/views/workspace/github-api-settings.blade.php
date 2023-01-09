@@ -35,7 +35,7 @@
             </select>
         </div>
         <small class="form-text text-info">
-            The name of the <b>GitHub Organization</b> that contains the projects to build.
+            The name of the <b>GitHub Organization</b> that contains the projects to build. <b>Once this setting is set, it cannot be changed</b>.
         </small>
     </div>
     <div class="card my-2 bg-dark">
@@ -65,13 +65,6 @@
             <i class="fa fa-filter" aria-hidden="true"></i> Repository Filters
         </div>
         <div class="card-body">
-            <!-- DISABLED_FOR_LATER
-            <div class="form-group">
-                <label for="template_name">Template Project</label>
-                <input type="text" id="template_name" name="template_name" class="form-control shadow-sm"
-                        value="{{ $workspace->githubSetting->template_name }}">
-            </div>
-            !-->
             <div class="form-group">
                 <label for="topic_name" class="text-white font-weight-bold">
                     Project Topic
