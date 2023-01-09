@@ -80,7 +80,10 @@ class Workspace extends Model
 
     public function githubSetting()
     {
-        return $this->hasOne(GithubSetting::class)->withDefault();
+        return $this->hasOne(GithubSetting::class)->withDefault([
+            'public_repo' => 0,
+            'private_repo' => 0,
+        ]);
     }
 
     public function appStoreConnectSign()
