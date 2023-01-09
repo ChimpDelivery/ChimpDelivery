@@ -20,7 +20,7 @@
     @if (!$isNew && $workspace_github_orgs->status() == Illuminate\Http\Response::HTTP_OK)
     <div class="form-group">
         <label for="organization_name" class="text-white font-weight-bold">
-            Organization Name
+            Organization
         </label>
         <div class="input-group">
             <select name="organization_name"

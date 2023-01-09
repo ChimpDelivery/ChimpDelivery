@@ -32,7 +32,7 @@
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
-            'text' => 'All fields can be changed later by <b>Workspace Admin(s)</b> except <b>GitHub Organization</b> name.'
+            'text' => 'All fields can be changed later by <b>Workspace Admin(s)</b>.'
         ])
     </div>
 </div>
