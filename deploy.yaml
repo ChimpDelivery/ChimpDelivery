@@ -46,10 +46,10 @@ tasks:
     - artisan:optimize
     - artisan:down
     - artisan:migrate
-    - artisan:up
     - artisan:horizon:terminate
     - artisan:horizon:purge
     - artisan:queue:restart
+    - artisan:up
     - server:permission
     - deploy:publish
   server:permission:
