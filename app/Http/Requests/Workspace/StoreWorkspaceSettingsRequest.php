@@ -45,7 +45,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
 
             'organization_name' => [
-                'required',
+                'nullable',
                 new AlphaDashDot(),
                 'max:255',
                 Rule::notIn([ config('workspaces.default_org_name') ]),
@@ -67,7 +67,6 @@ class StoreWorkspaceSettingsRequest extends FormRequest
         return [
             'name.alpha_num' => 'Workspace Name must only contain letters and numbers.',
             'name.max' => 'Workspace Name must not be greater than 12 characters.',
-            'organization_name.required' => 'Github API ➔ Organization Name field is required.',
             'organization_name.unique' => 'Github API ➔ Organization Name has already linked to another Workspace.',
         ];
     }

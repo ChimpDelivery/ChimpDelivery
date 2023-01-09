@@ -12,6 +12,7 @@ use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\Github\GetUserOrganizations;
 
 use App\Actions\Dashboard\User\JoinWorkspace;
 use App\Actions\Dashboard\User\UpdateUserProfile;
@@ -52,6 +53,7 @@ Route::middleware([ 'auth', 'verified', 'ensureUserNotNew', ProtectAgainstSpam::
         fn() => view('workspace-settings', [
             'isNew' => auth()->user()->isNew(),
             'workspace' => auth()->user()->workspace,
+            'workspace_github_orgs' => GetUserOrganizations::run(),
         ])
     )->name('workspace_settings')
      ->middleware('permission:create workspace|view workspace|update workspace')

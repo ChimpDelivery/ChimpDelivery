@@ -17,12 +17,23 @@
         <input type="text" id="personal_access_token" name="personal_access_token" class="form-control shadow-sm"
                 value="{{ $workspace->githubSetting->personal_access_token }}">
     </div>
+    @if (!$isNew && $workspace_github_orgs->status() == Illuminate\Http\Response::HTTP_OK)
     <div class="form-group">
         <label for="organization_name" class="text-white font-weight-bold">
             Organization Name
         </label>
-        <input type="text" id="organization_name" name="organization_name" class="form-control shadow-sm"
-                value="{{ $workspace->githubSetting->organization_name }}" @readonly(!$isNew)>
+        <div class="input-group">
+            <select name="organization_name"
+                    class="form-control selectpicker show-tick shadow"
+                    data-style="btn-primary" data-live-search="true"
+                    data-dropup-auto="false" data-size="10"
+                    data-html="true"
+                    title="{{ $workspace->githubSetting->organization_name ?: '➤ Select Organization' }}"
+                    @disabled(!empty($workspace->githubSetting->organization_name))>
+
+                @each('layouts.github.option-organization', $workspace_github_orgs->getData()->response, 'organization')
+            </select>
+        </div>
         <small class="form-text text-info">
             The name of the <b>GitHub Organization</b> that contains the projects to build.
         </small>
@@ -73,4 +84,5 @@
             </div>
         </div>
     </div>
+    @endif
 </div>

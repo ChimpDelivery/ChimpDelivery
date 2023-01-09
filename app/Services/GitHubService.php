@@ -5,6 +5,8 @@ namespace App\Services;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
+use GrahamCampbell\GitHub\Facades\GitHub;
+
 use App\Models\GithubSetting;
 
 class GitHubService
@@ -21,5 +23,10 @@ class GitHubService
     public function GetSettings() : GithubSetting
     {
         return $this->githubSetting;
+    }
+
+    public function GetUserOrganizations()
+    {
+        return GitHub::api('user')->orgs();
     }
 }

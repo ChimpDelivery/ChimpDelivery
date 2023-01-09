@@ -20,20 +20,19 @@ class CreateOrganization
             return;
         }
 
-        if (!$event->workspace->wasRecentlyCreated)
+        $request = $event->request;
+        if (empty($request->validated('organization_name')))
         {
             return;
         }
 
-        $validated = $event->request->safe();
-
         // Job url that contains Jenkins-DSL Plugin Action
         $url = config('jenkins.host') . '/job/Seed/buildWithParameters';
         $url .= implode('&', [
-            "?GIT_USERNAME={$validated->organization_name}",
-            "GIT_ACCESS_TOKEN={$validated->personal_access_token}",
-            "GITHUB_TOPIC={$validated->topic_name}",
-            "REPO_OWNER={$validated->organization_name}"
+            "?GIT_USERNAME={$request->validated('organization_name')}",
+            "GIT_ACCESS_TOKEN={$request->validated('personal_access_token')}",
+            "GITHUB_TOPIC={$request->validated('topic_name')}",
+            "REPO_OWNER={$request->validated('organization_name')}"
         ]);
 
         app(JenkinsService::class)->GetJenkinsUser()->post($url);

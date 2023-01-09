@@ -61,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Workspace::class);
     }
 
-    public function orgName() : string
+    public function orgName() : ?string
     {
         return $this->workspace->githubSetting->organization_name;
     }
