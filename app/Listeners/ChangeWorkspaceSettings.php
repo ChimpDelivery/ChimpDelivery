@@ -14,7 +14,8 @@ class ChangeWorkspaceSettings
     public function handle(WorkspaceChanged $event)
     {
         $targetWorkspace = $event->workspace;
-        $validated = $event->request->safe();
+        $request = $event->request;
+        $validated = $request->safe();
 
         $targetWorkspace->fill($validated->only([ 'name' ]));
         $targetWorkspace->save();
@@ -43,17 +44,19 @@ class ChangeWorkspaceSettings
         ]));
 
         // 3. github
-        $githubSetting = $targetWorkspace->githubSetting()->firstOrCreate([
-            'organization_name' => ($targetWorkspace->wasRecentlyCreated)
-                ? $validated->organization_name
+        $githubSetting = $targetWorkspace->githubSetting()->firstOrCreate();
+        $githubSetting->fill([
+            'organization_name' => empty($targetWorkspace->githubSetting->organization_name)
+                ? $request->validated('organization_name')
                 : $targetWorkspace->githubSetting->organization_name,
         ]);
-        $githubSetting->update($validated->only([
+        $githubSetting->fill($validated->only([
             'personal_access_token',
             'template_name',
             'topic_name',
             'public_repo',
             'private_repo',
         ]));
+        $githubSetting->save();
     }
 }
