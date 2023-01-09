@@ -214,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'JobStatus' => App\Actions\Api\Jenkins\JobStatus::class,
+        'ResponseCodes' => Illuminate\Http\Response::class,
     ])->toArray(),
 
 ];

@@ -17,7 +17,7 @@
         <input type="text" id="personal_access_token" name="personal_access_token" class="form-control shadow-sm"
                 value="{{ $workspace->githubSetting->personal_access_token }}">
     </div>
-    @if (!$isNew && $workspace_github_orgs->status() == Illuminate\Http\Response::HTTP_OK)
+    @if (!$isNew && $workspace_github_orgs->status() == ResponseCodes::HTTP_OK)
     <div class="form-group">
         <label for="organization_name" class="text-white font-weight-bold">
             Organization
@@ -45,13 +45,13 @@
         <div class="card-body">
             <div class="form-group">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked(!$isNew && $workspace->githubSetting->public_repo) />
+                    <input type="checkbox" class="custom-control-input" id="public_repo" name="public_repo" @checked($workspace->githubSetting->public_repo) />
                     <label for="public_repo" class="custom-control-label text-white font-weight-bold">
                         Public
                     </label>
                 </div>
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked(!$isNew && $workspace->githubSetting->private_repo) />
+                    <input type="checkbox" class="custom-control-input" id="private_repo" name="private_repo" @checked($workspace->githubSetting->private_repo) />
                     <label for="private_repo" class="custom-control-label text-white font-weight-bold">
                         Private
                     </label>
