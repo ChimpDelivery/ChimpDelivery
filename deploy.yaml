@@ -48,6 +48,9 @@ tasks:
     - artisan:migrate
     - artisan:up
     - artisan:horizon:terminate
+    - artisan:horizon:purge
+    - artisan:horizon:publish
+    - artisan:queue:restart
     - server:permission
     - deploy:publish
   server:permission:
