@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
-Route::get('/', fn() => view('welcome'));
+Route::get('/', fn() => to_route('login'));
 
 Route::middleware(['auth', 'verified', 'role:Admin_Super'])->group(function () {
     Route::get('health', HealthCheckResultsController::class)->name('health');
