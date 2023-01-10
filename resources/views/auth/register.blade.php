@@ -22,14 +22,14 @@
 
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Email')" :icon="'fa-envelope'"/>
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('Password')" :icon="'fa-unlock-alt'" />
 
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
@@ -39,7 +39,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('Confirm Password')" :icon="'fa-unlock-alt'" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
@@ -48,7 +48,7 @@
 
             <!-- Invitation Code -->
             <div class="mt-4">
-                <x-label for="invite_code" :value="__('Invitation Code')" />
+                <x-label for="invite_code" :value="__('Invitation Code')" :icon="'fa-users'" />
 
                 <x-input id="invite_code" class="block mt-1 w-full"
                                 type="text"
