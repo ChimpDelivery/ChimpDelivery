@@ -21,7 +21,7 @@ class WorkspaceInviteCodeFactory extends Factory
 
         return [
             'workspace_id' => rand(3, 5),
-            'code' => Str::random(10),
+            'code' => str(Str::random(12))->upper()->toString(),
         ];
     }
 }

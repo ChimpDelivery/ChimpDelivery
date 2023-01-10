@@ -4,9 +4,9 @@ namespace App\Notifications\Auth;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 
-class VerifyEmailQueued extends VerifyEmail implements ShouldQueue
+class ResetPasswordQueued extends ResetPassword implements ShouldQueue
 {
     use Queueable;
 }

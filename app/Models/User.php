@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 use App\Notifications\Auth\VerifyEmailQueued;
+use App\Notifications\Auth\ResetPasswordQueued;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -100,5 +101,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailQueued);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordQueued($token));
     }
 }
