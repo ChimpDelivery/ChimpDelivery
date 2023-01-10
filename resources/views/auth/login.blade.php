@@ -42,13 +42,13 @@
 
             <div class="flex items-center justify-between mt-4">
                 @if (Route::has('register'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 mr-auto" href="{{ route('register') }}">
+                    <a class="underline text-sm text-gray-400 hover:text-gray-500 mr-auto" href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>
                 @endif
 
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 p-2" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-400 hover:text-gray-500 p-2" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
