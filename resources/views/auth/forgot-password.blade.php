@@ -28,8 +28,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+                <a class="text-sm text-gray-400 hover:text-gray-500 mr-auto" href="{{ route('login') }}">
+                    << Back to login
+                </a>
+
                 <x-button>
-                    {{ __('Email Password Reset Link') }}
+                    {{ __('Send') }}
                 </x-button>
             </div>
         </form>
