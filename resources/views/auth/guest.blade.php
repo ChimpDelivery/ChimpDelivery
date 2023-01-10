@@ -16,7 +16,6 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        @env('local')
         <script type="text/javascript">
             function callbackThen(response)
             {
@@ -32,14 +31,11 @@
                 console.error('Error:', error)
             }
         </script>
-        @endenv
 
-        @env('local')
         {!! htmlScriptTagJsApi([
             'callback_then' => 'callbackThen',
             'callback_catch' => 'callbackCatch'
         ]) !!}
-        @endenv
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
