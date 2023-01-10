@@ -17,26 +17,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <script type="text/javascript">
-            function callbackThen(response)
-            {
-                //console.log(response.status);
-                response.json().then(function(data)
-                {
-                    //console.log(data);
-                });
-            }
-
-            function callbackCatch(error)
-            {
-                //console.error('Error:', error)
-            }
-        </script>
-
-        {!! htmlScriptTagJsApi([
-            'callback_then' => 'callbackThen',
-            'callback_catch' => 'callbackCatch'
-        ]) !!}
+        {!! htmlScriptTagJsApi() !!}
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="bg-gray-100 dark:bg-gray-900">
