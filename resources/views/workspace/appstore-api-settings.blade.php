@@ -17,7 +17,7 @@
         <div class="custom-file">
             <label class="custom-file-label" for="private_key">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ Str::limit($workspace->appStoreConnectSetting->private_key, 128) }}
+                    {{ Str::limit($workspace->appStoreConnectSetting->private_key ?: 'Choose...', 128) }}
                 </span>
             </label>
             <input type="file" class="custom-file-input" id="private_key" name="private_key" accept=".p8">
