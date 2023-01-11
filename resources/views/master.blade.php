@@ -68,3 +68,5 @@
 <section class="scripts">
     @yield('scripts')
 </section>
+
+</html>
