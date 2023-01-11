@@ -26,7 +26,8 @@
                     <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+                        <img class="rounded-circle" alt="" width="20" height="20" src="{{ Auth::user()->gravatar }}" />
+
                         <span class="d-sm-none">
                             {{ Auth::user()->name }}
                         </span>
@@ -35,7 +36,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Profile
+                                <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Settings
                             </a>
                             <a class="text-left dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">

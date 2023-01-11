@@ -24,7 +24,7 @@
                     </p>
                     <div class="collapse show" id="collapse_base_settings">
                         <div class="form-group">
-                            <img class="img-thumbnail" alt="" width="75" height="75" src="{{ $user->gravatar }}" />
+                            <img class="img-thumbnail rounded-circle" alt="" width="75" height="75" src="{{ $user->gravatar }}" />
                         </div>
                         <div class="form-group">
                             <label for="name" class="text-white font-weight-bold">
