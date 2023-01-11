@@ -2,7 +2,6 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
-  - contrib/npm.php
 
 config:
   application: 'TalusWebBackend'
@@ -58,8 +57,6 @@ tasks:
       - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
 
 after:
-  deploy:update_code:
-    - npm:install
   deploy:failed:
     - deploy:unlock
   deploy:success:
