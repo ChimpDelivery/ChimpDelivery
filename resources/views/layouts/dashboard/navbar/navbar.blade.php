@@ -26,7 +26,7 @@
                     <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle mb-1" alt="" width="21" height="21" src="{{ Auth::user()->gravatar }}" />
+                        <img class="rounded-circle" alt="" style="margin-bottom: 3px;" width="20" height="20" src="{{ Auth::user()->gravatar }}" />
 
                         <span class="d-sm-none">
                             {{ Auth::user()->name }}
