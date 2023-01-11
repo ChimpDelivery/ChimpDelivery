@@ -49,24 +49,39 @@
     {{-- custom_css_end --}}
 </head>
 
-<body class="font-sans">
-    @include('layouts.dashboard.navbar.navbar')
-
-    @include('layouts.dashboard.error')
-
-    <section class="page-content">
-        @yield('content')
-    </section>
-
-    @include('layouts.dashboard.toast-container')
-
-    @livewireScripts
-
-    <x-livewire-alert::scripts />
+<body class="font-sans" style="background-color: #293990 !important;">
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide pt-4 carousel-fade" data-ride="carousel" data-interval="4000">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{ asset('promotions/1.jpg') }}" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ asset('promotions/2.jpg') }}" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ asset('promotions/3.jpg') }}" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <h3 class="text-center">
+            <a class="font-weight-bold text-white" href="{{ route('register') }}">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i> Register
+            </a>
+        </h3>
+    </div>
 </body>
-
-<section class="scripts">
-    @yield('scripts')
-</section>
-
 </html>
