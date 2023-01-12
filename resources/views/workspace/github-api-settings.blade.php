@@ -59,7 +59,6 @@
                     <label for="private_repo" class="custom-control-label text-white font-weight-bold">
                         Private
                     </label>
-                    <span class="badge alert-primary badge-pill">Subscription Required</span>
                 </div>
             </div>
         </div>
