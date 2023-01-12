@@ -14,12 +14,6 @@ class CreateOrganization
 
     public function handle(WorkspaceChanged $event) : void
     {
-        ///
-        if (!app()->isLocal())
-        {
-            return;
-        }
-
         $request = $event->request;
         if (empty($request->validated('organization_name')))
         {
