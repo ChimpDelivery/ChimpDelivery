@@ -28,10 +28,14 @@
                     data-style="btn-primary" data-live-search="true"
                     data-dropup-auto="false" data-size="10"
                     data-html="true"
-                    title="{{ $workspace->githubSetting->organization_name ?: '➤ Select Organization' }}"
-                    @disabled(!empty($workspace->githubSetting->organization_name))>
-
-                @each('layouts.github.option-organization', $workspace_github_orgs->getData()->response, 'organization')
+                    title="{{ $workspace->githubSetting->organization_name ?: '➤ Select Organization' }}">
+                @if (empty($workspace->githubSetting->organization_name))
+                    @each('layouts.github.option-organization', $workspace_github_orgs->getData()->response, 'organization')
+                @else
+                    <option selected value="{{ $workspace->githubSetting->organization_name }}">
+                        {{ $workspace->githubSetting->organization_name }}
+                    </option>
+                @endif
             </select>
         </div>
         <small class="form-text text-info">
