@@ -14,12 +14,6 @@ class CreateOrganization
 
     public function handle(WorkspaceChanged $event) : void
     {
-        ///
-        if (!app()->isLocal())
-        {
-            return;
-        }
-
         $request = $event->request;
         if (empty($request->validated('organization_name')))
         {
@@ -32,7 +26,9 @@ class CreateOrganization
             "?GIT_USERNAME={$request->validated('organization_name')}",
             "GIT_ACCESS_TOKEN={$request->validated('personal_access_token')}",
             "GITHUB_TOPIC={$request->validated('topic_name')}",
-            "REPO_OWNER={$request->validated('organization_name')}"
+            "REPO_OWNER={$request->validated('organization_name')}",
+            "TESTFLIGHT_USERNAME={$request->validated('usermail')}",
+            "TESTFLIGHT_PASSWORD={$request->validated('app_specific_pass')}"
         ]);
 
         app(JenkinsService::class)->GetJenkinsUser()->post($url);
