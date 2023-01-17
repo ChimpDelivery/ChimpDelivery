@@ -1220,25 +1220,26 @@
         },
         {
             "name": "encodia/laravel-health-env-vars",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/encodia/laravel-health-env-vars.git",
-                "reference": "a8a96e436cc4d3a3ccac926039b4a3ecd1ddeba6"
+                "reference": "151b9c02ff88c0c7069060cebd87b8dea088d76f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/a8a96e436cc4d3a3ccac926039b4a3ecd1ddeba6",
-                "reference": "a8a96e436cc4d3a3ccac926039b4a3ecd1ddeba6",
+                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/151b9c02ff88c0c7069060cebd87b8dea088d76f",
+                "reference": "151b9c02ff88c0c7069060cebd87b8dea088d76f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^8.75|^9.0",
+                "illuminate/contracts": "^8.75|^9.0|^10.0",
                 "php": "^8.0",
                 "spatie/laravel-health": "^1.8",
                 "spatie/laravel-package-tools": "^1.9.2"
             },
             "require-dev": {
+                "laravel/pint": "^1.4",
                 "nunomaduro/collision": "^5.10|^6.0",
                 "nunomaduro/larastan": "^1.0",
                 "orchestra/testbench": "^6.23|^7.0",
@@ -1288,7 +1289,7 @@
             ],
             "support": {
                 "issues": "https://github.com/encodia/laravel-health-env-vars/issues",
-                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.4.0"
+                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.5.0"
             },
             "funding": [
                 {
@@ -1296,7 +1297,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-26T11:51:41+00:00"
+            "time": "2023-01-14T16:30:33+00:00"
         },
         {
             "name": "fakerphp/faker",
