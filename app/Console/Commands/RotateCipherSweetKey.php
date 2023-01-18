@@ -45,18 +45,24 @@ class RotateCipherSweetKey extends Command
         if (!$this->SetKeyInEnvironmentFile($key))
         {
             $this->EncryptModels($oldKey);
-            $this->call('up');
+            $this->UpApp();
 
             return Command::FAILURE;
         }
 
         $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
         $this->info('CipherSweet Key rotation completed!');
-
-        // up server
-        $this->call('up');
+        $this->UpApp();
 
         return Command::SUCCESS;
+    }
+
+    protected function UpApp()
+    {
+        $this->call('clear-compiled');
+        $this->call('optimize:clear');
+        $this->call('optimize');
+        $this->call('up');
     }
 
     protected function EncryptModels(string $key)
