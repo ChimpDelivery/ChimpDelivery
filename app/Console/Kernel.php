@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
             ->emailOutputOnFailure(config('mail.from.address'))
             ->appendOutputTo($keyRotationLog);
 
-        $schedule->command('dashboard:rotate-key')
+        $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
