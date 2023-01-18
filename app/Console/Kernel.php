@@ -19,16 +19,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        /////////////////////
-        /// key rotators
-        ////////////////////
+        ////////////////////////////////////
+        /// key rotators (after backups)
+        ////////////////////////////////////
         $schedule->command('key:generate --force')
             ->timezone('Europe/Istanbul')
-            ->dailyAt('05.00');
+            ->daily()
+            ->at('01.45')
+            ->emailOutputOnFailure(config('mail.from.address'));
 
         $schedule->command('dashboard:rotate-key')
             ->timezone('Europe/Istanbul')
-            ->dailyAt('05.15');
+            ->daily()
+            ->at('02.00')
+            ->emailOutputOnFailure(config('mail.from.address'));
 
         /////////////////////
         // queue, horizon
