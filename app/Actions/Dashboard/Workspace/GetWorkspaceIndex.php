@@ -20,9 +20,6 @@ class GetWorkspaceIndex
     {
         $workspaceApps = Auth::user()->workspace->apps();
 
-        // count must be initialized here (before actions in collection)
-        $workspaceAppsCount = $workspaceApps->count();
-
         $paginatedApps = $workspaceApps->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
@@ -35,7 +32,7 @@ class GetWorkspaceIndex
         });
 
         return view('list-workspace-apps')->with([
-            'totalAppCount' => $workspaceAppsCount,
+            'totalAppCount' => $paginatedApps->total(),
             'appInfos' => $paginatedApps,
         ]);
     }

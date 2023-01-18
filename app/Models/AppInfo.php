@@ -25,6 +25,7 @@ class AppInfo extends Model
     ];
 
     protected $hidden = [
+        'workspace',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -37,6 +38,10 @@ class AppInfo extends Model
 
     protected $appends = [
         'git_url',
+    ];
+
+    protected $with = [
+        'workspace',
     ];
 
     protected function gitUrl() : Attribute
