@@ -15,31 +15,22 @@ class Kernel extends ConsoleKernel
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule) : void
     {
         ////////////////////////////////////
         /// key rotators (after backups)
         ////////////////////////////////////
-        $keyRotationLog = storage_path() . "/logs/schedule-key-rotating.log";
-        $schedule->command('key:generate --force')
-            ->timezone('Europe/Istanbul')
-            ->daily()
-            ->at('01.45')
-            ->emailOutputOnFailure(config('mail.from.address'))
-            ->appendOutputTo($keyRotationLog);
-
-        $schedule->command('dashboard:rotate-key')
+        $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
             ->emailOutputOnFailure(config('mail.from.address'))
-            ->appendOutputTo($keyRotationLog);
+            ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log');
 
-        /////////////////////
+        ///////////////////////
         // queue, horizon
-        ////////////////////
+        //////////////////////
         $schedule->command('horizon:snapshot')
             ->timezone('Europe/Istanbul')
             ->everyFiveMinutes();
@@ -106,10 +97,8 @@ class Kernel extends ConsoleKernel
 
     /**
      * Register the commands for the application.
-     *
-     * @return void
      */
-    protected function commands()
+    protected function commands() : void
     {
         $this->load(__DIR__.'/Commands');
 
