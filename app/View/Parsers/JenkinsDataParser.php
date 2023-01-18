@@ -3,8 +3,9 @@
 namespace App\View\Parsers;
 
 use App\Actions\Api\Jenkins\JobPlatform;
+
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
 
 use App\Models\AppInfo;
 use App\Actions\Api\Jenkins\JobStatus;
@@ -54,15 +55,9 @@ class JenkinsDataParser
         ];
     }
 
-    private function GetLogLink()
+    private function GetLogLink() : View
     {
-        return "<a class='pull-right text-secondary'
-                    data-toggle='tooltip'
-                    data-placement='top'
-                    title='Build Log'
-                    href=/dashboard/build-log?id={$this->app->id}>
-                        <i class='fa fa-external-link' aria-hidden='true'></i>
-                </a>";
+        return view('layouts.jenkins.job-log-button', [ 'appId' => $this->app->id ]);
     }
 
     private function GetJobPlatform()
