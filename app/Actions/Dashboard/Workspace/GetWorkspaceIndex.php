@@ -18,9 +18,8 @@ class GetWorkspaceIndex
 
     public function handle() : View
     {
-        $workspaceApps = Auth::user()->workspace->apps();
-
-        $paginatedApps = $workspaceApps->orderBy('id', 'desc')
+        $paginatedApps = Auth::user()->workspace->apps()
+            ->orderBy('id', 'desc')
             ->paginate(5)
             ->onEachSide(1);
 
