@@ -19,9 +19,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        /////////////////
+        /////////////////////
+        /// key rotators
+        ////////////////////
+        $schedule->command('key:generate --force')
+            ->timezone('Europe/Istanbul')
+            ->dailyAt('05.00');
+
+        $schedule->command('dashboard:rotate-key')
+            ->timezone('Europe/Istanbul')
+            ->dailyAt('05.15');
+
+        /////////////////////
         // queue, horizon
-        ////////////////
+        ////////////////////
         $schedule->command('horizon:snapshot')
             ->timezone('Europe/Istanbul')
             ->everyFiveMinutes();
@@ -53,9 +64,9 @@ class Kernel extends ConsoleKernel
             ->emailOutputOnFailure(config('mail.from.address'))
             ->environments([ 'production' ]);
 
-        /////////////////////////
+        /////////////////////
         // health checks
-        ////////////////////////
+        ////////////////////
         $schedule->command(RunHealthChecksCommand::class)
             ->timezone('Europe/Istanbul')
             ->everyMinute();
@@ -64,9 +75,9 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->everyMinute();
 
-        //////////////////
+        ///////////////
         // pruning
-        /////////////////
+        //////////////
         $schedule->command('sanctum:prune-expired --hours=24')
             ->timezone('Europe/Istanbul')
             ->daily()
