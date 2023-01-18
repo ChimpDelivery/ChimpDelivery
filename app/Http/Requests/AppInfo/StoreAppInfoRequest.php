@@ -67,6 +67,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'required',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
+                    ->where('workspace_id', Auth::user()->workspace->id)
                     ->whereNull('deleted_at')
             ],
 
