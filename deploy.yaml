@@ -10,7 +10,6 @@ config:
   php_fpm_version: 8.1
   ssh_multiplexing: true
   forward_agent: true
-  git_tty: true
   http_user: false
   use_relative_symlink: false
   crontab:jobs: [

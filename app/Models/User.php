@@ -36,7 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
-        'workspace',
         'permissions',
         'gravatar',
     ];
@@ -46,7 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $with = [
-        'workspace',
         'permissions',
     ];
 
