@@ -30,10 +30,14 @@ class RotateCipherSweetKey extends Command
         // maintenance mode
         $this->call('down');
 
-        $oldKey = config('app.key');
+        // rotate laravel key
+        $this->call('key:generate --force');
+
+        // rotate ciphersweet key
+        $oldKey = config('ciphersweet.providers.string.key');
         $key = $this->GenerateRandomKey();
 
-        $this->info("Key rotation is working...");
+        $this->info('CipherSweet Key rotation is working...');
         if ($this->option('show'))
         {
             $this->info("New Key: {$key}");
@@ -51,7 +55,8 @@ class RotateCipherSweetKey extends Command
         }
 
         $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
-        $this->info('CipherSweet Key rotation completed!');
+        $this->info('Key rotation completed!');
+
         $this->UpApp();
 
         return Command::SUCCESS;
