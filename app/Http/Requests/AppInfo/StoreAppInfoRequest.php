@@ -3,6 +3,7 @@
 namespace App\Http\Requests\AppInfo;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\Github\GetRepositoryRequest;
 
@@ -38,6 +39,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
+                    ->where('workspace_id', Auth::user()->workspace->id)
                     ->whereNull('deleted_at'),
             ],
 
@@ -47,6 +49,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
+                    ->where('workspace_id', Auth::user()->workspace->id)
                     ->whereNull('deleted_at')
             ],
 
@@ -56,6 +59,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 'max:255',
                 Rule::unique('app_infos')
                     ->ignore($this->id)
+                    ->where('workspace_id', Auth::user()->workspace->id)
                     ->whereNull('deleted_at')
             ],
 
