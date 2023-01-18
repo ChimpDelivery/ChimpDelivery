@@ -11,12 +11,12 @@ use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
 use App\Models\WorkspaceInviteCode;
 
-class RotateCipherSweetKey extends Command
+class RotateApplicationKeys extends Command
 {
     protected $signature = 'dashboard:rotate-key {--show : shows encryption key}';
-    protected $description = 'Create new Cipher Key and Re-Encrypt related Models';
+    protected $description = 'Rotates encryption keys in application.';
 
-    protected string $keyName = 'CIPHERSWEET_KEY';
+    protected string $cipherSweetKeyName = 'CIPHERSWEET_KEY';
 
     protected array $encryptedModels = [
         AppleSetting::class,
@@ -31,7 +31,10 @@ class RotateCipherSweetKey extends Command
         $this->call('down');
 
         // rotate laravel key
-        $this->call('key:generate --show --force');
+        $params = $this->option('show')
+            ? [ '--show' => true, '--force' => true ]
+            : [ '--force' => true ];
+        $this->call('key:generate', $params);
 
         // rotate ciphersweet key
         $oldKey = config('ciphersweet.providers.string.key');
@@ -100,13 +103,13 @@ class RotateCipherSweetKey extends Command
     {
         $replaced = preg_replace(
             pattern: $this->KeyReplacementPattern(),
-            replacement: "{$this->keyName}=" . $key,
+            replacement: "{$this->cipherSweetKeyName}=" . $key,
             subject: $input = file_get_contents($this->laravel->environmentFilePath())
         );
 
         if ($replaced === $input || $replaced === null)
         {
-            $this->error("Unable to set application key. No {$this->keyName} variable was found in the .env file.");
+            $this->error("Unable to set application key. No {$this->cipherSweetKeyName} variable was found in the .env file.");
             return false;
         }
 
@@ -119,6 +122,6 @@ class RotateCipherSweetKey extends Command
     {
         $escaped = preg_quote('=' . $this->laravel['config']['ciphersweet.providers.string.key'], '/');
 
-        return "/^{$this->keyName}{$escaped}/m";
+        return "/^{$this->cipherSweetKeyName}{$escaped}/m";
     }
 }
