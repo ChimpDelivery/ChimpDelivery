@@ -27,6 +27,10 @@ class RotateCipherSweetKey extends Command
 
     public function handle() : int
     {
+        // maintenance mode
+        $this->call('down');
+
+        $oldKey = config('app.key');
         $key = $this->GenerateRandomKey();
 
         $this->info("Key rotation is working...");
@@ -35,6 +39,28 @@ class RotateCipherSweetKey extends Command
             $this->info("New Key: {$key}");
         }
 
+        $this->EncryptModels($key);
+
+        // revert back when failed
+        if (!$this->SetKeyInEnvironmentFile($key))
+        {
+            $this->EncryptModels($oldKey);
+            $this->call('up');
+
+            return Command::FAILURE;
+        }
+
+        $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
+        $this->info('CipherSweet Key rotation completed!');
+
+        // up server
+        $this->call('up');
+
+        return Command::SUCCESS;
+    }
+
+    protected function EncryptModels(string $key)
+    {
         // re-encrypt current models
         // after re-encryption, update .env key
         foreach ($this->encryptedModels as $model)
@@ -45,17 +71,6 @@ class RotateCipherSweetKey extends Command
                 'newKey' => $key
             ]);
         }
-
-        if (!$this->SetKeyInEnvironmentFile($key))
-        {
-            return Command::FAILURE;
-        }
-
-        $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
-
-        $this->info('CipherSweet Key rotation completed!');
-
-        return Command::SUCCESS;
     }
 
     protected function GenerateRandomKey() : string
