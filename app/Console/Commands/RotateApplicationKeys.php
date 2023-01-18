@@ -13,7 +13,7 @@ use App\Models\WorkspaceInviteCode;
 
 class RotateApplicationKeys extends Command
 {
-    protected $signature = 'dashboard:rotate-key {--show : shows encryption key}';
+    protected $signature = 'dashboard:rotate-key {--show : shows encryption keys}';
     protected $description = 'Rotates encryption keys in application.';
 
     protected string $cipherSweetKeyName = 'CIPHERSWEET_KEY';
@@ -41,7 +41,7 @@ class RotateApplicationKeys extends Command
         $this->info('CipherSweet Key rotation is working...');
         if ($this->option('show'))
         {
-            $this->info("New Key: {$key}");
+            $this->info("New CipherSweet Key: {$key}");
         }
 
         $this->EncryptModels($key);
@@ -56,7 +56,8 @@ class RotateApplicationKeys extends Command
         }
 
         $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
-        $this->info('Key rotation completed!');
+
+        $this->info('All Encryption Keys rotated successfully!');
 
         $this->UpApp();
 
