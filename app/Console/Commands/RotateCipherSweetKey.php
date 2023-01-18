@@ -31,7 +31,7 @@ class RotateCipherSweetKey extends Command
         $this->call('down');
 
         // rotate laravel key
-        $this->call('key:generate --force');
+        $this->call('key:generate --show --force');
 
         // rotate ciphersweet key
         $oldKey = config('ciphersweet.providers.string.key');
