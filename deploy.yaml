@@ -10,7 +10,6 @@ config:
   php_fpm_version: 8.1
   ssh_multiplexing: true
   forward_agent: true
-  http_user: false
   use_relative_symlink: false
   crontab:jobs: [
     '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
