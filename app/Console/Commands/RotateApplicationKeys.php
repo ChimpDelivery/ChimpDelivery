@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 
 use ParagonIE\ConstantTime\Hex;
 
+use Illuminate\Support\Carbon;
+
 use App\Models\AppleSetting;
 use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
@@ -29,6 +31,9 @@ class RotateApplicationKeys extends Command
     {
         // maintenance mode
         $this->call('down');
+
+        $this->info('Key Rotation is starting...');
+        $this->info(Carbon::now());
 
         // rotate laravel key
         $params = [ '--show' => $this->option('show'), '--force' => true ];
