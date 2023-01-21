@@ -10,7 +10,7 @@ class WorkspaceUserSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->create([
+        User::factory()->createQuietly([
             'workspace_id' => 3,
             'name' => 'Example User',
             'email' => 'exampleuser@talusstudio.com',

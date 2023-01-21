@@ -2,8 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Events\WorkspaceChanged;
 
 class ChangeWorkspaceSettings
@@ -19,12 +17,6 @@ class ChangeWorkspaceSettings
 
         $targetWorkspace->fill($validated->only([ 'name' ]));
         $targetWorkspace->save();
-
-        if ($targetWorkspace->wasRecentlyCreated)
-        {
-            Auth::user()->update([ 'workspace_id' => $targetWorkspace->id ]);
-            Auth::user()->syncRoles([ 'Admin_Workspace' ]);
-        }
 
         // 1. app store connect
         $appStoreConnectSetting = $targetWorkspace->appStoreConnectSetting()->firstOrCreate();

@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+use App\Models\Workspace;
+use App\Observers\WorkspaceObserver;
 use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
 use App\Listeners\ChangeWorkspaceSettings;
@@ -39,22 +42,25 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    protected $observers = [
+
+        Workspace::class => [
+            WorkspaceObserver::class
+        ],
+    ];
+
     /**
      * Register any events for your application.
      *
-     * @return void
      */
-    public function boot()
-    {
-
-    }
+    public function boot() : void
+    { }
 
     /**
      * Determine if events and listeners should be automatically discovered.
      *
-     * @return bool
      */
-    public function shouldDiscoverEvents()
+    public function shouldDiscoverEvents() : bool
     {
         return false;
     }
