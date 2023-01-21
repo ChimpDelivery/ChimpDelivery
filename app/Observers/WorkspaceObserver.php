@@ -8,6 +8,8 @@ use App\Models\Workspace;
 
 class WorkspaceObserver
 {
+    public bool $afterCommit = true;
+
     public function created(Workspace $workspace) : void
     {
         $user = Auth::user();
