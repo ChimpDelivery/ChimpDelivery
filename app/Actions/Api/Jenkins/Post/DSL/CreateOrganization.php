@@ -7,7 +7,9 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use App\Events\WorkspaceChanged;
 use App\Services\JenkinsService;
 
-/// Creates Workspace Folder in Jenkins when Dashboard Workspace created
+use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
+
+/// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
 class CreateOrganization
 {
     use AsAction;
@@ -20,17 +22,35 @@ class CreateOrganization
             return;
         }
 
-        // Job url that contains Jenkins-DSL Plugin Action
-        $url = config('jenkins.host') . '/job/Seed/buildWithParameters';
-        $url .= implode('&', [
-            "?GIT_USERNAME={$request->validated('organization_name')}",
+        $url = $this->GetJobUrl();
+        $url .= $this->GetJobParams($event->request);
+
+        app(JenkinsService::class)->GetJenkinsUser()->post($url);
+    }
+
+    // Job url that contains Jenkins-DSL Plugin Action
+    public function GetJobUrl() : string
+    {
+        return implode('/', [
+            config('jenkins.host'),
+            'job',
+            config('jenkins.seeder'),
+            'buildWithParameters?',
+        ]);
+    }
+
+    public function GetJobParams(StoreWorkspaceSettingsRequest $request) : string
+    {
+        return implode('&', [
+            // source control related
+            "GIT_USERNAME={$request->validated('organization_name')}",
             "GIT_ACCESS_TOKEN={$request->validated('personal_access_token')}",
             "GITHUB_TOPIC={$request->validated('topic_name')}",
             "REPO_OWNER={$request->validated('organization_name')}",
-            "TESTFLIGHT_USERNAME={$request->validated('usermail')}",
-            "TESTFLIGHT_PASSWORD={$request->validated('app_specific_pass')}"
-        ]);
 
-        app(JenkinsService::class)->GetJenkinsUser()->post($url);
+            // delivery platform related
+            "TESTFLIGHT_USERNAME={$request->validated('usermail')}",
+            "TESTFLIGHT_PASSWORD={$request->validated('app_specific_pass')}",
+        ]);
     }
 }

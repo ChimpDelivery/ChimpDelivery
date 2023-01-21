@@ -38,10 +38,11 @@ class AppStoreConnectService
 
         try
         {
-            $generatedToken = JWT::encode($payload,
-                $this->appStoreConnectSetting->private_key,
-                'ES256',
-                $this->appStoreConnectSetting->kid,
+            $generatedToken = JWT::encode(
+                payload: $payload,
+                key: $this->appStoreConnectSetting->private_key,
+                alg: 'ES256',
+                keyId: $this->appStoreConnectSetting->kid,
             );
         }
         catch (\Exception $exception)

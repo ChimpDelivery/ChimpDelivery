@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
 
+use App\Services\AppStoreConnectService;
 use App\Actions\Api\AppStoreConnect\CreateBundleId;
-use App\Actions\Api\AppStoreConnect\CreateToken;
 use App\Actions\Api\AppStoreConnect\GetAppList;
 use App\Actions\Api\AppStoreConnect\GetBuildList;
 use App\Actions\Api\AppStoreConnect\GetFullAppInfo;
@@ -43,16 +43,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
 ////////////////////////
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::get('appstoreconnect/get-token', CreateToken::class);
+    //
+    Route::get('appstoreconnect/get-token', fn() => app(AppStoreConnectService::class)->CreateToken());
     Route::get('appstoreconnect/get-full-info', GetFullAppInfo::class);
     Route::get('appstoreconnect/get-app-list', GetAppList::class);
     Route::get('appstoreconnect/get-build-list', GetBuildList::class);
 
+    Route::post('appstoreconnect/create-bundle', CreateBundleId::class);
+
     // s3 related
     Route::get('appstoreconnect/get-cert', GetCertificate::class);
     Route::get('appstoreconnect/get-provision-profile', GetProvisionProfile::class);
-
-    Route::post('appstoreconnect/create-bundle', CreateBundleId::class);
 });
 
 ////////////////////

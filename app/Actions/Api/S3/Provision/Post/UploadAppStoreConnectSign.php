@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\AsS3Client;
 use App\Traits\AsActionResponse;
 use App\Events\WorkspaceChanged;
-use App\Models\AppStoreConnectSign;
 
 class UploadAppStoreConnectSign
 {
