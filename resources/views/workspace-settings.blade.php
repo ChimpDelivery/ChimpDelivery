@@ -32,7 +32,9 @@
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
-            'text' => 'All fields can be changed later by <b>Workspace Admin(s)</b>.'
+            'text' => ($isNew)
+                ? 'All fields can be changed later by <b>Workspace Admin(s)</b>.'
+                : 'Updated at: ' . $workspace->updated_at
         ])
     </div>
 </div>
