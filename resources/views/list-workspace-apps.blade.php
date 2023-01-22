@@ -32,7 +32,7 @@
                 </div>
             </div>
             @include('layouts.dashboard.card-footer', [
-                'text' => '<b>Runner Limit: 2</b>' . "<b class='pull-right'>{$totalAppCount} apps</b>"
+                'text' => '<b>Runner Limit: 3</b>' . "<b class='pull-right'>{$totalAppCount} apps</b>"
             ])
         </div>
     </div>
