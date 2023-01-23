@@ -30,16 +30,14 @@ class AppStoreConnectService
 
     public function CreateToken() : JsonResponse
     {
-        $payload = [
-            'iss' => $this->appStoreConnectSetting->issuer_id,
-            'exp' => time() + config('appstore.cache_duration') * 60,
-            'aud' => 'appstoreconnect-v1'
-        ];
-
         try
         {
             $generatedToken = JWT::encode(
-                payload: $payload,
+                payload: [
+                    'iss' => $this->appStoreConnectSetting->issuer_id,
+                    'exp' => time() + config('appstore.cache_duration') * 60,
+                    'aud' => 'appstoreconnect-v1'
+                ],
                 key: $this->appStoreConnectSetting->private_key,
                 alg: 'ES256',
                 keyId: $this->appStoreConnectSetting->kid,
