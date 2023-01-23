@@ -76,6 +76,7 @@
             "@php artisan key:generate --ansi"
         ],
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
+        "dashboard-horizon-restart": "php artisan horizon:terminate && php artisan horizon:purge && php artisan queue:restart",
         "dashboard-down": "php artisan down --secret=\"262626\"",
         "dashboard-up": "php artisan up",
         "dashboard-security-check": "php artisan enlightn",
