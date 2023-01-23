@@ -11,16 +11,17 @@ use Illuminate\Http\Client\Response;
 
 class JenkinsService
 {
-    // {tunnel_url}/job/{organization_folder}
-    private readonly string $jenkinsWorkspaceUrl;
-
     public function __construct(
         private readonly string $tunnelUrl,
         private readonly string $jenkinsUser,
-        private readonly string $jenkinsToken)
+        private readonly string $jenkinsToken,
+    ) { }
+
+    // {tunnel_url}/job/{organization_folder}
+    public function GetWorkspaceUrl() : string
     {
-        $this->jenkinsWorkspaceUrl = implode('/', [
-            $tunnelUrl,
+        return implode('/', [
+            $this->tunnelUrl,
             'job',
             Auth::user()->orgName(),
         ]);
@@ -51,7 +52,7 @@ class JenkinsService
         {
             if (in_array($method, ['post', 'get']))
             {
-                $jenkinsResponse = $this->$method($this->jenkinsWorkspaceUrl . $url, $isHtml);
+                $jenkinsResponse = $this->$method($this->GetWorkspaceUrl() . $url, $isHtml);
             }
             else
             {
