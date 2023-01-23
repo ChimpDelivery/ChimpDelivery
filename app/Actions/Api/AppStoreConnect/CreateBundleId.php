@@ -16,6 +16,8 @@ class CreateBundleId
     use AsAction;
     use AsActionResponse;
 
+    public const API_URL = AppStoreConnectService::API_URL . '/bundleIds';
+
     public function handle(StoreBundleRequest $request, AppStoreConnectService $service) : array
     {
         $data = [
@@ -31,7 +33,7 @@ class CreateBundleId
 
         $createBundle = $service->GetClient()
             ->withBody(json_encode($data), 'application/json')
-            ->post(AppStoreConnectService::API_URL.'/bundleIds');
+            ->post(self::API_URL);
 
         $createBundleResponse = $createBundle->json();
 
