@@ -46,7 +46,6 @@
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-horizon-watcher": "^1.0",
         "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
