@@ -6,9 +6,6 @@ use App\Events\WorkspaceChanged;
 
 class ChangeWorkspaceSettings
 {
-    public function __construct()
-    { }
-
     public function handle(WorkspaceChanged $event)
     {
         $targetWorkspace = $event->workspace;

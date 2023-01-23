@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Actions\Api\Jenkins\Post\DSL;
-
-use Lorisleiva\Actions\Concerns\AsAction;
+namespace App\Listeners\Jenkins;
 
 use App\Events\WorkspaceChanged;
-use App\Services\JenkinsService;
 
+use App\Services\JenkinsService;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
 class CreateOrganization
 {
-    use AsAction;
-
     public function handle(WorkspaceChanged $event) : void
     {
         $request = $event->request;

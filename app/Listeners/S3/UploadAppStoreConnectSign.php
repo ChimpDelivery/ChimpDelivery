@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Actions\Api\S3\Provision\Post;
-
-use Lorisleiva\Actions\Concerns\AsAction;
+namespace App\Listeners\S3;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Traits\AsS3Client;
-use App\Traits\AsActionResponse;
 use App\Events\WorkspaceChanged;
+use App\Traits\AsS3Client;
 
 class UploadAppStoreConnectSign
 {
-    use AsAction;
-    use AsActionResponse;
     use AsS3Client;
 
     public function handle(WorkspaceChanged $event) : void
@@ -39,10 +34,5 @@ class UploadAppStoreConnectSign
         }
 
         $appStoreConnectSign->save();
-    }
-
-    public function authorize() : bool
-    {
-        return Auth::user()->can('update workspace');
     }
 }
