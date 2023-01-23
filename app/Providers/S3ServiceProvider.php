@@ -15,7 +15,7 @@ class S3ServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind(S3Service::class, function($app) {
+        $this->app->singleton(S3Service::class, function($app) {
             return new S3Service();
         });
     }

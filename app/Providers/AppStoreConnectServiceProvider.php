@@ -15,7 +15,7 @@ class AppStoreConnectServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind(AppStoreConnectService::class, function($app) {
+        $this->app->singleton(AppStoreConnectService::class, function($app) {
             return new AppStoreConnectService();
         });
     }

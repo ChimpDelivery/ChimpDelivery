@@ -15,7 +15,7 @@ class JenkinsServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind(JenkinsService::class, function($app) {
+        $this->app->singleton(JenkinsService::class, function($app) {
             return new JenkinsService(
                 config('jenkins.host'),
                 config('jenkins.user'),
