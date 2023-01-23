@@ -23,7 +23,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - GitHub API Support
 - Workspaces & Roles & Permissions
 - Daily Backups (S3)
-- Dashboard Monitoring as Super Admin (Health, Telescope)
+- Dashboard Monitoring as Super Admin (Health, Horizon, Telescope)
 
 # Security
 - Honeypot
@@ -46,7 +46,6 @@ POST   |   api/update-app?id={id}&fb_app_id={fbAppID?}&ga_id={gaID?}&ga_secret={
 GET    |   api/appstoreconnect/get-token
 GET    |   api/appstoreconnect/get-full-info
 GET    |   api/appstoreconnect/get-app-list
-GET    |   api/appstoreconnect/get-build-list
 GET    |   api/appstoreconnect/get-cert
 GET    |   api/appstoreconnect/get-provision-profile
 POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
