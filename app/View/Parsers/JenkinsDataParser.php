@@ -60,15 +60,11 @@ class JenkinsDataParser
         return view('layouts.jenkins.job-log-button', [ 'appId' => $this->app->id ]);
     }
 
-    private function GetJobPlatform()
+    private function GetJobPlatform() : View
     {
-        if (!isset($this->jenkinsData->build_platform)) { return ''; }
+        $icon = JobPlatform::tryFrom($this->jenkinsData->build_platform)->GetPlatformIcon();
 
-        $iconType = ($this->jenkinsData->build_platform == JobPlatform::GooglePlay->value)
-            ? 'fa fa-google'
-            : 'fa fa-apple';
-
-        return '<i class="pull-right ' . $iconType . ' aria-hidden="true"></i>';
+        return view('layouts.jenkins.job-platform', [ 'icon' => $icon ]);
     }
 
     private function GetStage()
