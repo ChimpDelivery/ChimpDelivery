@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Actions\Api\Jenkins\Post\DSL;
+namespace App\Listeners\Jenkins;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use App\Events\WorkspaceChanged;
-use App\Services\JenkinsService;
 
+use App\Services\JenkinsService;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
