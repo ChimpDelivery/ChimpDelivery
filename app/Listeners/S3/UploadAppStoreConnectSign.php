@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Actions\Api\S3\Provision\Post;
+namespace App\Listeners\S3;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Events\WorkspaceChanged;
 use App\Traits\AsS3Client;
 use App\Traits\AsActionResponse;
-use App\Events\WorkspaceChanged;
 
 class UploadAppStoreConnectSign
 {

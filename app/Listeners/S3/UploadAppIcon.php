@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Api\S3\Provision\Post;
+namespace App\Listeners\S3;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 

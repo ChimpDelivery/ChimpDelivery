@@ -8,17 +8,18 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 
 use App\Models\Workspace;
+
+use App\Actions\Api\Jenkins\Post\ScanOrganization;
+
 use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
-use App\Observers\WorkspaceObserver;
 
 use App\Listeners\ChangeWorkspaceSettings;
 use App\Listeners\Jenkins\CreateOrganization;
+use App\Listeners\S3\UploadAppIcon;
+use App\Listeners\S3\UploadAppStoreConnectSign;
 
-use App\Actions\Api\Jenkins\Post\ScanOrganization;
-use App\Actions\Api\S3\Provision\Post\UploadAppIcon;
-use App\Actions\Api\S3\Provision\Post\UploadAppStoreConnectSign;
-
+use App\Observers\WorkspaceObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
