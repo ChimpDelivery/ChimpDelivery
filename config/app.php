@@ -193,11 +193,11 @@ return [
         /*
          * Core Providers
          */
-        App\Providers\AppStoreConnectServiceProvider::class,
-        App\Providers\JenkinsServiceProvider::class,
-        App\Providers\GitHubServiceProvider::class,
-        App\Providers\S3ServiceProvider::class,
         App\Providers\FtpServiceProvider::class,
+        App\Providers\S3ServiceProvider::class,
+        App\Providers\AppStoreConnectServiceProvider::class,
+        App\Providers\GitHubServiceProvider::class,
+        App\Providers\JenkinsServiceProvider::class,
     ],
 
     /*

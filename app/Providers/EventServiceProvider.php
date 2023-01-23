@@ -2,24 +2,17 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-
-use App\Models\Workspace;
-
 use App\Actions\Api\Jenkins\Post\ScanOrganization;
-
 use App\Events\AppChanged;
 use App\Events\WorkspaceChanged;
-
 use App\Listeners\ChangeWorkspaceSettings;
-use App\Listeners\Jenkins\CreateOrganization;
 use App\Listeners\S3\UploadAppIcon;
 use App\Listeners\S3\UploadAppStoreConnectSign;
-
+use App\Models\Workspace;
 use App\Observers\WorkspaceObserver;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,7 +30,6 @@ class EventServiceProvider extends ServiceProvider
         WorkspaceChanged::class => [
             ChangeWorkspaceSettings::class,
             UploadAppStoreConnectSign::class,
-            CreateOrganization::class,
         ],
 
         AppChanged::class => [

@@ -16,7 +16,7 @@ class FtpServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind(FtpService::class, function($app) {
+        $this->app->singleton(FtpService::class, function($app) {
             return new FtpService(
                 Str::of(config('filesystems.disks.ftp.host'))
                     ->explode('.')
