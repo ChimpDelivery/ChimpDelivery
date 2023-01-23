@@ -35,6 +35,10 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->everyFiveMinutes();
 
+        $schedule->command('horizon:terminate')
+            ->timezone('Europe/Istanbul')
+            ->hourlyAt(5);
+
         /////////////////
         // backups
         ////////////////

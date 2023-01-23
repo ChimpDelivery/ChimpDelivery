@@ -6,6 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Queue\SerializesModels;
 
@@ -13,7 +14,7 @@ use App\Models\Workspace;
 use App\Services\JenkinsService;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
-class CreateOrganization implements ShouldQueue
+class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
 {
     use AsAction;
 
