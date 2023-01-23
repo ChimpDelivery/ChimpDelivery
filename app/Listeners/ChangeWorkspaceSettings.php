@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\WorkspaceChanged;
+use App\Jobs\Jenkins\CreateOrganization;
 
 class ChangeWorkspaceSettings
 {
@@ -46,6 +47,7 @@ class ChangeWorkspaceSettings
             'public_repo',
             'private_repo',
         ]));
-        $githubSetting->save();
+
+        CreateOrganization::dispatchIf($githubSetting->save(), $targetWorkspace);
     }
 }
