@@ -2,18 +2,13 @@
 
 namespace App\Listeners\S3;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
 use Illuminate\Support\Facades\Auth;
 
 use App\Events\WorkspaceChanged;
 use App\Traits\AsS3Client;
-use App\Traits\AsActionResponse;
 
 class UploadAppStoreConnectSign
 {
-    use AsAction;
-    use AsActionResponse;
     use AsS3Client;
 
     public function handle(WorkspaceChanged $event) : void
@@ -39,10 +34,5 @@ class UploadAppStoreConnectSign
         }
 
         $appStoreConnectSign->save();
-    }
-
-    public function authorize() : bool
-    {
-        return Auth::user()->can('update workspace');
     }
 }

@@ -2,19 +2,13 @@
 
 namespace App\Listeners\S3;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 use App\Events\AppChanged;
 use App\Traits\AsS3Client;
-use App\Traits\AsActionResponse;
 
 class UploadAppIcon
 {
-    use AsAction;
-    use AsActionResponse;
     use AsS3Client;
 
     public function handle(AppChanged $event) : void
@@ -30,10 +24,5 @@ class UploadAppIcon
                 $event->appInfo->save();
             }
         }
-    }
-
-    public function authorize() : bool
-    {
-        return Auth::user()->can('create app');
     }
 }
