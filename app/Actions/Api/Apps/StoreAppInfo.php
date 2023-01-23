@@ -17,33 +17,27 @@ class StoreAppInfo
 {
     use AsAction;
 
-    private bool $isModelRestored = false;
-
     public function handle(StoreAppInfoRequest $request) : AppInfo
     {
-        $appModel = Auth::user()->workspace->apps()->withTrashed()
+        $appModel = Auth::user()->workspace->apps()
             ->where('app_bundle', '=', $request->validated('app_bundle'))
-            ->firstOrNew();
+            ->firstOrNew()
+            ->fill($request->safe()->all());
 
-        if ($appModel->trashed())
+        if ($appModel->save())
         {
-            $this->isModelRestored = true;
-            $appModel->restore();
+            event(new AppChanged($appModel, $request));
         }
-
-        $appModel->fill($request->safe()->all());
-        $appModel->save();
-
-        event(new AppChanged($appModel, $request));
 
         return $appModel;
     }
 
     public function htmlResponse(AppInfo $appInfo) : RedirectResponse
     {
-        $message = ($appInfo->wasRecentlyCreated || $this->isModelRestored)
-            ? "Project: <b>{$appInfo->project_name}</b> created."
-            : "Project: <b>{$appInfo->project_name}</b> updated.";
+        $message = implode( " ", [
+            "Project: <b>{$appInfo->project_name}</b>",
+            ($appInfo->wasRecentlyCreated) ? "created." : "updated."
+        ]);
 
         return to_route('index')->with('success', $message);
     }
