@@ -21,7 +21,7 @@ class AccessTokenSeeder extends Seeder
 
         User::all()->each(function (User $user) use ($output) {
 
-            $userAccessToken = $user->createApiToken();
+            $userAccessToken = $user->createApiToken('api-key');
 
             $output->writeln("Api Token for User {$user->name}: {$userAccessToken}");
         });

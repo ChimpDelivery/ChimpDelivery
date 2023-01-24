@@ -9,7 +9,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Workspace;
 use App\Services\JenkinsService;
 
@@ -21,10 +23,12 @@ class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
     use Queueable;
     use SerializesModels;
 
+    private User $workspaceAdmin;
     private PendingRequest $jenkinsUser;
 
     public function __construct()
     {
+        $this->workspaceAdmin = Auth::user();
         $this->jenkinsUser = app(JenkinsService::class)->GetJenkinsUser();
     }
 
@@ -53,6 +57,8 @@ class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
         $tfSetting = $workspace->appleSetting;
 
         return implode('&', [
+            "DASHBOARD_TOKEN={$this->workspaceAdmin->createApiToken('jenkins-key')}",
+
             // source control related
             "GIT_USERNAME={$githubSetting->organization_name}",
             "GIT_ACCESS_TOKEN={$githubSetting->personal_access_token}",
