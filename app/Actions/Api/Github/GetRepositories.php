@@ -55,7 +55,10 @@ class GetRepositories
         }
         catch (\Exception $exception)
         {
-            return response()->json([ 'response' => $response ], $exception->getCode());
+            return response()->json([
+                'response' => $exception->getMessage(),
+                'error_code' => $exception->getCode(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return response()->json([ 'response' => $response ], Response::HTTP_OK);
