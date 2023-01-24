@@ -19,7 +19,7 @@ class CreateAppForm
         $allAppInfos = GetAppList::run();
         $allGitProjects = GetRepositories::run();
 
-        $isBadCredentials = $allGitProjects->status() == Response::HTTP_UNAUTHORIZED;
+        $isBadCredentials = isset($allGitProjects->getData()->error_code);
 
         return view('appinfo-form')->with([
             'all_appstore_apps' => $allAppInfos->getData(),

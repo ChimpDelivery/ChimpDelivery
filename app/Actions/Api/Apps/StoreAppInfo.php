@@ -34,7 +34,7 @@ class StoreAppInfo
 
     public function htmlResponse(AppInfo $appInfo) : RedirectResponse
     {
-        $message = implode( " ", [
+        $message = implode(" ", [
             "Project: <b>{$appInfo->project_name}</b>",
             ($appInfo->wasRecentlyCreated) ? "created." : "updated."
         ]);
