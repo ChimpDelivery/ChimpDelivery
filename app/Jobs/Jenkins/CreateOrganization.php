@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Workspace;
@@ -23,19 +22,17 @@ class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
     use Queueable;
     use SerializesModels;
 
-    private User $workspaceAdmin;
     private PendingRequest $jenkinsUser;
 
     public function __construct()
     {
-        $this->workspaceAdmin = Auth::user();
         $this->jenkinsUser = app(JenkinsService::class)->GetJenkinsUser();
     }
 
-    public function handle(Workspace $workspace)
+    public function handle(Workspace $workspace, User $workspaceAdmin)
     {
         $url = $this->GetJobUrl();
-        $url .= $this->GetJobParams($workspace);
+        $url .= $this->GetJobParams($workspace, $workspaceAdmin);
 
         return $this->jenkinsUser->post($url);
     }
@@ -51,13 +48,14 @@ class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
         ]);
     }
 
-    public function GetJobParams(Workspace $workspace) : string
+    public function GetJobParams(Workspace $workspace, User $workspaceAdmin) : string
     {
         $githubSetting = $workspace->githubSetting;
         $tfSetting = $workspace->appleSetting;
 
         return implode('&', [
-            "DASHBOARD_TOKEN={$this->workspaceAdmin->createApiToken('jenkins-key')}",
+            // dashboard-auth related
+            "DASHBOARD_TOKEN={$workspaceAdmin->createApiToken('jenkins-key')}",
 
             // source control related
             "GIT_USERNAME={$githubSetting->organization_name}",

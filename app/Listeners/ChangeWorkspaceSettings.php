@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Events\WorkspaceChanged;
 use App\Jobs\Jenkins\CreateOrganization;
 
@@ -48,6 +50,10 @@ class ChangeWorkspaceSettings
             'private_repo',
         ]));
 
-        CreateOrganization::dispatchIf($githubSetting->save(), $targetWorkspace);
+        CreateOrganization::dispatchIf(
+            $githubSetting->save(),
+            $targetWorkspace,
+            Auth::user(),
+        );
     }
 }
