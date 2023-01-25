@@ -57,6 +57,7 @@ class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
         $tfSetting = $workspace->appleSetting;
 
         return implode('&', [
+            // dashboard-auth related
             "DASHBOARD_TOKEN={$this->workspaceAdmin->createApiToken('jenkins-key')}",
 
             // source control related
