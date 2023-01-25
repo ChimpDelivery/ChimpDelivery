@@ -13,7 +13,7 @@ class CreateApiTokenView extends Component
 
     public function createToken()
     {
-        $this->createdToken = Auth::user()->createApiToken();
+        $this->createdToken = Auth::user()->createApiToken('api-key');
     }
 
     public function render() : View

@@ -75,13 +75,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->workspace_id === config('workspaces.internal_ws_id');
     }
 
-    public function createApiToken() : string
+    public function createApiToken(string $tokenName) : string
     {
         if (!$this->isNew() && $this->can('create api token'))
         {
             // Extend: Users can only have 1 api token...
-            $this->tokens()->delete();
-            return $this->createToken('api-key')->plainTextToken;
+            $this->tokens()->where('name', '=', $tokenName)->delete();
+            return $this->createToken($tokenName)->plainTextToken;
         }
 
         return '';
