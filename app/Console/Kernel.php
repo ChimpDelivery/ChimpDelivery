@@ -37,7 +37,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('dashboard:restart-horizon')
             ->timezone('Europe/Istanbul')
-            ->everyTwoHours()
+            ->hourly()
+            ->at(5)
             ->emailOutputOnFailure(config('mail.from.address'))
             ->appendOutputTo(storage_path() . '/logs/horizon.log');
 

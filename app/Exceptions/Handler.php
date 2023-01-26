@@ -9,8 +9,6 @@ use Throwable;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Spatie\Permission\Exceptions\UnauthorizedException;
-
 class Handler extends ExceptionHandler
 {
     /**
