@@ -11,7 +11,6 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 use Encodia\Health\Checks\EnvVars;
 
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
-use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
@@ -40,7 +39,7 @@ class HealthServiceProvider extends ServiceProvider
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
-            DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 5.0),
+            DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 1.0),
             DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             CacheCheck::new(),
@@ -74,7 +73,6 @@ class HealthServiceProvider extends ServiceProvider
                 'SENTRY_TRACES_SAMPLE_RATE',
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
-            SecurityAdvisoriesCheck::new(),
             HorizonCheck::new(),
         ]);
     }
