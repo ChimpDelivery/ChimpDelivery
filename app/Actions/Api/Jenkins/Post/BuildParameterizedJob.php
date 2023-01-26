@@ -48,6 +48,7 @@ class BuildParameterizedJob extends BaseJenkinsAction
         return $this->GetParams($request)->implode('&');
     }
 
+    // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/files/Jenkinsfile
     private function GetParams(BuildRequest $request) : Collection
     {
         return collect([
