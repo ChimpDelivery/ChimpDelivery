@@ -53,7 +53,7 @@ class AppStoreConnectSign extends Model
     protected function provisionExpire() : Attribute
     {
         return new Attribute(function() {
-            $provisionExpire = GetProvisionProfile::run()
+            $provisionExpire = GetProvisionProfile::run($this->workspace)
                 ->headers
                 ->get(config('appstore-sign.provision.required_tags')['expire']['web']);
 
