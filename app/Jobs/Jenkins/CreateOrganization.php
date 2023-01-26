@@ -2,11 +2,11 @@
 
 namespace App\Jobs\Jenkins;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
-use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
@@ -14,24 +14,21 @@ use App\Models\Workspace;
 use App\Services\JenkinsService;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
-class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
+class CreateOrganization implements ShouldQueue
 {
-    use AsAction;
-    use SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private PendingRequest $jenkinsUser;
+    public function __construct(
+        public readonly Workspace $workspace,
+        public readonly User $workspaceAdmin
+    ) { }
 
-    public function __construct()
-    {
-        $this->jenkinsUser = app(JenkinsService::class)->GetJenkinsUser();
-    }
-
-    public function handle(Workspace $workspace, User $workspaceAdmin)
+    public function handle()
     {
         $url = $this->GetJobUrl();
-        $url .= $this->GetJobParams($workspace, $workspaceAdmin);
+        $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
 
-        return $this->jenkinsUser->post($url);
+        return app(JenkinsService::class)->GetJenkinsUser()->post($url);
     }
 
     // Job url that contains Jenkins-DSL Plugin Action
