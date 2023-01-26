@@ -40,7 +40,7 @@ class HealthServiceProvider extends ServiceProvider
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
-            DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 5.0),
+            DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 1.0),
             DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             CacheCheck::new(),
