@@ -7,6 +7,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
+use App\Models\User;
 use App\Models\Workspace;
 use App\Traits\AsS3Client;
 
@@ -17,8 +18,12 @@ class GetProvisionProfile
     use AsAction;
     use AsS3Client;
 
-    public function handle(Workspace $workspace) : Response
+    // request owner
+    private User $user;
+
+    public function handle(User $user, Workspace $workspace) : Response
     {
+        $this->user = $user;
         $sign = $workspace->appstoreConnectSign;
 
         return empty($sign->provision_profile)
