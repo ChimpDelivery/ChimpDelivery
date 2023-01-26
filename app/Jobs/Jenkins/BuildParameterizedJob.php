@@ -80,7 +80,7 @@ class BuildParameterizedJob implements ShouldQueue
         $platform = JobPlatform::tryFrom($platformName) ?? JobPlatform::Appstore->value;
         if ($platform === JobPlatform::Appstore)
         {
-            $profile = GetProvisionProfile::run($this->app->workspace)->headers;
+            $profile = GetProvisionProfile::run($this->user, $this->app->workspace)->headers;
 
             return collect([
                 'DASHBOARD_PROFILE_UUID' => $profile->get('Dashboard-Provision-Profile-UUID'),
