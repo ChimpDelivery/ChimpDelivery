@@ -11,7 +11,6 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 use Encodia\Health\Checks\EnvVars;
 
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
-use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
@@ -74,7 +73,6 @@ class HealthServiceProvider extends ServiceProvider
                 'SENTRY_TRACES_SAMPLE_RATE',
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
-            SecurityAdvisoriesCheck::new(),
             HorizonCheck::new(),
         ]);
     }
