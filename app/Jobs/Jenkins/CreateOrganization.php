@@ -41,6 +41,7 @@ class CreateOrganization implements ShouldQueue
         ]);
     }
 
+    // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/Jenkinsfile
     public function GetJobParams(Workspace $workspace, User $workspaceAdmin) : string
     {
         $githubSetting = $workspace->githubSetting;
