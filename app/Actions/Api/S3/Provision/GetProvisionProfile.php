@@ -6,8 +6,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
+use App\Models\Workspace;
 use App\Traits\AsS3Client;
 
 /// Reads Provision Profile(.mobileprovision) file
@@ -17,9 +17,9 @@ class GetProvisionProfile
     use AsAction;
     use AsS3Client;
 
-    public function handle() : Response
+    public function handle(Workspace $workspace) : Response
     {
-        $sign = Auth::user()->workspace->appstoreConnectSign;
+        $sign = $workspace->appstoreConnectSign;
 
         return empty($sign->provision_profile)
             ? response('Error: Provision Profile could not found in database!', Response::HTTP_UNPROCESSABLE_ENTITY)

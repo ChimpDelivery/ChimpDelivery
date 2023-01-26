@@ -2,12 +2,14 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
-use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+use App\Jobs\Jenkins\BuildParameterizedJob;
 
 class BuildJob extends BaseJenkinsAction
 {
@@ -24,7 +26,13 @@ class BuildJob extends BaseJenkinsAction
             return ParameterizeJob::run($request, $service);
         }
 
-        return BuildParameterizedJob::run($request, $service);
+        $app = Auth::user()->workspace->apps()->find($request->validated('id'));
+        BuildParameterizedJob::dispatch($app, $request->safe()->all(), Auth::user());
+
+        return [
+            'success' => true,
+            'message' => "<b>{$app->project_name}</b>, building for <b>{$request->validated('platform')}</b>...",
+        ];
     }
 
     public function authorize(BuildRequest $request) : bool

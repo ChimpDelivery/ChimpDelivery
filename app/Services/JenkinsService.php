@@ -9,13 +9,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 
+use App\Models\User;
+
 class JenkinsService
 {
+    private User $user;
+
     public function __construct(
         private readonly string $tunnelUrl,
         private readonly string $jenkinsUser,
         private readonly string $jenkinsToken,
     ) { }
+
+    public function InjectUser(User $user) : static
+    {
+        $this->user = $user;
+        return $this;
+    }
 
     // {tunnel_url}/job/{organization_folder}
     public function GetWorkspaceUrl() : string
@@ -23,7 +33,7 @@ class JenkinsService
         return implode('/', [
             $this->tunnelUrl,
             'job',
-            Auth::user()->orgName(),
+            isset($this->user) ? $this->user->orgName() : Auth::user()->orgName(),
         ]);
     }
 
