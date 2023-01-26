@@ -13,19 +13,15 @@ use App\Models\User;
 
 class S3Service
 {
-    // workspaces have their own folders on s3 bucket to store required assets
-    // workspace folder contains sub-folders by file-types
-    private readonly string $workspaceFolder;
-
     private User $user;
 
-    public function __construct()
+    // workspaces have their own folders on s3 bucket to store required assets
+    // workspace folder contains sub-folders by file-types
+    public function GetWorkspaceFolder()
     {
-        $this->workspaceFolder = implode('/', [
+        return implode('/', [
             config('aws.s3.ws_path'),
-            isset($this->user)
-                ? $this->user->workspace->id
-                : Auth::user()->workspace->id,
+            isset($this->user) ? $this->user->workspace->id : Auth::user()->workspace->id,
         ]);
     }
 
@@ -93,6 +89,6 @@ class S3Service
 
     private function CreateScopedPath(string $path) : string
     {
-        return "{$this->workspaceFolder}/{$path}";
+        return "{$this->GetWorkspaceFolder()}/{$path}";
     }
 }
