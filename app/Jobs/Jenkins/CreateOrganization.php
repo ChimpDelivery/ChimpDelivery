@@ -4,7 +4,6 @@ namespace App\Jobs\Jenkins;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Http\Client\PendingRequest;
@@ -18,8 +17,6 @@ use App\Services\JenkinsService;
 class CreateOrganization implements ShouldQueue, ShouldBeEncrypted
 {
     use AsAction;
-
-    use Queueable;
     use SerializesModels;
 
     private PendingRequest $jenkinsUser;
