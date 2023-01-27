@@ -14,7 +14,7 @@
             @honeypot
 
             <!-- Name -->
-            <div>
+            <div class="mt-4">
                 <x-label for="name" :value="__('Full Name')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
@@ -58,12 +58,23 @@
 
             <div class="mt-4">
                 <x-button class="w-full" style="font-size:1.05rem; min-height: 3rem;">
-                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Register') }}
-                </x-button>
-                <x-button class="w-full mt-2 border-gray-400" type="button" onclick="location.href='{{ route('login') }}'">
-                    {{ __('Back to Login') }}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Sign up') }}
                 </x-button>
 
+                <h2 class="divider mt-8 text-sm font-bold text-gray-400">
+                    Or
+                </h2>
+
+                <div class="flex justify-center mt-4">
+                    <x-button class="text-sm text-gray-400 hover:text-gray-500" type="button" onclick="location.href='{{ route('register.github') }}'">
+                        <i class="fa fa-github fa-lg" aria-hidden="true"></i> Sign up with Github
+                    </x-button>
+                </div>
+                <div class="flex justify-center mt-4">
+                    <x-button class="text-sm text-gray-400 hover:text-gray-500 border-gray-400" type="button" onclick="location.href='{{ route('login') }}'">
+                        <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Back to login
+                    </x-button>
+                </div>
                 <p class="text-sm text-gray-400 mt-4">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> By registering to <b>{{ config('app.name') }}</b>, you agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
                 </p>
