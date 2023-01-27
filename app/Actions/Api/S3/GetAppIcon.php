@@ -4,6 +4,7 @@ namespace App\Actions\Api\S3;
 
 use App\Models\AppInfo;
 use App\Services\S3Service;
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetAppIcon
@@ -12,7 +13,7 @@ class GetAppIcon
 
     public function handle(AppInfo $app) : string
     {
-        $s3 = app(S3Service::class);
+        $s3 = app(S3Service::class)->InjectUser(Auth::user());
 
         return empty($app->app_icon) || !$s3->IsFileExists($app->app_icon)
             ? asset('default-app-icon.png')

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Http\Response as ResponseAlias;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -17,11 +16,11 @@ class S3Service
 
     // workspaces have their own folders on s3 bucket to store required assets
     // workspace folder contains sub-folders by file-types
-    public function GetWorkspaceFolder()
+    public function GetWorkspaceFolder() : string
     {
         return implode('/', [
             config('aws.s3.ws_path'),
-            isset($this->user) ? $this->user->workspace->id : Auth::user()->workspace->id,
+            $this->user->workspace->id
         ]);
     }
 
