@@ -63,7 +63,7 @@
                 </h2>
 
                 <div class="flex justify-center mt-4">
-                    <x-button class="text-sm text-gray-400 hover:text-gray-500" type="button" onclick="location.href='{{ route('register.github') }}'">
+                    <x-button class="text-sm" type="button" onclick="location.href='{{ route('register.github') }}'">
                         <i class="fa fa-github fa-lg" aria-hidden="true"></i> Sign in with Github
                     </x-button>
                 </div>
