@@ -37,15 +37,6 @@
                                 required autocomplete="off" />
             </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" :icon="'fa-unlock-alt'" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
             <!-- Invitation Code -->
             <div class="mt-4">
                 <x-label for="invite_code" :value="__('Invitation Code')" :icon="'fa-users'" />
