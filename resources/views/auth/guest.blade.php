@@ -18,6 +18,14 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
 
         {!! htmlScriptTagJsApi() !!}
+
+        <style>
+            .divider { display: flex; align-items: center; padding: 0 1rem; }
+            .divider:before, .divider:after { content: ''; flex: 0 1 100%; border-bottom: 5px dotted #ccc; margin: 0 1rem; }
+            .divider:before { margin-left: 0; }
+            .divider:after { margin-right: 0; }
+            .divider[text-position="right"]:after, .divider[text-position="left"]:before { content: none; }
+        </style>
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="bg-gray-100 dark:bg-gray-900">

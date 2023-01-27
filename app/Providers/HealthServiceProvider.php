@@ -71,6 +71,8 @@ class HealthServiceProvider extends ServiceProvider
                 'DISCORD_BOT_NAME',
                 'SENTRY_LARAVEL_DSN',
                 'SENTRY_TRACES_SAMPLE_RATE',
+                'GITHUB_CLIENT_ID',
+                'GITHUB_CLIENT_SECRET',
             ]),
             OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
             HorizonCheck::new(),

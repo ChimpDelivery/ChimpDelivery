@@ -50,8 +50,6 @@ class NewPasswordController extends Controller
                     'remember_token' => Str::random(60),
                 ])->save();
 
-                $user->createApiToken();
-
                 event(new PasswordReset($user));
             }
         );

@@ -41,21 +41,32 @@
             </div>!-->
 
             <div class="flex items-center justify-between mt-4">
+                <x-button class="w-full p-2">
+                    <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> {{ __('Sign in') }}
+                </x-button>
+            </div>
+            <div class="flex justify-between mt-4">
                 @if (Route::has('register'))
-                    <a class="underline text-sm text-gray-400 hover:text-gray-500 mr-auto" href="{{ route('register') }}">
+                    <a class="underline text-sm text-gray-400 hover:text-gray-500" href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>
                 @endif
-
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-400 hover:text-gray-500 p-2" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-400 hover:text-gray-500 ml-auto" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+            </div>
+            <div>
+                <h2 class="divider mt-4 text-sm font-bold text-gray-400">
+                    Or
+                </h2>
 
-                <x-button class="ml-3 p-2">
-                    {{ __('Log in') }}
-                </x-button>
+                <div class="flex justify-center mt-4">
+                    <x-button class="text-sm text-gray-400 hover:text-gray-500" type="button" onclick="location.href='{{ route('register.github') }}'">
+                        <i class="fa fa-github fa-lg" aria-hidden="true"></i> Sign in with Github
+                    </x-button>
+                </div>
             </div>
         </form>
     </x-auth-card>
