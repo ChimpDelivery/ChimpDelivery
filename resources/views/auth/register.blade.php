@@ -60,7 +60,7 @@
                 <div class="text-sm text-green-600">
                     <x-input id="contracts" name="contracts" type="checkbox" style="margin-bottom: 1px;" />
                     <label for="contracts" class="font-bold">
-                        I agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500">Terms of Service</a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500">Privacy Policy</a>.
+                        &nbsp; I agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500">Terms of Service</a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500">Privacy Policy</a>.
                     </label>
                 </div>
             </div>
