@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Password::defaults(fn() => Password::min(8)->mixedCase()->uncompromised()->symbols());
+        Password::defaults(fn() => Password::min(10)->mixedCase()->uncompromised()->symbols());
 
         Paginator::useBootstrap();
 
