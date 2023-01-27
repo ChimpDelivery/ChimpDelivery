@@ -79,8 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if (!$this->isNew() && $this->can('create api token'))
         {
-            // Extend: Users can only have 1 api token...
-            $this->tokens()->where('name', '=', $tokenName)->delete();
             return $this->createToken($tokenName)->plainTextToken;
         }
 

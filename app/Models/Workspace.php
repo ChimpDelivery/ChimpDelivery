@@ -87,12 +87,6 @@ class Workspace extends Model
         ]);
     }
 
-    public function createApiToken()
-    {
-        $this->tokens()->delete();
-        return $this->createToken('api-key')->plainTextToken;
-    }
-
     public function createInviteCode() : string
     {
         $code = str(Str::random(12))->upper()->toString();
