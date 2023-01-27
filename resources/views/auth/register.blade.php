@@ -61,7 +61,7 @@
                     <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Sign up') }}
                 </x-button>
 
-                <h2 class="divider mt-8 text-sm font-bold text-gray-400">
+                <h2 class="divider mt-8 text-sm font-bold text-white">
                     Or
                 </h2>
 

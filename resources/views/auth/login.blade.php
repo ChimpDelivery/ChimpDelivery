@@ -42,13 +42,13 @@
 
             <div class="flex items-center justify-between mt-4">
                 <x-button class="w-full p-2">
-                    <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> {{ __('Sign in') }}
+                    <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> {{ __('Log in') }}
                 </x-button>
             </div>
             <div class="flex justify-between mt-4">
                 @if (Route::has('register'))
                     <a class="underline text-sm text-gray-400 hover:text-gray-500" href="{{ route('register') }}">
-                        {{ __('Register') }}
+                        {{ __('Sign up') }}
                     </a>
                 @endif
                 @if (Route::has('password.request'))
@@ -58,13 +58,13 @@
                 @endif
             </div>
             <div>
-                <h2 class="divider mt-4 text-sm font-bold text-gray-400">
-                    Or
+                <h2 class="divider mt-4 text-sm font-bold text-white">
+                    Log in with
                 </h2>
 
                 <div class="flex justify-center mt-4">
                     <x-button class="text-sm" type="button" onclick="location.href='{{ route('register.github') }}'">
-                        <i class="fa fa-github fa-lg" aria-hidden="true"></i> Sign in with Github
+                        <i class="fa fa-github fa-lg" aria-hidden="true"></i> GitHub
                     </x-button>
                 </div>
             </div>
