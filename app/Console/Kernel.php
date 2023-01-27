@@ -101,6 +101,9 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('04.00')
             ->emailOutputOnFailure(config('mail.from.address'));
+
+        // Password reset tokens that have expired will still be present within your database.
+        $schedule->command('auth:clear-resets')->everyFifteenMinutes();
     }
 
     /**
