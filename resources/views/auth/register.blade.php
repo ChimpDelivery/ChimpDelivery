@@ -48,11 +48,11 @@
             </div>
 
             <div class="mt-4">
-                <x-button class="w-full" style="font-size:1.05rem; min-height: 3rem;">
+                <x-button class="w-full" style="font-size:1.05rem; min-height: 2.7rem;">
                     <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Sign up') }}
                 </x-button>
 
-                <h2 class="divider mt-8 text-sm font-bold text-white">
+                <h2 class="divider mt-4 text-sm font-bold text-white">
                     Or
                 </h2>
 
@@ -66,8 +66,8 @@
                         <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Back to login
                     </x-button>
                 </div>
-                <p class="text-sm text-gray-400 mt-4">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> By registering to <b>{{ config('app.name') }}</b>, you agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
+                <p class="text-xs text-gray-400 mt-4">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> By signing up, you agree to our <a target="_blank" href="{{ route('terms') }}" class="underline text-xs text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-xs text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
                 </p>
             </div>
         </form>
