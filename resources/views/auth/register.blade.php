@@ -48,11 +48,11 @@
             </div>
 
             <div class="mt-4">
-                <x-button class="w-full" style="font-size:1.05rem; min-height: 3rem;">
+                <x-button class="w-full" style="font-size:1.05rem; min-height: 2.7rem;">
                     <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Sign up') }}
                 </x-button>
 
-                <h2 class="divider mt-8 text-sm font-bold text-white">
+                <h2 class="divider mt-4 text-sm font-bold text-white">
                     Or
                 </h2>
 
