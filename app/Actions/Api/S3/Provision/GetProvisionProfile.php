@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\S3\Provision;
 
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
@@ -23,8 +24,10 @@ class GetProvisionProfile
 
     public function handle(User $user, Workspace $workspace) : Response
     {
-        $this->user = $user;
-        $sign = $workspace->appstoreConnectSign;
+        $this->user = is_null($user->id) ? Auth::user() : $user;
+        $sign = is_null($workspace->id)
+            ? Auth::user()->workspace->appstoreConnectSign
+            : $workspace->appstoreConnectSign;
 
         return empty($sign->provision_profile)
             ? response('Error: Provision Profile could not found in database!', Response::HTTP_UNPROCESSABLE_ENTITY)

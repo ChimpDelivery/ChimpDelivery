@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('02.00')
             ->emailOutputOnFailure(config('mail.from.address'))
-            ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log');
+            ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
+            ->environments([ 'staging', 'production' ]);
 
         ///////////////////////
         // queue, horizon
