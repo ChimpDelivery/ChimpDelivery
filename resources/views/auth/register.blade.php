@@ -66,8 +66,8 @@
                         <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Back to login
                     </x-button>
                 </div>
-                <p class="text-sm text-gray-400 mt-4">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> By registering to <b>{{ config('app.name') }}</b>, you agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
+                <p class="text-xs text-gray-400 mt-4">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> By signing up, you agree to our <a target="_blank" href="{{ route('terms') }}" class="underline text-xs text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-xs text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
                 </p>
             </div>
         </form>
