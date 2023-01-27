@@ -60,6 +60,9 @@
                 <x-button class="w-full">
                     {{ __('Register') }}
                 </x-button>
+                <x-button class="w-full mt-2 border-gray-400" type="button" onclick="location.href='{{ route('login') }}'">
+                    {{ __('Back to Login') }}
+                </x-button>
 
                 <p class="text-sm text-green-600 mt-4">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> By registering to <b>{{ config('app.name') }}</b>, you agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
