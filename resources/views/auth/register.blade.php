@@ -57,22 +57,13 @@
             </div>
 
             <div class="mt-4">
-                <div class="text-sm text-green-600">
-                    <x-input id="contracts" name="contracts" type="checkbox" style="margin-bottom: 1px;" />
-                    <label for="contracts" class="font-bold">
-                        &nbsp; I agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500">Terms of Service</a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500">Privacy Policy</a>.
-                    </label>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-400 hover:text-gray-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
+                <x-button class="w-full">
                     {{ __('Register') }}
                 </x-button>
+
+                <p class="text-sm text-green-600 mt-4">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> By registering to <b>Talus Dashboard</b>, you agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Terms of Service</b></a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500"><b>Privacy Policy</b></a>.
+                </p>
             </div>
         </form>
     </x-auth-card>
