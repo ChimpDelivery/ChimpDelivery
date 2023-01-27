@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 
 use App\Models\User;
@@ -41,7 +42,10 @@ class RegisteredUserController extends Controller
             'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users' ],
             'password' => [ 'required', 'confirmed', Rules\Password::defaults() ],
             'invite_code' => [ 'nullable', 'alpha_num' ],
+            'contracts' => [ 'required', Rule::in([ 'on' ]) ],
             recaptchaFieldName() => recaptchaRuleName()
+        ], [
+            'contracts' => 'Terms of Service and Privacy Policy must be accepted.'
         ]);
 
         $defaultWs = config('workspaces.default_ws_id');

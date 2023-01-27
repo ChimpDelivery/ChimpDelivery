@@ -56,6 +56,15 @@
                                 placeholder="if you don't have, leave it blank." />
             </div>
 
+            <div class="mt-4">
+                <div class="text-sm text-green-600">
+                    <x-input id="contracts" name="contracts" type="checkbox" style="margin-bottom: 1px;" />
+                    <label for="contracts" class="font-bold">
+                        I agree to the <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-green-600 hover:text-gray-500">Terms of Service</a> and <a target="_blank" href="{{ route('privacy') }}" class="underline text-sm text-green-600 hover:text-gray-500">Privacy Policy</a>.
+                    </label>
+                </div>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-400 hover:text-gray-500" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
