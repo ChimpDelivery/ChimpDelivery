@@ -57,8 +57,8 @@
             </div>
 
             <div class="mt-4">
-                <x-button class="w-full">
-                    {{ __('Register') }}
+                <x-button class="w-full" style="font-size:1.05rem; min-height: 3rem;">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Register') }}
                 </x-button>
                 <x-button class="w-full mt-2 border-gray-400" type="button" onclick="location.href='{{ route('login') }}'">
                     {{ __('Back to Login') }}
