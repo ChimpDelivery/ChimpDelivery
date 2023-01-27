@@ -20,8 +20,8 @@
         {!! htmlScriptTagJsApi() !!}
 
         <style>
-            .divider { display: flex; align-items: center; padding: 0 1rem; }
-            .divider:before, .divider:after { content: ''; flex: 0 1 100%; border-bottom: 5px dotted #ccc; margin: 0 1rem; }
+            .divider { display: flex; align-items: center; }
+            .divider:before, .divider:after { content: ''; flex: 1 0 25%; border-bottom: 2px solid #95999c; margin: 0 1rem; }
             .divider:before { margin-left: 0; }
             .divider:after { margin-right: 0; }
             .divider[text-position="right"]:after, .divider[text-position="left"]:before { content: none; }

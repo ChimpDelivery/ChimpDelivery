@@ -61,12 +61,12 @@
                     <i class="fa fa-check-circle" aria-hidden="true"></i> {{ __('Sign up') }}
                 </x-button>
 
-                <h2 class="divider mt-8 text-sm font-bold text-gray-400">
+                <h2 class="divider mt-8 text-sm font-bold text-white">
                     Or
                 </h2>
 
                 <div class="flex justify-center mt-4">
-                    <x-button class="text-sm text-gray-400 hover:text-gray-500" type="button" onclick="location.href='{{ route('register.github') }}'">
+                    <x-button class="text-sm" type="button" onclick="location.href='{{ route('register.github') }}'">
                         <i class="fa fa-github fa-lg" aria-hidden="true"></i> Sign up with Github
                     </x-button>
                 </div>
