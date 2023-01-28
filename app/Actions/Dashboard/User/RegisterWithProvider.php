@@ -2,14 +2,13 @@
 
 namespace App\Actions\Dashboard\User;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Response;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
 
 use Laravel\Socialite\Facades\Socialite;
 
@@ -30,7 +29,7 @@ class RegisterWithProvider
         }
         catch (\Exception $exception)
         {
-            return to_route('login', [], Response::HTTP_INTERNAL_SERVER_ERROR)->withErrors($exception->getMessage());
+            return redirect('login')->intended()->withErrors($exception->getMessage());
         }
 
         $user = User::whereEmail($githubUser->email)->first();
@@ -43,7 +42,7 @@ class RegisterWithProvider
         $newUser = User::updateOrCreate([ 'email' => $githubUser->email ], [
             'workspace_id' => config('workspaces.default_ws_id'),
             'name' => $githubUser->getName() ?? 'No Name',
-            'password' => Hash::make(Str::random(8))
+            'password' => Hash::make(Str::random(10))
         ])->syncRoles([ 'User' ]);
 
         $newUser->markEmailAsVerified();
