@@ -2,14 +2,13 @@
 
 namespace App\Actions\Dashboard\User;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Response;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
 
 use Laravel\Socialite\Facades\Socialite;
 
