@@ -13,10 +13,15 @@ use App\Actions\Api\Jenkins\JobStatus;
 class JenkinsDataParser
 {
     // text limits
+    public array $limits = [
+        'stop_stage_length' => 14,
+        'stop_msg_length' => 29,
+        'commit_length' => 20,
+        'commit_hash_length' => 7,
+    ];
+
     public const STOP_STAGE_LENGTH = 14;
     public const STOP_MSG_LENGTH = 29;
-    public const COMMIT_LENGTH = 20;
-    public const COMMIT_HASH_LENGTH = 7;
 
     private AppInfo $app;
     private mixed $jenkinsData;
@@ -47,7 +52,7 @@ class JenkinsDataParser
         // prepare button body
         $buttonData = $this->GetStageDetail();
         $buttonData .= $this->GetJobEstimatedFinish();
-        $buttonData .= $this->GetCommits();
+        $buttonData .= $this->GetCommit();
 
         return [
             'header' => $buttonTitle,
@@ -140,26 +145,11 @@ class JenkinsDataParser
         return 'Average Finish: <span class="text-primary font-weight-bold">' . $this->jenkinsData->estimated_time . "</span><hr class='my-2'>";
     }
 
-    private function GetCommits()
+    private function GetCommit() : View
     {
-        $buildCommits = collect($this->jenkinsData?->change_sets ?? []);
-        if (count($buildCommits) == 0) { return 'No Commit'; }
-
-        $prettyCommits = collect();
-
-        // add pretty commit history to build details view.
-        $buildCommits->each(function ($commit, $order) use (&$prettyCommits)
-        {
-            $prettyText = str(Str::limit(trim($commit->comment), self::COMMIT_LENGTH));
-
-            $commitId = Str::substr($commit->id, 0, self::COMMIT_HASH_LENGTH);
-            $prettyCommitMsg = "<span class='badge alert-primary'>{$commitId}</span>"
-                . "<span class='pull-right'>{$prettyText}</span>";
-
-            $commitLink = "<a href='{$commit->url}' target='_blank'>{$prettyCommitMsg}</a>";
-            $prettyCommits->push($commitLink . "<br />");
-        });
-
-        return nl2br($prettyCommits->implode(''));
+        return view('layouts.jenkins.job-commit', [
+            'app_commit' => $this->jenkinsData?->commit,
+            'limits' => $this->limits,
+        ]);
     }
 }

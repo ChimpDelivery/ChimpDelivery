@@ -19,7 +19,7 @@ class GetJobLastBuild
     // jenkins api filters
     private array $filters = [
         'job_parameters' => 'actions[*[name,value]]{0}',
-        'job_changesets' => 'changeSets[*[id,authorEmail,comment]{0,5}]',
+        'job_changesets' => 'changeSets[*[id,authorEmail,comment]]',
     ];
 
     private AppInfo $app;
@@ -49,7 +49,8 @@ class GetJobLastBuild
             // populate build details with another request
             $buildDetails = $jenkinsService->GetResponse($this->CreateLastBuildUrl($build->id));
             $build->build_platform = $this->GetBuildPlatform($buildDetails->jenkins_data);
-            $build->change_sets = $this->GetCommitHistory($buildDetails->jenkins_data);
+
+            $build->commit = $this->GetLastCommit($buildDetails->jenkins_data);
             $build->stop_details = $this->GetStopDetail($build);
         }
 
@@ -84,28 +85,24 @@ class GetJobLastBuild
         return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? JobPlatform::Appstore->value;
     }
 
-    private function GetCommitHistory(mixed $rawJenkinsResponse) : Collection
+    private function GetLastCommit(mixed $rawJenkinsResponse) : null|array
     {
         return collect($rawJenkinsResponse->changeSets[0]->items ?? [])
-                ->map(function ($commit) {
-                    return [
-                        'id' => $commit->id,
-                        'url' => $this->GetCommitLink($commit),
-                        'comment' => $commit->comment,
-                        'authorEmail'=> $commit->authorEmail
-                    ];
-                })->reverse()->values();
+            ->map(function ($commit) {
+                return [
+                    'id' => $commit->id,
+                    'url' => $this->GetCommitLink($commit),
+                    'comment' => $commit->comment,
+                    'authorEmail'=> $commit->authorEmail,
+                ];
+            })->reverse()->first();
     }
 
     private function GetCommitLink($commit) : string
     {
-        $isInternalCommit = $commit->authorEmail === 'noreply@github.com';
-
         $orgName = Auth::user()->orgName();
 
-        return $isInternalCommit
-            ? '#'
-            : "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
+        return "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection
