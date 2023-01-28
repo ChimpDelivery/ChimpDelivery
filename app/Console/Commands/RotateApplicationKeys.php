@@ -64,6 +64,9 @@ class RotateApplicationKeys extends Command
 
         $this->info('All Encryption Keys rotated successfully!');
 
+        /// restarting horizon required
+        $this->call('dashboard:restart-horizon');
+
         $this->UpApp();
 
         return Command::SUCCESS;
