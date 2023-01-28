@@ -42,7 +42,7 @@ class RegisterWithProvider
         $newUser = User::updateOrCreate([ 'email' => $githubUser->email ], [
             'workspace_id' => config('workspaces.default_ws_id'),
             'name' => $githubUser->getName() ?? 'No Name',
-            'password' => Hash::make(Str::random(8))
+            'password' => Hash::make(Str::random(10))
         ])->syncRoles([ 'User' ]);
 
         $newUser->markEmailAsVerified();
