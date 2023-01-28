@@ -20,9 +20,6 @@ class JenkinsDataParser
         'commit_hash_length' => 7,
     ];
 
-    public const STOP_STAGE_LENGTH = 14;
-    public const STOP_MSG_LENGTH = 29;
-
     private AppInfo $app;
     private mixed $jenkinsData;
 
@@ -77,12 +74,12 @@ class JenkinsDataParser
         if (!isset($this->jenkinsData->status))
         {
             return '<span class="text-secondary font-weight-bold">
-                        <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
-                    </span>';
+                <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
+            </span>';
         }
 
         // todo: failing at prepare stage - text color
-        $stageName = Str::limit($this->jenkinsData->stop_details->stage, self::STOP_STAGE_LENGTH);
+        $stageName = Str::limit($this->jenkinsData->stop_details->stage, $this->limits['stop_stage_length']);
         $prettyName = JobStatus::tryFrom($this->jenkinsData->status)->PrettyName();
 
         return match(JobStatus::tryFrom($this->jenkinsData->status))
@@ -128,7 +125,7 @@ class JenkinsDataParser
         if (!isset($this->jenkinsData->stop_details)) { return ''; }
         if (empty($this->jenkinsData->stop_details->output)) { return ''; }
 
-        $detail = Str::limit($this->jenkinsData->stop_details->output, self::STOP_MSG_LENGTH);
+        $detail = Str::limit($this->jenkinsData->stop_details->output, $this->limits['stop_msg_length']);
 
         return "<span class='badge bg-warning text-white'>
                     <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
