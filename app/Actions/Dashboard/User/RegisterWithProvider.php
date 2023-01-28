@@ -30,7 +30,7 @@ class RegisterWithProvider
         }
         catch (\Exception $exception)
         {
-            return to_route('login', [], Response::HTTP_INTERNAL_SERVER_ERROR)->withErrors($exception->getMessage());
+            return redirect('login')->intended()->withErrors($exception->getMessage());
         }
 
         $user = User::whereEmail($githubUser->email)->first();
