@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
@@ -81,6 +83,8 @@ class HealthServiceProvider extends ServiceProvider
 
     public function boot() : void
     {
-
+        Gate::define('viewHealth', function ($user) {
+            return App::isLocal() || $user->email === config('workspaces.superadmin_email');
+        });
     }
 }
