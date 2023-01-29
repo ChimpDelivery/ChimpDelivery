@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 use Spatie\Health\Facades\Health;
@@ -29,8 +31,6 @@ class HealthServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-        $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
-
         Health::checks([
             CpuLoadCheck::new()
                 ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
@@ -40,7 +40,10 @@ class HealthServiceProvider extends ServiceProvider
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
             DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 1.0),
-            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
+            DatabaseTableSizeCheck::new()->table(
+                name: EloquentHealthResultStore::getHistoryItemInstance()->getTable(),
+                maxSizeInMb: 50
+            ),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             CacheCheck::new(),
             RedisCheck::new(),
@@ -81,6 +84,8 @@ class HealthServiceProvider extends ServiceProvider
 
     public function boot() : void
     {
-
+        Gate::define('viewHealth', function ($user) {
+            return App::isLocal() || $user->email === config('workspaces.superadmin_email');
+        });
     }
 }

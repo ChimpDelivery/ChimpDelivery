@@ -18,8 +18,9 @@ Route::get('/terms', fn() => Markdown::parse(File::get(resource_path('markdown/t
     ->name('terms');
 
 ////
-Route::middleware(['auth', 'verified', 'role:Admin_Super'])->group(function () {
-    Route::get('health', HealthCheckResultsController::class)->name('health');
+Route::middleware([ 'auth', 'verified', 'can:viewHealth' ])->group(function () {
+    Route::get('health', HealthCheckResultsController::class)
+        ->name('health');
 });
 
 require __DIR__.'/auth.php';
