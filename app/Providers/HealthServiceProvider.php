@@ -31,8 +31,6 @@ class HealthServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-        $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
-
         Health::checks([
             CpuLoadCheck::new()
                 ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
@@ -42,7 +40,10 @@ class HealthServiceProvider extends ServiceProvider
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
             DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 1.0),
-            DatabaseTableSizeCheck::new()->table($tableName, maxSizeInMb: 50),
+            DatabaseTableSizeCheck::new()->table(
+                name: EloquentHealthResultStore::getHistoryItemInstance()->getTable(),
+                maxSizeInMb: 50
+            ),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             CacheCheck::new(),
             RedisCheck::new(),
