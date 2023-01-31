@@ -1,1 +1,1 @@
-<i class="pull-right {{ $icon }}" aria-hidden="true"></i>
+<i class="pull-right {{ $icon }} fa-lg" aria-hidden="true"></i>
