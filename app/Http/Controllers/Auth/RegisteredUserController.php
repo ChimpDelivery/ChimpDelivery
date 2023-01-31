@@ -50,10 +50,12 @@ class RegisteredUserController extends Controller
         if ($request->filled('invite_code'))
         {
             $inviteCode = WorkspaceInviteCode::whereBlind('code', 'code', $request->invite_code)->first();
-            if ($inviteCode)
+            if (!$inviteCode)
             {
-                $userWs = $inviteCode->workspace_id;
+                return back()->withInput()->withErrors('Invite Code is invalid!');
             }
+
+            $userWs = $inviteCode->workspace_id;
         }
 
         $user = User::create([
