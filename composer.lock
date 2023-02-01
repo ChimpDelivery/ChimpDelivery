@@ -6948,16 +6948,16 @@
         },
         {
             "name": "spatie/laravel-health",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-health.git",
-                "reference": "f6707fa287d728a46c5733ed501e63bb34ebe6e5"
+                "reference": "88c26e296410fec16c457d1c1fdc80f2a4378d6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/f6707fa287d728a46c5733ed501e63bb34ebe6e5",
-                "reference": "f6707fa287d728a46c5733ed501e63bb34ebe6e5",
+                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/88c26e296410fec16c457d1c1fdc80f2a4378d6e",
+                "reference": "88c26e296410fec16c457d1c1fdc80f2a4378d6e",
                 "shasum": ""
             },
             "require": {
@@ -7028,7 +7028,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-health/tree/1.19.0"
+                "source": "https://github.com/spatie/laravel-health/tree/1.20.0"
             },
             "funding": [
                 {
@@ -7036,7 +7036,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-25T12:03:11+00:00"
+            "time": "2023-02-01T21:15:45+00:00"
         },
         {
             "name": "spatie/laravel-honeypot",

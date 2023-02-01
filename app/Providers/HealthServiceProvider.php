@@ -24,6 +24,7 @@ use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
+use Spatie\Health\Checks\Checks\RedisMemoryUsageCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\HorizonCheck;
 
@@ -47,6 +48,7 @@ class HealthServiceProvider extends ServiceProvider
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
             CacheCheck::new(),
             RedisCheck::new(),
+            RedisMemoryUsageCheck::new()->failWhenAboveMb(750),
             PingCheck::new()->name('Jenkins Server')->url(config('jenkins.host').'/login'),
             DebugModeCheck::new(),
             EnvironmentCheck::new(),
