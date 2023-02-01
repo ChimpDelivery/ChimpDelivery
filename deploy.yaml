@@ -43,6 +43,7 @@ tasks:
     - artisan:optimize:clear
     - artisan:optimize
     - artisan:view:cache
+    - artisan:event:cache
     - artisan:down
     - artisan:migrate
     - artisan:horizon:terminate
