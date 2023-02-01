@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="platform" id="platform"
-                            class="shadow-sm form-control selectpicker show-tick"
+                            class="shadow form-control selectpicker show-tick"
                             data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                             title="Select platform..." required>
 
@@ -45,12 +45,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- feature_off
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="install_backend" name="install_backend" />
                             <label class="custom-control-label" for="install_backend">Install Backend</label>
                         </div>
                     </div>
+                    !-->
                 </div>
                 <div class="modal-footer justify-content-between">
                     @include('layouts.dashboard.button-success', [
