@@ -40,11 +40,11 @@ tasks:
     - deploy:prepare
     - deploy:vendors
     - artisan:storage:link
+    - artisan:down
     - artisan:optimize:clear
     - artisan:optimize
     - artisan:view:cache
     - artisan:event:cache
-    - artisan:down
     - artisan:migrate
     - artisan:horizon:terminate
     - artisan:horizon:purge

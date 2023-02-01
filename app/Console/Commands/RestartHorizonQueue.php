@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 class RestartHorizonQueue extends Command
 {
     protected $signature = 'dashboard:restart-horizon';
-    protected $description = 'Restarts horizon based queues...';
+    protected $description = 'Restarts horizon based queues.';
 
     public function handle() : int
     {

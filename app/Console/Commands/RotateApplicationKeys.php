@@ -55,7 +55,7 @@ class RotateApplicationKeys extends Command
         if (!$this->SetKeyInEnvironmentFile($key))
         {
             $this->EncryptModels($oldKey);
-            $this->UpApp();
+            $this->call('dashboard:up');
 
             return Command::FAILURE;
         }
@@ -66,18 +66,9 @@ class RotateApplicationKeys extends Command
 
         /// restarting horizon required
         $this->call('dashboard:restart-horizon');
-
-        $this->UpApp();
+        $this->call('dashboard:up');
 
         return Command::SUCCESS;
-    }
-
-    protected function UpApp()
-    {
-        $this->call('clear-compiled');
-        $this->call('optimize:clear');
-        $this->call('optimize');
-        $this->call('up');
     }
 
     protected function EncryptModels(string $key)
