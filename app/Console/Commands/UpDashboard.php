@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use Illuminate\Support\Facades\App;
+
 class UpDashboard extends Command
 {
     protected $signature = 'dashboard:up';
@@ -12,9 +14,14 @@ class UpDashboard extends Command
     public function handle() : int
     {
         $this->call('optimize:clear');
-        $this->call('optimize');
-        $this->call('view:cache');
-        $this->call('event:cache');
+
+        if (!App::isLocal())
+        {
+            $this->call('optimize');
+            $this->call('view:cache');
+            $this->call('event:cache');
+        }
+
         $this->call('up');
 
         return Command::SUCCESS;
