@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 class UpDashboard extends Command
 {
     protected $signature = 'dashboard:up';
-    protected $description = 'Refresh caches and disable maintenance mode...';
+    protected $description = 'Refresh caches and disable maintenance mode.';
 
     public function handle() : int
     {
