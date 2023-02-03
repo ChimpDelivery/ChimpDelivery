@@ -24,4 +24,4 @@ updates:
     target-branch: "dev"
     labels:
       - "dependencies"
-      - "javascript-liwewire"
+      - "javascript-livewire"
