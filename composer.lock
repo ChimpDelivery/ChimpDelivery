@@ -3874,16 +3874,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50"
+                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/720488632c590286b88b80e62aa3d3d551ad4a50",
-                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
+                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
                 "shasum": ""
             },
             "require": {
@@ -3898,7 +3898,7 @@
                 "doctrine/couchdb": "~1.0@dev",
                 "elasticsearch/elasticsearch": "^7 || ^8",
                 "ext-json": "*",
-                "graylog2/gelf-php": "^1.4.2",
+                "graylog2/gelf-php": "^1.4.2 || ^2@dev",
                 "guzzlehttp/guzzle": "^7.4",
                 "guzzlehttp/psr7": "^2.2",
                 "mongodb/mongodb": "^1.8",
@@ -3960,7 +3960,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.8.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.9.0"
             },
             "funding": [
                 {
@@ -3972,7 +3972,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-24T11:55:47+00:00"
+            "time": "2023-02-05T13:07:32+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -6949,16 +6949,16 @@
         },
         {
             "name": "spatie/laravel-health",
-            "version": "1.22.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-health.git",
-                "reference": "77b8ef82d9063b01665f0ca7e59aa1b64bca209d"
+                "reference": "6497cb67700e66c1931693e7dcce89f8683c6e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/77b8ef82d9063b01665f0ca7e59aa1b64bca209d",
-                "reference": "77b8ef82d9063b01665f0ca7e59aa1b64bca209d",
+                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/6497cb67700e66c1931693e7dcce89f8683c6e24",
+                "reference": "6497cb67700e66c1931693e7dcce89f8683c6e24",
                 "shasum": ""
             },
             "require": {
@@ -7029,7 +7029,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-health/tree/1.22.0"
+                "source": "https://github.com/spatie/laravel-health/tree/1.22.1"
             },
             "funding": [
                 {
@@ -7037,7 +7037,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-02T15:52:08+00:00"
+            "time": "2023-02-05T15:26:35+00:00"
         },
         {
             "name": "spatie/laravel-honeypot",
