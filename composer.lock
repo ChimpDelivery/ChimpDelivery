@@ -2591,16 +2591,16 @@
         },
         {
             "name": "laravel/horizon",
-            "version": "v5.14.0",
+            "version": "v5.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "29da5dcf055c084502e61e84c1070252e8a2ceb8"
+                "reference": "a990617de27700df73841f6ccaff46e09ba9ec3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/29da5dcf055c084502e61e84c1070252e8a2ceb8",
-                "reference": "29da5dcf055c084502e61e84c1070252e8a2ceb8",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/a990617de27700df73841f6ccaff46e09ba9ec3f",
+                "reference": "a990617de27700df73841f6ccaff46e09ba9ec3f",
                 "shasum": ""
             },
             "require": {
@@ -2662,9 +2662,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/horizon/issues",
-                "source": "https://github.com/laravel/horizon/tree/v5.14.0"
+                "source": "https://github.com/laravel/horizon/tree/v5.14.1"
             },
-            "time": "2023-01-27T11:08:41+00:00"
+            "time": "2023-02-07T14:56:05+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -4437,16 +4437,16 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v1.15.0",
+            "version": "v1.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "594ab862396c16ead000de0c3c38f4a5cbe1938d"
+                "reference": "8ab0b32c8caa4a2e09700ea32925441385e4a5dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/594ab862396c16ead000de0c3c38f4a5cbe1938d",
-                "reference": "594ab862396c16ead000de0c3c38f4a5cbe1938d",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/8ab0b32c8caa4a2e09700ea32925441385e4a5dc",
+                "reference": "8ab0b32c8caa4a2e09700ea32925441385e4a5dc",
                 "shasum": ""
             },
             "require": {
@@ -4503,7 +4503,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v1.15.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v1.15.1"
             },
             "funding": [
                 {
@@ -4519,7 +4519,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-20T19:00:15+00:00"
+            "time": "2023-02-08T01:06:31+00:00"
         },
         {
             "name": "nyholm/psr7",
