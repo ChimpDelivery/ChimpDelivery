@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.258.8",
+            "version": "3.258.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3bb42aeb1e11f17b0ca7357385a427a438df35b1"
+                "reference": "5e339f47f86db7ed5f5afcda345d30ac1713aed3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3bb42aeb1e11f17b0ca7357385a427a438df35b1",
-                "reference": "3bb42aeb1e11f17b0ca7357385a427a438df35b1",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5e339f47f86db7ed5f5afcda345d30ac1713aed3",
+                "reference": "5e339f47f86db7ed5f5afcda345d30ac1713aed3",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.8"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.11"
             },
-            "time": "2023-02-10T19:22:52+00:00"
+            "time": "2023-02-15T20:08:42+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2864,16 +2864,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.13.1",
+            "version": "v4.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "f8afaccfb5b636aa20735e0a390ab312a6f57c65"
+                "reference": "34a259cf19a73cc3b9b31f49c3c85595afcfbb70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/f8afaccfb5b636aa20735e0a390ab312a6f57c65",
-                "reference": "f8afaccfb5b636aa20735e0a390ab312a6f57c65",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/34a259cf19a73cc3b9b31f49c3c85595afcfbb70",
+                "reference": "34a259cf19a73cc3b9b31f49c3c85595afcfbb70",
                 "shasum": ""
             },
             "require": {
@@ -2927,9 +2927,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.13.1"
+                "source": "https://github.com/laravel/telescope/tree/v4.13.2"
             },
-            "time": "2023-02-06T14:37:41+00:00"
+            "time": "2023-02-16T15:32:51+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -7052,16 +7052,16 @@
         },
         {
             "name": "spatie/laravel-health",
-            "version": "1.22.1",
+            "version": "1.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-health.git",
-                "reference": "6497cb67700e66c1931693e7dcce89f8683c6e24"
+                "reference": "1ba2f218ce22bd2477876d7414083f5ffef77dbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/6497cb67700e66c1931693e7dcce89f8683c6e24",
-                "reference": "6497cb67700e66c1931693e7dcce89f8683c6e24",
+                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/1ba2f218ce22bd2477876d7414083f5ffef77dbc",
+                "reference": "1ba2f218ce22bd2477876d7414083f5ffef77dbc",
                 "shasum": ""
             },
             "require": {
@@ -7132,7 +7132,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-health/tree/1.22.1"
+                "source": "https://github.com/spatie/laravel-health/tree/1.22.2"
             },
             "funding": [
                 {
@@ -7140,7 +7140,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-05T15:26:35+00:00"
+            "time": "2023-02-15T19:01:25+00:00"
         },
         {
             "name": "spatie/laravel-honeypot",
@@ -11173,16 +11173,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.0.2",
+            "version": "v7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c"
+                "reference": "fbf3c8a8ee08068bee7d81ee0cee5ddf032aaa84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/15e5fe35305419c9c6cf196be8d62cf70087a20c",
-                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/fbf3c8a8ee08068bee7d81ee0cee5ddf032aaa84",
+                "reference": "fbf3c8a8ee08068bee7d81ee0cee5ddf032aaa84",
                 "shasum": ""
             },
             "require": {
@@ -11193,8 +11193,8 @@
             },
             "require-dev": {
                 "laravel/framework": "^10.0.0",
-                "laravel/pint": "^1.4.1",
-                "laravel/sail": "^1.20.1",
+                "laravel/pint": "^1.5.0",
+                "laravel/sail": "^1.20.2",
                 "laravel/sanctum": "^3.2.1",
                 "laravel/tinker": "^2.8.0",
                 "nunomaduro/larastan": "^2.4.0",
@@ -11260,7 +11260,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-02-11T18:10:08+00:00"
+            "time": "2023-02-16T14:34:30+00:00"
         },
         {
             "name": "nunomaduro/larastan",
