@@ -39,7 +39,6 @@
     },
     "require-dev": {
         "deployer/deployer": "^7.0",
-        "enlightn/enlightn": "^2.1",
         "laravel/breeze": "^1.8",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
@@ -76,7 +75,6 @@
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
         "dashboard-down": "php artisan down --secret=\"262626\"",
         "dashboard-up": "php artisan up",
-        "dashboard-security-check": "php artisan enlightn",
         "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline"
     },
     "extra": {
