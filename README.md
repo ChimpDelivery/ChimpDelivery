@@ -30,7 +30,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - ReCaptcha v3
 - [Encryption of Sensitive Data](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Encryption)
 - Pre-Deployment Security Checks
-  - ```composer dashboard-security-check``` [[Enlightn](https://www.laravel-enlightn.com)]
+  - [[Enlightn](https://www.laravel-enlightn.com)]
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
