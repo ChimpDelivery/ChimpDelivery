@@ -23,7 +23,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - GitHub API Support
 - Workspaces & Roles & Permissions
 - Daily Backups (S3)
-- Dashboard Monitoring as Super Admin (Health, Horizon, Telescope)
+- Dashboard Monitoring as **Super Admin** (Health, Horizon, Telescope)
 
 # Security
 - Honeypot
