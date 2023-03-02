@@ -11,6 +11,9 @@ use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 
 class Kernel extends ConsoleKernel
 {
+    // report target for failed commands
+    private const FAIL_MAIL_TARGET = 'talusci@talusstudio.com';
+
     /**
      * Define the application's command schedule.
      *
@@ -21,11 +24,11 @@ class Kernel extends ConsoleKernel
         ////////////////////////////////////
         /// key rotators (after backups)
         ////////////////////////////////////
-        $schedule->command('dashboard:rotate-key --show')
+        $schedule->command('dashboard:rotate-key', [ '--show' => true ])
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
-            ->emailOutputOnFailure(config('mail.from.address'))
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->environments([ 'staging', 'production' ]);
 
@@ -40,7 +43,7 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->hourly()
             ->at(5)
-            ->emailOutputOnFailure(config('mail.from.address'))
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/horizon.log');
 
         /////////////////
@@ -51,7 +54,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01:00')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'))
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->environments([ 'production' ]);
 
         $schedule->command('backup:run')
@@ -59,7 +62,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01:30')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'))
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->environments([ 'production' ]);
 
         $schedule->command('backup:monitor')
@@ -67,7 +70,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('03:00')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(config('mail.from.address'))
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->environments([ 'production' ]);
 
         /////////////////////
@@ -88,19 +91,19 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03.30')
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
 
-        $schedule->command('model:prune', ['--model' => [ HealthCheckResultHistoryItem::class ]])
+        $schedule->command('model:prune', [ '--model' => [ HealthCheckResultHistoryItem::class ] ])
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03:45')
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
 
         $schedule->command('telescope:prune')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('04.00')
-            ->emailOutputOnFailure(config('mail.from.address'));
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
 
         // Password reset tokens that have expired will still be present within your database.
         $schedule->command('auth:clear-resets')->everyFifteenMinutes();
