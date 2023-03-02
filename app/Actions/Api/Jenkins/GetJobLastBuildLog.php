@@ -22,7 +22,7 @@ class GetJobLastBuildLog
     {
         $response = $service->GetResponse("/job/{$this->app->project_name}/job/master/lastBuild/consoleText", true);
 
-        return $response->jenkins_data;
+        return $response->jenkins_data ?? '';
     }
 
     public function htmlResponse(string $response) : View
