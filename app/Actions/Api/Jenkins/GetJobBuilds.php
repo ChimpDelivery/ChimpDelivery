@@ -33,7 +33,7 @@ class GetJobBuilds
             $builds = $builds->push(
                 collect([
                     '_class' => 'org.jenkinsci.plugins.workflow.job.WorkflowRu',
-                    'number' => $jobResponse->jenkins_data->nextBuildNumber,
+                    'number' => $jobResponse->jenkins_data?->nextBuildNumber,
                     'url' => ''
                 ])
             );
