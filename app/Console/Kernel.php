@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
         ////////////////////////////////////
         /// key rotators (after backups)
         ////////////////////////////////////
-        $schedule->command('dashboard:rotate-key', [ '--show' => true ])
+        $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
