@@ -597,16 +597,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "85b98cb23c8af471a67abfe14485da696bcabc2e"
+                "reference": "57815c7bbcda3cd18871d253c1dd8cbe56f8526e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/85b98cb23c8af471a67abfe14485da696bcabc2e",
-                "reference": "85b98cb23c8af471a67abfe14485da696bcabc2e",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/57815c7bbcda3cd18871d253c1dd8cbe56f8526e",
+                "reference": "57815c7bbcda3cd18871d253c1dd8cbe56f8526e",
                 "shasum": ""
             },
             "require": {
@@ -622,11 +622,11 @@
                 "doctrine/coding-standard": "11.1.0",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2022.3",
-                "phpstan/phpstan": "1.9.14",
-                "phpstan/phpstan-strict-rules": "^1.4",
-                "phpunit/phpunit": "9.6.3",
+                "phpstan/phpstan": "1.10.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "9.6.4",
                 "psalm/plugin-phpunit": "0.18.4",
-                "squizlabs/php_codesniffer": "3.7.1",
+                "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^5.4|^6.0",
                 "symfony/console": "^4.4|^5.4|^6.0",
                 "vimeo/psalm": "4.30.0"
@@ -689,7 +689,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.6.0"
+                "source": "https://github.com/doctrine/dbal/tree/3.6.1"
             },
             "funding": [
                 {
@@ -705,7 +705,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-07T22:52:03+00:00"
+            "time": "2023-03-02T19:26:24+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1139,16 +1139,16 @@
         },
         {
             "name": "encodia/laravel-health-env-vars",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/encodia/laravel-health-env-vars.git",
-                "reference": "7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657"
+                "reference": "33fda901b800ff485c4b5fdd6eb48680526976ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657",
-                "reference": "7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657",
+                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/33fda901b800ff485c4b5fdd6eb48680526976ab",
+                "reference": "33fda901b800ff485c4b5fdd6eb48680526976ab",
                 "shasum": ""
             },
             "require": {
@@ -1160,10 +1160,9 @@
             "require-dev": {
                 "laravel/pint": "^1.4",
                 "nunomaduro/collision": "^5.10|^6.0",
-                "nunomaduro/larastan": "^1.0",
-                "orchestra/testbench": "^6.23|^7.0",
+                "nunomaduro/larastan": "^1.0|^2.0",
                 "pestphp/pest": "^1.21",
-                "pestphp/pest-plugin-laravel": "^1.1",
+                "pestphp/pest-plugin-laravel": "^1.2|^2.x-dev",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
@@ -1208,7 +1207,7 @@
             ],
             "support": {
                 "issues": "https://github.com/encodia/laravel-health-env-vars/issues",
-                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.5.1"
+                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.6.0"
             },
             "funding": [
                 {
@@ -1216,7 +1215,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-21T15:43:39+00:00"
+            "time": "2023-03-05T16:29:57+00:00"
         },
         {
             "name": "fakerphp/faker",
