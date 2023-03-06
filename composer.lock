@@ -1139,16 +1139,16 @@
         },
         {
             "name": "encodia/laravel-health-env-vars",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/encodia/laravel-health-env-vars.git",
-                "reference": "7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657"
+                "reference": "33fda901b800ff485c4b5fdd6eb48680526976ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657",
-                "reference": "7e2ca8e06ad2da6b94cbab923bbd9f2145d5d657",
+                "url": "https://api.github.com/repos/encodia/laravel-health-env-vars/zipball/33fda901b800ff485c4b5fdd6eb48680526976ab",
+                "reference": "33fda901b800ff485c4b5fdd6eb48680526976ab",
                 "shasum": ""
             },
             "require": {
@@ -1160,10 +1160,9 @@
             "require-dev": {
                 "laravel/pint": "^1.4",
                 "nunomaduro/collision": "^5.10|^6.0",
-                "nunomaduro/larastan": "^1.0",
-                "orchestra/testbench": "^6.23|^7.0",
+                "nunomaduro/larastan": "^1.0|^2.0",
                 "pestphp/pest": "^1.21",
-                "pestphp/pest-plugin-laravel": "^1.1",
+                "pestphp/pest-plugin-laravel": "^1.2|^2.x-dev",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
@@ -1208,7 +1207,7 @@
             ],
             "support": {
                 "issues": "https://github.com/encodia/laravel-health-env-vars/issues",
-                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.5.1"
+                "source": "https://github.com/encodia/laravel-health-env-vars/tree/1.6.0"
             },
             "funding": [
                 {
@@ -1216,7 +1215,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-21T15:43:39+00:00"
+            "time": "2023-03-05T16:29:57+00:00"
         },
         {
             "name": "fakerphp/faker",
