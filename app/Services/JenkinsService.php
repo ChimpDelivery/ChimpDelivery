@@ -51,15 +51,10 @@ class JenkinsService
 
     private function MakeJenkinsRequest(string $method, string $url, bool $isHtml) : JsonResponse
     {
-        $jenkinsResponse = '';
-
         try
         {
-            $jenkinsResponse = $this->GetParsedResponse(
-                $method,
-                $this->GetWorkspaceUrl() . $url,
-                $isHtml
-            );
+            $requestUrl = $this->GetWorkspaceUrl() . $url;
+            $jenkinsResponse = $this->GetParsedResponse($method, $requestUrl, $isHtml);
         }
         catch (\Exception $exception)
         {
