@@ -12,7 +12,7 @@ class GetAppList
 
     public function handle() : JsonResponse
     {
-        $appList = GetFullAppInfo::run();
+        $appList = GetStoreApps::run();
         $data = $appList->getData()->app_list;
 
         $apps = [];
