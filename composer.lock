@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88689392919dd4b7d1c18ff9a07c2f71",
+    "content-hash": "3e0652450a383ea0a9a0edb7402207f3",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1488,35 +1488,35 @@
         },
         {
             "name": "graham-campbell/github",
-            "version": "v11.0.0",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Laravel-GitHub.git",
-                "reference": "6299308241231c41aaa0c068fdce0493da9d5336"
+                "reference": "9b4e13a1b45cea2ecd85521b203381ab3c98cefe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-GitHub/zipball/6299308241231c41aaa0c068fdce0493da9d5336",
-                "reference": "6299308241231c41aaa0c068fdce0493da9d5336",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-GitHub/zipball/9b4e13a1b45cea2ecd85521b203381ab3c98cefe",
+                "reference": "9b4e13a1b45cea2ecd85521b203381ab3c98cefe",
                 "shasum": ""
             },
             "require": {
                 "graham-campbell/bounded-cache": "^1.2 || ^2.0",
-                "graham-campbell/manager": "^4.7",
-                "guzzlehttp/guzzle": "^7.4.3",
-                "guzzlehttp/psr7": "^2.2.1",
-                "illuminate/contracts": "^8.75 || ^9.0",
-                "illuminate/support": "^8.75 || ^9.0",
-                "knplabs/github-api": "3.6.*",
-                "lcobucci/jwt": "^4.1.5",
+                "graham-campbell/manager": "^5.0",
+                "guzzlehttp/guzzle": "^7.5",
+                "guzzlehttp/psr7": "^2.4",
+                "illuminate/contracts": "^8.75 || ^9.0 || ^10.0",
+                "illuminate/support": "^8.75 || ^9.0 || ^10.0",
+                "knplabs/github-api": "3.9.*",
+                "lcobucci/jwt": "^4.3 || ^5.0",
                 "php": "^7.4.15 || ^8.0.2",
                 "symfony/cache": "^5.4 || ^6.0"
             },
             "require-dev": {
-                "graham-campbell/analyzer": "^3.1",
-                "graham-campbell/testbench": "^5.7",
-                "mockery/mockery": "^1.5",
-                "phpunit/phpunit": "^9.5"
+                "graham-campbell/analyzer": "^4.0",
+                "graham-campbell/testbench": "^6.0",
+                "mockery/mockery": "^1.5.1",
+                "phpunit/phpunit": "^9.6.3 || ^10.0.12"
             },
             "type": "library",
             "extra": {
@@ -1558,7 +1558,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Laravel-GitHub/issues",
-                "source": "https://github.com/GrahamCampbell/Laravel-GitHub/tree/v11.0.0"
+                "source": "https://github.com/GrahamCampbell/Laravel-GitHub/tree/v12.0.0"
             },
             "funding": [
                 {
@@ -1570,32 +1570,32 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-31T11:23:36+00:00"
+            "time": "2023-03-07T11:33:47+00:00"
         },
         {
             "name": "graham-campbell/manager",
-            "version": "v4.7.0",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Laravel-Manager.git",
-                "reference": "b4cafa6491b9c92ecf7ce17521580050a27b8308"
+                "reference": "f1cf95a0bb11ba086387b8049e0e40b82d01588d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Manager/zipball/b4cafa6491b9c92ecf7ce17521580050a27b8308",
-                "reference": "b4cafa6491b9c92ecf7ce17521580050a27b8308",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Manager/zipball/f1cf95a0bb11ba086387b8049e0e40b82d01588d",
+                "reference": "f1cf95a0bb11ba086387b8049e0e40b82d01588d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
-                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
-                "php": "^7.1.3 || ^8.0"
+                "illuminate/contracts": "^8.75 || ^9.0 || ^10.0",
+                "illuminate/support": "^8.75 || ^9.0 || ^10.0",
+                "php": "^7.4.15 || ^8.0.2"
             },
             "require-dev": {
-                "graham-campbell/analyzer": "^2.4 || ^3.0",
-                "graham-campbell/testbench-core": "^3.4",
-                "mockery/mockery": "^1.3.1",
-                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.7"
+                "graham-campbell/analyzer": "^4.0",
+                "graham-campbell/testbench-core": "^4.0",
+                "mockery/mockery": "^1.5.1",
+                "phpunit/phpunit": "^9.6.3 || ^10.0.12"
             },
             "type": "library",
             "autoload": {
@@ -1628,7 +1628,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Laravel-Manager/issues",
-                "source": "https://github.com/GrahamCampbell/Laravel-Manager/tree/v4.7.0"
+                "source": "https://github.com/GrahamCampbell/Laravel-Manager/tree/v5.0.0"
             },
             "funding": [
                 {
@@ -1640,7 +1640,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-24T01:59:19+00:00"
+            "time": "2023-02-25T23:53:34+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2306,16 +2306,16 @@
         },
         {
             "name": "knplabs/github-api",
-            "version": "v3.6.0",
+            "version": "v3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "7f283177b96eb626e5cf6038d8771859a0af4b02"
+                "reference": "665ba275dbf36f9e9ef78876f27ca87796e3599c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/7f283177b96eb626e5cf6038d8771859a0af4b02",
-                "reference": "7f283177b96eb626e5cf6038d8771859a0af4b02",
+                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/665ba275dbf36f9e9ef78876f27ca87796e3599c",
+                "reference": "665ba275dbf36f9e9ef78876f27ca87796e3599c",
                 "shasum": ""
             },
             "require": {
@@ -2349,7 +2349,7 @@
             "extra": {
                 "branch-alias": {
                     "dev-2.x": "2.20.x-dev",
-                    "dev-master": "3.4.x-dev"
+                    "dev-master": "3.9.x-dev"
                 }
             },
             "autoload": {
@@ -2382,7 +2382,7 @@
             ],
             "support": {
                 "issues": "https://github.com/KnpLabs/php-github-api/issues",
-                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.6.0"
+                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.9.0"
             },
             "funding": [
                 {
@@ -2390,7 +2390,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-24T09:08:32+00:00"
+            "time": "2022-10-24T12:42:09+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3000,104 +3000,41 @@
             "time": "2023-02-15T16:40:09+00:00"
         },
         {
-            "name": "lcobucci/clock",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lcobucci/clock.git",
-                "reference": "039ef98c6b57b101d10bd11d8fdfda12cbd996dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/clock/zipball/039ef98c6b57b101d10bd11d8fdfda12cbd996dc",
-                "reference": "039ef98c6b57b101d10bd11d8fdfda12cbd996dc",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~8.1.0 || ~8.2.0",
-                "psr/clock": "^1.0"
-            },
-            "provide": {
-                "psr/clock-implementation": "1.0"
-            },
-            "require-dev": {
-                "infection/infection": "^0.26",
-                "lcobucci/coding-standard": "^9.0",
-                "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "^1.9.4",
-                "phpstan/phpstan-deprecation-rules": "^1.1.1",
-                "phpstan/phpstan-phpunit": "^1.3.2",
-                "phpstan/phpstan-strict-rules": "^1.4.4",
-                "phpunit/phpunit": "^9.5.27"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Lcobucci\\Clock\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Luís Cobucci",
-                    "email": "lcobucci@gmail.com"
-                }
-            ],
-            "description": "Yet another clock abstraction",
-            "support": {
-                "issues": "https://github.com/lcobucci/clock/issues",
-                "source": "https://github.com/lcobucci/clock/tree/3.0.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/lcobucci",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/lcobucci",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2022-12-19T15:00:24+00:00"
-        },
-        {
             "name": "lcobucci/jwt",
-            "version": "4.3.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4"
+                "reference": "47bdb0e0b5d00c2f89ebe33e7e384c77e84e7c34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/4d7de2fe0d51a96418c0d04004986e410e87f6b4",
-                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/47bdb0e0b5d00c2f89ebe33e7e384c77e84e7c34",
+                "reference": "47bdb0e0b5d00c2f89ebe33e7e384c77e84e7c34",
                 "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
                 "ext-json": "*",
-                "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-sodium": "*",
-                "lcobucci/clock": "^2.0 || ^3.0",
-                "php": "^7.4 || ^8.0"
+                "php": "~8.1.0 || ~8.2.0",
+                "psr/clock": "^1.0"
             },
             "require-dev": {
-                "infection/infection": "^0.21",
-                "lcobucci/coding-standard": "^6.0",
-                "mikey179/vfsstream": "^1.6.7",
-                "phpbench/phpbench": "^1.2",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^1.4",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.0",
-                "phpunit/php-invoker": "^3.1",
-                "phpunit/phpunit": "^9.5"
+                "infection/infection": "^0.26.19",
+                "lcobucci/clock": "^3.0",
+                "lcobucci/coding-standard": "^9.0",
+                "phpbench/phpbench": "^1.2.8",
+                "phpstan/extension-installer": "^1.2",
+                "phpstan/phpstan": "^1.10.3",
+                "phpstan/phpstan-deprecation-rules": "^1.1.2",
+                "phpstan/phpstan-phpunit": "^1.3.8",
+                "phpstan/phpstan-strict-rules": "^1.5.0",
+                "phpunit/phpunit": "^10.0.12"
+            },
+            "suggest": {
+                "lcobucci/clock": ">= 3.0"
             },
             "type": "library",
             "autoload": {
@@ -3123,7 +3060,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lcobucci/jwt/issues",
-                "source": "https://github.com/lcobucci/jwt/tree/4.3.0"
+                "source": "https://github.com/lcobucci/jwt/tree/5.0.0"
             },
             "funding": [
                 {
@@ -3135,7 +3072,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-01-02T13:28:00+00:00"
+            "time": "2023-02-25T21:35:16+00:00"
         },
         {
             "name": "league/commonmark",
