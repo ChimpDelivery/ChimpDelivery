@@ -20,35 +20,47 @@ class CreateBundleId
 
     public function handle(StoreBundleRequest $request, AppStoreConnectService $service) : array
     {
-        $data = [
-            'data' => [
-                'attributes' => [
-                    'identifier' => $request->validated('bundle_id'),
-                    'name' => $request->validated('bundle_name'),
-                    'platform' => 'IOS'
-                ],
-                'type' => 'bundleIds'
-            ]
-        ];
+        $bundleData = $this->PrepareRequestData(
+            $request->validated('bundle_id'),
+            $request->validated('bundle_name')
+        );
 
+        // request
         $createBundle = $service->GetClient()
-            ->withBody(json_encode($data), 'application/json')
+            ->withBody(json_encode($bundleData), 'application/json')
             ->post(self::API_URL);
 
+        // response
         $createBundleResponse = $createBundle->json();
-
-        $responseMessage = 'Bundle: <b>' . $request->validated('bundle_id') . '</b> created!';
         $responseHasError = isset($createBundleResponse['errors']);
-        if ($responseHasError)
-        {
-            $error = $createBundleResponse['errors'][0];
-            $responseMessage = $error['detail'] . " (Status code: {$error['status']})";
-        }
+        $responseMessage = ($responseHasError)
+            ? $this->GetErrorMessage($createBundleResponse)
+            : "Bundle: <b>{$request->validated('bundle_id')}</b> created!";
 
         return [
-            'success' => $responseHasError === false,
+            'success' => !$responseHasError,
             'message' => $responseMessage,
         ];
+    }
+
+    private function PrepareRequestData(string $bundleId, string $bundleName) : array
+    {
+        return [
+            'data' => [
+                'attributes' => [
+                    'identifier' => $bundleId,
+                    'name' => $bundleName,
+                    'platform' => 'IOS',
+                ],
+                'type' => 'bundleIds',
+            ]
+        ];
+    }
+
+    private function GetErrorMessage($createBundleResponse) : string
+    {
+        $error = $createBundleResponse['errors'][0];
+        return $error['detail'] . " (Status code: {$error['status']})";
     }
 
     public function authorize(StoreBundleRequest $request) : bool

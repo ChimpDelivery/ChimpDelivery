@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Services\AppStoreConnectService;
 
 // api reference: https://developer.apple.com/documentation/appstoreconnectapi/list_apps
-class GetFullAppInfo
+class GetStoreApps
 {
     use AsAction;
 
@@ -17,10 +17,12 @@ class GetFullAppInfo
     {
         $service = app(AppStoreConnectService::class);
 
-        $appstoreApps = $service->GetClient()->get(AppStoreConnectService::API_URL
-            .'/apps?fields[apps]=name,bundleId&limit='
-            .config('appstore.item_limit')
-            .'&filter[appStoreVersions.platform]=IOS&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION'
+        $appstoreApps = $service->GetClient()->get(
+            AppStoreConnectService::API_URL
+            .'/apps?fields[apps]=name,bundleId'
+            .'&limit=' . config('appstore.item_limit')
+            .'&filter[appStoreVersions.platform]=IOS'
+            .'&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION'
         );
 
         $sortedAppCollection = collect(($appstoreApps->failed()) ? [] : json_decode($appstoreApps)->data);
