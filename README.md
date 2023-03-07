@@ -44,7 +44,7 @@ POST   |   api/update-app?id={id}&fb_app_id={fbAppID?}&ga_id={gaID?}&ga_secret={
 # 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
 GET    |   api/appstoreconnect/get-token
-GET    |   api/appstoreconnect/get-full-info
+GET    |   api/appstoreconnect/get-store-apps
 GET    |   api/appstoreconnect/get-app-list
 GET    |   api/appstoreconnect/get-cert
 GET    |   api/appstoreconnect/get-provision-profile
