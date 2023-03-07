@@ -37,7 +37,7 @@ class JenkinsDataParser
         {
             return [
                 'header' => $buttonTitle,
-                'body' => 'First build not executed!'
+                'body' => 'First build not executed!',
             ];
         }
 
@@ -51,7 +51,7 @@ class JenkinsDataParser
 
         return [
             'header' => $buttonTitle,
-            'body' => $buttonData
+            'body' => $buttonData,
         ];
     }
 
@@ -128,7 +128,7 @@ class JenkinsDataParser
 
     private function GetJobEstimatedFinish() : View
     {
-        return view('layouts.jenkins.info.job-estimated-finish', [
+        return view('layouts.jenkins.info.job-average-finish', [
             'last_build' => $this->lastBuild,
         ]);
     }
