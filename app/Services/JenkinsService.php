@@ -26,14 +26,10 @@ class JenkinsService
         return $this;
     }
 
-    // {tunnel_url}/job/{organization_folder}
     public function GetWorkspaceUrl() : string
     {
-        return implode('/', [
-            $this->tunnelUrl,
-            'job',
-            $this->user?->orgName() ?? Auth::user()->orgName(),
-        ]);
+        $orgName = $this->user?->orgName() ?? Auth::user()->orgName();
+        return "{$this->tunnelUrl}/job/{$orgName}";
     }
 
     public function GetHttpClient() : PendingRequest
@@ -77,7 +73,7 @@ class JenkinsService
         return response()->json($jenkinsResponse);
     }
 
-    private function GetParsedResponse(string $method, string $url, bool $isHtml)
+    private function GetParsedResponse(string $method, string $url, bool $isHtml) : array
     {
         $request = $this->GetHttpClient()->{$method}($url);
         return $this->ParseJenkinsResponse($request, $isHtml);
