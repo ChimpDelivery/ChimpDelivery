@@ -118,26 +118,19 @@ class JenkinsDataParser
         };
     }
 
-    private function GetStageDetail()
+    private function GetStageDetail() : View
     {
-        if (!isset($this->lastBuild->stop_details)) { return ''; }
-        if (empty($this->lastBuild->stop_details->output)) { return ''; }
-
-        $detail = Str::limit($this->lastBuild->stop_details->output, $this->limits['stop_msg_length']);
-
-        return "<span class='badge bg-warning text-white'>
-                    <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
-                </span>
-                {$detail}
-                <hr class='my-2'>";
+        return view('layouts.jenkins.info.job-stage-detail', [
+            'last_build' => $this->lastBuild,
+            'text_limits' => $this->limits,
+        ]);
     }
 
-    private function GetJobEstimatedFinish()
+    private function GetJobEstimatedFinish() : View
     {
-        if ($this->lastBuild?->status != 'IN_PROGRESS') { return ''; }
-        if (!isset($this->lastBuild->estimated_time)) { return ''; }
-
-        return 'Average Finish: <span class="text-primary font-weight-bold">' . $this->lastBuild->estimated_time . "</span><hr class='my-2'>";
+        return view('layouts.jenkins.info.job-estimated-finish', [
+            'last_build' => $this->lastBuild,
+        ]);
     }
 
     private function GetCommit() : View
