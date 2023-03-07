@@ -13,31 +13,26 @@ use App\Models\User;
 
 class JenkinsService
 {
-    private User $user;
-
     public function __construct(
         private readonly string $tunnelUrl,
         private readonly string $jenkinsUser,
         private readonly string $jenkinsToken,
+        private ?User $user = null,
     ) { }
 
-    public function InjectUser(User $user) : static
+    public function SetUser(User $user) : static
     {
         $this->user = $user;
         return $this;
     }
 
-    // {tunnel_url}/job/{organization_folder}
     public function GetWorkspaceUrl() : string
     {
-        return implode('/', [
-            $this->tunnelUrl,
-            'job',
-            isset($this->user) ? $this->user->orgName() : Auth::user()->orgName(),
-        ]);
+        $orgName = $this->user?->orgName() ?? Auth::user()->orgName();
+        return "{$this->tunnelUrl}/job/{$orgName}";
     }
 
-    public function GetJenkinsUser() : PendingRequest
+    public function GetHttpClient() : PendingRequest
     {
         return Http::withBasicAuth($this->jenkinsUser, $this->jenkinsToken)
             ->timeout(20)
@@ -46,28 +41,20 @@ class JenkinsService
 
     public function GetResponse(string $url, bool $isHtml = false) : mixed
     {
-        return $this->TryJenkinsRequest($url, 'get', $isHtml)->getData();
+        return $this->MakeJenkinsRequest('get', $url,$isHtml)->getData();
     }
 
     public function PostResponse(string $url, bool $isHtml = false) : mixed
     {
-        return $this->TryJenkinsRequest($url, 'post', $isHtml)->getData();
+        return $this->MakeJenkinsRequest('post', $url, $isHtml)->getData();
     }
 
-    private function TryJenkinsRequest(string $url, string $method, bool $isHtml) : JsonResponse
+    private function MakeJenkinsRequest(string $method, string $url, bool $isHtml) : JsonResponse
     {
-        $jenkinsResponse = '';
-
         try
         {
-            if (in_array($method, ['post', 'get']))
-            {
-                $jenkinsResponse = $this->$method($this->GetWorkspaceUrl() . $url, $isHtml);
-            }
-            else
-            {
-                throw new \Exception('Request method not supported!');
-            }
+            $requestUrl = $this->GetWorkspaceUrl() . $url;
+            $jenkinsResponse = $this->GetParsedResponse($method, $requestUrl, $isHtml);
         }
         catch (\Exception $exception)
         {
@@ -81,30 +68,19 @@ class JenkinsService
         return response()->json($jenkinsResponse);
     }
 
-    private function get(string $url, bool $isHtml) : array
+    private function GetParsedResponse(string $method, string $url, bool $isHtml) : array
     {
-        $request = $this->GetJenkinsUser()->get($url);
-        return $this->GetJenkinsResponse($request, $isHtml);
+        $request = $this->GetHttpClient()->{$method}($url);
+        return $this->ParseJenkinsResponse($request, $isHtml);
     }
 
-    private function post(string $url, bool $isHtml) : array
-    {
-        $request = $this->GetJenkinsUser()->post($url);
-        return $this->GetJenkinsResponse($request, $isHtml);
-    }
-
-    private function GetJenkinsResponse(Response $request, bool $isHtml) : array
+    private function ParseJenkinsResponse(Response $request, bool $isHtml) : array
     {
         $isTunnelOffline = $request->header('Ngrok-Error-Code');
 
         return [
-            'jenkins_status' => ($isTunnelOffline)
-                ? 3200
-                : $request->status(),
-
-            'jenkins_data' => ($isTunnelOffline)
-                ? null
-                : ($isHtml ? $request->body() : json_decode($request)),
+            'jenkins_status' => ($isTunnelOffline) ? 3200 : $request->status(),
+            'jenkins_data' => ($isTunnelOffline) ? null : ($isHtml ? $request->body() : json_decode($request)),
         ];
     }
 }

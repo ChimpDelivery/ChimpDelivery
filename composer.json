@@ -12,11 +12,11 @@
         "encodia/laravel-health-env-vars": "^1.5",
         "fakerphp/faker": "^1.21",
         "firebase/php-jwt": "^6.4",
-        "graham-campbell/github": "^11.0",
+        "graham-campbell/github": "^12.0",
         "guzzlehttp/guzzle": "^7.5",
         "http-interop/http-factory-guzzle": "^1.0",
         "jantinnerezo/livewire-alert": "^2.2",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^10.0",
         "laravel/horizon": "^5.11",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
@@ -44,7 +44,7 @@
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0",
         "phpunit/phpunit": "^10.0.1",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -73,7 +73,7 @@
             "@php artisan key:generate --ansi"
         ],
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
-        "dashboard-down": "php artisan down --secret=\"262626\"",
+        "dashboard-down": "php artisan down --secret=\"2626\"",
         "dashboard-up": "php artisan up",
         "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline"
     },

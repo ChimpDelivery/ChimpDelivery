@@ -24,7 +24,7 @@ class S3Service
         ]);
     }
 
-    public function InjectUser(User $user) : static
+    public function SetUser(User $user) : static
     {
         $this->user = $user;
         return $this;

@@ -17,7 +17,7 @@ class GetStoreApps
     {
         $service = app(AppStoreConnectService::class);
 
-        $appstoreApps = $service->GetClient()->get(
+        $appstoreApps = $service->GetHttpClient()->get(
             AppStoreConnectService::API_URL
             .'/apps?fields[apps]=name,bundleId'
             .'&limit=' . config('appstore.item_limit')

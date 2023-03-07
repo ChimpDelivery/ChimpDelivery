@@ -11,12 +11,12 @@ trait AsS3Client
 {
     public function UploadToS3($file) : false|string
     {
-        return app(S3Service::class)->InjectUser($this->user ?? Auth::user())->UploadFile($file);
+        return app(S3Service::class)->SetUser($this->user ?? Auth::user())->UploadFile($file);
     }
 
     public function DownloadFromS3(string $srcFilePath, string $destFileName, string $mimeType) : Response
     {
-        return app(S3Service::class)->InjectUser($this->user ?? Auth::user())->GetFileResponse(
+        return app(S3Service::class)->SetUser($this->user ?? Auth::user())->GetFileResponse(
             $srcFilePath,
             $destFileName,
             $mimeType

@@ -23,7 +23,7 @@ class AppStoreConnectService
         $this->appStoreConnectSetting = Auth::user()->workspace->appStoreConnectSetting;
     }
 
-    public function GetClient() : PendingRequest
+    public function GetHttpClient() : PendingRequest
     {
         return Http::withToken($this->CreateToken()->getData()->appstore_token);
     }
@@ -32,16 +32,7 @@ class AppStoreConnectService
     {
         try
         {
-            $generatedToken = JWT::encode(
-                payload: [
-                    'iss' => $this->appStoreConnectSetting->issuer_id,
-                    'exp' => time() + config('appstore.cache_duration') * 60,
-                    'aud' => 'appstoreconnect-v1'
-                ],
-                key: $this->appStoreConnectSetting->private_key,
-                alg: 'ES256',
-                keyId: $this->appStoreConnectSetting->kid,
-            );
+            $generatedToken = $this->PrepareTokenData();
         }
         catch (\Exception $exception)
         {
@@ -52,5 +43,19 @@ class AppStoreConnectService
         }
 
         return response()->json([ 'appstore_token' => $generatedToken ]);
+    }
+
+    private function PrepareTokenData() : string
+    {
+        return JWT::encode(
+            payload: [
+                'iss' => $this->appStoreConnectSetting->issuer_id,
+                'exp' => time() + config('appstore.cache_duration') * 60,
+                'aud' => 'appstoreconnect-v1'
+            ],
+            key: $this->appStoreConnectSetting->private_key,
+            alg: 'ES256',
+            keyId: $this->appStoreConnectSetting->kid,
+        );
     }
 }
