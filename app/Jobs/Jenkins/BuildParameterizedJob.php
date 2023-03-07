@@ -34,7 +34,7 @@ class BuildParameterizedJob implements ShouldQueue
     {
         // send request
         $response = app(JenkinsService::class)
-            ->InjectUser($this->user)
+            ->SetUser($this->user)
             ->PostResponse($this->CreateUrl($this->app, $this->inputs));
 
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_CREATED;

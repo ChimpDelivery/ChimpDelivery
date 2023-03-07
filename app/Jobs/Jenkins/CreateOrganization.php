@@ -27,7 +27,7 @@ class CreateOrganization implements ShouldQueue
         $url = $this->GetJobUrl();
         $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
 
-        return app(JenkinsService::class)->GetJenkinsUser()->post($url);
+        return app(JenkinsService::class)->GetHttpClient()->post($url);
     }
 
     // Job url that contains Jenkins-DSL Plugin Action
