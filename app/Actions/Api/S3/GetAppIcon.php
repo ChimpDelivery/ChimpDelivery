@@ -13,7 +13,7 @@ class GetAppIcon
 
     public function handle(AppInfo $app) : string
     {
-        $s3 = app(S3Service::class)->InjectUser(Auth::user());
+        $s3 = app(S3Service::class)->SetUser(Auth::user());
 
         return empty($app->app_icon) || !$s3->IsFileExists($app->app_icon)
             ? asset('default-app-icon.png')
