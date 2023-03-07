@@ -20,13 +20,11 @@ class JenkinsDataParser
         'commit_hash_length' => 7,
     ];
 
-    private AppInfo $app;
-    private mixed $jenkinsData;
+    private mixed $lastBuild;
 
-    public function __construct(AppInfo $app)
+    public function __construct(private readonly AppInfo $app)
     {
-        $this->app = $app;
-        $this->jenkinsData = $app->jenkins_data;
+        $this->lastBuild = $app->jenkins_data;
     }
 
     public function GetButtonData()
@@ -35,11 +33,11 @@ class JenkinsDataParser
         $buttonTitle = $this->GetStage();
 
         // there is no build
-        if ($this->jenkinsData == null)
+        if (!$this->lastBuild)
         {
             return [
                 'header' => $buttonTitle,
-                'body' => 'First build not executed!'
+                'body' => 'First build not executed!',
             ];
         }
 
@@ -53,7 +51,7 @@ class JenkinsDataParser
 
         return [
             'header' => $buttonTitle,
-            'body' => $buttonData
+            'body' => $buttonData,
         ];
     }
 
@@ -64,14 +62,14 @@ class JenkinsDataParser
 
     private function GetJobPlatform() : View
     {
-        $icon = JobPlatform::tryFrom($this->jenkinsData->build_platform)->GetPlatformIcon();
+        $icon = JobPlatform::tryFrom($this->lastBuild->build_platform)->GetPlatformIcon();
 
         return view('layouts.jenkins.job-platform', [ 'icon' => $icon ]);
     }
 
     private function GetStage()
     {
-        if (!isset($this->jenkinsData->status))
+        if (!isset($this->lastBuild->status))
         {
             return '<span class="text-secondary font-weight-bold">
                 <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
@@ -79,10 +77,10 @@ class JenkinsDataParser
         }
 
         // todo: failing at prepare stage - text color
-        $stageName = Str::limit($this->jenkinsData->stop_details->stage, $this->limits['stop_stage_length']);
-        $prettyName = JobStatus::tryFrom($this->jenkinsData->status)->PrettyName();
+        $stageName = Str::limit($this->lastBuild->stop_details->stage, $this->limits['stop_stage_length']);
+        $prettyName = JobStatus::tryFrom($this->lastBuild->status)->PrettyName();
 
-        return match(JobStatus::tryFrom($this->jenkinsData->status))
+        return match(JobStatus::tryFrom($this->lastBuild->status))
         {
             JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>
@@ -120,32 +118,25 @@ class JenkinsDataParser
         };
     }
 
-    private function GetStageDetail()
+    private function GetStageDetail() : View
     {
-        if (!isset($this->jenkinsData->stop_details)) { return ''; }
-        if (empty($this->jenkinsData->stop_details->output)) { return ''; }
-
-        $detail = Str::limit($this->jenkinsData->stop_details->output, $this->limits['stop_msg_length']);
-
-        return "<span class='badge bg-warning text-white'>
-                    <i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
-                </span>
-                {$detail}
-                <hr class='my-2'>";
+        return view('layouts.jenkins.info.job-stage-detail', [
+            'last_build' => $this->lastBuild,
+            'text_limits' => $this->limits,
+        ]);
     }
 
-    private function GetJobEstimatedFinish()
+    private function GetJobEstimatedFinish() : View
     {
-        if ($this->jenkinsData?->status != 'IN_PROGRESS') { return ''; }
-        if (!isset($this->jenkinsData->estimated_time)) { return ''; }
-
-        return 'Average Finish: <span class="text-primary font-weight-bold">' . $this->jenkinsData->estimated_time . "</span><hr class='my-2'>";
+        return view('layouts.jenkins.info.job-average-finish', [
+            'last_build' => $this->lastBuild,
+        ]);
     }
 
     private function GetCommit() : View
     {
         return view('layouts.jenkins.job-commit', [
-            'app_commit' => $this->jenkinsData?->commit,
+            'app_commit' => $this->lastBuild?->commit,
             'limits' => $this->limits,
         ]);
     }
