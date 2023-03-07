@@ -23,7 +23,7 @@ class AppStoreConnectService
         $this->appStoreConnectSetting = Auth::user()->workspace->appStoreConnectSetting;
     }
 
-    public function GetClient() : PendingRequest
+    public function GetHttpClient() : PendingRequest
     {
         return Http::withToken($this->CreateToken()->getData()->appstore_token);
     }

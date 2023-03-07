@@ -26,7 +26,7 @@ class CreateBundleId
         );
 
         // request
-        $createBundle = $service->GetClient()
+        $createBundle = $service->GetHttpClient()
             ->withBody(json_encode($bundleData), 'application/json')
             ->post(self::API_URL);
 
