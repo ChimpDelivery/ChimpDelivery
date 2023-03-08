@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dc52f0b8d5756da2c6cdc541760d4f5",
+    "content-hash": "8cea8650899da428380abb07b793b711",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2594,16 +2594,16 @@
         },
         {
             "name": "laravel/horizon",
-            "version": "v5.15.0",
+            "version": "v515.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "b49be302566365e0e4d517aac9995a8fe20b580e"
+                "reference": "8799c74cd6bb5261d588e936c83bad61ef57c81c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/b49be302566365e0e4d517aac9995a8fe20b580e",
-                "reference": "b49be302566365e0e4d517aac9995a8fe20b580e",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/8799c74cd6bb5261d588e936c83bad61ef57c81c",
+                "reference": "8799c74cd6bb5261d588e936c83bad61ef57c81c",
                 "shasum": ""
             },
             "require": {
@@ -2666,9 +2666,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/horizon/issues",
-                "source": "https://github.com/laravel/horizon/tree/v5.15.0"
+                "source": "https://github.com/laravel/horizon/tree/v515.0"
             },
-            "time": "2023-03-07T17:45:21+00:00"
+            "time": "2023-03-07T15:12:28+00:00"
         },
         {
             "name": "laravel/sanctum",
