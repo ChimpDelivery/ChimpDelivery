@@ -4,14 +4,10 @@ namespace Routes;
 
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use App\Models\User;
 
 class AppApiRouteTests extends TestCase
 {
-    use RefreshDatabase;
-
     private User $user;
 
     private array $headers = [

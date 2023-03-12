@@ -2,21 +2,20 @@
 
 namespace Tests;
 
-use App\Models\Workspace;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp() : void
     {
         parent::setUp();
 
-        // default - ws required for app
-        $this->defaultWs = Workspace::factory()->create(
-            [ 'id' => 1 ]
-        );
+        $this->seed();
     }
-
 }

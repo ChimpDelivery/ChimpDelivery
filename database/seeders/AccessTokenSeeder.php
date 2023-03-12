@@ -13,12 +13,6 @@ class AccessTokenSeeder extends Seeder
     {
         $output = new ConsoleOutput();
 
-        if (!app()->isLocal())
-        {
-            $output->writeln("Access Token seeder is not gonna run! Only local env allowed!");
-            return;
-        }
-
         User::all()->each(function (User $user) use ($output) {
 
             $userAccessToken = $user->createApiToken('api-key');
