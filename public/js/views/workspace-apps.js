@@ -10,5 +10,5 @@ $(document).ready(function () {
 
 function makePretty(projectName)
 {
-    return projectName.slice(0, 13) + (projectName.length > 13 ? '...' : '') + ' X';
+    return projectName.slice(0, 18) + (projectName.length > 18 ? '...' : '');
 }
