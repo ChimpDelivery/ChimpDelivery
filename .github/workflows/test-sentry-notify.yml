@@ -5,6 +5,7 @@ on:
     branches: [dev]
 
 env:
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   SENTRY_ORG: talusstudio
   SENTRY_PROJECT: talus-dashboard
   VERSION: "sentry-cli releases propose-version"
