@@ -9,6 +9,7 @@ env:
   SENTRY_ORG: talusstudio
   SENTRY_PROJECT: talus-dashboard
   VERSION: "sentry-cli releases propose-version"
+  SENTRY_LOG_LEVEL: debug
 
 concurrency: production_environment
 
