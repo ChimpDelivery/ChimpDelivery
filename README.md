@@ -9,8 +9,6 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
   - [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [CipherSweet Key Generation](https://github.com/spatie/laravel-ciphersweet)
-    - ```php artisan ciphersweet:generate-key```
-    - ```.env``` File Key ```CIPHERSWEET_KEY=<YOUR-KEY>```
 - [S3 Bucket Key Generation](https://github.com)
 - Jenkins Key Generation
   - ```JENKINS_URL/user/USER_NAME/configure -> Api Tokens```
@@ -25,12 +23,17 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - Daily Backups (S3)
 - Dashboard Monitoring as **Super Admin** (Health, Horizon, Telescope)
 
+# Monitoring
+- Sentry URL: https://talusstudio.sentry.io
+- Dashboard Health: http://34.252.141.173/health
+- Horizon: http://34.252.141.173/horizon
+- Telescope: http://34.252.141.173/telescope
+
 # Security
 - Honeypot
 - ReCaptcha v3
 - [Encryption of Sensitive Data](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Encryption)
-- Pre-Deployment Security Checks
-  - [[Enlightn](https://www.laravel-enlightn.com)]
+- Pre-Deployment Security Checks with [Enlightn](https://www.laravel-enlightn.com)
 
 # 🔑 Apps API
 - Optional parameters marked with `?`
