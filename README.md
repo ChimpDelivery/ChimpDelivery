@@ -23,6 +23,12 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - Daily Backups (S3)
 - Dashboard Monitoring as **Super Admin** (Health, Horizon, Telescope)
 
+# Monitoring
+- Sentry URL: https://talusstudio.sentry.io
+- Dashboard Health: http://34.252.141.173/health
+- Horizon: http://34.252.141.173/horizon
+- Telescope: http://34.252.141.173/telescope
+
 # Security
 - Honeypot
 - ReCaptcha v3
