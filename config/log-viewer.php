@@ -137,7 +137,7 @@ return [
     */
 
     'exclude_files' => [
-        // 'my_secret.log'
+        'schedule-key-rotating.log',
     ],
 
     /*
