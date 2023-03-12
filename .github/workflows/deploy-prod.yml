@@ -6,6 +6,12 @@ on:
       - master
     types:
       - closed
+      
+env:
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  SENTRY_ORG: talusstudio
+  SENTRY_PROJECT: talus-dashboard
+  VERSION: "sentry-cli releases propose-version"
 
 concurrency: production_environment
 
@@ -43,3 +49,12 @@ jobs:
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy env=production -vvv
+          
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: 'talusstudio'
+          SENTRY_PROJECT: 'talus-dashboard'
+        with:
+          environment: production
