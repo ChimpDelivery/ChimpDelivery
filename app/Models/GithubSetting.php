@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 // cipher sweet ns
@@ -46,7 +47,7 @@ class GithubSetting extends Model implements CipherSweetEncrypted
         'personal_access_token',
     ];
 
-    public function workspace()
+    public function workspace() : BelongsTo
     {
         return $this->belongsTo(Workspace::class);
     }

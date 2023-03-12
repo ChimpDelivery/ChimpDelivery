@@ -52,9 +52,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'gravatar',
     ];
 
-    /**
-     * @return BelongsTo<Workspace, User>
-     */
     public function workspace() : BelongsTo
     {
         return $this->belongsTo(Workspace::class);
