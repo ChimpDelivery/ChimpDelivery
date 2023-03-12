@@ -1,0 +1,20 @@
+name: deploy-staging
+
+on:
+  push:
+    branches: [dev]
+
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: REST API with curl
+      - run: |
+          curl -sL https://sentry.io/get-cli/ | SENTRY_CLI_VERSION="2.2.0" bash
