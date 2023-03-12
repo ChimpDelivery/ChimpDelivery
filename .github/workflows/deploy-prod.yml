@@ -52,3 +52,4 @@ jobs:
           SENTRY_PROJECT: 'talus-dashboard'
         with:
           environment: production
+          ignore_empty: true
