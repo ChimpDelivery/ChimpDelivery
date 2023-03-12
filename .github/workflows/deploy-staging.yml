@@ -54,6 +54,6 @@ jobs:
           SENTRY_ORG: 'talusstudio'
           SENTRY_PROJECT: 'talus-dashboard'
         with:
-          environment: production
+          environment: staging
           ignore_empty: true
 
