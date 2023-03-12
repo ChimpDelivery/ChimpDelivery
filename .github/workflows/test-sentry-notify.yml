@@ -4,6 +4,11 @@ on:
   push:
     branches: [dev]
 
+env:
+  SENTRY_ORG: talusstudio
+  SENTRY_PROJECT: talus-dashboard
+  VERSION: "sentry-cli releases propose-version"
+
 concurrency: production_environment
 
 jobs:
@@ -20,6 +25,6 @@ jobs:
           curl -sL https://sentry.io/get-cli/ | SENTRY_CLI_VERSION="2.2.0" bash
           
       - name: Notify
-        run: sentry-cli releases new "1" &&
-             sentry-cli releases set-commits "1" --auto &&
-             sentry-cli releases finalize "1"
+        run: sentry-cli releases new "$VERSION" &&
+             sentry-cli releases set-commits "$VERSION" --auto &&
+             sentry-cli releases finalize "$VERSION"
