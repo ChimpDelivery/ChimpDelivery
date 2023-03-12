@@ -72,6 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->workspace_id === config('workspaces.internal_ws_id');
     }
 
+    public function isSuperAdmin() : bool
+    {
+        return $this->email === config('workspaces.superadmin_email');
+    }
+
     public function createApiToken(string $tokenName) : string
     {
         if (!$this->isNew() && $this->can('create api token'))

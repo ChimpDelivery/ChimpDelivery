@@ -7,7 +7,7 @@
                 <div class="modal-header justify-content-between align-items-center">
                     <h5>
                         <span class="modal-title text-dark font-weight-bold" id="build-modal-label">
-                            <i class="fa fa-cube" aria-hidden="true"></i> Build Settings
+                            <i class="fa fa-cube" aria-hidden="true"></i> Build App
                         </span>
                     </h5>
                     <h5>

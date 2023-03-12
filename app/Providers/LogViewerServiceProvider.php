@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\User;
+
 class LogViewerServiceProvider extends ServiceProvider
 {
     /**
@@ -21,8 +23,8 @@ class LogViewerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('viewLogViewer', function ($user) {
-            return App::isLocal() || $user->email === config('workspaces.superadmin_email');
+        Gate::define('viewLogViewer', function (User $user) {
+            return App::isLocal() || $user->isSuperAdmin();
         });
     }
 }
