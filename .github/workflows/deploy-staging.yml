@@ -3,6 +3,12 @@ name: deploy-staging
 on:
   push:
     branches: [dev]
+     
+env:
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  SENTRY_ORG: talusstudio
+  SENTRY_PROJECT: talus-dashboard
+  VERSION: "sentry-cli releases propose-version"
 
 concurrency: production_environment
 
@@ -40,3 +46,11 @@ jobs:
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy env=staging -vvv
+          
+      - name: Download Sentry CLI
+        run: curl -sL https://sentry.io/get-cli/ | SENTRY_CLI_VERSION="2.2.0" bash
+          
+      - name: Notify Sentry Release
+        run: sentry-cli releases new "$VERSION" &&
+             sentry-cli releases set-commits "$VERSION" --auto &&
+             sentry-cli releases finalize "$VERSION"
