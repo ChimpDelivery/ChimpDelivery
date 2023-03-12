@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
+use App\Models\User;
+
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
     /**
@@ -30,8 +32,8 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      */
     protected function gate() : void
     {
-        Gate::define('viewHorizon', function ($user) {
-            return App::isLocal() || $user->email === config('workspaces.superadmin_email');
+        Gate::define('viewHorizon', function (User $user) {
+            return App::isLocal() || $user->isSuperAdmin();
         });
     }
 }

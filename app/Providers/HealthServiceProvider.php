@@ -6,14 +6,12 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\User;
+
 use Spatie\Health\Facades\Health;
-
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
-
 use Encodia\Health\Checks\EnvVars;
-
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
-
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
@@ -86,8 +84,8 @@ class HealthServiceProvider extends ServiceProvider
 
     public function boot() : void
     {
-        Gate::define('viewHealth', function ($user) {
-            return App::isLocal() || $user->email === config('workspaces.superadmin_email');
+        Gate::define('viewHealth', function (?User $user) {
+            return App::isLocal() || $user?->isSuperAdmin();
         });
     }
 }
