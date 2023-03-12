@@ -11,11 +11,10 @@ class AlphaDashDot implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value) : bool
     {
-        if (! is_string($value) && ! is_numeric($value)) {
+        if (!is_string($value) && !is_numeric($value)) {
             return false;
         }
 

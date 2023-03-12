@@ -41,7 +41,7 @@ class JenkinsService
 
     public function GetResponse(string $url, bool $isHtml = false) : mixed
     {
-        return $this->MakeJenkinsRequest('get', $url,$isHtml)->getData();
+        return $this->MakeJenkinsRequest('get', $url, $isHtml)->getData();
     }
 
     public function PostResponse(string $url, bool $isHtml = false) : mixed

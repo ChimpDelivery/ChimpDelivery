@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Str;
@@ -35,43 +36,34 @@ class Workspace extends Model
 
     ];
 
-    /**
-     * @return HasMany<User>
-     */
     public function users() : HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    /**
-     * @return HasMany<AppInfo>
-     */
     public function apps() : HasMany
     {
         return $this->hasMany(AppInfo::class);
     }
 
-    /**
-     * @return HasMany<WorkspaceInviteCode>
-     */
     public function inviteCodes() : HasMany
     {
         return $this->hasMany(WorkspaceInviteCode::class);
     }
 
-    public function appStoreConnectSetting()
+    public function appStoreConnectSetting() : HasOne
     {
         return $this->hasOne(AppStoreConnectSetting::class)->withDefault([
             'private_key' => 'Choose...',
         ]);
     }
 
-    public function appleSetting()
+    public function appleSetting() : HasOne
     {
         return $this->hasOne(AppleSetting::class)->withDefault();
     }
 
-    public function githubSetting()
+    public function githubSetting() : HasOne
     {
         return $this->hasOne(GithubSetting::class)->withDefault([
             'public_repo' => 0,
@@ -79,7 +71,7 @@ class Workspace extends Model
         ]);
     }
 
-    public function appStoreConnectSign()
+    public function appStoreConnectSign() : HasOne
     {
         return $this->hasOne(AppStoreConnectSign::class)->withDefault([
             'cert' => 'Choose...',
@@ -93,9 +85,7 @@ class Workspace extends Model
 
         // Extend: Workspaces can only have 1 invite code...
         $this->inviteCodes()->delete();
-        $this->inviteCodes()->create([
-            'code' => $code
-        ]);
+        $this->inviteCodes()->create([ 'code' => $code ]);
 
         return $code;
     }
