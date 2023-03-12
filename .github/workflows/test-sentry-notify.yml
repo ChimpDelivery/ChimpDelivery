@@ -18,3 +18,8 @@ jobs:
       - name: REST API with curl
         run: |
           curl -sL https://sentry.io/get-cli/ | SENTRY_CLI_VERSION="2.2.0" bash
+          
+      - name: Notify
+        run: sentry-cli releases new "1" &&
+             sentry-cli releases set-commits "1" --auto &&
+             sentry-cli releases finalize "1"
