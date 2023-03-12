@@ -189,6 +189,7 @@ return [
          */
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\HealthServiceProvider::class,
+        App\Providers\LogViewerServiceProvider::class,
 
         /*
          * Core Providers

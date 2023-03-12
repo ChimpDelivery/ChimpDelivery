@@ -17,5 +17,8 @@
         <a class="dropdown-item bg-transparent text-dark" href="{{ route('telescope') }}">
             <i class="fa fa-star" aria-hidden="true"></i> Telescope
         </a>
+        <a class="dropdown-item bg-transparent text-dark" href="/log-viewer">
+            <i class="fa fa-eye" aria-hidden="true"></i> Log Viewer
+        </a>
     </div>
 @endhasrole

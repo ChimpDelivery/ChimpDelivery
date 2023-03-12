@@ -26,6 +26,7 @@
         "league/flysystem-ftp": "^3.0",
         "livewire/livewire": "^2.11",
         "lorisleiva/laravel-actions": "^2.5",
+        "opcodesio/log-viewer": "^2.3",
         "predis/predis": "^2.0",
         "sentry/sentry-laravel": "^3.2",
         "spatie/cpu-load-health-check": "^1.0",
