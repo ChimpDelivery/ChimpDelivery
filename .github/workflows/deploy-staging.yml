@@ -9,6 +9,7 @@ concurrency: production_environment
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: staging
     timeout-minutes: 10
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
 
