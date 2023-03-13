@@ -9,12 +9,12 @@ use Illuminate\Support\Str;
 
 class FtpServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register() : void
     {
 
     }
 
-    public function boot()
+    public function boot() : void
     {
         $this->app->singleton(FtpService::class, function($app) {
             return new FtpService(

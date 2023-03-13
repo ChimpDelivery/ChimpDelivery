@@ -10,14 +10,14 @@ use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register() : void
     {
         if ($this->app->environment([ 'local', 'staging' ])) {
             $this->app->register('Barryvdh\Debugbar\ServiceProvider');
         }
     }
 
-    public function boot()
+    public function boot() : void
     {
         if (!App::isLocal())
         {

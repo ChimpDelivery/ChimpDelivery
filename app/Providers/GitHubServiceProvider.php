@@ -8,12 +8,12 @@ use App\Services\GitHubService;
 
 class GitHubServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register() : void
     {
 
     }
 
-    public function boot()
+    public function boot() : void
     {
         // Note: GitHub Service must be resolved before using GitHub api!
         $this->app->singleton(GitHubService::class, function($app) {
