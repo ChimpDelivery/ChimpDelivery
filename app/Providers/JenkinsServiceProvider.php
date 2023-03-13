@@ -8,12 +8,12 @@ use App\Services\JenkinsService;
 
 class JenkinsServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register() : void
     {
 
     }
 
-    public function boot()
+    public function boot() : void
     {
         $this->app->singleton(JenkinsService::class, function($app) {
             return new JenkinsService(
