@@ -14,7 +14,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="invite_code" class="text-white font-weight-bold">
-                            Invite Code
+                            Invitation Code
                         </label>
                         <input type="text" id="invite_code" name="invite_code" class="form-control shadow-sm" required>
                     </div>
