@@ -25,10 +25,10 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 
 # Monitoring Paths
 - Sentry URL: **https://talusstudio.sentry.io**
-- Dashboard Health: **{DASHBOARD_URL}/health**
-- Horizon: **{DASHBOARD_URL}/horizon**
-- Telescope: **{DASHBOARD_URL}/telescope**
-- Log Viewer: **{DASHBOARD_URL}/log-viewer**
+- Dashboard Health: ```{DASHBOARD_URL}/health```
+- Horizon: ```{DASHBOARD_URL}/horizon```
+- Telescope: ```{DASHBOARD_URL}/telescope```
+- Log Viewer: ```{DASHBOARD_URL}/log-viewer```
 
 # Security
 - Honeypot
