@@ -10,18 +10,12 @@ use App\Models\User;
 
 class LogViewerServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
+    public function register() : void
     {
-        //
+
     }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
+    public function boot() : void
     {
         Gate::define('viewLogViewer', function (User $user) {
             return App::isLocal() || $user->isSuperAdmin();
