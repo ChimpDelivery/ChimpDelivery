@@ -1,6 +1,6 @@
 <div class="input-group mb-3">
     <label for="api_key" class="text-white font-weight-bold">
-        Invite Code
+        Invitation Code
     </label>
     <div class="input-group">
         <input type="text" id="api_key" name="api_key" class="form-control shadow-sm" value="{{ $this->createdCode }}" readonly>
