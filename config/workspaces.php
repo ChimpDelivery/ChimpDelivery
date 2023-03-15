@@ -10,4 +10,7 @@ return [
 
     //
     'superadmin_email' => 'superadmin@talusstudio.com',
+
+    // jenkins token name (internal token used by dashboard, no user-access)
+    'jenkins_token_name' => 'jenkins-key',
 ];
