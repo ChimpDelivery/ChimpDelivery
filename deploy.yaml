@@ -39,8 +39,8 @@ tasks:
   deploy:
     - deploy:prepare
     - deploy:vendors
-    - artisan:storage:link
     - artisan:down
+    - artisan:storage:link
     - artisan:optimize:clear
     - artisan:optimize
     - artisan:view:cache
