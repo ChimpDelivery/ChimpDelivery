@@ -14,8 +14,6 @@ use App\Models\AppStoreConnectSetting;
 
 class AppStoreConnectService
 {
-    public const API_URL = 'https://api.appstoreconnect.apple.com/v1';
-
     private readonly AppStoreConnectSetting $appStoreConnectSetting;
 
     public function __construct()

@@ -2,11 +2,7 @@
 
 namespace App\Jobs\Jenkins;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -18,10 +14,8 @@ use App\Actions\Api\Jenkins\JobPlatform;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
 // Populates Jenkinsfile parameters and build job
-class BuildParameterizedJob implements ShouldQueue
+class BuildParameterizedJob extends BaseJenkinsJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private string $branch = 'master';
 
     public function __construct(

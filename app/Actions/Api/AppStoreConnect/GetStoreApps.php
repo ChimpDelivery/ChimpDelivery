@@ -18,7 +18,7 @@ class GetStoreApps
         $service = app(AppStoreConnectService::class);
 
         $appstoreApps = $service->GetHttpClient()->get(
-            AppStoreConnectService::API_URL
+            config('appstore.endpoint')
             .'/apps?fields[apps]=name,bundleId'
             .'&limit=' . config('appstore.item_limit')
             .'&filter[appStoreVersions.platform]=IOS'

@@ -2,21 +2,15 @@
 
 namespace App\Jobs\Jenkins;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
 
 use App\Models\User;
 use App\Models\Workspace;
 use App\Services\JenkinsService;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
-class CreateOrganization implements ShouldQueue
+class CreateOrganization extends BaseJenkinsJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public function __construct(
         public readonly Workspace $workspace,
         public readonly User $workspaceAdmin
