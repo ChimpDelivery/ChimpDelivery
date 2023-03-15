@@ -20,7 +20,7 @@ class JenkinsService
         private ?User $user = null,
     ) { }
 
-    public function SetUser(User $user) : static
+    public function SetUser(User $user) : self
     {
         $this->user = $user;
         return $this;
