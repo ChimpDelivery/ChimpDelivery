@@ -11,18 +11,16 @@ use App\Models\GithubSetting;
 
 class GitHubService
 {
-    private readonly GithubSetting $githubSetting;
+    public readonly GithubSetting $setting;
 
     public function __construct()
     {
-        $this->githubSetting = Auth::user()->workspace->githubSetting;
+        $this->setting = Auth::user()->workspace->githubSetting;
 
-        Config::set('github.connections.main.token', $this->githubSetting->personal_access_token ?? 'INVALID TOKEN');
-    }
-
-    public function GetSettings() : GithubSetting
-    {
-        return $this->githubSetting;
+        Config::set(
+            'github.connections.main.token',
+            $this->setting->personal_access_token ?? 'INVALID_TOKEN'
+        );
     }
 
     public function GetUserOrganizations()

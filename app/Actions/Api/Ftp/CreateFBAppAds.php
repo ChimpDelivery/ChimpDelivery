@@ -37,7 +37,7 @@ class CreateFBAppAds
             return [
                 'success' => false,
                 'message' => "app-ads.txt could not found!
-                    Expected path: {$ftpService->GetDomain()}/" . config('facebook.app-ads.file'),
+                    Expected path: {$ftpService->domain}/" . config('facebook.app-ads.file'),
             ];
         }
 
