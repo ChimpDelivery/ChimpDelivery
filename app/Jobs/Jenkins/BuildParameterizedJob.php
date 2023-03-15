@@ -16,7 +16,9 @@ use App\Actions\Api\S3\Provision\GetProvisionProfile;
 // Populates Jenkinsfile parameters and build job
 class BuildParameterizedJob extends BaseJenkinsJob
 {
-    private string $branch = 'master';
+    private const DEFAULT_BRANCH = 'master';
+    private const DEFAULT_STORE_CUSTOM_BUNDLE_VERSION = 'false';
+    private const DEFAULT_STORE_BUNDLE_VERSION = 1;
 
     public function __construct(
         public readonly AppInfo $app,
@@ -26,11 +28,10 @@ class BuildParameterizedJob extends BaseJenkinsJob
 
     public function handle() : array
     {
-        // send request
-        $response = app(JenkinsService::class)
-            ->SetUser($this->user)
-            ->PostResponse($this->CreateUrl($this->app, $this->inputs));
+        $jenkinsService = app(JenkinsService::class)->SetUser($this->user);
 
+        // send request
+        $response = $jenkinsService->PostResponse($this->CreateUrl());
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_CREATED;
 
         return [
@@ -39,34 +40,27 @@ class BuildParameterizedJob extends BaseJenkinsJob
         ];
     }
 
-    private function CreateUrl(AppInfo $app, array $inputs) : string
+    public function CreateUrl() : string
     {
         return implode('/', [
-            "/job/{$app->project_name}/job",
-            $this->branch,
-            "buildWithParameters?{$this->GetParamsAsString($inputs)}",
+            "/job/{$this->app->project_name}/job",
+            self::DEFAULT_BRANCH,
+            "buildWithParameters?" . http_build_query($this->GetParams()->toArray()),
         ]);
     }
 
-    private function GetParamsAsString(array $inputs) : string
-    {
-        return $this->GetParams($inputs)->implode('&');
-    }
-
     // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/files/Jenkinsfile
-    private function GetParams(array $inputs) : Collection
+    private function GetParams() : Collection
     {
         return collect([
             'INVOKE_PARAMETERS' => 'false',
-            'PLATFORM' => $inputs['platform'],
-            'APP_ID' => $inputs['id'],
-            'STORE_BUILD_VERSION' => $inputs['store_version'],
-            'STORE_CUSTOM_BUNDLE_VERSION' => $inputs['store_custom_version'] ?: 'false',
-            'STORE_BUNDLE_VERSION' => $inputs['store_build_number'] ?: 1,
-            'INSTALL_SDK' => !empty($inputs['install_backend']) ? 'true' : 'false',
-        ])->merge($this->GetPlatformParams($inputs['platform']))
-            ->map(fn ($val, $key) => "{$key}={$val}")
-            ->values();
+            'PLATFORM' => $this->inputs['platform'],
+            'APP_ID' => $this->inputs['id'],
+            'STORE_BUILD_VERSION' => $this->inputs['store_version'],
+            'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?: self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
+            'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?: self::DEFAULT_STORE_BUNDLE_VERSION,
+            'INSTALL_SDK' => !empty($this->inputs['install_backend']) ? 'true' : 'false',
+        ])->merge($this->GetPlatformParams($this->inputs['platform']));
     }
 
     private function GetPlatformParams(string $platformName) : Collection
