@@ -16,12 +16,8 @@ class WorkspaceChanged
     use InteractsWithSockets;
     use SerializesModels;
 
-    public Workspace $workspace;
-    public StoreWorkspaceSettingsRequest $request;
-
-    public function __construct(Workspace $workspace, StoreWorkspaceSettingsRequest $request)
-    {
-        $this->workspace = $workspace;
-        $this->request = $request;
-    }
+    public function __construct(
+        public readonly Workspace $workspace,
+        public readonly StoreWorkspaceSettingsRequest $request
+    ) { }
 }
