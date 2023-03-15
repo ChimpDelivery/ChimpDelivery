@@ -49,8 +49,8 @@ tasks:
     - artisan:horizon:terminate
     - artisan:horizon:purge
     - artisan:queue:restart
-    - artisan:up
     - server:permission
+    - artisan:up
     - deploy:publish
   server:permission:
       - cd: "{{release_path}}"
