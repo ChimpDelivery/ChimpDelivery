@@ -25,7 +25,7 @@ class GetRepositories
 
         try
         {
-            $this->githubSetting = app(GitHubService::class)->GetSettings();
+            $this->githubSetting = app(GitHubService::class)->setting;
 
             if ($this->getRepositoryType() !== 'none')
             {

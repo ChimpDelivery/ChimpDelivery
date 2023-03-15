@@ -23,7 +23,7 @@ class CreateRepository
 
         try
         {
-            $githubSetting = app(GitHubService::class)->GetSettings();
+            $githubSetting = app(GitHubService::class)->setting;
 
             $response = GitHub::api('repo')->createFromTemplate(
                 $githubSetting->organization_name,
@@ -54,7 +54,7 @@ class CreateRepository
 
         try
         {
-            $githubSetting = app(GitHubService::class)->GetSettings();
+            $githubSetting = app(GitHubService::class)->setting;
 
             $response = GitHub::api('repo')->replaceTopics(
                 $githubSetting->organization_name,

@@ -22,7 +22,7 @@ class GetRepository
 
         try
         {
-            $githubSetting = app(GitHubService::class)->GetSettings();
+            $githubSetting = app(GitHubService::class)->setting;
 
             $response = GitHub::api('repo')->show(
                 $githubSetting->organization_name,
