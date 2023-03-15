@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -81,10 +82,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if (!$this->isNew() && $this->can('create api token'))
         {
-            return $this->createToken($tokenName)->plainTextToken;
+            $expiresAt = ($tokenName === config('workspaces.jenkins_token_name'))
+                ? Carbon::now()->addWeek()
+                : null;
+
+            $accessToken = $this->createToken($tokenName, ['*'], $expiresAt);
+            return $accessToken->plainTextToken;
         }
 
-        return '';
+        return 'Token could not created! Contact Admin...';
     }
 
     // api reference: https://en.gravatar.com/site/implement/images/php/

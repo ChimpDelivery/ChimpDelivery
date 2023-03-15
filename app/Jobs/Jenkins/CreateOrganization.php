@@ -43,7 +43,7 @@ class CreateOrganization extends BaseJenkinsJob
 
         return implode('&', [
             // dashboard-auth related
-            "DASHBOARD_TOKEN={$workspaceAdmin->createApiToken('jenkins-key')}",
+            "DASHBOARD_TOKEN={$workspaceAdmin->createApiToken(config('workspaces.jenkins_token_name'))}",
 
             // source control related
             "GIT_USERNAME={$githubSetting->organization_name}",
