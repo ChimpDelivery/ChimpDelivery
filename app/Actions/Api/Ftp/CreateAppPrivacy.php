@@ -29,7 +29,7 @@ class CreateAppPrivacy
             return [
                 'success' => false,
                 'message' => "Template Privacy file could not found!
-                    Expected path: {$ftpService->GetDomain()}/" . config('googleplay.privacy.template_file'),
+                    Expected path: {$ftpService->domain}/" . config('googleplay.privacy.template_file'),
             ];
         }
 
@@ -38,7 +38,7 @@ class CreateAppPrivacy
             Str::slug($appInfo->app_name),
             config('googleplay.privacy.file_name')
         ]);
-        $privacyUrl = "{$ftpService->GetDomain()}/{$newFilePath}";
+        $privacyUrl = "{$ftpService->domain}/{$newFilePath}";
         $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";
 
         if (Storage::disk('ftp')->exists($newFilePath))
