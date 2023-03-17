@@ -11,6 +11,7 @@ use App\Services\GitHubService;
 
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
+// api reference: https://docs.github.com/en/rest/branches/branches#list-branches
 class GetRepositoryBranches
 {
     use AsAction;
@@ -27,7 +28,14 @@ class GetRepositoryBranches
         );
 
         $branches = collect($response->getData()->response);
-        $branches = $branches->values()->map(function ($branch) {
+
+        // api response can include error and details
+        // when error is encountered, branch collection will be empty
+        $branches = $branches->filter(function(\stdClass $branch) {
+            return isset($branch->commit) && isset($branch->name);
+        });
+
+        $branches = $branches->values()->map(function (\stdClass $branch) {
             return [
                 'name' => $branch->name,
                 'commit' => $branch->commit,

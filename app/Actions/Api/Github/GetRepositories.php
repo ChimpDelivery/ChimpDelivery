@@ -10,11 +10,11 @@ use Illuminate\Support\Collection;
 
 use App\Services\GitHubService;
 
+// api reference: http://developer.github.com/v3/repos/#list-organization-repositories
 class GetRepositories
 {
     use AsAction;
 
-    // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle() : JsonResponse
     {
         // if there is no type of repository specified on workspace settings
