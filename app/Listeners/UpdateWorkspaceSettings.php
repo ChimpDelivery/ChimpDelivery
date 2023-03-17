@@ -16,6 +16,7 @@ class UpdateWorkspaceSettings
         $validated = $request->safe();
 
         $workspace->fill($validated->only([ 'name' ]));
+        $workspace->save();
 
         // AppStoreConnect
         $appStoreConnectSetting = $workspace->appStoreConnectSetting()->firstOrCreate();
@@ -48,12 +49,10 @@ class UpdateWorkspaceSettings
             'public_repo',
             'private_repo',
         ]));
-        $githubSetting->save();
 
         CreateOrganization::dispatchIf(
             (
-                $workspace->save()
-                || $appStoreConnectSetting->save()
+                $appStoreConnectSetting->save()
                 || $appleSetting->save()
                 || $githubSetting->save()
             ),
