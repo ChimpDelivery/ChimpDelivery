@@ -107,6 +107,9 @@ class Kernel extends ConsoleKernel
 
         // Password reset tokens that have expired will still be present within your database.
         $schedule->command('auth:clear-resets')->everyFifteenMinutes();
+
+        // To properly prune stale cache tag entries
+        $schedule->command('cache:prune-stale-tags')->hourly();
     }
 
     /**
