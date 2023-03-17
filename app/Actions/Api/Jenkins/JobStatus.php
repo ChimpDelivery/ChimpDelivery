@@ -18,9 +18,8 @@ enum JobStatus : string
     {
         return match($this)
         {
-            self::NOT_EXECUTED => 'NOT EXECUTED',
+            self::NOT_EXECUTED, self::IN_QUEUE => 'IN QUEUE...',
             self::IN_PROGRESS => 'IN PROGRESS',
-            self::IN_QUEUE => 'IN QUEUE...',
             default => $this->value,
         };
     }
