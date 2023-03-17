@@ -67,7 +67,7 @@ POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={store
 POST   |   api/jenkins/scan-organization
 ```
 
-# 🔑 GitHub API
+# 🔑 [GitHub API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository?project_name={projectName}
