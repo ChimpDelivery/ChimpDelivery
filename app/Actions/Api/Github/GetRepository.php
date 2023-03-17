@@ -4,7 +4,6 @@ namespace App\Actions\Api\Github;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 
 use App\Services\GitHubService;
