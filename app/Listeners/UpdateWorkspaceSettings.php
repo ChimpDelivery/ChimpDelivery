@@ -16,6 +16,7 @@ class UpdateWorkspaceSettings
         $validated = $request->safe();
 
         $workspace->fill($validated->only([ 'name' ]));
+        $workspace->save();
 
         // AppStoreConnect
         $appStoreConnectSetting = $workspace->appStoreConnectSetting()->firstOrCreate();
@@ -26,6 +27,7 @@ class UpdateWorkspaceSettings
             'issuer_id',
             'kid',
         ]));
+        $appStoreConnectSetting->save();
 
         // AppleSetting
         $appleSetting = $workspace->appleSetting()->firstOrCreate();
@@ -33,6 +35,7 @@ class UpdateWorkspaceSettings
             'usermail',
             'app_specific_pass',
         ]));
+        $appleSetting->save();
 
         // GithubSetting
         $githubSetting = $workspace->githubSetting()->firstOrCreate();
@@ -50,15 +53,6 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        CreateOrganization::dispatchIf(
-            (
-                $workspace->save()
-                || $appStoreConnectSetting->save()
-                || $appleSetting->save()
-                || $githubSetting->save()
-            ),
-            $workspace,
-            Auth::user(),
-        );
+        CreateOrganization::dispatch($workspace, Auth::user());
     }
 }

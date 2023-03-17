@@ -57,6 +57,10 @@ class GetRepositories
     {
         $githubService = app(GitHubService::class);
 
+        if ($githubService->GetRepoTopic() == null) {
+            return $response;
+        }
+
         return $response->filter(function (\stdClass $githubProject) use ($githubService) {
             return isset($githubProject->topics) && in_array($githubService->GetRepoTopic(), $githubProject->topics);
         });
