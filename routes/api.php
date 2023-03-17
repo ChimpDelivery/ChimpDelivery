@@ -12,6 +12,7 @@ use App\Actions\Api\AppStoreConnect\GetStoreApps;
 
 use App\Actions\Api\Github\GetRepositories;
 use App\Actions\Api\Github\GetRepository;
+use App\Actions\Api\Github\GetRepositoryBranches;
 
 use App\Actions\Api\Jenkins\GetJob;
 use App\Actions\Api\Jenkins\GetJobBuilds;
@@ -28,7 +29,7 @@ use App\Actions\Api\S3\Provision\GetProvisionProfile;
 ///////////////////////
 // apps
 //////////////////////
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware([ 'auth:sanctum' ])->group(function () {
 
     Route::get('apps/get-app', GetAppInfo::class);
     Route::post('apps/create-app', StoreAppInfo::class);
@@ -40,7 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 /////////////////////////
 // appstore connect api
 ////////////////////////
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware([ 'auth:sanctum' ])->group(function () {
 
     //
     Route::get('appstoreconnect/get-token', fn() => app(AppStoreConnectService::class)->CreateToken());
@@ -57,7 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 ////////////////////
 // jenkins api
 ////////////////////
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware([ 'auth:sanctum' ])->group(function () {
 
     Route::get('jenkins/get-job', GetJob::class);
     Route::get('jenkins/get-jobs', GetJobs::class);
@@ -73,8 +74,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 ////////////////////////
 // github api
 //////////////////////
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware([ 'auth:sanctum' ])->group(function () {
 
     Route::get('github/get-repositories', GetRepositories::class);
     Route::get('github/get-repository', GetRepository::class);
+    Route::get('github/get-repository-branches', GetRepositoryBranches::class);
 });

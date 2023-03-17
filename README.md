@@ -71,4 +71,5 @@ POST   |   api/jenkins/scan-organization
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository?project_name={projectName}
+GET    |   api/github/get-repository-branches?id={id}
 ```

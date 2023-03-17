@@ -10,11 +10,11 @@ use Illuminate\Support\Collection;
 
 use App\Services\GitHubService;
 
+// api reference: http://developer.github.com/v3/repos/#list-organization-repositories
 class GetRepositories
 {
     use AsAction;
 
-    // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle() : JsonResponse
     {
         // if there is no type of repository specified on workspace settings
@@ -65,11 +65,11 @@ class GetRepositories
     // re-organize data layout that returned from api
     private function ReorganizeProjects(Collection $filteredOrgProjects) : Collection
     {
-        return $filteredOrgProjects->values()->map(function ($project) {
+        return $filteredOrgProjects->values()->map(function (\stdClass $githubProject) {
             return [
-                'id' => $project->id,
-                'name' => $project->name,
-                'size' => round($project->size / 1024, 2) . 'mb'
+                'id' => $githubProject->id,
+                'name' => $githubProject->name,
+                'size' => round($githubProject->size / 1024, 2) . 'mb'
             ];
         });
     }
