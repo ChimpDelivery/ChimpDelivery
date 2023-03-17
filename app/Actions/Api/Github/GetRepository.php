@@ -2,8 +2,6 @@
 
 namespace App\Actions\Api\Github;
 
-use GrahamCampbell\GitHub\Facades\GitHub;
-
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
@@ -18,25 +16,15 @@ class GetRepository
 
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $response = [];
+        $githubService = app(GitHubService::class);
 
-        try
-        {
-            $githubSetting = app(GitHubService::class)->setting;
+        $response = $githubService->MakeGithubRequest(
+            'repo',
+            'show',
+            $githubService->GetOrganizationName(),
+            $request->validated('project_name')
+        );
 
-            $response = GitHub::api('repo')->show(
-                $githubSetting->organization_name,
-                $request->validated('project_name')
-            );
-        }
-        catch (\Exception $exception)
-        {
-            return response()->json([
-                'response' => $exception->getMessage(),
-                'error_code' => $exception->getCode(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-        return response()->json([ 'response' => $response ], Response::HTTP_OK);
+        return response()->json([ 'response' => $response ], $response->status());
     }
 }

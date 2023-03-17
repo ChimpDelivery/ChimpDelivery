@@ -2,75 +2,85 @@
 
 namespace App\Actions\Api\Github;
 
-use GrahamCampbell\GitHub\Facades\GitHub;
-
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
-use App\Models\GithubSetting;
 use App\Services\GitHubService;
 
 class GetRepositories
 {
     use AsAction;
 
-    private GithubSetting $githubSetting;
-
     // http://developer.github.com/v3/repos/#list-organization-repositories
     public function handle() : JsonResponse
     {
-        $response = collect();
-
-        try
+        // if there is no type of repository specified on workspace settings
+        // just return empty bag...
+        if ($this->GetRepositoryType() === 'none')
         {
-            $this->githubSetting = app(GitHubService::class)->setting;
-
-            if ($this->getRepositoryType() !== 'none')
-            {
-                $organizationProjects = collect(GitHub::api('repo')->org($this->githubSetting->organization_name, [
-                    'per_page' => config('github.item_limit'),
-                    'sort' => 'updated',
-                    'type' => $this->getRepositoryType(),
-                ]));
-
-                // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
-                // maybe extra organization is useful when filtering projects.
-
-                if (!is_null($this->githubSetting->topic_name)) {
-                    $organizationProjects = $organizationProjects->filter(function ($value) {
-                        return in_array($this->githubSetting->topic_name, $value['topics']);
-                    });
-                }
-
-                $response = $organizationProjects->values()->map(function ($item) {
-                    return [
-                        'id' => $item['id'],
-                        'name' => $item['name'],
-                        'size' => round($item['size'] / 1024, 2) . 'mb'
-                    ];
-                });
-            }
-        }
-        catch (\Exception $exception)
-        {
-            return response()->json([
-                'response' => $exception->getMessage(),
-                'error_code' => $exception->getCode(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json([ 'response' => collect() ], Response::HTTP_OK);
         }
 
-        return response()->json([ 'response' => $response ], Response::HTTP_OK);
+        $request = $this->GetGitHubRepositories();
+
+        $orgProjects = collect($request->getData()->response);
+        $filteredOrgProjects = $this->FilterProjects($orgProjects);
+
+        return response()->json([
+            'response' => $this->ReorganizeProjects($filteredOrgProjects)
+        ], $request->status());
     }
 
-    private function getRepositoryType() : string
+    // response can include error_code and msg...
+    private function GetGitHubRepositories() : JsonResponse
     {
-        $git = $this->githubSetting;
+        $githubService = app(GitHubService::class);
 
-        if ($git->public_repo === true && $git->private_repo === true) { return 'all'; }
-        if ($git->public_repo === true) { return 'public'; }
-        if ($git->private_repo === true) { return 'private'; }
+        return $githubService->MakeGithubRequest(
+            'repo',
+            'org',
+            $githubService->GetOrganizationName(),
+            [
+                'per_page' => config('github.item_limit'),
+                'sort' => 'updated',
+                'type' => $this->GetRepositoryType(),
+            ]
+        );
+    }
+
+    // custom filter added. listed git projects count can be lower than GIT_ITEM_LIMIT.
+    // maybe extra organization is useful when filtering projects.
+    private function FilterProjects(Collection $response) : Collection
+    {
+        $githubService = app(GitHubService::class);
+
+        return $response->filter(function (\stdClass $githubProject) use ($githubService) {
+            return isset($githubProject->topics) && in_array($githubService->GetRepoTopic(), $githubProject->topics);
+        });
+    }
+
+    // re-organize data layout that returned from api
+    private function ReorganizeProjects(Collection $filteredOrgProjects) : Collection
+    {
+        return $filteredOrgProjects->values()->map(function ($project) {
+            return [
+                'id' => $project->id,
+                'name' => $project->name,
+                'size' => round($project->size / 1024, 2) . 'mb'
+            ];
+        });
+    }
+
+    private function GetRepositoryType() : string
+    {
+        $githubService = app(GitHubService::class);
+
+        if ($githubService->IsPublicReposEnabled() && $githubService->IsPrivateReposEnabled() === true) { return 'all'; }
+        if ($githubService->IsPublicReposEnabled()) { return 'public'; }
+        if ($githubService->IsPrivateReposEnabled()) { return 'private'; }
 
         return 'none';
     }

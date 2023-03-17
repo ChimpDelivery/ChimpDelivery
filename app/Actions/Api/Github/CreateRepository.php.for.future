@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use App\Services\GitHubService;
 use App\Http\Requests\Github\GetRepositoryRequest;
 
+/// NO USE-CASE CURRENTLY
 class CreateRepository
 {
     use AsAction;
@@ -23,7 +24,7 @@ class CreateRepository
 
         try
         {
-            $githubSetting = app(GitHubService::class)->setting;
+            $githubSetting = app(GitHubService::class)->workspace->githubSetting;
 
             $response = GitHub::api('repo')->createFromTemplate(
                 $githubSetting->organization_name,
