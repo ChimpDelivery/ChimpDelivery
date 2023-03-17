@@ -54,6 +54,7 @@ class HealthServiceProvider extends ServiceProvider
                 'CIPHERSWEET_KEY',
                 'RECAPTCHA_SITE_KEY',
                 'RECAPTCHA_SECRET_KEY',
+                'LOG_VIEWER_ENABLED',
                 'REDIS_CLIENT',
                 'AWS_ACCESS_KEY_ID',
                 'AWS_SECRET_ACCESS_KEY',
