@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\GithubSetting;
 use GrahamCampbell\GitHub\Facades\GitHub;
 
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 use App\Models\Workspace;
+use App\Models\GithubSetting;
 
 class GitHubService
 {

@@ -55,7 +55,7 @@ Route::middleware(['guest', ProtectAgainstSpam::class])->group(function () {
         ->name('password.update');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
     ///////////////////////
     //// breeze routes
