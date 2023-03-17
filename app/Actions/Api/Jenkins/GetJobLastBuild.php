@@ -98,11 +98,13 @@ class GetJobLastBuild
             })->reverse()->first();
     }
 
+    // get related commit link in commit history
     private function GetCommitLink($commit) : string
     {
-        $orgName = Auth::user()->orgName();
+        $projectName = $this->app->project_name;
+        $orgName = $this->app->workspace->githubOrgName();
 
-        return "https://github.com/{$orgName}/{$this->app->project_name}/commit/{$commit->id}";
+        return "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection

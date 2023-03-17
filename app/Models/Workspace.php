@@ -71,6 +71,11 @@ class Workspace extends Model
         ]);
     }
 
+    public function githubOrgName() : null|string
+    {
+        return $this->githubSetting->organization_name;
+    }
+
     public function appStoreConnectSign() : HasOne
     {
         return $this->hasOne(AppStoreConnectSign::class)->withDefault([
