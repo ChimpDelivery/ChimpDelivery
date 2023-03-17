@@ -71,5 +71,4 @@ POST   |   api/jenkins/scan-organization
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository?project_name={projectName}
-POST   |   api/github/create-repository?project_name={projectName}
 ```
