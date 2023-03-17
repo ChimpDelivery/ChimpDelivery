@@ -49,11 +49,6 @@ class GitHubService
         return response()->json([ 'response' => $response ], Response::HTTP_OK);
     }
 
-    public function GetSetting() : GithubSetting
-    {
-        return $this->workspace->githubSetting;
-    }
-
     public function GetOrganizationName() : null|string
     {
         return $this->GetSetting()->organization_name;
@@ -72,5 +67,10 @@ class GitHubService
     public function IsPublicReposEnabled() : bool
     {
         return $this->GetSetting()->public_repo === true;
+    }
+
+    private function GetSetting() : GithubSetting
+    {
+        return $this->workspace->githubSetting;
     }
 }
