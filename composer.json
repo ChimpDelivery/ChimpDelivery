@@ -29,7 +29,7 @@
         "lorisleiva/laravel-actions": "^2.5",
         "opcodesio/log-viewer": "^2.3",
         "predis/predis": "^2.0",
-        "sentry/sentry-laravel": "^3.2",
+        "sentry/sentry-laravel": "^3.3",
         "spatie/cpu-load-health-check": "^1.0",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-ciphersweet": "^1.0",

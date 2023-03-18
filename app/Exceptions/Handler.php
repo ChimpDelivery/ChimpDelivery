@@ -9,6 +9,8 @@ use Throwable;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Sentry\Laravel\Integration;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -51,9 +53,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->reportable(function (Throwable $e) {
-            if (app()->bound('sentry')) {
-                app('sentry')->captureException($e);
-            }
+            Integration::captureUnhandledException($e);
         });
 
         /*$this->renderable(function (UnauthorizedException $e, $request) {
