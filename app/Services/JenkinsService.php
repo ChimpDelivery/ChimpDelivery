@@ -39,12 +39,12 @@ class JenkinsService
             ->connectTimeout(8);
     }
 
-    public function GetResponse(string $url, bool $isHtml = false) : mixed
+    public function GetResponse(string $url, bool $isHtml = false) : \stdClass
     {
         return $this->MakeJenkinsRequest('get', $url, $isHtml)->getData();
     }
 
-    public function PostResponse(string $url, bool $isHtml = false) : mixed
+    public function PostResponse(string $url, bool $isHtml = false) : \stdClass
     {
         return $this->MakeJenkinsRequest('post', $url, $isHtml)->getData();
     }
