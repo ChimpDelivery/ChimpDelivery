@@ -18,6 +18,7 @@
         "jantinnerezo/livewire-alert": "^2.2",
         "laravel/framework": "^10.0",
         "laravel/horizon": "^5.11",
+        "laravel/pennant": "^1.2",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
         "laravel/telescope": "^4.13",
