@@ -82,7 +82,7 @@ class HealthServiceProvider extends ServiceProvider
                 'GITHUB_CLIENT_ID',
                 'GITHUB_CLIENT_SECRET',
             ]),
-            OptimizedAppCheck::new()->checkConfig()->checkRoutes(),
+            OptimizedAppCheck::new(),
             HorizonCheck::new(),
         ]);
     }
