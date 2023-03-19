@@ -12,15 +12,11 @@ use App\Models\AppInfo;
 class AppChanged
 {
     use Dispatchable;
-    use InteractsWithSockets;
     use SerializesModels;
+    use InteractsWithSockets;
 
-    public Request $request;
-    public AppInfo $appInfo;
-
-    public function __construct(AppInfo $appInfo, Request $request)
-    {
-        $this->request = $request;
-        $this->appInfo = $appInfo;
-    }
+    public function __construct(
+        public readonly AppInfo $appInfo,
+        public readonly Request $request
+    ) { }
 }

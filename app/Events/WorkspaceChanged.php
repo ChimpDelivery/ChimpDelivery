@@ -13,8 +13,8 @@ use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 class WorkspaceChanged
 {
     use Dispatchable;
-    use InteractsWithSockets;
     use SerializesModels;
+    use InteractsWithSockets;
 
     public function __construct(
         public readonly Workspace $workspace,
