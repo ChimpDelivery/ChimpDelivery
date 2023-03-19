@@ -73,6 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->workspace_id === config('workspaces.internal_ws_id');
     }
 
+    public function isWorkspaceAdmin() : bool
+    {
+        return $this->hasRole('Admin_Workspace');
+    }
+
     public function isSuperAdmin() : bool
     {
         return $this->email === config('workspaces.superadmin_email');

@@ -1,7 +1,7 @@
-@if($appInfo->jenkins_status == 3200)
+@if($appInfo->jenkins_status === 3200)
     @include('errors.jenkins.jenkins-down')
 @else
-    @if($appInfo->jenkins_status == 200)
+    @if($appInfo->jenkins_status === ResponseCodes::HTTP_OK)
         @if(in_array($appInfo?->jenkins_data?->status, JobStatus::GetRunningStages()))
             @include('layouts.jenkins.job-abort-button')
         @else

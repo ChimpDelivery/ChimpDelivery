@@ -46,6 +46,7 @@ tasks:
     - artisan:view:cache
     - artisan:event:cache
     - artisan:migrate
+    - artisan:pennant:purge
     - artisan:horizon:terminate
     - artisan:horizon:purge
     - artisan:queue:restart
@@ -55,6 +56,9 @@ tasks:
   server:permission:
       - cd: "{{release_path}}"
       - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+  artisan:pennant:purge:
+      - cd: "{{release_path}}"
+      - run: "php artisan pennant:purge"
 
 after:
   deploy:failed:

@@ -11,12 +11,13 @@ use Illuminate\Http\Client\Response;
 
 use App\Models\User;
 
+/// Handles Jenkins authentication and requests
 class JenkinsService
 {
     public function __construct(
-        private readonly string $tunnelUrl,
-        private readonly string $jenkinsUser,
-        private readonly string $jenkinsToken,
+        private readonly string $jenkinsMasterUrl,
+        private readonly string $jenkinsUsername,
+        private readonly string $jenkinsUserToken,
         private ?User $user = null,
     ) { }
 
@@ -29,12 +30,12 @@ class JenkinsService
     public function GetWorkspaceUrl() : string
     {
         $orgName = $this->user?->orgName() ?? Auth::user()->orgName();
-        return "{$this->tunnelUrl}/job/{$orgName}";
+        return "{$this->jenkinsMasterUrl}/job/{$orgName}";
     }
 
     public function GetHttpClient() : PendingRequest
     {
-        return Http::withBasicAuth($this->jenkinsUser, $this->jenkinsToken)
+        return Http::withBasicAuth($this->jenkinsUsername, $this->jenkinsUserToken)
             ->timeout(20)
             ->connectTimeout(8);
     }
@@ -74,13 +75,15 @@ class JenkinsService
         return $this->ParseJenkinsResponse($request, $isHtml);
     }
 
-    private function ParseJenkinsResponse(Response $request, bool $isHtml) : array
+    private function ParseJenkinsResponse(Response $response, bool $isHtml) : array
     {
-        $isTunnelOffline = $request->header('Ngrok-Error-Code');
+        $isTunnelOffline = $response->header(config('tunnel.ngrok.error_header'));
 
         return [
-            'jenkins_status' => ($isTunnelOffline) ? 3200 : $request->status(),
-            'jenkins_data' => ($isTunnelOffline) ? null : ($isHtml ? $request->body() : json_decode($request)),
+            'jenkins_status' => ($isTunnelOffline) ? 3200 : $response->status(),
+            'jenkins_data' => ($isTunnelOffline)
+                ? null
+                : ($isHtml ? $response->body() : $response->json()),
         ];
     }
 }
