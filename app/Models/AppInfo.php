@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Cache;
 
 class AppInfo extends Model
 {
@@ -44,6 +45,15 @@ class AppInfo extends Model
     protected $with = [
         'workspace',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saved(function(AppInfo $app) {
+            Cache::forget($app->app_icon);
+        });
+    }
 
     protected function gitUrl() : Attribute
     {
