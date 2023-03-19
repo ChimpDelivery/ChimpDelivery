@@ -14,6 +14,7 @@ use Encodia\Health\Checks\EnvVars;
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DatabaseConnectionCountCheck;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
 use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -38,6 +39,9 @@ class HealthServiceProvider extends ServiceProvider
                 ->warnWhenUsedSpaceIsAbovePercentage(70)
                 ->failWhenUsedSpaceIsAbovePercentage(90),
             DatabaseCheck::new(),
+            DatabaseConnectionCountCheck::new()
+                ->warnWhenMoreConnectionsThan(50)
+                ->failWhenMoreConnectionsThan(100),
             DatabaseSizeCheck::new()->failWhenSizeAboveGb(errorThresholdGb: 1.0),
             DatabaseTableSizeCheck::new()->table(
                 name: EloquentHealthResultStore::getHistoryItemInstance()->getTable(),
