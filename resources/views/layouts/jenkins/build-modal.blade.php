@@ -17,6 +17,17 @@
                     </h5>
                 </div>
                 <div class="modal-body">
+                    @feature(\App\Features\BranchBasedBuild::class)
+                        <div class="form-group">
+                            <select name="branch" id="branch"
+                                    class="shadow form-control selectpicker show-tick"
+                                    data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
+                                    title="Select branch..." required>
+
+                                <option data-icon="fa fa-github" value="master" selected>master</option>
+                            </select>
+                        </div>
+                    @endfeature
                     <div class="form-group">
                         <select name="platform" id="platform"
                             class="shadow form-control selectpicker show-tick"
