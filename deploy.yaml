@@ -47,9 +47,7 @@ tasks:
     - artisan:event:cache
     - artisan:migrate
     - artisan:pennant:purge
-    - artisan:horizon:terminate
-    - artisan:horizon:purge
-    - artisan:queue:restart
+    - artisan:dashboard:restart-horizon
     - server:permission
     - artisan:up
     - deploy:publish
@@ -59,6 +57,9 @@ tasks:
   artisan:pennant:purge:
       - cd: "{{release_path}}"
       - run: "php artisan pennant:purge"
+  artisan:dashboard:restart-horizon:
+      - cd: "{{release_path}}"
+      - run: "php artisan dashboard:restart-horizon"
 
 after:
   deploy:failed:

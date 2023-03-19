@@ -7,7 +7,11 @@ updates:
     target-branch: "dev"
     labels:
       - "dependencies"
-      
+    reviewers:
+      - 'TalusStudio/Dev-Backend'
+    assignees:
+      - 'TalusCI'
+
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
@@ -16,7 +20,11 @@ updates:
     labels:
       - "dependencies"
       - "php"
-      
+    reviewers:
+      - 'TalusStudio/Dev-Backend'
+    assignees:
+      - 'TalusCI'
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -25,3 +33,7 @@ updates:
     labels:
       - "dependencies"
       - "javascript-livewire"
+    reviewers:
+      - 'TalusStudio/Dev-Backend'
+    assignees:
+      - 'TalusCI'
