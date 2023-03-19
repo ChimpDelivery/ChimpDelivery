@@ -56,13 +56,7 @@ class Handler extends ExceptionHandler
             Integration::captureUnhandledException($e);
         });
 
-        /*$this->renderable(function (UnauthorizedException $e, $request) {
-            if ($request->expectsJson())
-            {
-                return response()->json([
-                    'message' => 'You do not have the required authorization.',
-                ], Response::HTTP_FORBIDDEN);
-            }
-        });*/
+        // permission exception
+        // https://spatie.be/docs/laravel-permission/v5/advanced-usage/exceptions
     }
 }
