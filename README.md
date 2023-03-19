@@ -4,7 +4,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - [Jenkins Controller(Master) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Controller-Docs)
 - [Jenkins Agent(Slave) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Agent-Docs)
 
-# Pre-Deployment
+# :label: Pre-Deployment
 - [Deployer](https://deployer.org/docs/7.x/recipe/laravel) Configurations
   - [deploy.yaml](https://github.com/TalusStudio/TalusWebBackend/blob/dev/deploy.yaml)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
@@ -15,7 +15,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - Code Quality Check
   - ```composer dashboard-static-analysis``` [[PHPStan](https://phpstan.org)]
 
-# Features
+# :tada: Features
 - Jenkins API Support
 - App Store Connect API Support
 - GitHub API Support
@@ -23,19 +23,22 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - Daily Backups (S3)
 - Dashboard Monitoring as **Super Admin** (Health, Horizon, Telescope, Log Viewer)
 
-# Monitoring Paths
+# :rocket: Monitoring
 - Sentry URL: **https://talusstudio.sentry.io**
 - Dashboard Health: ```{DASHBOARD_URL}/health```
 - Horizon: ```{DASHBOARD_URL}/horizon```
 - Telescope: ```{DASHBOARD_URL}/telescope```
 - Log Viewer: ```{DASHBOARD_URL}/log-viewer```
 
-# Security
+# :lock: Security
 - Honeypot
 - ReCaptcha v3
 - [Encryption of Sensitive Data](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Encryption)
 - Pre-Deployment Security Checks with [Enlightn](https://www.laravel-enlightn.com)
 
+# API
+- Full details about API Endpoints (inputs, example responses etc.) are in related Postman Workspace.
+- Postman Workspace: **https://talusstudio.postman.co**
 # 🔑 Apps API
 - Optional parameters marked with `?`
 
