@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
 
 use App\Services\S3Service;
 
-class S3ServiceProvider extends ServiceProvider
+class S3ServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
@@ -16,8 +17,8 @@ class S3ServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot() : void
+    public function provides() : array
     {
-
+        return [S3Service::class];
     }
 }

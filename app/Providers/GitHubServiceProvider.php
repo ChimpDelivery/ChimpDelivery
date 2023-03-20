@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
 
 use App\Services\GitHubService;
 
-class GitHubServiceProvider extends ServiceProvider
+class GitHubServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
@@ -17,8 +18,8 @@ class GitHubServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot() : void
+    public function provides() : array
     {
-
+        return [GitHubService::class];
     }
 }

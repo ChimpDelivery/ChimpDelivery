@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
 
 use App\Services\JenkinsService;
 
-class JenkinsServiceProvider extends ServiceProvider
+class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
@@ -20,8 +21,8 @@ class JenkinsServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot() : void
+    public function provides() : array
     {
-
+        return [JenkinsService::class];
     }
 }

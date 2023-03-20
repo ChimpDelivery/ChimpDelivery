@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
-
-use App\Services\FtpService;
 use Illuminate\Support\Str;
 
-class FtpServiceProvider extends ServiceProvider
+use App\Services\FtpService;
+
+class FtpServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
@@ -23,8 +24,8 @@ class FtpServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot() : void
+    public function provides() : array
     {
-
+        return [FtpService::class];
     }
 }
