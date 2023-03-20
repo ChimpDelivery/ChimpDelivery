@@ -13,11 +13,13 @@ class GetStoreApps
 {
     use AsAction;
 
+    public function __construct(
+        private readonly AppStoreConnectService $appStoreConnectService
+    ) { }
+
     public function handle() : JsonResponse
     {
-        $service = app(AppStoreConnectService::class);
-
-        $appstoreApps = $service->GetHttpClient()->get(
+        $appstoreApps = $this->appStoreConnectService->GetHttpClient()->get(
             config('appstore.endpoint')
             .'/apps?fields[apps]=name,bundleId'
             .'&limit=' . config('appstore.item_limit')
