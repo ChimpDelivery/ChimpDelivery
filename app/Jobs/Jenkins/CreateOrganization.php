@@ -13,7 +13,8 @@ class CreateOrganization extends BaseJenkinsJob
 {
     public function __construct(
         public readonly Workspace $workspace,
-        public readonly User $workspaceAdmin
+        public readonly User $workspaceAdmin,
+        private readonly JenkinsService $jenkinsService,
     ) { }
 
     public function handle()
@@ -21,7 +22,7 @@ class CreateOrganization extends BaseJenkinsJob
         $url = $this->GetJobUrl();
         $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
 
-        return app(JenkinsService::class)->GetHttpClient()->post($url);
+        return $this->jenkinsService->GetHttpClient()->post($url);
     }
 
     // Job url that contains Jenkins-DSL Plugin Action

@@ -4,10 +4,15 @@ namespace App\Listeners;
 
 use App\Events\WorkspaceChanged;
 
+use App\Services\JenkinsService;
 use App\Jobs\Jenkins\CreateOrganization;
 
 class UpdateWorkspaceSettings
 {
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
     public function handle(WorkspaceChanged $event) : void
     {
         $workspace = $event->workspace;
@@ -52,6 +57,6 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        CreateOrganization::dispatch($workspace, $event->workspaceAdmin);
+        CreateOrganization::dispatch($workspace, $event->workspaceAdmin, $this->jenkinsService);
     }
 }
