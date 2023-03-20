@@ -12,9 +12,13 @@ class GetUserOrganizations
 {
     use AsAction;
 
+    public function __construct(
+        private readonly GitHubService $githubService
+    ) { }
+
     public function handle() : JsonResponse
     {
-        $request = app(GitHubService::class)->MakeGithubRequest('user', 'orgs');
+        $request = $this->githubService->MakeGithubRequest('user', 'orgs');
         $response = $request->getData()?->response;
 
         return response()->json([ 'response' => $response ], $request->status());

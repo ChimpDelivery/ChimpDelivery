@@ -15,23 +15,20 @@ use App\Models\GithubSetting;
 
 class GitHubService
 {
-    private readonly Workspace $workspace;
-
-    public function __construct()
-    {
-        $this->workspace = Auth::user()->workspace;
-
-        Config::set(
-            'github.connections.main.token',
-            $this->GetSetting()->personal_access_token ?? 'INVALID_TOKEN'
-        );
-    }
+    public function __construct(
+        private readonly ?Workspace $workspace = null
+    ) { }
 
     // request handler to capture all exceptions in one place
     public function MakeGithubRequest(string $api, $func, ...$parameters) : JsonResponse
     {
         try
         {
+            Config::set(
+                'github.connections.main.token',
+                $this->GetSetting()->personal_access_token ?? 'INVALID_TOKEN'
+            );
+
             $response = GitHub::api($api)->{$func}(...$parameters);
         }
         catch (\Exception $exception)
@@ -71,6 +68,6 @@ class GitHubService
 
     private function GetSetting() : GithubSetting
     {
-        return $this->workspace->githubSetting;
+        return ($this->workspace ?? Auth::user()->workspace)->githubSetting;
     }
 }
