@@ -57,10 +57,6 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        dump($workspace);
-        dump($event->workspaceAdmin);
-        dd($this->jenkinsService);
-
         CreateOrganization::dispatch($workspace, $event->workspaceAdmin, $this->jenkinsService);
     }
 }
