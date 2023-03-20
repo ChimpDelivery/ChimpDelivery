@@ -82,7 +82,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": ["sentry/sentry-laravel"]
+            "dont-discover": []
         }
     },
     "config": {
