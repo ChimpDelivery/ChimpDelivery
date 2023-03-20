@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,8 +14,6 @@ use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
 class StoreWorkspace
 {
     use AsAction;
-
-    private bool $isNewUser;
 
     public function handle(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
@@ -31,15 +28,13 @@ class StoreWorkspace
 
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : array
     {
-        $targetWorkspace = ($this->isNewUser)
-            ? new Workspace()
-            : Auth::user()->workspace;
-
-        event(new WorkspaceChanged($targetWorkspace, $request));
+        $user = $request->user();
+        $targetWorkspace = ($user->isNew()) ? new Workspace() : $user->workspace;
+        event(new WorkspaceChanged($user, $targetWorkspace, $request));
 
         return [
             'response' => $targetWorkspace,
-            'wasRecentlyCreated' => $this->isNewUser,
+            'wasRecentlyCreated' => $user->isNew(),
         ];
     }
 
@@ -51,11 +46,11 @@ class StoreWorkspace
         });
     }
 
-    public function authorize() : bool
+    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
     {
-        $this->isNewUser = Auth::user()->isNew();
+        $user = $request->user();
 
-        return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
+        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 
     private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
