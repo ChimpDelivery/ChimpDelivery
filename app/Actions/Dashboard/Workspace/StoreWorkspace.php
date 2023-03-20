@@ -31,7 +31,7 @@ class StoreWorkspace
 
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : array
     {
-        $user = Auth::user();
+        $user = $request->user();
         $targetWorkspace = ($this->isNewUser) ? new Workspace() : $user->workspace;
         event(new WorkspaceChanged($user, $targetWorkspace, $request));
 
@@ -49,9 +49,9 @@ class StoreWorkspace
         });
     }
 
-    public function authorize() : bool
+    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
     {
-        $this->isNewUser = Auth::user()->isNew();
+        $this->isNewUser = $request->user()->isNew();
 
         return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
     }
