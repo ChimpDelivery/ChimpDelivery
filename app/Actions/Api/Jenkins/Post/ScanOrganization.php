@@ -11,11 +11,13 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ScanOrganization extends BaseJenkinsAction
 {
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
     public function handle(AppChanged $event) : array
     {
-        $service = app(JenkinsService::class);
-
-        $response = $service->PostResponse("/build?delay=0");
+        $response = $this->jenkinsService->PostResponse("/build?delay=0");
 
         $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)

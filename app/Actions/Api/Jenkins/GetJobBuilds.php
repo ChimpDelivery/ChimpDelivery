@@ -20,11 +20,15 @@ class GetJobBuilds
         'job_parameters' => 'url,nextBuildNumber,builds[url,number]{0,3}',
     ];
 
-    public function handle(GetAppInfoRequest $request, JenkinsService $service) : JsonResponse
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
+    public function handle(GetAppInfoRequest $request) : JsonResponse
     {
         $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        $jobResponse = $service->GetResponse($this->CreateUrl($app));
+        $jobResponse = $this->jenkinsService->GetResponse($this->CreateUrl($app));
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.

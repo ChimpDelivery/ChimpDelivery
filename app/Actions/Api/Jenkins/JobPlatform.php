@@ -16,4 +16,13 @@ enum JobPlatform : string
             default => 'fa fa-question',
         };
     }
+
+    // current supported platforms in dashboard
+    public static function GetActivePlatforms() : array
+    {
+        return [
+            self::Appstore->value,
+            self::GooglePlay->value,
+        ];
+    }
 }

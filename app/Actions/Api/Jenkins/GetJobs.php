@@ -12,9 +12,13 @@ class GetJobs
 {
     use AsAction;
 
-    public function handle(JenkinsService $service) : JsonResponse
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
+    public function handle() : JsonResponse
     {
-        $jobResponse = $service->GetResponse('/api/json');
+        $jobResponse = $this->jenkinsService->GetResponse('/api/json');
         $jobResponse->jenkins_data = collect($jobResponse->jenkins_data?->jobs)->pluck('name');
 
         return response()->json($jobResponse);

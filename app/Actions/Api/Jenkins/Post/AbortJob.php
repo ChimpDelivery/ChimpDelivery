@@ -14,12 +14,16 @@ class AbortJob extends BaseJenkinsAction
 {
     private AppInfo $app;
 
-    public function handle(StopJobRequest $request, JenkinsService $service) : array
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
+    public function handle(StopJobRequest $request) : array
     {
         $buildNumber = $request->validated('build_number');
 
         $url = "/job/{$this->app->project_name}/job/master/{$buildNumber}/stop";
-        $response =  $service->PostResponse($url);
+        $response =  $this->jenkinsService->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode == Response::HTTP_OK;

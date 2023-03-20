@@ -39,10 +39,7 @@ class BuildRequest extends GetAppInfoRequest
             'platform' => [
                 'required',
                 'string',
-                Rule::in([
-                    JobPlatform::Appstore->value,
-                    JobPlatform::GooglePlay->value,
-                ])
+                Rule::in(JobPlatform::GetActivePlatforms())
             ],
 
             'store_version' => [ 'required', 'numeric' ],
