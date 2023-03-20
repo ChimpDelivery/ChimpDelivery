@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,11 +13,13 @@ class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvid
 {
     public function register() : void
     {
-        $this->app->singleton(JenkinsService::class, function(Application $app) {
+        // parameters used in jobs...
+        $this->app->singleton(JenkinsService::class, function(Application $app, array $parameters) {
             return new JenkinsService(
                 config('jenkins.host'),
                 config('jenkins.user'),
-                config('jenkins.token')
+                config('jenkins.token'),
+                $parameters['user'] ?? Auth::user(),
             );
         });
     }
