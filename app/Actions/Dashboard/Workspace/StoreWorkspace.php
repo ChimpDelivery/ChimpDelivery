@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
 
@@ -51,9 +50,10 @@ class StoreWorkspace
 
     public function authorize(StoreWorkspaceSettingsRequest $request) : bool
     {
-        $this->isNewUser = $request->user()->isNew();
+        $user = $request->user();
+        $this->isNewUser = $user->isNew();
 
-        return Auth::user()->can(($this->isNewUser) ? 'create workspace' : 'update workspace');
+        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 
     private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
