@@ -10,11 +10,6 @@ class JenkinsServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-
-    }
-
-    public function boot() : void
-    {
         $this->app->singleton(JenkinsService::class, function($app) {
             return new JenkinsService(
                 config('jenkins.host'),
@@ -22,5 +17,10 @@ class JenkinsServiceProvider extends ServiceProvider
                 config('jenkins.token')
             );
         });
+    }
+
+    public function boot() : void
+    {
+
     }
 }

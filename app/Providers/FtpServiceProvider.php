@@ -11,11 +11,6 @@ class FtpServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-
-    }
-
-    public function boot() : void
-    {
         $this->app->singleton(FtpService::class, function($app) {
             return new FtpService(
                 Str::of(config('filesystems.disks.ftp.host'))
@@ -25,5 +20,10 @@ class FtpServiceProvider extends ServiceProvider
                     ->implode('.')
             );
         });
+    }
+
+    public function boot() : void
+    {
+
     }
 }
