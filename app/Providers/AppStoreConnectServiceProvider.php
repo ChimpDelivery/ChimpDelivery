@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Contracts\Foundation\Application;
 
 use App\Services\AppStoreConnectService;
 
-class AppStoreConnectServiceProvider extends ServiceProvider
+class AppStoreConnectServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
@@ -16,8 +17,8 @@ class AppStoreConnectServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot() : void
+    public function provides() : array
     {
-
+        return [AppStoreConnectService::class];
     }
 }

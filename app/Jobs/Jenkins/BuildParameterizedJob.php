@@ -6,6 +6,7 @@ use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 
 use App\Models\User;
 use App\Models\AppInfo;
@@ -28,7 +29,7 @@ class BuildParameterizedJob extends BaseJenkinsJob
 
     public function handle() : array
     {
-        $jenkinsService = app(JenkinsService::class)->SetUser($this->user);
+        $jenkinsService = App::makeWith(JenkinsService::class, [ 'user' => $this->user ]);
 
         // send request
         $response = $jenkinsService->PostResponse($this->CreateUrl());

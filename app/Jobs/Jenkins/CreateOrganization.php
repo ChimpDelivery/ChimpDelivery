@@ -4,6 +4,8 @@ namespace App\Jobs\Jenkins;
 
 use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
 
+use Illuminate\Support\Facades\App;
+
 use App\Models\User;
 use App\Models\Workspace;
 use App\Services\JenkinsService;
@@ -21,12 +23,8 @@ class CreateOrganization extends BaseJenkinsJob
         $url = $this->GetJobUrl();
         $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
 
-        app(JenkinsService::class)->SetUser($this->workspaceAdmin)->GetHttpClient()->post($url);
-    }
-
-    public function asJob() : void
-    {
-        $this->handle();
+        $jenkinsService = App::makeWith(JenkinsService::class, [ 'user' => $this->workspaceAdmin ]);
+        $jenkinsService->GetHttpClient()->post($url);
     }
 
     // Job url that contains Jenkins-DSL Plugin Action

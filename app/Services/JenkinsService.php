@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\JsonResponse;
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Client\Response;
+use Illuminate\Http\Client\PendingRequest;
 
 use App\Models\User;
 
@@ -18,14 +17,8 @@ class JenkinsService
         private readonly string $jenkinsMasterUrl,
         private readonly string $jenkinsUsername,
         private readonly string $jenkinsUserToken,
-        private ?User $user = null,
+        private readonly ?User $user = null,
     ) { }
-
-    public function SetUser(User $user) : self
-    {
-        $this->user = $user;
-        return $this;
-    }
 
     public function GetWorkspaceUrl() : string
     {
