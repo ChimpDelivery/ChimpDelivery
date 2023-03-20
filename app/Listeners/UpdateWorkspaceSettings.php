@@ -2,9 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Events\WorkspaceChanged;
+
 use App\Jobs\Jenkins\CreateOrganization;
 
 class UpdateWorkspaceSettings
@@ -53,6 +52,6 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        CreateOrganization::dispatch($workspace, Auth::user());
+        CreateOrganization::dispatch($workspace, $event->workspaceAdmin);
     }
 }
