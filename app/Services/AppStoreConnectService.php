@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 use Firebase\JWT\JWT;
 
-use App\Models\Workspace;
 use App\Models\AppStoreConnectSetting;
 
 class AppStoreConnectService
 {
     public function __construct(
-        private readonly ?Workspace $workspace = null
+        private readonly ?AppStoreConnectSetting $settings = null
     ) { }
 
     public function GetHttpClient() : PendingRequest
@@ -59,6 +58,6 @@ class AppStoreConnectService
 
     private function GetSettings() : AppStoreConnectSetting
     {
-        return ($this->workspace ?? Auth::user()->workspace)->appStoreConnectSetting;
+        return $this->settings ?? Auth::user()->workspace->appStoreConnectSetting;
     }
 }
