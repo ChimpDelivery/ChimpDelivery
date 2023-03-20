@@ -13,14 +13,16 @@ class GetRepository
 {
     use AsAction;
 
+    public function __construct(
+        private readonly GitHubService $githubService
+    ) { }
+
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {
-        $githubService = app(GitHubService::class);
-
-        $response = $githubService->MakeGithubRequest(
+        $response = $this->githubService->MakeGithubRequest(
             'repo',
             'show',
-            $githubService->GetOrganizationName(),
+            $this->githubService->GetOrganizationName(),
             $request->validated('project_name')
         );
 

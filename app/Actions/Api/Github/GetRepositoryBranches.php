@@ -16,14 +16,16 @@ class GetRepositoryBranches
 {
     use AsAction;
 
+    public function __construct(
+        private readonly GitHubService $githubService
+    ) { }
+
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        $githubService = app(GitHubService::class);
-
-        $response = $githubService->MakeGithubRequest(
+        $response = $this->githubService->MakeGithubRequest(
             'repo',
             'branches',
-            $githubService->GetOrganizationName(),
+            $this->githubService->GetOrganizationName(),
             Auth::user()->workspace->apps()->findOrFail($request->validated('id'))->project_name
         );
 

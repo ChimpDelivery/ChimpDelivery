@@ -2,24 +2,22 @@
 
 namespace App\Services;
 
-use Firebase\JWT\JWT;
-
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
+use Firebase\JWT\JWT;
+
+use App\Models\Workspace;
 use App\Models\AppStoreConnectSetting;
 
 class AppStoreConnectService
 {
-    private readonly AppStoreConnectSetting $appStoreConnectSetting;
-
-    public function __construct()
-    {
-        $this->appStoreConnectSetting = Auth::user()->workspace->appStoreConnectSetting;
-    }
+    public function __construct(
+        private readonly ?Workspace $workspace = null
+    ) { }
 
     public function GetHttpClient() : PendingRequest
     {
@@ -45,15 +43,22 @@ class AppStoreConnectService
 
     private function PrepareTokenData() : string
     {
+        $settings = $this->GetSettings();
+
         return JWT::encode(
             payload: [
-                'iss' => $this->appStoreConnectSetting->issuer_id,
+                'iss' => $settings->issuer_id,
                 'exp' => time() + config('appstore.cache_duration') * 60,
                 'aud' => 'appstoreconnect-v1'
             ],
-            key: $this->appStoreConnectSetting->private_key,
+            key: $settings->private_key,
             alg: 'ES256',
-            keyId: $this->appStoreConnectSetting->kid,
+            keyId: $settings->kid,
         );
+    }
+
+    private function GetSettings() : AppStoreConnectSetting
+    {
+        return ($this->workspace ?? Auth::user()->workspace)->appStoreConnectSetting;
     }
 }

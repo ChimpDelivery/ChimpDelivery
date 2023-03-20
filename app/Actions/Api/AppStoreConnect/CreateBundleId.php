@@ -16,7 +16,11 @@ class CreateBundleId
     use AsAction;
     use AsActionResponse;
 
-    public function handle(StoreBundleRequest $request, AppStoreConnectService $service) : array
+    public function __construct(
+        private readonly AppStoreConnectService $appStoreConnectService
+    ) { }
+
+    public function handle(StoreBundleRequest $request) : array
     {
         $bundleData = $this->PrepareRequestData(
             $request->validated('bundle_id'),
@@ -24,7 +28,7 @@ class CreateBundleId
         );
 
         // request
-        $createBundle = $service->GetHttpClient()
+        $createBundle = $this->appStoreConnectService->GetHttpClient()
             ->withBody(json_encode($bundleData))
             ->post(config('appstore.endpoint') . '/bundleIds');
 

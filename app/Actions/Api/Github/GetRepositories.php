@@ -15,6 +15,10 @@ class GetRepositories
 {
     use AsAction;
 
+    public function __construct(
+        private readonly GitHubService $githubService
+    ) { }
+
     public function handle() : JsonResponse
     {
         // if there is no type of repository specified on workspace settings
@@ -37,12 +41,10 @@ class GetRepositories
     // response can include error_code and msg...
     private function GetGitHubRepositories() : JsonResponse
     {
-        $githubService = app(GitHubService::class);
-
-        return $githubService->MakeGithubRequest(
+        return $this->githubService->MakeGithubRequest(
             'repo',
             'org',
-            $githubService->GetOrganizationName(),
+            $this->githubService->GetOrganizationName(),
             [
                 'per_page' => config('github.item_limit'),
                 'sort' => 'updated',
@@ -55,14 +57,12 @@ class GetRepositories
     // maybe extra organization is useful when filtering projects.
     private function FilterProjects(Collection $response) : Collection
     {
-        $githubService = app(GitHubService::class);
-
-        if ($githubService->GetRepoTopic() == null) {
+        if ($this->githubService->GetRepoTopic() == null) {
             return $response;
         }
 
-        return $response->filter(function (\stdClass $githubProject) use ($githubService) {
-            return isset($githubProject->topics) && in_array($githubService->GetRepoTopic(), $githubProject->topics);
+        return $response->filter(function (\stdClass $githubProject) {
+            return isset($githubProject->topics) && in_array($this->githubService->GetRepoTopic(), $githubProject->topics);
         });
     }
 
@@ -80,11 +80,11 @@ class GetRepositories
 
     private function GetRepositoryType() : string
     {
-        $githubService = app(GitHubService::class);
+        $service = $this->githubService;
 
-        if ($githubService->IsPublicReposEnabled() && $githubService->IsPrivateReposEnabled() === true) { return 'all'; }
-        if ($githubService->IsPublicReposEnabled()) { return 'public'; }
-        if ($githubService->IsPrivateReposEnabled()) { return 'private'; }
+        if ($service->IsPublicReposEnabled() && $service->IsPrivateReposEnabled() === true) { return 'all'; }
+        if ($service->IsPublicReposEnabled()) { return 'public'; }
+        if ($service->IsPrivateReposEnabled()) { return 'private'; }
 
         return 'none';
     }
