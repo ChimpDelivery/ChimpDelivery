@@ -18,9 +18,13 @@ class GetJobLastBuildLog
 
     private AppInfo $app;
 
-    public function handle(JenkinsService $service) : string
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
+    public function handle() : string
     {
-        $response = $service->GetResponse("/job/{$this->app->project_name}/job/master/lastBuild/consoleText", true);
+        $response = $this->jenkinsService->GetResponse("/job/{$this->app->project_name}/job/master/lastBuild/consoleText", true);
 
         return $response->jenkins_data ?? '';
     }

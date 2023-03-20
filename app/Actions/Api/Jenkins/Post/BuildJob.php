@@ -6,16 +6,15 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Jobs\Jenkins\BuildParameterizedJob;
 
 class BuildJob extends BaseJenkinsAction
 {
-    public function handle(BuildRequest $request, JenkinsService $service) : array
+    public function handle(BuildRequest $request) : array
     {
-        $jobBuilds = GetJobBuilds::run($request, $service)->getData();
+        $jobBuilds = GetJobBuilds::run($request)->getData();
         $firstBuild = $jobBuilds->jenkins_data[0];
 
         // Job exist but there are no builds.
@@ -23,7 +22,7 @@ class BuildJob extends BaseJenkinsAction
         // We need to handle this step with minimal build.
         if ($firstBuild->number == 1 && empty($firstBuild->url))
         {
-            return ParameterizeJob::run($request, $service);
+            return ParameterizeJob::run($request);
         }
 
         $app = Auth::user()->workspace->apps()->find($request->validated('id'));

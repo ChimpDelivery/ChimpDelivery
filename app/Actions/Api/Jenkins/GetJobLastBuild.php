@@ -24,13 +24,16 @@ class GetJobLastBuild
 
     private AppInfo $app;
 
+    public function __construct(
+        private readonly JenkinsService $jenkinsService
+    ) { }
+
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
         $this->app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
-        $jenkinsService = app(JenkinsService::class);
 
         // find last build of job
-        $jobResponse = $jenkinsService->GetResponse($this->CreateJobUrl());
+        $jobResponse = $this->jenkinsService->GetResponse($this->CreateJobUrl());
         $builds = collect($jobResponse->jenkins_data);
 
         // last build returned as a first item in collection from jenkins api
@@ -47,7 +50,7 @@ class GetJobLastBuild
             }
 
             // populate build details with another request
-            $buildDetails = $jenkinsService->GetResponse($this->CreateLastBuildUrl($build->id));
+            $buildDetails = $this->jenkinsService->GetResponse($this->CreateLastBuildUrl($build->id));
             $build->build_platform = $this->GetBuildPlatform($buildDetails->jenkins_data);
 
             $build->commit = $this->GetLastCommit($buildDetails->jenkins_data);
