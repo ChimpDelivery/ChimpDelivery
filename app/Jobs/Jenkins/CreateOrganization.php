@@ -14,7 +14,6 @@ class CreateOrganization extends BaseJenkinsJob
     public function __construct(
         public readonly Workspace $workspace,
         public readonly User $workspaceAdmin,
-        private readonly JenkinsService $jenkinsService,
     ) { }
 
     public function handle() : void
@@ -22,7 +21,7 @@ class CreateOrganization extends BaseJenkinsJob
         $url = $this->GetJobUrl();
         $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
 
-        $this->jenkinsService->GetHttpClient()->post($url);
+        app(JenkinsService::class)->SetUser($this->workspaceAdmin)->GetHttpClient()->post($url);
     }
 
     public function asJob() : void

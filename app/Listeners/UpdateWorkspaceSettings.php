@@ -57,6 +57,6 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        CreateOrganization::dispatch($workspace, $event->workspaceAdmin, $this->jenkinsService);
+        CreateOrganization::dispatch($workspace, $event->workspaceAdmin);
     }
 }
