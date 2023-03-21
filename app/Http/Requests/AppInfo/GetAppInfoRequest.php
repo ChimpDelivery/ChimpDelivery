@@ -9,22 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class GetAppInfoRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize() : bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    public function rules() : array
     {
         return [
             'id' => [
@@ -33,7 +23,7 @@ class GetAppInfoRequest extends FormRequest
                 Rule::exists('app_infos', 'id')
                     ->where('workspace_id', Auth::user()->workspace->id)
                     ->whereNull('deleted_at'),
-            ]
+            ],
         ];
     }
 
