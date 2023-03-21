@@ -4,8 +4,6 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
