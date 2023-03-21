@@ -19,7 +19,7 @@ class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvid
                 config('jenkins.host'),
                 config('jenkins.user'),
                 config('jenkins.token'),
-                $parameters['user'] ?? Auth::user(),
+                $parameters['user'] ?? null,
             );
         });
     }
