@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
@@ -30,7 +29,7 @@ class GetJobLastBuild
 
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
-        $this->app = $appInfo ?? Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $this->app = $appInfo ?? $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
         // find last build of job
         $jobResponse = $this->jenkinsService->GetResponse($this->CreateJobUrl());

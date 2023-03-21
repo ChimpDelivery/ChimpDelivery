@@ -3,7 +3,6 @@
 namespace App\Actions\Api\Jenkins\Post;
 
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
@@ -39,8 +38,8 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $this->app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return Auth::user()->can('abort job');
+        return $request->user()->can('abort job');
     }
 }
