@@ -5,7 +5,6 @@ namespace App\Actions\Api\Jenkins;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 use App\Services\JenkinsService;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
@@ -20,7 +19,7 @@ class GetJob
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
-        $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
         $response = $this->jenkinsService->GetResponse("/job/{$app->project_name}/api/json");
         $response->jenkins_data = collect($response->jenkins_data)->only(['name', 'url']);

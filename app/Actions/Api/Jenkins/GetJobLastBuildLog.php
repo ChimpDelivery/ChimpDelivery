@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
@@ -44,8 +43,8 @@ class GetJobLastBuildLog
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $this->app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $this->app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
-        return Auth::user()->can('view job log');
+        return $request->user()->can('view job log');
     }
 }

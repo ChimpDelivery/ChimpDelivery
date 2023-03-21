@@ -4,8 +4,6 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
@@ -67,6 +65,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return Auth::user()->can('create bundle');
+        return $request->user()->can('create bundle');
     }
 }

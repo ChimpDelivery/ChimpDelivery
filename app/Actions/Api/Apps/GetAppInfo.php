@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\AppInfo;
 use App\Actions\Api\S3\GetAppIcon;
@@ -18,7 +17,7 @@ class GetAppInfo
 
     public function handle(GetAppInfoRequest $request) : AppInfo
     {
-        return Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        return $request->user()->workspace->apps()->findOrFail($request->validated('id'));
     }
 
     public function htmlResponse(AppInfo $appInfo) : View
@@ -42,6 +41,6 @@ class GetAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        return Auth::user()->can('view apps');
+        return $request->user()->can('view apps');
     }
 }

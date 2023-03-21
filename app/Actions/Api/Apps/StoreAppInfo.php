@@ -7,8 +7,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\AppInfo;
 use App\Events\AppChanged;
 use App\Http\Requests\AppInfo\StoreAppInfoRequest;
@@ -19,7 +17,7 @@ class StoreAppInfo
 
     public function handle(StoreAppInfoRequest $request) : AppInfo
     {
-        $appModel = Auth::user()->workspace->apps()
+        $appModel = $request->user()->workspace->apps()
             ->where('app_bundle', '=', $request->validated('app_bundle'))
             ->firstOrNew()
             ->fill($request->safe()->all());
@@ -47,8 +45,8 @@ class StoreAppInfo
         return response()->json($appInfo);
     }
 
-    public function authorize()
+    public function authorize(StoreAppInfoRequest $request)
     {
-        return Auth::user()->can('create app');
+        return $request->user()->can('create app');
     }
 }

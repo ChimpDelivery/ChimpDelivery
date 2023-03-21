@@ -4,8 +4,6 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Http\Requests\Jenkins\BuildRequest;
 use App\Jobs\Jenkins\BuildParameterizedJob;
@@ -25,8 +23,8 @@ class BuildJob extends BaseJenkinsAction
             return ParameterizeJob::run($request);
         }
 
-        $app = Auth::user()->workspace->apps()->find($request->validated('id'));
-        BuildParameterizedJob::dispatch($app, $request->safe()->all(), Auth::user());
+        $app = $request->user()->workspace->apps()->find($request->validated('id'));
+        BuildParameterizedJob::dispatch($app, $request->safe()->all(), $request->user());
 
         return [
             'success' => true,
@@ -36,6 +34,6 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        return Auth::user()->can('build job');
+        return $request->user()->can('build job');
     }
 }

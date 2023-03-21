@@ -4,8 +4,6 @@ namespace App\Actions\Api\Apps;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Traits\AsActionResponse;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
@@ -16,7 +14,7 @@ class DeleteAppInfo
 
     public function handle(GetAppInfoRequest $request) : array
     {
-        $app = Auth::user()->workspace->apps()->findOrFail($request->validated('id'));
+        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
         $isAppDeleted = $app->delete();
 
@@ -33,6 +31,6 @@ class DeleteAppInfo
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        return Auth::user()->can('delete app');
+        return $request->user()->can('delete app');
     }
 }
