@@ -16,12 +16,12 @@ class StoreWorkspaceSettingsRequest extends FormRequest
         $this->merge(['private_repo' => $this->has('private_repo')]);
     }
 
-    public function authorize()
+    public function authorize() : bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules() : array
     {
         return [
 
@@ -58,7 +58,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'template_name' => [ 'nullable', new AlphaDashDot(), 'max:255', ],
             'topic_name' => [ 'nullable', new AlphaDashDot(), 'max:255', ],
             'public_repo' => [ 'required', 'boolean', ],
-            'private_repo' => [ 'required', 'boolean', ]
+            'private_repo' => [ 'required', 'boolean', ],
         ];
     }
 
