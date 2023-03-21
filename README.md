@@ -12,6 +12,8 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - [S3 Bucket Key Generation](https://github.com)
 - Jenkins Key Generation
   - ```JENKINS_URL/user/USER_NAME/configure -> Api Tokens```
+- Database Seeding
+  - ```php artisan migrate:fresh --seed```
 - Code Quality Check
   - ```composer dashboard-static-analysis``` [[PHPStan](https://phpstan.org)]
 
