@@ -49,8 +49,10 @@ tasks:
     - artisan:pennant:purge
     - artisan:dashboard:restart-horizon
     - server:permission
-    - artisan:up
     - deploy:publish
+    - php-fpm:reload
+    - crontab:sync
+    - artisan:up
   server:permission:
       - cd: "{{release_path}}"
       - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
@@ -64,6 +66,3 @@ tasks:
 after:
   deploy:failed:
     - deploy:unlock
-  deploy:success:
-    - php-fpm:reload
-    - crontab:sync
