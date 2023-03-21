@@ -58,8 +58,8 @@ class BuildParameterizedJob extends BaseJenkinsJob
             'PLATFORM' => $this->inputs['platform'],
             'APP_ID' => $this->inputs['id'],
             'STORE_BUILD_VERSION' => $this->inputs['store_version'],
-            'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?: self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
-            'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?: self::DEFAULT_STORE_BUNDLE_VERSION,
+            'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?? self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
+            'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?? self::DEFAULT_STORE_BUNDLE_VERSION,
             'INSTALL_SDK' => !empty($this->inputs['install_backend']) ? 'true' : 'false',
         ])->merge($this->GetPlatformParams($this->inputs['platform']));
     }

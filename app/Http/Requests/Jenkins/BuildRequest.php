@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Jenkins;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 
 use App\Actions\Api\Jenkins\JobPlatform;
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
@@ -27,15 +26,7 @@ class BuildRequest extends GetAppInfoRequest
      */
     public function rules()
     {
-        return [
-            'id' => [
-                'required',
-                'numeric',
-                Rule::exists('app_infos', 'id')
-                    ->where('workspace_id', Auth::user()->workspace->id)
-                    ->whereNull('deleted_at')
-            ],
-
+        return array_merge(parent::rules(), [
             'platform' => [
                 'required',
                 'string',
@@ -47,6 +38,6 @@ class BuildRequest extends GetAppInfoRequest
             'store_build_number' => [ 'nullable', 'numeric' ],
 
             'install_backend' => [ 'nullable', 'string', Rule::in(['on']) ],
-        ];
+        ]);
     }
 }
