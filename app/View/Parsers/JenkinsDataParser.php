@@ -82,14 +82,9 @@ class JenkinsDataParser
 
         return match(JobStatus::tryFrom($this->lastBuild->status))
         {
-            JobStatus::IN_QUEUE =>
+            JobStatus::NOT_EXECUTED, JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>
                     <i class='fa fa-clock-o' aria-hidden='true'></i>
-                    {$prettyName}
-                </span>",
-
-            JobStatus::NOT_EXECUTED =>
-                "<span class='text-secondary font-weight-bold'>
                     {$prettyName}
                 </span>",
 
