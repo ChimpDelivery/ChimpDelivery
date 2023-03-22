@@ -2,8 +2,8 @@
 
 namespace App\Listeners\S3;
 
-use App\Events\AppChanged;
 use App\Traits\AsS3Client;
+use App\Events\AppChanged;
 
 class UploadAppIcon
 {
