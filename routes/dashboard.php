@@ -20,7 +20,7 @@ use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
-Route::middleware([ 'auth', 'verified', 'ensureUserNotNew', ProtectAgainstSpam::class ])->group(function () {
+Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgainstSpam::class ])->group(function () {
     //////////////////////////
     //// main routes
     //////////////////////////
