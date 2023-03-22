@@ -5,8 +5,8 @@ namespace App\Actions\Api\Jenkins\Post;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 use App\Actions\Api\Jenkins\GetJobBuilds;
-use App\Http\Requests\Jenkins\BuildRequest;
 use App\Jobs\Jenkins\BuildParameterizedJob;
+use App\Http\Requests\Jenkins\BuildRequest;
 
 class BuildJob extends BaseJenkinsAction
 {
@@ -23,7 +23,7 @@ class BuildJob extends BaseJenkinsAction
             return ParameterizeJob::run($request);
         }
 
-        $app = $request->user()->workspace->apps()->find($request->validated('id'));
+        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
         BuildParameterizedJob::dispatch($app, $request->safe()->all(), $request->user());
 
         return [
