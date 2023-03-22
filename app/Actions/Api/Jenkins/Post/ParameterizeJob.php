@@ -2,12 +2,12 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+
 use Illuminate\Http\Response;
 
-use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\BuildRequest;
-use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class ParameterizeJob extends BaseJenkinsAction
 {
@@ -17,7 +17,7 @@ class ParameterizeJob extends BaseJenkinsAction
 
     public function handle(BuildRequest $request) : array
     {
-        $app = AppInfo::find($request->validated('id'));
+        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
 
         $response = $this->jenkinsService->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
