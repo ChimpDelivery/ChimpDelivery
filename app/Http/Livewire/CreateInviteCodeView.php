@@ -6,9 +6,12 @@ use Livewire\Component;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateInviteCodeView extends Component
 {
+    use AuthorizesRequests;
+
     private string $createdCode = '**************';
 
     public function mount()
@@ -18,6 +21,8 @@ class CreateInviteCodeView extends Component
 
     public function createInviteCode()
     {
+        $this->authorize('update workspace');
+
         $this->createdCode = Auth::user()->workspace->createInviteCode();
     }
 
