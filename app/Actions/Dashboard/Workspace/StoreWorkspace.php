@@ -25,7 +25,7 @@ class StoreWorkspace
         return to_route('workspace_settings')->with('success', $flashMessage);
     }
 
-    public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : Workspace
+    private function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : Workspace
     {
         $user = $request->user();
 
@@ -44,13 +44,6 @@ class StoreWorkspace
             $this->ValidateCertificate($validator, $request);
             $this->ValidateProvision($validator, $request);
         });
-    }
-
-    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
-    {
-        $user = $request->user();
-
-        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 
     private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
@@ -105,5 +98,12 @@ class StoreWorkspace
     private function IsValidExtension($file, $extension) : bool
     {
         return str($file->getClientOriginalName())->endsWith($extension);
+    }
+
+    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
+    {
+        $user = $request->user();
+
+        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 }
