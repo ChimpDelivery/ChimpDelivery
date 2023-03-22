@@ -12,8 +12,8 @@ class S3ServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register() : void
     {
-        $this->app->singleton(S3Service::class, function(Application $app) {
-            return new S3Service();
+        $this->app->singleton(S3Service::class, function(Application $app, array $parameters) {
+            return new S3Service($parameters['workspace']);
         });
     }
 

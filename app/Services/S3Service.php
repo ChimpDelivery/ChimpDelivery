@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
-use App\Models\User;
+use App\Models\Workspace;
 
 class S3Service
 {
-    private User $user;
+    public function __construct(
+        private readonly Workspace $workspace
+    ) { }
 
     // workspaces have their own folders on s3 bucket to store required assets
     // workspace folder contains sub-folders by file-types
@@ -20,14 +22,8 @@ class S3Service
     {
         return implode('/', [
             config('aws.s3.ws_path'),
-            $this->user->workspace->id
+            $this->workspace->id
         ]);
-    }
-
-    public function SetUser(User $user) : static
-    {
-        $this->user = $user;
-        return $this;
     }
 
     public function IsFileExists($path) : bool
