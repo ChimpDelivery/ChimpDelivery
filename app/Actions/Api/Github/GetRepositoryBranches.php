@@ -5,7 +5,6 @@ namespace App\Actions\Api\Github;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 use App\Services\GitHubService;
 
@@ -26,7 +25,7 @@ class GetRepositoryBranches
             'repo',
             'branches',
             $this->githubService->GetOrganizationName(),
-            Auth::user()->workspace->apps()->findOrFail($request->validated('id'))->project_name
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))->project_name
         );
 
         $branches = collect($response->getData()->response);
