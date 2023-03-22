@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
             $inviteCode = WorkspaceInviteCode::whereBlind('code', 'code', $request->invite_code)->first();
             if (!$inviteCode)
             {
-                return back()->withInput()->withErrors('Invite Code is invalid!');
+                return back()->withInput()->withErrors(__('workspaces.invalid_invitation'));
             }
 
             $userWs = $inviteCode->workspace_id;

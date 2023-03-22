@@ -18,7 +18,7 @@ class JoinWorkspace
         $code = WorkspaceInviteCode::whereBlind('code', 'code', $request->validated('invite_code'))->first();
         if (!$code)
         {
-            return to_route('workspace_join')->withErrors('Invitation Code is invalid!');
+            return to_route('workspace_join')->withErrors(__('workspaces.invalid_invitation'));
         }
 
         $user = $request->user();

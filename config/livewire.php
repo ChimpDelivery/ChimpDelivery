@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'middleware_group' => [ 'web', 'auth', 'verified' ],
+    'middleware_group' => [ 'web', 'auth:sanctum', 'verified' ],
 
     /*
     |--------------------------------------------------------------------------
