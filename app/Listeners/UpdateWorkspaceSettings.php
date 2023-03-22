@@ -14,9 +14,6 @@ class UpdateWorkspaceSettings
         $request = $event->request;
         $validated = $request->safe();
 
-        $workspace->fill($validated->only([ 'name' ]));
-        $workspace->save();
-
         // AppStoreConnect
         $appStoreConnectSetting = $workspace->appStoreConnectSetting()->firstOrCreate();
         if ($request->hasFile('private_key')) {

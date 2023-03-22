@@ -17,25 +17,25 @@ class StoreWorkspace
 
     public function handle(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
-        $response = $this->StoreOrUpdate($request);
-        $workspaceName = $response['response']->name;
+        $workspace = $this->StoreOrUpdate($request);
 
-        $flashMessageDetail = ($response['wasRecentlyCreated'] === true) ? 'created.' : 'updated.';
-        $flashMessage = "Workspace: <b>{$workspaceName}</b> {$flashMessageDetail}";
+        $flashMessageDetail = $workspace->wasRecentlyCreated ? 'created.' : 'updated.';
+        $flashMessage = "Workspace: <b>{$workspace->name}</b> {$flashMessageDetail}";
 
         return to_route('workspace_settings')->with('success', $flashMessage);
     }
 
-    public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : array
+    private function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : Workspace
     {
         $user = $request->user();
-        $targetWorkspace = ($user->isNew()) ? new Workspace() : $user->workspace;
+
+        $targetWorkspace = $user->isNew() ? new Workspace() : $user->workspace;
+        $targetWorkspace->fill($request->safe()->only([ 'name' ]));
+        $targetWorkspace->save();
+
         event(new WorkspaceChanged($user, $targetWorkspace, $request));
 
-        return [
-            'response' => $targetWorkspace,
-            'wasRecentlyCreated' => $user->isNew(),
-        ];
+        return $targetWorkspace;
     }
 
     public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
@@ -44,13 +44,6 @@ class StoreWorkspace
             $this->ValidateCertificate($validator, $request);
             $this->ValidateProvision($validator, $request);
         });
-    }
-
-    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
-    {
-        $user = $request->user();
-
-        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 
     private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
@@ -105,5 +98,12 @@ class StoreWorkspace
     private function IsValidExtension($file, $extension) : bool
     {
         return str($file->getClientOriginalName())->endsWith($extension);
+    }
+
+    public function authorize(StoreWorkspaceSettingsRequest $request) : bool
+    {
+        $user = $request->user();
+
+        return $user->can($user->isNew() ? 'create workspace' : 'update workspace');
     }
 }

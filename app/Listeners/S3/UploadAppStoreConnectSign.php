@@ -2,10 +2,8 @@
 
 namespace App\Listeners\S3;
 
-use Illuminate\Support\Facades\Auth;
-
-use App\Events\WorkspaceChanged;
 use App\Traits\AsS3Client;
+use App\Events\WorkspaceChanged;
 
 class UploadAppStoreConnectSign
 {
@@ -13,7 +11,7 @@ class UploadAppStoreConnectSign
 
     public function handle(WorkspaceChanged $event) : void
     {
-        $appStoreConnectSign = Auth::user()->workspace->appStoreConnectSign()->firstOrCreate();
+        $appStoreConnectSign = $event->workspace->appStoreConnectSign()->firstOrCreate();
 
         if ($event->request->hasFile('provision_profile'))
         {
