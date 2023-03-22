@@ -28,7 +28,11 @@ class StoreWorkspace
     public function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : Workspace
     {
         $user = $request->user();
+
         $targetWorkspace = $user->isNew() ? new Workspace() : $user->workspace;
+        $targetWorkspace->fill($request->safe()->only([ 'name' ]));
+        $targetWorkspace->save();
+
         event(new WorkspaceChanged($user, $targetWorkspace, $request));
 
         return $targetWorkspace;
