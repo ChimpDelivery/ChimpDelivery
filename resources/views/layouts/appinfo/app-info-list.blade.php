@@ -5,10 +5,10 @@
     </th>
     <td class="text-center align-middle">
         @switch($appInfo->jenkins_status)
-            @case(3200)
+            @case(config('tunnel.ngrok.error_header'))
                 @include('errors.jenkins.jenkins-down')
             @break
-            @case(200)
+            @case(ResponseCodes::HTTP_OK)
                 @include('layouts.jenkins.build-status-button')
             @break
             @default
