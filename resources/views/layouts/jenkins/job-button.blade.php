@@ -5,7 +5,7 @@
         @if(in_array($appInfo?->jenkins_data?->status, JobStatus::GetRunningStages()))
             @include('layouts.jenkins.job-abort-button')
         @else
-            @include('layouts.jenkins.job-build-button')
+            @livewire('build-button-view', [ 'appInfo' => $appInfo ])
         @endif
     @else
         @include('errors.jenkins.jenkins-file-notfound')

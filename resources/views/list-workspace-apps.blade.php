@@ -3,8 +3,8 @@
 @section('title', 'Apps')
 
 @section('content')
+
     <div class="container py-2">
-        @include('layouts.jenkins.build-modal')
         <div class="card shadow bg-dark">
             @include('layouts.dashboard.card-header', [
                 'text' => 'Apps',
@@ -34,8 +34,4 @@
             ])
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/views/workspace-apps.js') }}"></script>
 @endsection

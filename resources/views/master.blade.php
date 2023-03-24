@@ -68,6 +68,15 @@
 
 <section class="scripts">
     @yield('scripts')
+
+    <!-- select-picker & livewire compatibility !-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Livewire.hook('message.processed', (message, component) => {
+                $('.selectpicker').selectpicker('refresh');
+            });
+        });
+    </script>
 </section>
 
 </html>

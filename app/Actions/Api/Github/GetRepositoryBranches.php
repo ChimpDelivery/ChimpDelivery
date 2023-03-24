@@ -2,6 +2,7 @@
 
 namespace App\Actions\Api\Github;
 
+use App\Models\AppInfo;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
@@ -19,13 +20,13 @@ class GetRepositoryBranches
         private readonly GitHubService $githubService
     ) { }
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
         $response = $this->githubService->MakeGithubRequest(
             'repo',
             'branches',
             $this->githubService->GetOrganizationName(),
-            $request->user()->workspace->apps()->findOrFail($request->validated('id'))->project_name
+            ($appInfo ?? $request->user()->workspace->apps()->findOrFail($request->validated('id')))->project_name
         );
 
         $branches = collect($response->getData()->response);
