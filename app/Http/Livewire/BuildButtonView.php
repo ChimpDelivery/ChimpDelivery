@@ -6,10 +6,14 @@ use Livewire\Component;
 
 use Illuminate\Contracts\View\View;
 
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+
 use App\Models\AppInfo;
 
 class BuildButtonView extends Component
 {
+    use LivewireAlert;
+
     public AppInfo $appInfo;
 
     public $branch;
@@ -23,16 +27,9 @@ class BuildButtonView extends Component
         $this->appInfo = $appInfo;
     }
 
-    public function submit()
+    public function submit() : void
     {
-        dd ($this->appInfo->id);
-        dd (to_route('build-app', [
-            'id' => $this->appInfo->id,
-            'platform' => $this->platform,
-            'store_version' => $this->storeVersion,
-            'store_custom_version' => $this->storeCustomVersion,
-            'store_build_number' => $this->storeBuildNumber,
-        ]));
+        $this->alert('success', $this->appInfo->id);
     }
 
     public function render() : View

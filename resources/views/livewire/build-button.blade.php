@@ -27,7 +27,7 @@
                     <div class="modal-body">
                         @feature(\App\Features\BranchBasedBuild::class)
                         <div class="form-group">
-                            @livewire('repository-branches-view', [ 'appInfo' => $appInfo ])
+                            <livewire:repository-branches-view :appInfo="$appInfo" />
                         </div>
                         @endfeature
                         <div class="form-group">
