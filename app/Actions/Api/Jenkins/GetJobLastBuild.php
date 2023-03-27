@@ -43,7 +43,7 @@ class GetJobLastBuild
             $build->status = $this->GetStatus($build);
 
             // if job is running, calculate average duration
-            if ($build->status == JobStatus::IN_PROGRESS)
+            if ($build->status === JobStatus::IN_PROGRESS)
             {
                 $build->estimated_duration = $builds->avg('durationMillis');
             }
