@@ -2,7 +2,7 @@
 
 return [
     // auth
-    'host' => env('JENKINS_HOST', 'https://jenkins.talusstudio.eu.ngrok.io'),
+    'host' => env('JENKINS_HOST', 'https://dashboard.talusstudio.com'),
     'user' => env('JENKINS_USER', ''),
     'token' => env('JENKINS_TOKEN', ''),
 
