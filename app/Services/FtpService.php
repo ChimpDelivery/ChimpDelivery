@@ -11,7 +11,7 @@ class FtpService
         public readonly string $domain
     ) { }
 
-    public function GetClient() : FilesystemAdapter
+    public function GetDisk() : FilesystemAdapter
     {
         return Storage::disk('ftp');
     }

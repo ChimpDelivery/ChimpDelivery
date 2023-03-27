@@ -32,15 +32,14 @@ class CreateFBAppAds
             ];
         }
 
-        $ftpClient = $this->ftpService->GetClient();
+        $ftpClient = $this->ftpService->GetDisk();
 
         $appAds = $ftpClient->get(config('facebook.app-ads.file'));
         if (!$appAds)
         {
             return [
                 'success' => false,
-                'message' => "app-ads.txt could not found!
-                    Expected path: {$this->ftpService->domain}/" . config('facebook.app-ads.file'),
+                'message' => "app-ads.txt could not found! Expected path: {$this->ftpService->domain}/" . config('facebook.app-ads.file'),
             ];
         }
 
@@ -60,10 +59,7 @@ class CreateFBAppAds
             config('facebook.app-ads.cert-authority-id')
         ]);
 
-        $uploadedFile = $ftpClient->append(
-            config('facebook.app-ads.file'),
-            $data
-        );
+        $uploadedFile = $ftpClient->append(config('facebook.app-ads.file'), $data);
 
         return [
             'success' => $uploadedFile,
