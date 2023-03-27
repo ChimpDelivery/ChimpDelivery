@@ -1,4 +1,4 @@
-@if($appInfo->jenkins_status === 3200)
+@if($appInfo->jenkins_status === config('tunnel.ngrok.error_header'))
     @include('errors.jenkins.jenkins-down')
 @else
     @if($appInfo->jenkins_status === ResponseCodes::HTTP_OK)
