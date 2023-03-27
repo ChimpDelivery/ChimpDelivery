@@ -6,7 +6,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppInfo;
 use App\Services\FtpService;
@@ -25,7 +24,9 @@ class CreateAppPrivacy
 
     public function handle(AppInfo $appInfo) : array
     {
-        $privacy = Storage::disk('ftp')->get(config('googleplay.privacy.template_file'));
+        $ftpClient = $this->ftpService->GetClient();
+
+        $privacy = $ftpClient->get(config('googleplay.privacy.template_file'));
 
         if (!$privacy)
         {
@@ -44,7 +45,7 @@ class CreateAppPrivacy
         $privacyUrl = "{$this->ftpService->domain}/{$newFilePath}";
         $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";
 
-        if (Storage::disk('ftp')->exists($newFilePath))
+        if ($ftpClient->exists($newFilePath))
         {
             return [
                 'success' => false,
@@ -53,7 +54,7 @@ class CreateAppPrivacy
         }
 
         $updatedContent = str_replace(config('googleplay.privacy.search'), $appInfo->app_name, $privacy);
-        $uploadedFile = Storage::disk('ftp')->put($newFilePath, $updatedContent);
+        $uploadedFile = $ftpClient->put($newFilePath, $updatedContent);
 
         return [
             'success' => $uploadedFile,

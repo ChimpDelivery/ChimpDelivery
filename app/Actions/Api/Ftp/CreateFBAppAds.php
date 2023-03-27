@@ -5,7 +5,6 @@ namespace App\Actions\Api\Ftp;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppInfo;
 use App\Services\FtpService;
@@ -33,7 +32,9 @@ class CreateFBAppAds
             ];
         }
 
-        $appAds = Storage::disk('ftp')->get(config('facebook.app-ads.file'));
+        $ftpClient = $this->ftpService->GetClient();
+
+        $appAds = $ftpClient->get(config('facebook.app-ads.file'));
         if (!$appAds)
         {
             return [
@@ -59,7 +60,7 @@ class CreateFBAppAds
             config('facebook.app-ads.cert-authority-id')
         ]);
 
-        $uploadedFile = Storage::disk('ftp')->append(
+        $uploadedFile = $ftpClient->append(
             config('facebook.app-ads.file'),
             $data
         );
