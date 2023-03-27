@@ -24,7 +24,7 @@ class CreateAppPrivacy
 
     public function handle(AppInfo $appInfo) : array
     {
-        $ftpClient = $this->ftpService->GetClient();
+        $ftpClient = $this->ftpService->GetDisk();
 
         $privacy = $ftpClient->get(config('googleplay.privacy.template_file'));
 
@@ -32,8 +32,7 @@ class CreateAppPrivacy
         {
             return [
                 'success' => false,
-                'message' => "Template Privacy file could not found!
-                    Expected path: {$this->ftpService->domain}/" . config('googleplay.privacy.template_file'),
+                'message' => "Template Privacy file could not found! Expected path: {$this->ftpService->domain}/" . config('googleplay.privacy.template_file'),
             ];
         }
 

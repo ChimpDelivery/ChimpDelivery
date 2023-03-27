@@ -80,14 +80,14 @@ class GetJobLastBuild
         ]);
     }
 
-    private function GetBuildPlatform(mixed $rawJenkinsResponse) : string
+    private function GetBuildPlatform(\stdClass $rawJenkinsResponse) : string
     {
         // parameters[1] === Platform parameter in Jenkinsfile
         // todo: refactor
         return $rawJenkinsResponse->actions[0]?->parameters[1]?->value ?? JobPlatform::Appstore->value;
     }
 
-    private function GetLastCommit(mixed $rawJenkinsResponse) : null|array
+    private function GetLastCommit(\stdClass $rawJenkinsResponse) : null|array
     {
         return collect($rawJenkinsResponse->changeSets[0]->items ?? [])
             ->map(function ($commit) {
@@ -101,15 +101,17 @@ class GetJobLastBuild
     }
 
     // get related commit link in commit history
-    private function GetCommitLink($commit) : string
+    private function GetCommitLink(\stdClass $commit) : string
     {
         $projectName = $this->app->project_name;
         $orgName = $this->app->workspace->githubOrgName();
 
-        return "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
+        return $commit->authorEmail === 'noreply@github.com'
+            ? "https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/commit/{$commit->id}"
+            : "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
     }
 
-    private function GetStopDetail(mixed $lastBuild) : Collection
+    private function GetStopDetail(\stdClass $lastBuild) : Collection
     {
         $buildStages = collect($lastBuild->stages);
 
@@ -123,7 +125,7 @@ class GetJobLastBuild
         ]);
     }
 
-    private function GetStatus($lastBuild) : JobStatus
+    private function GetStatus(\stdClass $lastBuild) : JobStatus
     {
         $inProgress = $lastBuild->status === JobStatus::IN_PROGRESS->value;
         $stageCount = count(collect($lastBuild->stages));
