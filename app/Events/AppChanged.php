@@ -5,9 +5,9 @@ namespace App\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Http\Request;
 
 use App\Models\AppInfo;
-use App\Http\Requests\AppInfo\StoreAppInfoRequest;
 
 class AppChanged
 {
@@ -17,6 +17,6 @@ class AppChanged
 
     public function __construct(
         public readonly AppInfo $appInfo,
-        public readonly StoreAppInfoRequest $request
+        public readonly Request $request
     ) { }
 }
