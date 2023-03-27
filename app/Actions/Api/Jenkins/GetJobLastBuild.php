@@ -106,7 +106,9 @@ class GetJobLastBuild
         $projectName = $this->app->project_name;
         $orgName = $this->app->workspace->githubOrgName();
 
-        return "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
+        return $commit->authorEmail === 'noreply@github.com'
+            ? "#"
+            : "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
     }
 
     private function GetStopDetail(mixed $lastBuild) : Collection
