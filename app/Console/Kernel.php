@@ -21,6 +21,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule) : void
     {
+        /////////////////////////////////////
+        /// proxy, cloud-flare etc...
+        /////////////////////////////////////
+        $schedule->command('cloudflare:reload')
+            ->daily()
+            ->at('04.30')
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->environments([ 'staging', 'production' ]);
+
         ////////////////////////////////////
         /// key rotators (after backups)
         ////////////////////////////////////

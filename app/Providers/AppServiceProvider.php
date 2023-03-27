@@ -9,6 +9,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Pennant\Feature;
 
+use Monicahq\Cloudflare\LaravelCloudflare;
+use Monicahq\Cloudflare\Facades\CloudflareProxies;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register() : void
@@ -37,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(App::isLocal());
 
         Feature::discover();
+
+        LaravelCloudflare::getProxiesUsing(fn() => CloudflareProxies::load());
     }
 }
