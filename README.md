@@ -10,6 +10,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [CipherSweet Key Generation](https://github.com/spatie/laravel-ciphersweet)
 - [S3 Bucket Key Generation](https://github.com)
+- [Cloudflare Settings](https://dash.cloudflare.com)
 - Jenkins Key Generation
   - ```JENKINS_URL/user/USER_NAME/configure -> Api Tokens```
 - Database Seeding
