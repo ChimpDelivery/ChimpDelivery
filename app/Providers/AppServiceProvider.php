@@ -7,6 +7,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+
 use Laravel\Pennant\Feature;
 
 use Monicahq\Cloudflare\LaravelCloudflare;
@@ -16,9 +17,14 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-        if ($this->app->environment([ 'local', 'staging' ])) {
-            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        if ($this->app->environment([ 'local' ]))
+        {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
+
+        if ($this->app->environment([ 'local', 'staging' ]))
+        {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
     }
 
