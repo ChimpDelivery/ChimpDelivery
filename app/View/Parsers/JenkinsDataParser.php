@@ -80,7 +80,7 @@ class JenkinsDataParser
         $stageName = Str::limit($this->lastBuild->stop_details->stage, $this->limits['stop_stage_length']);
         $prettyName = JobStatus::tryFrom($this->lastBuild->status)->PrettyName();
 
-        return match(JobStatus::tryFrom($this->lastBuild->status))
+        return match (JobStatus::tryFrom($this->lastBuild->status))
         {
             JobStatus::NOT_EXECUTED, JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>

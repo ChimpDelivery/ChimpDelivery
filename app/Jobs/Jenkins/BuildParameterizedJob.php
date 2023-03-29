@@ -25,7 +25,8 @@ class BuildParameterizedJob extends BaseJenkinsJob
         public readonly AppInfo $app,
         public readonly array $inputs,
         public readonly User $user,
-    ) { }
+    ) {
+    }
 
     public function handle() : array
     {
@@ -33,11 +34,11 @@ class BuildParameterizedJob extends BaseJenkinsJob
 
         // send request
         $response = $jenkinsService->PostResponse($this->CreateUrl());
-        $isResponseSucceed = $response->jenkins_status == Response::HTTP_CREATED;
+        $isResponseSucceed = $response->jenkins_status === Response::HTTP_CREATED;
 
         return [
             'success' => $isResponseSucceed,
-            'message' => $isResponseSucceed ? "No Error" : "Error Code: {$response->jenkins_status}"
+            'message' => $isResponseSucceed ? 'No Error' : "Error Code: {$response->jenkins_status}",
         ];
     }
 
@@ -46,7 +47,7 @@ class BuildParameterizedJob extends BaseJenkinsJob
         return implode('/', [
             "/job/{$this->app->project_name}/job",
             self::DEFAULT_BRANCH,
-            "buildWithParameters?" . http_build_query($this->GetParams()->toArray()),
+            'buildWithParameters?' . http_build_query($this->GetParams()->toArray()),
         ]);
     }
 
@@ -60,7 +61,6 @@ class BuildParameterizedJob extends BaseJenkinsJob
             'STORE_BUILD_VERSION' => $this->inputs['store_version'],
             'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?? self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
             'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?? self::DEFAULT_STORE_BUNDLE_VERSION,
-            'INSTALL_SDK' => !empty($this->inputs['install_backend']) ? 'true' : 'false',
         ])->merge($this->GetPlatformParams($this->inputs['platform']));
     }
 

@@ -13,7 +13,8 @@ class GetAppIcon
 
     public function __construct(
         private readonly S3Service $s3
-    ) { }
+    ) {
+    }
 
     public function handle(AppInfo $app) : string
     {

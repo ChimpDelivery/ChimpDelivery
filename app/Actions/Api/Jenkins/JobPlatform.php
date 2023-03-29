@@ -9,7 +9,7 @@ enum JobPlatform : string
 
     public function GetPlatformIcon() : string
     {
-        return match($this)
+        return match ($this)
         {
             self::Appstore => 'fa fa-apple',
             self::GooglePlay => 'fa fa-google',

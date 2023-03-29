@@ -31,7 +31,7 @@ class GetAppInfoRequest extends FormRequest
     {
         return [
             'id.required' => 'id is required!',
-            'id.numeric' => 'id can only contains numerics!'
+            'id.numeric' => 'id can only contains numerics!',
         ];
     }
 }

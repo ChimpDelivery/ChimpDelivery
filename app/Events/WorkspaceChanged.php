@@ -20,5 +20,6 @@ class WorkspaceChanged
         public readonly User $workspaceAdmin,
         public readonly Workspace $workspace,
         public readonly Request $request
-    ) { }
+    ) {
+    }
 }

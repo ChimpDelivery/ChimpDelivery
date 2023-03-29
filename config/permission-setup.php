@@ -69,5 +69,5 @@ return [
         'Admin_Super' => [
 
         ],
-    ]
+    ],
 ];

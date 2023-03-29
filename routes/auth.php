@@ -18,12 +18,12 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Actions\Dashboard\User\RegisterWithProvider;
 
 Route::middleware(['guest', ProtectAgainstSpam::class])->group(function () {
-
     /////////////////////////
     //// socialite routes
     /////////////////////////
-    Route::get('/auth/github/redirect',
-        fn() => Socialite::driver('github')->scopes([ 'read:user' ])->redirect()
+    Route::get(
+        '/auth/github/redirect',
+        fn () => Socialite::driver('github')->scopes([ 'read:user' ])->redirect()
     )->name('register.github');
 
     Route::get('/auth/github/callback', RegisterWithProvider::class)
@@ -56,7 +56,6 @@ Route::middleware(['guest', ProtectAgainstSpam::class])->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-
     ///////////////////////
     //// breeze routes
     ///////////////////////

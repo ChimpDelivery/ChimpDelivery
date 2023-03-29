@@ -18,7 +18,7 @@ class BuildJob extends BaseJenkinsAction
         // Job exist but there are no builds.
         // Jenkins jobs created as non-parameterized by default.
         // We need to handle this step with minimal build.
-        if ($firstBuild->number == 1 && empty($firstBuild->url))
+        if ($firstBuild->number === 1 && empty($firstBuild->url))
         {
             return ParameterizeJob::run($request);
         }

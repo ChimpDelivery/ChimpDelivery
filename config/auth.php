@@ -72,7 +72,7 @@ return [
         'workspaces' => [
             'driver' => 'eloquent',
             'model' => App\Models\Workspace::class,
-        ]
+        ],
 
         // 'users' => [
         //     'driver' => 'database',

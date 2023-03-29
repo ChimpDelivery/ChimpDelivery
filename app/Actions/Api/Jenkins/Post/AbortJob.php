@@ -15,7 +15,8 @@ class AbortJob extends BaseJenkinsAction
 
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(StopJobRequest $request) : array
     {
@@ -25,7 +26,7 @@ class AbortJob extends BaseJenkinsAction
         $response =  $this->jenkinsService->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
-        $isResponseSucceed = $responseCode == Response::HTTP_OK;
+        $isResponseSucceed = $responseCode === Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)
             ? "<b>{$this->app->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
             : "{$this->app->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";

@@ -14,7 +14,8 @@ class AlphaDashDot implements Rule
      */
     public function passes($attribute, $value) : bool
     {
-        if (!is_string($value) && !is_numeric($value)) {
+        if (!is_string($value) && !is_numeric($value))
+        {
             return false;
         }
 

@@ -18,7 +18,8 @@ class GetRepositoryBranches
 
     public function __construct(
         private readonly GitHubService $githubService
-    ) { }
+    ) {
+    }
 
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
@@ -33,7 +34,7 @@ class GetRepositoryBranches
 
         // api response can include error and details
         // when error is encountered, branch collection will be empty
-        $branches = $branches->filter(function(\stdClass $branch) {
+        $branches = $branches->filter(function (\stdClass $branch) {
             return isset($branch->commit) && isset($branch->name);
         });
 

@@ -19,7 +19,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
         return [
             'workspace_id' => [
                 Rule::exists('workspaces', 'id')
-                    ->whereNull('deleted_at')
+                    ->whereNull('deleted_at'),
             ],
 
             'app_icon' => 'image|mimes:png|max:5120',
@@ -40,7 +40,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->where('workspace_id', Auth::user()->workspace->id)
-                    ->whereNull('deleted_at')
+                    ->whereNull('deleted_at'),
             ],
 
             'app_bundle' => [
@@ -50,7 +50,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->where('workspace_id', Auth::user()->workspace->id)
-                    ->whereNull('deleted_at')
+                    ->whereNull('deleted_at'),
             ],
 
             'appstore_id' => [
@@ -58,7 +58,7 @@ class StoreAppInfoRequest extends GetRepositoryRequest
                 Rule::unique('app_infos')
                     ->ignore($this->id)
                     ->where('workspace_id', Auth::user()->workspace->id)
-                    ->whereNull('deleted_at')
+                    ->whereNull('deleted_at'),
             ],
 
             'fb_app_id' => [

@@ -45,17 +45,17 @@ class AppStoreConnectSign extends Model
 
     protected function certName() : Attribute
     {
-        return new Attribute(fn() => str($this->cert)->explode('/')->last() ?: 'Choose...');
+        return new Attribute(fn () => str($this->cert)->explode('/')->last() ?: 'Choose...');
     }
 
     protected function provisionName() : Attribute
     {
-        return new Attribute(fn() => str($this->provision_profile)->explode('/')->last());
+        return new Attribute(fn () => str($this->provision_profile)->explode('/')->last());
     }
 
     protected function provisionExpire() : Attribute
     {
-        return new Attribute(function() {
+        return new Attribute(function () {
             $provisionExpire = GetProvisionProfile::run(Auth::user(), $this->workspace)
                 ->headers
                 ->get(config('appstore-sign.provision.required_tags')['expire']['web']);

@@ -18,7 +18,8 @@ class JenkinsService
         private readonly string $jenkinsUsername,
         private readonly string $jenkinsUserToken,
         private readonly ?User $user = null,
-    ) { }
+    ) {
+    }
 
     public function GetWorkspaceUrl() : string
     {

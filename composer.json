@@ -45,6 +45,7 @@
         "deployer/deployer": "^7.0",
         "enlightn/enlightn": "^2.3",
         "laravel/breeze": "^1.8",
+        "laravel/pint": "^1.7",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0",
@@ -83,11 +84,14 @@
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
         "dashboard-down": "php artisan down --secret=\"2626\"",
         "dashboard-up": "php artisan up",
-        "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline"
+        "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline",
+        "dashboard-pint": "php vendor/bin/pint -v"
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-debugbar"
+            ]
         }
     },
     "config": {

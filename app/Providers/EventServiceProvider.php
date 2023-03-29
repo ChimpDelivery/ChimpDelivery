@@ -41,7 +41,7 @@ class EventServiceProvider extends ServiceProvider
     protected $observers = [
 
         Workspace::class => [
-            WorkspaceObserver::class
+            WorkspaceObserver::class,
         ],
     ];
 
@@ -50,7 +50,8 @@ class EventServiceProvider extends ServiceProvider
      *
      */
     public function boot() : void
-    { }
+    {
+    }
 
     /**
      * Determine if events and listeners should be automatically discovered.

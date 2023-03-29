@@ -15,7 +15,8 @@ class GetStoreApps
 
     public function __construct(
         private readonly AppStoreConnectService $appStoreConnectService
-    ) { }
+    ) {
+    }
 
     public function handle() : JsonResponse
     {

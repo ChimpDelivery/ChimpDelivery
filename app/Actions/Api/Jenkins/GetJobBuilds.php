@@ -21,7 +21,8 @@ class GetJobBuilds
 
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {
@@ -31,13 +32,13 @@ class GetJobBuilds
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.
-        if (count($builds) == 0)
+        if (count($builds) === 0)
         {
             $builds = $builds->push(
                 collect([
                     '_class' => 'org.jenkinsci.plugins.workflow.job.WorkflowRu',
                     'number' => $jobResponse->jenkins_data?->nextBuildNumber,
-                    'url' => ''
+                    'url' => '',
                 ])
             );
         }
@@ -52,7 +53,7 @@ class GetJobBuilds
         return implode('/', [
             "/job/{$app->project_name}/job",
             'master',
-            "api/json?tree={$this->filters['job_parameters']}"
+            "api/json?tree={$this->filters['job_parameters']}",
         ]);
     }
 }

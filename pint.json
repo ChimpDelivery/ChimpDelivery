@@ -1,0 +1,65 @@
+{
+    "preset": "psr12",
+    "exclude": [
+        "database/migrations",
+        "public/",
+        "app/Http/Controllers",
+        "app/Http/Requests/Auth"
+    ],
+    "rules": {
+        "clean_namespace": true,
+        "no_unused_imports": true,
+        "array_indentation": true,
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "no_whitespace_before_comma_in_array": true,
+        "whitespace_after_comma_in_array": true,
+        "trailing_comma_in_multiline": {
+            "elements": [ "arrays" ]
+        },
+        "trim_array_spaces": false,
+        "single_quote": true,
+        "single_import_per_statement": true,
+        "function_typehint_space": true,
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": true,
+        "ordered_traits": false,
+        "strict_comparison": true,
+        "no_empty_comment": false,
+        "no_spaces_inside_parenthesis": true,
+        "no_spaces_after_function_name": true,
+        "return_type_declaration": {
+            "space_before": "one"
+        },
+        "ordered_imports": {
+            "sort_algorithm": "none"
+        },
+        "global_namespace_import": {
+            "import_classes": false,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "simplified_null_return": false,
+        "braces": {
+            "allow_single_line_anonymous_class_with_empty_body": true,
+            "allow_single_line_closure": true,
+            "position_after_control_structures": "next",
+            "position_after_functions_and_oop_constructs": "next",
+            "position_after_anonymous_constructs": "same"
+        },
+        "curly_braces_position": {
+            "control_structures_opening_brace": "next_line_unless_newline_at_signature_end",
+            "functions_opening_brace": "next_line_unless_newline_at_signature_end",
+            "anonymous_functions_opening_brace": "same_line",
+            "classes_opening_brace": "next_line_unless_newline_at_signature_end",
+            "anonymous_classes_opening_brace": "next_line_unless_newline_at_signature_end",
+            "allow_single_line_empty_anonymous_classes": true,
+            "allow_single_line_anonymous_functions": true
+        },
+        "new_with_braces": {
+            "anonymous_class": false,
+            "named_class": true
+        }
+    }
+}

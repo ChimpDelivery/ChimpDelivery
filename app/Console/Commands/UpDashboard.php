@@ -26,5 +26,4 @@ class UpDashboard extends Command
 
         return Command::SUCCESS;
     }
-
 }

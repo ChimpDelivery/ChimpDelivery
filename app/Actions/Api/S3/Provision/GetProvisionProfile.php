@@ -62,7 +62,7 @@ class GetProvisionProfile
         $tags = $this->GetFileTags($fileResponse);
 
         $tagPositionReference = $tags->filter(
-            fn($tag) => str($tag[0])->contains("<key>{$searchedTag}</key>")
+            fn ($tag) => str($tag[0])->contains("<key>{$searchedTag}</key>")
         );
         $tagPositionIndex = $tagPositionReference->keys()->first() + 1;
 
@@ -72,7 +72,8 @@ class GetProvisionProfile
     // example response: https://gist.github.com/emrekovanci/b68e92d49c98e48d818c9083a8ba19c6
     private function GetFileTags(Response $response) : Collection
     {
-        preg_match_all("/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",
+        preg_match_all(
+            "/(<([\w]+)[^>]*>)(.*?)(<\/\\2>)/",
             $response->getContent(),
             $matches,
             PREG_SET_ORDER

@@ -13,7 +13,8 @@ class ParameterizeJob extends BaseJenkinsAction
 {
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(BuildRequest $request) : array
     {
@@ -22,7 +23,7 @@ class ParameterizeJob extends BaseJenkinsAction
         $response = $this->jenkinsService->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
 
-        $isResponseSucceed = $responseCode == Response::HTTP_CREATED;
+        $isResponseSucceed = $responseCode === Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
             ? "Project: <b>{$app->project_name}</b> is parameterizing. This build gonna be <b>aborted</b> by Jenkins!"
             : "Error Code: {$responseCode}";
