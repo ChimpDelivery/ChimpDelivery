@@ -60,9 +60,7 @@ class AppStoreConnectSign extends Model
                 ->headers
                 ->get(config('appstore-sign.provision.required_tags')['expire']['web']);
 
-            return !empty($provisionExpire)
-                ? "Expire Date: {$provisionExpire}"
-                : 'Choose...';
+            return !empty($provisionExpire) ? "Expire Date: {$provisionExpire}" : 'Choose...';
         });
     }
 
