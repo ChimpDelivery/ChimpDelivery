@@ -1,7 +1,8 @@
 {
     "preset": "psr12",
     "exclude": [
-        "database/migrations"
+        "database/migrations",
+        "public/"
     ],
     "rules": {
         "clean_namespace": true,
