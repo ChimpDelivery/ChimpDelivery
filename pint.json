@@ -5,20 +5,35 @@
         "blank_line_after_opening_tag": true,
         "ordered_traits": true,
         "strict_comparison": true,
-        "no_empty_comment": true,
+        "no_empty_comment": false,
         "return_type_declaration": {
             "space_before": "one"
         },
         "global_namespace_import": {
-            "import_classes": true,
+            "import_classes": false,
             "import_constants": true,
             "import_functions": true
         },
         "simplified_null_return": true,
-        "braces": true,
+        "braces": {
+            "allow_single_line_anonymous_class_with_empty_body": true,
+            "allow_single_line_closure": true,
+            "position_after_control_structures": "next",
+            "position_after_functions_and_oop_constructs": "next",
+            "position_after_anonymous_constructs": "next"
+        },
+        "curly_braces_position": {
+            "control_structures_opening_brace": "next_line_unless_newline_at_signature_end",
+            "functions_opening_brace": "next_line_unless_newline_at_signature_end",
+            "anonymous_functions_opening_brace": "next_line_unless_newline_at_signature_end",
+            "classes_opening_brace": "next_line_unless_newline_at_signature_end",
+            "anonymous_classes_opening_brace": "next_line_unless_newline_at_signature_end",
+            "allow_single_line_empty_anonymous_classes": true,
+            "allow_single_line_anonymous_functions": true
+        },
         "new_with_braces": {
             "anonymous_class": false,
-            "named_class": false
+            "named_class": true
         }
     }
 }
