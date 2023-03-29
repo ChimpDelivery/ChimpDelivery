@@ -50,7 +50,7 @@ class AppInfo extends Model
         return new Attribute(fn () => implode('/', [
             'https://github.com',
             $this->workspace->githubSetting->organization_name,
-            $this->project_name
+            $this->project_name,
         ]));
     }
 

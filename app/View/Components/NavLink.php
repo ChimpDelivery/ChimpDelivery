@@ -23,7 +23,7 @@ class NavLink extends Component
         $classes = [ 'nav-link', 'font-weight-bold', 'text-white' => $this->isActive() ];
 
         return view('components.nav-link', [
-            'classes' => Arr::toCssClasses($classes)
+            'classes' => Arr::toCssClasses($classes),
         ]);
     }
 

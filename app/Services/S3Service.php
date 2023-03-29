@@ -23,7 +23,7 @@ class S3Service
     {
         return implode('/', [
             config('aws.s3.ws_path'),
-            $this->workspace->id
+            $this->workspace->id,
         ]);
     }
 

@@ -13,13 +13,13 @@ class WorkspaceSeeder extends Seeder
         // seed default Workspace for new Users
         Workspace::factory(1)->createQuietly([
             'id' => 1,
-            'name' => config('workspaces.default_org_name')
+            'name' => config('workspaces.default_org_name'),
         ]);
 
         // seed internal Workspace
         Workspace::factory(1)->createQuietly([
             'id' => 2,
-            'name' => 'TalusStudio'
+            'name' => 'TalusStudio',
         ]);
 
         // seed demo Workspaces

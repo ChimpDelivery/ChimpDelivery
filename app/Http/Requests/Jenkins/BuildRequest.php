@@ -20,7 +20,7 @@ class BuildRequest extends GetAppInfoRequest
             'platform' => [
                 'required',
                 'string',
-                Rule::in(JobPlatform::GetActivePlatforms())
+                Rule::in(JobPlatform::GetActivePlatforms()),
             ],
 
             'store_version' => [ 'required', 'numeric' ],

@@ -13,7 +13,7 @@ class EnsureUserNotNew
         if (Auth::user()->isNew())
         {
             return response()->json([
-                'message' => 'Forbidden: Only Workspace Users!'
+                'message' => 'Forbidden: Only Workspace Users!',
             ], Response::HTTP_FORBIDDEN);
         }
 

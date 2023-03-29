@@ -40,7 +40,7 @@ class CreateAppPrivacy
         $newFilePath = implode('/', [
             config('googleplay.privacy.container_folder'),
             Str::slug($appInfo->app_name),
-            config('googleplay.privacy.file_name')
+            config('googleplay.privacy.file_name'),
         ]);
         $privacyUrl = "{$this->ftpService->domain}/{$newFilePath}";
         $privacyLink = "<a href={$privacyUrl}>{$privacyUrl}</a>";

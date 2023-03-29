@@ -34,7 +34,7 @@ class StoreAppInfo
     {
         $message = implode(' ', [
             "Project: <b>{$appInfo->project_name}</b>",
-            ($appInfo->wasRecentlyCreated) ? 'created.' : 'updated.'
+            ($appInfo->wasRecentlyCreated) ? 'created.' : 'updated.',
         ]);
 
         return to_route('index')->with('success', $message);

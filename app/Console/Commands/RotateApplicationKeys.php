@@ -38,7 +38,7 @@ class RotateApplicationKeys extends Command
         // rotate laravel key
         $this->call('key:generate', [
             '--show' => $this->option('show'),
-            '--force' => true
+            '--force' => true,
         ]);
 
         // rotate ciphersweet key

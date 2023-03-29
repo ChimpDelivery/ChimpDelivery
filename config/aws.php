@@ -12,7 +12,7 @@ return [
         'ws_path' => implode('/', [
             'TalusDashboard_Root',
             env('APP_ENV', 'local'),
-            'Workspaces'
+            'Workspaces',
         ]),
 
         // indicates custom-header contains filename

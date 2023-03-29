@@ -30,7 +30,7 @@ return [
 
         collect(config('appstore-sign.provision.required_tags'))
             ->map(fn ($item) => $item['web'])
-            ->implode(',')
+            ->implode(','),
     ],
 
     'max_age' => 0,

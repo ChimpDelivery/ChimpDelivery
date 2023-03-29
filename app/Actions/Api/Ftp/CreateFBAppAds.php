@@ -29,7 +29,7 @@ class CreateFBAppAds
         {
             return [
                 'success' => false,
-                'message' => 'FB App ID is <b>empty</b>!'
+                'message' => 'FB App ID is <b>empty</b>!',
             ];
         }
 
@@ -49,7 +49,7 @@ class CreateFBAppAds
         {
             return [
                 'success' => false,
-                'message' => "FB App ID: <b>{$app->fb_app_id}</b> already in <b>app-ads.txt</b> file!"
+                'message' => "FB App ID: <b>{$app->fb_app_id}</b> already in <b>app-ads.txt</b> file!",
             ];
         }
         //
@@ -57,7 +57,7 @@ class CreateFBAppAds
             config('facebook.app-ads.domain'),
             $app->fb_app_id,
             config('facebook.app-ads.type'),
-            config('facebook.app-ads.cert-authority-id')
+            config('facebook.app-ads.cert-authority-id'),
         ]);
 
         $uploadedFile = $ftpClient->append(config('facebook.app-ads.file'), $data);

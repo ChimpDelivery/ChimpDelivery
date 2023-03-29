@@ -38,7 +38,7 @@ class BuildParameterizedJob extends BaseJenkinsJob
 
         return [
             'success' => $isResponseSucceed,
-            'message' => $isResponseSucceed ? 'No Error' : "Error Code: {$response->jenkins_status}"
+            'message' => $isResponseSucceed ? 'No Error' : "Error Code: {$response->jenkins_status}",
         ];
     }
 

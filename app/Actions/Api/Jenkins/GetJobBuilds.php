@@ -38,7 +38,7 @@ class GetJobBuilds
                 collect([
                     '_class' => 'org.jenkinsci.plugins.workflow.job.WorkflowRu',
                     'number' => $jobResponse->jenkins_data?->nextBuildNumber,
-                    'url' => ''
+                    'url' => '',
                 ])
             );
         }
@@ -53,7 +53,7 @@ class GetJobBuilds
         return implode('/', [
             "/job/{$app->project_name}/job",
             'master',
-            "api/json?tree={$this->filters['job_parameters']}"
+            "api/json?tree={$this->filters['job_parameters']}",
         ]);
     }
 }

@@ -158,7 +158,7 @@ return [
             \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['discord'],
             \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['discord'],
             \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['discord'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['discord']
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['discord'],
         ],
 
         /*

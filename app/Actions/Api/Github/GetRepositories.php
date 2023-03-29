@@ -35,7 +35,7 @@ class GetRepositories
         $filteredOrgProjects = $this->FilterProjects($orgProjects);
 
         return response()->json([
-            'response' => $this->ReorganizeProjects($filteredOrgProjects)
+            'response' => $this->ReorganizeProjects($filteredOrgProjects),
         ], $request->status());
     }
 
@@ -75,7 +75,7 @@ class GetRepositories
             return [
                 'id' => $githubProject->id,
                 'name' => $githubProject->name,
-                'size' => round($githubProject->size / 1024, 2) . 'mb'
+                'size' => round($githubProject->size / 1024, 2) . 'mb',
             ];
         });
     }

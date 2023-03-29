@@ -77,7 +77,7 @@ class GetJobLastBuild
         return implode('/', [
             "/job/{$this->app->project_name}/job",
             'master',
-            'wfapi/runs'
+            'wfapi/runs',
         ]);
     }
 

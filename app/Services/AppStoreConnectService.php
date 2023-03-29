@@ -34,7 +34,7 @@ class AppStoreConnectService
         {
             return response()->json([
                 'appstore_token' => null,
-                'error' => "Could not generate token! Exception Code: {$exception->getCode()}"
+                'error' => "Could not generate token! Exception Code: {$exception->getCode()}",
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -49,7 +49,7 @@ class AppStoreConnectService
             payload: [
                 'iss' => $settings->issuer_id,
                 'exp' => time() + config('appstore.cache_duration') * 60,
-                'aud' => 'appstoreconnect-v1'
+                'aud' => 'appstoreconnect-v1',
             ],
             key: $settings->private_key,
             alg: 'ES256',

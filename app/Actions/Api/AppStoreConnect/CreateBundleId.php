@@ -54,7 +54,7 @@ class CreateBundleId
                     'platform' => 'IOS',
                 ],
                 'type' => 'bundleIds',
-            ]
+            ],
         ];
     }
 
