@@ -61,6 +61,7 @@ class BuildParameterizedJob extends BaseJenkinsJob
             'STORE_BUILD_VERSION' => $this->inputs['store_version'],
             'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?? self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
             'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?? self::DEFAULT_STORE_BUNDLE_VERSION,
+            'UNITY_VERSION' => '2021.3.5f1',
         ])->merge($this->GetPlatformParams($this->inputs['platform']));
     }
 
