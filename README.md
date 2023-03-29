@@ -17,7 +17,7 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
   - ```php artisan migrate:fresh --seed```
 - Code Quality Check
   - ```composer dashboard-static-analysis``` [[PHPStan](https://phpstan.org)]
-- Linter
+- Coding Standards Fixer (CS Fixer)
   - ```composer dashboard-pint```
 
 # :tada: Features
