@@ -3,7 +3,8 @@
     "exclude": [
         "database/migrations",
         "public/",
-        "app/Http/Controllers"
+        "app/Http/Controllers",
+        "app/Http/Requests/Auth"
     ],
     "rules": {
         "clean_namespace": true,
