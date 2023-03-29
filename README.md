@@ -1,5 +1,8 @@
 # Talus Dashboard
-Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
+- Provides backend systems such as ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
+- Web Dashboard and related services configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
+
+# :alembic: Environments
 - [Production Server - Configurations](https://github.com/TalusStudio/TalusWebBackend-Deployment)
 - [Jenkins Controller(Master) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Controller-Docs)
 - [Jenkins Agent(Slave) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Agent-Docs)
