@@ -43,7 +43,7 @@ class CreateOrganization extends BaseJenkinsJob
     public function GetJobParams(Workspace $workspace, User $workspaceAdmin) : string
     {
         $githubSetting = $workspace->githubSetting;
-        $tfSetting = $workspace->appleSetting;
+        $appleSetting = $workspace->appleSetting;
 
         return http_build_query([
             // dashboard-auth
@@ -57,8 +57,8 @@ class CreateOrganization extends BaseJenkinsJob
             'REPO_OWNER' => $githubSetting->organization_name,
 
             // delivery platform
-            'TESTFLIGHT_USERNAME' => $tfSetting->usermail,
-            'TESTFLIGHT_PASSWORD' => $tfSetting->app_specific_pass,
+            'TESTFLIGHT_USERNAME' => $appleSetting->usermail,
+            'TESTFLIGHT_PASSWORD' => $appleSetting->app_specific_pass,
         ]);
     }
 }
