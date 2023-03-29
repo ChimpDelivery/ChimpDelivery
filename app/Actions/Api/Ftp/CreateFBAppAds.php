@@ -20,7 +20,8 @@ class CreateFBAppAds
 
     public function __construct(
         private readonly FtpService $ftpService
-    ) { }
+    ) {
+    }
 
     public function handle(AppInfo $app) : array
     {

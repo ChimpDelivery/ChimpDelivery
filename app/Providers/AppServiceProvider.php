@@ -32,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
     {
         if (!App::isLocal())
         {
-            Password::defaults(fn() => Password::min(10)
+            Password::defaults(
+                fn () => Password::min(10)
                 ->letters()
                 ->mixedCase()
                 ->uncompromised()
@@ -47,6 +48,6 @@ class AppServiceProvider extends ServiceProvider
 
         Feature::discover();
 
-        LaravelCloudflare::getProxiesUsing(fn() => CloudflareProxies::load());
+        LaravelCloudflare::getProxiesUsing(fn () => CloudflareProxies::load());
     }
 }

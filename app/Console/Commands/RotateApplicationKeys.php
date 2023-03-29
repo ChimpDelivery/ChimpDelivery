@@ -94,7 +94,10 @@ class RotateApplicationKeys extends Command
 
     protected function SetKeyInEnvironmentFile($key) : bool
     {
-        if (!$this->WriteNewEnvironmentFileWith($key)) { return false; }
+        if (!$this->WriteNewEnvironmentFileWith($key))
+        {
+            return false;
+        }
 
         return true;
     }

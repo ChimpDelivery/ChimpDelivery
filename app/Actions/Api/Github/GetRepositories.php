@@ -17,7 +17,8 @@ class GetRepositories
 
     public function __construct(
         private readonly GitHubService $githubService
-    ) { }
+    ) {
+    }
 
     public function handle() : JsonResponse
     {
@@ -57,7 +58,8 @@ class GetRepositories
     // maybe extra organization is useful when filtering projects.
     private function FilterProjects(Collection $response) : Collection
     {
-        if ($this->githubService->GetRepoTopic() == null) {
+        if ($this->githubService->GetRepoTopic() === null)
+        {
             return $response;
         }
 
@@ -82,9 +84,18 @@ class GetRepositories
     {
         $service = $this->githubService;
 
-        if ($service->IsPublicReposEnabled() && $service->IsPrivateReposEnabled() === true) { return 'all'; }
-        if ($service->IsPublicReposEnabled()) { return 'public'; }
-        if ($service->IsPrivateReposEnabled()) { return 'private'; }
+        if ($service->IsPublicReposEnabled() && $service->IsPrivateReposEnabled() === true)
+        {
+            return 'all';
+        }
+        if ($service->IsPublicReposEnabled())
+        {
+            return 'public';
+        }
+        if ($service->IsPrivateReposEnabled())
+        {
+            return 'private';
+        }
 
         return 'none';
     }

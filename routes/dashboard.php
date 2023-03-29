@@ -24,20 +24,22 @@ Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgain
     //////////////////////////
     //// main routes
     //////////////////////////
-    Route::get('/dashboard', fn() => auth()->user()->isNew()
+    Route::get(
+        '/dashboard',
+        fn () => auth()->user()->isNew()
         ? to_route('workspace_settings')
         : GetWorkspaceIndex::run()
     )->name('index')
      ->withoutMiddleware('ensureUserNotNew');
 
-    Route::get('/dashboard/profile', fn() => view('user-profile', [ 'user' => auth()->user() ]))
+    Route::get('/dashboard/profile', fn () => view('user-profile', [ 'user' => auth()->user() ]))
         ->name('dashboard.profile')
         ->withoutMiddleware('ensureUserNotNew');
 
     Route::post('/dashboard/profile', UpdateUserProfile::class)
         ->withoutMiddleware('ensureUserNotNew');
 
-    Route::get('/dashboard/workspace-join', fn() => view('workspace-join'))
+    Route::get('/dashboard/workspace-join', fn () => view('workspace-join'))
         ->name('workspace_join')
         ->middleware('permission:join workspace')
         ->withoutMiddleware('ensureUserNotNew');
@@ -49,8 +51,9 @@ Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgain
     ////////////////////////////////
     //// workspace routes
     ////////////////////////////////
-    Route::get('/dashboard/workspace-settings',
-        fn() => view('workspace-settings', [
+    Route::get(
+        '/dashboard/workspace-settings',
+        fn () => view('workspace-settings', [
             'isNew' => auth()->user()->isNew(),
             'workspace' => auth()->user()->workspace,
             'workspace_github_orgs' => GetUserOrganizations::run(),
@@ -108,7 +111,7 @@ Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgain
     //////////////////////////////////
     //// app store connect routes
     /////////////////////////////////
-    Route::get('/dashboard/create-bundle', fn() => view('create-bundle-form'))
+    Route::get('/dashboard/create-bundle', fn () => view('create-bundle-form'))
         ->name('create_bundle')
         ->middleware('permission:create bundle');
 

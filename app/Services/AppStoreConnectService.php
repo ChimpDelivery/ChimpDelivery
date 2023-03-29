@@ -16,7 +16,8 @@ class AppStoreConnectService
 {
     public function __construct(
         private readonly ?AppStoreConnectSetting $settings = null
-    ) { }
+    ) {
+    }
 
     public function GetHttpClient() : PendingRequest
     {

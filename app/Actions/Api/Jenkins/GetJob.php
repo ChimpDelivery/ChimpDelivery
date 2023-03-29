@@ -15,7 +15,8 @@ class GetJob
 
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(GetAppInfoRequest $request) : JsonResponse
     {

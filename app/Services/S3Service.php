@@ -14,7 +14,8 @@ class S3Service
 {
     public function __construct(
         private readonly Workspace $workspace
-    ) { }
+    ) {
+    }
 
     // workspaces have their own folders on s3 bucket to store required assets
     // workspace folder contains sub-folders by file-types

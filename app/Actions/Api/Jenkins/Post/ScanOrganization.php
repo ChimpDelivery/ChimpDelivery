@@ -13,13 +13,14 @@ class ScanOrganization extends BaseJenkinsAction
 {
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(AppChanged $event) : array
     {
-        $response = $this->jenkinsService->PostResponse("/build?delay=0");
+        $response = $this->jenkinsService->PostResponse('/build?delay=0');
 
-        $isResponseSucceed = $response->jenkins_status == Response::HTTP_OK;
+        $isResponseSucceed = $response->jenkins_status === Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)
             ? 'Repository scanning begins.'
             : "Repository scanning could not run! Error Code: {$response->jenkins_status}";

@@ -9,7 +9,8 @@ class FtpService
 {
     public function __construct(
         public readonly string $domain
-    ) { }
+    ) {
+    }
 
     public function GetDisk() : FilesystemAdapter
     {

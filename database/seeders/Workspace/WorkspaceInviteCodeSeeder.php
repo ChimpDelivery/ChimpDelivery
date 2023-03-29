@@ -15,7 +15,7 @@ class WorkspaceInviteCodeSeeder extends Seeder
 
         if (!app()->isLocal())
         {
-            $output->writeln("Workspace Invite Code Seeder is not gonna run! Only local env allowed!");
+            $output->writeln('Workspace Invite Code Seeder is not gonna run! Only local env allowed!');
             return;
         }
 

@@ -29,9 +29,18 @@ class NavLink extends Component
 
     protected function isActive() : bool
     {
-        if (is_bool($this->active)) { return $this->active; }
-        if (request()->is($this->active)) { return true; }
-        if (request()->fullUrlIs($this->active)) { return true; }
+        if (is_bool($this->active))
+        {
+            return $this->active;
+        }
+        if (request()->is($this->active))
+        {
+            return true;
+        }
+        if (request()->fullUrlIs($this->active))
+        {
+            return true;
+        }
 
         return request()->routeIs($this->active);
     }

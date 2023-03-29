@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use Throwable;
 
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +15,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
         //
@@ -47,12 +46,13 @@ class Handler extends ExceptionHandler
     public function register() : void
     {
         $this->renderable(function (NotFoundHttpException $exception, $request) {
-            if ($request->expectsJson()) {
+            if ($request->expectsJson())
+            {
                 return response()->json([ 'message' => 'Object not found!' ], Response::HTTP_NOT_FOUND);
             }
         });
 
-        $this->reportable(function (Throwable $e) {
+        $this->reportable(function (\Throwable $e) {
             Integration::captureUnhandledException($e);
         });
 

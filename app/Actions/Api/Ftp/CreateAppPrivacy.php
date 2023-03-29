@@ -20,7 +20,8 @@ class CreateAppPrivacy
 
     public function __construct(
         private readonly FtpService $ftpService
-    ) { }
+    ) {
+    }
 
     public function handle(AppInfo $appInfo) : array
     {

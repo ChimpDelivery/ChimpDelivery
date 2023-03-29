@@ -25,7 +25,8 @@ class GetJobLastBuild
 
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
     {
@@ -132,7 +133,7 @@ class GetJobLastBuild
 
         // queued and running jobs have same status (IN_PROGRESS)
         // lets make the distinction
-        if ($inProgress && $stageCount == 0)
+        if ($inProgress && $stageCount === 0)
         {
             return JobStatus::IN_QUEUE;
         }

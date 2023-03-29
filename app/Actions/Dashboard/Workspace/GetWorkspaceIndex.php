@@ -42,7 +42,7 @@ class GetWorkspaceIndex
 
         //
         $jenkinsData = $response->jenkins_data;
-        if ($jenkinsData?->status == JobStatus::IN_PROGRESS->value)
+        if ($jenkinsData?->status === JobStatus::IN_PROGRESS->value)
         {
             $jenkinsData->estimated_time = $this->GetBuildFinish(
                 $jenkinsData->startTimeMillis,

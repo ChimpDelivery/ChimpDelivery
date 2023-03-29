@@ -17,5 +17,4 @@ class RestartHorizonQueue extends Command
 
         return Command::SUCCESS;
     }
-
 }
