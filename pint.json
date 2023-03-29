@@ -2,7 +2,8 @@
     "preset": "psr12",
     "exclude": [
         "database/migrations",
-        "public/"
+        "public/",
+        "app/Http/Controllers"
     ],
     "rules": {
         "clean_namespace": true,
