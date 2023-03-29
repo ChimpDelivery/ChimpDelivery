@@ -48,7 +48,6 @@ return [
     */
     'base_path' => [
         app_path(),
-        database_path('migrations'),
         database_path('seeders'),
     ],
 
