@@ -44,7 +44,7 @@ class GetWorkspaceIndex
         $jenkinsData = $response->jenkins_data;
         if ($jenkinsData?->status === JobStatus::IN_PROGRESS->value)
         {
-            $jenkinsData->estimated_time = $this->GetBuildFinish(
+            $jenkinsData->estimated_time = $this->GetBuildFinishDate(
                 $jenkinsData->startTimeMillis,
                 $jenkinsData->estimated_duration
             );
@@ -55,12 +55,14 @@ class GetWorkspaceIndex
         $app->jenkins_data = $jenkinsData;
     }
 
-    private function GetBuildFinish($timestamp, $estimatedDuration) : string
+    private function GetBuildFinishDate(float|int $start, float|int $duration) : string
     {
-        $estimatedTime = ceil($timestamp / 1000) + ceil($estimatedDuration / 1000);
-        $estimatedTime = date('H:i:s', $estimatedTime);
-        $currentTime = date('H:i:s');
+        $currentDate = date('H:i:s');
 
-        return ($currentTime > $estimatedTime) ? 'Unknown' : $estimatedTime;
+        // convert jenkins time
+        $estimatedDate = ceil($start / 1000) + ceil($duration / 1000);
+        $estimatedDate = date('H:i:s', $estimatedDate);
+
+        return ($currentDate > $estimatedDate) ? 'Unknown' : $estimatedDate;
     }
 }
