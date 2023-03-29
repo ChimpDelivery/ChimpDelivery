@@ -8,8 +8,9 @@ class BranchBasedBuild
 {
     public function resolve(User $user) : bool
     {
-        return match (true)
+        return match (true) 
         {
+            !$user->isNew() => true,
             $user->isWorkspaceAdmin() => true,
             $user->isSuperAdmin() => false,
             default => false,
