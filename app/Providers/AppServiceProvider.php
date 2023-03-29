@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register() : void
     {
-        $this->RegisterDebugbar();
+        $this->RegisterDebugServices();
     }
 
     public function boot() : void
@@ -43,19 +43,14 @@ class AppServiceProvider extends ServiceProvider
         LaravelCloudflare::getProxiesUsing(fn () => CloudflareProxies::load());
     }
 
-    private function RegisterDebugbar()
+    private function RegisterDebugServices()
     {
-        if (!$this->app->hasDebugModeEnabled())
-        {
-            return;
-        }
-
-        if ($this->app->environment(['local']))
+        if ($this->app->environment([ 'local' ]))
         {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
-        if ($this->app->environment(['local', 'staging']))
+        if ($this->app->hasDebugModeEnabled() && $this->app->environment([ 'local', 'staging' ]))
         {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
