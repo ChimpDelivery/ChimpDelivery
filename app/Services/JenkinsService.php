@@ -30,8 +30,8 @@ class JenkinsService
     public function GetHttpClient() : PendingRequest
     {
         return Http::withBasicAuth($this->jenkinsUsername, $this->jenkinsUserToken)
-            ->timeout(20)
-            ->connectTimeout(8);
+            ->timeout(config('jenkins.timeout'))
+            ->connectTimeout(config('jenkins.connect_timeout'));
     }
 
     public function GetResponse(string $url, bool $isHtml = false) : \stdClass
