@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'ngrok' => [
-        'error_header' => 'Ngrok-Error-Code',
-    ],
+    'error_header' => 'Tunnel-Error',
 ];

@@ -5,7 +5,7 @@
     </th>
     <td class="text-center align-middle">
         @switch($appInfo->jenkins_status)
-            @case(config('tunnel.ngrok.error_header'))
+            @case(config('tunnel.error_header'))
                 @include('errors.jenkins.jenkins-down')
             @break
             @case(ResponseCodes::HTTP_OK)
