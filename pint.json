@@ -1,0 +1,24 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": true,
+        "ordered_traits": true,
+        "strict_comparison": true,
+        "no_empty_comment": true,
+        "return_type_declaration": {
+            "space_before": "one"
+        },
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "simplified_null_return": true,
+        "braces": true,
+        "new_with_braces": {
+            "anonymous_class": false,
+            "named_class": false
+        }
+    }
+}
