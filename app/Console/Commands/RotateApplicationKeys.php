@@ -54,7 +54,7 @@ class RotateApplicationKeys extends Command
         $this->EncryptModels($key);
 
         // revert back when failed
-        if (!$this->SetKeyInEnvironmentFile($key))
+        if (!$this->WriteNewEnvironmentFileWith($key))
         {
             $this->EncryptModels($oldKey);
             $this->call('dashboard:up');
@@ -90,16 +90,6 @@ class RotateApplicationKeys extends Command
     protected function GenerateRandomKey() : string
     {
         return Hex::encode(random_bytes(32));
-    }
-
-    protected function SetKeyInEnvironmentFile($key) : bool
-    {
-        if (!$this->WriteNewEnvironmentFileWith($key))
-        {
-            return false;
-        }
-
-        return true;
     }
 
     protected function WriteNewEnvironmentFileWith($key) : bool
