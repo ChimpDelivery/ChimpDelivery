@@ -20,6 +20,10 @@ Provides ```Web Dashboard``` and ```API Endpoints``` that integrated with variou
 - Coding Standards Fixer (CS Fixer)
   - ```composer dashboard-pint```
 
+# :rotating_light: Development Notes
+- ```php artisan dashboard:restart-horizon``` 
+  - Use this command when you make changes to the code.
+
 # :tada: Features
 - Jenkins API Support
 - App Store Connect API Support
