@@ -45,20 +45,20 @@ class CreateOrganization extends BaseJenkinsJob
         $githubSetting = $workspace->githubSetting;
         $tfSetting = $workspace->appleSetting;
 
-        return implode('&', [
-            // dashboard-auth related
-            'DASHBOARD_URL=' . config('app.url'),
-            "DASHBOARD_TOKEN={$workspaceAdmin->createApiToken(config('workspaces.jenkins_token_name'))}",
+        return http_build_query([
+            // dashboard-auth
+            'DASHBOARD_URL' => config('app.url'),
+            'DASHBOARD_TOKEN' => $workspaceAdmin->createApiToken(config('workspaces.jenkins_token_name')),
 
-            // source control related
-            "GIT_USERNAME={$githubSetting->organization_name}",
-            "GIT_ACCESS_TOKEN={$githubSetting->personal_access_token}",
-            "GITHUB_TOPIC={$githubSetting->topic_name}",
-            "REPO_OWNER={$githubSetting->organization_name}",
+            // source control
+            'GIT_USERNAME' => $githubSetting->organization_name,
+            'GIT_ACCESS_TOKEN' => $githubSetting->personal_access_token,
+            'GITHUB_TOPIC' => $githubSetting->topic_name,
+            'REPO_OWNER' => $githubSetting->organization_name,
 
-            // delivery platform related
-            "TESTFLIGHT_USERNAME={$tfSetting->usermail}",
-            "TESTFLIGHT_PASSWORD={$tfSetting->app_specific_pass}",
+            // delivery platform
+            'TESTFLIGHT_USERNAME' => $tfSetting->usermail,
+            'TESTFLIGHT_PASSWORD' => $tfSetting->app_specific_pass,
         ]);
     }
 }
