@@ -20,17 +20,26 @@ class GetStoreApps
 
     public function handle() : JsonResponse
     {
-        $appstoreApps = $this->appStoreConnectService->GetHttpClient()->get(
-            config('appstore.endpoint')
-            .'/apps?fields[apps]=name,bundleId'
-            .'&limit=' . config('appstore.item_limit')
-            .'&filter[appStoreVersions.platform]=IOS'
-            .'&filter[appStoreVersions.appStoreState]=PREPARE_FOR_SUBMISSION'
-        );
+        $appstoreClient = $this->appStoreConnectService->GetHttpClient();
+        $request = $appstoreClient->get($this->GetApiRoute());
 
-        $sortedAppCollection = collect(($appstoreApps->failed()) ? [] : json_decode($appstoreApps)->data);
-        $sortedAppList = $sortedAppCollection->sortByDesc('id');
+        $apps = collect($request->failed() ? [] : $request->json('data'));
+        $sortedApps = $apps->sortByDesc('id');
 
-        return response()->json([ 'app_list' => $sortedAppList ]);
+        return response()->json([
+            'app_list' => $sortedApps,
+        ]);
+    }
+
+    private function GetApiRoute() : string
+    {
+        return config('appstore.endpoint')
+            . '/apps?'
+            . urldecode(http_build_query([
+                'fields[apps]' => 'name,bundleId',
+                'limit' => config('appstore.item_limit'),
+                'filter[appStoreVersions.platform]' => 'IOS',
+                'filter[appStoreVersions.appStoreState]' => 'PREPARE_FOR_SUBMISSION',
+            ]));
     }
 }
