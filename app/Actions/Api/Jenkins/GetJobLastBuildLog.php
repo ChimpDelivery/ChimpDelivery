@@ -19,7 +19,8 @@ class GetJobLastBuildLog
 
     public function __construct(
         private readonly JenkinsService $jenkinsService
-    ) { }
+    ) {
+    }
 
     public function handle() : string
     {

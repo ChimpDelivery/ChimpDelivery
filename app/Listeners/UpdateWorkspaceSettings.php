@@ -16,7 +16,8 @@ class UpdateWorkspaceSettings
 
         // AppStoreConnect
         $appStoreConnectSetting = $workspace->appStoreConnectSetting()->firstOrCreate();
-        if ($request->hasFile('private_key')) {
+        if ($request->hasFile('private_key'))
+        {
             $appStoreConnectSetting->fill([ 'private_key' => $validated->private_key->get() ]);
         }
         $appStoreConnectSetting->fill($validated->only([

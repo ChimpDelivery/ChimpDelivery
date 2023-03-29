@@ -175,5 +175,5 @@ return [
          * DO NOT SET "biscolabOnloadCallback"
          */
         'error-callback'   => null,
-    ]
+    ],
 ];

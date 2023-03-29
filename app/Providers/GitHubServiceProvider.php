@@ -12,7 +12,7 @@ class GitHubServiceProvider extends ServiceProvider implements DeferrableProvide
 {
     public function register() : void
     {
-        $this->app->singleton(GitHubService::class, function(Application $app) {
+        $this->app->singleton(GitHubService::class, function (Application $app) {
             return new GitHubService();
         });
     }

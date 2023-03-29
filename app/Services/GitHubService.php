@@ -17,7 +17,8 @@ class GitHubService
 {
     public function __construct(
         private readonly ?Workspace $workspace = null
-    ) { }
+    ) {
+    }
 
     // request handler to capture all exceptions in one place
     public function MakeGithubRequest(string $api, $func, ...$parameters) : JsonResponse

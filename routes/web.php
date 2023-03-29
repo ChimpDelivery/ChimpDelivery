@@ -6,16 +6,16 @@ use Illuminate\Mail\Markdown;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 //// main route
-Route::get('/', fn() => to_route('login'));
+Route::get('/', fn () => to_route('login'));
 
 ////
-Route::get('/promotion', fn() => view('dashboard-promotion'));
+Route::get('/promotion', fn () => view('dashboard-promotion'));
 
 //// contracts
-Route::get('/privacy', fn() => Markdown::parse(File::get(resource_path('markdown/privacy.md'))))
+Route::get('/privacy', fn () => Markdown::parse(File::get(resource_path('markdown/privacy.md'))))
     ->name('privacy');
 
-Route::get('/terms', fn() => Markdown::parse(File::get(resource_path('markdown/terms.md'))))
+Route::get('/terms', fn () => Markdown::parse(File::get(resource_path('markdown/terms.md'))))
     ->name('terms');
 
 //// super-admin routes

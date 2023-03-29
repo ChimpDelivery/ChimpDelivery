@@ -15,7 +15,8 @@ class GetRepository
 
     public function __construct(
         private readonly GitHubService $githubService
-    ) { }
+    ) {
+    }
 
     public function handle(GetRepositoryRequest $request) : JsonResponse
     {

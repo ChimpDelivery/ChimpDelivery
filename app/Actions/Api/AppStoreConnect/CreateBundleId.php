@@ -16,7 +16,8 @@ class CreateBundleId
 
     public function __construct(
         private readonly AppStoreConnectService $appStoreConnectService
-    ) { }
+    ) {
+    }
 
     public function handle(StoreBundleRequest $request) : array
     {
@@ -53,7 +54,7 @@ class CreateBundleId
                     'platform' => 'IOS',
                 ],
                 'type' => 'bundleIds',
-            ]
+            ],
         ];
     }
 

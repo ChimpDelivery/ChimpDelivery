@@ -17,7 +17,8 @@ class GetRepositories
 
     public function __construct(
         private readonly GitHubService $githubService
-    ) { }
+    ) {
+    }
 
     public function handle() : JsonResponse
     {
@@ -34,7 +35,7 @@ class GetRepositories
         $filteredOrgProjects = $this->FilterProjects($orgProjects);
 
         return response()->json([
-            'response' => $this->ReorganizeProjects($filteredOrgProjects)
+            'response' => $this->ReorganizeProjects($filteredOrgProjects),
         ], $request->status());
     }
 
@@ -57,7 +58,8 @@ class GetRepositories
     // maybe extra organization is useful when filtering projects.
     private function FilterProjects(Collection $response) : Collection
     {
-        if ($this->githubService->GetRepoTopic() == null) {
+        if ($this->githubService->GetRepoTopic() === null)
+        {
             return $response;
         }
 
@@ -73,7 +75,7 @@ class GetRepositories
             return [
                 'id' => $githubProject->id,
                 'name' => $githubProject->name,
-                'size' => round($githubProject->size / 1024, 2) . 'mb'
+                'size' => round($githubProject->size / 1024, 2) . 'mb',
             ];
         });
     }
@@ -82,9 +84,18 @@ class GetRepositories
     {
         $service = $this->githubService;
 
-        if ($service->IsPublicReposEnabled() && $service->IsPrivateReposEnabled() === true) { return 'all'; }
-        if ($service->IsPublicReposEnabled()) { return 'public'; }
-        if ($service->IsPrivateReposEnabled()) { return 'private'; }
+        if ($service->IsPublicReposEnabled() && $service->IsPrivateReposEnabled() === true)
+        {
+            return 'all';
+        }
+        if ($service->IsPublicReposEnabled())
+        {
+            return 'public';
+        }
+        if ($service->IsPrivateReposEnabled())
+        {
+            return 'private';
+        }
 
         return 'none';
     }

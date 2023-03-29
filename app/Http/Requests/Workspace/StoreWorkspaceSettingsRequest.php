@@ -51,7 +51,7 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                 Rule::notIn([ config('workspaces.default_org_name') ]),
                 Rule::unique('github_settings')
                     ->ignore(Auth::user()->workspace->id, 'workspace_id')
-                    ->whereNull('deleted_at')
+                    ->whereNull('deleted_at'),
             ],
 
             'personal_access_token' => [ 'nullable', 'alpha_dash', 'max:255', ],

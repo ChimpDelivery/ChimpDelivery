@@ -23,15 +23,24 @@ class NavLink extends Component
         $classes = [ 'nav-link', 'font-weight-bold', 'text-white' => $this->isActive() ];
 
         return view('components.nav-link', [
-            'classes' => Arr::toCssClasses($classes)
+            'classes' => Arr::toCssClasses($classes),
         ]);
     }
 
     protected function isActive() : bool
     {
-        if (is_bool($this->active)) { return $this->active; }
-        if (request()->is($this->active)) { return true; }
-        if (request()->fullUrlIs($this->active)) { return true; }
+        if (is_bool($this->active))
+        {
+            return $this->active;
+        }
+        if (request()->is($this->active))
+        {
+            return true;
+        }
+        if (request()->fullUrlIs($this->active))
+        {
+            return true;
+        }
 
         return request()->routeIs($this->active);
     }

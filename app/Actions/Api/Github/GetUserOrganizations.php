@@ -14,7 +14,8 @@ class GetUserOrganizations
 
     public function __construct(
         private readonly GitHubService $githubService
-    ) { }
+    ) {
+    }
 
     public function handle() : JsonResponse
     {

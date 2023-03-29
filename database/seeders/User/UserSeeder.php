@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
 
         if (!app()->isLocal())
         {
-            $output->writeln("User seeder is not gonna run! Only local env allowed!");
+            $output->writeln('User seeder is not gonna run! Only local env allowed!');
             return;
         }
 

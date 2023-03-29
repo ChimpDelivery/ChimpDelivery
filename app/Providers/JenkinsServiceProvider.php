@@ -13,7 +13,7 @@ class JenkinsServiceProvider extends ServiceProvider implements DeferrableProvid
     public function register() : void
     {
         // parameters used in jobs...
-        $this->app->singleton(JenkinsService::class, function(Application $app, array $parameters) {
+        $this->app->singleton(JenkinsService::class, function (Application $app, array $parameters) {
             return new JenkinsService(
                 config('jenkins.host'),
                 config('jenkins.user'),

@@ -12,7 +12,7 @@ class AppStoreConnectServiceProvider extends ServiceProvider implements Deferrab
 {
     public function register() : void
     {
-        $this->app->singleton(AppStoreConnectService::class, function(Application $app) {
+        $this->app->singleton(AppStoreConnectService::class, function (Application $app) {
             return new AppStoreConnectService();
         });
     }

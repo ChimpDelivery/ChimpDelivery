@@ -16,7 +16,7 @@ enum JobStatus : string
 
     public function PrettyName() : string
     {
-        return match($this)
+        return match ($this)
         {
             self::NOT_EXECUTED, self::IN_QUEUE => 'IN QUEUE...',
             self::IN_PROGRESS => 'IN PROGRESS',

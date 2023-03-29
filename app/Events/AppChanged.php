@@ -18,5 +18,6 @@ class AppChanged
     public function __construct(
         public readonly AppInfo $appInfo,
         public readonly Request $request
-    ) { }
+    ) {
+    }
 }
