@@ -3,9 +3,11 @@
 namespace App\Actions\Api\Jenkins;
 
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
-use App\Services\JenkinsService;
+
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+
+use App\Services\JenkinsService;
 
 class ScanOrganization extends BaseJenkinsAction
 {
