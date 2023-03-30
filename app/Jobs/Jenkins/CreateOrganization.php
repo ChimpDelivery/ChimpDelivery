@@ -56,9 +56,14 @@ class CreateOrganization extends BaseJenkinsJob
             'GITHUB_TOPIC' => $githubSetting->topic_name,
             'REPO_OWNER' => $githubSetting->organization_name,
 
-            // delivery platform
+            // delivery platforms
+            // ios
             'TESTFLIGHT_USERNAME' => $appleSetting->usermail,
             'TESTFLIGHT_PASSWORD' => $appleSetting->app_specific_pass,
+
+            // android
+            'ANDROID_KEYSTORE_PATH' => 'Assets/Settings/Key.keystore:TestPass_123',
+            'ANDROID_KEYSTORE_PASS' => '3434Talus!',
         ]);
     }
 }
