@@ -33,6 +33,7 @@ class AppleSetting extends Model implements CipherSweetEncrypted
     ];
 
     protected static array $encryptedColumns = [
+        'usermail',
         'app_specific_pass',
     ];
 

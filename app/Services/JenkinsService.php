@@ -71,7 +71,7 @@ class JenkinsService
 
     private function ParseJenkinsResponse(Response $response, bool $isHtml) : array
     {
-        $isTunnelOffline = $response->header(config('tunnel.ngrok.error_header'));
+        $isTunnelOffline = $response->header(config('tunnel.error_header'));
 
         return [
             'jenkins_status' => ($isTunnelOffline) ? 3200 : $response->status(),
