@@ -15,7 +15,7 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 
 use Laravel\Socialite\Facades\Socialite;
 
-use App\Actions\Dashboard\User\RegisterWithProvider;
+use App\Actions\Dashboard\Auth\RegisterWithProvider;
 
 Route::middleware(['guest', ProtectAgainstSpam::class])->group(function () {
     /////////////////////////
