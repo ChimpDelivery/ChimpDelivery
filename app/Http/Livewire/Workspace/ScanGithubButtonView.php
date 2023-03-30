@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\Jenkins\ScanOrganization;
 
 class ScanGithubButtonView extends Component
 {

@@ -23,10 +23,10 @@ class GetWorkspaceIndex
             ->paginate(5)
             ->onEachSide(1);
 
-        $paginatedApps->each(function (AppInfo $app) {
+        $paginatedApps->each(function (AppInfo $appInfo) {
             $this->InjectJenkinsDetails(
-                $app,
-                GetJobLastBuild::run(null, $app)
+                $appInfo,
+                GetJobLastBuild::run($appInfo)
             );
         });
 

@@ -28,9 +28,9 @@ class GetJobLastBuild
     ) {
     }
 
-    public function handle(?GetAppInfoRequest $request, ?AppInfo $appInfo = null) : JsonResponse
+    public function handle(AppInfo $appInfo) : JsonResponse
     {
-        $this->app = $appInfo ?? $request->user()->workspace->apps()->findOrFail($request->validated('id'));
+        $this->app = $appInfo;
 
         // find last build of job
         $jobResponse = $this->jenkinsService->GetResponse($this->CreateJobUrl());
@@ -60,6 +60,13 @@ class GetJobLastBuild
         $jobResponse->jenkins_data = $build;
 
         return response()->json($jobResponse);
+    }
+
+    public function asController(GetAppInfoRequest $request) : JsonResponse
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 
     private function CreateLastBuildUrl(int $lastBuildId) : string
