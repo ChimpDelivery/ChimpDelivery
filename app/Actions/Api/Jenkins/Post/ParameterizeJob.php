@@ -6,6 +6,7 @@ use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 use Illuminate\Http\Response;
 
+use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\BuildRequest;
 
@@ -16,21 +17,26 @@ class ParameterizeJob extends BaseJenkinsAction
     ) {
     }
 
-    public function handle(BuildRequest $request) : array
+    public function handle(AppInfo $appInfo) : array
     {
-        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
-
-        $response = $this->jenkinsService->PostResponse("/job/{$app->project_name}/job/master/build?delay=0sec");
+        $response = $this->jenkinsService->PostResponse("/job/{$appInfo->project_name}/job/master/build?delay=0sec");
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode === Response::HTTP_CREATED;
         $responseMessage = ($isResponseSucceed)
-            ? "Project: <b>{$app->project_name}</b> is parameterizing. This build gonna be <b>aborted</b> by Jenkins!"
+            ? "Project: <b>{$appInfo->project_name}</b> is parameterizing. This build gonna be <b>aborted</b> by Jenkins!"
             : "Error Code: {$responseCode}";
 
         return [
             'success' => $isResponseSucceed,
             'message' => $responseMessage,
         ];
+    }
+
+    public function asController(BuildRequest $request) : array
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 }
