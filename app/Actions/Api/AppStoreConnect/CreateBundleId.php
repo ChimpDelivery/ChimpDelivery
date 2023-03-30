@@ -19,11 +19,11 @@ class CreateBundleId
     ) {
     }
 
-    public function handle(StoreBundleRequest $request) : array
+    public function handle(array $inputs) : array
     {
-        $bundleData = $this->PrepareRequestData(
-            $request->validated('bundle_id'),
-            $request->validated('bundle_name')
+        $bundleData = $this->PrepareRequestBody(
+            $inputs['bundle_id'],
+            $inputs['bundle_name']
         );
 
         // request
@@ -36,7 +36,7 @@ class CreateBundleId
         $responseHasError = isset($createBundleResponse['errors']);
         $responseMessage = ($responseHasError)
             ? $this->GetErrorMessage($createBundleResponse)
-            : "Bundle: <b>{$request->validated('bundle_id')}</b> created!";
+            : "Bundle: <b>{$inputs['bundle_id']}</b> created!";
 
         return [
             'success' => !$responseHasError,
@@ -44,7 +44,12 @@ class CreateBundleId
         ];
     }
 
-    private function PrepareRequestData(string $bundleId, string $bundleName) : array
+    public function asController(StoreBundleRequest $request) : array
+    {
+        return $this->handle($request->safe()->all());
+    }
+
+    private function PrepareRequestBody(string $bundleId, string $bundleName) : array
     {
         return [
             'data' => [

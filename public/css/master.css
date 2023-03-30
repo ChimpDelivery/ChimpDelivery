@@ -1,6 +1,6 @@
 .font-sans { font-family:Nunito,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji }
 
-.toast-container { position: fixed; right: 20px; top: 20px; }
+.toast-container { position: fixed; left: 50%; top: 8%; transform: translate(-50%, 0px); width: 300px !important; max-width: 300px !important; }
 .toast:not(.showing):not(.show) { display: none !important; }
 
 .popover-inner { width: 250px !important; max-width: 250px !important; }

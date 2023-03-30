@@ -2,34 +2,33 @@
 
 namespace App\Actions\Api\Jenkins\Post;
 
+use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
+
 use Illuminate\Http\Response;
 
 use App\Models\AppInfo;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\StopJobRequest;
-use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
 class AbortJob extends BaseJenkinsAction
 {
-    private AppInfo $app;
-
     public function __construct(
         private readonly JenkinsService $jenkinsService
     ) {
     }
 
-    public function handle(StopJobRequest $request) : array
+    public function handle(AppInfo $appInfo, array $inputs) : array
     {
-        $buildNumber = $request->validated('build_number');
+        $buildNumber = $inputs['build_number'];
 
-        $url = "/job/{$this->app->project_name}/job/master/{$buildNumber}/stop";
+        $url = "/job/{$appInfo->project_name}/job/master/{$buildNumber}/stop";
         $response =  $this->jenkinsService->PostResponse($url);
         $responseCode = $response->jenkins_status;
 
         $isResponseSucceed = $responseCode === Response::HTTP_OK;
         $responseMessage = ($isResponseSucceed)
-            ? "<b>{$this->app->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
-            : "{$this->app->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";
+            ? "<b>{$appInfo->project_name}</b>, Build: <b>{$buildNumber}</b> aborted!"
+            : "{$appInfo->project_name}, Build: {$buildNumber} could not aborted! Error Code: {$responseCode}";
 
         return [
             'success' => $isResponseSucceed,
@@ -37,10 +36,16 @@ class AbortJob extends BaseJenkinsAction
         ];
     }
 
+    public function asController(StopJobRequest $request) : array
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id')),
+            $request->safe()->all()
+        );
+    }
+
     public function authorize(StopJobRequest $request) : bool
     {
-        $this->app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
-
         return $request->user()->can('abort job');
     }
 }

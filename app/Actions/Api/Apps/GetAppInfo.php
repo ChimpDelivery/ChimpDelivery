@@ -15,9 +15,16 @@ class GetAppInfo
 {
     use AsAction;
 
-    public function handle(GetAppInfoRequest $request) : AppInfo
+    public function handle(AppInfo $appInfo) : AppInfo
     {
-        return $request->user()->workspace->apps()->findOrFail($request->validated('id'));
+        return $appInfo;
+    }
+
+    public function asController(GetAppInfoRequest $request) : AppInfo
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 
     public function htmlResponse(AppInfo $appInfo) : View

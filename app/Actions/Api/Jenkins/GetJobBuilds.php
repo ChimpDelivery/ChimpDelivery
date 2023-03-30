@@ -24,11 +24,9 @@ class GetJobBuilds
     ) {
     }
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(AppInfo $appInfo) : JsonResponse
     {
-        $app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
-
-        $jobResponse = $this->jenkinsService->GetResponse($this->CreateUrl($app));
+        $jobResponse = $this->jenkinsService->GetResponse($this->CreateUrl($appInfo));
         $builds = collect($jobResponse->jenkins_data?->builds);
 
         // add nextBuildNumber value to build list for detailed info for job parametrization.
@@ -46,6 +44,13 @@ class GetJobBuilds
         $jobResponse->jenkins_data = $builds;
 
         return response()->json($jobResponse);
+    }
+
+    public function asController(GetAppInfoRequest $request) : JsonResponse
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 
     private function CreateUrl(AppInfo $app) : string
