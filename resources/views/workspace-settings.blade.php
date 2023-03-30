@@ -27,7 +27,7 @@
                     'name' => ($isNew) ? 'Create Workspace' : 'Update'
                 ])
                 @can('scan jobs')
-                    <livewire:scan-github-button-view />
+                    <livewire:workspace.scan-github-button-view />
                 @endcan
             </form>
         </div>
