@@ -5,7 +5,6 @@ namespace App\Actions\Api\Jenkins\Post;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-use App\Events\AppChanged;
 use App\Services\JenkinsService;
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
@@ -16,7 +15,7 @@ class ScanOrganization extends BaseJenkinsAction
     ) {
     }
 
-    public function handle(AppChanged $event) : array
+    public function handle() : array
     {
         $response = $this->jenkinsService->PostResponse('/build?delay=0');
 
