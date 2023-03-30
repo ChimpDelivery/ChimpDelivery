@@ -21,7 +21,7 @@ use App\Actions\Api\Jenkins\GetJobLastBuildLog;
 use App\Actions\Api\Jenkins\GetJobs;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
-use App\Actions\Api\Jenkins\Post\ScanOrganization;
+use App\Actions\Api\Jenkins\ScanOrganization;
 
 use App\Actions\Api\S3\Provision\GetCertificate;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
