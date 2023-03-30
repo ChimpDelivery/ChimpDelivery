@@ -11,6 +11,8 @@ use Illuminate\Http\Client\PendingRequest;
 use App\Models\User;
 
 /// Handles Jenkins authentication and requests
+/// Request response contains jenkins_status and jenkins_data properties.
+/// All data served from Jenkins is in jenkins_data property.
 class JenkinsService
 {
     public function __construct(
@@ -71,13 +73,15 @@ class JenkinsService
 
     private function ParseJenkinsResponse(Response $response, bool $isHtml) : array
     {
-        $isTunnelOffline = $response->header(config('tunnel.error_header'));
+        // check tunneled-agent connection
+        $isTunnelOff = $response->header(config('tunnel.error_header'));
+
+        // return request data as a plain text or json
+        $method = $isHtml ? 'body' : 'json';
 
         return [
-            'jenkins_status' => ($isTunnelOffline) ? 3200 : $response->status(),
-            'jenkins_data' => ($isTunnelOffline)
-                ? null
-                : ($isHtml ? $response->body() : $response->json()),
+            'jenkins_status' => ($isTunnelOff) ? config('tunnel.error_status') : $response->status(),
+            'jenkins_data' => ($isTunnelOff) ? null : $response->{$method}(),
         ];
     }
 }
