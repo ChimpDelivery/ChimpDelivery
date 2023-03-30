@@ -10,7 +10,7 @@ class BranchBasedBuild
     {
         return match (true)
         {
-            $user->isWorkspaceAdmin() => true,
+            $user->isWorkspaceAdmin() => false,
             $user->isSuperAdmin() => false,
             default => false,
         };
