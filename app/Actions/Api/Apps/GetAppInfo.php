@@ -20,7 +20,7 @@ class GetAppInfo
         return $appInfo;
     }
 
-    public function asController(GetAppInfoRequest $request)
+    public function asController(GetAppInfoRequest $request) : AppInfo
     {
         return $this->handle(
             $request->user()->workspace->apps()->findOrFail($request->validated('id'))
