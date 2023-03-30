@@ -33,4 +33,9 @@ class GetJob
             $request->user()->workspace->apps()->findOrFail($request->validated('id'))
         );
     }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        return $request->user()->can('view apps');
+    }
 }

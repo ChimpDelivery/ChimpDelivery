@@ -147,4 +147,9 @@ class GetJobLastBuild
 
         return JobStatus::tryFrom($lastBuild->status) ?? JobStatus::NOT_IMPLEMENTED;
     }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        return $request->user()->can('view apps');
+    }
 }
