@@ -20,5 +20,9 @@
         <a class="dropdown-item bg-transparent text-dark" href="/log-viewer">
             <i class="fa fa-eye" aria-hidden="true"></i> Log Viewer
         </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item bg-transparent text-dark" href="{{ config('jenkins.host') }}">
+            Jenkins
+        </a>
     </div>
 @endhasrole
