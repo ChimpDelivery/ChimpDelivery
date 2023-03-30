@@ -11,9 +11,9 @@ class UploadAppIcon
 
     public function handle(AppChanged $event) : void
     {
-        if ($event->request->hasFile('app_icon'))
+        if (isset($event->inputs['app_icon']))
         {
-            $uploadedIcon = $this->UploadToS3($event->request->validated('app_icon'));
+            $uploadedIcon = $this->UploadToS3($event->inputs['app_icon']);
             if ($uploadedIcon)
             {
                 $event->appInfo->fill([ 'app_icon' => $uploadedIcon ]);

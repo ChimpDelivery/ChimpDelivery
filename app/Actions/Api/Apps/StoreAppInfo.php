@@ -15,19 +15,26 @@ class StoreAppInfo
 {
     use AsAction;
 
-    public function handle(StoreAppInfoRequest $request) : AppInfo
+    public function handle(AppInfo $appInfo, array $inputs) : AppInfo
     {
-        $appModel = $request->user()->workspace->apps()
-            ->where('app_bundle', '=', $request->validated('app_bundle'))
-            ->firstOrNew()
-            ->fill($request->safe()->all());
+        $appInfo->fill($inputs);
 
-        if ($appModel->save())
+        if ($appInfo->save())
         {
-            event(new AppChanged($appModel, $request));
+            event(new AppChanged($appInfo, $inputs));
         }
 
-        return $appModel;
+        return $appInfo;
+    }
+
+    public function asController(StoreAppInfoRequest $request) : AppInfo
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()
+                ->where('app_bundle', '=', $request->validated('app_bundle'))
+                ->firstOrNew(),
+            $request->safe()->all()
+        );
     }
 
     public function htmlResponse(AppInfo $appInfo) : RedirectResponse
