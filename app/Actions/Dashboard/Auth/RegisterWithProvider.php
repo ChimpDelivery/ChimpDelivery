@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Dashboard\User;
+namespace App\Actions\Dashboard\Auth;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
