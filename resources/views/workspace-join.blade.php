@@ -26,7 +26,7 @@
                 </form>
             </div>
             @include('layouts.dashboard.card-footer', [
-                'text' => 'You can only be in <b>1</b> workspace at a time. This action cannot be <b>undone</b>.'
+                'text' => 'You can only be in <b>1</b> workspace at a time.'
             ])
         </div>
     </div>
