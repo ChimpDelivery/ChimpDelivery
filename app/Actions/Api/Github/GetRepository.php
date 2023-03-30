@@ -6,8 +6,9 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 
+use App\Models\AppInfo;
 use App\Services\GitHubService;
-use App\Http\Requests\Github\GetRepositoryRequest;
+use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 class GetRepository
 {
@@ -18,15 +19,22 @@ class GetRepository
     ) {
     }
 
-    public function handle(GetRepositoryRequest $request) : JsonResponse
+    public function handle(AppInfo $appInfo) : JsonResponse
     {
         $response = $this->githubService->MakeGithubRequest(
             'repo',
             'show',
             $this->githubService->GetOrganizationName(),
-            $request->validated('project_name')
+            $appInfo->project_name
         );
 
         return response()->json([ 'response' => $response ], $response->status());
+    }
+
+    public function asController(GetAppInfoRequest $request) : JsonResponse
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 }

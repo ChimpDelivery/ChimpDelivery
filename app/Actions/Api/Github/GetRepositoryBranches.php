@@ -6,8 +6,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 
+use App\Models\AppInfo;
 use App\Services\GitHubService;
-
 use App\Http\Requests\AppInfo\GetAppInfoRequest;
 
 // api reference: https://docs.github.com/en/rest/branches/branches#list-branches
@@ -20,13 +20,13 @@ class GetRepositoryBranches
     ) {
     }
 
-    public function handle(GetAppInfoRequest $request) : JsonResponse
+    public function handle(AppInfo $appInfo) : JsonResponse
     {
         $response = $this->githubService->MakeGithubRequest(
             'repo',
             'branches',
             $this->githubService->GetOrganizationName(),
-            $request->user()->workspace->apps()->findOrFail($request->validated('id'))->project_name
+            $appInfo->project_name
         );
 
         $branches = collect($response->getData()->response);
@@ -45,5 +45,12 @@ class GetRepositoryBranches
         });
 
         return response()->json([ 'response' => $branches ], $response->status());
+    }
+
+    public function asController(GetAppInfoRequest $request) : JsonResponse
+    {
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 }
