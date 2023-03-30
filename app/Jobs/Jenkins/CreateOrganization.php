@@ -62,7 +62,7 @@ class CreateOrganization extends BaseJenkinsJob
             'TESTFLIGHT_PASSWORD' => $appleSetting->app_specific_pass,
 
             // android
-            'ANDROID_KEYSTORE_PATH' => 'Assets/Settings/Key.keystore:TestPass_123',
+            'ANDROID_KEYSTORE_PATH' => 'Assets/Settings/Key.keystore',
             'ANDROID_KEYSTORE_PASS' => '3434Talus!',
         ]);
     }
