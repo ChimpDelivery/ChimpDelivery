@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule) : void
     {
         /////////////////////////////////////
-        /// proxy, cloud-flare etc...
+        /// proxy, cloudflare
         /////////////////////////////////////
         $schedule->command('cloudflare:reload')
             ->daily()
@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
             ->environments([ 'staging', 'production' ]);
 
         ////////////////////////////////////
-        /// key rotators (after backups)
+        /// encryption, key rotators (after backups)
         ////////////////////////////////////
         $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
@@ -117,7 +117,7 @@ class Kernel extends ConsoleKernel
         // Password reset tokens that have expired will still be present within your database.
         $schedule->command('auth:clear-resets')->everyFifteenMinutes();
 
-        // To properly prune stale cache tag entries
+        // To properly prune stale cache tag entries.
         $schedule->command('cache:prune-stale-tags')->hourly();
     }
 
