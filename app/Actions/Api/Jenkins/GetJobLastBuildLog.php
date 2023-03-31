@@ -15,37 +15,40 @@ class GetJobLastBuildLog
 {
     use AsAction;
 
-    private AppInfo $app;
-
     public function __construct(
         private readonly JenkinsService $jenkinsService
     ) {
     }
 
-    public function handle() : string
+    public function handle(AppInfo $appInfo) : array
     {
-        $response = $this->jenkinsService->GetResponse("/job/{$this->app->project_name}/job/master/lastBuild/consoleText", true);
+        $response = $this->jenkinsService->GetResponse("/job/{$appInfo->project_name}/job/master/lastBuild/consoleText", true);
 
-        return $response->jenkins_data ?? '';
+        return [
+            'app' => $appInfo,
+            'full_log' => $response->jenkins_data ?? ''
+        ];
     }
 
-    public function htmlResponse(string $response) : View
+    public function asController(GetAppInfoRequest $request) : array
     {
-        return view('build-log')->with([
-            'app' => $this->app,
-            'full_log' => $response,
-        ]);
+        return $this->handle(
+            $request->user()->workspace->apps()->findOrFail($request->validated('id'))
+        );
     }
 
-    public function jsonResponse(string $response) : JsonResponse
+    public function htmlResponse(array $response) : View
+    {
+        return view('build-log')->with($response);
+    }
+
+    public function jsonResponse(array $response) : JsonResponse
     {
         return response()->json($response);
     }
 
     public function authorize(GetAppInfoRequest $request) : bool
     {
-        $this->app = $request->user()->workspace->apps()->findOrFail($request->validated('id'));
-
         return $request->user()->can('view job log');
     }
 }

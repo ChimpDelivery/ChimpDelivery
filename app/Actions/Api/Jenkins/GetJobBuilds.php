@@ -61,4 +61,9 @@ class GetJobBuilds
             "api/json?tree={$this->filters['job_parameters']}",
         ]);
     }
+
+    public function authorize(GetAppInfoRequest $request) : bool
+    {
+        return $request->user()->can('view apps');
+    }
 }

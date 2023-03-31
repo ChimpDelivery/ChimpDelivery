@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.262.4",
+            "version": "3.263.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2673d06dd47793c87e8d1616720066030676fa1f"
+                "reference": "a0a528cb8e22dd0113f97ad0df527a6db32fe061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2673d06dd47793c87e8d1616720066030676fa1f",
-                "reference": "2673d06dd47793c87e8d1616720066030676fa1f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a0a528cb8e22dd0113f97ad0df527a6db32fe061",
+                "reference": "a0a528cb8e22dd0113f97ad0df527a6db32fe061",
                 "shasum": ""
             },
             "require": {
@@ -150,9 +150,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.262.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.263.0"
             },
-            "time": "2023-03-29T18:20:24+00:00"
+            "time": "2023-03-30T18:22:31+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -4699,16 +4699,16 @@
         },
         {
             "name": "opcodesio/log-viewer",
-            "version": "v2.3.2",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opcodesio/log-viewer.git",
-                "reference": "938c3142339562d09293469f57053b31c54e92db"
+                "reference": "eed37452d580e8929045e34dc7016420d9bd9bcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opcodesio/log-viewer/zipball/938c3142339562d09293469f57053b31c54e92db",
-                "reference": "938c3142339562d09293469f57053b31c54e92db",
+                "url": "https://api.github.com/repos/opcodesio/log-viewer/zipball/eed37452d580e8929045e34dc7016420d9bd9bcd",
+                "reference": "eed37452d580e8929045e34dc7016420d9bd9bcd",
                 "shasum": ""
             },
             "require": {
@@ -4771,9 +4771,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opcodesio/log-viewer/issues",
-                "source": "https://github.com/opcodesio/log-viewer/tree/v2.3.2"
+                "source": "https://github.com/opcodesio/log-viewer/tree/v2.4.0"
             },
-            "time": "2023-03-19T11:03:34+00:00"
+            "time": "2023-03-31T07:50:32+00:00"
         },
         {
             "name": "paragonie/ciphersweet",
@@ -7065,16 +7065,16 @@
         },
         {
             "name": "spatie/laravel-ciphersweet",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ciphersweet.git",
-                "reference": "cc336648b94f88e9d0fd4be11c14e61e2f5882e0"
+                "reference": "4c721a5e226ed05c5332a71a74e93efae5a748dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ciphersweet/zipball/cc336648b94f88e9d0fd4be11c14e61e2f5882e0",
-                "reference": "cc336648b94f88e9d0fd4be11c14e61e2f5882e0",
+                "url": "https://api.github.com/repos/spatie/laravel-ciphersweet/zipball/4c721a5e226ed05c5332a71a74e93efae5a748dd",
+                "reference": "4c721a5e226ed05c5332a71a74e93efae5a748dd",
                 "shasum": ""
             },
             "require": {
@@ -7131,9 +7131,9 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-ciphersweet/tree/1.0.4"
+                "source": "https://github.com/spatie/laravel-ciphersweet/tree/1.1.0"
             },
-            "time": "2023-01-26T12:33:48+00:00"
+            "time": "2023-03-30T08:21:27+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -11693,16 +11693,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.3.3",
+            "version": "v7.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "c680af93e414110b36056029f63120e6bc78f6e3"
+                "reference": "42bab217d4913d6610f341d0468cec860aae165e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/c680af93e414110b36056029f63120e6bc78f6e3",
-                "reference": "c680af93e414110b36056029f63120e6bc78f6e3",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/42bab217d4913d6610f341d0468cec860aae165e",
+                "reference": "42bab217d4913d6610f341d0468cec860aae165e",
                 "shasum": ""
             },
             "require": {
@@ -11716,15 +11716,15 @@
             },
             "require-dev": {
                 "brianium/paratest": "^7.1.2",
-                "laravel/framework": "^10.4.1",
+                "laravel/framework": "^10.5.1",
                 "laravel/pint": "^1.7.0",
-                "laravel/sail": "^1.21.2",
+                "laravel/sail": "^1.21.3",
                 "laravel/sanctum": "^3.2.1",
                 "laravel/tinker": "^2.8.1",
                 "nunomaduro/larastan": "^2.5.1",
-                "orchestra/testbench-core": "^8.1.1",
-                "pestphp/pest": "^2.0.2",
-                "phpunit/phpunit": "^10.0.17",
+                "orchestra/testbench-core": "^8.2.0",
+                "pestphp/pest": "^2.3.0",
+                "phpunit/phpunit": "^10.0.19",
                 "sebastian/environment": "^6.0.0",
                 "spatie/laravel-ignition": "^2.0.0"
             },
@@ -11785,7 +11785,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-03-23T21:41:35+00:00"
+            "time": "2023-03-31T08:17:12+00:00"
         },
         {
             "name": "nunomaduro/larastan",
@@ -12239,16 +12239,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.8",
+            "version": "1.10.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9"
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0166aef76e066f0dd2adc2799bdadfa1635711e9",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b13dafe3d66693d20fe5729c3dde1d31bb64703",
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703",
                 "shasum": ""
             },
             "require": {
@@ -12297,7 +12297,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-24T10:28:16+00:00"
+            "time": "2023-03-30T08:58:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
