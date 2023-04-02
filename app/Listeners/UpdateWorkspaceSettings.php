@@ -31,7 +31,7 @@ class UpdateWorkspaceSettings
         $githubSetting = $workspace->githubSetting()->firstOrCreate();
         $githubSetting->fill([
             'organization_name' => empty($workspace->githubSetting->organization_name)
-                ? $validated->organization_name
+                ? $validated->organization_name ?? null
                 : $workspace->githubSetting->organization_name,
         ]);
         $githubSetting->fill($validated->only([
