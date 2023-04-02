@@ -1,6 +1,5 @@
 import:
   - recipe/laravel.php
-  - contrib/npm.php
   - contrib/php-fpm.php
   - contrib/crontab.php
 
@@ -51,27 +50,22 @@ tasks:
     - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
-    - npm:install
-    - npm:run:prod
     - deploy:publish
     - php-fpm:reload
     - crontab:sync
     - artisan:up
   server:permission:
-      - cd: "{{release_path}}"
-      - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+    - cd: "{{release_path}}"
+    - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
   artisan:pennant:purge:
-      - cd: "{{release_path}}"
-      - run: "php artisan pennant:purge"
+    - cd: "{{release_path}}"
+    - run: "php artisan pennant:purge"
   artisan:dashboard:restart-horizon:
-      - cd: "{{release_path}}"
-      - run: "php artisan dashboard:restart-horizon"
+    - cd: "{{release_path}}"
+    - run: "php artisan dashboard:restart-horizon"
   artisan:dashboard:reload-cloudflare:
-      - cd: "{{release_path}}"
-      - run: "php artisan cloudflare:reload"
-  npm:run:prod:
-      - cd: "{{release_path}}"
-      - run: "npm run prod"
+    - cd: "{{release_path}}"
+    - run: "php artisan cloudflare:reload"
 
 after:
   deploy:failed:
