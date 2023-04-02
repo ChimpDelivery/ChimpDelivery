@@ -4,6 +4,8 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Support\ValidatedInput;
+
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
@@ -19,12 +21,9 @@ class CreateBundleId
     ) {
     }
 
-    public function handle(array $inputs) : array
+    public function handle(ValidatedInput $inputs) : array
     {
-        $bundleData = $this->PrepareRequestBody(
-            $inputs['bundle_id'],
-            $inputs['bundle_name']
-        );
+        $bundleData = $this->PrepareRequestBody($inputs['bundle_id'], $inputs['bundle_name']);
 
         // request
         $createBundle = $this->appStoreConnectService->GetHttpClient()
@@ -46,7 +45,7 @@ class CreateBundleId
 
     public function asController(StoreBundleRequest $request) : array
     {
-        return $this->handle($request->safe()->all());
+        return $this->handle($request->safe());
     }
 
     private function PrepareRequestBody(string $bundleId, string $bundleName) : array
