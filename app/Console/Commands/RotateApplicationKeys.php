@@ -30,10 +30,8 @@ class RotateApplicationKeys extends Command
     public function handle() : int
     {
         // maintenance mode
-        $this->call('down', [ '--secret' => 2626 ]);
-
-        $this->info('Key Rotation is starting...');
-        $this->info(Carbon::now());
+        $this->call('down', [ '--secret' => config('app.down_secret') ]);
+        $this->info(Carbon::now() . '|' . 'Key Rotation is starting...');
 
         // rotate laravel key
         $this->call('key:generate', [
