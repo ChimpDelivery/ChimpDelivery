@@ -4,6 +4,7 @@ namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Support\ValidatedInput;
 
 use App\Models\AppInfo;
 
@@ -14,7 +15,7 @@ class AppChanged
 
     public function __construct(
         public readonly AppInfo $appInfo,
-        public readonly array $inputs
+        public readonly ValidatedInput $inputs
     ) {
     }
 }

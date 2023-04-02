@@ -7,7 +7,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 
 use App\Models\User;
 use App\Models\Workspace;
-use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
+use Illuminate\Support\ValidatedInput;
 
 class WorkspaceChanged
 {
@@ -15,9 +15,9 @@ class WorkspaceChanged
     use SerializesModels;
 
     public function __construct(
-        public readonly User $workspaceAdmin,
+        public readonly User $user,
         public readonly Workspace $workspace,
-        public readonly StoreWorkspaceSettingsRequest $request
+        public readonly ValidatedInput $inputs
     ) {
     }
 }

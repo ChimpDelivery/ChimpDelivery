@@ -6,6 +6,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\ValidatedInput;
 
 use App\Models\AppInfo;
 use App\Events\AppChanged;
@@ -15,9 +16,9 @@ class StoreAppInfo
 {
     use AsAction;
 
-    public function handle(AppInfo $appInfo, array $inputs) : AppInfo
+    public function handle(AppInfo $appInfo, ValidatedInput $inputs) : AppInfo
     {
-        $appInfo->fill($inputs);
+        $appInfo->fill($inputs->all());
 
         if ($appInfo->save())
         {
@@ -33,7 +34,7 @@ class StoreAppInfo
             $request->user()->workspace->apps()
                 ->where('app_bundle', '=', $request->validated('app_bundle'))
                 ->firstOrNew(),
-            $request->safe()->all()
+            $request->safe()
         );
     }
 
