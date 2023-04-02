@@ -1,5 +1,6 @@
 import:
   - recipe/laravel.php
+  - contrib/npm.php
   - contrib/php-fpm.php
   - contrib/crontab.php
 
@@ -50,6 +51,8 @@ tasks:
     - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
+    - npm:install
+    - npm:run:prod
     - deploy:publish
     - php-fpm:reload
     - crontab:sync
@@ -66,6 +69,9 @@ tasks:
   artisan:dashboard:reload-cloudflare:
       - cd: "{{release_path}}"
       - run: "php artisan cloudflare:reload"
+  npm:run:prod:
+      - cd: "{{release_path}}"
+      - run: "npm run prod"
 
 after:
   deploy:failed:
