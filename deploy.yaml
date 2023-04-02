@@ -55,17 +55,17 @@ tasks:
     - crontab:sync
     - artisan:up
   server:permission:
-      - cd: "{{release_path}}"
-      - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+    - cd: "{{release_path}}"
+    - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
   artisan:pennant:purge:
-      - cd: "{{release_path}}"
-      - run: "php artisan pennant:purge"
+    - cd: "{{release_path}}"
+    - run: "php artisan pennant:purge"
   artisan:dashboard:restart-horizon:
-      - cd: "{{release_path}}"
-      - run: "php artisan dashboard:restart-horizon"
+    - cd: "{{release_path}}"
+    - run: "php artisan dashboard:restart-horizon"
   artisan:dashboard:reload-cloudflare:
-      - cd: "{{release_path}}"
-      - run: "php artisan cloudflare:reload"
+    - cd: "{{release_path}}"
+    - run: "php artisan cloudflare:reload"
 
 after:
   deploy:failed:
