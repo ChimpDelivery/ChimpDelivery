@@ -43,6 +43,8 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'down_secret' => env('APP_DOWN_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
