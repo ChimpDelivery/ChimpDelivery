@@ -38,6 +38,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- sweet_alert_for_livewire --}}
 
+    <section class="headers">
+        @yield('headers')
+    </section>
+
     {{-- custom_js_start --}}
     <script src="{{ asset('js/cookie.js') }}"></script>
     <script src="{{ asset('js/master.js') }}"></script>
