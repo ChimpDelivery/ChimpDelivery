@@ -17,7 +17,12 @@ class GetAppInfo
 
     public function handle(AppInfo $appInfo) : AppInfo
     {
-        return $appInfo;
+        return $appInfo->makeHidden([
+            'id',
+            'workspace_id',
+            'project_name',
+            'appstore_id',
+        ]);
     }
 
     public function asController(GetAppInfoRequest $request) : AppInfo
@@ -38,12 +43,7 @@ class GetAppInfo
     {
         $appInfo->app_icon = GetAppIcon::run($appInfo);
 
-        return response()->json($appInfo->makeHidden([
-            'id',
-            'workspace_id',
-            'project_name',
-            'appstore_id',
-        ]));
+        return response()->json($appInfo);
     }
 
     public function authorize(GetAppInfoRequest $request) : bool
