@@ -24,6 +24,7 @@
   - ```composer dashboard-pint```
 
 # :rotating_light: Development Notes
+- https://laravelactions.com/
 - ```php artisan dashboard:restart-horizon``` 
   - Use this command when you make changes to the code.
 - Sync 3rd. Party Library configs(probably inside ```config/``` directory) regularly.
