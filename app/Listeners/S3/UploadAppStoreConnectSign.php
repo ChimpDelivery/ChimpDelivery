@@ -13,18 +13,18 @@ class UploadAppStoreConnectSign
     {
         $appStoreConnectSign = $event->workspace->appStoreConnectSign()->firstOrCreate();
 
-        if ($event->request->hasFile('provision_profile'))
+        if ($event->inputs->has('provision_profile'))
         {
-            $uploadedProfile = $this->UploadToS3($event->request->validated('provision_profile'));
+            $uploadedProfile = $this->UploadToS3($event->inputs->provision_profile);
             if ($uploadedProfile)
             {
                 $appStoreConnectSign->fill([ 'provision_profile' => $uploadedProfile ]);
             }
         }
 
-        if ($event->request->hasFile('cert'))
+        if ($event->inputs->has('cert'))
         {
-            $uploadedCert = $this->UploadToS3($event->request->validated('cert'));
+            $uploadedCert = $this->UploadToS3($event->inputs->cert);
             if ($uploadedCert)
             {
                 $appStoreConnectSign->fill([ 'cert' => $uploadedCert ]);

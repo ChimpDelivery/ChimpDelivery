@@ -4,9 +4,12 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\ValidatedInput;
 
+use App\Models\User;
 use App\Models\Workspace;
 use App\Events\WorkspaceChanged;
 use App\Http\Requests\Workspace\StoreWorkspaceSettingsRequest;
@@ -15,9 +18,11 @@ class StoreWorkspace
 {
     use AsAction;
 
-    public function handle(StoreWorkspaceSettingsRequest $request) : RedirectResponse
+    public function handle(User $user, Workspace $workspace, ValidatedInput $inputs) : RedirectResponse
     {
-        $workspace = $this->StoreOrUpdate($request);
+        $workspace->fill($inputs->only(['name']))->save();
+
+        event(new WorkspaceChanged($user, $workspace, $inputs));
 
         $flashMessageDetail = $workspace->wasRecentlyCreated ? 'created.' : 'updated.';
         $flashMessage = "Workspace: <b>{$workspace->name}</b> {$flashMessageDetail}";
@@ -25,20 +30,18 @@ class StoreWorkspace
         return to_route('workspace_settings')->with('success', $flashMessage);
     }
 
-    private function StoreOrUpdate(StoreWorkspaceSettingsRequest $request) : Workspace
+    public function asController(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
         $user = $request->user();
 
-        $targetWorkspace = $user->isNew() ? new Workspace() : $user->workspace;
-        $targetWorkspace->fill($request->safe()->only([ 'name' ]));
-        $targetWorkspace->save();
-
-        event(new WorkspaceChanged($user, $targetWorkspace, $request));
-
-        return $targetWorkspace;
+        return $this->handle(
+            $user,
+            $user->isNew() ? new Workspace() : $user->workspace,
+            $request->safe()
+        );
     }
 
-    public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request)
+    public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
     {
         $validator->after(function (Validator $validator) use ($request) {
             $this->ValidateCertificate($validator, $request);
@@ -97,7 +100,7 @@ class StoreWorkspace
 
     private function IsValidExtension($file, $extension) : bool
     {
-        return str($file->getClientOriginalName())->endsWith($extension);
+        return Str::of($file->getClientOriginalName())->endsWith($extension);
     }
 
     public function authorize(StoreWorkspaceSettingsRequest $request) : bool
