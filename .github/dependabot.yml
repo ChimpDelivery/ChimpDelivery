@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
+    open-pull-requests-limit: 10
     labels:
       - "dependencies"
     reviewers:
@@ -17,6 +18,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
+    open-pull-requests-limit: 10
     labels:
       - "dependencies"
       - "php"
@@ -30,6 +32,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
+    open-pull-requests-limit: 10
     labels:
       - "dependencies"
       - "javascript-livewire"
