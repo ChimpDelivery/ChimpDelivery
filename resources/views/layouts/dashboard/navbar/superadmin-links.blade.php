@@ -8,6 +8,9 @@
         Monitoring
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item bg-transparent text-dark" href="{{ route('laralens.index') }}">
+            <i class="fa fa-server" aria-hidden="true"></i> LaraLens
+        </a>
         <a class="dropdown-item bg-transparent text-dark" href="{{ route('health') }}">
             <i class="fa fa-medkit" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
         </a>
