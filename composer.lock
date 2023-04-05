@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32f54e8274278b49e01869350458851b",
+    "content-hash": "1676d57d94f69d146423281215fdf647",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2122,6 +2122,82 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
+        },
+        {
+            "name": "hi-folks/lara-lens",
+            "version": "v0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hi-Folks/lara-lens.git",
+                "reference": "0248c307d712e6d170977952ccc8f8dead660372"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hi-Folks/lara-lens/zipball/0248c307d712e6d170977952ccc8f8dead660372",
+                "reference": "0248c307d712e6d170977952ccc8f8dead660372",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "v8.75.0|^9.0|^10.0",
+                "nunomaduro/termwind": "^1.13",
+                "php": "^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.0",
+                "laravel/pint": "^1.4",
+                "nunomaduro/larastan": "^1.0.0|^2.0",
+                "orchestra/testbench": "^6.23.2|^7.0|^8.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-laravel": "^1.2",
+                "phpunit/phpunit": "^9.5.10",
+                "psalm/plugin-laravel": "^1.6.2",
+                "vimeo/psalm": "^4.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "HiFolks\\LaraLens\\LaraLensServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaraLens": "HiFolks\\LaraLens\\LaraLensFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "HiFolks\\LaraLens\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roberto Butti",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Diagnostic command for configuration, db connection, http request",
+            "homepage": "https://github.com/hi-folks/lara-lens",
+            "keywords": [
+                "cli",
+                "command-line",
+                "console",
+                "diagnostic",
+                "hi-folks",
+                "lara-lens",
+                "laravel",
+                "package"
+            ],
+            "support": {
+                "issues": "https://github.com/Hi-Folks/lara-lens/issues",
+                "source": "https://github.com/Hi-Folks/lara-lens/tree/v0.4.0"
+            },
+            "time": "2023-02-04T11:01:39+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
