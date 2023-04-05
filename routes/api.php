@@ -22,6 +22,7 @@ use App\Actions\Api\Jenkins\GetJobs;
 use App\Actions\Api\Jenkins\Post\AbortJob;
 use App\Actions\Api\Jenkins\Post\BuildJob;
 use App\Actions\Api\Jenkins\ScanOrganization;
+use App\Actions\Api\Jenkins\GetScanOrganizationLog;
 
 use App\Actions\Api\S3\Provision\GetCertificate;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
@@ -62,7 +63,7 @@ Route::middleware([ 'auth:sanctum' ])->group(function () {
     Route::get('jenkins/get-job-builds', GetJobBuilds::class);
     Route::get('jenkins/get-job-lastbuild', GetJobLastBuild::class);
     Route::get('jenkins/get-job-lastbuild-log', GetJobLastBuildLog::class);
-
+    Route::get('jenkins/get-scan-organization-log', GetScanOrganizationLog::class);
     Route::post('jenkins/build-job', BuildJob::class);
     Route::post('jenkins/abort-job', AbortJob::class);
     Route::post('jenkins/scan-organization', ScanOrganization::class);

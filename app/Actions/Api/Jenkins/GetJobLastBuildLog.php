@@ -25,7 +25,7 @@ class GetJobLastBuildLog
         $response = $this->jenkinsService->GetResponse("/job/{$appInfo->project_name}/job/master/lastBuild/consoleText", true);
 
         return [
-            'app' => $appInfo,
+            'log_title' => "{$appInfo->project_name} | Build Log",
             'full_log' => $response->jenkins_data ?? ''
         ];
     }
@@ -39,7 +39,7 @@ class GetJobLastBuildLog
 
     public function htmlResponse(array $response) : View
     {
-        return view('build-log')->with($response);
+        return view('log')->with($response);
     }
 
     public function jsonResponse(array $response) : JsonResponse

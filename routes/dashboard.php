@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Api\Jenkins\GetScanOrganizationLog;
 use Illuminate\Support\Facades\Route;
 
 use Spatie\Honeypot\ProtectAgainstSpam;
@@ -107,6 +108,9 @@ Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgain
     Route::post('/dashboard/workspace/scan-jobs', ScanOrganization::class)
         ->middleware('permission:scan jobs')
         ->name('scan-workspace-jobs');
+
+    Route::get('/dashboard/workspace/scan-log', GetScanOrganizationLog::class)
+        ->middleware('permission:scan jobs');
 
     //////////////////////////////////
     //// app store connect routes
