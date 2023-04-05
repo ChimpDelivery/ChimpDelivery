@@ -210,7 +210,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\HealthServiceProvider::class,
         App\Providers\LogViewerServiceProvider::class,
-
+        App\Providers\LaraLensServiceProvider::class,
+        
         /*
          * Core Providers
          */
