@@ -24,7 +24,7 @@ class GetScanOrganizationLog
         $response = $this->jenkinsService->GetResponse("/computation/consoleText", true);
 
         return [
-            'log_title' => Auth::user()->workspace->name . '| Scan Log',
+            'log_title' => Auth::user()->workspace->name . ' | Scan Log',
             'full_log' => $response->jenkins_data ?? ''
         ];
     }
