@@ -110,7 +110,8 @@ Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgain
         ->name('scan-workspace-jobs');
 
     Route::get('/dashboard/workspace/scan-log', GetScanOrganizationLog::class)
-        ->middleware('permission:scan jobs');
+        ->middleware('permission:scan jobs')
+        ->name('scan-log');
 
     //////////////////////////////////
     //// app store connect routes
