@@ -34,7 +34,7 @@
         @include('layouts.dashboard.card-footer', [
             'text' => ($isNew)
                 ? 'All fields can be changed later by <b>Workspace Admin(s)</b>.'
-                : 'Updated at: ' . $workspace->updated_at
+                : 'GitHub Scan Logs: <a href=' . route('scan-log') . '> Click Here</a>'
         ])
     </div>
 </div>

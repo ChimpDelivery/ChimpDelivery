@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', $app->project_name)
+@section('title', $log_title)
 
 @section('headers')
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/a11y-dark.min.css">
@@ -10,7 +10,7 @@
     <div class="container py-2">
         <div class="card shadow bg-dark">
             @include('layouts.dashboard.card-header', [
-                'text' => "{$app->project_name} Build Log",
+                'text' => "{$log_title}",
                 'icon' => 'fa-eye'
             ])
             <div class="card-body overflow-auto" style="max-height: 70vh;">
