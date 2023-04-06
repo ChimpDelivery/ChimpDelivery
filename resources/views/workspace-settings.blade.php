@@ -27,14 +27,23 @@
                     'name' => ($isNew) ? 'Create Workspace' : 'Update'
                 ])
                 @can('scan jobs')
-                    <livewire:workspace.scan-github-button-view />
+                    <div class="btn-group pull-right">
+                        <livewire:workspace.scan-github-button-view />
+                        <button class="btn btn-secondary font-weight-bold" type="button"
+                                onclick="window.location='{{ route('scan-log') }}';"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="GitHub Organization scan logs.">
+                            <i class="fa fa-bug"></i>
+                        </button>
+                    </div>
                 @endcan
             </form>
         </div>
         @include('layouts.dashboard.card-footer', [
             'text' => ($isNew)
                 ? 'All fields can be changed later by <b>Workspace Admin(s)</b>.'
-                : 'GitHub Scan Logs: <a href=' . route('scan-log') . '> Click Here</a>'
+                : 'Last update: ' . $workspace->updated_at
         ])
     </div>
 </div>
