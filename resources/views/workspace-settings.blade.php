@@ -34,7 +34,7 @@
                                 data-toggle="tooltip"
                                 data-placement="bottom"
                                 title="GitHub Organization scan logs.">
-                            Logs
+                            <i class="fa fa-bug"></i>
                         </button>
                     </div>
                 @endcan
