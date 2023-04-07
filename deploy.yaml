@@ -2,6 +2,7 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
+  - deploy/upload_secrets.php
 
 config:
   application: 'TalusWebBackend'
@@ -74,3 +75,5 @@ tasks:
 after:
   deploy:failed:
     - deploy:unlock
+  deploy:prepare:
+    - dashboard:upload:secrets
