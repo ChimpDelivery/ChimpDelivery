@@ -1,42 +1,41 @@
 <?php
 
-namespace App\Actions\Api\Github\Private;
+namespace App\Console\Commands;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Illuminate\Console\Command;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Config;
 
 use App\Models\Workspace;
-use App\Services\GitHubService;
 
 /// Updates DOTENV secret variable in GitHub Repository environment.
 /// This class exist cause of daily key-rotating-system.
 /// After key rotation completed, DOTENV secret must be updated.
-class UpdateDotenvSecret
+class UpdateDotenvSecret extends Command
 {
-    use AsAction;
+    protected $signature = 'dashboard:update-dotenv-secret {env : target environment}';
+    protected $description = 'Rotates CipherSweet Encryption Key in application.';
 
     public const DOTENV_SECRET_NAME = 'TESTENV';
+    public const ENVIRONMENTS = [
+        'staging',
+        'production'
+    ];
 
-    public function __construct(
-        private readonly GitHubService $githubService
-    ) {
-    }
-
-    public function handle() : JsonResponse
+    public function handle() : int
     {
         try
         {
+            $this->PrepareConnectionToken();
+
             $secrets = GitHub::api('deployment')->environments()->secrets();
 
             // get current public key for specified environment
-            $repoPublicKey = $secrets->publicKey(config('github.app_repository_id'), 'staging');
+            $repoPublicKey = $secrets->publicKey(config('github.app_repository_id'), $this->argument('env'));
 
             // seal new dotenv
             $message = File::get(App::environmentFilePath());
@@ -44,7 +43,7 @@ class UpdateDotenvSecret
             $sealed = sodium_crypto_box_seal($message, $publicKey);
 
             // send request
-            $response = $secrets->createOrUpdate(
+            $secrets->createOrUpdate(
                 config('github.app_repository_id'),
                 'staging',
                 self::DOTENV_SECRET_NAME,
@@ -56,26 +55,19 @@ class UpdateDotenvSecret
         }
         catch (\Exception $exception)
         {
-            return response()->json([
-                'response' => [
-                    'error' => [
-                        'error_code' => $exception->getCode(),
-                        'error_msg' => $exception->getMessage(),
-                    ],
-                ],
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return Command::FAILURE;
         }
 
-        return response()->json([ 'response' => $response ], Response::HTTP_OK);
+        return Command::SUCCESS;
     }
 
-    public function asController() : JsonResponse
+    private function PrepareConnectionToken() : void
     {
         Config::set(
             'github.connections.main.token',
-            Workspace::find(config('workspaces.internal_ws_id'))->githubSetting->personal_access_token
+            Workspace::find(config('workspaces.internal_ws_id'))
+                ->githubSetting
+                ->personal_access_token
         );
-
-        return $this->handle();
     }
 }
