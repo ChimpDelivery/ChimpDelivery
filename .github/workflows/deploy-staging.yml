@@ -37,7 +37,11 @@ jobs:
         run: npm run production
         
       - name: Environment File
-        run: touch .env && echo "${{ secrets.DOTENV }}" >> .env
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: .env
+          write-mode: overwrite
+          contents: ${{ secrets.DOTENV }}
         
       - name: Deploy
         uses: deployphp/action@v1.0.22
