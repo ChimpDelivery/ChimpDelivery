@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use Illuminate\Support\Facades\App;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
@@ -47,6 +48,14 @@ class Kernel extends ConsoleKernel
             ->at('02.00')
             ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
+            ->environments([ 'staging', 'production' ]);
+
+        $schedule->command('dashboard:update-dotenv-secret', [ 'env' => App::environment() ])
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('02.20')
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->appendOutputTo(storage_path() . '/logs/update-dotenv-secret.log')
             ->environments([ 'staging', 'production' ]);
 
         ///////////////////////
