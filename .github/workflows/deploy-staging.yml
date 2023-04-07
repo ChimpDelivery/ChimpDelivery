@@ -50,5 +50,6 @@ jobs:
           SENTRY_PROJECT: 'talus-dashboard'
         with:
           environment: staging
+          set_commits: auto
           ignore_empty: true
 
