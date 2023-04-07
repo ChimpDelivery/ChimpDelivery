@@ -13,12 +13,13 @@ use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
 use App\Models\WorkspaceInviteCode;
 
-class RotateApplicationKeys extends Command
+class RotateCipherSweetKey extends Command
 {
     protected $signature = 'dashboard:rotate-key {--show : shows encryption keys}';
-    protected $description = 'Rotates encryption keys in application.';
+    protected $description = 'Rotates CipherSweet Encryption Key in application.';
 
-    protected string $cipherSweetKeyName = 'CIPHERSWEET_KEY';
+    // must be synced with variable in .env file
+    protected const CIPHERSWEET_KEY_NAME = 'CIPHERSWEET_KEY';
 
     protected array $encryptedModels = [
         AppleSetting::class,
@@ -31,12 +32,9 @@ class RotateApplicationKeys extends Command
     {
         // maintenance mode
         $this->call('down', [ '--secret' => config('app.down_secret') ]);
-        $this->info(Carbon::now() . ' | ' . 'Key Rotation is starting...');
+        $this->info(Carbon::now() . ' | Key Rotation is starting...');
 
-        // rotate laravel key
-        $this->call('key:generate', [ '--force' => true ]);
-
-        // rotate ciphersweet key
+        // key backups
         $oldKey = config('ciphersweet.providers.string.key');
         $key = $this->GenerateRandomKey();
 
@@ -59,7 +57,7 @@ class RotateApplicationKeys extends Command
 
         $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
 
-        $this->info('All Encryption Keys rotated successfully!');
+        $this->info('CipherSweet Encryption Key rotated successfully!');
 
         /// restarting horizon required
         $this->call('dashboard:restart-horizon');
@@ -91,13 +89,13 @@ class RotateApplicationKeys extends Command
     {
         $replaced = preg_replace(
             pattern: $this->KeyReplacementPattern(),
-            replacement: "{$this->cipherSweetKeyName}=" . $key,
+            replacement: self::CIPHERSWEET_KEY_NAME . '=' . $key,
             subject: $input = file_get_contents($this->laravel->environmentFilePath())
         );
 
         if ($replaced === $input || $replaced === null)
         {
-            $this->error("Unable to set application key. No {$this->cipherSweetKeyName} variable was found in the .env file.");
+            $this->error("Unable to set application key. CipherSweet Key could not found in the .env file.");
             return false;
         }
 
@@ -110,6 +108,6 @@ class RotateApplicationKeys extends Command
     {
         $escaped = preg_quote('=' . $this->laravel['config']['ciphersweet.providers.string.key'], '/');
 
-        return "/^{$this->cipherSweetKeyName}{$escaped}/m";
+        return "/^" . self::CIPHERSWEET_KEY_NAME . "{$escaped}/m";
     }
 }
