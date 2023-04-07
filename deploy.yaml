@@ -61,6 +61,10 @@ tasks:
   server:diagnostic:
     - cd: "{{release_path}}"
     - run: "php artisan laralens:diagnostic"
+  deploy:secrets:
+    - upload:
+        src: '.env'
+        dest: '{{deploy_path}}/shared'
   artisan:pennant:purge:
     - cd: "{{release_path}}"
     - run: "php artisan pennant:purge"
@@ -72,5 +76,7 @@ tasks:
     - run: "php artisan cloudflare:reload"
 
 after:
+  deploy:update_code:
+    - deploy:secrets
   deploy:failed:
     - deploy:unlock
