@@ -2,7 +2,6 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
-  - contrib/rsync.php
   - deploy/upload_secrets.php
 
 config:
@@ -17,7 +16,6 @@ config:
     '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
     '0 8 * * * journalctl --vacuum-size=100M'
   ]
-  rsync_src: '{{local_path}}'
 
 hosts:
   staging:
