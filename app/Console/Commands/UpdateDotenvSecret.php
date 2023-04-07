@@ -28,6 +28,14 @@ class UpdateDotenvSecret extends Command
 
     public function handle() : int
     {
+        $targetEnv = $this->argument('env');
+
+        if (!in_array($targetEnv, self::ENVIRONMENTS))
+        {
+            $this->error("Error: {$targetEnv} environment could not found!");
+            return Command::FAILURE;
+        }
+
         try
         {
             $this->PrepareConnectionToken();
@@ -35,7 +43,7 @@ class UpdateDotenvSecret extends Command
             $secrets = GitHub::api('deployment')->environments()->secrets();
 
             // get current public key for specified environment
-            $repoPublicKey = $secrets->publicKey(config('github.app_repository_id'), $this->argument('env'));
+            $repoPublicKey = $secrets->publicKey(config('github.app_repository_id'), $targetEnv);
 
             // seal new dotenv
             $message = File::get(App::environmentFilePath());
