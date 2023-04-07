@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 return [
 
+    // max element count in github apis
     'item_limit' => env('GIT_ITEM_LIMIT', 50),
 
     /*

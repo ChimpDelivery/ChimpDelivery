@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use Illuminate\Support\Facades\App;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
@@ -33,13 +34,27 @@ class Kernel extends ConsoleKernel
         ////////////////////////////////////
         /// encryption, key rotators (after backups)
         ////////////////////////////////////
+        $schedule->command('key:generate', [ '--force' => true ])
+            ->timezone('Europe/Istanbul')
+            ->daily()
+            ->at('01.55')
+            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
+            ->environments([ 'staging', 'production' ])
+            ->onSuccess(function () {
+                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+            });
+
         $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
             ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ]);
+            ->environments([ 'staging', 'production' ])
+            ->onSuccess(function() {
+                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+            });
 
         ///////////////////////
         // queue, horizon
@@ -77,7 +92,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:monitor')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('03:00')
+            ->at('01.45')
             ->withoutOverlapping()
             ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->environments([ 'production' ]);
