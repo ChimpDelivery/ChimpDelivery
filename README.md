@@ -3,9 +3,10 @@
 - Web Dashboard and related services configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
 
 # :alembic: Environments
-- [Production Server - Configurations](https://github.com/TalusStudio/TalusWebBackend-Deployment)
-- [Jenkins Controller(Master) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Controller-Docs)
-- [Jenkins Agent(Slave) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Agent-Docs)
+- ```.env``` file stored as an ```Environment Secret``` under ```GitHub Actions```.
+  - [Production/Staging Server - Configurations](https://github.com/TalusStudio/TalusWebBackend-Deployment)
+  - [Jenkins Controller(Master) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Controller-Docs)
+  - [Jenkins Agent(Slave) - Configurations](https://github.com/TalusStudio-Packages/Jenkins-Agent-Docs)
 
 # :label: Pre-Deployment
 - [Deployer](https://deployer.org/docs/7.x/recipe/laravel) Configurations
