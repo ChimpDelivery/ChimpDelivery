@@ -16,7 +16,6 @@ config:
     '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
     '0 8 * * * journalctl --vacuum-size=100M'
   ]
-  rsync_src: '.'
 
 hosts:
   staging:
@@ -74,7 +73,7 @@ tasks:
     - run: "php artisan cloudflare:reload"
 
 after:
-  deploy:shared:
+  deploy:update_code:
     - dashboard:upload:secrets
   deploy:failed:
     - deploy:unlock
