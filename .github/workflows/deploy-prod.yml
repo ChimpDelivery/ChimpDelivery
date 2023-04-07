@@ -41,7 +41,7 @@ jobs:
         run: npm run production
         
       - name: Environment File
-        uses: "DamianReeves/write-file-action@master"
+        uses: DamianReeves/write-file-action@v1.2
         with:
           path: .env
           write-mode: overwrite
