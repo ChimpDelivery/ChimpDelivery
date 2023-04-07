@@ -7,6 +7,9 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+
 use App\Models\Workspace;
 use App\Models\GithubSetting;
 
@@ -18,7 +21,7 @@ class GitHubService
     }
 
     // request handler to capture all exceptions in one place
-    public function MakeGithubRequest(string $api, string $func, array|string ...$parameters)
+    public function MakeGithubRequest(string $api, string $func, array|string ...$parameters) : JsonResponse
     {
         try
         {
@@ -31,17 +34,17 @@ class GitHubService
         }
         catch (\Exception $exception)
         {
-            return [
+            return response()->json([
                 'response' => [
                     'error' => [
                         'error_code' => $exception->getCode(),
                         'error_msg' => $exception->getMessage(),
                     ],
                 ],
-            ];
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return [ 'response' => $response ];
+        return response()->json([ 'response' => $response ], Response::HTTP_OK);
     }
 
     public function GetOrganizationName() : null|string

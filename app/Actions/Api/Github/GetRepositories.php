@@ -31,14 +31,16 @@ class GetRepositories
 
         $request = $this->GetGitHubRepositories();
 
-        $orgProjects = collect($request['response']);
+        $orgProjects = collect($request->getData()->response);
         $filteredOrgProjects = $this->FilterProjects($orgProjects);
 
-        return response()->json([ 'response' => $this->ReorganizeProjects($filteredOrgProjects) ]);
+        return response()->json([
+            'response' => $this->ReorganizeProjects($filteredOrgProjects),
+        ], $request->status());
     }
 
     // response can include error_code and msg...
-    private function GetGitHubRepositories() : array
+    private function GetGitHubRepositories() : JsonResponse
     {
         return $this->githubService->MakeGithubRequest(
             'repo',
@@ -61,19 +63,19 @@ class GetRepositories
             return $response;
         }
 
-        return $response->filter(function (array $githubProject) {
-            return isset($githubProject['topics']) && in_array($this->githubService->GetRepoTopic(), $githubProject['topics']);
+        return $response->filter(function (\stdClass $githubProject) {
+            return isset($githubProject->topics) && in_array($this->githubService->GetRepoTopic(), $githubProject->topics);
         });
     }
 
     // re-organize data layout that returned from api
     private function ReorganizeProjects(Collection $filteredOrgProjects) : Collection
     {
-        return $filteredOrgProjects->values()->map(function (array $githubProject) {
+        return $filteredOrgProjects->values()->map(function (\stdClass $githubProject) {
             return [
-                'id' => $githubProject['id'],
-                'name' => $githubProject['name'],
-                'size' => round($githubProject['size'] / 1024, 2) . 'mb',
+                'id' => $githubProject->id,
+                'name' => $githubProject->name,
+                'size' => round($githubProject->size / 1024, 2) . 'mb',
             ];
         });
     }

@@ -22,29 +22,29 @@ class GetRepositoryBranches
 
     public function handle(AppInfo $appInfo) : JsonResponse
     {
-        $request = $this->githubService->MakeGithubRequest(
+        $response = $this->githubService->MakeGithubRequest(
             'repo',
             'branches',
             $this->githubService->GetOrganizationName(),
             $appInfo->project_name
         );
 
-        $branches = collect($request['response']);
+        $branches = collect($response->getData()->response);
 
         // api response can include error and details
         // when error is encountered, branch collection will be empty
-        $branches = $branches->filter(function (array $branch) {
-            return isset($branch['commit']) && isset($branch['name']);
+        $branches = $branches->filter(function (\stdClass $branch) {
+            return isset($branch->commit) && isset($branch->name);
         });
 
-        $branches = $branches->values()->map(function (array $branch) {
+        $branches = $branches->values()->map(function (\stdClass $branch) {
             return [
-                'name' => $branch['name'],
-                'commit' => $branch['commit'],
+                'name' => $branch->name,
+                'commit' => $branch->commit,
             ];
         });
 
-        return response()->json([ 'response' => $branches ]);
+        return response()->json([ 'response' => $branches ], $response->status());
     }
 
     public function asController(GetAppInfoRequest $request) : JsonResponse

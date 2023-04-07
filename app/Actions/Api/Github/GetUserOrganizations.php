@@ -19,7 +19,9 @@ class GetUserOrganizations
 
     public function handle() : JsonResponse
     {
-        $userOrgs = $this->githubService->MakeGithubRequest('user', 'orgs');
-        return response()->json([ 'response' => $userOrgs ]);
+        $request = $this->githubService->MakeGithubRequest('user', 'orgs');
+        $response = $request->getData()?->response;
+
+        return response()->json([ 'response' => $response ], $request->status());
     }
 }
