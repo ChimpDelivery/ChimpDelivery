@@ -40,7 +40,10 @@ class Kernel extends ConsoleKernel
             ->at('01.55')
             ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ]);
+            ->environments([ 'staging', 'production' ])
+            ->onSuccess(function () {
+                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+            });
 
         $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
@@ -48,7 +51,10 @@ class Kernel extends ConsoleKernel
             ->at('02.00')
             ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ]);
+            ->environments([ 'staging', 'production' ])
+            ->onSuccess(function() {
+                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+            });
 
         $schedule->command('dashboard:update-dotenv-secret', [ 'env' => App::environment() ])
             ->timezone('Europe/Istanbul')
