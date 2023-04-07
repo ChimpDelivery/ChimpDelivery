@@ -39,6 +39,7 @@
 
 # :rocket: Monitoring
 - Sentry URL: **https://talusstudio.sentry.io**
+- LaraLens:  ```{DASHBOARD_URL}/laralens```
 - Dashboard Health: ```{DASHBOARD_URL}/health```
 - Horizon: ```{DASHBOARD_URL}/horizon```
 - Telescope: ```{DASHBOARD_URL}/telescope```
