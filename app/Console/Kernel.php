@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         ////////////////////////////////////
         /// encryption, key rotators (after backups)
         ////////////////////////////////////
-        $schedule->command('key:generate', [ '--force' ])
+        $schedule->command('key:generate --force')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('01.55')
