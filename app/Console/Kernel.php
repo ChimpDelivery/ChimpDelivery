@@ -56,14 +56,6 @@ class Kernel extends ConsoleKernel
                 $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
             });
 
-        $schedule->command('dashboard:update-dotenv-secret', [ 'env' => App::environment() ])
-            ->timezone('Europe/Istanbul')
-            ->daily()
-            ->at('02.20')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
-            ->appendOutputTo(storage_path() . '/logs/update-dotenv-secret.log')
-            ->environments([ 'staging', 'production' ]);
-
         ///////////////////////
         // queue, horizon
         //////////////////////
