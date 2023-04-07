@@ -16,9 +16,6 @@ return [
     // max element count in github apis
     'item_limit' => env('GIT_ITEM_LIMIT', 50),
 
-    // taluswebbackend github repository id
-    'app_repository_id' => 462104593,
-
     /*
     |--------------------------------------------------------------------------
     | Default Connection Name

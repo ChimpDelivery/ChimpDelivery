@@ -20,7 +20,8 @@ class UpdateDotenvSecret extends Command
     protected $signature = 'dashboard:update-dotenv-secret {env : target environment}';
     protected $description = 'Rotates CipherSweet Encryption Key in application.';
 
-    public const DOTENV_SECRET_NAME = 'TESTENV';
+    // must be synced with github repository environments
+    // todo: api-based implementation
     public const ENVIRONMENTS = [
         'staging',
         'production'
@@ -43,7 +44,7 @@ class UpdateDotenvSecret extends Command
             $secrets = GitHub::api('deployment')->environments()->secrets();
 
             // get current public key for specified environment
-            $repoPublicKey = $secrets->publicKey(config('github.app_repository_id'), $targetEnv);
+            $repoPublicKey = $secrets->publicKey(config('deploy.repository_id'), $targetEnv);
 
             // seal new dotenv
             $message = File::get(App::environmentFilePath());
@@ -52,9 +53,9 @@ class UpdateDotenvSecret extends Command
 
             // send request
             $secrets->createOrUpdate(
-                config('github.app_repository_id'),
+                config('deploy.repository_id'),
                 'staging',
-                self::DOTENV_SECRET_NAME,
+                config('deploy.dotenv_secret_name'),
                 [
                     'encrypted_value' => base64_encode($sealed),
                     'key_id' => $repoPublicKey['key_id']
@@ -67,7 +68,7 @@ class UpdateDotenvSecret extends Command
             return Command::FAILURE;
         }
 
-        $this->info(self::DOTENV_SECRET_NAME .  " secret in {$this->argument('env')} environment updated successfully!");
+        $this->info(config('deploy.dotenv_secret_name') .  " secret in {$targetEnv} environment updated successfully!");
         return Command::SUCCESS;
     }
 
