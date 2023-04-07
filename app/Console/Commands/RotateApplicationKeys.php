@@ -31,13 +31,10 @@ class RotateApplicationKeys extends Command
     {
         // maintenance mode
         $this->call('down', [ '--secret' => config('app.down_secret') ]);
-        $this->info(Carbon::now() . '|' . 'Key Rotation is starting...');
+        $this->info(Carbon::now() . ' | ' . 'Key Rotation is starting...');
 
         // rotate laravel key
-        $this->call('key:generate', [
-            '--show' => $this->option('show'),
-            '--force' => true,
-        ]);
+        $this->call('key:generate', [ '--force' => true ]);
 
         // rotate ciphersweet key
         $oldKey = config('ciphersweet.providers.string.key');
