@@ -73,7 +73,7 @@ tasks:
     - run: "php artisan cloudflare:reload"
 
 after:
+  deploy:shared:
+    - dashboard:upload:secrets
   deploy:failed:
     - deploy:unlock
-  deploy:prepare:
-    - dashboard:upload:secrets
