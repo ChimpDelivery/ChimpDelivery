@@ -74,6 +74,9 @@ tasks:
 
 after:
   deploy:update_code:
-    - dashboard:upload:secrets
+    - run_locally: 'cat .env'
+    - upload:
+        src: .env
+        dest: '{{deploy_path}}/shared/.env'
   deploy:failed:
     - deploy:unlock
