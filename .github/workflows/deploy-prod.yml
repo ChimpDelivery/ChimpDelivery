@@ -41,7 +41,7 @@ jobs:
         run: npm run production
         
       - name: Environment File
-        uses: "DamianReeves/write-file-action@master"
+        uses: DamianReeves/write-file-action@v1.2
         with:
           path: .env
           write-mode: overwrite
@@ -61,4 +61,5 @@ jobs:
           SENTRY_PROJECT: 'talus-dashboard'
         with:
           environment: production
+          set_commits: auto
           ignore_empty: true
