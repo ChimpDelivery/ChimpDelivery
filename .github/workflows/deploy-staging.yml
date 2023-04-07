@@ -37,7 +37,7 @@ jobs:
         run: npm run production
         
       - name: Environment File
-        run: touch .env && echo ${{ secrets.DOTENV }} >> .env
+        run: touch .env && echo "${{ secrets.DOTENV }}" >> .env
         
       - name: Deploy
         uses: deployphp/action@v1.0.22
