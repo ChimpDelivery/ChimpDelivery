@@ -2,6 +2,7 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
+  - contrib/rsync.php
   - deploy/upload_secrets.php
 
 config:
