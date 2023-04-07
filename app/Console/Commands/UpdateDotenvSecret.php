@@ -55,9 +55,11 @@ class UpdateDotenvSecret extends Command
         }
         catch (\Exception $exception)
         {
+            $this->error("Exception Message: {$exception->getMessage()}, Code: {$exception->getCode()}");
             return Command::FAILURE;
         }
 
+        $this->info(self::DOTENV_SECRET_NAME .  " secret in {$this->argument('env')} environment updated successfully!");
         return Command::SUCCESS;
     }
 
