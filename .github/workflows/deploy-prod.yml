@@ -39,6 +39,13 @@ jobs:
       - name: Compile Assets
         run: npm run production
         
+      - name: Environment File
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: .env
+          write-mode: overwrite
+          contents: ${{ secrets.DOTENV }}
+        
       - name: Deploy
         uses: deployphp/action@v1.0.22
         with:
