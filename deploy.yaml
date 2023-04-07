@@ -16,7 +16,7 @@ config:
     '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
     '0 8 * * * journalctl --vacuum-size=100M'
   ]
-  rsync_src: './'
+  rsync_src: '.'
 
 hosts:
   staging:
