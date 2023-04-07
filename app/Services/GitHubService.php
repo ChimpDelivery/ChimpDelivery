@@ -21,7 +21,7 @@ class GitHubService
     }
 
     // request handler to capture all exceptions in one place
-    public function MakeGithubRequest(string $api, $func, ...$parameters) : JsonResponse
+    public function MakeGithubRequest(string $api, string $func, array|string ...$parameters) : JsonResponse
     {
         try
         {
