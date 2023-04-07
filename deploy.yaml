@@ -74,6 +74,8 @@ tasks:
 
 after:
   deploy:update_code:
-    - dashboard:upload:secrets
+    - upload:
+        src: '.env'
+        dest: '{{deploy_path}}/shared'
   deploy:failed:
     - deploy:unlock
