@@ -65,7 +65,7 @@ tasks:
   deploy:secrets:
     - upload:
         src: '.env'
-        dest: ''{{deploy_path}}/shared''
+        dest: '{{deploy_path}}/shared'
   artisan:pennant:purge:
     - cd: "{{release_path}}"
     - run: "php artisan pennant:purge"
