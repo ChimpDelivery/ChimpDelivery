@@ -28,7 +28,7 @@ class GetRepository
             $appInfo->project_name
         );
 
-        return response()->json([ 'response' => $response ], $response->status());
+        return response()->json([ 'response' => $response['response'] ]);
     }
 
     public function asController(GetAppInfoRequest $request) : JsonResponse

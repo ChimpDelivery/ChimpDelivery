@@ -17,12 +17,12 @@ class CreateAppForm
     public function handle() : View
     {
         $allAppInfos = GetAppList::run();
-        $allGitProjects = GetRepositories::run();
+        $allGitProjects = GetRepositories::run()->getData();
 
         return view('appinfo-form')->with([
             'all_appstore_apps' => $allAppInfos->getData(),
-            'github_auth_failed' => $allGitProjects->status() !== Response::HTTP_OK,
-            'github_projects' => $allGitProjects->getData()->response,
+            'github_auth_failed' => isset($allGitProjects->response['error']),
+            'github_projects' => $allGitProjects->response,
         ]);
     }
 }
