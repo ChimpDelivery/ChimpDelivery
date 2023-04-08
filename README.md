@@ -1,4 +1,5 @@
 # About Talus Dashboard
+**Talus Dashboard** and its related services are designed to automate the **CI/CD Steps** for applications built with the **Unity3D**.
 - Provides backend systems such as ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
 - Web Dashboard and related services configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
 
