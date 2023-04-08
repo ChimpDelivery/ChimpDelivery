@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         LaravelCloudflare::getProxiesUsing(fn () => CloudflareProxies::load());
     }
 
-    private function RegisterDebugServices()
+    private function RegisterDebugServices() : void
     {
         if ($this->app->environment([ 'local' ]))
         {
