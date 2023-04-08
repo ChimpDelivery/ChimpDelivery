@@ -54,7 +54,7 @@ class UpdateDotenvSecret extends Command
             // send request
             $secrets->createOrUpdate(
                 config('deploy.repository_id'),
-                'staging',
+                $targetEnv,
                 config('deploy.dotenv_secret_name'),
                 [
                     'encrypted_value' => base64_encode($sealed),
