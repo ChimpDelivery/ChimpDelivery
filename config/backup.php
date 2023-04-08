@@ -8,7 +8,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => 'TalusDashboard_Backup',
+        'name' => env('BACKUP_FOLDER_NAME', 'Laravel Backup'),
 
         'source' => [
 
@@ -206,7 +206,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => 'TalusDashboard_Backup',
+            'name' => env('BACKUP_FOLDER_NAME', 'Laravel Backup'),
             'disks' => ['s3'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,

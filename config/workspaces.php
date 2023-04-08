@@ -9,7 +9,7 @@ return [
     'internal_ws_id' => 2,
 
     //
-    'superadmin_email' => 'superadmin@talusstudio.com',
+    'superadmin_email' => env('superadmin_email'),
 
     // jenkins token name (internal token used by dashboard, no user-access)
     'jenkins_token_name' => 'jenkins-key',
