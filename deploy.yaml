@@ -60,7 +60,7 @@ tasks:
     - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
   server:diagnostic:
     - cd: "{{release_path}}"
-    - run: "php artisan laralens:diagnostic"
+    - run: "php artisan laralens:diagnostic --table=migrations --column-sort=id"
   deploy:secrets:
     - upload:
         src: '.env'

@@ -76,7 +76,7 @@ class UpdateDotenvSecret extends Command
     {
         Config::set(
             'github.connections.main.token',
-            Workspace::find(config('workspaces.internal_ws_id'))
+            Workspace::findOrFail(config('workspaces.internal_ws_id'))
                 ->githubSetting
                 ->personal_access_token
         );
