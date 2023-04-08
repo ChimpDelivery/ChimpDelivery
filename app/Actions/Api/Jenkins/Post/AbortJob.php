@@ -4,9 +4,12 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
+use Laravel\Pennant\Feature;
+
 use Illuminate\Http\Response;
 
 use App\Models\AppInfo;
+use App\Features\AppBuild;
 use App\Services\JenkinsService;
 use App\Http\Requests\Jenkins\StopJobRequest;
 
@@ -46,6 +49,6 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        return $request->user()->can('abort job');
+        return $request->user()->can('abort job')&& Feature::active(AppBuild::class);
     }
 }
