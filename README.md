@@ -1,7 +1,7 @@
 # About Talus Dashboard
-**Talus Dashboard** and its related services are designed to automate the **CI/CD Steps** for applications built with the **Unity3D**.
+**Talus Dashboard** and its services are designed to **automate** and **monitor** the **CI/CD Steps** for applications built with the **Unity3D**.
 - Provides backend systems such as ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
-- Web Dashboard and related services configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
+- Configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
 - [Structure](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/CI-CD.drawio) (https://app.diagrams.net/)
 
 ## [Example Screenshots](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Screenshots)
@@ -9,15 +9,17 @@
 - [Dashboard - Unity3D Build Log](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/06_dashboard-app-build-log.png) 
 - [Dashboard - Create iOS Bundle ID](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/10_dashboard-create-ios-bundle-id.png)
 - [Dashboard - Super Admin - Health Checks](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/11_dashboard-superadmin-health.png)
-- [Unity3D - Dashboard - Auth](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots_Unity3D/01_Unity3D_Dashboard_Auth.png)
-- [Unity3D - Build Layout](https://github.com/TalusStudio/TalusWebBackend/blob/dev/docs/Screenshots_Unity3D/02_Unity3D_Dashboard_Build_Layout.png)
-- [Unity3D - Platform Providers](https://github.com/TalusStudio/TalusWebBackend/blob/dev/docs/Screenshots_Unity3D/03_Unity3D_Dasboard_Asset_Data_Providers.png)
 
 ## Unity3D Environment
 The packages listed below should be added to **Unity3D** projects.
 - [TalusBackendData](https://github.com/TalusStudio/TalusBackendData-Package) 
 - [TalusCI](https://github.com/TalusStudio/TalusCI-Package)
 - [TalusSettings](https://github.com/TalusStudio/TalusSettings-Package)
+
+Example Screenshots
+- [Unity3D - Dashboard Authentication](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots_Unity3D/01_Unity3D_Dashboard_Auth.png)
+- [Unity3D - Build Layout](https://github.com/TalusStudio/TalusWebBackend/blob/dev/docs/Screenshots_Unity3D/02_Unity3D_Dashboard_Build_Layout.png)
+- [Unity3D - Build Platform Providers](https://github.com/TalusStudio/TalusWebBackend/blob/dev/docs/Screenshots_Unity3D/03_Unity3D_Dasboard_Asset_Data_Providers.png)
 
 # :alembic: Environments
 - ```.env``` file stored as an ```Environment Secret``` under ```GitHub Actions```.

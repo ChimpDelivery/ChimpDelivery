@@ -4,9 +4,12 @@ namespace App\Actions\Api\Jenkins;
 
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
+use Laravel\Pennant\Feature;
+
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+use App\Features\AppBuild;
 use App\Services\JenkinsService;
 
 class ScanOrganization extends BaseJenkinsAction
@@ -33,6 +36,6 @@ class ScanOrganization extends BaseJenkinsAction
 
     public function authorize() : bool
     {
-        return Auth::user()->can('scan jobs');
+        return Auth::user()->can('scan jobs') && Feature::active(AppBuild::class);
     }
 }
