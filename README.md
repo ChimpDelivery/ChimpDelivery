@@ -94,6 +94,10 @@ GET    |   api/github/get-repository?project_name={projectName}
 GET    |   api/github/get-repository-branches?id={id}
 ```
 
+# Security Vulnerabilities
+
+If you discover a security vulnerability within project, please send an e-mail to Emre Kovanci via [emrekovanci@talusstudio.com](mailto:emrekovanci@talusstudio.com). All security vulnerabilities will be promptly addressed.
+
 # License
 
 Talus Dashboard is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
