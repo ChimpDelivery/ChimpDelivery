@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->environments([ 'staging', 'production' ])
             ->onSuccess(function () {
-                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+                $this->call('dashboard:update-dotenv-secret ' . App::environment());
             });
 
         $schedule->command('dashboard:rotate-key --show')
@@ -53,7 +53,7 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->environments([ 'staging', 'production' ])
             ->onSuccess(function() {
-                $this->call('dashboard:update-dotenv-secret', [ 'env' => App::environment() ]);
+                $this->call('dashboard:update-dotenv-secret ' . App::environment());
             });
 
         ///////////////////////
