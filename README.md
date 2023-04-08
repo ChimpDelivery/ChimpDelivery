@@ -8,7 +8,7 @@
 - [Dashboard - Create App](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/07_dashboard-create-app-1.png)
 - [Dashboard - Unity3D Build Log](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/06_dashboard-app-build-log.png) 
 - [Dashboard - Create iOS Bundle ID](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/10_dashboard-create-ios-bundle-id.png)
-
+- [Dashboard - Super Admin - Health Checks](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/11_dashboard-superadmin-health.png)
 ## Unity3D Environment
 The packages listed below should be added to **Unity3D** projects.
 - [TalusBackendData](https://github.com/TalusStudio/TalusBackendData-Package) 
