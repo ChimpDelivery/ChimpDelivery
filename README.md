@@ -55,7 +55,8 @@
 # API
 - Full details about API Endpoints (inputs, example responses etc.) are in related Postman Workspace.
 - Postman Workspace: **https://talusstudio.postman.co**
-# 🔑 Apps API
+
+## 🔑 Apps API
 - Optional parameters marked with `?`
 
 ```
