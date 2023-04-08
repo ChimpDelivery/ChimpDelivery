@@ -4,12 +4,15 @@ namespace App\Actions\Api\Jenkins\Post;
 
 use App\Actions\Api\Jenkins\Interfaces\BaseJenkinsAction;
 
+use Laravel\Pennant\Feature;
+
 use App\Actions\Api\Jenkins\GetJobBuilds;
 use App\Jobs\Jenkins\BuildParameterizedJob;
 use App\Http\Requests\Jenkins\BuildRequest;
 
 use App\Models\User;
 use App\Models\AppInfo;
+use App\Features\AppBuild;
 
 class BuildJob extends BaseJenkinsAction
 {
@@ -45,6 +48,6 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        return $request->user()->can('build job');
+        return $request->user()->can('build job') && Feature::active(AppBuild::class);
     }
 }
