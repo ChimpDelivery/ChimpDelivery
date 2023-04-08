@@ -1,4 +1,4 @@
-# Talus Dashboard
+# About Talus Dashboard
 - Provides backend systems such as ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
 - Web Dashboard and related services configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
 
@@ -64,7 +64,7 @@ POST   |   api/create-app?app_icon={icon?}&app_name={appName}&project_name={proj
 POST   |   api/update-app?id={id}&fb_app_id={fbAppID?}&ga_id={gaID?}&ga_secret={gaSecret?}
 ```
 
-# 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
+## 🔑 [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi)
 ```
 GET    |   api/appstoreconnect/get-token
 GET    |   api/appstoreconnect/get-store-apps
@@ -74,7 +74,7 @@ GET    |   api/appstoreconnect/get-provision-profile
 POST   |   api/appstoreconnect/create-bundle?bundle_id={bundleId}&bundle_name={bundleName}
 ```
 
-# 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
+## 🔑 [Jenkins API](https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api)
 ```
 GET    |   api/jenkins/get-jobs
 GET    |   api/jenkins/get-job?id={id}
@@ -86,9 +86,13 @@ POST   |   api/jenkins/build-job?id={id}&platform={platform}&storeVersion={store
 POST   |   api/jenkins/scan-organization
 ```
 
-# 🔑 [GitHub API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
+## 🔑 [GitHub API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
 ```
 GET    |   api/github/get-repositories
 GET    |   api/github/get-repository?project_name={projectName}
 GET    |   api/github/get-repository-branches?id={id}
 ```
+
+# License
+
+Talus Dashboard is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
