@@ -36,12 +36,12 @@
 - GitHub API Support
 - Workspaces & Roles & Permissions
 - Daily Backups (S3)
-- Dashboard Monitoring as **Super Admin** (Health, Horizon, Telescope, Log Viewer)
+- Dashboard Monitoring as **Super Admin** (LaraLens, Health Checks, Horizon, Telescope, Log Viewer)
 
 # :rocket: Monitoring
 - Sentry URL: **https://talusstudio.sentry.io**
-- LaraLens:  ```{DASHBOARD_URL}/laralens```
-- Dashboard Health: ```{DASHBOARD_URL}/health```
+- LaraLens: ```{DASHBOARD_URL}/laralens```
+- Health Checks: ```{DASHBOARD_URL}/health```
 - Horizon: ```{DASHBOARD_URL}/horizon```
 - Telescope: ```{DASHBOARD_URL}/telescope```
 - Log Viewer: ```{DASHBOARD_URL}/log-viewer```
