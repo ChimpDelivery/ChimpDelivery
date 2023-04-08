@@ -9,7 +9,7 @@ return [
     'internal_ws_id' => 2,
 
     //
-    'superadmin_email' => env('superadmin_email'),
+    'superadmin_email' => env('SUPERADMIN_EMAIL'),
 
     // jenkins token name (internal token used by dashboard, no user-access)
     'jenkins_token_name' => 'jenkins-key',
