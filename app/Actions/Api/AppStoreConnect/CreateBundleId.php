@@ -4,11 +4,15 @@ namespace App\Actions\Api\AppStoreConnect;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
+use Laravel\Pennant\Feature;
+
 use Illuminate\Support\ValidatedInput;
 
 use App\Traits\AsActionResponse;
 use App\Services\AppStoreConnectService;
 use App\Http\Requests\AppStoreConnect\StoreBundleRequest;
+
+use App\Features\iOSBundleId;
 
 // api reference: https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id
 class CreateBundleId
@@ -70,6 +74,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return $request->user()->can('create bundle');
+        return $request->user()->can('create bundle') && Feature::active(iOSBundleId::class);
     }
 }

@@ -4,13 +4,14 @@ namespace App\Features;
 
 use App\Models\User;
 
-class BranchBasedBuild
+// only internal talus users for now...
+class iOSBundleId
 {
     public function resolve(User $user) : bool
     {
         return match (true)
         {
-            $user->isInternal() => false,
+            $user->isInternal() => true,
             default => false,
         };
     }
