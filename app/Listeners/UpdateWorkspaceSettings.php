@@ -4,6 +4,9 @@ namespace App\Listeners;
 
 use App\Events\WorkspaceChanged;
 
+use Laravel\Pennant\Feature;
+
+use App\Features\AppBuild;
 use App\Jobs\Jenkins\CreateOrganization;
 
 class UpdateWorkspaceSettings
@@ -43,6 +46,10 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
-        CreateOrganization::dispatch($workspace, $event->user);
+        CreateOrganization::dispatchIf(
+            Feature::active(AppBuild::class),
+            $workspace,
+            $event->user
+        );
     }
 }
