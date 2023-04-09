@@ -2,7 +2,7 @@
 
 return [
     // auth
-    'host' => env('JENKINS_HOST', 'https://local.talusstudio.com'),
+    'host' => env('JENKINS_HOST', ''),
     'user' => env('JENKINS_USER', ''),
     'token' => env('JENKINS_TOKEN', ''),
 
@@ -10,6 +10,6 @@ return [
     'seeder' => 'Seed',
 
     // request settings
-    'timeout' => 20,
-    'connect_timeout' => 8,
+    'timeout' => 15,
+    'connect_timeout' => 6,
 ];

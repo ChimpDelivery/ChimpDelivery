@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -211,7 +211,7 @@ return [
         App\Providers\HealthServiceProvider::class,
         App\Providers\LogViewerServiceProvider::class,
         App\Providers\LaraLensServiceProvider::class,
-        
+
         /*
          * Core Providers
          */

@@ -15,11 +15,12 @@ use Database\Seeders\Workspace\WorkspaceSeeder;
 use Database\Seeders\Settings\AppleSettingSeeder;
 use Database\Seeders\Settings\AppStoreConnectSettingSeeder;
 use Database\Seeders\Settings\AppStoreConnectSignSeeder;
+use Database\Seeders\Settings\GooglePlaySettingSeeder;
 use Database\Seeders\Settings\GithubSettingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
+    public function run() : void
     {
         $this->call([
 
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             AppleSettingSeeder::class,
             AppStoreConnectSettingSeeder::class,
             AppStoreConnectSignSeeder::class,
+            GooglePlaySettingSeeder::class,
             GithubSettingSeeder::class,
 
             // seed roles

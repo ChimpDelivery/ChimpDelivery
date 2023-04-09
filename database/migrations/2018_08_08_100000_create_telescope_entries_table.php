@@ -36,9 +36,8 @@ return new class extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
      */
-    public function up()
+    public function up() : void
     {
         $this->schema->create('telescope_entries', function (Blueprint $table) {
             $table->bigIncrements('sequence');
@@ -78,9 +77,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
-    public function down()
+    public function down() : void
     {
         $this->schema->dropIfExists('telescope_entries_tags');
         $this->schema->dropIfExists('telescope_entries');

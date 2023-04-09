@@ -14,6 +14,7 @@ use App\Observers\WorkspaceObserver;
 use App\Listeners\S3\UploadAppIcon;
 use App\Listeners\UpdateWorkspaceSettings;
 use App\Listeners\S3\UploadAppStoreConnectSign;
+use App\Listeners\S3\UploadGooglePlayCredentials;
 use App\Actions\Api\Jenkins\ScanOrganization;
 
 class EventServiceProvider extends ServiceProvider
@@ -32,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
         WorkspaceChanged::class => [
             UpdateWorkspaceSettings::class,
             UploadAppStoreConnectSign::class,
+            UploadGooglePlayCredentials::class,
         ],
 
         AppChanged::class => [

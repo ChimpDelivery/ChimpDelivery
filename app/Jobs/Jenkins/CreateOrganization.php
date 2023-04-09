@@ -44,6 +44,7 @@ class CreateOrganization extends BaseJenkinsJob
     {
         $githubSetting = $workspace->githubSetting;
         $appleSetting = $workspace->appleSetting;
+        $googlePlaySetting = $workspace->googlePlaySetting;
 
         return http_build_query([
             // dashboard-auth
@@ -62,8 +63,8 @@ class CreateOrganization extends BaseJenkinsJob
             'TESTFLIGHT_PASSWORD' => $appleSetting->app_specific_pass,
 
             // android
-            'ANDROID_KEYSTORE_PATH' => 'Assets/Settings/Key.keystore',
-            'ANDROID_KEYSTORE_PASS' => '3434Talus!',
+            'ANDROID_KEYSTORE_PATH' => $googlePlaySetting->keystore_path,
+            'ANDROID_KEYSTORE_PASS' => $googlePlaySetting->keystore_pass,
         ]);
     }
 }

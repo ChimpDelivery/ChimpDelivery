@@ -20,6 +20,7 @@
                 @include('workspace.appstore-api-settings')
                 @include('workspace.appstore-sign-settings')
                 @include('workspace.testflight-api-settings')
+                @include('workspace.googleplay-api-settings')
                 @include('workspace.github-api-settings')
                 <br/>
                 @include('layouts.dashboard.button-success', [

@@ -2,33 +2,23 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class AlphaDashDot implements Rule
+class AlphaDashDot implements ValidationRule
 {
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     */
-    public function passes($attribute, $value) : bool
+    private const MATCH_REGEX = '/^[A-Za-z0-9._-]+$/';
+
+    public function validate(string $attribute, mixed $value, Closure $fail) : void
     {
         if (!is_string($value) && !is_numeric($value))
         {
-            return false;
+            $fail('The :attribute may only contain letters, numbers, dashes, underscores and dots.');
         }
 
-        return preg_match('/^[A-Za-z0-9._-]+$/', $value) > 0;
-    }
-
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        return 'The :attribute may only contain letters, numbers, dashes, underscores and dots.';
+        if (preg_match(self::MATCH_REGEX, $value) <= 0)
+        {
+            $fail('The :attribute may only contain letters, numbers, dashes, underscores and dots.');
+        }
     }
 }

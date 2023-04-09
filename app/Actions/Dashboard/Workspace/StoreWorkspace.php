@@ -4,8 +4,6 @@ namespace App\Actions\Dashboard\Workspace;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 
-use Illuminate\Support\Str;
-use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\ValidatedInput;
 
@@ -33,74 +31,9 @@ class StoreWorkspace
     public function asController(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
         $user = $request->user();
+        $workspace = $user->isNew() ? new Workspace() : $user->workspace;
 
-        return $this->handle(
-            $user,
-            $user->isNew() ? new Workspace() : $user->workspace,
-            $request->safe()
-        );
-    }
-
-    public function withValidator(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
-    {
-        $validator->after(function (Validator $validator) use ($request) {
-            $this->ValidateCertificate($validator, $request);
-            $this->ValidateProvision($validator, $request);
-        });
-    }
-
-    private function ValidateCertificate(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
-    {
-        if ($request->hasFile('cert'))
-        {
-            $isValidCert = $this->IsValidFile(
-                file: $request->validated('cert'),
-                serverMime: 'application/octet-stream',
-                clientMime: 'application/x-pkcs12',
-                clientExt: '.p12'
-            );
-
-            if (!$isValidCert)
-            {
-                $validator->errors()->add(
-                    'cert',
-                    'Invalid certificate type! Only ".p12" files allowed.'
-                );
-            }
-        }
-    }
-
-    private function ValidateProvision(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
-    {
-        if ($request->hasFile('provision_profile'))
-        {
-            $isValidProvision = $this->IsValidFile(
-                file: $request->validated('provision_profile'),
-                serverMime: 'application/octet-stream',
-                clientMime: 'application/octet-stream',
-                clientExt: '.mobileprovision'
-            );
-
-            if (!$isValidProvision)
-            {
-                $validator->errors()->add(
-                    'provision_profile',
-                    'Invalid provision profile file! Only ".mobileprovision" files allowed.'
-                );
-            }
-        }
-    }
-
-    private function IsValidFile($file, $serverMime, $clientMime, $clientExt) : bool
-    {
-        return $file->getMimeType() === $serverMime
-            && $file->getClientMimeType() === $clientMime
-            && $this->IsValidExtension($file, $clientExt);
-    }
-
-    private function IsValidExtension($file, $extension) : bool
-    {
-        return Str::of($file->getClientOriginalName())->endsWith($extension);
+        return $this->handle($user, $workspace, $request->safe());
     }
 
     public function authorize(StoreWorkspaceSettingsRequest $request) : bool

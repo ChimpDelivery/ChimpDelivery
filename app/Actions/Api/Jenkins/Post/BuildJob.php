@@ -48,6 +48,6 @@ class BuildJob extends BaseJenkinsAction
 
     public function authorize(BuildRequest $request) : bool
     {
-        return $request->user()->can('build job') && Feature::active(AppBuild::class);
+        return $request->user()->can('build job') && Feature::for($request->user())->active(AppBuild::class);
     }
 }

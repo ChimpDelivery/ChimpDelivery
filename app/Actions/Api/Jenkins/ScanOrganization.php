@@ -36,6 +36,6 @@ class ScanOrganization extends BaseJenkinsAction
 
     public function authorize() : bool
     {
-        return Auth::user()->can('scan jobs') && Feature::active(AppBuild::class);
+        return Auth::user()->can('scan jobs') && Feature::for(Auth::user())->active(AppBuild::class);
     }
 }
