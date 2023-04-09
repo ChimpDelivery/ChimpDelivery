@@ -10,6 +10,6 @@ return [
     'seeder' => 'Seed',
 
     // request settings
-    'timeout' => 20,
-    'connect_timeout' => 8,
+    'timeout' => 15,
+    'connect_timeout' => 6,
 ];
