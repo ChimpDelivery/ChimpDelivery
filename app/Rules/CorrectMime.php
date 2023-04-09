@@ -4,12 +4,10 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Validator;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Contracts\Validation\ValidatorAwareRule;
 
-class CorrectMime implements ValidationRule, DataAwareRule, ValidatorAwareRule
+class CorrectMime implements ValidationRule, DataAwareRule
 {
     public function __construct(
         private readonly string $inputName,
@@ -20,7 +18,6 @@ class CorrectMime implements ValidationRule, DataAwareRule, ValidatorAwareRule
     }
 
     protected array $data = [];
-    protected Validator $validator;
 
     //  This method will automatically be invoked by Laravel
     // (before validation proceeds) with all of the data under validation.
@@ -31,23 +28,13 @@ class CorrectMime implements ValidationRule, DataAwareRule, ValidatorAwareRule
         return $this;
     }
 
-    public function setValidator(Validator $validator): static
-    {
-        $this->validator = $validator;
-
-        return $this;
-    }
-
     public function validate(string $attribute, mixed $value, Closure $fail) : void
     {
         if (isset($this->data[$this->inputName]))
         {
             if (!$this->IsValidFile($this->data[$this->inputName]))
             {
-                $this->validator->errors()->add(
-                    $this->inputName,
-                    "Invalid {$this->inputName} type! Only {$this->clientExt} files allowed!"
-                );
+                $fail('Invalid :attribute type!' . "Only {$this->clientExt} files allowed!");
             }
         }
     }
