@@ -47,7 +47,7 @@ class UpdateWorkspaceSettings
         $githubSetting->save();
 
         CreateOrganization::dispatchIf(
-            Feature::active(AppBuild::class),
+            Feature::for($event->user)->active(AppBuild::class),
             $workspace,
             $event->user
         );

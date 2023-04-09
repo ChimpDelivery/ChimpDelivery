@@ -74,6 +74,6 @@ class CreateBundleId
 
     public function authorize(StoreBundleRequest $request) : bool
     {
-        return $request->user()->can('create bundle') && Feature::active(iOSBundleId::class);
+        return $request->user()->can('create bundle') && Feature::for($request->user())->active(iOSBundleId::class);
     }
 }

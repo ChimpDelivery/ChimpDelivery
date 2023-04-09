@@ -49,6 +49,6 @@ class AbortJob extends BaseJenkinsAction
 
     public function authorize(StopJobRequest $request) : bool
     {
-        return $request->user()->can('abort job')&& Feature::active(AppBuild::class);
+        return $request->user()->can('abort job')&& Feature::for($request->user())->active(AppBuild::class);
     }
 }
