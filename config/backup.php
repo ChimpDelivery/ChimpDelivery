@@ -8,7 +8,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('BACKUP_FOLDER_NAME', 'Laravel Backup'),
+        'name' => env('BACKUP_FOLDER_NAME', 'Laravel_Backup'),
 
         'source' => [
 
@@ -206,7 +206,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => env('BACKUP_FOLDER_NAME', 'Laravel Backup'),
+            'name' => env('BACKUP_FOLDER_NAME', 'Laravel_Backup'),
             'disks' => ['s3'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,

@@ -75,6 +75,8 @@ class HealthServiceProvider extends ServiceProvider
                 'JENKINS_USER',
                 'JENKINS_TOKEN',
                 'GIT_ITEM_LIMIT',
+                'GITHUB_REPOSITORY_ID',
+                'GITHUB_DOTENV_SECRET_NAME',
                 'FTP_HOST',
                 'FTP_USERNAME',
                 'FTP_PASSWORD',
