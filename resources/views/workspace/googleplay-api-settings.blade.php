@@ -17,7 +17,7 @@
         <div class="custom-file">
             <label class="custom-file-label" for="service_account">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ Str::limit($workspace->googlePlaySetting->service_account, 128) }}
+                    {{ Str::limit($workspace->googlePlaySetting->service_account ?: 'Choose...', 128) }}
                 </span>
             </label>
             <input type="file" class="custom-file-input" id="service_account" name="service_account" accept=".json">
@@ -30,7 +30,7 @@
         <div class="custom-file">
             <label class="custom-file-label" for="keystore_file">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ Str::limit($workspace->googlePlaySetting->keystore_file, 128) }}
+                    {{ Str::limit($workspace->googlePlaySetting->keystore_file ?: 'Choose...', 128) }}
                 </span>
             </label>
             <input type="file" class="custom-file-input" id="keystore_file" name="keystore_file" accept=".keystore">
