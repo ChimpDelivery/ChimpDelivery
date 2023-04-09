@@ -30,6 +30,11 @@ class UpdateWorkspaceSettings
         $appleSetting->fill($validated->only(['usermail', 'app_specific_pass']));
         $appleSetting->save();
 
+        // GooglePlaySetting
+        $googlePlaySetting = $workspace->googlePlaySetting()->firstOrCreate();
+        $googlePlaySetting->fill($validated->only(['android_keystore_pass']));
+        $googlePlaySetting->save();
+
         // GithubSetting
         $githubSetting = $workspace->githubSetting()->firstOrCreate();
         $githubSetting->fill([
