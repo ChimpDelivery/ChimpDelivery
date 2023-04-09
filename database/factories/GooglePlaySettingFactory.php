@@ -12,11 +12,11 @@ class GooglePlaySettingFactory extends Factory
 {
     protected $model = GooglePlaySetting::class;
 
-    public function definition()
+    public function definition() : array
     {
         return [
             'workspace_id' => 1,
-            'keystore_path' => null,
+            'keystore_file' => null,
             'keystore_pass' => null,
             'service_account' => null,
         ];
