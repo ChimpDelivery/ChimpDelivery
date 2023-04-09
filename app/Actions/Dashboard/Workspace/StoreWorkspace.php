@@ -31,12 +31,9 @@ class StoreWorkspace
     public function asController(StoreWorkspaceSettingsRequest $request) : RedirectResponse
     {
         $user = $request->user();
+        $workspace = $user->isNew() ? new Workspace() : $user->workspace;
 
-        return $this->handle(
-            $user,
-            $user->isNew() ? new Workspace() : $user->workspace,
-            $request->safe()
-        );
+        return $this->handle($user, $workspace, $request->safe());
     }
 
     public function authorize(StoreWorkspaceSettingsRequest $request) : bool
