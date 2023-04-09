@@ -128,4 +128,5 @@ return [
         ],
     ],
 
+    'log_mail_address' => env('LOG_MAIL_ADDRESS'),
 ];

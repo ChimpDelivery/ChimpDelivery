@@ -12,13 +12,9 @@ use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 
 class Kernel extends ConsoleKernel
 {
-    // report target for failed commands
-    private const FAIL_MAIL_TARGET = 'talusci@talusstudio.com';
-
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      */
     protected function schedule(Schedule $schedule) : void
     {
@@ -28,7 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('cloudflare:reload')
             ->daily()
             ->at('04.30')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'staging', 'production' ]);
 
         ////////////////////////////////////
@@ -38,7 +34,7 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('01.55')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->environments([ 'staging', 'production' ])
             ->onSuccess(function () {
@@ -49,7 +45,7 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('02.00')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->environments([ 'staging', 'production' ])
             ->onSuccess(function() {
@@ -67,7 +63,7 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->hourly()
             ->at(5)
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/horizon.log');
 
         /////////////////
@@ -78,7 +74,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01:00')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
 
         $schedule->command('backup:run')
@@ -86,7 +82,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01:30')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
 
         $schedule->command('backup:monitor')
@@ -94,7 +90,7 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->at('01.45')
             ->withoutOverlapping()
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET)
+            ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
 
         /////////////////////
@@ -115,19 +111,19 @@ class Kernel extends ConsoleKernel
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03.30')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
+            ->emailOutputOnFailure(config('logging.log_mail_address'));
 
         $schedule->command('model:prune', [ '--model' => [ HealthCheckResultHistoryItem::class ] ])
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('03:45')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
+            ->emailOutputOnFailure(config('logging.log_mail_address'));
 
         $schedule->command('telescope:prune')
             ->timezone('Europe/Istanbul')
             ->daily()
             ->at('04.00')
-            ->emailOutputOnFailure(self::FAIL_MAIL_TARGET);
+            ->emailOutputOnFailure(config('logging.log_mail_address'));
 
         // Password reset tokens that have expired will still be present within your database.
         $schedule->command('auth:clear-resets')->everyFifteenMinutes();
