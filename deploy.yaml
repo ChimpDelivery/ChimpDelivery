@@ -2,6 +2,7 @@ import:
   - recipe/laravel.php
   - contrib/php-fpm.php
   - contrib/crontab.php
+  - environments.yaml
 
 config:
   application: 'TalusWebBackend'
@@ -15,25 +16,6 @@ config:
     '* * * * * cd {{current_path}} && {{bin/php}} artisan schedule:run >> /dev/null 2>&1',
     '0 8 * * * journalctl --vacuum-size=100M'
   ]
-
-hosts:
-  staging:
-    labels:
-      env: staging
-    hostname: '52.30.195.144'
-    remote_user: ubuntu
-    deploy_path: '/var/www/html/{{application}}'
-    branch: dev
-    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --optimize-autoloader'
-
-  production:
-    labels:
-      env: production
-    hostname: '34.252.141.173'
-    remote_user: ubuntu
-    deploy_path: '/var/www/html/{{application}}'
-    branch: master
-    composer_options: '--verbose --prefer-dist --no-interaction --no-scripts --no-dev --optimize-autoloader'
 
 tasks:
   deploy:

@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Jenkins;
 
-use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
+use App\Jobs\Interfaces\BaseJob;
 
 use Illuminate\Support\Facades\App;
 
@@ -11,7 +11,7 @@ use App\Models\Workspace;
 use App\Services\JenkinsService;
 
 /// Creates/Updates Workspace Folder in Jenkins when Dashboard Workspace created
-class CreateOrganization extends BaseJenkinsJob
+class CreateOrganization extends BaseJob
 {
     public function __construct(
         public readonly Workspace $workspace,

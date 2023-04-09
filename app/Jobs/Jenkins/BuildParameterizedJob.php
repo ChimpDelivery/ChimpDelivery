@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Jenkins;
 
-use App\Jobs\Jenkins\Interfaces\BaseJenkinsJob;
+use App\Jobs\Interfaces\BaseJob;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -15,7 +15,7 @@ use App\Actions\Api\Jenkins\JobPlatform;
 use App\Actions\Api\S3\Provision\GetProvisionProfile;
 
 // Populates Jenkinsfile parameters and build job
-class BuildParameterizedJob extends BaseJenkinsJob
+class BuildParameterizedJob extends BaseJob
 {
     private const DEFAULT_BRANCH = 'master';
     private const DEFAULT_STORE_CUSTOM_BUNDLE_VERSION = 'false';
