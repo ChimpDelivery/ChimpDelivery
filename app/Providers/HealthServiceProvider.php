@@ -67,6 +67,7 @@ class HealthServiceProvider extends ServiceProvider
                 'AWS_SECRET_ACCESS_KEY',
                 'AWS_DEFAULT_REGION',
                 'AWS_BUCKET',
+                'AWS_BUCKET_ROOT_FOLDER',
                 'AWS_USE_PATH_STYLE_ENDPOINT',
                 'APPSTORECONNECT_CACHE_DURATION',
                 'APPSTORECONNECT_ITEM_LIMIT',
