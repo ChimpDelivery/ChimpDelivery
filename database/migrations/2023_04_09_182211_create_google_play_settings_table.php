@@ -8,18 +8,18 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
      */
     public function up() : void
     {
-        Schema::create('apple_settings', function (Blueprint $table) {
+        Schema::create('google_play_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('workspace_id')
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('usermail')->nullable();
-            $table->text('app_specific_pass')->nullable();
+            $table->text('keystore_path')->nullable();
+            $table->text('keystore_pass')->nullable();
+            $table->text('service_account')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,10 +27,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
      */
     public function down() : void
     {
-        Schema::dropIfExists('apple_settings');
+        Schema::dropIfExists('google_play_settings');
     }
 };

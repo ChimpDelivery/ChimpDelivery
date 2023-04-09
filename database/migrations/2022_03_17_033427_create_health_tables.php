@@ -7,7 +7,7 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 return new class extends Migration
 {
-    public function up()
+    public function up() : void
     {
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
 
@@ -32,7 +32,7 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    public function down() : void
     {
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
 

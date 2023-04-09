@@ -71,6 +71,11 @@ class Workspace extends Model
         ]);
     }
 
+    public function googlePlaySetting() : HasOne
+    {
+        return $this->hasOne(GooglePlaySetting::class)->withDefault();
+    }
+
     public function githubOrgName() : null|string
     {
         return $this->githubSetting->organization_name;
