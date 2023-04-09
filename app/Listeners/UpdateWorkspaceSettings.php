@@ -32,7 +32,7 @@ class UpdateWorkspaceSettings
 
         // GooglePlaySetting
         $googlePlaySetting = $workspace->googlePlaySetting()->firstOrCreate();
-        $googlePlaySetting->fill($validated->only(['android_keystore_pass']));
+        $googlePlaySetting->fill($validated->only(['keystore_pass']));
         $googlePlaySetting->save();
 
         // GithubSetting

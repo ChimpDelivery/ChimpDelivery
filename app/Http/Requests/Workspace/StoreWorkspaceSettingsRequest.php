@@ -44,9 +44,9 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'usermail' => [ 'nullable', 'email', 'max:255', ],
             'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
 
-            'google_service_account' => [ 'nullable', 'max:8', ],
-            'android_keystore_file' => [ 'nullable', 'max:8', ],
-            'android_keystore_pass' => [ 'nullable', 'string', 'max:255', ],
+            'service_account' => [ 'nullable', 'max:8', ],
+            'keystore_file' => [ 'nullable', 'max:8', ],
+            'keystore_pass' => [ 'nullable', 'string', 'max:255', ],
 
             'organization_name' => [
                 'nullable',

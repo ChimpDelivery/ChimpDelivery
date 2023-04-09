@@ -46,6 +46,7 @@ class StoreWorkspace
         $validator->after(function (Validator $validator) use ($request) {
             $this->ValidateCertificate($validator, $request);
             $this->ValidateProvision($validator, $request);
+            $this->ValidateServiceAccount($validator, $request);
         });
     }
 
@@ -86,6 +87,27 @@ class StoreWorkspace
                 $validator->errors()->add(
                     'provision_profile',
                     'Invalid provision profile file! Only ".mobileprovision" files allowed.'
+                );
+            }
+        }
+    }
+
+    private function ValidateServiceAccount(Validator $validator, StoreWorkspaceSettingsRequest $request) : void
+    {
+        if ($request->hasFile('service_account'))
+        {
+            $isValidCert = $this->IsValidFile(
+                file: $request->validated('service_account'),
+                serverMime: 'application/json',
+                clientMime: 'application/json',
+                clientExt: '.json'
+            );
+
+            if (!$isValidCert)
+            {
+                $validator->errors()->add(
+                    'service_account',
+                    'Invalid service account file! Only ".json" files allowed.'
                 );
             }
         }

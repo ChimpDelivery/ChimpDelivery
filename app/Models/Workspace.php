@@ -73,7 +73,10 @@ class Workspace extends Model
 
     public function googlePlaySetting() : HasOne
     {
-        return $this->hasOne(GooglePlaySetting::class)->withDefault();
+        return $this->hasOne(GooglePlaySetting::class)->withDefault([
+            'service_account' => 'Choose...',
+            'keystore_file' => 'Choose...',
+        ]);
     }
 
     public function githubOrgName() : null|string

@@ -15,12 +15,12 @@
             <span class="input-group-text">Service Account</span>
         </div>
         <div class="custom-file">
-            <label class="custom-file-label" for="google_service_account">
+            <label class="custom-file-label" for="service_account">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ Str::limit($workspace->googlePlaySetting->service_account ?: 'Choose...', 128) }}
+                    {{ Str::limit($workspace->googlePlaySetting->service_account, 128) }}
                 </span>
             </label>
-            <input type="file" class="custom-file-input" id="google_service_account" name="google_service_account" accept=".json">
+            <input type="file" class="custom-file-input" id="service_account" name="service_account" accept=".json">
         </div>
     </div>
     <div class="input-group mb-3">
@@ -28,19 +28,19 @@
             <span class="input-group-text">Keystore File</span>
         </div>
         <div class="custom-file">
-            <label class="custom-file-label" for="android_keystore_file">
+            <label class="custom-file-label" for="keystore_file">
                 <span class="col-7 d-inline-block text-truncate text-secondary font-weight-bold">
-                    {{ Str::limit($workspace->googlePlaySetting->keystore_path ?: 'Choose...', 128) }}
+                    {{ Str::limit($workspace->googlePlaySetting->keystore_file, 128) }}
                 </span>
             </label>
-            <input type="file" class="custom-file-input" id="android_keystore_file" name="android_keystore_file" accept=".keystore">
+            <input type="file" class="custom-file-input" id="keystore_file" name="keystore_file" accept=".keystore">
         </div>
     </div>
     <div class="form-group">
-        <label for="android_keystore_pass" class="text-white font-weight-bold">
+        <label for="keystore_pass" class="text-white font-weight-bold">
             Keystore Pass
         </label>
-        <input type="text" id="android_keystore_pass" name="android_keystore_pass" class="form-control shadow-sm" value="{{ $workspace->googlePlaySetting->keystore_pass }}">
+        <input type="text" id="keystore_pass" name="keystore_pass" class="form-control shadow-sm" value="{{ $workspace->googlePlaySetting->keystore_pass }}">
         <small class="form-text text-info">
             Android Keystore file password in Unity3D project.
         </small>

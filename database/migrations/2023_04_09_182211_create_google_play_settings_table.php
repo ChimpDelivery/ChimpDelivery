@@ -17,7 +17,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->text('keystore_path')->nullable();
+            $table->text('keystore_file')->nullable();
             $table->text('keystore_pass')->nullable();
             $table->text('service_account')->nullable();
             $table->timestamps();
