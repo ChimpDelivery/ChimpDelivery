@@ -6,6 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+use App\Rules\CorrectMime;
 use App\Rules\AlphaDashDot;
 
 class StoreWorkspaceSettingsRequest extends FormRequest
@@ -38,14 +39,33 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'issuer_id' => [ 'nullable', 'alpha_dash', 'max:255', ],
             'kid' => [ 'nullable', 'alpha_dash', 'max:255', ],
 
-            'cert' => [ 'nullable', 'max:64' ],
-            'provision_profile' => [ 'nullable', 'max:64' ],
+            'cert' => [
+                'nullable',
+                'max:64',
+                new CorrectMime('cert', 'application/octet-stream', 'application/x-pkcs12', '.p12')
+            ],
+
+            'provision_profile' => [
+                'nullable',
+                'max:64',
+                new CorrectMime('provision_profile', 'application/octet-stream', 'application/octet-stream', '.mobileprovision')
+            ],
 
             'usermail' => [ 'nullable', 'email', 'max:255', ],
             'app_specific_pass' => [ 'nullable', 'string', 'max:255', ],
 
-            'service_account' => [ 'nullable', 'max:8', ],
-            'keystore_file' => [ 'nullable', 'max:8', ],
+            'service_account' => [
+                'nullable',
+                'max:8',
+                new CorrectMime('service_account', 'application/json', 'application/json', '.json'),
+            ],
+
+            'keystore_file' => [
+                'nullable',
+                'max:8',
+                new CorrectMime('keystore_file', 'application/x-java-keystore', 'application/octet-stream', '.keystore'),
+            ],
+
             'keystore_pass' => [ 'nullable', 'string', 'max:255', ],
 
             'organization_name' => [
