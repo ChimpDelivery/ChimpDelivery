@@ -34,6 +34,8 @@ class Handler extends ExceptionHandler
         'issuer_id',
         'kid',
         'app_specific_pass',
+        'keystore_pass',
+        'service_account',
         'personal_access_token',
         'invite_code',
     ];
