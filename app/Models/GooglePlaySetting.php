@@ -21,7 +21,7 @@ class GooglePlaySetting extends Model implements CipherSweetEncrypted
     use UsesCipherSweetConfigs;
 
     protected $fillable = [
-        'keystore_path',
+        'keystore_file',
         'keystore_pass',
         'service_account',
     ];

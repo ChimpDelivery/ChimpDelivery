@@ -49,6 +49,7 @@ class StoreWorkspace
             $fileValidator->ValidateFile('cert', 'application/octet-stream', 'application/x-pkcs12', '.p12');
             $fileValidator->ValidateFile('provision_profile', 'application/octet-stream', 'application/octet-stream', '.mobileprovision');
             $fileValidator->ValidateFile('service_account', 'application/json', 'application/json', '.json');
+            $fileValidator->ValidateFile('keystore_file', 'application/x-java-keystore', 'application/octet-stream', '.keystore');
         });
     }
 
