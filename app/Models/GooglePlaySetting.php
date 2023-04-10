@@ -34,7 +34,6 @@ class GooglePlaySetting extends Model implements CipherSweetEncrypted
 
     protected static array $encryptedColumns = [
         'keystore_pass',
-        'service_account',
     ];
 
     public function workspace() : BelongsTo
