@@ -42,13 +42,13 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'cert' => [
                 'nullable',
                 'max:64',
-                new CorrectMime('cert', 'application/octet-stream', 'application/x-pkcs12', '.p12')
+                new CorrectMime('application/octet-stream', 'application/x-pkcs12', '.p12')
             ],
 
             'provision_profile' => [
                 'nullable',
                 'max:64',
-                new CorrectMime('provision_profile', 'application/octet-stream', 'application/octet-stream', '.mobileprovision')
+                new CorrectMime('application/octet-stream', 'application/octet-stream', '.mobileprovision')
             ],
 
             'usermail' => [ 'nullable', 'email', 'max:255', ],
@@ -57,13 +57,13 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'service_account' => [
                 'nullable',
                 'max:8',
-                new CorrectMime('service_account', 'application/json', 'application/json', '.json'),
+                new CorrectMime('application/json', 'application/json', '.json'),
             ],
 
             'keystore_file' => [
                 'nullable',
                 'max:8',
-                new CorrectMime('keystore_file', 'application/x-java-keystore', 'application/octet-stream', '.keystore'),
+                new CorrectMime('application/x-java-keystore', 'application/octet-stream', '.keystore'),
             ],
 
             'keystore_pass' => [ 'nullable', 'string', 'max:255', ],
