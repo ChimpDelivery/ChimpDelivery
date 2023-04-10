@@ -15,16 +15,18 @@ class CreateOrganization extends BaseJob
 {
     public function __construct(
         public readonly Workspace $workspace,
-        public readonly User $workspaceAdmin,
+        public readonly User $user,
     ) {
     }
 
     public function handle() : void
     {
         $url = $this->GetJobUrl();
-        $url .= $this->GetJobParams($this->workspace, $this->workspaceAdmin);
+        $url .= $this->GetJobParams();
 
-        $jenkinsService = App::makeWith(JenkinsService::class, [ 'user' => $this->workspaceAdmin ]);
+        $jenkinsService = App::makeWith(JenkinsService::class, [
+            'user' => $this->user,
+        ]);
         $jenkinsService->GetHttpClient()->post($url);
     }
 
@@ -40,16 +42,16 @@ class CreateOrganization extends BaseJob
     }
 
     // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/Jenkinsfile
-    public function GetJobParams(Workspace $workspace, User $workspaceAdmin) : string
+    public function GetJobParams() : string
     {
-        $githubSetting = $workspace->githubSetting;
-        $appleSetting = $workspace->appleSetting;
-        $googlePlaySetting = $workspace->googlePlaySetting;
+        $githubSetting = $this->workspace->githubSetting;
+        $appleSetting = $this->workspace->appleSetting;
+        $googlePlaySetting = $this->workspace->googlePlaySetting;
 
         return http_build_query([
             // dashboard-auth
             'DASHBOARD_URL' => config('app.url'),
-            'DASHBOARD_TOKEN' => $workspaceAdmin->createApiToken(config('workspaces.jenkins_token_name')),
+            'DASHBOARD_TOKEN' => $this->user->createApiToken(config('workspaces.jenkins_token_name')),
 
             // source control
             'GIT_USERNAME' => $githubSetting->organization_name,
