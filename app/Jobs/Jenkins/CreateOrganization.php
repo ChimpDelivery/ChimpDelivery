@@ -63,7 +63,7 @@ class CreateOrganization extends BaseJob
             'TESTFLIGHT_PASSWORD' => $appleSetting->app_specific_pass,
 
             // android
-            'ANDROID_KEYSTORE_PATH' => $googlePlaySetting->keystore_path,
+            'ANDROID_KEYSTORE_FILE' => $googlePlaySetting->keystore_file,
             'ANDROID_KEYSTORE_PASS' => $googlePlaySetting->keystore_pass,
         ]);
     }
