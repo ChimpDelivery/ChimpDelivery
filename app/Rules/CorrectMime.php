@@ -10,7 +10,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class CorrectMime implements ValidationRule, DataAwareRule
 {
     public function __construct(
-        private readonly string $inputName,
         private readonly string $serverMime,
         private readonly string $clientMime,
         private readonly string $clientExt,
@@ -30,11 +29,11 @@ class CorrectMime implements ValidationRule, DataAwareRule
 
     public function validate(string $attribute, mixed $value, Closure $fail) : void
     {
-        if (isset($this->data[$this->inputName]))
+        if (isset($this->data[$attribute]))
         {
-            if (!$this->IsValidFile($this->data[$this->inputName]))
+            if (!$this->IsValidFile($this->data[$attribute]))
             {
-                $fail('Invalid :attribute type!' . "Only {$this->clientExt} files allowed!");
+                $fail('Invalid :attribute type!' . " Only {$this->clientExt} files allowed!");
             }
         }
     }
