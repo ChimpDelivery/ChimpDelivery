@@ -33,7 +33,7 @@ class CorrectMime implements ValidationRule, DataAwareRule
         {
             if (!$this->IsValidFile($this->data[$attribute]))
             {
-                $fail('Invalid :attribute type!' . " Only {$this->clientExt} files allowed!");
+                $fail("Invalid {$attribute} type! Only {$this->clientExt} files allowed!");
             }
         }
     }
