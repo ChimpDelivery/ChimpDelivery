@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use App\Models\AppleSetting;
 use App\Models\AppStoreConnectSetting;
 use App\Models\GithubSetting;
+use App\Models\GooglePlaySetting;
 use App\Models\WorkspaceInviteCode;
 
 class RotateCipherSweetKey extends Command
@@ -25,6 +26,7 @@ class RotateCipherSweetKey extends Command
         AppleSetting::class,
         AppStoreConnectSetting::class,
         GithubSetting::class,
+        GooglePlaySetting::class,
         WorkspaceInviteCode::class,
     ];
 
