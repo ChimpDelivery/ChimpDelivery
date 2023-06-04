@@ -24,7 +24,7 @@ class UpdateDotenvSecret extends Command
     // todo: api-based implementation
     public const ENVIRONMENTS = [
         'staging',
-        'production'
+        'production',
     ];
 
     public function handle() : int
@@ -74,11 +74,10 @@ class UpdateDotenvSecret extends Command
 
     private function PrepareConnectionToken() : void
     {
-        Config::set(
-            'github.connections.main.token',
-            Workspace::findOrFail(config('workspaces.internal_ws_id'))
-                ->githubSetting
-                ->personal_access_token
-        );
+        $githubToken = Workspace::findOrFail(config('workspaces.internal_ws_id'))
+            ->githubSetting
+            ->personal_access_token;
+
+        Config::set('github.connections.main.token', $githubToken);
     }
 }
