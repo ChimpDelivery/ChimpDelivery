@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('key:generate --force')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01.55')
+            ->at('01.45')
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
             ->onSuccess(fn() => $this->call('dashboard:update-dotenv-secret'));
@@ -73,7 +73,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01:30')
+            ->at('01:15')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
@@ -81,7 +81,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:monitor')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01.45')
+            ->at('01.30')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
