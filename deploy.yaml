@@ -32,7 +32,6 @@ tasks:
     - artisan:dashboard:reload-cloudflare
     - server:permission
     - deploy:publish
-    - php-fpm:reload
     - crontab:sync
     - server:diagnostic
     - artisan:up
