@@ -5,7 +5,6 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use Illuminate\Support\Facades\App;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
@@ -33,13 +32,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('key:generate --force')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01.55')
+            ->at('01.45')
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ])
-            ->onSuccess(function () {
-                $this->call('dashboard:update-dotenv-secret ' . App::environment());
-            });
+            ->onSuccess(fn() => $this->call('dashboard:update-dotenv-secret'));
 
         $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
@@ -47,10 +43,7 @@ class Kernel extends ConsoleKernel
             ->at('02.00')
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ])
-            ->onSuccess(function() {
-                $this->call('dashboard:update-dotenv-secret ' . App::environment());
-            });
+            ->onSuccess(fn() => $this->call('dashboard:update-dotenv-secret'));
 
         ///////////////////////
         // queue, horizon
@@ -80,7 +73,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01:30')
+            ->at('01:15')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);
@@ -88,7 +81,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:monitor')
             ->timezone('Europe/Istanbul')
             ->daily()
-            ->at('01.45')
+            ->at('01.30')
             ->withoutOverlapping()
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->environments([ 'production' ]);

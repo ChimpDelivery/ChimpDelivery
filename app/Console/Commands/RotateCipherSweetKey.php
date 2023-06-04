@@ -38,18 +38,18 @@ class RotateCipherSweetKey extends Command
 
         // key backups
         $oldKey = config('ciphersweet.providers.string.key');
-        $key = $this->GenerateRandomKey();
+        $newKey = $this->GenerateRandomKey();
 
         $this->info('CipherSweet Key rotation is working...');
         if ($this->option('show'))
         {
-            $this->info("New CipherSweet Key: {$key}");
+            $this->info("New CipherSweet Key: {$newKey}");
         }
 
-        $this->EncryptModels($key);
+        $this->EncryptModels($newKey);
 
         // revert back when failed
-        if (!$this->WriteNewEnvironmentFileWith($key))
+        if (!$this->WriteNewEnvironmentFileWith($newKey))
         {
             $this->EncryptModels($oldKey);
             $this->call('dashboard:up');
@@ -57,7 +57,7 @@ class RotateCipherSweetKey extends Command
             return Command::FAILURE;
         }
 
-        $this->laravel['config']['ciphersweet.providers.string.key'] = $key;
+        $this->laravel['config']['ciphersweet.providers.string.key'] = $newKey;
 
         $this->info('CipherSweet Encryption Key rotated successfully!');
 
@@ -68,7 +68,7 @@ class RotateCipherSweetKey extends Command
         return Command::SUCCESS;
     }
 
-    protected function EncryptModels(string $key)
+    protected function EncryptModels(string $key) : void
     {
         // re-encrypt current models
         // after re-encryption, update .env key

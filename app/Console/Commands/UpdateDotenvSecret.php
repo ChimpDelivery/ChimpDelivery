@@ -17,29 +17,30 @@ use App\Models\Workspace;
 /// After key rotation completed, DOTENV secret must be updated.
 class UpdateDotenvSecret extends Command
 {
-    protected $signature = 'dashboard:update-dotenv-secret {env : target environment}';
+    protected $signature = 'dashboard:update-dotenv-secret';
     protected $description = 'Rotates CipherSweet Encryption Key in application.';
-
-    // must be synced with github repository environments
-    // todo: api-based implementation
-    public const ENVIRONMENTS = [
-        'staging',
-        'production'
-    ];
 
     public function handle() : int
     {
-        $targetEnv = $this->argument('env');
-
-        if (!in_array($targetEnv, self::ENVIRONMENTS))
-        {
-            $this->error("Error: {$targetEnv} environment could not found!");
-            return Command::FAILURE;
-        }
+        $targetEnv = App::environment();
 
         try
         {
-            $this->PrepareConnectionToken();
+            $githubToken = $this->GetConnectionToken();
+
+            if (!$githubToken)
+            {
+                $this->error("DOTENV secret could not updated! GitHub connection token is null!");
+                return COMMAND::FAILURE;
+            }
+
+            Config::set('github.connections.main.token', $githubToken);
+
+            if (!in_array($targetEnv, $this->GetGitHubEnvironments()))
+            {
+                $this->error("Error: {$targetEnv} environment could not found on GitHub!");
+                return Command::FAILURE;
+            }
 
             $secrets = GitHub::api('deployment')->environments()->secrets();
 
@@ -72,13 +73,27 @@ class UpdateDotenvSecret extends Command
         return Command::SUCCESS;
     }
 
-    private function PrepareConnectionToken() : void
+    // Collect environment names on GitHub
+    private function GetGitHubEnvironments() : array
     {
-        Config::set(
-            'github.connections.main.token',
-            Workspace::findOrFail(config('workspaces.internal_ws_id'))
-                ->githubSetting
-                ->personal_access_token
+        $githubEnvironments = GitHub::api('deployment')->environments()->all(
+            config('deploy.repository_owner'),
+            config('deploy.repository_name')
         );
+
+        $environments = [];
+        foreach ($githubEnvironments['environments'] as $env)
+        {
+            $environments []= $env['name'];
+        }
+
+        return $environments;
+    }
+
+    private function GetConnectionToken() : null|string
+    {
+        return Workspace::findOrFail(config('workspaces.internal_ws_id'))
+            ->githubSetting
+            ->personal_access_token;
     }
 }
