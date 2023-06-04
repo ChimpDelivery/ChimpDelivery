@@ -5,7 +5,6 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use Illuminate\Support\Facades\App;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
@@ -36,10 +35,7 @@ class Kernel extends ConsoleKernel
             ->at('01.55')
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ])
-            ->onSuccess(function () {
-                $this->call('dashboard:update-dotenv-secret');
-            });
+            ->onSuccess(fn() => $this->call('dashboard:update-dotenv-secret'));
 
         $schedule->command('dashboard:rotate-key --show')
             ->timezone('Europe/Istanbul')
@@ -47,10 +43,7 @@ class Kernel extends ConsoleKernel
             ->at('02.00')
             ->emailOutputOnFailure(config('logging.log_mail_address'))
             ->appendOutputTo(storage_path() . '/logs/schedule-key-rotating.log')
-            ->environments([ 'staging', 'production' ])
-            ->onSuccess(function() {
-                $this->call('dashboard:update-dotenv-secret');
-            });
+            ->onSuccess(fn() => $this->call('dashboard:update-dotenv-secret'));
 
         ///////////////////////
         // queue, horizon
