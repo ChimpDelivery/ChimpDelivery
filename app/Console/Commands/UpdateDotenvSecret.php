@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Config;
@@ -20,26 +21,19 @@ class UpdateDotenvSecret extends Command
     protected $signature = 'dashboard:update-dotenv-secret {env : target environment}';
     protected $description = 'Rotates CipherSweet Encryption Key in application.';
 
-    // must be synced with github repository environments
-    // todo: api-based implementation
-    public const ENVIRONMENTS = [
-        'staging',
-        'production',
-    ];
-
     public function handle() : int
     {
         $targetEnv = $this->argument('env');
 
-        if (!in_array($targetEnv, self::ENVIRONMENTS))
-        {
-            $this->error("Error: {$targetEnv} environment could not found!");
-            return Command::FAILURE;
-        }
-
         try
         {
             $this->PrepareConnectionToken();
+
+            if (!in_array($targetEnv, $this->GetGitHubEnvironments()))
+            {
+                $this->error("Error: {$targetEnv} environment could not found on GitHub!");
+                return Command::FAILURE;
+            }
 
             $secrets = GitHub::api('deployment')->environments()->secrets();
 
@@ -70,6 +64,23 @@ class UpdateDotenvSecret extends Command
 
         $this->info(config('deploy.dotenv_secret_name') .  " secret in {$targetEnv} environment updated successfully!");
         return Command::SUCCESS;
+    }
+
+    // Collect environment names on GitHub
+    private function GetGitHubEnvironments() : array
+    {
+        $githubEnvironments = GitHub::api('deployment')->environments()->all(
+            config('deploy.repository_owner'),
+            config('deploy.repository_name')
+        );
+
+        $environments = [];
+        foreach ($githubEnvironments['environments'] as $env)
+        {
+            $environments []= $env['name'];
+        }
+
+        return $environments;
     }
 
     private function PrepareConnectionToken() : void
