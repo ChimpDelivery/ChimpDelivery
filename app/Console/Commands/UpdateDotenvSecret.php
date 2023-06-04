@@ -17,12 +17,12 @@ use App\Models\Workspace;
 /// After key rotation completed, DOTENV secret must be updated.
 class UpdateDotenvSecret extends Command
 {
-    protected $signature = 'dashboard:update-dotenv-secret {env : target environment}';
+    protected $signature = 'dashboard:update-dotenv-secret';
     protected $description = 'Rotates CipherSweet Encryption Key in application.';
 
     public function handle() : int
     {
-        $targetEnv = $this->argument('env');
+        $targetEnv = App::environment();
 
         try
         {
