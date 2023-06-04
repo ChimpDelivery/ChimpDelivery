@@ -31,9 +31,9 @@ tasks:
     - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
-    - deploy:publish
     - crontab:sync
     - server:diagnostic
+    - deploy:publish
     - artisan:up
   server:permission:
     - cd: "{{release_path}}"
