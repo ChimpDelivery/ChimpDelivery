@@ -19,8 +19,8 @@ config:
 tasks:
   deploy:
     - deploy:prepare
-    - deploy:vendors
     - artisan:down
+    - deploy:vendors
     - artisan:storage:link
     - artisan:optimize:clear
     - artisan:optimize
@@ -31,9 +31,9 @@ tasks:
     - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
-    - deploy:publish
     - crontab:sync
     - server:diagnostic
+    - deploy:publish
     - artisan:up
   server:permission:
     - cd: "{{release_path}}"
