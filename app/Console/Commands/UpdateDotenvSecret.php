@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Config;
@@ -27,7 +26,15 @@ class UpdateDotenvSecret extends Command
 
         try
         {
-            $this->PrepareConnectionToken();
+            $githubToken = $this->GetConnectionToken();
+
+            if (!$githubToken)
+            {
+                $this->error("DOTENV secret could not updated! GitHub connection token is null!");
+                return COMMAND::FAILURE;
+            }
+
+            Config::set('github.connections.main.token', $githubToken);
 
             if (!in_array($targetEnv, $this->GetGitHubEnvironments()))
             {
@@ -83,12 +90,10 @@ class UpdateDotenvSecret extends Command
         return $environments;
     }
 
-    private function PrepareConnectionToken() : void
+    private function GetConnectionToken() : null|string
     {
-        $githubToken = Workspace::findOrFail(config('workspaces.internal_ws_id'))
+        return Workspace::findOrFail(config('workspaces.internal_ws_id'))
             ->githubSetting
             ->personal_access_token;
-
-        Config::set('github.connections.main.token', $githubToken);
     }
 }
