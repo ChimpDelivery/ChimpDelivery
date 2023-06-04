@@ -19,8 +19,8 @@ config:
 tasks:
   deploy:
     - deploy:prepare
-    - artisan:down
     - deploy:vendors
+    - artisan:down
     - artisan:storage:link
     - artisan:optimize:clear
     - artisan:optimize
