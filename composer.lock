@@ -3899,27 +3899,27 @@
         },
         {
             "name": "lorisleiva/laravel-actions",
-            "version": "v2.5.1",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lorisleiva/laravel-actions.git",
-                "reference": "f1937625a342362ca4e4ab5705c93db95e4df634"
+                "reference": "23439c9294d9bfc668f28f849c5df4ba88bdc4cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lorisleiva/laravel-actions/zipball/f1937625a342362ca4e4ab5705c93db95e4df634",
-                "reference": "f1937625a342362ca4e4ab5705c93db95e4df634",
+                "url": "https://api.github.com/repos/lorisleiva/laravel-actions/zipball/23439c9294d9bfc668f28f849c5df4ba88bdc4cd",
+                "reference": "23439c9294d9bfc668f28f849c5df4ba88bdc4cd",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^8.15 || 9.0 - 9.34 || ^9.36 || ^10.0",
-                "lorisleiva/lody": "^0.4.0",
-                "php": "^8.0|^8.1"
+                "illuminate/contracts": "9.0 - 9.34 || ^9.36 || ^10.0",
+                "lorisleiva/lody": "^0.4",
+                "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": "^8.0",
-                "pestphp/pest": "^1.2",
-                "phpunit/phpunit": "^9.5"
+                "orchestra/testbench": "^8.5",
+                "pestphp/pest": "^1.23",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "extra": {
@@ -3962,7 +3962,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lorisleiva/laravel-actions/issues",
-                "source": "https://github.com/lorisleiva/laravel-actions/tree/v2.5.1"
+                "source": "https://github.com/lorisleiva/laravel-actions/tree/v2.6.0"
             },
             "funding": [
                 {
@@ -3970,7 +3970,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-22T10:37:59+00:00"
+            "time": "2023-06-11T17:25:21+00:00"
         },
         {
             "name": "lorisleiva/lody",
