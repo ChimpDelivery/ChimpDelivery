@@ -4,11 +4,11 @@
 - Configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
 - [Structure](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/CI-CD.drawio) (https://app.diagrams.net/)
 
-## [Example Screenshots](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Screenshots)
-- [Dashboard - Create App](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/07_dashboard-create-app-1.png)
-- [Dashboard - Unity3D Build Log](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/06_dashboard-app-build-log.png) 
-- [Dashboard - Create iOS Bundle ID](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/10_dashboard-create-ios-bundle-id.png)
-- [Dashboard - Super Admin - Health Checks](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/11_dashboard-superadmin-health.png)
+## [Example Screenshots](https://github.com/ChimpDelivery/ChimpDelivery/tree/master/docs/Screenshots)
+- [Dashboard - Create App](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots/07_dashboard-create-app-1.png)
+- [Dashboard - Unity3D Build Log](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots/06_dashboard-app-build-log.png) 
+- [Dashboard - Create iOS Bundle ID](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots/10_dashboard-create-ios-bundle-id.png)
+- [Dashboard - Super Admin - Health Checks](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots/11_dashboard-superadmin-health.png)
 
 ## Unity3D Environment
 The packages listed below should be added to **Unity3D** projects.
@@ -68,7 +68,7 @@ Example Screenshots
 # :lock: Security
 - Honeypot
 - ReCaptcha v3
-- [Encryption of Sensitive Data](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Encryption)
+- [Encryption of Sensitive Data](https://github.com/ChimpDelivery/ChimpDelivery/tree/master/docs/Encryption)
 - Pre-Deployment Security Checks with [Enlightn](https://www.laravel-enlightn.com)
 
 # API
