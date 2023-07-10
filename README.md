@@ -2,7 +2,7 @@
 **Chimp Delivery** and its services are designed to **automate** and **monitor** the **CI/CD Steps** for applications built with the **Unity3D**.
 - Provides backend systems such as ```Web Dashboard``` and ```API Endpoints``` that integrated with various platforms such as ```Jenkins```, ```App Store Connect```, ```Google Play```, ```GitHub```.
 - Configures ```Jenkins Controller(Master)``` to provide correct workspace and environment settings.
-- [Structure](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/CI-CD.drawio) (https://app.diagrams.net/)
+- [Structure](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/CI-CD.drawio) (https://app.diagrams.net/)
 
 ## [Example Screenshots](https://github.com/TalusStudio/TalusWebBackend/tree/master/docs/Screenshots)
 - [Dashboard - Create App](https://github.com/TalusStudio/TalusWebBackend/blob/master/docs/Screenshots/07_dashboard-create-app-1.png)
