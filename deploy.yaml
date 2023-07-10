@@ -5,8 +5,8 @@ import:
   - environments.yaml
 
 config:
-  application: 'TalusWebBackend'
-  repository: 'https://emrekovanci@github.com/TalusStudio/{{application}}'
+  application: 'ChimpDelivery'
+  repository: 'https://emrekovanci@github.com/ChimpDelivery/{{application}}'
   keep_releases: 2
   php_fpm_version: 8.1
   ssh_multiplexing: true
