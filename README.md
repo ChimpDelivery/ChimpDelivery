@@ -58,7 +58,7 @@ Example Screenshots
 - Dashboard Monitoring as **Super Admin** (LaraLens, Health Checks, Horizon, Telescope, Log Viewer)
 
 # :rocket: Monitoring
-- Sentry URL: **https://talusstudio.sentry.io**
+- Sentry URL: **https://chimpdelivery.sentry.io**
 - LaraLens: ```{DASHBOARD_URL}/laralens```
 - Health Checks: ```{DASHBOARD_URL}/health```
 - Horizon: ```{DASHBOARD_URL}/horizon```
@@ -73,7 +73,7 @@ Example Screenshots
 
 # API
 - Full details about API Endpoints (inputs, example responses etc.) are in related Postman Workspace.
-- Postman Workspace: **https://talusstudio.postman.co**
+- Postman Workspace: **https://chimpdelivery.postman.co**
 
 ## 🔑 Apps API
 - Optional parameters marked with `?`
@@ -119,4 +119,4 @@ If you discover a security vulnerability within project, please send an e-mail t
 
 # License
 
-Talus Dashboard is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Chimp Delivery is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
