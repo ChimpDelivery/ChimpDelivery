@@ -115,7 +115,7 @@ GET    |   api/github/get-repository-branches?id={id}
 
 # Security Vulnerabilities
 
-If you discover a security vulnerability within project, please send an e-mail to Emre Kovanci via [emrekovanci@talusstudio.com](mailto:emrekovanci@talusstudio.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within project, please send an e-mail to Emre Kovanci via [kovanciemre@gmail.com](mailto:kovanciemre@gmail.com). All security vulnerabilities will be promptly addressed.
 
 # License
 
