@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Talus Dashboard'),
+    'name' => env('APP_NAME', 'Chimp Delivery'),
 
     /*
     |--------------------------------------------------------------------------

@@ -10,8 +10,8 @@ use App\Models\AppInfo;
 use App\Services\FtpService;
 use App\Traits\AsActionResponse;
 
-/// TalusStudio specific action.
-/// Add FB ID to app-ads.txt in talusstudio.com/app-ads.txt
+/// internal studio specific action.
+/// Add FB ID to app-ads.txt in studiowebsite.com/app-ads.txt
 /// Required for post-publishing on Facebook Developer
 class CreateFBAppAds
 {

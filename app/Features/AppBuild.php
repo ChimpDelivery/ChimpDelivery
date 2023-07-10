@@ -5,7 +5,7 @@ namespace App\Features;
 use App\Models\User;
 
 // who can build app in dashboard.
-// only internal talus users for now...
+// only internal users for now...
 class AppBuild
 {
     public function resolve(User $user) : bool

@@ -98,8 +98,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@talusstudio.com'),
-        'name' => env('MAIL_FROM_NAME', 'Talus Dashboard'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@chimpdelivery.com'),
+        'name' => env('MAIL_FROM_NAME', 'Chimp Delivery'),
     ],
 
     /*

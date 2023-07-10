@@ -19,7 +19,7 @@ class WorkspaceSeeder extends Seeder
         // seed internal Workspace
         Workspace::factory(1)->createQuietly([
             'id' => 2,
-            'name' => 'TalusStudio',
+            'name' => 'InternalStudio',
         ]);
 
         // seed demo Workspaces

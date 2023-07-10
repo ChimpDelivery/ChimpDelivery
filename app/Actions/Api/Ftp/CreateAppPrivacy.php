@@ -11,7 +11,7 @@ use App\Models\AppInfo;
 use App\Services\FtpService;
 use App\Traits\AsActionResponse;
 
-/// TalusStudio specific action.
+/// Internal Studio specific action.
 /// Creates Privacy2 File that required by Google Play Console for app review.
 class CreateAppPrivacy
 {

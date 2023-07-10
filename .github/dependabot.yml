@@ -9,9 +9,9 @@ updates:
     labels:
       - "dependencies"
     reviewers:
-      - 'TalusStudio/Dev-Backend'
+      - 'emrekovanci'
     assignees:
-      - 'TalusCI'
+      - 'emrekovanci'
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -23,9 +23,9 @@ updates:
       - "dependencies"
       - "php"
     reviewers:
-      - 'TalusStudio/Dev-Backend'
+      - 'emrekovanci'
     assignees:
-      - 'TalusCI'
+      - 'emrekovanci'
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -37,6 +37,6 @@ updates:
       - "dependencies"
       - "javascript-livewire"
     reviewers:
-      - 'TalusStudio/Dev-Backend'
+      - 'emrekovanci'
     assignees:
-      - 'TalusCI'
+      - 'emrekovanci'

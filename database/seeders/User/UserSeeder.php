@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         foreach (range(1, 3) as $id)
         {
             User::factory()->createQuietly([
-                'email' => "user{$id}@talusstudio.com",
+                'email' => "user{$id}@chimpdelivery.com",
                 'name' => "User{$id}",
             ])->syncRoles(['User']);
         }
