@@ -115,7 +115,7 @@ class GetJobLastBuild
         $orgName = $this->app->workspace->githubOrgName();
 
         return $commit->authorEmail === 'noreply@github.com'
-            ? "https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/commit/{$commit->id}"
+            ? "https://github.com/ChimpDelivery/ChimpDelivery-JenkinsDSL/commit/{$commit->id}"
             : "https://github.com/{$orgName}/{$projectName}/commit/{$commit->id}";
     }
 

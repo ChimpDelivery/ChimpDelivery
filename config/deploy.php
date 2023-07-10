@@ -6,9 +6,9 @@ return [
 
     'repository_owner' => env('GITHUB_REPOSITORY_OWNER'),
 
-    // TalusWebBackend repository name on GitHub
+    // Chimp Delivery repository name on GitHub
     'repository_name' => env('GITHUB_REPOSITORY_NAME'),
 
-    // TalusWebBackend repository id on GitHub
+    // Chimp Delivery repository id on GitHub
     'repository_id' => env('GITHUB_REPOSITORY_ID'),
 ];

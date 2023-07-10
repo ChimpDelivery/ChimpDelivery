@@ -24,7 +24,7 @@ class GithubSettingSeeder extends Seeder
         // internal workspace
         GithubSetting::factory()->create([
             'workspace_id' => 2,
-            'organization_name' => 'talusstudio',
+            'organization_name' => 'internalstudio',
             'template_name' => 'Unity3D-Template',
             'topic_name' => 'prototype',
             'public_repo' => false,
