@@ -13,7 +13,7 @@ class WorkspaceUserSeeder extends Seeder
         User::factory()->createQuietly([
             'workspace_id' => 3,
             'name' => 'Example User',
-            'email' => 'exampleuser@internalstudio.com',
+            'email' => 'workspaceuser@' . config('seed.users.email_postfix'),
         ])->syncRoles(['User_Workspace']);
     }
 }
