@@ -13,13 +13,13 @@ class WorkspaceAdminSeeder extends Seeder
         User::factory()->createQuietly([
             'workspace_id' => 2,
             'name' => 'Example Admin',
-            'email' => 'example_admin_1@chimpdelivery.com',
+            'email' => 'example_admin_1@' . config('seed.users.email_postfix'),
         ])->syncRoles(['Admin_Workspace']);
 
         User::factory()->createQuietly([
             'workspace_id' => 3,
             'name' => 'Example Admin',
-            'email' => 'example_admin_2@chimpdelivery.com',
+            'email' => 'example_admin_2@' . config('seed.users.email_postfix'),
         ])->syncRoles(['Admin_Workspace']);
     }
 }
