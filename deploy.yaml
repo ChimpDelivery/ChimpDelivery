@@ -37,7 +37,7 @@ tasks:
     - artisan:up
   user:permissions:
     - cd: "/var/www/html"
-    - run: "sudo chown -R {{remote_user}}:www-data ."
+    - run: "sudo mkdir -p {{application}} && cd {{application}} && sudo chown -R {{remote_user}}:www-data ."
   server:permission:
     - cd: "{{release_path}}"
     - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
