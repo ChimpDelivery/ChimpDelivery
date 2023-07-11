@@ -54,7 +54,7 @@ jobs:
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: 'ChimpDelivery'
+          SENTRY_ORG: 'chimpdelivery'
           SENTRY_PROJECT: 'chimpdelivery'
         with:
           environment: staging
