@@ -35,6 +35,9 @@ tasks:
     - server:diagnostic
     - deploy:publish
     - artisan:up
+  user:permissions:
+    - cd: "/var/www/html"
+    - run: "sudo chown -R {{remote_user}}:www-data ."
   server:permission:
     - cd: "{{release_path}}"
     - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
@@ -56,6 +59,8 @@ tasks:
     - run: "php artisan cloudflare:reload"
 
 after:
+  deploy:info:
+    - user:permissions
   deploy:update_code:
     - deploy:secrets
   deploy:failed:
