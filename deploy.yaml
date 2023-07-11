@@ -28,16 +28,22 @@ tasks:
     - artisan:event:cache
     - artisan:migrate
     - artisan:pennant:purge
-    - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
     - crontab:sync
     - server:diagnostic
     - deploy:publish
+    - server:supervisor:restart
+    - artisan:dashboard:restart-horizon
     - artisan:up
+  user:permissions:
+    - cd: "/var/www/html"
+    - run: "sudo mkdir -p {{application}} && cd {{application}} && sudo chown -R {{remote_user}}:www-data ."
   server:permission:
     - cd: "{{release_path}}"
     - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+  server:supervisor:restart:
+    - run: "sudo service supervisor restart"
   server:diagnostic:
     - cd: "{{release_path}}"
     - run: "php artisan laralens:diagnostic --table=migrations --column-sort=id"
@@ -56,6 +62,8 @@ tasks:
     - run: "php artisan cloudflare:reload"
 
 after:
+  deploy:info:
+    - user:permissions
   deploy:update_code:
     - deploy:secrets
   deploy:failed:
