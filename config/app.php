@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Chimp Delivery'),
+    'name' => env('APP_NAME', config('defaults.app.name')),
 
     /*
     |--------------------------------------------------------------------------
