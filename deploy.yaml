@@ -28,13 +28,13 @@ tasks:
     - artisan:event:cache
     - artisan:migrate
     - artisan:pennant:purge
-    - server:supervisor
-    - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
     - crontab:sync
     - server:diagnostic
     - deploy:publish
+    - server:supervisor
+    - artisan:dashboard:restart-horizon
     - artisan:up
   user:permissions:
     - cd: "/var/www/html"
