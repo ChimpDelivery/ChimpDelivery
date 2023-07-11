@@ -98,8 +98,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@chimpdelivery.com'),
-        'name' => env('MAIL_FROM_NAME', 'Chimp Delivery'),
+        'address' => env('MAIL_FROM_ADDRESS', config('defaults.mail.from.address')),
+        'name' => env('MAIL_FROM_NAME', config('defaults.mail.from.name')),
     ],
 
     /*
