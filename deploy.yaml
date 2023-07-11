@@ -28,6 +28,7 @@ tasks:
     - artisan:event:cache
     - artisan:migrate
     - artisan:pennant:purge
+    - server:supervisor
     - artisan:dashboard:restart-horizon
     - artisan:dashboard:reload-cloudflare
     - server:permission
@@ -41,6 +42,8 @@ tasks:
   server:permission:
     - cd: "{{release_path}}"
     - run: "sudo chgrp -R www-data storage bootstrap/cache && sudo chmod -R ug+rwx storage bootstrap/cache"
+  server:supervisor:
+    - run: "sudo supervisorctl reread && sudo supervisorctl update && sudo supervisorctl start horizon"
   server:diagnostic:
     - cd: "{{release_path}}"
     - run: "php artisan laralens:diagnostic --table=migrations --column-sort=id"
