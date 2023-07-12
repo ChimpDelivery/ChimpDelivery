@@ -2468,16 +2468,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.14.1",
+            "version": "v10.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6f89a2b74b232d8bf2e1d9ed87e311841263dfcb"
+                "reference": "c7599dc92e04532824bafbd226c2936ce6a905b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6f89a2b74b232d8bf2e1d9ed87e311841263dfcb",
-                "reference": "6f89a2b74b232d8bf2e1d9ed87e311841263dfcb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c7599dc92e04532824bafbd226c2936ce6a905b8",
+                "reference": "c7599dc92e04532824bafbd226c2936ce6a905b8",
                 "shasum": ""
             },
             "require": {
@@ -2664,7 +2664,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-06-28T14:25:16+00:00"
+            "time": "2023-07-11T13:43:52+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -7176,16 +7176,16 @@
         },
         {
             "name": "spatie/laravel-ciphersweet",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ciphersweet.git",
-                "reference": "8dd004d644a10b47251c96f8d579c7ef5bd904bc"
+                "reference": "6a1f2c4382341d816c73a4a20a254d8e5974b8ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ciphersweet/zipball/8dd004d644a10b47251c96f8d579c7ef5bd904bc",
-                "reference": "8dd004d644a10b47251c96f8d579c7ef5bd904bc",
+                "url": "https://api.github.com/repos/spatie/laravel-ciphersweet/zipball/6a1f2c4382341d816c73a4a20a254d8e5974b8ff",
+                "reference": "6a1f2c4382341d816c73a4a20a254d8e5974b8ff",
                 "shasum": ""
             },
             "require": {
@@ -7242,9 +7242,9 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-ciphersweet/tree/1.2.0"
+                "source": "https://github.com/spatie/laravel-ciphersweet/tree/1.3.0"
             },
-            "time": "2023-03-31T14:34:21+00:00"
+            "time": "2023-07-11T12:43:24+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
