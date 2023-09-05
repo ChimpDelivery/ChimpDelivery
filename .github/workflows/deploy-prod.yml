@@ -27,7 +27,7 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
         
       - name: Setup Redis
-        uses: supercharge/redis-github-action@1.5.0
+        uses: supercharge/redis-github-action@1.7.0
         with:
           redis-version: 5
         
