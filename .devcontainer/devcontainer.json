@@ -1,5 +1,3 @@
 {
-  "dockerComposeFile": ["docker-compose.yml"],
-  "service": "app",
   "postCreateCommand": "cp .env.example .env"
 }
