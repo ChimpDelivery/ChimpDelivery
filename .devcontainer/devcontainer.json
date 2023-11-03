@@ -1,6 +1,5 @@
 {
   "dockerComposeFile": ["docker-compose.yml"],
   "service": "app",
-  "workspaceFolder": "/workspace",
   "postCreateCommand": "cp .env.example .env"
 }
