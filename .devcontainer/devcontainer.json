@@ -1,5 +1,6 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/php:8.2",
-  "features": {
-  }
+  "dockerComposeFile": ["docker-compose.yml"],
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "cp .env.example .env"
 }
