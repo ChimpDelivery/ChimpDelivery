@@ -1,3 +1,0 @@
-{
-  "postCreateCommand": "cp .env.example .env"
-}
