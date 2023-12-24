@@ -8,17 +8,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 // cipher sweet ns
-use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
 use Spatie\LaravelCipherSweet\Contracts\CipherSweetEncrypted;
-
-use App\Traits\UsesCipherSweetConfigs;
+use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
+use ParagonIE\CipherSweet\EncryptedRow;
+use ParagonIE\CipherSweet\BlindIndex;
 
 class GithubSetting extends Model implements CipherSweetEncrypted
 {
     use HasFactory;
     use SoftDeletes;
     use UsesCipherSweet;
-    use UsesCipherSweetConfigs;
 
     protected $fillable = [
         'personal_access_token',
@@ -43,12 +42,15 @@ class GithubSetting extends Model implements CipherSweetEncrypted
         'private_repo' => 'boolean',
     ];
 
-    protected static array $encryptedColumns = [
-        'personal_access_token',
-    ];
-
     public function workspace() : BelongsTo
     {
         return $this->belongsTo(Workspace::class);
+    }
+
+    public static function configureCipherSweet(EncryptedRow $encryptedRow) : void
+    {
+        $encryptedRow
+            ->addOptionalTextField('personal_access_token')
+            ->addBlindIndex('personal_access_token', new BlindIndex('personal_access_token'));
     }
 }

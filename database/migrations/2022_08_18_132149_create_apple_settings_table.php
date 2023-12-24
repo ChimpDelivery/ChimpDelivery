@@ -18,7 +18,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('workspaces')
                 ->onDelete('cascade');
-            $table->string('usermail')->nullable();
+            $table->text('usermail')->nullable();
             $table->text('app_specific_pass')->nullable();
             $table->timestamps();
             $table->softDeletes();
