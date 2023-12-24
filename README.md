@@ -38,8 +38,6 @@ Example Screenshots
   - ```JENKINS_URL/user/USER_NAME/configure -> Api Tokens```
 - Database Seeding
   - ```php artisan migrate:fresh --seed```
-- Code Quality Check
-  - ```composer dashboard-static-analysis``` [[PHPStan](https://phpstan.org)]
 - Coding Standards Fixer (CS Fixer)
   - ```composer dashboard-pint```
 
@@ -69,7 +67,6 @@ Example Screenshots
 - Honeypot
 - ReCaptcha v3
 - [Encryption of Sensitive Data](https://github.com/ChimpDelivery/ChimpDelivery/tree/master/docs/Encryption)
-- Pre-Deployment Security Checks with [Enlightn](https://www.laravel-enlightn.com)
 
 # API
 - Full details about API Endpoints (inputs, example responses etc.) are in related Postman Workspace.

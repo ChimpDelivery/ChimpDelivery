@@ -84,7 +84,6 @@
         "deploy-unlock": "php vendor/bin/dep deploy:unlock",
         "dashboard-down": "php artisan down --secret=\"2626\"",
         "dashboard-up": "php artisan up",
-        "dashboard-static-analysis": "phpstan analyse --ansi --memory-limit 512M --generate-baseline",
         "dashboard-pint": "php vendor/bin/pint -v"
     },
     "extra": {
