@@ -1,6 +1,6 @@
 server {
     server_name localhost;
-    root /var/www/html/ChimpDelivery/current/public;
+    root /var/www/html/ChimpDelivery;
     listen 80;
     listen [::]:80;
 
