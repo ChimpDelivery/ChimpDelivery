@@ -10,8 +10,8 @@ class BranchBasedBuild
     {
         return match (true)
         {
-            $user->isInternal() => false,
-            default => false,
+            // $user->isInternal() => false,
+            default => true,
         };
     }
 }
