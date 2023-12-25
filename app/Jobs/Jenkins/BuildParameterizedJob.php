@@ -51,7 +51,7 @@ class BuildParameterizedJob extends BaseJob
         ]);
     }
 
-    // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/files/Jenkinsfile
+    // parameter references: https://github.com/ChimpDelivery/ChimpDelivery-JenkinsDSL/blob/master/files/Jenkinsfile
     private function GetParams() : Collection
     {
         return collect([
