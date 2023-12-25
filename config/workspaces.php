@@ -5,7 +5,7 @@ return [
     'default_ws_id' => 1,
     'default_org_name' => 'Default Organization',
 
-    // internal talus workspace
+    // internal workspace
     'internal_ws_id' => 2,
 
     //

@@ -72,7 +72,7 @@ class S3Service
     public function UploadFile($file) : false|string
     {
         // full path on s3
-        // @example: S3Bucket/TalusDashboard_Root/{DashboardAppEnv}/Workspaces/{Id}/bin/example.bin
+        // @example: S3Bucket/ChimpDashboard_Root/{DashboardAppEnv}/Workspaces/{Id}/bin/example.bin
         $uploadedFile = Storage::disk('s3')->putFileAs(
             path: $this->CreateScopedPath($file->extension()),
             file: $file,
