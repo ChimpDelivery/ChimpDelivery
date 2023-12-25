@@ -41,7 +41,7 @@ class CreateOrganization extends BaseJob
         ]);
     }
 
-    // parameter references: https://github.com/TalusStudio/TalusWebBackend-JenkinsDSL/blob/master/Jenkinsfile
+    // parameter references: https://github.com/ChimpDelivery/ChimpDelivery-JenkinsDSL/blob/master/Jenkinsfile
     public function GetJobParams() : string
     {
         $githubSetting = $this->workspace->githubSetting;
