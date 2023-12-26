@@ -24,9 +24,9 @@ class GithubSettingSeeder extends Seeder
         // internal workspace
         GithubSetting::factory()->create([
             'workspace_id' => 2,
-            'organization_name' => 'internalstudio',
+            'organization_name' => 'ChimpDelivery',
             'template_name' => 'Unity3D-Template',
-            'topic_name' => 'prototype',
+            'topic_name' => null,
             'public_repo' => false,
             'private_repo' => true,
         ]);
