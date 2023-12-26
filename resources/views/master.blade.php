@@ -31,7 +31,7 @@
     {{-- selectpicker_end --}}
 
     {{-- clipboard_js_start --}}
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
     {{-- clipboard_js_end  --}}
 
     {{-- sweet_alert_for_livewire --}}
