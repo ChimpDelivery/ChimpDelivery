@@ -20,6 +20,7 @@ class BuildParameterizedJob extends BaseJob
     private const DEFAULT_BRANCH = 'master';
     private const DEFAULT_STORE_CUSTOM_BUNDLE_VERSION = 'false';
     private const DEFAULT_STORE_BUNDLE_VERSION = 1;
+    private const DEFAULT_UNITY_VERSION = '2021.3.5f1';
 
     public function __construct(
         public readonly AppInfo $app,
@@ -61,7 +62,7 @@ class BuildParameterizedJob extends BaseJob
             'STORE_BUILD_VERSION' => $this->inputs['store_version'],
             'STORE_CUSTOM_BUNDLE_VERSION' => $this->inputs['store_custom_version'] ?? self::DEFAULT_STORE_CUSTOM_BUNDLE_VERSION,
             'STORE_BUNDLE_VERSION' => $this->inputs['store_build_number'] ?? self::DEFAULT_STORE_BUNDLE_VERSION,
-            'UNITY_VERSION' => '2021.3.5f1',
+            'UNITY_VERSION' => self::DEFAULT_UNITY_VERSION,
         ])->merge($this->GetPlatformParams($this->inputs['platform']));
     }
 
