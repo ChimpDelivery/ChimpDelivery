@@ -30,7 +30,7 @@ class UpdateDotenvSecret extends Command
 
             if (!$githubToken)
             {
-                $this->error("DOTENV secret could not updated! GitHub connection token is null!");
+                $this->error('DOTENV secret could not updated! GitHub connection token is null!');
                 return COMMAND::FAILURE;
             }
 
@@ -59,11 +59,10 @@ class UpdateDotenvSecret extends Command
                 config('deploy.dotenv_secret_name'),
                 [
                     'encrypted_value' => base64_encode($sealed),
-                    'key_id' => $repoPublicKey['key_id']
+                    'key_id' => $repoPublicKey['key_id'],
                 ]
             );
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             $this->error("Exception Message: {$exception->getMessage()}, Code: {$exception->getCode()}");
             return Command::FAILURE;
@@ -84,7 +83,7 @@ class UpdateDotenvSecret extends Command
         $environments = [];
         foreach ($githubEnvironments['environments'] as $env)
         {
-            $environments []= $env['name'];
+            $environments [] = $env['name'];
         }
 
         return $environments;

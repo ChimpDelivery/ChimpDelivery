@@ -37,7 +37,7 @@ class AppStoreConnectSetting extends Model implements CipherSweetEncrypted
     protected static array $encryptedColumns = [
         'private_key',
         'issuer_id',
-        'kid'
+        'kid',
     ];
 
     public function workspace() : BelongsTo

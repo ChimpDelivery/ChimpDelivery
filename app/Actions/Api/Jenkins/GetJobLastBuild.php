@@ -103,7 +103,7 @@ class GetJobLastBuild
                     'id' => $commit->id,
                     'url' => $this->GetCommitLink($commit),
                     'comment' => $commit->comment,
-                    'authorEmail'=> $commit->authorEmail,
+                    'authorEmail' => $commit->authorEmail,
                 ];
             })->reverse()->first();
     }

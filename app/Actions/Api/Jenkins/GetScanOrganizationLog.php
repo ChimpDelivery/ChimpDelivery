@@ -21,11 +21,11 @@ class GetScanOrganizationLog
 
     public function handle() : array
     {
-        $response = $this->jenkinsService->GetResponse("/computation/consoleText", true);
+        $response = $this->jenkinsService->GetResponse('/computation/consoleText', true);
 
         return [
             'log_title' => Auth::user()->workspace->name . ' | Scan Log',
-            'full_log' => $response->jenkins_data ?? ''
+            'full_log' => $response->jenkins_data ?? '',
         ];
     }
 

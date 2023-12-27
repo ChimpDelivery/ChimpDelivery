@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use Closure;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -27,7 +26,7 @@ class CorrectMime implements ValidationRule, DataAwareRule
         return $this;
     }
 
-    public function validate(string $attribute, mixed $value, Closure $fail) : void
+    public function validate(string $attribute, mixed $value, \Closure $fail) : void
     {
         if (isset($this->data[$attribute]))
         {
