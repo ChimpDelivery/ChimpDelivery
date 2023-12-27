@@ -26,7 +26,7 @@ class GetJobLastBuildLog
 
         return [
             'log_title' => "{$appInfo->project_name} | Build Log",
-            'full_log' => $response->jenkins_data ?? ''
+            'full_log' => $response->jenkins_data ?? '',
         ];
     }
 

@@ -97,7 +97,7 @@ class RotateCipherSweetKey extends Command
 
         if ($replaced === $input || $replaced === null)
         {
-            $this->error("Unable to set application key. CipherSweet Key could not found in the .env file.");
+            $this->error('Unable to set application key. CipherSweet Key could not found in the .env file.');
             return false;
         }
 
@@ -110,6 +110,6 @@ class RotateCipherSweetKey extends Command
     {
         $escaped = preg_quote('=' . $this->laravel['config']['ciphersweet.providers.string.key'], '/');
 
-        return "/^" . self::CIPHERSWEET_KEY_NAME . "{$escaped}/m";
+        return '/^' . self::CIPHERSWEET_KEY_NAME . "{$escaped}/m";
     }
 }

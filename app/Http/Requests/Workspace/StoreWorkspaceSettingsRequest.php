@@ -42,13 +42,13 @@ class StoreWorkspaceSettingsRequest extends FormRequest
             'cert' => [
                 'nullable',
                 'max:64',
-                new CorrectMime('application/octet-stream', 'application/x-pkcs12', '.p12')
+                new CorrectMime('application/octet-stream', 'application/x-pkcs12', '.p12'),
             ],
 
             'provision_profile' => [
                 'nullable',
                 'max:64',
-                new CorrectMime('application/octet-stream', 'application/octet-stream', '.mobileprovision')
+                new CorrectMime('application/octet-stream', 'application/octet-stream', '.mobileprovision'),
             ],
 
             'usermail' => [ 'nullable', 'email', 'max:255', ],

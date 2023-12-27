@@ -2,14 +2,13 @@
 
 namespace App\Rules;
 
-use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class AlphaDashDot implements ValidationRule
 {
     private const MATCH_REGEX = '/^[A-Za-z0-9._-]+$/';
 
-    public function validate(string $attribute, mixed $value, Closure $fail) : void
+    public function validate(string $attribute, mixed $value, \Closure $fail) : void
     {
         if (!is_string($value) && !is_numeric($value))
         {
