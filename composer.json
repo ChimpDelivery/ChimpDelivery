@@ -1,5 +1,5 @@
 {
-    "name": "ChimpDelivery/ChimpDelivery",
+    "name": "chimpdelivery/chimpdelivery",
     "type": "project",
     "description": "Designed to automate and monitor the CI/CD Steps for applications built with the Unity3D.",
     "keywords": [
