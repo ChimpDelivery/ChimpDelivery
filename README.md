@@ -18,8 +18,8 @@ The packages listed below should be added to **Unity3D** projects.
 
 Example Screenshots
 - [Unity3D - Dashboard Authentication](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots_Unity3D/01_Unity3D_Dashboard_Auth.png)
-- [Unity3D - Build Layout](https://github.com/ChimpDelivery/ChimpDelivery/blob/dev/docs/Screenshots_Unity3D/02_Unity3D_Dashboard_Build_Layout.png)
-- [Unity3D - Build Platform Providers](https://github.com/ChimpDelivery/ChimpDelivery/blob/dev/docs/Screenshots_Unity3D/03_Unity3D_Dasboard_Asset_Data_Providers.png)
+- [Unity3D - Build Layout](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots_Unity3D/02_Unity3D_Dashboard_Build_Layout.png)
+- [Unity3D - Build Platform Providers](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/docs/Screenshots_Unity3D/03_Unity3D_Dasboard_Asset_Data_Providers.png)
 
 # :alembic: Environments
 - ```.env``` file stored as an ```Environment Secret``` under ```GitHub Actions```.
@@ -29,7 +29,7 @@ Example Screenshots
 
 # :label: Pre-Deployment
 - [Deployer](https://deployer.org/docs/7.x/recipe/laravel) Configurations
-  - [deploy.yaml](https://github.com/ChimpDelivery/ChimpDelivery/blob/dev/deploy.yaml)
+  - [deploy.yaml](https://github.com/ChimpDelivery/ChimpDelivery/blob/master/deploy.yaml)
 - [Google Captcha Key Generation](https://www.google.com/recaptcha/admin/create)
 - [CipherSweet Key Generation](https://github.com/spatie/laravel-ciphersweet)
 - [S3 Bucket Key Generation](https://github.com)
