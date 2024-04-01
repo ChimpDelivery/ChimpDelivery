@@ -30,8 +30,9 @@ class GetRepositories
         }
 
         $request = $this->GetGitHubRepositories();
-
-        $orgProjects = collect($request->getData()->response);
+        $orgProjects = isset($request->getData()->response->error)
+            ? collect()
+            : collect($request->getData()->response);
         $filteredOrgProjects = $this->FilterProjects($orgProjects);
 
         return response()->json([
