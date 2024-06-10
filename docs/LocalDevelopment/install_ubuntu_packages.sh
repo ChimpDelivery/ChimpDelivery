@@ -40,7 +40,7 @@ sudo apt-get install pngquant -y
 sudo npm install -g svgo
 sudo apt-get install gifsicle -y
 sudo apt-get install webp -y
-sudo apt-get install libavif-bin # minimum 0.9.3
+sudo apt-get install libavif-bin -y # minimum 0.9.3
 
 # install redis
 sudo apt-get install redis-server -y
