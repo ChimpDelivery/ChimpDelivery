@@ -1,7 +1,5 @@
 <?php
 
-use Opcodes\LogViewer\Level;
-
 return [
 
     /*
@@ -13,6 +11,10 @@ return [
     */
 
     'enabled' => env('LOG_VIEWER_ENABLED', true),
+
+    'api_only' => env('LOG_VIEWER_API_ONLY', false),
+
+    'require_auth_in_production' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +54,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Log Viewer time zone.
+    |--------------------------------------------------------------------------
+    | The time zone in which to display the times in the UI. Defaults to
+    | the application's timezone defined in config/app.php.
+    |
+    */
+
+    'timezone' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Log Viewer route middleware.
     |--------------------------------------------------------------------------
     | Optional middleware to use when loading the initial Log Viewer page.
@@ -78,6 +91,8 @@ return [
         \Opcodes\LogViewer\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],
+
+    'api_stateful_domains' => env('LOG_VIEWER_API_STATEFUL_DOMAINS') ? explode(',', env('LOG_VIEWER_API_STATEFUL_DOMAINS')) : null,
 
     /*
     |--------------------------------------------------------------------------
@@ -125,7 +140,7 @@ return [
     'include_files' => [
         '*.log',
         '**/*.log',
-        // '/absolute/paths/supported',
+        '/var/log/nginx/*',
     ],
 
     /*
@@ -139,6 +154,18 @@ return [
     'exclude_files' => [
         'schedule-key-rotating.log',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hide unknown files.
+    |--------------------------------------------------------------------------
+    | The include/exclude options above might catch files which are not
+    | logs supported by Log Viewer. In that case, you can hide them
+    | from the UI and API calls by setting this to true.
+    |
+    */
+
+    'hide_unknown_files' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -157,35 +184,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Log matching patterns
-    |--------------------------------------------------------------------------
-    | Regexes for matching log files
-    |
-    */
-
-    'patterns' => [
-        'laravel' => [
-            'log_matching_regex' => '/^\[(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}\.?(\d{6}([\+-]\d\d:\d\d)?)?)\].*/',
-
-            /**
-             * This pattern, used for processing Laravel logs, returns these results:
-             * $matches[0] - the full log line being tested.
-             * $matches[1] - full timestamp between the square brackets (includes microseconds and timezone offset)
-             * $matches[2] - timestamp microseconds, if available
-             * $matches[3] - timestamp timezone offset, if available
-             * $matches[4] - contents between timestamp and the severity level
-             * $matches[5] - environment (local, production, etc)
-             * $matches[6] - log severity (info, debug, error, etc)
-             * $matches[7] - the log text, the rest of the text.
-             */
-            'log_parsing_regex' => '/^\[(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}\.?(\d{6}([\+-]\d\d:\d\d)?)?)\](.*?(\w+)\.|.*?)('
-                .implode('|', array_filter(Level::caseValues()))
-                .')?: (.*?)( in [\/].*?:[0-9]+)?$/is',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Cache driver
     |--------------------------------------------------------------------------
     | Cache driver to use for storing the log indices. Indices are used to speed up
@@ -197,6 +195,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Cache key prefix
+    |--------------------------------------------------------------------------
+    | Log Viewer prefixes all the cache keys created with this value. If for
+    | some reason you would like to change this prefix, you can do so here.
+    | The format of Log Viewer cache keys is:
+    | {prefix}:{version}:{rest-of-the-key}
+    |
+    */
+
+    'cache_key_prefix' => 'lv',
+
+    /*
+    |--------------------------------------------------------------------------
     | Chunk size when scanning log files lazily
     |--------------------------------------------------------------------------
     | The size in MB of files to scan before updating the progress bar when searching across all files.
@@ -204,4 +215,6 @@ return [
     */
 
     'lazy_scan_chunk_size_in_mb' => 50,
+
+    'strip_extracted_context' => true,
 ];
