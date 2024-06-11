@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff7d7b58443e32f5439ffa0c0daca850",
+    "content-hash": "8c9b115155f48dc8a18c4f0ab762ab56",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -7991,19 +7991,20 @@
         },
         {
             "name": "spatie/shiki-php",
-            "version": "1.3.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/shiki-php.git",
-                "reference": "34fe61405b405c735c82a9c56feffd3f7c5544ff"
+                "reference": "b4bd54222c40b44800aabce0a4382e0c463b5901"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/shiki-php/zipball/34fe61405b405c735c82a9c56feffd3f7c5544ff",
-                "reference": "34fe61405b405c735c82a9c56feffd3f7c5544ff",
+                "url": "https://api.github.com/repos/spatie/shiki-php/zipball/b4bd54222c40b44800aabce0a4382e0c463b5901",
+                "reference": "b4bd54222c40b44800aabce0a4382e0c463b5901",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": "^7.4|^8.0"
             },
             "require-dev": {
@@ -8042,7 +8043,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/shiki-php/tree/1.3.0"
+                "source": "https://github.com/spatie/shiki-php/tree/2.0.0"
             },
             "funding": [
                 {
@@ -8050,7 +8051,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-01T11:28:41+00:00"
+            "time": "2024-02-19T09:00:59+00:00"
         },
         {
             "name": "spatie/temporary-directory",
