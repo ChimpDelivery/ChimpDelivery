@@ -8,7 +8,7 @@
         <div class="card shadow bg-dark">
             @include('layouts.dashboard.card-header', [
                 'text' => 'Apps',
-                'icon' => 'fa-database',
+                'icon' => 'fa-rocket',
                 'additional' => view('layouts.appinfo.new-app-button')
             ])
             <div class="card-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             @include('layouts.dashboard.card-footer', [
-                'text' => '<b>Runner Limit: 3</b>' . "<b class='pull-right'>{$totalAppCount} apps</b>"
+                'text' => '<b>Runner Limit: 3</b>' . "<b class='float-right'>{$totalAppCount} apps</b>"
             ])
         </div>
     </div>

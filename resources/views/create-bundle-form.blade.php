@@ -7,7 +7,7 @@
     <div class="card shadow bg-dark">
         @include('layouts.dashboard.card-header', [
             'text' => 'Create Bundle ID',
-            'icon' => 'fa-apple'
+            'icon' => 'fa-brands fa-apple'
         ])
         <div class="card-body shadow-sm">
             <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{ url('dashboard/store-bundle') }}">
@@ -27,7 +27,7 @@
                 </div>
                 <br />
                 @include('layouts.dashboard.button-success', [
-                    'icon' => 'fa-check-square-o',
+                    'icon' => 'fa-square-plus',
                     'name' => 'Create'
                 ])
                 <button type="reset" class="mx-2 btn btn-dark shadow font-weight-bold">

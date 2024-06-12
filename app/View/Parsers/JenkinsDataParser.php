@@ -14,7 +14,7 @@ class JenkinsDataParser
 {
     // text limits
     public array $limits = [
-        'stop_stage_length' => 14,
+        'stop_stage_length' => 10,
         'stop_msg_length' => 29,
         'commit_length' => 20,
         'commit_hash_length' => 7,
@@ -29,8 +29,10 @@ class JenkinsDataParser
 
     public function GetButtonData()
     {
+        $buttonTitle = $this->GetJobPlatform();
+
         // prepare button header(title)
-        $buttonTitle = $this->GetStage();
+        $buttonTitle .= $this->GetStage();
 
         // there is no build
         if (!$this->lastBuild)
@@ -41,7 +43,7 @@ class JenkinsDataParser
             ];
         }
 
-        $buttonTitle .= $this->GetJobPlatform();
+
         $buttonTitle .= $this->GetLogLink();
 
         // prepare button body

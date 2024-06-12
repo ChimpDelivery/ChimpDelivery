@@ -14,7 +14,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="/dashboard/create-bundle">
-                    <i class="fa fa-apple" aria-hidden="true"></i> Bundle ID
+                    <i class="fa-brands fa-apple" aria-hidden="true"></i> Bundle ID
                 </a>
             </div>
         </li>
@@ -27,7 +27,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item bg-transparent text-dark" href="https://play.google.com/console/" target="_blank">
-                    <i class="fa fa-google" aria-hidden="true"></i> Console
+                    <i class="fa-brands fa-google-play" aria-hidden="true"></i> Play Console
                 </a>
             </div>
         </li>

@@ -50,7 +50,7 @@
                     </div>
                     <br />
                     @include('layouts.dashboard.button-success', [
-                        'icon' => 'fa-pencil-square-o',
+                        'icon' => 'fa-pen-to-square',
                         'name' => 'Update Profile'
                     ])
                 </form>

@@ -6,7 +6,7 @@
             data-trigger="click"
             data-toggle="tooltip"
             data-html="true"
-            title="<i class='fa fa-check-circle-o fa-lg text-success' aria-hidden='true'></i> Copied!">
-        <i class="fa fa-clipboard" aria-hidden="true"></i>
+            title="<i class='fa-regular fa-circle-check text-success' aria-hidden='true'></i> Copied!">
+        <i class="fa-regular fa-copy" aria-hidden="true"></i>
     </button>
 </div>

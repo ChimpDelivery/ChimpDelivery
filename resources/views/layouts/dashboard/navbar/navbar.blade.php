@@ -14,7 +14,7 @@
                     <li class="nav-item">
                         <x-nav-link :href="route('workspace_settings')">
                             <span tabindex="0" data-toggle="tooltip" title="Workspace Settings">
-                                <i class="fa fa-users py-1" style="font-size:1.1rem;" aria-hidden="true"></i>
+                                <i class="fa-solid fa-users" aria-hidden="true"></i>
                                 <span class="d-sm-none">
                                     {{ Auth::user()->workspace->name }}
                                 </span>
@@ -26,7 +26,7 @@
                     <a class="nav-link dropdown-toggle font-weight-bold text-white"
                         href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle" alt="" style="margin-bottom: 3px;" width="20" height="20" src="{{ Auth::user()->gravatar }}" />
+                        <img class="rounded-circle" alt="" style="margin-bottom: 4px;" width="18" height="18" src="{{ Auth::user()->gravatar }}" />
 
                         <span class="d-sm-none">
                             {{ Auth::user()->name }}
@@ -36,11 +36,11 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="text-left dropdown-item" href="{{ route('dashboard.profile') }}">
-                                <i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Settings
+                                <i class="fa-solid fa-user" aria-hidden="true"></i> &nbsp; Profile
                             </a>
                             <a class="text-left dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
-                                <i class="fa fa-sign-out fa-lg"></i> {{ __('Log Out') }}
+                                <i class="fa-solid fa-sign-out"></i> &nbsp; {{ __('Log Out') }}
                             </a>
                         </form>
                     </div>

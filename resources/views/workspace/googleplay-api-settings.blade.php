@@ -1,6 +1,6 @@
 <p>
     <a class="btn btn-dark text-white btn-block text-left shadow" data-toggle="collapse" href="#collapse_google_play_settings" role="button" aria-expanded="false" aria-controls="collapse_google_play_settings">
-        <i class="fa fa-google" aria-hidden="true"></i>
+        <i class="fa-brands fa-google-play" aria-hidden="true"></i>
         <b>Google Play API</b>
     </a>
 </p>
