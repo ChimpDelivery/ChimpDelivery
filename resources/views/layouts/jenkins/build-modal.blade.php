@@ -24,7 +24,7 @@
                                     data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                                     title="Select branch..." required>
 
-                                <option data-icon="fa fa-github" value="master" selected>master</option>
+                                <option data-icon="fa-brands fa-github" value="master" selected>master</option>
                             </select>
                         </div>
                     @endfeature
@@ -34,8 +34,8 @@
                             data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                             title="Select platform..." required>
 
-                            <option data-icon="fa fa-apple" value="Appstore" disabled>App Store (temporarily closed)</option>
-                            <option data-icon="fa fa-google" value="GooglePlay">Google Play</option>
+                            <option data-icon="fa-brands fa-apple" value="Appstore">App Store</option>
+                            <option data-icon="fa-brands fa-google-play" value="GooglePlay">Google Play</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     @include('layouts.dashboard.button-success', [
-                        'icon' => 'fa fa-cloud-upload',
+                        'icon' => 'fa-cloud-arrow-up',
                         'name' => 'Build'
                     ])
                 </div>

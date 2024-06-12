@@ -1,7 +1,7 @@
 <p>
     <a class="btn btn-dark btn-block text-left shadow" data-toggle="collapse" href="#collapse_unity_settings" role="button" aria-expanded="false" aria-controls="collapse_unity_settings">
-        <i class="fa fa-asterisk" aria-hidden="true"></i>
-        <b>Unity3D Auth</b>
+        <i class="fa-brands fa-unity" aria-hidden="true"></i>
+        <b>Unity3D Build</b>
     </a>
 </p>
 <div class="collapse" id="collapse_unity_settings">

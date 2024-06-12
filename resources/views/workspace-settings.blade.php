@@ -25,11 +25,11 @@
                 @include('workspace.github-api-settings')
                 <br/>
                 @include('layouts.dashboard.button-success', [
-                    'icon' => 'fa-check-square-o',
+                    'icon' => 'fa-square-check',
                     'name' => ($isNew) ? 'Create Workspace' : 'Update'
                 ])
                 @can('scan jobs')
-                    <div class="btn-group pull-right">
+                    <div class="btn-group float-right">
                         <livewire:workspace.scan-github-button-view />
                         <button class="btn btn-secondary font-weight-bold" type="button"
                                 onclick="window.location='{{ route('scan-log') }}';"
