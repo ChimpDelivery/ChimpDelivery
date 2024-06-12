@@ -38,6 +38,8 @@ class Handler extends ExceptionHandler
         'service_account',
         'personal_access_token',
         'invite_code',
+        'unity_serial',
+        'unity_password',
     ];
 
     /**
