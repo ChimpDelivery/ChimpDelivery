@@ -51,6 +51,15 @@ class UpdateWorkspaceSettings
         ]));
         $githubSetting->save();
 
+        // UnitySetting
+        $unitySetting = $workspace->unitySetting()->firstOrCreate();
+        $unitySetting->fill([
+            'serial' => $validated->unity_serial,
+            'username' => $validated->unity_username,
+            'password' => $validated->unity_password,
+        ]);
+        $unitySetting->save();
+
         CreateOrganization::dispatchIf(
             Feature::for($event->user)->active(AppBuild::class),
             $workspace,

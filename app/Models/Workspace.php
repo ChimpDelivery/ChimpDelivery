@@ -79,6 +79,11 @@ class Workspace extends Model
         ]);
     }
 
+    public function unitySetting() : HasOne
+    {
+        return $this->hasOne(UnitySetting::class)->withDefault();
+    }
+
     public function githubOrgName() : null|string
     {
         return $this->githubSetting->organization_name;

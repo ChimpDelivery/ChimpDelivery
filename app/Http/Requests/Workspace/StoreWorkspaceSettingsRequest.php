@@ -35,6 +35,10 @@ class StoreWorkspaceSettingsRequest extends FormRequest
                     ->whereNull('deleted_at'),
             ],
 
+            'unity_serial' => [ 'nullable', 'string' ],
+            'unity_username' => [ 'nullable', 'string', 'max:255' ],
+            'unity_password' => [ 'nullable', 'string', 'max:255' ],
+
             'private_key' => [ 'nullable', 'mimetypes:text/plain', 'max:1', ],
             'issuer_id' => [ 'nullable', 'alpha_dash', 'max:255', ],
             'kid' => [ 'nullable', 'alpha_dash', 'max:255', ],

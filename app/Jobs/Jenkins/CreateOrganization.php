@@ -47,11 +47,17 @@ class CreateOrganization extends BaseJob
         $githubSetting = $this->workspace->githubSetting;
         $appleSetting = $this->workspace->appleSetting;
         $googlePlaySetting = $this->workspace->googlePlaySetting;
+        $unitySetting = $this->workspace->unitySetting;
 
         return http_build_query([
             // dashboard-auth
             'DASHBOARD_URL' => config('app.url'),
             'DASHBOARD_TOKEN' => $this->user->createApiToken(config('workspaces.jenkins_token_name')),
+
+            // unity3d
+            'UNITY_SERIAL' => $unitySetting->serial,
+            'UNITY_USERNAME' => $unitySetting->username,
+            'UNITY_PASSWORD' => $unitySetting->password,
 
             // source control
             'GIT_USERNAME' => $githubSetting->organization_name,

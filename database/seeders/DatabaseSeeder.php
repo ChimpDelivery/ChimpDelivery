@@ -17,6 +17,7 @@ use Database\Seeders\Settings\AppStoreConnectSettingSeeder;
 use Database\Seeders\Settings\AppStoreConnectSignSeeder;
 use Database\Seeders\Settings\GooglePlaySettingSeeder;
 use Database\Seeders\Settings\GithubSettingSeeder;
+use Database\Seeders\Settings\UnitySettingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             AppStoreConnectSignSeeder::class,
             GooglePlaySettingSeeder::class,
             GithubSettingSeeder::class,
+            UnitySettingSeeder::class,
 
             // seed roles
             PermissionSeeder::class,

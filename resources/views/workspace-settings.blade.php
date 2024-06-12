@@ -17,6 +17,7 @@
                 @csrf
                 @honeypot
                 @include('workspace.board-settings')
+                @include('workspace.unity-settings')
                 @include('workspace.appstore-api-settings')
                 @include('workspace.appstore-sign-settings')
                 @include('workspace.testflight-api-settings')
