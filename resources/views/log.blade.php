@@ -14,9 +14,7 @@
                 'icon' => 'fa-eye'
             ])
             <div class="card-body overflow-auto" style="max-height: 70vh;">
-                <pre class="text-white">
-                    <code class="language-csharp bg-transparent">{{ $full_log }}</code>
-                </pre>
+                <pre class="text-white"><code class="language-csharp bg-transparent">{{ $full_log }}</code></pre>
             </div>
             @include('layouts.dashboard.card-footer', [
                 'text' => 'Log Size: ' . round(strlen($full_log) / 1024 / 1024, 2) . ' MB'
