@@ -47,8 +47,7 @@
         "spatie/laravel-health": "^1.8",
         "spatie/laravel-honeypot": "^4.3",
         "spatie/laravel-image-optimizer": "^1.7",
-        "spatie/laravel-permission": "^5.9",
-        "spatie/shiki-php": "^2.0"
+        "spatie/laravel-permission": "^5.9"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
