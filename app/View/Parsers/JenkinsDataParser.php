@@ -29,21 +29,18 @@ class JenkinsDataParser
 
     public function GetButtonData()
     {
-        $buttonTitle = $this->GetJobPlatform();
-
-        // prepare button header(title)
-        $buttonTitle .= $this->GetStage();
-
         // there is no build
         if (!$this->lastBuild)
         {
             return [
-                'header' => $buttonTitle,
+                'header' => $this->GetStage(),
                 'body' => 'First build not executed!',
             ];
         }
 
-
+        // prepare button header(title)
+        $buttonTitle = $this->GetJobPlatform();
+        $buttonTitle .= $this->GetStage();
         $buttonTitle .= $this->GetLogLink();
 
         // prepare button body
