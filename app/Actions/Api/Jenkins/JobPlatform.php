@@ -11,8 +11,8 @@ enum JobPlatform : string
     {
         return match ($this)
         {
-            self::Appstore => 'fa-brands fa-apple',
-            self::GooglePlay => 'fa-brands fa-google-play',
+            self::Appstore => config('icons.apple'),
+            self::GooglePlay => config('icons.google'),
             default => 'fa fa-question',
         };
     }

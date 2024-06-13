@@ -44,7 +44,7 @@
                             </div>
                         @else
                             <label for="app_name" class="col-md-3 col-form-label text-white font-weight-bold">
-                                <i class="fa-brands fa-apple" aria-hidden="true"></i> App Name
+                                <i class="{{ config('icons.apple') }}" aria-hidden="true"></i> App Name
                             </label>
                             <div class="input-group col-md-9">
                                 <input class="form-control shadow-sm"  type="text" id="app_name" name="app_name" value="{{ $appInfo->app_name }}" required="" readonly>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="appstore_id" class="col-md-3 col-form-label text-white font-weight-bold">
-                            <i class="fa-brands fa-apple" aria-hidden="true"></i> App ID
+                            <i class="{{ config('icons.apple') }}" aria-hidden="true"></i> App ID
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="appstore_id" name="appstore_id" value="{{ $appInfo->appstore_id ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="app_bundle" class="col-md-3 col-form-label text-white font-weight-bold">
-                            <i class="fa-brands fa-apple" aria-hidden="true"></i> App Bundle ID
+                            <i class="{{ config('icons.apple') }}" aria-hidden="true"></i> App Bundle ID
                         </label>
                         <div class="input-group col-md-9">
                             <input type="text" id="app_bundle" name="app_bundle" value="{{ $appInfo->app_bundle ?? '' }}" class="form-control shadow-sm" placeholder="Select app from list..." readonly>
@@ -104,7 +104,7 @@
                     <div class="collapse" id="collapse_keys">
                         <div class="form-group row">
                             <label for="fb_app_id" class="col-md-3 col-form-label text-white font-weight-bold">
-                                <i class="fa-brands fa-facebook" aria-hidden="true"></i> FB App ID
+                                <i class="{{ config('icons.facebook') }}" aria-hidden="true"></i> FB App ID
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_app_id" name="fb_app_id" value="{{ $appInfo->fb_app_id ?? '' }}" class="form-control shadow-sm" placeholder="facebook app id...">
@@ -116,7 +116,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="fb_client_token" class="col-md-3 col-form-label text-white font-weight-bold">
-                                <i class="fa-brands fa-facebook" aria-hidden="true"></i> FB Client Token
+                                <i class="{{ config('icons.facebook') }}" aria-hidden="true"></i> FB Client Token
                             </label>
                             <div class="input-group col-md-9">
                                 <input type="text" id="fb_client_token" name="fb_client_token" value="{{ $appInfo->fb_client_token ?? '' }}" class="form-control shadow-sm" placeholder="facebook client token...">

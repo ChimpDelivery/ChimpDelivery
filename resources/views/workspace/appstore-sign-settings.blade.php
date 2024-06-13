@@ -1,6 +1,6 @@
 <p>
     <a class="btn btn-dark btn-block text-left shadow" data-toggle="collapse" href="#collapse_app_store_signing" role="button" aria-expanded="false" aria-controls="collapse_app_store_connect_settings">
-        <i class="fa-brands fa-apple" aria-hidden="true"></i>
+        <i class="{{ config('icons.apple') }}" aria-hidden="true"></i>
         <b>AppStore App Signing</b>
     </a>
 </p>

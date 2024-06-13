@@ -7,7 +7,7 @@
     <div class="card shadow bg-dark">
         @include('layouts.dashboard.card-header', [
             'text' => 'Create Bundle ID',
-            'icon' => 'fa-brands fa-apple'
+            'icon' => config('icons.apple')
         ])
         <div class="card-body shadow-sm">
             <form name="add-add-info-form" id="create-bundle-form" method="post" action="{{ url('dashboard/store-bundle') }}">
