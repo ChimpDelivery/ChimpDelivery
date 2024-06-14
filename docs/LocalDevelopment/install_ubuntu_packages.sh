@@ -11,8 +11,8 @@ sudo apt update -y
 # install nginx
 sudo apt-get install nginx -y
 
-# install mysql
-sudo apt-get install mysql-server -y
+# install mariadb
+sudo apt-get install mariadb-server -y
 
 # install node (https://github.com/nodesource/distributions)
 sudo apt-get install -y ca-certificates curl gnupg
