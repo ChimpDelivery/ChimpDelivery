@@ -1,6 +1,6 @@
 <p>
     <a class="btn btn-dark btn-block text-left shadow" data-toggle="collapse" href="#collapse_github_settings" role="button" aria-expanded="false" aria-controls="collapse_github_settings">
-        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <i class="{{ config('icons.github') }}" aria-hidden="true"></i>
         <b>GitHub API</b>
     </a>
 </p>

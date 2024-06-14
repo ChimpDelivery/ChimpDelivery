@@ -24,7 +24,7 @@
                                     data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                                     title="Select branch..." required>
 
-                                <option data-icon="fa-brands fa-github" value="master" selected>master</option>
+                                <option data-icon="{{ config('icons.github') }}" value="master" selected>master</option>
                             </select>
                         </div>
                     @endfeature
@@ -34,8 +34,8 @@
                             data-style="btn-secondary" data-live-search="false" data-dropup-auto="false" data-size="10"
                             title="Select platform..." required>
 
-                            <option data-icon="fa-brands fa-apple" value="Appstore">App Store</option>
-                            <option data-icon="fa-brands fa-google-play" value="GooglePlay">Google Play</option>
+                            <option data-icon="{{ config('icons.apple') }}" value="Appstore">App Store</option>
+                            <option data-icon="{{ config('icons.google') }}" value="GooglePlay">Google Play</option>
                         </select>
                     </div>
                     <div class="form-group">

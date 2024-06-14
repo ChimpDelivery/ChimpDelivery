@@ -15,17 +15,17 @@
             <i class="fa-solid fa-laptop-medical" aria-hidden="true"></i> {{ __('health::notifications.laravel_health') }}
         </a>
         <a class="dropdown-item bg-transparent text-dark" href="{{ route('horizon.index') }}">
-            <i class="fa-brands fa-laravel" aria-hidden="true"></i> Horizon
+            <i class="{{ config('icons.laravel') }}" aria-hidden="true"></i> Horizon
         </a>
         <a class="dropdown-item bg-transparent text-dark" href="{{ route('telescope') }}">
-            <i class="fa-brands fa-laravel" aria-hidden="true"></i> Telescope
+            <i class="{{ config('icons.laravel') }}" aria-hidden="true"></i> Telescope
         </a>
         <a class="dropdown-item bg-transparent text-dark" href="/log-viewer">
             <i class="fa-solid fa-eye" aria-hidden="true"></i> Log Viewer
         </a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item bg-transparent text-dark" href="{{ config('jenkins.host') }}">
-            <i class="fa-brands fa-jenkins" aria-hidden="true"></i> Jenkins
+            <i class="{{ config('icons.jenkins') }}" aria-hidden="true"></i> Jenkins
         </a>
     </div>
 @endhasrole

@@ -30,7 +30,7 @@
         "laravel/pennant": "^1.2",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
-        "laravel/telescope": "^4.13",
+        "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-ftp": "^3.0",
@@ -80,7 +80,8 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models -N"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

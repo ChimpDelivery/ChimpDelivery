@@ -29,21 +29,18 @@ class JenkinsDataParser
 
     public function GetButtonData()
     {
-        $buttonTitle = $this->GetJobPlatform();
-
-        // prepare button header(title)
-        $buttonTitle .= $this->GetStage();
-
         // there is no build
         if (!$this->lastBuild)
         {
             return [
-                'header' => $buttonTitle,
+                'header' => $this->GetStage(),
                 'body' => 'First build not executed!',
             ];
         }
 
-
+        // prepare button header(title)
+        $buttonTitle = $this->GetJobPlatform();
+        $buttonTitle .= $this->GetStage();
         $buttonTitle .= $this->GetLogLink();
 
         // prepare button body
@@ -74,7 +71,7 @@ class JenkinsDataParser
         if (!isset($this->lastBuild->status))
         {
             return '<span class="text-secondary font-weight-bold">
-                <i class="fa fa-bell" aria-hidden="true"></i> NO BUILD
+                <i class="fa-solid fa-bell" aria-hidden="true"></i> NO BUILD
             </span>';
         }
 
@@ -86,13 +83,12 @@ class JenkinsDataParser
         {
             JobStatus::NOT_EXECUTED, JobStatus::IN_QUEUE =>
                 "<span class='alert-warning bg-transparent font-weight-bold'>
-                    <i class='fa fa-clock-o' aria-hidden='true'></i>
                     {$prettyName}
                 </span>",
 
             JobStatus::SUCCESS =>
                 "<span class='text-success font-weight-bold'>
-                    <i class='fa fa-check-circle-o' aria-hidden='true'></i>
+                    <i class='fa-solid fa-circle-check' aria-hidden='true'></i>
                     {$prettyName}
                 </span>",
 
