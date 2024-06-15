@@ -8,14 +8,14 @@
 
 * supervisor.service path: 
 
-```
+```bash
 /etc/systemd/system/multi-user.target.wants/supervisor.service
 ```
 
 #### Horizon Config
 * Add `horizon.conf` file to `/etc/supervisor/conf.d/` directory.
 
-```
+```bash
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start horizon
