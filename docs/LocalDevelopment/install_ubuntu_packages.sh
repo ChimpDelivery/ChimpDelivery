@@ -42,8 +42,11 @@ sudo apt-get install gifsicle -y
 sudo apt-get install webp -y
 sudo apt-get install libavif-bin -y # minimum 0.9.3
 
-# install redis
-sudo apt-get install redis-server -y
+# install redis (https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-windows/)
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+sudo apt-get update -y
+sudo apt-get install redis -y
 
 # for laravel/horizon
 sudo apt-get install supervisor -y

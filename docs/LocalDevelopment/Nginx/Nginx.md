@@ -1,12 +1,21 @@
 ### Nginx Configuration
 
-* Add `localhost` file to configuration path
+* Add the `localhost` file to configuration path
 ```
-/etc/nginx/sites-available/your-conf
-```
-
-* Activate `localhost` configuration by creating symlink
-```
-sudo ln -s /etc/nginx/sites-available/your-conf /etc/nginx/sites-enabled/
+sudo cp ./docs/LocalDevelopment/Nginx/localhost /etc/nginx/sites-available/localhost
 ```
 
+* Activate the `localhost` configuration by creating symlink
+```
+sudo ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/
+```
+
+* Remove the `default` configuration symlink in /etc/nginx/sites-enabled/
+```
+sudo rm /etc/nginx/sites-enabled/default
+```
+
+* Restart nginx
+```
+sudo service nginx restart
+```
