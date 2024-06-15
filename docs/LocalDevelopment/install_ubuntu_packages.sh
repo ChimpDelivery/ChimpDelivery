@@ -1,12 +1,12 @@
 # update packages
 sudo apt-get update -y
 
+# locale
+sudo locale-gen en_US.UTF-8
+sudo update-locale LANG=en_US.UTF-8
+
 # install common packages
 sudo apt-get install software-properties-common -y
-
-# add repo for >= php8.2
-sudo add-apt-repository ppa:ondrej/php -y
-sudo apt update -y
 
 # install nginx
 sudo apt-get install nginx -y
@@ -25,6 +25,10 @@ sudo apt-get install nodejs -y
 
 # install zip utility for composer
 sudo apt-get install zip unzip -y
+
+# add repo for >= php8.2
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt-get update -y
 
 # install php8.2 and extensions
 sudo apt-get install --no-install-recommends php8.2 -y
