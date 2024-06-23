@@ -36,7 +36,7 @@ class RegisterWithProvider
         if ($user)
         {
             Auth::login($user);
-            return response()->redirectTo(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
 
         $newUser = User::updateOrCreate([ 'email' => $githubUser->email ], [
