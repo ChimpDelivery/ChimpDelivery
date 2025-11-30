@@ -41,7 +41,6 @@ class RegisteredUserController extends Controller
             'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users' ],
             'password' => [ 'required', Rules\Password::defaults() ],
             'invite_code' => [ 'nullable', 'alpha_num' ],
-            recaptchaFieldName() => recaptchaRuleName(),
         ]);
 
         $defaultWs = config('workspaces.default_ws_id');

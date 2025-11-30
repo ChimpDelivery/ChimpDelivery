@@ -58,8 +58,6 @@ class HealthServiceProvider extends ServiceProvider
                 'SUPERADMIN_EMAIL',
                 'APP_DOWN_SECRET',
                 'CIPHERSWEET_KEY',
-                'RECAPTCHA_SITE_KEY',
-                'RECAPTCHA_SECRET_KEY',
                 'LOG_VIEWER_ENABLED',
                 'LOG_MAIL_ADDRESS',
                 'BACKUP_FOLDER_NAME',
