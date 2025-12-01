@@ -40,7 +40,7 @@
         "predis/predis": "^3.3",
         "sentry/sentry-laravel": "^4.5",
         "spatie/cpu-load-health-check": "^1.0",
-        "spatie/laravel-backup": "^8.1",
+        "spatie/laravel-backup": "^9.3",
         "spatie/laravel-ciphersweet": "^1.0",
         "spatie/laravel-cookie-consent": "^3.2",
         "spatie/laravel-health": "^1.8",
