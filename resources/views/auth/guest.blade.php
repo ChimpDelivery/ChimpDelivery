@@ -17,8 +17,6 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        {!! htmlScriptTagJsApi() !!}
-
         <style>
             .divider { display: flex; align-items: center; }
             .divider:before, .divider:after { content: ''; flex: 1 0 25%; border-bottom: 2px solid #95999c; margin: 0 1rem; }
