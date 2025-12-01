@@ -12,7 +12,6 @@
             <div class="card-body">
                 <form name="join-workspace-form" id="join-workspace-form" method="post" action="{{ url('dashboard/workspace-join') }}" enctype="multipart/form-data">
                     @csrf
-                    @honeypot
                     <div class="form-group">
                         <label for="invite_code" class="text-white font-weight-bold">
                             Invitation Code

@@ -3,8 +3,6 @@
 use App\Actions\Api\Jenkins\GetScanOrganizationLog;
 use Illuminate\Support\Facades\Route;
 
-use Spatie\Honeypot\ProtectAgainstSpam;
-
 use App\Actions\Api\Apps\DeleteAppInfo;
 use App\Actions\Api\Apps\GetAppInfo;
 use App\Actions\Api\Apps\StoreAppInfo;
@@ -21,7 +19,7 @@ use App\Actions\Dashboard\Workspace\CreateAppForm;
 use App\Actions\Dashboard\Workspace\GetWorkspaceIndex;
 use App\Actions\Dashboard\Workspace\StoreWorkspace;
 
-Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew', ProtectAgainstSpam::class ])->group(function () {
+Route::middleware([ 'auth:sanctum', 'verified', 'ensureUserNotNew' ])->group(function () {
     //////////////////////////
     //// main routes
     //////////////////////////

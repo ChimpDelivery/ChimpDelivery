@@ -124,10 +124,15 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 's4wgekigubbcedvnungqgraw72jlaiei'),
-
     'cipher' => 'AES-256-CBC',
 
+    'key' => env('APP_KEY', 's4wgekigubbcedvnungqgraw72jlaiei'),
+
+    'previous_keys' => [
+        ...array_filter(
+            explode(',', env('APP_PREVIOUS_KEYS', ''))
+        ),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
@@ -148,52 +153,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
-    |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
-    */
-
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\HorizonServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
-        /*
-         * 3rd Party Providers
-         */
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
-
-        /*
-         * Monitoring Providers
-         */
-        App\Providers\TelescopeServiceProvider::class,
-        App\Providers\HealthServiceProvider::class,
-        App\Providers\LogViewerServiceProvider::class,
-        App\Providers\LaraLensServiceProvider::class,
-
-        /*
-         * Core Providers
-         */
-        App\Providers\FtpServiceProvider::class,
-        App\Providers\S3ServiceProvider::class,
-        App\Providers\AppStoreConnectServiceProvider::class,
-        App\Providers\GitHubServiceProvider::class,
-        App\Providers\JenkinsServiceProvider::class,
-    ])->toArray(),
-
-    /*
-    |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
     |
@@ -204,7 +163,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'JobStatus' => App\Actions\Api\Jenkins\JobStatus::class,
         'JobPlatform' => App\Actions\Api\Jenkins\JobPlatform::class,
         'ResponseCodes' => Illuminate\Http\Response::class,

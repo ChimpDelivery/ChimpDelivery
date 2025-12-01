@@ -1,6 +1,5 @@
 <form name="build-app" id="build-app" method="post" action="{{ url('dashboard/build-app') }}">
     @csrf
-    @honeypot
     <div class="modal fade" id="buildModal" tabindex="-1" role="dialog" aria-labelledby="build-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
