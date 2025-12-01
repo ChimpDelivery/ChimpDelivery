@@ -11,13 +11,11 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 
-use Spatie\Honeypot\ProtectAgainstSpam;
-
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Actions\Dashboard\Auth\RegisterWithProvider;
 
-Route::middleware(['guest', ProtectAgainstSpam::class])->group(function () {
+Route::middleware(['guest'])->group(function () {
     /////////////////////////
     //// socialite routes
     /////////////////////////

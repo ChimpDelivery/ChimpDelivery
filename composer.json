@@ -44,7 +44,6 @@
         "spatie/laravel-ciphersweet": "^1.0",
         "spatie/laravel-cookie-consent": "^3.2",
         "spatie/laravel-health": "^1.8",
-        "spatie/laravel-honeypot": "^4.3",
         "spatie/laravel-image-optimizer": "^1.7",
         "spatie/laravel-permission": "^6.0"
     },

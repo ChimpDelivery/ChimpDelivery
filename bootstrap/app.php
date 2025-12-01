@@ -12,14 +12,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
-        $middleware->web(\Illuminate\Session\Middleware\StartSession::class);
-        $middleware->web(\Illuminate\View\Middleware\ShareErrorsFromSession::class);
-        $middleware->web(\Illuminate\Routing\Middleware\SubstituteBindings::class);
+        $middleware->web(append: [
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
 
-        $middleware->api(\Illuminate\Routing\Middleware\SubstituteBindings::class);
-        $middleware->api('throttle:api');
-        $middleware->api(\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
+        $middleware->api(append: [
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'throttle:api',
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
 
         $middleware->alias([
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

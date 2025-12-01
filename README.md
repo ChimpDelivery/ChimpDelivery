@@ -64,8 +64,6 @@ Example Screenshots
 - Log Viewer: ```{DASHBOARD_URL}/log-viewer```
 
 # :lock: Security
-- Honeypot
-- ReCaptcha v3
 - [Encryption of Sensitive Data](https://github.com/ChimpDelivery/ChimpDelivery/tree/master/docs/Encryption)
 
 # API

@@ -13,7 +13,6 @@
             <div class="card-body shadow-sm">
                 <form name="user-profile-form" id="user-profile-form" method="post" action="{{ route('dashboard.profile') }}">
                     @csrf
-                    @honeypot
                     <p>
                         <a class="btn btn-primary btn-block text-left shadow"
                             role="button" data-toggle="collapse" href="#collapse_base_settings"

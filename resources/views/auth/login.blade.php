@@ -14,7 +14,6 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            @honeypot
 
             <!-- Email Address -->
             <div>
