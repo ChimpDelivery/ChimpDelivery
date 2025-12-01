@@ -26,7 +26,6 @@ return ServiceProvider::defaultProviders()->merge([
         /*
          * 3rd Party Providers
          */
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 
         /*
